@@ -9,7 +9,8 @@ As a matter of fact, we intend to utilize openXC7 (https://github.com/openXC7) t
 Our stated deliverable is to:
  - <b>showcase real-time video streaming through FPGA, from Camera to VLC, via UDP Ethernet packets</b>.             
 
-<img src="https://github.com/chili-chips-ba/openeye/assets/67533663/07cb0f47-c9c7-483e-a028-0066342f5023" width="250">
+![open-cologne](https://github.com/chili-chips-ba/openCologne/assets/67533663/917a1eb9-7c9f-43a9-a9bc-72b73aaac05b)
+
 <br />Essentially, the plan and objective for the first phase is to <b>resolve the fundamental challenges of working with IOSERDES and openXC7 at higher frequencies</b>. 
 
 It is important to emphasize that, in its current state, our tool is still rather immature, without even the basic timing awareness, yet alone timing-driven optimizations -- <b>As-is openXC7 is simply not adequate for proper timing closure</b>. While another project is underway, aiming to bridge this major STA gap, it won't be ready in time for our Phase1. 
