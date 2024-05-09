@@ -1,0 +1,22 @@
+Our Inspiration:
+   https://github.com/emard/ulx3s-misc/tree/master/examples
+   
+---------------------------------------------------------------
+Our Communication:
+   1) Radiona Discord: https://discord.gg/F5UPDFFdsH
+   2) Olimex  Discord: https://discord.gg/yzkfzdN3Up
+   
+   3) goran.mahovlic@gmail.com
+   4) fpga@chili-chips.com
+   
+---------------------------------------------------------------
+Our Cards:
+   https://www.olimex.com/Products/FPGA/GateMate/GateMateA1-EVB/open-source-hardware
+   https://github.com/OLIMEX/GateMateA1-EVB/tree/main
+
+---------------------------------------------------------------
+Our Tools:
+   https://www.colognechip.com/docs/ug1002-toolchain-install-latest.pdf
+   
+---------------------------------------------------------------
+
