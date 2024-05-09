@@ -1,8 +1,11 @@
-Our Inspiration:
+Our Inspirations:
    https://github.com/emard/ulx3s-misc/tree/master/examples
+   https://github.com/chili-chips-ba
+   https://aignacio.com/posts/hdls/mpsoc_riscv
+   https://github.com/betrusted-io/betrusted-soc
    
 ---------------------------------------------------------------
-Our Communication:
+Our Communications:
    1) Radiona Discord: https://discord.gg/F5UPDFFdsH
    2) Olimex  Discord: https://discord.gg/yzkfzdN3Up
    
