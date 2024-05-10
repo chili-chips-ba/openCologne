@@ -1,6 +1,6 @@
 ![open-cologne](https://github.com/chili-chips-ba/openCologne/assets/67533663/917a1eb9-7c9f-43a9-a9bc-72b73aaac05b)
  
-There is currently one and only one FPGA vendor in Europe -- CologneChip. Their GateMate device has a somewhat unique feature set for the 20K class, most notably the high-speed SerDes. It is also one of the rare families designed around 8-input MUX trees, vs. the mainstream microRAM-based LUTs. Given recent appearances of affordable boards, the main GateMate challenge at this moment, and indeed an opportunity, is to get hold and grow roots in the open hardware developers community. 
+There is currently one and only one FPGA vendor in Europe -- CologneChip. Their GateMate device has a somewhat unique feature set for the 20K class, most notably the high-speed SerDes. It is also one of the rare families designed around 8-input MUX trees, vs. the mainstream microRAM-based LUTs. Given recent appearances of affordable boards, the main GateMate challenge at this moment, and indeed an opportunity, is to get hold and grow roots in the open hardware dev community. 
 
 We are firmly set to help it achieve that goal. How? Using the following, two-pronged approach:
 
