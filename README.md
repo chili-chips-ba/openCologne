@@ -2,7 +2,7 @@
  
 There is currently one and only one FPGA vendor in Europe -- CologneChip. Their GateMate device has a somewhat unique feature set for the 20K class, most notably the high-speed SerDes. It is also one of the rare families designed around 8-input MUX trees, vs. the mainstream microRAM-based LUTs. Given recent appearances of affordable boards, the main GateMate challenge at this moment, and indeed an opportunity, is to get hold and grow roots in the open hardware dev community. 
 
-We are firmly set to help it achieve that goal. How? Using the following, two-pronged approach:
+We are firmly set to help it achieve that goal. How? By using the following, two-pronged approach:
 
  - Design the third flavor of the popular open hardware ULX3S->ULX4M sequel ->> The <b>ULX5M</b>. This new board replaces LatticeSemi with GateMate FPGA and comes in the widely-used Raspberry Pi CM4 form factor. That makes it plug-and-play compatible with a vast asssortment of baseboards, so opening the first and only EU FPGA to a commendable set of existing peripherals and use-cases.
 
