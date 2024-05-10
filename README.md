@@ -35,7 +35,7 @@ The goal is to expand the GateMate audience, faciliate its silicon adoption, and
 
 <b>Play 9</b> - Port the barebones of <a href="https://github.com/betrusted-io/betrusted-soc">BetrustedSOC</a> to GateMate, namely its VexRiscv CPU and UART.
 
-This is a stepping stone for the next NLnet project with CologneChip, perhaps using one of their yet to be released 40K or 80K LUT devices. It’s worth noting that BetrustedSOC is hosted in a Spartan7 (XC7S50), which is a 50K LUT6 device, 80% utilized as of October 2022. The native BetrustedSOC is implemented using proprietary Vivado 2019.2 toolchain, and also employs a 5K LUT4 Lattice UP5 FPGA on the side for housekeeping tasks. 
+This is a stepping stone for our next project with CologneChip, perhaps using one of their yet to be released 40K or 80K LUT devices. (*) BetrustedSOC is hosted in a Spartan7 XC7S50, which is a 50K LUT6 device, 80% utilized as of October 2022. The native BetrustedSOC is implemented using proprietary Vivado 2019.2 toolchain, and also employs a 5K LUT4 Lattice UP5 FPGA on the side for housekeeping tasks. 
 
 The full BetrustedSOC would indeed be a very fun thing to eventually do!
 
@@ -44,8 +44,8 @@ We are welcoming everyone interested to contribute to this work. Please reach ou
 
 **<h3> Acknowledgements </h3>** 
 We are grateful to:
-  - <b>NLnet Foundation's</b> sponsorship and this opportunity to put our minds on the GateMate, the unique and EU-first FPGA device for the makers.
-  - <b>Intergalaktik doo</b> (https://intergalaktik.eu) for participation on the project, for their unreserved sharing of the first-hand insights into open-source community vibe, as well as openess to our wish to play a part in the ULX unabated evolution.
+  - <b>NLnet Foundation's</b> sponsorship and this opportunity to put our minds on GateMate, the unique and EU-first FPGA device for the makers.
+  - <b>Intergalaktik doo</b> (https://intergalaktik.eu) for their unreserved sharing of the first-hand insights into open-source community vibe, participation on the project, as well as full openess to our wish to play a part in the ULX unabated evolution.
   
     ![logo_nlnet](https://github.com/chili-chips-ba/openeye/assets/67533663/18e7db5c-8c52-406b-a58e-8860caa327c2)
 
