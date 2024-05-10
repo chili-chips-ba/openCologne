@@ -48,6 +48,4 @@ We are grateful to:
 
     ![NGI0Entrust_tag](https://github.com/chili-chips-ba/openeye/assets/67533663/19e919e3-6888-43e8-88b3-0a2ff447a80b) 
 
-<p align="center"> https://www.chili-chips.xyz/open-cologne
-
 **<h3>  End of Document </h3>** 
