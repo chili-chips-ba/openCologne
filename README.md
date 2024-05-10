@@ -4,7 +4,7 @@ There is currently one and only one FPGA vendor in Europe -- CologneChip. Their 
 
 We are firmly set to help it achieve that goal. How? Using the following, two-pronged approach:
 
- - Design the third flavor of the popular open hardware ULX3S->ULX4M sequel -- The <b>ULX5M</b>. This new board replaces LatticeSemi with GateMate FPGA and comes in the widely-used Raspberry Pi CM4 form factor. That makes it plug-and-play compatible with a vast asssortment of baseboards, so opening the first and only EU FPGA to a commendable set of existing peripherals and use-cases.
+ - Design the third flavor of the popular open hardware ULX3S->ULX4M sequel ->> The <b>ULX5M</b>. This new board replaces LatticeSemi with GateMate FPGA and comes in the widely-used Raspberry Pi CM4 form factor. That makes it plug-and-play compatible with a vast asssortment of baseboards, so opening the first and only EU FPGA to a commendable set of existing peripherals and use-cases.
 
  - Create and validate a portfolio of <b>well-documented examples</b> that selectively put GateMate resources to good use, tapping into both Verilog RTL and HLS design methodologies, demonstrating both pure hardware FSM implementations and HW/SW co-design, utilizing SOC techniques, possibly even reaching into LiteX framework.
 
