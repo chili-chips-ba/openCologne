@@ -1,7 +1,9 @@
 Our Inspirations:
    https://github.com/emard/ulx3s-misc/tree/master/examples
-   https://github.com/chili-chips-ba
+   https://github.com/chili-chips-ba/openXC7-TetriSaraj
    https://aignacio.com/posts/hdls/mpsoc_riscv
+   https://github.com/trabucayre/GateMate_demos/tree/main/colorBarDVI
+   https://github.com/goran-mahovlic/apple-one/tree/master/boards/olimex_gatemate
    https://github.com/betrusted-io/betrusted-soc
    
 ---------------------------------------------------------------
