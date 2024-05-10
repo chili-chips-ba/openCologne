@@ -35,12 +35,12 @@ We have organized this work into 3 game levels with 9 play milestones:
 
 <b>Play 9</b> - Port the barebones of <a href="https://github.com/betrusted-io/betrusted-soc">BetrustedSOC</a> to GateMate, namely its VexRiscv CPU and UART.
 
-This is a stepping stone for our next CologneChip project, perhaps using one of their yet to be released 40K or 80K devices. For background, BetrustedSOC is hosted in a Spartan7 XC7S50 (50K LUT6 device), with 80% utilization as of October 2022, and implemented using proprietary Vivado 2019.2 toolchain. The framework also employs a 5K LUT4 Lattice UP5 FPGA on the side for housekeeping tasks. 
+This is a stepping stone for our next CologneChip project, perhaps using one of their yet to be released 40K or 80K devices. For background, BetrustedSOC is hosted in a Spartan7 XC7S50 (50K LUT6 device), with 80% utilization (as of October 2022), implemented using proprietary Vivado 2019.2 toolchain. The framework also employs a 5K LUT4 Lattice UP5 FPGA for housekeeping tasks. 
 
 The full BetrustedSOC would indeed be a very fun thing to eventually do!
 
 **<h3> Beinvolved </h3>**
-We are welcoming everyone interested to contribute to this work. Please reach out to fpga@chili-chips.com, or join our <a href="https://discord.gg/F5UPDFFdsH">GateMate Discord Channel</a>. 
+We welcome everyone interested to contribute to this work. Please reach out to fpga@chili-chips.com, or join our <a href="https://discord.gg/F5UPDFFdsH">GateMate Discord Channel</a>. 
 
 **<h3> Acknowledgements </h3>** 
 We are grateful to:
