@@ -267,6 +267,7 @@ Pin_inout "GPIO29" Loc = "IO_SA_B8";
 # #######################################################
 # -------------------------------------------------------
 Pin_out "FPGA_LED" Loc = "IO_SB_B6"; # FPGA LED
+Pin_out "FPGA_BUT" Loc = "IO_SB_B7";
 Pin_out "CLK0" Loc = "IO_SB_A8"; # CLK0
 Pin_out "CLK3" Loc = "IO_SB_A5";
 Pin_out "GPIO24" Loc = "IO_SB_A6"; # CLK2
