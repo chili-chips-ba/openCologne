@@ -32,65 +32,54 @@
 //
 //              https://opensource.org/license/bsd-3-clause
 //------------------------------------------------------------------------
-// Description: <your text goes here>
+// Description: Blink Example taken from official toolchain
 //========================================================================
 
-// <modify as needed>
 
-module top 
-   import top_pkg::*;
-(
-   input logic   areset,   // external active-1 asynchronous reset
-   input logic   clk_ext,  // external 100MHz clock source
+`timescale 1ns / 1ps
 
-  //I2C_Master to Camera
-   inout  wire   i2c_sda,
-   inout  wire   i2c_scl,
-   
-  //MIPI DPHY from/to Camera
-   input  diff_t      cam_dphy_clk,
-   input  lane_diff_t cam_dphy_dat
-);
+module blink(
+		input wire clk,
+		input wire rst,
+		output wire led
+	);
 
-//--------------------------------
-// Clock and reset gen
-//--------------------------------
-   logic reset, i2c_reset;
-   logic clk_100, clk_200, clk_1hz, strobe_400kHz;
+	reg [26:0] counter;
 
-   clkrst_gen u_clkrst_gen (
-      .reset_ext     (areset),        //i
-      .clk_ext       (clk_ext),       //i
-                                       
-      .clk_100       (clk_100),       //o: 100MHz 
-      .clk_200       (clk_200),       //o: 200MHz 
-      .clk_1hz       (clk_1hz),       //o: 1Hz
-      .strobe_400kHz (strobe_400kHz), //o: pulse1 at 400kHz
+	wire clk270, clk180, clk90, clk0, usr_ref_out;
+	wire usr_pll_lock_stdy, usr_pll_lock;
 
-      .reset         (reset),         //o
-      .cam_en        (cam_en),        //o
-      .i2c_reset     (i2c_reset)      //o
-   );
+	CC_PLL #(
+		.REF_CLK("10.0"),    // reference input in MHz
+		.OUT_CLK("100.0"),   // pll output frequency in MHz
+		.PERF_MD("ECONOMY"), // LOWPOWER, ECONOMY, SPEED
+		.LOW_JITTER(1),      // 0: disable, 1: enable low jitter mode
+		.CI_FILTER_CONST(2), // optional CI filter constant
+		.CP_FILTER_CONST(4)  // optional CP filter constant
+	) pll_inst (
+		.CLK_REF(clk), .CLK_FEEDBACK(1'b0), .USR_CLK_REF(1'b0),
+		.USR_LOCKED_STDY_RST(1'b0), .USR_PLL_LOCKED_STDY(usr_pll_lock_stdy), .USR_PLL_LOCKED(usr_pll_lock),
+		.CLK270(clk270), .CLK180(clk180), .CLK90(clk90), .CLK0(clk0), .CLK_REF_OUT(usr_ref_out)
+	);
 
-//--------------------------------
-// I2C Master
-//--------------------------------
-   i2c_top u_i2c  (
-     //clocks and resets
-      .clk           (clk_100),       //i
-      .strobe_400kHz (strobe_400kHz), //i
-      .reset         (i2c_reset),     //i
+	assign led = counter[26];
 
-     //I2C_Master to Camera
-      .i2c_scl       (i2c_scl),       //io 
-      .i2c_sda       (i2c_sda)        //io 
-   );
+	always @(posedge clk0)
+	begin
+		if (!rst) begin
+			counter <= 0;
+		end else begin
+			counter <= counter + 1'b1;
+		end
+	end
 
-endmodule: top
+endmodule
+
+
 
 /*
 ------------------------------------------------------------------------------
 Version History:
 ------------------------------------------------------------------------------
- 2024/5/10 <your-name>: Initial creation
+ 2024/5/10 Tarik Hamedović: Initial creation
 */
