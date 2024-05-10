@@ -12,7 +12,7 @@ The goal is to expand the GateMate audience, faciliate its silicon adoption, and
 
 <h3>Level I – Warm Up</h3>
 
-<b>Play 1</b> - Form development team and get to know CologneChip GateMate silicon and dev tools (see 0.doc folder). Procure <a href="https://www.olimex.com/Products/FPGA/GateMate/GateMateA1-EVB/open-source-hardware">Olimex</a> boards and familiarize with hardware platform. Light up onboard LEDs with our very special blinky.
+<b>Play 1</b> - Form development team and get to know CologneChip GateMate silicon and dev tools (see our <a href="https://github.com/chili-chips-ba/openCologne/tree/main/0.doc">0.doc</a> folder). Procure <a href="https://www.olimex.com/Products/FPGA/GateMate/GateMateA1-EVB/open-source-hardware">Olimex</a> boards and familiarize with hardware platform. Light up onboard LEDs with our very special blinky.
 
 <b>Play 2</b> - Port to GateMate a selected subset of four simpler examples from the <a href="https://github.com/emard/ulx3s-misc/tree/master/examples">ULX3S-MISC</a> portfolio. The goal is to enable support for a few standard PMODs and peripherals, mostly GPIO-based, including HyperRAM.
 
@@ -20,9 +20,9 @@ The goal is to expand the GateMate audience, faciliate its silicon adoption, and
 
 <h3>Level II - Bread and Butter</h3>
 
-<b>Play 4</b> - Port to GateMate four advanced ULX3S examples from the ULX3S-MISC library. Now free from the restrictions related to support of PCB development track, we will chose examples to port based on their purely FPGA value. We may also modify them, create mutations and variants, looking to find a better fit for GateMate internal architecture.
+<b>Play 4</b> - Port to GateMate four advanced ULX3S examples. Now free from the restrictions related to supporting PCB development track, we are chosing these examples for their purely FPGA value. We may also modify them, create mutations and variants, looking to find a better fit for GateMate internal architecture.
 
-<b>Play 5</b> - Adapt the complete <a href="https://github.com/chili-chips-ba/openXC7-TetriSaraj">TetriSaraj</a> HW/SW project to GateMate. This is a serious SOC that on the hardware side includes a RISC-V microkontroller, Instruction, and Data RAM, Frame Buffer with Video Subsystem, and high-speed I/O for VGA. On the software side, it’s a bare-metal 'C' app that implements the logic of a Tetrisoid gate.
+<b>Play 5</b> - Adapt the complete <a href="https://github.com/chili-chips-ba/openXC7-TetriSaraj">TetriSaraj</a> HW/SW project to GateMate. This is a serious SOC. It on the hardware side includes a RISC-V microkontroller, Instruction, and Data RAM, Frame Buffer with Video Subsystem, and high-speed I/O for VGA. On the software side, it’s a bare-metal 'C' app that implements the logic of a Tetrisoid gate.
 
 <b>Play 6</b> - Design and manufacture ULX5M board.
 
