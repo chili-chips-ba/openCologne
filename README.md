@@ -6,9 +6,9 @@ We are firmly set to help it achieve that goal. How? Using the following, two-pr
 
  - Design the third flavor of the popular open hardware ULX3S->ULX4M sequel ->> The <b>ULX5M</b>. This new board replaces LatticeSemi with GateMate FPGA and comes in the widely-used Raspberry Pi CM4 form factor. That makes it plug-and-play compatible with a vast asssortment of baseboards, so opening the first and only EU FPGA to a commendable set of existing peripherals and use-cases.
 
- - Create and validate a portfolio of <b>well-documented examples</b> that selectively put GateMate resources to good use, tapping into both Verilog RTL and HLS design methodologies, demonstrating both pure hardware FSM implementations and HW/SW co-design, utilizing SOC techniques, possibly even reaching into LiteX framework.
+ - Create and validate a portfolio of <b>well-documented examples</b> that selectively put GateMate resources to good use. Be it by tapping into Verilog RTL or HLS design methodologies, demonstrating pure hardware FSM implementations or HW/SW co-design, utilizing SOC techniques, or possibly even reaching into LiteX framework... The goal is to expand GateMate audience, faciliate its silicon adoption, and ultimately have it gain a foothold in the market.
 
-The goal is to expand the GateMate audience, faciliate its silicon adoption, and ultimately get a foothold in the market. We have organized this work into 3 game levels with 9 play milestones:
+We have organized this work into 3 game levels with 9 play milestones:
 
 <h3>Level I – Warm Up</h3>
 
