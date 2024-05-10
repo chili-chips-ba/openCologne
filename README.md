@@ -6,7 +6,7 @@ We are firmly set to help it achieve that goal. How? Using the following, two-pr
 
  - Design the third flavor of the popular open hardware ULX3S->ULX4M sequel ->> The <b>ULX5M</b>. This new board replaces LatticeSemi with GateMate FPGA and comes in the widely-used Raspberry Pi CM4 form factor. That makes it plug-and-play compatible with a vast asssortment of baseboards, so opening the first and only EU FPGA to a commendable set of existing peripherals and use-cases.
 
- - Create and validate a portfolio of <b>well-documented examples</b> that selectively put GateMate resources to good use. Be it by tapping into Verilog RTL or HLS design methodologies, demonstrating pure hardware FSM implementations or HW/SW co-design, utilizing SOC techniques, or possibly even reaching into LiteX framework... The goal is to expand GateMate audience, faciliate its silicon adoption, and ultimately have it gain a foothold in the market.
+ - Create and validate a portfolio of <b>well-documented examples</b> that selectively put GateMate resources to good use. Be it by tapping into SystemVerilog RTL or HLS design methodologies, demonstrating pure hardware FSM implementations or HW/SW co-design, utilizing SOC techniques, or possibly even reaching into LiteX framework... The goal is to expand GateMate audience, faciliate its silicon adoption, and ultimately have it gain a foothold in the market.
 
 We have organized this work into 3 game levels with 9 play milestones:
 
@@ -20,9 +20,9 @@ We have organized this work into 3 game levels with 9 play milestones:
 
 <h3>Level II - Bread and Butter</h3>
 
-<b>Play 4</b> - Port to GateMate four advanced ULX3S examples. Now free from the restrictions related to supporting PCB development track, we are chosing these examples for their purely FPGA value. We may also modify them, create mutations and variants, looking to find a better fit for GateMate internal architecture.
+<b>Play 4</b> - Port to GateMate four advanced ULX3S examples. Now free from the restrictions of supporting PCB development track, we shall chose these examples for their purely FPGA value. We may also modify them, create mutations and variants, looking to find a better fit for GateMate internal architecture.
 
-<b>Play 5</b> - Adapt the complete <a href="https://github.com/chili-chips-ba/openXC7-TetriSaraj">TetriSaraj</a> HW/SW project to GateMate. This is a serious SOC. It on the hardware side includes a RISC-V microkontroller, Instruction, and Data RAM, Frame Buffer with Video Subsystem, and high-speed I/O for VGA. On the software side, it’s a bare-metal 'C' app that implements the logic of a Tetrisoid gate.
+<b>Play 5</b> - Adapt <a href="https://github.com/chili-chips-ba/openXC7-TetriSaraj">TetriSaraj</a> HW/SW project to GateMate. This is a serious SOC. On the hardware side, it includes a RISC-V microkontroller, Instruction, and Data RAM, Frame Buffer with Video Subsystem, and high-speed I/O for VGA. On the software side, it’s a bare-metal "free-standing" C that implements the logic of a Tetrisoid gate.
 
 <b>Play 6</b> - Design and manufacture ULX5M board.
 
