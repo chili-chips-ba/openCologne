@@ -45,7 +45,7 @@ We are welcoming everyone interested to contribute to this work. Please reach ou
 **<h3> Acknowledgements </h3>** 
 We are grateful to:
   - <b>NLnet Foundation's</b> sponsorship and this opportunity to put our minds on the GateMate, the unique and EU-first FPGA device for the makers.
-  - <b>Intergalaktik doo</b> (https://intergalaktik.eu) for their participation in the project, the unreserved sharing of first-hand insights into open-source community vibe, and opening up to our wish to play a part in the ULX revolutionary game.
+  - <b>Intergalaktik doo</b> (https://intergalaktik.eu) for participation on the project, for their unreserved sharing of the first-hand insights into open-source community vibe, as well as openess to our wish to play a part in the ULX unabated evolution.
   
     ![logo_nlnet](https://github.com/chili-chips-ba/openeye/assets/67533663/18e7db5c-8c52-406b-a58e-8860caa327c2)
 
