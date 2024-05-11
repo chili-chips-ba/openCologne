@@ -35,7 +35,7 @@
 # Description: 
 # Gatemate E1 evaluation board hardware pin constraints
 # file: GateMateA1-EVB.ccf
-=======
+
 ## file: GateMateA1-EVB.ccf
 ##
 ## Gatemate A1-EVB Olimex board hardware pin constraints
