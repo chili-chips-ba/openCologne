@@ -57,8 +57,51 @@ The resulting VCD file can be opened with any waveform viewer:
 
 
 ## Programming the Board
+### Linux
 To program the board, use the following command:
 
 `openFPGALoader -b gatemate_evb_jtag --cable dirtyJtag --bitstream blink_00.cfg.bit`
+### WSL
+Since WSL does not natively see physical ports, it is necessary to use the usbipd tool.
+
+Go to the [latest](https://github.com/dorssel/usbipd-win/releases) release page for the usbipd-win project.
+Select the .msi file, which will download the installer.
+Run the downloaded usbipd-win_x.msi installer file.
+
+After installing usbipd, connect your board to the USB port. List all of the USB devices connected to Windows by opening PowerShell in administrator mode and entering the following command:
+
+`PS> usbipd list`
+
+If everything is correct, you should see the following output:
+
+`PS> <busid>    1209:c0ca  DirtyJTAG      Not shared`
+
+Before attaching USB device, the usbipd bind command must be used to share the device, allowing it to be attached to WSL:
+
+`PS> usbipd bind --busid <busid>`
+
+After running the command, verify that the device is shared using the usbipd list command again:
+
+`PS> usbipd list`
+
+Ensure that a WSL command prompt is open to keep the WSL 2 lightweight VM active. To attach the USB device, run the following command:
+
+`PS> usbipd attach --wsl --busid <busid>`
+
+Open WSL and list the attached USB devices using the command:
+
+`$ lsusb`
+
+If everything is correct, you should see the following output:
+
+`$ Bus 00y Device 00x: ID 1209:c0ca Generic Jean THOMAS DirtyJTAG`
+
+Changing the permissions of a USB device file to 666 (read and write for everyone) can be necessary in situations where a non-root user needs to access the USB device directly. Use the following command:
+
+`$ sudo chmod 666 /dev/bus/usb/00x`
+
+Finally, to program the board, you can use:
+
+`$ openFPGALoader -b gatemate_evb_jtag --cable dirtyJtag --bitstream blink_00.cfg.bit`
 
 **<h3>  End of Document </h3>** 
