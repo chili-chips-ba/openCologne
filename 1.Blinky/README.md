@@ -38,6 +38,7 @@ Then, to view the waveform in the third-party simulator, use:
 
 `make wave`
 
+**Note** For this example, for the simulation, the simplified `CC_PLL` module from the `blink_tb.v` file needs to be present.
 ## Place & Route
 The Cologne Chip Place & Route tool loads the Verilog netlist from the net directory. Constraints for pin assignments or CPE pre-placement are set with the CCF file in the src directory.
 
@@ -51,6 +52,9 @@ To run the implementation, use:
 The resulting VCD file can be opened with any waveform viewer:
 
 `make wave`
+
+**Note** For this example, for the post-synthesis simulation, the simplified `CC_PLL` module from the `blink_tb.v` file needs to be removed or commented out.
+
 
 ## Programming the Board
 To program the board, use the following command:
