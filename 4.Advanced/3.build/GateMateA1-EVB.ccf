@@ -343,6 +343,8 @@ Pin_out "PSRAM_DATA6" Loc = "IO_WC_A8";
 Pin_out "PSRAM_DATA7" Loc = "IO_WC_B8";
 
 
+## UEXT
+
 ## #######################################################
 ## End of hardware constraints GateMateA1-EVB.ccf
 ## #######################################################
