@@ -40,7 +40,7 @@
 `timescale 1 ns / 1 ps
 
 // simplified CC_PLL model
-// Commented out so that make impl_sim command can work 
+// Commented out so that make impl_sim command can work
 /*module CC_PLL #(
 	parameter REF_CLK = "", // e.g. "10.0"
 	parameter OUT_CLK = "", // e.g. "50.0"
