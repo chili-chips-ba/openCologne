@@ -28,7 +28,7 @@ To run synthesis for the Verilog file, use the following command:
 
 ## Simulation
 
-For post-synthesis simulation, you'll need a third-party simulator and a waveform viewer such as [Icarus Verilog](https://steveicarus.github.io/iverilog/usage/installation.html) and GTKWave(https://gtkwave.sourceforge.net/).
+For post-synthesis simulation, you'll need a third-party simulator and a waveform viewer such as [Icarus Verilog](https://steveicarus.github.io/iverilog/usage/installation.html) and [GTKWave](https://gtkwave.sourceforge.net/).
 
 To run the post-synthesis simulation, use:
 
