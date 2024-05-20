@@ -17,11 +17,6 @@ This tutorial is intended for Linux OS.
 
 Install the latest version of openFPGALoader from [here](https://trabucayre.github.io/openFPGALoader/guide/install.html). **Note**: Using the toolchain version will result in errors.
 
-
-When you unzip the file export the location to your terminal or bashrc script with the command:
-export CC_TOOL=/path/to/cc-toolchain-linux
-Install the latest version of openFPGALoader from here https://trabucayre.github.io/openFPGALoader/guide/install.html, using the toolchain version will give back errors.
-
 ## Directory Structure
 
 Ensure you are in the desired project directory where all configuration files and the makefile are located in the 3.build directory.
