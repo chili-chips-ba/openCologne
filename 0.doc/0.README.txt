@@ -24,4 +24,17 @@ Our Tools:
    https://www.colognechip.com/docs/ug1002-toolchain-install-latest.pdf
    
 ---------------------------------------------------------------
+CologneChip support:
 
+   First, try to solve problems with Cologne tools or silicon internally,
+   by consulting team members.
+
+   For the problems that we don't have an internal solution for, create Github
+   "issue". Then, send an email to:
+      - support@colognechip.com
+      - fethulah.smailbegovic@colognechip.com
+
+   with link to the "issue". All further discussion thereafter need to
+   be within "issue" track, and not via emails
+
+---------------------------------------------------------------
