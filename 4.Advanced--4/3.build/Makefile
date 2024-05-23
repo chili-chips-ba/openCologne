@@ -55,15 +55,15 @@ SRC = \
 	$(HW_SRC)/modules/timers/src/timers.sv \
 	$(HW_SRC)/modules/timers/src/timer.sv \
 	$(HW_SRC)/modules/misc/src/edge_detector.sv \
-	$(HW_SRC)/modules/misc/src/mem_simple_dual_port_async_read.sv \
-	$(HW_SRC)/modules/misc/src/mem_simple_dual_port.sv \
 	$(HW_SRC)/modules/misc/src/mem_multi_bank.sv \
 	$(HW_SRC)/modules/misc/src/mem_multi_bank_reset.sv \
 	$(HW_SRC)/modules/misc/src/pipeline_sr.sv \
 	$(HW_SRC)/modules/misc/src/synchronizer.sv \
 	$(HW_SRC)/modules/misc/src/leds.sv \
 	$(HW_SRC)/modules/host_if/src/host_if.sv \
-	$(HW_SRC)/modules/host_if/src/trick_sw_detection.sv 
+	$(HW_SRC)/modules/host_if/src/trick_sw_detection.sv \
+	$(HW_SRC)/modules/misc/src/mem_simple_dual_port.sv \
+	$(HW_SRC)/modules/misc/src/mem_simple_dual_port_async_read.sv
 
 
 SIM = \
@@ -78,7 +78,7 @@ CELLS_SYNTH = $(CC_TOOL)/bin/yosys/share/gatemate/cells_sim.v
 CELLS_IMPL = $(CC_TOOL)/bin/p_r/cpelib.v
 
 # Project Configuration
-TOP = opl3# Define TOP MODULE here
+TOP = opl3 # Define TOP MODULE here
 CONSTR = $(HW_SRC)/constraints/blink.ccf
 PRFLAGS += -ccf $blink.ccf -cCP
 
