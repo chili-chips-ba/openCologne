@@ -20,9 +20,9 @@ Our Cards:
    https://github.com/OLIMEX/GateMateA1-EVB/tree/main
 
 ---------------------------------------------------------------
-Our Tools:
+Our Tools (also see '1.README.Tool-Installs.txt'):
    https://www.colognechip.com/docs/ug1002-toolchain-install-latest.pdf
-   
+    
 ---------------------------------------------------------------
 CologneChip support:
 
