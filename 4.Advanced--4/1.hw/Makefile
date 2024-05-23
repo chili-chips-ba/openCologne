@@ -26,38 +26,38 @@ IVLFLAGS = -Winfloop -g2012 -gspecify -Ttyp
 
 # Source Directory
 SRC = \
-	modules/top_level/src/opl3.sv \
-	modules/top_level/pkg/opl3_pkg.sv \
-	modules/channels/src/dac_prep.sv \
-	modules/channels/src/channels.sv \
-	modules/channels/src/control_operators.sv \
-	modules/clks/src/clk_div.sv \
-	modules/clks/src/reset_sync.sv \
-	modules/i2s/src/i2s.sv \
-	modules/operator/src/operator.sv \
-	modules/operator/src/calc_phase_inc.sv \
-	modules/operator/src/calc_rhythm_phase.sv \
-	modules/operator/src/phase_generator.sv \
-	modules/operator/src/vibrato.sv \
-	modules/operator/src/envelope_generator.sv \
-	modules/operator/src/ksl_add_rom.sv \
-	modules/operator/src/env_rate_counter.sv \
-	modules/operator/src/tremolo.sv \
-	modules/operator/src/opl3_log_sine_lut.sv \
-	modules/operator/src/opl3_exp_lut.sv \
-	modules/timers/src/timers.sv \
-	modules/timers/src/timer.sv \
-	modules/misc/src/afifo.v \
-	modules/misc/src/edge_detector.sv \
-	modules/misc/src/mem_simple_dual_port_async_read.sv \
-	modules/misc/src/mem_simple_dual_port.sv \
-	modules/misc/src/mem_multi_bank.sv \
-	modules/misc/src/mem_multi_bank_reset.sv \
-	modules/misc/src/pipeline_sr.sv \
-	modules/misc/src/synchronizer.sv \
-	modules/misc/src/leds.sv \
-	modules/host_if/src/host_if.sv \
-	modules/host_if/src/trick_sw_detection.sv 
+	#modules/top_level/src/opl3.sv \
+	#modules/top_level/pkg/opl3_pkg.sv \
+	#modules/channels/src/dac_prep.sv \
+	#modules/channels/src/channels.sv \
+	#modules/channels/src/control_operators.sv \
+	#modules/clks/src/clk_div.sv \
+	m#odules/clks/src/reset_sync.sv \
+	#modules/i2s/src/i2s.sv \
+	#modules/operator/src/operator.sv \
+	#modules/operator/src/calc_phase_inc.sv \
+	#modules/operator/src/calc_rhythm_phase.sv \
+	#modules/operator/src/phase_generator.sv \
+	#modules/operator/src/vibrato.sv \
+	#modules/operator/src/envelope_generator.sv \
+	#modules/operator/src/ksl_add_rom.sv \
+	#modules/operator/src/env_rate_counter.sv \
+	#modules/operator/src/tremolo.sv \
+	#modules/operator/src/opl3_log_sine_lut.sv \
+	#modules/operator/src/opl3_exp_lut.sv \
+	#modules/timers/src/timers.sv \
+	#modules/timers/src/timer.sv \
+	#modules/misc/src/afifo.v \
+	#modules/misc/src/edge_detector.sv \
+	modules/misc/src/mem_simple_dual_port_async_read.sv 
+	#modules/misc/src/mem_simple_dual_port.sv \
+	#modules/misc/src/mem_multi_bank.sv \
+	#modules/misc/src/mem_multi_bank_reset.sv \
+	#modules/misc/src/pipeline_sr.sv \
+	#modules/misc/src/synchronizer.sv \
+	#modules/misc/src/leds.sv \
+	#modules/host_if/src/host_if.sv \
+	#modules/host_if/src/trick_sw_detection.sv 
 
 
 SIM = \
