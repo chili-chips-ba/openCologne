@@ -66,7 +66,7 @@ module mem_simple_dual_port #(
     end
     Because of 'ERROR: Couldn't find ancestor for tagged pattern!' */
 
-    logic [DATA_WIDTH-1:0] ram [DEPTH-1:0] = '{default: DEFAULT_VALUE};
+    logic [DATA_WIDTH-1:0] ram [DEPTH-1:0];
 
     initial begin
         for (int i = 0; i < DEPTH; i = i + 1) begin
