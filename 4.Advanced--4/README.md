@@ -28,10 +28,13 @@ export PATH=`pwd`/out/current/bin:$PATH
 ```
 
 It is needed to export or place into the Makefile your path to the systemverilog.so file which is
+```
 PLUGIN_PATH= 'pwd'/build/release/systemverilog-plugin/systemverilog.so
+```
 And the same for yosys
+```
 YOSYS = 'pwd'/out/current/bin/yosys$(EXE)
- 
+```
 
 
 Based on:
