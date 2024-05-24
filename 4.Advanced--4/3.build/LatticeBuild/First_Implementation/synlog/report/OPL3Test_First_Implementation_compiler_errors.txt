@@ -1,0 +1,2 @@
+@E: CG680 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/channels.sv":45:11:45:18|Package opl3_pkg not found (must occur before use)
+

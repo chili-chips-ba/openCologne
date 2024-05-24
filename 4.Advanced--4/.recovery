@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BaliProject version="3.2" title="OPL3Test" device="LFE5U-85F-6BG381C" default_implementation="First_Implementation">
+    <Options/>
+    <Implementation title="First_Implementation" dir="First_Implementation" description="First_Implementation" synthesis="synplify" default_strategy="Strategy1">
+        <Options VerilogStandard="Verilog 2001" def_top="opl3" top="opl3"/>
+        <Source name="1.hw/modules/top_level/pkg/opl3_pkg.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/channels/src/channels.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/channels/src/control_operators.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/channels/src/dac_prep.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/clks/src/clk_div.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/clks/src/reset_sync.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/host_if/src/trick_sw_detection.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/host_if/src/host_if.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/i2s/src/i2s.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/misc/src/afifo.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="1.hw/modules/misc/src/edge_detector.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/misc/src/leds.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/misc/src/mem_multi_bank.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/misc/src/mem_multi_bank_reset.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/misc/src/mem_simple_dual_port.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/misc/src/pipeline_sr.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/misc/src/synchronizer.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/operator/src/calc_phase_inc.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/operator/src/calc_rhythm_phase.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/operator/src/env_rate_counter.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/operator/src/envelope_generator.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/operator/src/ksl_add_rom.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/operator/src/operator.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/operator/src/opl3_exp_lut.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/operator/src/opl3_log_sine_lut.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/operator/src/phase_generator.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/operator/src/tremolo.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/operator/src/vibrato.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/timers/src/timer.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/timers/src/timers.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog"/>
+        </Source>
+        <Source name="1.hw/modules/top_level/src/opl3.sv" type="Verilog" type_short="Verilog">
+            <Options VerilogStandard="System Verilog" top_module="opl3"/>
+        </Source>
+        <Source name="OPL3Test.lpf" type="Logic Preference" type_short="LPF">
+            <Options/>
+        </Source>
+    </Implementation>
+    <Strategy name="Strategy1" file="OPL3Test1.sty"/>
+</BaliProject>

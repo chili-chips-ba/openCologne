@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- *************************************************************************************
+FILE DESCRIPTION
+Max Top 5 critical clocks will be reported. For rest user needs to refer to Detailed report
+*******************************************************************************************-->
+<report_table display_priority="2" name="Timing Summary">
+<report_link name="Detailed report">
+<data>/home/user/openCologne/4.Advanced--4/First_Implementation/synlog/OPL3Test_First_Implementation_fpga_mapper.srr</data>
+<title>START OF TIMING REPORT</title>
+</report_link>
+<row>
+<data tcl_name="clock_name">Clock Name</data>
+<data tcl_name="req_freq">Req Freq</data>
+<data tcl_name="est_freq">Est Freq</data>
+<data tcl_name="slack">Slack</data>
+</row>
+<row>
+<data>opl3|clk</data>
+<data>200.0 MHz</data>
+<data>77.1 MHz</data>
+<data>-7.973</data>
+</row>
+<row>
+<data>opl3|clk_host</data>
+<data>200.0 MHz</data>
+<data>270.0 MHz</data>
+<data>1.297</data>
+</row>
+<row>
+<data>System</data>
+<data>200.0 MHz</data>
+<data>232.2 MHz</data>
+<data>0.693</data>
+</row>
+</report_table>

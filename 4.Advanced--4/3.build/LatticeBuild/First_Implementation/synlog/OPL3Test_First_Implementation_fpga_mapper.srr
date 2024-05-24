@@ -1,0 +1,1288 @@
+# Fri May 24 01:14:00 2024
+
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: U-2023.03L-SP1
+Install: /home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase
+OS: Ubuntu 22.04.4 LTS
+Hostname: user-HP-ProBook-450-G5
+max virtual memory: unlimited (bytes)
+max user processes: 47069
+max stack size: 8388608 (bytes)
+
+
+Implementation : First_Implementation
+Synopsys Lattice Technology Mapper, Version map202303lat, Build 132R, Built Aug 31 2023 03:56:57, @4910518
+
+
+Mapper Startup Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 212MB peak: 212MB)
+
+@N: MF916 |Option synthesis_strategy=base is enabled. 
+@N: MF248 |Running in 64-bit mode.
+@N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
+
+Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 224MB peak: 224MB)
+
+
+Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 224MB peak: 224MB)
+
+
+Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 229MB peak: 229MB)
+
+
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 239MB peak: 239MB)
+
+
+
+Starting Optimization and Mapping (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 292MB peak: 292MB)
+
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance channels.control_operators.bank_num_sr.out[1] because it is equivalent to instance channels.control_operators.bank_num_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance channels.control_operators.fb_cnt1_mem.bankb_sr.out[1] because it is equivalent to instance channels.control_operators.bank_num_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance channels.control_operators.fb_cnt0_mem.bankb_sr.out[1] because it is equivalent to instance channels.control_operators.bank_num_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance channels.control_operators.operator.feedback_mem.bankb_sr.out[1] because it is equivalent to instance channels.control_operators.operator.bank_num_sr.out[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance channels.control_operators.operator.envelope_generator.env_rate_counter.counter_mem.bankb_sr.out[1] because it is equivalent to instance channels.control_operators.operator.envelope_generator.env_rate_counter.bank_num_sr.out[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance channels.control_operators.operator.phase_generator.is_odd_period_msb_mem.bankb_sr.out[1] because it is equivalent to instance channels.control_operators.operator.phase_generator.final_phase_msb_mem.bankb_sr.out[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance channels.control_operators.operator.phase_generator.phase_acc_mem.bankb_sr.out[1] because it is equivalent to instance channels.control_operators.operator.phase_generator.final_phase_msb_mem.bankb_sr.out[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance channels.control_operators.operator.phase_generator.final_phase_msb_mem.bankb_sr.out[1] because it is equivalent to instance channels.control_operators.operator.phase_generator.bank_num_sr.out[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance channels.control_operators.operator.phase_generator.is_odd_period_msb_mem.bankb_sr.out[2] because it is equivalent to instance channels.control_operators.operator.phase_generator.phase_acc_mem.bankb_sr.out[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance channels.control_operators.operator.phase_generator.final_phase_msb_mem.bankb_sr.out[2] because it is equivalent to instance channels.control_operators.operator.phase_generator.phase_acc_mem.bankb_sr.out[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance channels.control_operators.operator.phase_generator.phase_acc_mem.bankb_sr.out[2] because it is equivalent to instance channels.control_operators.operator.phase_generator.bank_num_sr.out[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+
+Available hyper_sources - for debug and ip models
+	None Found
+
+@N: BZ173 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_phase_inc.sv":72:15:72:18|ROM multiplier_p1_2[4:0] (in view: work.calc_phase_inc(verilog)) mapped in logic.
+@N: BZ173 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_phase_inc.sv":72:15:72:18|ROM multiplier_p1_2[4:0] (in view: work.calc_phase_inc(verilog)) mapped in logic.
+@N: MO106 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_phase_inc.sv":72:15:72:18|Found ROM multiplier_p1_2[4:0] (in view: work.calc_phase_inc(verilog)) with 16 words by 5 bits.
+@N: BZ173 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/ksl_add_rom.sv":63:15:63:18|ROM rom_out_p1_2[6:0] (in view: work.ksl_add_rom(verilog)) mapped in logic.
+@N: BZ173 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/ksl_add_rom.sv":63:15:63:18|ROM rom_out_p1_2[6:0] (in view: work.ksl_add_rom(verilog)) mapped in logic.
+@N: MO106 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/ksl_add_rom.sv":63:15:63:18|Found ROM rom_out_p1_2[6:0] (in view: work.ksl_add_rom(verilog)) with 16 words by 7 bits.
+
+Finished RTL optimizations (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 297MB peak: 297MB)
+
+@N: FX493 |Applying initial value "1" on instance reset_sync.r0.
+@W: FX474 |User-specified initial value defined for some sequential elements which can prevent optimum synthesis results from being achieved. 
+@N: FX493 |Applying initial value "1" on instance reset_sync.r1.
+@N: FX493 |Applying initial value "1" on instance reset_sync.r2_0.
+@N: MF179 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":224:18:224:35|Found 7 by 7 bit equality operator ('==') lcl_rd_empty (in view: work.afifo_6s_10s_2s_1_1_6s(verilog))
+@N: MF179 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":221:15:221:64|Found 7 by 7 bit equality operator ('==') o_wr_full (in view: work.afifo_6s_10s_2s_1_1_6s(verilog))
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":167:1:167:6|Removing instance host_if.afifo.rd_addr[6] because it is equivalent to instance host_if.afifo.rgray[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":145:1:145:6|Removing instance host_if.afifo.wr_addr[6] because it is equivalent to instance host_if.afifo.wgray[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@N: MO231 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/clks/src/clk_div.sv":54:4:54:12|Found counter in view:work.clk_div_256s(verilog) instance counter[7:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance ch_abcd_cnt_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance ch_abcd_cnt_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0] 
+@N: FX493 |Applying initial value "0000000000000" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1[12:0].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_0.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_1.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_2.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_3.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_4.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_5.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_6.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_7.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_8.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_9.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_10.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_11.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[1].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[2].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[3].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[4].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[5].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[6].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[7].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[8].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[9].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[10].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[11].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[12].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_25.
+@N: FX493 |Applying initial value "0000000000000" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1[12:0].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_0.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_1.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_2.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_3.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_4.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_5.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_6.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_7.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_8.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_9.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_10.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_11.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[1].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[2].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[3].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[4].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[5].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[6].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[7].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[8].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[9].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[10].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[11].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_12[12].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_25.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[12] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[11]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[11] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[9] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[8] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[7] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[6] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[5] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[4] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[3] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[2] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[1] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[12] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[11] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[10] because it is equivalent to instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0] because it is equivalent to instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[9]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[9] because it is equivalent to instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[8]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[8] because it is equivalent to instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[7] because it is equivalent to instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[6] because it is equivalent to instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[5] because it is equivalent to instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[4] because it is equivalent to instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[3] because it is equivalent to instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[2] because it is equivalent to instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[1] because it is equivalent to instance channels.operator_out_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1[0] (in view: work.channels(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: MO231 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/channels.sv":167:4:167:12|Found counter in view:work.channels(verilog) instance self\.op_num[4:0] 
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM ch_abcd_cnt_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0] (in view: work.channels(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM ch_abcd_cnt_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0] (in view: work.channels(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_25.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_25.
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[0].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[1].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[2].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[3].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[4].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[5].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[6].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[7].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[8].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[9].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[10].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[11].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[12].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[0].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[1].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[2].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[3].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[4].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[5].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[6].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[7].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[8].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[9].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[10].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[11].
+@N: FX493 |Applying initial value "0" on instance operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret[12].
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance kon_block_fnum_high_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[5:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance kon_block_fnum_high_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[5:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance fnum_low_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance fnum_low_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance ws_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[2:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance ws_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[2:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance sl_rr_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance sl_rr_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance ar_dr_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance ar_dr_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance ksl_tl_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance ksl_tl_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance am_vib_egt_ksr_mult_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance am_vib_egt_ksr_mult_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0] 
+@N: FX493 |Applying initial value "0000" on instance fb_cnt0_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1[3:0].
+@N: FX493 |Applying initial value "0" on instance fb_cnt0_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret.
+@N: FX493 |Applying initial value "0" on instance fb_cnt0_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_0.
+@N: FX493 |Applying initial value "0" on instance fb_cnt0_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_1.
+@N: FX493 |Applying initial value "0" on instance fb_cnt0_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_2.
+@N: FX493 |Applying initial value "0" on instance fb_cnt0_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_3[1].
+@N: FX493 |Applying initial value "0" on instance fb_cnt0_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_3[2].
+@N: FX493 |Applying initial value "0" on instance fb_cnt0_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_3[3].
+@N: FX493 |Applying initial value "0" on instance fb_cnt0_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_7.
+@N: FX493 |Applying initial value "0000" on instance fb_cnt0_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1[3:0].
+@N: FX493 |Applying initial value "0" on instance fb_cnt0_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret.
+@N: FX493 |Applying initial value "0" on instance fb_cnt0_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_0.
+@N: FX493 |Applying initial value "0" on instance fb_cnt0_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_1.
+@N: FX493 |Applying initial value "0" on instance fb_cnt0_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_2.
+@N: FX493 |Applying initial value "0" on instance fb_cnt0_mem.bankgen\[1\]\.genblk1\.mem_bank.genblk1\.dob_p1_ret_3[1].
+
+Only the first 100 messages of id 'FX493' are reported. To see all messages use 'report_messages -log /home/user/openCologne/4.Advanced--4/First_Implementation/synlog/OPL3Test_First_Implementation_fpga_mapper.srr -id FX493' in the Tcl shell. To see all messages in future runs, use the command 'message_override -limit {FX493} -count unlimited' in the Tcl shell.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.fb_cnt1_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0] because it is equivalent to instance channels.control_operators.fb_cnt1_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.fb_cnt1_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[0] because it is equivalent to instance channels.control_operators.fb_cnt0_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.fb_cnt0_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[3] because it is equivalent to instance channels.control_operators.fb_cnt0_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.fb_cnt0_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[2] because it is equivalent to instance channels.control_operators.fb_cnt0_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.fb_cnt0_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[1] because it is equivalent to instance channels.control_operators.fb_cnt0_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.fb_cnt0_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0] because it is equivalent to instance channels.control_operators.fb_cnt0_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.fb_cnt0_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[3] because it is equivalent to instance channels.control_operators.fb_cnt0_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.fb_cnt0_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[2] because it is equivalent to instance channels.control_operators.fb_cnt0_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.fb_cnt0_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[1] because it is equivalent to instance channels.control_operators.fb_cnt0_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance fb_cnt0_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1[0] (in view: work.control_operators(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM kon_block_fnum_high_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[5:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM kon_block_fnum_high_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[5:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM fnum_low_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM fnum_low_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM ws_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[2:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM ws_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[2:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM sl_rr_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM sl_rr_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM ar_dr_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM ar_dr_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM ksl_tl_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM ksl_tl_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM am_vib_egt_ksr_mult_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM am_vib_egt_ksr_mult_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0] (in view: work.control_operators(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/control_operators.sv":534:4:534:12|Removing sequential instance modulation_out_p1[12] (in view: work.control_operators(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/control_operators.sv":534:4:534:12|Removing sequential instance modulation_out_p1[11] (in view: work.control_operators(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/control_operators.sv":534:4:534:12|Removing sequential instance modulation_out_p1[10] (in view: work.control_operators(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: MF179 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/control_operators.sv":477:12:477:31|Found 6 by 6 bit equality operator ('==') un1_state_8 (in view: work.control_operators(verilog))
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance kon_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance kon_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[0] 
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[25] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[24]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[24] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[23]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[23] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[22]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[22] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[21]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[21] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[20]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[20] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[19]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[19] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[18]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[18] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[17]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[17] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[16]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[16] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[15]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[15] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[14]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[14] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[13]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[13] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[12]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[12] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[11]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[11] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[9] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[8] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[7] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[6] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[5] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[4] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[3] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[2] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[1] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[10] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[25] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[24] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[23] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[22] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[21] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[20] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[19] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[18] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[17] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[16] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[15] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[14] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[13] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[12] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[11] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[10] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[0] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[9]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[9] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[8]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[8] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[7] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[6] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[5] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[4] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[3] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[2] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[1] because it is equivalent to instance channels.control_operators.operator.feedback_mem.bankgen[0].genblk1.mem_bank.genblk1.dob_p1[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance feedback_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1[0] (in view: work.operator(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM kon_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[0] (in view: work.operator(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM kon_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[0] (in view: work.operator(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@N: MO231 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/vibrato.sv":72:4:72:12|Found counter in view:work.calc_phase_inc(verilog) instance vibrato.vibrato_index_p1[12:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance env_int_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[8:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance env_int_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[8:0] 
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM env_int_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[8:0] (in view: work.envelope_generator(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM env_int_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[8:0] (in view: work.envelope_generator(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance bankgen\[1\]\.genblk1\.mem_bank.ram[3:0] 
+@W: FX344 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Unrecognized syn_ramstyle "MLAB" on instance bankgen\[0\]\.genblk1\.mem_bank.ram[3:0] 
+@N: MO231 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank_reset.sv":92:4:92:12|Found counter in view:work.mem_multi_bank_reset_4s_18s_0s_8_2s_1s_2s(verilog) instance self\.addr[4:0] 
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM bankgen\[1\]\.genblk1\.mem_bank.ram[3:0] (in view: work.mem_multi_bank_reset_4s_18s_0s_8_2s_1s_2s(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: FX107 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|RAM bankgen\[0\]\.genblk1\.mem_bank.ram[3:0] (in view: work.mem_multi_bank_reset_4s_18s_0s_8_2s_1s_2s(verilog)) does not have a read/write conflict check. Possible simulation mismatch. To resolve a read/write conflict, either set syn_ramstyle = rw_check, or enable the "Read Write Check on RAM" Implementation Option. For more information, search for "read/write conflict check" in Online Help.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.envelope_generator.env_rate_counter.counter_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[14] because it is equivalent to instance channels.control_operators.operator.envelope_generator.env_rate_counter.counter_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[13]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance channels.control_operators.operator.envelope_generator.env_rate_counter.counter_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[13] because it is equivalent to instance channels.control_operators.operator.envelope_generator.env_rate_counter.counter_mem.bankgen[1].genblk1.mem_bank.genblk1.dob_p1[12]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+
+Only the first 100 messages of id 'BN132' are reported. To see all messages use 'report_messages -log /home/user/openCologne/4.Advanced--4/First_Implementation/synlog/OPL3Test_First_Implementation_fpga_mapper.srr -id BN132' in the Tcl shell. To see all messages in future runs, use the command 'message_override -limit {BN132} -count unlimited' in the Tcl shell.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance counter_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1[0] (in view: work.env_rate_counter(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":87:8:87:16|Removing sequential instance final_phase_msb_mem.bankgen\[0\]\.genblk1\.mem_bank.genblk1\.dob_p1[0] (in view: work.phase_generator(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+
+Starting factoring (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 302MB peak: 302MB)
+
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv":88:4:88:12|Removing sequential instance phase_generator.calc_rhythm_phase.hh_phase_friend[10] (in view: work.operator(verilog)) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv":88:4:88:12|Removing sequential instance phase_generator.calc_rhythm_phase.hh_phase_friend[11] (in view: work.operator(verilog)) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv":88:4:88:12|Removing sequential instance phase_generator.calc_rhythm_phase.hh_phase_friend[12] (in view: work.operator(verilog)) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv":88:4:88:12|Removing sequential instance phase_generator.calc_rhythm_phase.hh_phase_friend[13] (in view: work.operator(verilog)) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv":88:4:88:12|Removing sequential instance phase_generator.calc_rhythm_phase.hh_phase_friend[14] (in view: work.operator(verilog)) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv":88:4:88:12|Removing sequential instance phase_generator.calc_rhythm_phase.hh_phase_friend[15] (in view: work.operator(verilog)) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv":88:4:88:12|Removing sequential instance phase_generator.calc_rhythm_phase.hh_phase_friend[16] (in view: work.operator(verilog)) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv":88:4:88:12|Removing sequential instance phase_generator.calc_rhythm_phase.hh_phase_friend[17] (in view: work.operator(verilog)) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv":88:4:88:12|Removing sequential instance phase_generator.calc_rhythm_phase.hh_phase_friend[18] (in view: work.operator(verilog)) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv":88:4:88:12|Removing sequential instance phase_generator.calc_rhythm_phase.hh_phase_friend[19] (in view: work.operator(verilog)) because it does not drive other instances.
+
+Finished factoring (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 311MB peak: 311MB)
+
+NConnInternalConnection caching is on
+
+Finished generic timing optimizations - Pass 1 (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 324MB peak: 324MB)
+
+@N: FA113 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/ksl_add_rom.sv":85:34:85:61|Pipelining module tmp1_p1[6:3]. For more information, search for "pipelining" in Online Help.
+@N: MF169 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/ksl_add_rom.sv":87:4:87:12|Pushed in register ksl_p1[1:0].
+@N: BN362 :|Removing sequential instance channels.control_operators.operator.calc_phase_inc.pre_mult_p1_dummy[17] (in view: work.opl3(verilog)) because it does not drive other instances.
+
+Starting Early Timing Optimization (Real Time elapsed 0h:00m:10s; CPU Time elapsed 0h:00m:11s; Memory used current: 332MB peak: 332MB)
+
+
+Finished Early Timing Optimization (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:13s; Memory used current: 332MB peak: 332MB)
+
+
+Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:13s; Memory used current: 332MB peak: 332MB)
+
+@N: FX211 |Packed ROM channels.control_operators.operator.phase_generator.exp_lut_inst.out_2_0[9:0] (8 input, 10 output) to Block SelectRAM 
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":159:1:159:6|Generating RAM host_if.afifo.mem[9:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.operator.feedback_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[25:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.operator.feedback_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[25:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.operator.phase_generator.phase_acc_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[19:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.operator.phase_generator.phase_acc_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[19:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.operator.envelope_generator.env_rate_counter.counter_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[14:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.operator.envelope_generator.env_rate_counter.counter_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[14:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.operator_out_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[12:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.operator_out_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[12:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.operator.envelope_generator.env_int_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[8:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.operator.envelope_generator.env_int_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[8:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.ar_dr_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.sl_rr_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.sl_rr_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.ar_dr_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.am_vib_egt_ksr_mult_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.ksl_tl_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.ksl_tl_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.am_vib_egt_ksr_mult_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.operator.envelope_generator.state_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[3:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.operator.envelope_generator.state_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[3:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.ws_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[2:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.ws_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[2:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.operator.phase_generator.is_odd_period_msb_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.operator.phase_generator.is_odd_period_msb_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.operator.kon_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.operator.kon_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.operator.phase_generator.final_phase_msb_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.operator.phase_generator.final_phase_msb_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.fb_cnt0_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[3:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.fb_cnt0_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[3:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.fb_cnt1_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.fnum_low_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.fnum_low_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Generating RAM channels.control_operators.fb_cnt1_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.kon_block_fnum_high_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[5:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.ch_abcd_cnt_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[7:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.ch_abcd_cnt_mem.bankgen\[0\]\.genblk1\.mem_bank.ram[7:0]
+@N: FO126 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Generating RAM channels.control_operators.kon_block_fnum_high_mem.bankgen\[1\]\.genblk1\.mem_bank.ram[5:0]
+@N: FX214 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/opl3_log_sine_lut.sv":55:15:55:18|Generating ROM channels.control_operators.operator.phase_generator.log_sine_lut_inst.out_2[11:0] (in view: work.opl3(verilog)).
+
+Finished preparing to map (Real Time elapsed 0h:00m:14s; CPU Time elapsed 0h:00m:14s; Memory used current: 332MB peak: 332MB)
+
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[4] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[5] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[6] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[0] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[1] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[2] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[3] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[4] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[5] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[6] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[0] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[1] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[2] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[3] (in view: work.opl3(verilog)).
+
+Finished technology mapping (Real Time elapsed 0h:00m:16s; CPU Time elapsed 0h:00m:16s; Memory used current: 389MB peak: 389MB)
+
+Pass		 CPU time		Worst Slack		Luts / Registers
+------------------------------------------------------------
+   1		0h:00m:16s		    -7.42ns		1635 /      1020
+   2		0h:00m:16s		    -7.42ns		1626 /      1020
+   3		0h:00m:17s		    -7.69ns		1626 /      1020
+   4		0h:00m:17s		    -7.30ns		1625 /      1020
+   5		0h:00m:17s		    -7.30ns		1625 /      1020
+   6		0h:00m:17s		    -7.30ns		1625 /      1020
+   7		0h:00m:17s		    -7.30ns		1625 /      1020
+   8		0h:00m:17s		    -7.30ns		1625 /      1020
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[4] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[5] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[6] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[0] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[1] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[2] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[3] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[4] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[5] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":204:1:204:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.wgray_cross[6] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[0] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[1] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[2] (in view: work.opl3(verilog)).
+@N: FX1019 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":195:1:195:6|Adding ASYNC_REG property on synchronizing instance host_if.afifo.rgray_cross[3] (in view: work.opl3(verilog)).
+@N: FX271 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/control_operators.sv":461:4:461:12|Replicating instance channels.control_operators.state[3] (in view: work.opl3(verilog)) with 19 loads 1 time to improve timing.
+@N: FX271 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/control_operators.sv":461:4:461:12|Replicating instance channels.control_operators.state[1] (in view: work.opl3(verilog)) with 21 loads 1 time to improve timing.
+@N: FX271 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/control_operators.sv":461:4:461:12|Replicating instance channels.control_operators.state[0] (in view: work.opl3(verilog)) with 18 loads 1 time to improve timing.
+@N: FX271 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/control_operators.sv":461:4:461:12|Replicating instance channels.control_operators.state[4] (in view: work.opl3(verilog)) with 14 loads 1 time to improve timing.
+Timing driven replication report
+Added 4 Registers via timing driven replication
+Added 3 LUTs via timing driven replication
+
+   9		0h:00m:19s		    -7.20ns		1632 /      1024
+  10		0h:00m:19s		    -7.34ns		1635 /      1024
+  11		0h:00m:19s		    -7.23ns		1637 /      1024
+  12		0h:00m:19s		    -7.08ns		1641 /      1024
+  13		0h:00m:19s		    -6.77ns		1643 /      1024
+  14		0h:00m:19s		    -6.57ns		1644 /      1024
+
+  15		0h:00m:19s		    -6.98ns		1641 /      1024
+  16		0h:00m:20s		    -6.34ns		1647 /      1024
+  17		0h:00m:20s		    -6.71ns		1648 /      1024
+  18		0h:00m:20s		    -6.39ns		1651 /      1024
+  19		0h:00m:20s		    -5.97ns		1652 /      1024
+  20		0h:00m:20s		    -6.21ns		1655 /      1024
+  21		0h:00m:20s		    -6.07ns		1657 /      1024
+
+Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:20s; CPU Time elapsed 0h:00m:20s; Memory used current: 389MB peak: 389MB)
+
+@N: FX164 |The option to pack registers in the IOB has not been specified. Please set syn_useioff attribute.  
+@W: FO156 |Selected technology does not include support for GND input channels.control_operators.fb_cnt1_mem.bankgen\[0\]\.genblk1\.mem_bank.ram_ram. Inserting an inverter to convert input from GND to VCC.
+@W: FO156 |Selected technology does not include support for GND input channels.control_operators.fb_cnt1_mem.bankgen\[1\]\.genblk1\.mem_bank.ram_ram. Inserting an inverter to convert input from GND to VCC.
+
+Finished restoring hierarchy (Real Time elapsed 0h:00m:22s; CPU Time elapsed 0h:00m:22s; Memory used current: 390MB peak: 390MB)
+
+
+Starting CDBProcessSetClockGroups... (Real Time elapsed 0h:00m:23s; CPU Time elapsed 0h:00m:23s; Memory used current: 390MB peak: 390MB)
+
+
+Finished with CDBProcessSetClockGroups (Real Time elapsed 0h:00m:23s; CPU Time elapsed 0h:00m:23s; Memory used current: 390MB peak: 390MB)
+
+
+Start Writing Netlists (Real Time elapsed 0h:00m:23s; CPU Time elapsed 0h:00m:23s; Memory used current: 390MB peak: 390MB)
+
+Writing Analyst data base /home/user/openCologne/4.Advanced--4/First_Implementation/synwork/OPL3Test_First_Implementation_m.srm
+
+Finished Writing Netlist Databases (Real Time elapsed 0h:00m:26s; CPU Time elapsed 0h:00m:26s; Memory used current: 390MB peak: 390MB)
+
+Writing EDIF Netlist and constraint files
+@N: FX1056 |Writing EDF file: /home/user/openCologne/4.Advanced--4/First_Implementation/OPL3Test_First_Implementation.edi
+@N: BW106 |Synplicity Constraint File capacitance units using default value of 1pF 
+
+Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:28s; CPU Time elapsed 0h:00m:28s; Memory used current: 398MB peak: 398MB)
+
+
+Finished Writing Netlists (Real Time elapsed 0h:00m:28s; CPU Time elapsed 0h:00m:28s; Memory used current: 398MB peak: 398MB)
+
+
+Start final timing analysis (Real Time elapsed 0h:00m:28s; CPU Time elapsed 0h:00m:28s; Memory used current: 398MB peak: 398MB)
+
+@W: MT420 |Found inferred clock opl3|clk with period 5.00ns. Please declare a user-defined clock on port clk.
+@W: MT420 |Found inferred clock opl3|clk_host with period 5.00ns. Please declare a user-defined clock on port clk_host.
+
+
+##### START OF TIMING REPORT #####[
+# Timing report written on Fri May 24 01:14:29 2024
+#
+
+
+Top view:               opl3
+Requested Frequency:    200.0 MHz
+Wire load mode:         top
+Paths requested:        5
+Constraint File(s):    
+@N: MT320 |This timing report is an estimate of place and route data. For final timing results, use the FPGA vendor place and route report.
+
+@N: MT322 |Clock constraints include only register-to-register paths associated with each individual clock.
+
+
+
+Performance Summary
+*******************
+
+
+Worst slack in design: -7.973
+
+@N: MT286 |System clock period 0.000 stretches to negative invalid value -- ignoring stretching.
+                   Requested     Estimated     Requested     Estimated                Clock        Clock          
+Starting Clock     Frequency     Frequency     Period        Period        Slack      Type         Group          
+------------------------------------------------------------------------------------------------------------------
+opl3|clk           200.0 MHz     77.1 MHz      5.000         12.973        -7.973     inferred     (multiple)     
+opl3|clk_host      200.0 MHz     270.0 MHz     5.000         3.703         1.297      inferred     (multiple)     
+System             200.0 MHz     232.2 MHz     5.000         4.307         0.693      system       system_clkgroup
+==================================================================================================================
+
+
+
+
+
+Clock Relationships
+*******************
+
+Clocks                        |    rise  to  rise    |    fall  to  fall   |    rise  to  fall   |    fall  to  rise 
+---------------------------------------------------------------------------------------------------------------------
+Starting       Ending         |  constraint  slack   |  constraint  slack  |  constraint  slack  |  constraint  slack
+---------------------------------------------------------------------------------------------------------------------
+System         System         |  5.000       5.000   |  No paths    -      |  No paths    -      |  No paths    -    
+System         opl3|clk       |  5.000       0.693   |  No paths    -      |  No paths    -      |  No paths    -    
+opl3|clk       System         |  5.000       -2.554  |  No paths    -      |  No paths    -      |  No paths    -    
+opl3|clk       opl3|clk       |  5.000       -7.973  |  No paths    -      |  No paths    -      |  No paths    -    
+opl3|clk       opl3|clk_host  |  Diff grp    -       |  No paths    -      |  No paths    -      |  No paths    -    
+opl3|clk_host  opl3|clk       |  Diff grp    -       |  No paths    -      |  No paths    -      |  No paths    -    
+opl3|clk_host  opl3|clk_host  |  5.000       1.297   |  No paths    -      |  No paths    -      |  No paths    -    
+=====================================================================================================================
+ Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
+       'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
+
+
+
+Interface Information 
+*********************
+
+No IO constraint found
+
+
+
+====================================
+Detailed Report for Clock: opl3|clk
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+                                             Starting                                            Arrival           
+Instance                                     Reference     Type        Pin     Net               Time        Slack 
+                                             Clock                                                                 
+-------------------------------------------------------------------------------------------------------------------
+channels.control_operators.state_fast[0]     opl3|clk      FD1S3AX     Q       state_fast[0]     1.009       -7.973
+channels.control_operators.state_fast[1]     opl3|clk      FD1S3AX     Q       state_fast[1]     1.009       -7.973
+channels.control_operators.state_fast[3]     opl3|clk      FD1S3AX     Q       state_fast[3]     1.015       -7.564
+channels.control_operators.state_fast[4]     opl3|clk      FD1S3AX     Q       state_fast[4]     0.985       -7.423
+channels.control_operators.state[5]          opl3|clk      FD1S3AX     Q       state_0[5]        1.045       -7.247
+channels.control_operators.state[2]          opl3|clk      FD1S3AX     Q       state[2]          1.103       -7.197
+channels.control_operators.state[4]          opl3|clk      FD1S3AX     Q       state[4]          1.051       -6.991
+channels.control_operators.state[1]          opl3|clk      FD1S3AX     Q       state[1]          1.081       -6.835
+channels.control_operators.state[0]          opl3|clk      FD1S3AX     Q       state[0]          1.090       -6.676
+channels.control_operators.state[3]          opl3|clk      FD1S3AX     Q       state_0[3]        1.081       -6.514
+===================================================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+                                                                                                                Starting                                                        Required           
+Instance                                                                                                        Reference     Type        Pin     Net                           Time         Slack 
+                                                                                                                Clock                                                                              
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[0]                    opl3|clk      FD1S3AX     D       effective_rate_p1_RNO[0]      4.946        -7.973
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[1]                    opl3|clk      FD1S3AX     D       effective_rate_p1_r[1]        4.946        -7.973
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[2]                    opl3|clk      FD1S3AX     D       effective_rate_p1_s[2]        4.946        -7.973
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[3]                    opl3|clk      FD1S3AX     D       effective_rate_p1_s[3]        4.946        -7.973
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[4]                    opl3|clk      FD1S3AX     D       effective_rate_p1_s[4]        4.946        -7.973
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[5]                    opl3|clk      FD1S3AX     D       effective_rate_p1_RNO[5]      4.946        -7.973
+channels.control_operators.operator.envelope_generator.env_rate_counter.requested_rate_not_zero_sr.out\[1\]     opl3|clk      FD1S3AX     D       un1_requested_rate_p0_4_i     4.946        -5.567
+channels.control_operators.operator.envelope_generator.state_p1[1]                                              opl3|clk      FD1P3AX     D       next_state_p0[1]              4.946        -5.387
+channels.control_operators.operator.envelope_generator.env_int_p2[7]                                            opl3|clk      FD1S3AX     D       env_int_p2_7[7]               4.946        -5.085
+channels.control_operators.operator.envelope_generator.env_int_p2[8]                                            opl3|clk      FD1S3AX     D       env_int_p2_7[8]               4.946        -5.085
+===================================================================================================================================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      5.000
+    - Setup time:                            0.054
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.946
+
+    - Propagation time:                      12.919
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -7.973
+
+    Number of logic level(s):                19
+    Starting point:                          channels.control_operators.state_fast[0] / Q
+    Ending point:                            channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[0] / D
+    The start point is clocked by            opl3|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+    The end   point is clocked by            opl3|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                                                                                             Pin      Pin               Arrival      No. of    
+Name                                                                                                          Type         Name     Dir     Delay     Time         Fan Out(s)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+channels.control_operators.state_fast[0]                                                                      FD1S3AX      Q        Out     1.009     1.009 r      -         
+state_fast[0]                                                                                                 Net          -        -       -         -            5         
+channels.control_operators.bank_numlto1[0]                                                                    ORCALUT4     A        In      0.000     1.009 r      -         
+channels.control_operators.bank_numlto1[0]                                                                    ORCALUT4     Z        Out     0.762     1.771 r      -         
+bank_numlt3[0]                                                                                                Net          -        -       -         -            5         
+channels.control_operators.state_fast_RNIG4K21[4]                                                             ORCALUT4     A        In      0.000     1.771 r      -         
+channels.control_operators.state_fast_RNIG4K21[4]                                                             ORCALUT4     Z        Out     0.606     2.377 r      -         
+state_fast_RNIG4K21[4]                                                                                        Net          -        -       -         -            1         
+channels.control_operators.state_RNIOV652[2]                                                                  PFUMX        BLUT     In      0.000     2.377 r      -         
+channels.control_operators.state_RNIOV652[2]                                                                  PFUMX        Z        Out     0.725     3.102 r      -         
+bank_num[0]                                                                                                   Net          -        -       -         -            80        
+channels.control_operators.un1_op_num_0_cry_1_0                                                               CCU2C        A0       In      0.000     3.102 r      -         
+channels.control_operators.un1_op_num_0_cry_1_0                                                               CCU2C        COUT     Out     0.900     4.002 r      -         
+un1_op_num_0_cry_2                                                                                            Net          -        -       -         -            1         
+channels.control_operators.un1_op_num_0_cry_3_0                                                               CCU2C        CIN      In      0.000     4.002 r      -         
+channels.control_operators.un1_op_num_0_cry_3_0                                                               CCU2C        S1       Out     0.698     4.700 r      -         
+un1_op_num_461[4]                                                                                             Net          -        -       -         -            1         
+channels.control_operators.un1_op_num_46_m_1[4]                                                               ORCALUT4     D        In      0.000     4.700 r      -         
+channels.control_operators.un1_op_num_46_m_1[4]                                                               ORCALUT4     Z        Out     0.660     5.360 r      -         
+N_267                                                                                                         Net          -        -       -         -            2         
+channels.control_operators.sl_rr_mem.dob_bm_1[4]                                                              ORCALUT4     B        In      0.000     5.360 r      -         
+channels.control_operators.sl_rr_mem.dob_bm_1[4]                                                              ORCALUT4     Z        Out     0.738     6.098 f      -         
+dob_am_1[4]                                                                                                   Net          -        -       -         -            4         
+channels.control_operators.sl_rr_mem.dob_am[4]                                                                ORCALUT4     C        In      0.000     6.098 f      -         
+channels.control_operators.sl_rr_mem.dob_am[4]                                                                ORCALUT4     Z        Out     0.606     6.704 r      -         
+dob_am_4[4]                                                                                                   Net          -        -       -         -            1         
+channels.control_operators.sl_rr_mem.dob[4]                                                                   PFUMX        BLUT     In      0.000     6.704 r      -         
+channels.control_operators.sl_rr_mem.dob[4]                                                                   PFUMX        Z        Out     0.403     7.107 r      -         
+un28_next_state_p0_0                                                                                          Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_0_0                             CCU2C        A1       In      0.000     7.107 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_0_0                             CCU2C        COUT     Out     0.900     8.007 r      -         
+un28_next_state_p0_cry_0                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_1_0                             CCU2C        CIN      In      0.000     8.007 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_1_0                             CCU2C        COUT     Out     0.061     8.068 r      -         
+un28_next_state_p0_cry_2                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_3_0                             CCU2C        CIN      In      0.000     8.068 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_3_0                             CCU2C        COUT     Out     0.061     8.129 r      -         
+un28_next_state_p0_cry_4_cry                                                                                  Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0                             CCU2C        CIN      In      0.000     8.129 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0                             CCU2C        S0       Out     0.799     8.928 r      -         
+un28_next_state_p0_cry_4                                                                                      Net          -        -       -         -            3         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0_RNIAM0BC                    PFUMX        C0       In      0.000     8.928 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0_RNIAM0BC                    PFUMX        Z        Out     1.015     9.943 r      -         
+N_75                                                                                                          Net          -        -       -         -            8         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn_N_2L1     ORCALUT4     A        In      0.000     9.943 r      -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn_N_2L1     ORCALUT4     Z        Out     0.606     10.549 f     -         
+effective_rate_p18lto6_6_sn_N_2L1                                                                             Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn           ORCALUT4     B        In      0.000     10.549 f     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn           ORCALUT4     Z        Out     0.606     11.155 r     -         
+effective_rate_p18lto6_6_sn                                                                                   Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0_N_2L1_0      ORCALUT4     B        In      0.000     11.155 r     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0_N_2L1_0      ORCALUT4     Z        Out     0.606     11.761 f     -         
+effective_rate_p18lto6_0_N_2L1_0                                                                              Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0              ORCALUT4     A        In      0.000     11.761 f     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0              ORCALUT4     Z        Out     0.768     12.529 r     -         
+effective_rate_p18                                                                                            Net          -        -       -         -            6         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1_RNO[0]              ORCALUT4     A        In      0.000     12.529 r     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1_RNO[0]              ORCALUT4     Z        Out     0.390     12.919 f     -         
+effective_rate_p1_RNO[0]                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[0]                  FD1S3AX      D        In      0.000     12.919 f     -         
+=============================================================================================================================================================================
+
+
+Path information for path number 2: 
+      Requested Period:                      5.000
+    - Setup time:                            0.054
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.946
+
+    - Propagation time:                      12.919
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -7.973
+
+    Number of logic level(s):                19
+    Starting point:                          channels.control_operators.state_fast[1] / Q
+    Ending point:                            channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[0] / D
+    The start point is clocked by            opl3|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+    The end   point is clocked by            opl3|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                                                                                             Pin      Pin               Arrival      No. of    
+Name                                                                                                          Type         Name     Dir     Delay     Time         Fan Out(s)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+channels.control_operators.state_fast[1]                                                                      FD1S3AX      Q        Out     1.009     1.009 r      -         
+state_fast[1]                                                                                                 Net          -        -       -         -            5         
+channels.control_operators.bank_numlto1[0]                                                                    ORCALUT4     B        In      0.000     1.009 r      -         
+channels.control_operators.bank_numlto1[0]                                                                    ORCALUT4     Z        Out     0.762     1.771 r      -         
+bank_numlt3[0]                                                                                                Net          -        -       -         -            5         
+channels.control_operators.state_fast_RNIG4K21[4]                                                             ORCALUT4     A        In      0.000     1.771 r      -         
+channels.control_operators.state_fast_RNIG4K21[4]                                                             ORCALUT4     Z        Out     0.606     2.377 r      -         
+state_fast_RNIG4K21[4]                                                                                        Net          -        -       -         -            1         
+channels.control_operators.state_RNIOV652[2]                                                                  PFUMX        BLUT     In      0.000     2.377 r      -         
+channels.control_operators.state_RNIOV652[2]                                                                  PFUMX        Z        Out     0.725     3.102 r      -         
+bank_num[0]                                                                                                   Net          -        -       -         -            80        
+channels.control_operators.un1_op_num_0_cry_1_0                                                               CCU2C        A0       In      0.000     3.102 r      -         
+channels.control_operators.un1_op_num_0_cry_1_0                                                               CCU2C        COUT     Out     0.900     4.002 r      -         
+un1_op_num_0_cry_2                                                                                            Net          -        -       -         -            1         
+channels.control_operators.un1_op_num_0_cry_3_0                                                               CCU2C        CIN      In      0.000     4.002 r      -         
+channels.control_operators.un1_op_num_0_cry_3_0                                                               CCU2C        S1       Out     0.698     4.700 r      -         
+un1_op_num_461[4]                                                                                             Net          -        -       -         -            1         
+channels.control_operators.un1_op_num_46_m_1[4]                                                               ORCALUT4     D        In      0.000     4.700 r      -         
+channels.control_operators.un1_op_num_46_m_1[4]                                                               ORCALUT4     Z        Out     0.660     5.360 r      -         
+N_267                                                                                                         Net          -        -       -         -            2         
+channels.control_operators.sl_rr_mem.dob_bm_1[4]                                                              ORCALUT4     B        In      0.000     5.360 r      -         
+channels.control_operators.sl_rr_mem.dob_bm_1[4]                                                              ORCALUT4     Z        Out     0.738     6.098 f      -         
+dob_am_1[4]                                                                                                   Net          -        -       -         -            4         
+channels.control_operators.sl_rr_mem.dob_am[4]                                                                ORCALUT4     C        In      0.000     6.098 f      -         
+channels.control_operators.sl_rr_mem.dob_am[4]                                                                ORCALUT4     Z        Out     0.606     6.704 r      -         
+dob_am_4[4]                                                                                                   Net          -        -       -         -            1         
+channels.control_operators.sl_rr_mem.dob[4]                                                                   PFUMX        BLUT     In      0.000     6.704 r      -         
+channels.control_operators.sl_rr_mem.dob[4]                                                                   PFUMX        Z        Out     0.403     7.107 r      -         
+un28_next_state_p0_0                                                                                          Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_0_0                             CCU2C        A1       In      0.000     7.107 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_0_0                             CCU2C        COUT     Out     0.900     8.007 r      -         
+un28_next_state_p0_cry_0                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_1_0                             CCU2C        CIN      In      0.000     8.007 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_1_0                             CCU2C        COUT     Out     0.061     8.068 r      -         
+un28_next_state_p0_cry_2                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_3_0                             CCU2C        CIN      In      0.000     8.068 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_3_0                             CCU2C        COUT     Out     0.061     8.129 r      -         
+un28_next_state_p0_cry_4_cry                                                                                  Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0                             CCU2C        CIN      In      0.000     8.129 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0                             CCU2C        S0       Out     0.799     8.928 r      -         
+un28_next_state_p0_cry_4                                                                                      Net          -        -       -         -            3         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0_RNIAM0BC                    PFUMX        C0       In      0.000     8.928 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0_RNIAM0BC                    PFUMX        Z        Out     1.015     9.943 r      -         
+N_75                                                                                                          Net          -        -       -         -            8         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn_N_2L1     ORCALUT4     A        In      0.000     9.943 r      -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn_N_2L1     ORCALUT4     Z        Out     0.606     10.549 f     -         
+effective_rate_p18lto6_6_sn_N_2L1                                                                             Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn           ORCALUT4     B        In      0.000     10.549 f     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn           ORCALUT4     Z        Out     0.606     11.155 r     -         
+effective_rate_p18lto6_6_sn                                                                                   Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0_N_2L1_0      ORCALUT4     B        In      0.000     11.155 r     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0_N_2L1_0      ORCALUT4     Z        Out     0.606     11.761 f     -         
+effective_rate_p18lto6_0_N_2L1_0                                                                              Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0              ORCALUT4     A        In      0.000     11.761 f     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0              ORCALUT4     Z        Out     0.768     12.529 r     -         
+effective_rate_p18                                                                                            Net          -        -       -         -            6         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1_RNO[0]              ORCALUT4     A        In      0.000     12.529 r     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1_RNO[0]              ORCALUT4     Z        Out     0.390     12.919 f     -         
+effective_rate_p1_RNO[0]                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[0]                  FD1S3AX      D        In      0.000     12.919 f     -         
+=============================================================================================================================================================================
+
+
+Path information for path number 3: 
+      Requested Period:                      5.000
+    - Setup time:                            0.054
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.946
+
+    - Propagation time:                      12.919
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -7.973
+
+    Number of logic level(s):                19
+    Starting point:                          channels.control_operators.state_fast[0] / Q
+    Ending point:                            channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[0] / D
+    The start point is clocked by            opl3|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+    The end   point is clocked by            opl3|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                                                                                             Pin      Pin               Arrival      No. of    
+Name                                                                                                          Type         Name     Dir     Delay     Time         Fan Out(s)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+channels.control_operators.state_fast[0]                                                                      FD1S3AX      Q        Out     1.009     1.009 r      -         
+state_fast[0]                                                                                                 Net          -        -       -         -            5         
+channels.control_operators.bank_numlto1[0]                                                                    ORCALUT4     A        In      0.000     1.009 r      -         
+channels.control_operators.bank_numlto1[0]                                                                    ORCALUT4     Z        Out     0.762     1.771 r      -         
+bank_numlt3[0]                                                                                                Net          -        -       -         -            5         
+channels.control_operators.state_fast_RNIG4K21[4]                                                             ORCALUT4     A        In      0.000     1.771 r      -         
+channels.control_operators.state_fast_RNIG4K21[4]                                                             ORCALUT4     Z        Out     0.606     2.377 r      -         
+state_fast_RNIG4K21[4]                                                                                        Net          -        -       -         -            1         
+channels.control_operators.state_RNIOV652[2]                                                                  PFUMX        BLUT     In      0.000     2.377 r      -         
+channels.control_operators.state_RNIOV652[2]                                                                  PFUMX        Z        Out     0.725     3.102 r      -         
+bank_num[0]                                                                                                   Net          -        -       -         -            80        
+channels.control_operators.un1_op_num_cry_1_0                                                                 CCU2C        A0       In      0.000     3.102 r      -         
+channels.control_operators.un1_op_num_cry_1_0                                                                 CCU2C        COUT     Out     0.900     4.002 r      -         
+un1_op_num_cry_2                                                                                              Net          -        -       -         -            1         
+channels.control_operators.un1_op_num_cry_3_0                                                                 CCU2C        CIN      In      0.000     4.002 r      -         
+channels.control_operators.un1_op_num_cry_3_0                                                                 CCU2C        S1       Out     0.698     4.700 r      -         
+un1_op_num_460[4]                                                                                             Net          -        -       -         -            1         
+channels.control_operators.un1_op_num_46_m_1[4]                                                               ORCALUT4     C        In      0.000     4.700 r      -         
+channels.control_operators.un1_op_num_46_m_1[4]                                                               ORCALUT4     Z        Out     0.660     5.360 r      -         
+N_267                                                                                                         Net          -        -       -         -            2         
+channels.control_operators.sl_rr_mem.dob_bm_1[4]                                                              ORCALUT4     B        In      0.000     5.360 r      -         
+channels.control_operators.sl_rr_mem.dob_bm_1[4]                                                              ORCALUT4     Z        Out     0.738     6.098 f      -         
+dob_am_1[4]                                                                                                   Net          -        -       -         -            4         
+channels.control_operators.sl_rr_mem.dob_am[4]                                                                ORCALUT4     C        In      0.000     6.098 f      -         
+channels.control_operators.sl_rr_mem.dob_am[4]                                                                ORCALUT4     Z        Out     0.606     6.704 r      -         
+dob_am_4[4]                                                                                                   Net          -        -       -         -            1         
+channels.control_operators.sl_rr_mem.dob[4]                                                                   PFUMX        BLUT     In      0.000     6.704 r      -         
+channels.control_operators.sl_rr_mem.dob[4]                                                                   PFUMX        Z        Out     0.403     7.107 r      -         
+un28_next_state_p0_0                                                                                          Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_0_0                             CCU2C        A1       In      0.000     7.107 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_0_0                             CCU2C        COUT     Out     0.900     8.007 r      -         
+un28_next_state_p0_cry_0                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_1_0                             CCU2C        CIN      In      0.000     8.007 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_1_0                             CCU2C        COUT     Out     0.061     8.068 r      -         
+un28_next_state_p0_cry_2                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_3_0                             CCU2C        CIN      In      0.000     8.068 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_3_0                             CCU2C        COUT     Out     0.061     8.129 r      -         
+un28_next_state_p0_cry_4_cry                                                                                  Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0                             CCU2C        CIN      In      0.000     8.129 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0                             CCU2C        S0       Out     0.799     8.928 r      -         
+un28_next_state_p0_cry_4                                                                                      Net          -        -       -         -            3         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0_RNIAM0BC                    PFUMX        C0       In      0.000     8.928 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0_RNIAM0BC                    PFUMX        Z        Out     1.015     9.943 r      -         
+N_75                                                                                                          Net          -        -       -         -            8         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn_N_2L1     ORCALUT4     A        In      0.000     9.943 r      -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn_N_2L1     ORCALUT4     Z        Out     0.606     10.549 f     -         
+effective_rate_p18lto6_6_sn_N_2L1                                                                             Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn           ORCALUT4     B        In      0.000     10.549 f     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn           ORCALUT4     Z        Out     0.606     11.155 r     -         
+effective_rate_p18lto6_6_sn                                                                                   Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0_N_2L1_0      ORCALUT4     B        In      0.000     11.155 r     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0_N_2L1_0      ORCALUT4     Z        Out     0.606     11.761 f     -         
+effective_rate_p18lto6_0_N_2L1_0                                                                              Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0              ORCALUT4     A        In      0.000     11.761 f     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0              ORCALUT4     Z        Out     0.768     12.529 r     -         
+effective_rate_p18                                                                                            Net          -        -       -         -            6         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1_RNO[0]              ORCALUT4     A        In      0.000     12.529 r     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1_RNO[0]              ORCALUT4     Z        Out     0.390     12.919 f     -         
+effective_rate_p1_RNO[0]                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[0]                  FD1S3AX      D        In      0.000     12.919 f     -         
+=============================================================================================================================================================================
+
+
+Path information for path number 4: 
+      Requested Period:                      5.000
+    - Setup time:                            0.054
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.946
+
+    - Propagation time:                      12.919
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -7.973
+
+    Number of logic level(s):                19
+    Starting point:                          channels.control_operators.state_fast[0] / Q
+    Ending point:                            channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[0] / D
+    The start point is clocked by            opl3|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+    The end   point is clocked by            opl3|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                                                                                             Pin      Pin               Arrival      No. of    
+Name                                                                                                          Type         Name     Dir     Delay     Time         Fan Out(s)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+channels.control_operators.state_fast[0]                                                                      FD1S3AX      Q        Out     1.009     1.009 r      -         
+state_fast[0]                                                                                                 Net          -        -       -         -            5         
+channels.control_operators.bank_numlto1[0]                                                                    ORCALUT4     A        In      0.000     1.009 r      -         
+channels.control_operators.bank_numlto1[0]                                                                    ORCALUT4     Z        Out     0.762     1.771 r      -         
+bank_numlt3[0]                                                                                                Net          -        -       -         -            5         
+channels.control_operators.state_fast_RNIG4K21[4]                                                             ORCALUT4     A        In      0.000     1.771 r      -         
+channels.control_operators.state_fast_RNIG4K21[4]                                                             ORCALUT4     Z        Out     0.606     2.377 r      -         
+state_fast_RNIG4K21[4]                                                                                        Net          -        -       -         -            1         
+channels.control_operators.state_RNIOV652[2]                                                                  PFUMX        BLUT     In      0.000     2.377 r      -         
+channels.control_operators.state_RNIOV652[2]                                                                  PFUMX        Z        Out     0.725     3.102 r      -         
+bank_num[0]                                                                                                   Net          -        -       -         -            80        
+channels.control_operators.un1_op_num_0_cry_1_0                                                               CCU2C        A0       In      0.000     3.102 r      -         
+channels.control_operators.un1_op_num_0_cry_1_0                                                               CCU2C        COUT     Out     0.900     4.002 r      -         
+un1_op_num_0_cry_2                                                                                            Net          -        -       -         -            1         
+channels.control_operators.un1_op_num_0_cry_3_0                                                               CCU2C        CIN      In      0.000     4.002 r      -         
+channels.control_operators.un1_op_num_0_cry_3_0                                                               CCU2C        S1       Out     0.698     4.700 r      -         
+un1_op_num_461[4]                                                                                             Net          -        -       -         -            1         
+channels.control_operators.un1_op_num_46_m_1[4]                                                               ORCALUT4     D        In      0.000     4.700 r      -         
+channels.control_operators.un1_op_num_46_m_1[4]                                                               ORCALUT4     Z        Out     0.660     5.360 r      -         
+N_267                                                                                                         Net          -        -       -         -            2         
+channels.control_operators.sl_rr_mem.dob_bm_1[4]                                                              ORCALUT4     B        In      0.000     5.360 r      -         
+channels.control_operators.sl_rr_mem.dob_bm_1[4]                                                              ORCALUT4     Z        Out     0.738     6.098 f      -         
+dob_am_1[4]                                                                                                   Net          -        -       -         -            4         
+channels.control_operators.sl_rr_mem.dob_bm[4]                                                                ORCALUT4     C        In      0.000     6.098 f      -         
+channels.control_operators.sl_rr_mem.dob_bm[4]                                                                ORCALUT4     Z        Out     0.606     6.704 r      -         
+dob_bm_4[4]                                                                                                   Net          -        -       -         -            1         
+channels.control_operators.sl_rr_mem.dob[4]                                                                   PFUMX        ALUT     In      0.000     6.704 r      -         
+channels.control_operators.sl_rr_mem.dob[4]                                                                   PFUMX        Z        Out     0.403     7.107 r      -         
+un28_next_state_p0_0                                                                                          Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_0_0                             CCU2C        A1       In      0.000     7.107 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_0_0                             CCU2C        COUT     Out     0.900     8.007 r      -         
+un28_next_state_p0_cry_0                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_1_0                             CCU2C        CIN      In      0.000     8.007 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_1_0                             CCU2C        COUT     Out     0.061     8.068 r      -         
+un28_next_state_p0_cry_2                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_3_0                             CCU2C        CIN      In      0.000     8.068 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_3_0                             CCU2C        COUT     Out     0.061     8.129 r      -         
+un28_next_state_p0_cry_4_cry                                                                                  Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0                             CCU2C        CIN      In      0.000     8.129 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0                             CCU2C        S0       Out     0.799     8.928 r      -         
+un28_next_state_p0_cry_4                                                                                      Net          -        -       -         -            3         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0_RNIAM0BC                    PFUMX        C0       In      0.000     8.928 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0_RNIAM0BC                    PFUMX        Z        Out     1.015     9.943 r      -         
+N_75                                                                                                          Net          -        -       -         -            8         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn_N_2L1     ORCALUT4     A        In      0.000     9.943 r      -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn_N_2L1     ORCALUT4     Z        Out     0.606     10.549 f     -         
+effective_rate_p18lto6_6_sn_N_2L1                                                                             Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn           ORCALUT4     B        In      0.000     10.549 f     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn           ORCALUT4     Z        Out     0.606     11.155 r     -         
+effective_rate_p18lto6_6_sn                                                                                   Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0_N_2L1_0      ORCALUT4     B        In      0.000     11.155 r     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0_N_2L1_0      ORCALUT4     Z        Out     0.606     11.761 f     -         
+effective_rate_p18lto6_0_N_2L1_0                                                                              Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0              ORCALUT4     A        In      0.000     11.761 f     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0              ORCALUT4     Z        Out     0.768     12.529 r     -         
+effective_rate_p18                                                                                            Net          -        -       -         -            6         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1_RNO[0]              ORCALUT4     A        In      0.000     12.529 r     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1_RNO[0]              ORCALUT4     Z        Out     0.390     12.919 f     -         
+effective_rate_p1_RNO[0]                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[0]                  FD1S3AX      D        In      0.000     12.919 f     -         
+=============================================================================================================================================================================
+
+
+Path information for path number 5: 
+      Requested Period:                      5.000
+    - Setup time:                            0.054
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.946
+
+    - Propagation time:                      12.919
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -7.973
+
+    Number of logic level(s):                19
+    Starting point:                          channels.control_operators.state_fast[0] / Q
+    Ending point:                            channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[5] / D
+    The start point is clocked by            opl3|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+    The end   point is clocked by            opl3|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                                                                                             Pin      Pin               Arrival      No. of    
+Name                                                                                                          Type         Name     Dir     Delay     Time         Fan Out(s)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+channels.control_operators.state_fast[0]                                                                      FD1S3AX      Q        Out     1.009     1.009 r      -         
+state_fast[0]                                                                                                 Net          -        -       -         -            5         
+channels.control_operators.bank_numlto1[0]                                                                    ORCALUT4     A        In      0.000     1.009 r      -         
+channels.control_operators.bank_numlto1[0]                                                                    ORCALUT4     Z        Out     0.762     1.771 r      -         
+bank_numlt3[0]                                                                                                Net          -        -       -         -            5         
+channels.control_operators.state_fast_RNIG4K21[4]                                                             ORCALUT4     A        In      0.000     1.771 r      -         
+channels.control_operators.state_fast_RNIG4K21[4]                                                             ORCALUT4     Z        Out     0.606     2.377 r      -         
+state_fast_RNIG4K21[4]                                                                                        Net          -        -       -         -            1         
+channels.control_operators.state_RNIOV652[2]                                                                  PFUMX        BLUT     In      0.000     2.377 r      -         
+channels.control_operators.state_RNIOV652[2]                                                                  PFUMX        Z        Out     0.725     3.102 r      -         
+bank_num[0]                                                                                                   Net          -        -       -         -            80        
+channels.control_operators.un1_op_num_0_cry_1_0                                                               CCU2C        A0       In      0.000     3.102 r      -         
+channels.control_operators.un1_op_num_0_cry_1_0                                                               CCU2C        COUT     Out     0.900     4.002 r      -         
+un1_op_num_0_cry_2                                                                                            Net          -        -       -         -            1         
+channels.control_operators.un1_op_num_0_cry_3_0                                                               CCU2C        CIN      In      0.000     4.002 r      -         
+channels.control_operators.un1_op_num_0_cry_3_0                                                               CCU2C        S1       Out     0.698     4.700 r      -         
+un1_op_num_461[4]                                                                                             Net          -        -       -         -            1         
+channels.control_operators.un1_op_num_46_m_1[4]                                                               ORCALUT4     D        In      0.000     4.700 r      -         
+channels.control_operators.un1_op_num_46_m_1[4]                                                               ORCALUT4     Z        Out     0.660     5.360 r      -         
+N_267                                                                                                         Net          -        -       -         -            2         
+channels.control_operators.sl_rr_mem.dob_bm_1[4]                                                              ORCALUT4     B        In      0.000     5.360 r      -         
+channels.control_operators.sl_rr_mem.dob_bm_1[4]                                                              ORCALUT4     Z        Out     0.738     6.098 f      -         
+dob_am_1[4]                                                                                                   Net          -        -       -         -            4         
+channels.control_operators.sl_rr_mem.dob_am[4]                                                                ORCALUT4     C        In      0.000     6.098 f      -         
+channels.control_operators.sl_rr_mem.dob_am[4]                                                                ORCALUT4     Z        Out     0.606     6.704 r      -         
+dob_am_4[4]                                                                                                   Net          -        -       -         -            1         
+channels.control_operators.sl_rr_mem.dob[4]                                                                   PFUMX        BLUT     In      0.000     6.704 r      -         
+channels.control_operators.sl_rr_mem.dob[4]                                                                   PFUMX        Z        Out     0.403     7.107 r      -         
+un28_next_state_p0_0                                                                                          Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_0_0                             CCU2C        A1       In      0.000     7.107 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_0_0                             CCU2C        COUT     Out     0.900     8.007 r      -         
+un28_next_state_p0_cry_0                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_1_0                             CCU2C        CIN      In      0.000     8.007 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_1_0                             CCU2C        COUT     Out     0.061     8.068 r      -         
+un28_next_state_p0_cry_2                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_3_0                             CCU2C        CIN      In      0.000     8.068 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_3_0                             CCU2C        COUT     Out     0.061     8.129 r      -         
+un28_next_state_p0_cry_4_cry                                                                                  Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0                             CCU2C        CIN      In      0.000     8.129 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0                             CCU2C        S0       Out     0.799     8.928 r      -         
+un28_next_state_p0_cry_4                                                                                      Net          -        -       -         -            3         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0_RNIAM0BC                    PFUMX        C0       In      0.000     8.928 r      -         
+channels.control_operators.operator.envelope_generator.un28_next_state_p0_cry_4_0_RNIAM0BC                    PFUMX        Z        Out     1.015     9.943 r      -         
+N_75                                                                                                          Net          -        -       -         -            8         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn_N_2L1     ORCALUT4     A        In      0.000     9.943 r      -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn_N_2L1     ORCALUT4     Z        Out     0.606     10.549 f     -         
+effective_rate_p18lto6_6_sn_N_2L1                                                                             Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn           ORCALUT4     B        In      0.000     10.549 f     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_6_sn           ORCALUT4     Z        Out     0.606     11.155 r     -         
+effective_rate_p18lto6_6_sn                                                                                   Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0_N_2L1_0      ORCALUT4     B        In      0.000     11.155 r     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0_N_2L1_0      ORCALUT4     Z        Out     0.606     11.761 f     -         
+effective_rate_p18lto6_0_N_2L1_0                                                                              Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0              ORCALUT4     A        In      0.000     11.761 f     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p18lto6_0              ORCALUT4     Z        Out     0.768     12.529 r     -         
+effective_rate_p18                                                                                            Net          -        -       -         -            6         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1_RNO[5]              ORCALUT4     A        In      0.000     12.529 r     -         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1_RNO[5]              ORCALUT4     Z        Out     0.390     12.919 r     -         
+effective_rate_p1_RNO[5]                                                                                      Net          -        -       -         -            1         
+channels.control_operators.operator.envelope_generator.env_rate_counter.effective_rate_p1[5]                  FD1S3AX      D        In      0.000     12.919 r     -         
+=============================================================================================================================================================================
+
+
+
+
+====================================
+Detailed Report for Clock: opl3|clk_host
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+                              Starting                                              Arrival          
+Instance                      Reference         Type        Pin     Net             Time        Slack
+                              Clock                                                                  
+-----------------------------------------------------------------------------------------------------
+host_if.afifo.wgray[6]        opl3|clk_host     FD1P3DX     Q       wgray[6]        0.955       1.297
+host_if.afifo.wgray[0]        opl3|clk_host     FD1P3DX     Q       wgray[0]        0.907       1.345
+host_if.afifo.wgray[1]        opl3|clk_host     FD1P3DX     Q       wgray[1]        0.907       1.345
+host_if.afifo.wgray[2]        opl3|clk_host     FD1P3DX     Q       wgray[2]        0.907       1.345
+host_if.afifo.wgray[3]        opl3|clk_host     FD1P3DX     Q       wgray[3]        0.907       1.345
+host_if.afifo.wgray[4]        opl3|clk_host     FD1P3DX     Q       wgray[4]        0.907       1.345
+host_if.afifo.wgray[5]        opl3|clk_host     FD1P3DX     Q       wgray[5]        0.907       1.345
+host_if.afifo.wr_rgray[0]     opl3|clk_host     FD1S3DX     Q       wr_rgray[0]     0.853       1.399
+host_if.afifo.wr_rgray[1]     opl3|clk_host     FD1S3DX     Q       wr_rgray[1]     0.853       1.399
+host_if.afifo.wr_rgray[2]     opl3|clk_host     FD1S3DX     Q       wr_rgray[2]     0.853       1.399
+=====================================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+                            Starting                                             Required          
+Instance                    Reference         Type         Pin     Net           Time         Slack
+                            Clock                                                                  
+---------------------------------------------------------------------------------------------------
+host_if.afifo.mem_ram       opl3|clk_host     DPR16X4C     WRE     mem_and_0     5.000        1.297
+host_if.afifo.mem_ram_0     opl3|clk_host     DPR16X4C     WRE     mem_and_0     5.000        1.297
+host_if.afifo.mem_ram_1     opl3|clk_host     DPR16X4C     WRE     mem_and_0     5.000        1.297
+host_if.afifo.mem_ram_2     opl3|clk_host     DPR16X4C     WRE     mem_and_2     5.000        1.297
+host_if.afifo.mem_ram_3     opl3|clk_host     DPR16X4C     WRE     mem_and_2     5.000        1.297
+host_if.afifo.mem_ram_4     opl3|clk_host     DPR16X4C     WRE     mem_and_2     5.000        1.297
+host_if.afifo.mem_ram_5     opl3|clk_host     DPR16X4C     WRE     mem_and_4     5.000        1.297
+host_if.afifo.mem_ram_6     opl3|clk_host     DPR16X4C     WRE     mem_and_4     5.000        1.297
+host_if.afifo.mem_ram_7     opl3|clk_host     DPR16X4C     WRE     mem_and_4     5.000        1.297
+host_if.afifo.mem_ram_8     opl3|clk_host     DPR16X4C     WRE     mem_and_6     5.000        1.297
+===================================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      5.000
+    - Setup time:                            0.000
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         5.000
+
+    - Propagation time:                      3.703
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 1.297
+
+    Number of logic level(s):                4
+    Starting point:                          host_if.afifo.wgray[6] / Q
+    Ending point:                            host_if.afifo.mem_ram / WRE
+    The start point is clocked by            opl3|clk_host [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+    The end   point is clocked by            opl3|clk_host [rising] (rise=0.000 fall=2.500 period=5.000) on pin WCK
+
+Instance / Net                              Pin      Pin               Arrival     No. of    
+Name                           Type         Name     Dir     Delay     Time        Fan Out(s)
+---------------------------------------------------------------------------------------------
+host_if.afifo.wgray[6]         FD1P3DX      Q        Out     0.955     0.955 r     -         
+wgray[6]                       Net          -        -       -         -           3         
+host_if.afifo.o_wr_full_6      ORCALUT4     A        In      0.000     0.955 r     -         
+host_if.afifo.o_wr_full_6      ORCALUT4     Z        Out     0.606     1.561 r     -         
+o_wr_full_6                    Net          -        -       -         -           1         
+host_if.afifo.o_wr_full_NE     ORCALUT4     A        In      0.000     1.561 r     -         
+host_if.afifo.o_wr_full_NE     ORCALUT4     Z        Out     0.606     2.167 f     -         
+o_wr_full_NE                   Net          -        -       -         -           1         
+host_if.afifo.wr_addr5         ORCALUT4     B        In      0.000     2.167 f     -         
+host_if.afifo.wr_addr5         ORCALUT4     Z        Out     0.828     2.995 f     -         
+wr_addr5                       Net          -        -       -         -           17        
+host_if.afifo.mem_and_0        ORCALUT4     A        In      0.000     2.995 f     -         
+host_if.afifo.mem_and_0        ORCALUT4     Z        Out     0.708     3.703 f     -         
+mem_and_0                      Net          -        -       -         -           3         
+host_if.afifo.mem_ram          DPR16X4C     WRE      In      0.000     3.703 f     -         
+=============================================================================================
+
+
+
+
+====================================
+Detailed Report for Clock: System
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+                                                                                  Starting                                             Arrival          
+Instance                                                                          Reference     Type       Pin     Net                 Time        Slack
+                                                                                  Clock                                                                 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+channels.control_operators.operator.calc_phase_inc.un1_post_mult_p2_add[0:37]     System        ALU54B     R1      post_mult_p2[0]     0.000       0.693
+channels.control_operators.operator.calc_phase_inc.un1_post_mult_p2_add[0:37]     System        ALU54B     R1      post_mult_p2[0]     0.000       0.693
+channels.control_operators.operator.calc_phase_inc.un1_post_mult_p2_add[0:37]     System        ALU54B     R2      post_mult_p2[1]     0.000       0.754
+channels.control_operators.operator.calc_phase_inc.un1_post_mult_p2_add[0:37]     System        ALU54B     R2      post_mult_p2[1]     0.000       0.754
+channels.control_operators.operator.calc_phase_inc.un1_post_mult_p2_add[0:37]     System        ALU54B     R3      post_mult_p2[2]     0.000       0.754
+channels.control_operators.operator.calc_phase_inc.un1_post_mult_p2_add[0:37]     System        ALU54B     R3      post_mult_p2[2]     0.000       0.754
+channels.control_operators.operator.calc_phase_inc.un1_post_mult_p2_add[0:37]     System        ALU54B     R4      post_mult_p2[3]     0.000       0.815
+channels.control_operators.operator.calc_phase_inc.un1_post_mult_p2_add[0:37]     System        ALU54B     R4      post_mult_p2[3]     0.000       0.815
+channels.control_operators.operator.calc_phase_inc.un1_post_mult_p2_add[0:37]     System        ALU54B     R5      post_mult_p2[4]     0.000       0.815
+channels.control_operators.operator.calc_phase_inc.un1_post_mult_p2_add[0:37]     System        ALU54B     R5      post_mult_p2[4]     0.000       0.815
+========================================================================================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+                                                                         Starting                                                 Required          
+Instance                                                                 Reference     Type        Pin     Net                    Time         Slack
+                                                                         Clock                                                                      
+----------------------------------------------------------------------------------------------------------------------------------------------------
+channels.control_operators.operator.phase_generator.phase_acc_p3[19]     System        FD1P3AX     D       phase_acc_p3_4[19]     4.946        0.693
+channels.control_operators.operator.phase_generator.phase_acc_p3[17]     System        FD1P3AX     D       phase_acc_p3_4[17]     4.946        0.754
+channels.control_operators.operator.phase_generator.phase_acc_p3[18]     System        FD1P3AX     D       phase_acc_p3_4[18]     4.946        0.754
+channels.control_operators.operator.phase_generator.phase_acc_p3[15]     System        FD1P3AX     D       phase_acc_p3_4[15]     4.946        0.815
+channels.control_operators.operator.phase_generator.phase_acc_p3[16]     System        FD1P3AX     D       phase_acc_p3_4[16]     4.946        0.815
+channels.control_operators.operator.phase_generator.phase_acc_p3[13]     System        FD1P3AX     D       phase_acc_p3_4[13]     4.946        0.876
+channels.control_operators.operator.phase_generator.phase_acc_p3[14]     System        FD1P3AX     D       phase_acc_p3_4[14]     4.946        0.876
+channels.control_operators.operator.phase_generator.phase_acc_p3[11]     System        FD1P3AX     D       phase_acc_p3_4[11]     4.946        0.937
+channels.control_operators.operator.phase_generator.phase_acc_p3[12]     System        FD1P3AX     D       phase_acc_p3_4[12]     4.946        0.937
+channels.control_operators.operator.phase_generator.phase_acc_p3[9]      System        FD1P3AX     D       phase_acc_p3_4[9]      4.946        0.998
+====================================================================================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      5.000
+    - Setup time:                            0.054
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.946
+
+    - Propagation time:                      4.253
+    - Clock delay at starting point:         0.000 (ideal)
+    - Estimated clock delay at start point:  -0.000
+    = Slack (non-critical) :                 0.693
+
+    Number of logic level(s):                14
+    Starting point:                          channels.control_operators.operator.calc_phase_inc.un1_post_mult_p2_add[0:37] / R1
+    Ending point:                            channels.control_operators.operator.phase_generator.phase_acc_p3[19] / D
+    The start point is clocked by            System [rising]
+    The end   point is clocked by            opl3|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                                                                 Pin      Pin               Arrival     No. of    
+Name                                                                              Type         Name     Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------------------------------
+channels.control_operators.operator.calc_phase_inc.un1_post_mult_p2_add[0:37]     ALU54B       R1       Out     0.000     0.000 r     -         
+post_mult_p2[0]                                                                   Net          -        -       -         -           2         
+channels.control_operators.operator.calc_phase_inc.phase_inc_p2_cry_0_0           CCU2C        C1       In      0.000     0.000 r     -         
+channels.control_operators.operator.calc_phase_inc.phase_inc_p2_cry_0_0           CCU2C        COUT     Out     0.900     0.900 r     -         
+phase_inc_p2_cry_0                                                                Net          -        -       -         -           1         
+channels.control_operators.operator.calc_phase_inc.phase_inc_p2_cry_1_0           CCU2C        CIN      In      0.000     0.900 r     -         
+channels.control_operators.operator.calc_phase_inc.phase_inc_p2_cry_1_0           CCU2C        S1       Out     0.272     1.171 r     -         
+phase_inc_p2[2]                                                                   Net          -        -       -         -           2         
+channels.control_operators.operator.phase_generator.un1_phase_inc_p2[2]           ORCALUT4     D        In      0.000     1.171 r     -         
+channels.control_operators.operator.phase_generator.un1_phase_inc_p2[2]           ORCALUT4     Z        Out     0.606     1.778 r     -         
+un1_phase_inc_p2[2]                                                               Net          -        -       -         -           1         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_1_0      CCU2C        B1       In      0.000     1.778 r     -         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_1_0      CCU2C        COUT     Out     0.900     2.678 r     -         
+un1_phase_acc_p2_cry_2                                                            Net          -        -       -         -           1         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_3_0      CCU2C        CIN      In      0.000     2.678 r     -         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_3_0      CCU2C        COUT     Out     0.061     2.739 r     -         
+un1_phase_acc_p2_cry_4                                                            Net          -        -       -         -           1         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_5_0      CCU2C        CIN      In      0.000     2.739 r     -         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_5_0      CCU2C        COUT     Out     0.061     2.800 r     -         
+un1_phase_acc_p2_cry_6                                                            Net          -        -       -         -           1         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_7_0      CCU2C        CIN      In      0.000     2.800 r     -         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_7_0      CCU2C        COUT     Out     0.061     2.861 r     -         
+un1_phase_acc_p2_cry_8                                                            Net          -        -       -         -           1         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_9_0      CCU2C        CIN      In      0.000     2.861 r     -         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_9_0      CCU2C        COUT     Out     0.061     2.921 r     -         
+un1_phase_acc_p2_cry_10                                                           Net          -        -       -         -           1         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_11_0     CCU2C        CIN      In      0.000     2.921 r     -         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_11_0     CCU2C        COUT     Out     0.061     2.982 r     -         
+un1_phase_acc_p2_cry_12                                                           Net          -        -       -         -           1         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_13_0     CCU2C        CIN      In      0.000     2.982 r     -         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_13_0     CCU2C        COUT     Out     0.061     3.043 r     -         
+un1_phase_acc_p2_cry_14                                                           Net          -        -       -         -           1         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_15_0     CCU2C        CIN      In      0.000     3.043 r     -         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_15_0     CCU2C        COUT     Out     0.061     3.104 r     -         
+un1_phase_acc_p2_cry_16                                                           Net          -        -       -         -           1         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_17_0     CCU2C        CIN      In      0.000     3.104 r     -         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_cry_17_0     CCU2C        COUT     Out     0.061     3.166 r     -         
+un1_phase_acc_p2_cry_18                                                           Net          -        -       -         -           1         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_s_19_0       CCU2C        CIN      In      0.000     3.166 r     -         
+channels.control_operators.operator.phase_generator.un1_phase_acc_p2_s_19_0       CCU2C        S0       Out     0.698     3.863 r     -         
+un1_phase_acc_p2_s_19_0_S0                                                        Net          -        -       -         -           1         
+channels.control_operators.operator.phase_generator.phase_acc_p3_4[19]            ORCALUT4     B        In      0.000     3.863 r     -         
+channels.control_operators.operator.phase_generator.phase_acc_p3_4[19]            ORCALUT4     Z        Out     0.390     4.253 r     -         
+phase_acc_p3_4[19]                                                                Net          -        -       -         -           1         
+channels.control_operators.operator.phase_generator.phase_acc_p3[19]              FD1P3AX      D        In      0.000     4.253 r     -         
+================================================================================================================================================
+
+
+
+##### END OF TIMING REPORT #####]
+
+Timing exceptions that could not be applied
+
+Finished final timing analysis (Real Time elapsed 0h:00m:28s; CPU Time elapsed 0h:00m:28s; Memory used current: 398MB peak: 398MB)
+
+
+Finished timing report (Real Time elapsed 0h:00m:28s; CPU Time elapsed 0h:00m:28s; Memory used current: 398MB peak: 398MB)
+
+---------------------------------------
+Resource Usage Report
+Part: lfe5u_85f-6
+
+Register bits: 1094 of 83640 (1%)
+PIC Latch:       0
+I/O cells:       77
+Block Rams : 1 of 208 (0%)
+
+DSP primitives:       3 of 234 (1%)
+
+Details:
+ALU54B:         1
+CCU2C:          195
+DP16KD:         1
+DPR16X4C:       172
+FD1P3AX:        275
+FD1P3AY:        1
+FD1P3DX:        24
+FD1P3IX:        53
+FD1S3AX:        630
+FD1S3AY:        10
+FD1S3BX:        4
+FD1S3DX:        30
+FD1S3IX:        20
+GSR:            1
+IB:             15
+IFS1P3BX:       2
+IFS1P3DX:       10
+INV:            3
+MULT18X18D:     2
+OB:             62
+OFS1P3DX:       35
+ORCALUT4:       1638
+PFUMX:          172
+PUR:            1
+ROM256X1A:      12
+VHI:            97
+VLO:            97
+Mapper successful!
+
+At Mapper Exit (Real Time elapsed 0h:00m:29s; CPU Time elapsed 0h:00m:29s; Memory used current: 398MB peak: 398MB)
+
+Process took 0h:00m:29s realtime, 0h:00m:29s cputime
+# Fri May 24 01:14:29 2024
+
+###########################################################]

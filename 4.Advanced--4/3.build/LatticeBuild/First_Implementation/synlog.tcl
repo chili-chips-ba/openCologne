@@ -1,0 +1,1 @@
+run_tcl -fg OPL3Test_First_Implementation_synplify.tcl

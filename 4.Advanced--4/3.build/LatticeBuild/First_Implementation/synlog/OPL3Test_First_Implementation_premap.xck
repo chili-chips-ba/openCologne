@@ -1,0 +1,2 @@
+ckid0_0:@|S:clk@|E:leds.genblk1\.led_gen\[3\]\.led[3]@|F:@syn_dgcc_clockid0_0==1@|M:ClockId_0_0
+ckid0_1:@|S:clk_host@|E:host_if.wr_p2@|F:@syn_dgcc_clockid0_1==1@|M:ClockId_0_1

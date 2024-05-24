@@ -153,7 +153,9 @@ module envelope_generator
         .addrb(op_num),
         .dia({state_p1}),
         .dob({state_p0}),
+        /* verilator lint_off PINCONNECTEMPTY */
         .reset_mem_done_pulse()
+        /* verilator lint_on PINCONNECTEMPTY */
     );
 
     always_ff @(posedge clk)
