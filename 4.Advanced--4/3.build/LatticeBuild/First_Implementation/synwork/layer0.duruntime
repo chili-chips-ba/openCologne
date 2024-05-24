@@ -1,0 +1,129 @@
+Runtime Summary:
+================
+
+	The following design units have negligible CPU times:
+	=====================================================
+		* Library: work, DesignUnit: opl3
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: leds
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: channels
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: dac_prep
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_13s_18s_1s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_13s_18s_1s_0s_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: control_operators
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: operator
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: pipeline_sr_26s_2s_6s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_26s_18s_1s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_26s_18s_1s_0s_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: phase_generator
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: opl3_exp_lut
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: opl3_log_sine_lut
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_1s_18s_2s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_1s_18s_2s_0s_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: calc_rhythm_phase
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: pipeline_sr_3s_1s_3s_0
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_20s_18s_2s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_20s_18s_2s_0s_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: pipeline_sr_3s_1s_6s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: envelope_generator
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: tremolo
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_async_read_9s_18s_18446744073709551615s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_9s_18s_0s_511s_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: env_rate_counter
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_15s_18s_1s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_15s_18s_1s_0s_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: pipeline_sr_5s_1s_2s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_async_read_4s_18s_8
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_reset_4s_18s_0s_8_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: ksl_add_rom
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: pipeline_sr_6s_1s_3s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: pipeline_sr_5s_1s_3s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: pipeline_sr_1s_1s_3s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: calc_phase_inc
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: vibrato
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: edge_detector_1s_0s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_async_read_1s_18s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_1s_18s_0s_0s_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: pipeline_sr_5s_1s_6s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: pipeline_sr_1s_1s_6s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_1s_9_1s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_1s_9_1s_0s_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_4s_9_1s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_4s_9_1s_0s_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_async_read_6s_9_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_6s_9_0s_0s_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_async_read_3s_22_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_3s_22_0s_0s_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_async_read_8s_22_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_8s_22_0s_0s_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_simple_dual_port_async_read_8s_9_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: mem_multi_bank_8s_9_0s_0s_2s_1s_2s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: pipeline_sr_1s_1s_2s_0s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: clk_div_256s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: host_if
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: synchronizer_8s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: afifo_6s_10s_2s_1_1_6s
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: reset_sync
+			Hardware Generation Phase, Initial Cleanup Phase, Optimization Phase: Negligible CPU time
+		* Library: work, DesignUnit: work_/home/user/openCologne/4.Advanced--4/1.hw/modules/top_level/pkg/opl3_pkg.sv_unit
+			Hardware Generation Phase: Negligible CPU time
+		* Library: work, DesignUnit: opl3_pkg
+			Hardware Generation Phase: Negligible CPU time

@@ -43,11 +43,11 @@
 /* altera message_off 10230 */
 
 module mem_multi_bank_reset #(
-    parameter DATA_WIDTH = 0,
-    parameter DEPTH = 0,
+    parameter DATA_WIDTH = 3,
+    parameter DEPTH = 3,
     parameter OUTPUT_DELAY = 0, // 0, 1, or 2
     parameter DEFAULT_VALUE = '0,
-    parameter NUM_BANKS = 0,
+    parameter NUM_BANKS = 1,
     parameter BANK_WIDTH = $clog2(NUM_BANKS)
 ) (
     input wire clk,

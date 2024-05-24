@@ -1,0 +1,169 @@
+#OPTIONS:"|-layerid|0|-orig_srs|/home/user/openCologne/4.Advanced--4/First_Implementation/synwork/OPL3Test_First_Implementation_comp.srs|-top|opl3|-prodtype|synplify_pro|-dspmac|-fixsmult|-infer_seqShift|-nram|-sdff_counter|-divnmod|-nostructver|-lattice|-I|/home/user/openCologne/4.Advanced--4|-I|/home/user/openCologne/4.Advanced--4/First_Implementation/|-I|/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/lib|-v2001|-devicelib|/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/lib/lucent/ecp5u.v|-devicelib|/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/lib/lucent/pmi_def.v|-encrypt|-pro|-ui|-fid2|-ram|-sharing|on|-ll|2000|-autosm|-D_MULTIPLE_FILE_COMPILATION_UNIT_|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fv2001|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv|-lib|work|-fsysv"
+#CUR:"/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/linux_a_64/c_ver":1691686800
+#CUR:"/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/lib/lucent/ecp5u.v":1691686808
+#CUR:"/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/lib/lucent/pmi_def.v":1691686809
+#CUR:"/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/lib/vlog/hypermods.v":1691686317
+#CUR:"/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/lib/vlog/scemi_objects.v":1691686317
+#CUR:"/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/lib/vlog/scemi_pipes.svh":1691686317
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/top_level/pkg/opl3_pkg.sv":1716485078
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/channels.sv":1716415921
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/control_operators.sv":1716413947
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/dac_prep.sv":1716409724
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/clks/src/clk_div.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/clks/src/reset_sync.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/host_if/src/trick_sw_detection.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/host_if/src/host_if.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/i2s/src/i2s.sv":1716414052
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/edge_detector.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/leds.sv":1716483718
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":1716413227
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank_reset.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":1716496352
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":1716496345
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/synchronizer.sv":1716414514
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_phase_inc.sv":1716484789
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/env_rate_counter.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/envelope_generator.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/ksl_add_rom.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/operator.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/opl3_exp_lut.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/opl3_log_sine_lut.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/tremolo.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/vibrato.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/timers/src/timer.sv":1716413869
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/timers/src/timers.sv":1716241406
+#CUR:"/home/user/openCologne/4.Advanced--4/1.hw/modules/top_level/src/opl3.sv":1716241406
+0			"/home/user/openCologne/4.Advanced--4/1.hw/modules/top_level/pkg/opl3_pkg.sv" verilog
+1			"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/channels.sv" verilog
+2			"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/control_operators.sv" verilog
+3			"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/dac_prep.sv" verilog
+4			"/home/user/openCologne/4.Advanced--4/1.hw/modules/clks/src/clk_div.sv" verilog
+5			"/home/user/openCologne/4.Advanced--4/1.hw/modules/clks/src/reset_sync.sv" verilog
+6			"/home/user/openCologne/4.Advanced--4/1.hw/modules/host_if/src/trick_sw_detection.sv" verilog
+7			"/home/user/openCologne/4.Advanced--4/1.hw/modules/host_if/src/host_if.sv" verilog
+8			"/home/user/openCologne/4.Advanced--4/1.hw/modules/i2s/src/i2s.sv" verilog
+9			"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v" verilog
+10			"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/edge_detector.sv" verilog
+11			"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/leds.sv" verilog
+12			"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv" verilog
+13			"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank_reset.sv" verilog
+14			"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv" verilog
+15			"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv" verilog
+16			"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv" verilog
+17			"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/synchronizer.sv" verilog
+18			"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_phase_inc.sv" verilog
+19			"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv" verilog
+20			"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/env_rate_counter.sv" verilog
+21			"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/envelope_generator.sv" verilog
+22			"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/ksl_add_rom.sv" verilog
+23			"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/operator.sv" verilog
+24			"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/opl3_exp_lut.sv" verilog
+25			"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/opl3_log_sine_lut.sv" verilog
+26			"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv" verilog
+27			"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/tremolo.sv" verilog
+28			"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/vibrato.sv" verilog
+29			"/home/user/openCologne/4.Advanced--4/1.hw/modules/timers/src/timer.sv" verilog
+30			"/home/user/openCologne/4.Advanced--4/1.hw/modules/timers/src/timers.sv" verilog
+31			"/home/user/openCologne/4.Advanced--4/1.hw/modules/top_level/src/opl3.sv" verilog
+#Dependency Lists(Uses List)
+0 3 0
+1 3 2 12 0
+2 3 16 23 12 0
+3 3 17 0
+4 3 0
+5 3 0
+6 3 17 0
+7 3 6 17 9 0
+8 3 0
+9 3 0
+10 3 0
+11 3 0
+12 3 0 15 14 16
+13 3 0 14 16 15
+14 3 0
+15 3 0
+16 3 0
+17 3 0
+18 3 28 16 0
+19 3 16 0
+20 3 12 16 0
+21 3 27 12 20 13 22 16 0
+22 3 0
+23 3 26 21 18 10 12 16 0
+24 3 0
+25 3 0
+26 3 24 25 19 12 16 0
+27 3 0
+28 3 0
+29 3 10 0
+30 3 29 0
+31 3 30 11 1 4 7 5 0
+#Dependency Lists(Users Of)
+0 25 24 17 16 15 14 13 12 10 9 5 4 31 30 29 28 27 26 23 22 21 20 19 18 11 8 7 6 3 2 1
+1 31
+2 1
+3 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 2 0 1
+4 31
+5 31
+6 7
+7 31
+8 -1
+9 7
+10 29 23
+11 31
+12 26 23 21 20 2 1
+13 21
+14 13 12
+15 13 12
+16 26 23 21 20 19 18 13 12 2
+17 7 6 3
+18 23
+19 26
+20 21
+21 23
+22 21
+23 2
+24 26
+25 26
+26 23
+27 21
+28 18
+29 30
+30 31
+31 -1
+#Design Unit to File Association
+module work opl3 31
+module work timers 30
+module work timer 29
+module work opl3_log_sine_lut 25
+module work opl3_exp_lut 24
+module work phase_generator 26
+module work tremolo 27
+module work ksl_add_rom 22
+module work envelope_generator 21
+module work env_rate_counter 20
+module work calc_rhythm_phase 19
+module work vibrato 28
+module work calc_phase_inc 18
+module work mem_multi_bank_reset 13
+module work mem_simple_dual_port 14
+module work mem_simple_dual_port_async_read 15
+module work leds 11
+module work edge_detector 10
+module work i2s 8
+module work afifo 9
+module work host_if 7
+module work trick_sw_detection 6
+module work reset_sync 5
+module work clk_div 4
+module work synchronizer 17
+module work pipeline_sr 16
+module work operator 23
+module work dac_prep 3
+module work control_operators 2
+module work mem_multi_bank 12
+module work channels 1

@@ -1,0 +1,116 @@
+@N|Running in 64-bit mode
+@N|Running in 64-bit mode
+@N|stack limit increased to max
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/top_level/pkg/opl3_pkg.sv":48:8:48:15|Synthesizing module opl3_pkg in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/dac_prep.sv":44:0:44:5|Synthesizing module work_/home/user/openCologne/4.Advanced--4/1.hw/modules/top_level/pkg/opl3_pkg.sv_unit in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/clks/src/reset_sync.sv":50:7:50:16|Synthesizing module reset_sync in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":41:7:41:11|Synthesizing module afifo in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":159:1:159:6|Found RAM mem, depth=64, width=10
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/synchronizer.sv":23:7:23:18|Synthesizing module synchronizer in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/host_if/src/host_if.sv":44:7:44:13|Synthesizing module host_if in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/clks/src/clk_div.sv":46:7:46:13|Synthesizing module clk_div in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":44:7:44:17|Synthesizing module pipeline_sr in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":44:7:44:20|Synthesizing module mem_multi_bank in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":48:7:48:37|Synthesizing module mem_simple_dual_port_async_read in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Found RAM ram, depth=9, width=8
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":44:7:44:20|Synthesizing module mem_multi_bank in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":48:7:48:37|Synthesizing module mem_simple_dual_port_async_read in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Found RAM ram, depth=22, width=8
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":44:7:44:20|Synthesizing module mem_multi_bank in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":48:7:48:37|Synthesizing module mem_simple_dual_port_async_read in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Found RAM ram, depth=22, width=3
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":44:7:44:20|Synthesizing module mem_multi_bank in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":48:7:48:37|Synthesizing module mem_simple_dual_port_async_read in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Found RAM ram, depth=9, width=6
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":44:7:44:20|Synthesizing module mem_multi_bank in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":44:7:44:26|Synthesizing module mem_simple_dual_port in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Found RAM ram, depth=9, width=4
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":44:7:44:20|Synthesizing module mem_multi_bank in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":44:7:44:26|Synthesizing module mem_simple_dual_port in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Found RAM ram, depth=9, width=1
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":44:7:44:17|Synthesizing module pipeline_sr in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":44:7:44:17|Synthesizing module pipeline_sr in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":44:7:44:20|Synthesizing module mem_multi_bank in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":48:7:48:37|Synthesizing module mem_simple_dual_port_async_read in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Found RAM ram, depth=18, width=1
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/edge_detector.sv":50:7:50:19|Synthesizing module edge_detector in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/vibrato.sv":45:7:45:13|Synthesizing module vibrato in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_phase_inc.sv":46:7:46:20|Synthesizing module calc_phase_inc in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":44:7:44:17|Synthesizing module pipeline_sr in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":44:7:44:17|Synthesizing module pipeline_sr in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":44:7:44:17|Synthesizing module pipeline_sr in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/ksl_add_rom.sv":45:7:45:17|Synthesizing module ksl_add_rom in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank_reset.sv":45:7:45:26|Synthesizing module mem_multi_bank_reset in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":48:7:48:37|Synthesizing module mem_simple_dual_port_async_read in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Found RAM ram, depth=18, width=4
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":44:7:44:17|Synthesizing module pipeline_sr in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":44:7:44:20|Synthesizing module mem_multi_bank in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":44:7:44:26|Synthesizing module mem_simple_dual_port in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Found RAM ram, depth=18, width=15
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/env_rate_counter.sv":44:7:44:22|Synthesizing module env_rate_counter in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":44:7:44:20|Synthesizing module mem_multi_bank in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":48:7:48:37|Synthesizing module mem_simple_dual_port_async_read in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port_async_read.sv":76:4:76:12|Found RAM ram, depth=18, width=9
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/tremolo.sv":44:7:44:13|Synthesizing module tremolo in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/envelope_generator.sv":44:7:44:24|Synthesizing module envelope_generator in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":44:7:44:17|Synthesizing module pipeline_sr in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":44:7:44:20|Synthesizing module mem_multi_bank in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":44:7:44:26|Synthesizing module mem_simple_dual_port in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Found RAM ram, depth=18, width=20
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":44:7:44:17|Synthesizing module pipeline_sr in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv":46:7:46:23|Synthesizing module calc_rhythm_phase in library work.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_rhythm_phase.sv":118:4:118:12|Register bit rand_num[23] is always 0.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":44:7:44:20|Synthesizing module mem_multi_bank in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":44:7:44:26|Synthesizing module mem_simple_dual_port in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Found RAM ram, depth=18, width=1
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/opl3_log_sine_lut.sv":49:7:49:23|Synthesizing module opl3_log_sine_lut in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/opl3_exp_lut.sv":49:7:49:18|Synthesizing module opl3_exp_lut in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":44:7:44:21|Synthesizing module phase_generator in library work.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":189:4:189:12|Register bit modulation_shifted_p3[0] is always 0.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":189:4:189:12|Register bit modulation_shifted_p3[1] is always 0.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":189:4:189:12|Register bit modulation_shifted_p3[2] is always 0.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":189:4:189:12|Register bit modulation_shifted_p3[3] is always 0.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":189:4:189:12|Register bit modulation_shifted_p3[4] is always 0.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":189:4:189:12|Register bit modulation_shifted_p3[5] is always 0.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":189:4:189:12|Register bit modulation_shifted_p3[6] is always 0.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":189:4:189:12|Register bit modulation_shifted_p3[7] is always 0.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":189:4:189:12|Register bit modulation_shifted_p3[8] is always 0.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":189:4:189:12|Register bit modulation_shifted_p3[9] is always 0.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":270:4:270:12|Register bit tmp_ws7_p5[0] is always 0.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":270:4:270:12|Register bit tmp_ws7_p5[1] is always 0.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/phase_generator.sv":270:4:270:12|Register bit tmp_ws7_p5[2] is always 0.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":44:7:44:20|Synthesizing module mem_multi_bank in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":44:7:44:26|Synthesizing module mem_simple_dual_port in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Found RAM ram, depth=18, width=26
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":44:7:44:17|Synthesizing module pipeline_sr in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/operator.sv":44:7:44:14|Synthesizing module operator in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/control_operators.sv":46:7:46:23|Synthesizing module control_operators in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":44:7:44:20|Synthesizing module mem_multi_bank in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":44:7:44:26|Synthesizing module mem_simple_dual_port in library work.
+@N: CL134 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_simple_dual_port.sv":77:4:77:12|Found RAM ram, depth=18, width=13
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/dac_prep.sv":45:7:45:14|Synthesizing module dac_prep in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/channels.sv":44:7:44:14|Synthesizing module channels in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/leds.sv":44:7:44:10|Synthesizing module leds in library work.
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/top_level/src/opl3.sv":44:7:44:10|Synthesizing module opl3 in library work.
+@N: CL201 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/channels.sv":167:4:167:12|Trying to extract state machine for register state.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/dac_prep.sv":61:4:61:12|Register bit sample_opl3_l_p1[0] is always 0.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/dac_prep.sv":61:4:61:12|Register bit sample_opl3_r_p1[0] is always 0.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/dac_prep.sv":49:15:49:21|Input clk_dac is unused.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/channels/src/control_operators.sv":476:4:476:12|Register bit delay_counter[0] is always 0.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/envelope_generator.sv":66:36:66:39|Input mult is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":54:15:54:17|Input reb is unused.
+@N: CL201 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank_reset.sv":92:4:92:12|Trying to extract state machine for register state.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank_reset.sv":57:15:57:17|Input reb is unused.
+@N: CL189 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_phase_inc.sv":91:4:91:12|Register bit post_mult_p2[19] is always 0.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_phase_inc.sv":51:36:51:43|Input bank_num is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/calc_phase_inc.sv":52:34:52:39|Input op_num is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/edge_detector.sv":56:15:56:20|Input clk_en is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":54:15:54:17|Input reb is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":54:15:54:17|Input reb is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":54:15:54:17|Input reb is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":54:15:54:17|Input reb is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank.sv":54:15:54:17|Input reb is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/host_if/src/host_if.sv":52:15:52:18|Input rd_n is unused.
+@N: CL135 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/clks/src/reset_sync.sv":58:4:58:12|Found sequential shift r2 with address depth of 3 words and data bit width of 1.
+@N|Running in 64-bit mode
+

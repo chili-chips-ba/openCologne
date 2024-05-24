@@ -1,0 +1,374 @@
+# Fri May 24 01:13:58 2024
+
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: U-2023.03L-SP1
+Install: /home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase
+OS: Ubuntu 22.04.4 LTS
+Hostname: user-HP-ProBook-450-G5
+max virtual memory: unlimited (bytes)
+max user processes: 47069
+max stack size: 8388608 (bytes)
+
+
+Implementation : First_Implementation
+Synopsys Lattice Technology Pre-mapping, Version map202303lat, Build 132R, Built Aug 31 2023 03:56:57, @4910518
+
+
+Mapper Startup Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 212MB peak: 212MB)
+
+
+Done reading skeleton netlist (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 224MB peak: 224MB)
+
+@A: MF827 |No constraint file specified.
+@L: /home/user/openCologne/4.Advanced--4/First_Implementation/OPL3Test_First_Implementation_scck.rpt 
+See clock summary report "/home/user/openCologne/4.Advanced--4/First_Implementation/OPL3Test_First_Implementation_scck.rpt"
+@N: MF916 |Option synthesis_strategy=base is enabled. 
+@N: MF248 |Running in 64-bit mode.
+@N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
+
+Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 233MB peak: 233MB)
+
+
+Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 233MB peak: 233MB)
+
+
+Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 243MB peak: 243MB)
+
+
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 245MB peak: 245MB)
+
+NConnInternalConnection caching is on
+@N: FX493 |Applying initial value "00000000" on instance sync_regs\[0\][7:0].
+@W: FX474 |User-specified initial value defined for some sequential elements which can prevent optimum synthesis results from being achieved. 
+@N: FX493 |Applying initial value "00000000" on instance sync_regs\[1\][7:0].
+@N: FX493 |Applying initial value "00" on instance address_p1[1:0].
+@N: FX493 |Applying initial value "1" on instance cs_p1_n.
+@N: FX493 |Applying initial value "00000000" on instance din_p1[7:0].
+@N: FX493 |Applying initial value "1" on instance wr_p1_n.
+@N: FX493 |Applying initial value "00000000" on instance host_status_p1[7:0].
+@N: FX493 |Applying initial value "0" on instance wr_p2.
+@N: FX493 |Applying initial value "00000000" on instance opl3_reg_wr\.address[7:0].
+@N: FX493 |Applying initial value "0" on instance opl3_reg_wr\.bank_num.
+@N: FX493 |Applying initial value "00000000" on instance opl3_reg_wr\.data[7:0].
+@N: FX493 |Applying initial value "0" on instance opl3_reg_wr\.valid.
+@N: FX493 |Applying initial value "0" on instance clk_en.
+@N: FX493 |Applying initial value "0" on instance out\[1\].
+@N: FX493 |Applying initial value "0" on instance out\[2\].
+@N: FX493 |Applying initial value "0" on instance out\[1\].
+@N: FX493 |Applying initial value "0" on instance out\[2\].
+@N: FX493 |Applying initial value "0" on instance out\[3\].
+@N: FX493 |Applying initial value "0" on instance out\[4\].
+@N: FX493 |Applying initial value "0" on instance out\[5\].
+@N: FX493 |Applying initial value "0" on instance out\[6\].
+@N: FX493 |Applying initial value "00000" on instance out\[1\][4:0].
+@N: FX493 |Applying initial value "00000" on instance out\[2\][4:0].
+@N: FX493 |Applying initial value "00000" on instance out\[3\][4:0].
+@N: FX493 |Applying initial value "00000" on instance out\[4\][4:0].
+@N: FX493 |Applying initial value "00000" on instance out\[5\][4:0].
+@N: FX493 |Applying initial value "00000" on instance out\[6\][4:0].
+@N: FX493 |Applying initial value "0" on instance in_r0.
+@N: FX493 |Applying initial value "0" on instance dvb_p1.
+@N: FX493 |Applying initial value "000" on instance fnum_p1[9:7].
+@N: FX493 |Applying initial value "000" on instance vib_val_p2[2:0].
+@N: FX493 |Applying initial value "0" on instance out\[1\].
+@N: FX493 |Applying initial value "0" on instance out\[2\].
+@N: FX493 |Applying initial value "0" on instance out\[3\].
+@N: FX493 |Applying initial value "00000" on instance out\[1\][4:0].
+@N: FX493 |Applying initial value "00000" on instance out\[2\][4:0].
+@N: FX493 |Applying initial value "00000" on instance out\[3\][4:0].
+@N: FX493 |Applying initial value "000000" on instance out\[1\][5:0].
+@N: FX493 |Applying initial value "000000" on instance out\[2\][5:0].
+@N: FX493 |Applying initial value "000000" on instance out\[3\][5:0].
+@N: FX493 |Applying initial value "00" on instance ksl_p1[1:0].
+@N: FX493 |Applying initial value "0" on instance self\.bank[0].
+@N: FX493 |Applying initial value "0" on instance self\.reset_mem_done.
+@N: FX493 |Applying initial value "00000" on instance out\[1\][4:0].
+@N: FX493 |Applying initial value "00000" on instance out\[2\][4:0].
+@N: FX493 |Applying initial value "0" on instance key_on_pulse_p1.
+@N: FX493 |Applying initial value "000000" on instance effective_rate_p1[5:0].
+@N: FX493 |Applying initial value "0" on instance dam_p1.
+@N: FX493 |Applying initial value "000000" on instance am_val_p2[5:0].
+@A: FX681 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/operator/src/envelope_generator.sv":251:4:251:12|Initial value on register env_p3[8:0] is non-zero which can prevent the register from being packed into a block RAM or DSP.
+@N: FX493 |Applying initial value "111111111" on instance env_p3[8:0].
+@N: FX493 |Applying initial value "1000" on instance state_p1[3:0].
+@N: FX493 |Applying initial value "000" on instance out\[1\][2:0].
+@N: FX493 |Applying initial value "000" on instance out\[2\][2:0].
+@N: FX493 |Applying initial value "000" on instance out\[3\][2:0].
+@N: FX493 |Applying initial value "000" on instance out\[4\][2:0].
+@N: FX493 |Applying initial value "000" on instance out\[5\][2:0].
+@N: FX493 |Applying initial value "000" on instance out\[6\][2:0].
+@N: FX493 |Applying initial value "00000000000000000000" on instance genblk1\.genblk1\.dob_p2[19:0].
+@N: FX493 |Applying initial value "000" on instance out\[1\][2:0].
+@N: FX493 |Applying initial value "000" on instance out\[2\][2:0].
+@N: FX493 |Applying initial value "000" on instance out\[3\][2:0].
+@N: FX493 |Applying initial value "00000000000000000000" on instance hh_phase_friend[19:0].
+@N: FX493 |Applying initial value "00000000000000000000001" on instance rand_num[22:0].
+@N: FX493 |Applying initial value "0" on instance genblk1\.genblk1\.dob_p2[0].
+@N: FX493 |Applying initial value "000000000" on instance env_p4[8:0].
+@N: FX493 |Applying initial value "0000000000" on instance modulation_p2[9:0].
+@N: FX493 |Applying initial value "0" on instance is_odd_period_p3.
+@N: FX493 |Applying initial value "0" on instance prev_final_phase_msb_p3.
+@N: FX493 |Applying initial value "0" on instance is_odd_period_p4.
+@N: FX493 |Applying initial value "0" on instance prev_final_phase_msb_p4.
+@N: FX493 |Applying initial value "0" on instance is_odd_period_p5.
+@N: FX493 |Applying initial value "0" on instance is_odd_period_p6.
+@N: FX493 |Applying initial value "000000000" on instance tmp_ws7_p5[11:3].
+@N: FX493 |Applying initial value "00" on instance final_phase_p5[19:18].
+@N: FX493 |Applying initial value "00000000000000000000000000" on instance out\[2\][25:0].
+@N: FX493 |Applying initial value "00000000000000000000000000" on instance out\[3\][25:0].
+@N: FX493 |Applying initial value "00000000000000000000000000" on instance out\[4\][25:0].
+@N: FX493 |Applying initial value "00000000000000000000000000" on instance out\[5\][25:0].
+@N: FX493 |Applying initial value "00000000000000000000000000" on instance out\[6\][25:0].
+@N: FX493 |Applying initial value "000000" on instance connection_sel_p1[5:0].
+@N: FX493 |Applying initial value "0" on instance ryt_p1.
+@N: FX493 |Applying initial value "0" on instance ops_done_pulse.
+@N: FX493 |Applying initial value "0" on instance bd.
+@N: FX493 |Applying initial value "0" on instance dam.
+@N: FX493 |Applying initial value "0" on instance dvb.
+@N: FX493 |Applying initial value "0" on instance hh.
+@N: FX493 |Applying initial value "0" on instance nts.
+@N: FX493 |Applying initial value "0" on instance sd.
+@N: FX493 |Applying initial value "0" on instance tc.
+@N: FX493 |Applying initial value "0" on instance tom.
+@N: FX493 |Applying initial value "0" on instance bank_num_p1[0].
+@N: FX493 |Applying initial value "0" on instance use_feedback_p1.
+@N: FX493 |Applying initial value "0" on instance sample_valid_opl3_p1.
+@N: FX493 |Applying initial value "0000000000000000" on instance sample_opl3_l_p1[21:6].
+@N: FX493 |Applying initial value "0000000000000000" on instance sample_opl3_r_p1[21:6].
+@N: FX493 |Applying initial value "0" on instance channel_valid.
+@N: FX493 |Applying initial value "0" on instance self\.cnt_second.
+@N: FX493 |Applying initial value "0000000000000" on instance self\.operator_out_third[12:0].
+@N: FX493 |Applying initial value "000000" on instance connection_sel[5:0].
+@N: FX493 |Applying initial value "0" on instance is_new.
+
+Only the first 100 messages of id 'FX493' are reported. To see all messages use 'report_messages -log /home/user/openCologne/4.Advanced--4/First_Implementation/synlog/OPL3Test_First_Implementation_premap.srr -id FX493' in the Tcl shell. To see all messages in future runs, use the command 'message_override -limit {FX493} -count unlimited' in the Tcl shell.
+
+Starting HSTDM IP insertion (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 296MB peak: 296MB)
+
+
+Finished HSTDM IP insertion (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 296MB peak: 296MB)
+
+
+Started DisTri Cleanup (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 296MB peak: 296MB)
+
+
+Finished DisTri Cleanup (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 296MB peak: 296MB)
+
+@N: BN115 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/host_if/src/host_if.sv":120:6:120:14|Removing instance dout_sync (in view: work.host_if(verilog)) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\] (in view: work.pipeline_sr_1s_1s_2s_0s_0(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\] (in view: work.pipeline_sr_1s_1s_2s_0s_1(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\] (in view: work.pipeline_sr_1s_1s_2s_0s_3(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank_reset.sv":92:4:92:12|Removing sequential instance self\.reset_mem_done (in view: work.mem_multi_bank_reset_4s_18s_0s_8_2s_1s_2s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\] (in view: work.pipeline_sr_1s_1s_3s_0s_1(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\] (in view: work.pipeline_sr_1s_1s_3s_0s_0(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][0] (in view: work.pipeline_sr_5s_1s_3s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][1] (in view: work.pipeline_sr_5s_1s_3s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][2] (in view: work.pipeline_sr_5s_1s_3s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][3] (in view: work.pipeline_sr_5s_1s_3s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][4] (in view: work.pipeline_sr_5s_1s_3s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][0] (in view: work.pipeline_sr_6s_1s_3s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][1] (in view: work.pipeline_sr_6s_1s_3s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][2] (in view: work.pipeline_sr_6s_1s_3s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][3] (in view: work.pipeline_sr_6s_1s_3s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][4] (in view: work.pipeline_sr_6s_1s_3s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][5] (in view: work.pipeline_sr_6s_1s_3s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\] (in view: work.pipeline_sr_1s_1s_6s_0s_2(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\] (in view: work.pipeline_sr_1s_1s_6s_0s_1(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\] (in view: work.pipeline_sr_1s_1s_6s_0s_0(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][0] (in view: work.pipeline_sr_5s_1s_6s_0s_0(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][1] (in view: work.pipeline_sr_5s_1s_6s_0s_0(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][2] (in view: work.pipeline_sr_5s_1s_6s_0s_0(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][3] (in view: work.pipeline_sr_5s_1s_6s_0s_0(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][4] (in view: work.pipeline_sr_5s_1s_6s_0s_0(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][0] (in view: work.pipeline_sr_3s_1s_6s_0s_1(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\] (in view: work.pipeline_sr_1s_1s_2s_0s_9(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][13] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][14] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][15] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][16] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][17] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][18] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][19] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][20] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][21] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][22] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][23] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][24] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[6\][25] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\] (in view: work.pipeline_sr_1s_1s_2s_0s_10_1(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\] (in view: work.pipeline_sr_1s_1s_6s_0s_2(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][0] (in view: work.pipeline_sr_3s_1s_6s_0s_1(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][13] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][14] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][15] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][16] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][17] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][18] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][19] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][20] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][21] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][22] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][23] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][24] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[5\][25] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\] (in view: work.pipeline_sr_1s_1s_6s_0s_2(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][0] (in view: work.pipeline_sr_3s_1s_6s_0s_1(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][13] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][14] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][15] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][16] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][17] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][18] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][19] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][20] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][21] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][22] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][23] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][24] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[4\][25] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][0] (in view: work.pipeline_sr_3s_1s_6s_0s_1(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][13] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][14] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][15] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][16] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][17] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][18] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][19] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][20] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][21] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][22] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][23] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][24] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[3\][25] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][0] (in view: work.pipeline_sr_3s_1s_6s_0s_1(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][13] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][14] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][15] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][16] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][17] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][18] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][19] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][20] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][21] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][22] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][23] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][24] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[2\][25] (in view: work.pipeline_sr_26s_2s_6s_0s(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+@N: BN362 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/pipeline_sr.sv":54:4:54:12|Removing sequential instance out\[1\][0] (in view: work.pipeline_sr_3s_1s_6s_0s_1(verilog)) of type view:PrimLib.dffr(prim) because it does not drive other instances.
+Encoding state machine state[1:0] (in view: work.mem_multi_bank_reset_4s_18s_0s_8_2s_1s_2s(verilog))
+original code -> new code
+   00000000000000000000000000000000 -> 0
+   00000000000000000000000000000001 -> 1
+@N: MO225 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/mem_multi_bank_reset.sv":92:4:92:12|There are no possible illegal states for state machine state[1:0] (in view: work.mem_multi_bank_reset_4s_18s_0s_8_2s_1s_2s(verilog)); safe FSM implementation is not required.
+Encoding state machine state[8:0] (in view: work.channels(verilog))
+original code -> new code
+   00000000000000000000000000000000 -> 000000001
+   00000000000000000000000000000001 -> 000000010
+   00000000000000000000000000000010 -> 000000100
+   00000000000000000000000000000011 -> 000001000
+   00000000000000000000000000000100 -> 000010000
+   00000000000000000000000000000101 -> 000100000
+   00000000000000000000000000000110 -> 001000000
+   00000000000000000000000000000111 -> 010000000
+   00000000000000000000000000001000 -> 100000000
+
+Starting clock optimization phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 298MB peak: 298MB)
+
+
+mixed edge conversion for GCC is OFF
+
+Finished clock optimization phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 298MB peak: 298MB)
+
+
+Starting clock optimization report phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 298MB peak: 298MB)
+
+
+Finished clock optimization report phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 298MB peak: 298MB)
+
+@N: FX1184 |Applying syn_allowed_resources blockrams=208 on top level netlist opl3 
+
+Finished netlist restructuring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 298MB peak: 298MB)
+
+
+
+Clock Summary
+******************
+
+          Start             Requested     Requested     Clock        Clock          Clock
+Level     Clock             Frequency     Period        Type         Group          Load 
+-----------------------------------------------------------------------------------------
+0 -       opl3|clk          200.0 MHz     5.000         inferred     (multiple)     1364 
+                                                                                         
+0 -       opl3|clk_host     200.0 MHz     5.000         inferred     (multiple)     51   
+=========================================================================================
+
+
+
+Clock Load Summary
+***********************
+
+                  Clock     Source             Clock Pin                                Non-clock Pin     Non-clock Pin
+Clock             Load      Pin                Seq Example                              Seq Example       Comb Example 
+-----------------------------------------------------------------------------------------------------------------------
+opl3|clk          1364      clk(port)          leds.genblk1\.led_gen\[0\]\.led[0].C     -                 -            
+                                                                                                                       
+opl3|clk_host     51        clk_host(port)     host_if.address_p1[0].C                  -                 -            
+=======================================================================================================================
+
+@W: MT529 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/clks/src/reset_sync.sv":58:4:58:12|Found inferred clock opl3|clk which controls 1364 sequential elements including reset_sync.r2_0. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+@W: MT529 :"/home/user/openCologne/4.Advanced--4/1.hw/modules/misc/src/afifo.v":145:1:145:6|Found inferred clock opl3|clk_host which controls 51 sequential elements including host_if.afifo.wgray[6:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+
+ICG Latch Removal Summary:
+Number of ICG latches removed: 0
+Number of ICG latches not removed:	0
+
+
+@S |Clock Optimization Summary
+
+
+
+#### START OF PREMAP CLOCK OPTIMIZATION REPORT #####[
+
+2 non-gated/non-generated clock tree(s) driving 1140 clock pin(s) of sequential element(s)
+0 gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
+0 instances converted, 0 sequential instances remain driven by gated/generated clocks
+
+===================================== Non-Gated/Non-Generated Clocks =====================================
+Clock Tree ID     Driving Element     Drive Element Type     Fanout     Sample Instance                   
+----------------------------------------------------------------------------------------------------------
+@KP:ckid0_0       clk                 port                   1098       leds.genblk1\.led_gen\[3\]\.led[3]
+@KP:ckid0_1       clk_host            port                   42         host_if.wr_p2                     
+==========================================================================================================
+
+
+##### END OF CLOCK OPTIMIZATION REPORT ######
+
+
+Summary of user generated gated clocks:
+0 user generated gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
+
+@N: FX1143 |Skipping assigning INTERNAL_VREF to iobanks, because the table of mapping from pin to iobank is not initialized.
+Finished Pre Mapping Phase.
+
+Starting constraint checker (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 298MB peak: 298MB)
+
+
+Finished constraint checker preprocessing (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 298MB peak: 298MB)
+
+
+Finished constraint checker (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 298MB peak: 298MB)
+
+Pre-mapping successful!
+
+At Mapper Exit (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 298MB peak: 298MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Fri May 24 01:14:00 2024
+
+###########################################################]

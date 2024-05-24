@@ -1,0 +1,29 @@
+@N: CD630 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/gentmp4998HalnnJ":4:7:4:9|Synthesizing work.top.gen.
+@N: CD630 :"syng0xqBD74":71:7:71:12|Synthesizing work.cmp_eq.cell_level.
+@W: CD796 :"syng0xqBD74":94:11:94:18|Bit 3 of signal data_tmp is undriven. Possible simulation mismatch as initial value or default value is ignored. To avoid simulation mismatches, explicitly drive this bit. 
+@W: CD796 :"syng0xqBD74":94:11:94:18|Bit 4 of signal data_tmp is undriven. Possible simulation mismatch as initial value or default value is ignored. To avoid simulation mismatches, explicitly drive this bit. 
+@W: CD796 :"syng0xqBD74":94:11:94:18|Bit 5 of signal data_tmp is undriven. Possible simulation mismatch as initial value or default value is ignored. To avoid simulation mismatches, explicitly drive this bit. 
+@W: CD638 :"syng0xqBD74":105:8:105:9|Signal t1 is undriven. Either assign the signal a value or remove the signal declaration.
+@N: CD630 :"syng0xqBD74":8:7:8:16|Synthesizing work.eq_element.eqn.
+@W: CD280 :"syng0xqBD74":17:11:17:17|Unbound component MUXCY_L mapped to black box
+@N: CD630 :"syng0xqBD74":17:11:17:17|Synthesizing work.muxcy_l.syn_black_box.
+Post processing for work.muxcy_l.syn_black_box
+Running optimization stage 1 on MUXCY_L .......
+Finished optimization stage 1 on MUXCY_L (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 122MB)
+Post processing for work.eq_element.eqn
+Running optimization stage 1 on eq_element .......
+Finished optimization stage 1 on eq_element (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 122MB)
+Post processing for work.cmp_eq.cell_level
+Running optimization stage 1 on CMP_EQ .......
+Finished optimization stage 1 on CMP_EQ (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 122MB)
+Post processing for work.top.gen
+Running optimization stage 1 on top .......
+Finished optimization stage 1 on top (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 122MB)
+Running optimization stage 2 on MUXCY_L .......
+Finished optimization stage 2 on MUXCY_L (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 122MB)
+Running optimization stage 2 on eq_element .......
+Finished optimization stage 2 on eq_element (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 122MB)
+Running optimization stage 2 on CMP_EQ .......
+Finished optimization stage 2 on CMP_EQ (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 122MB)
+Running optimization stage 2 on top .......
+Finished optimization stage 2 on top (CPU Time 0h:00m:00s, Memory Used current: 122MB peak: 122MB)

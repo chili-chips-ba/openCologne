@@ -41,9 +41,10 @@
 #
 #******************************************************************************/
 
+`timescale 1ns / 1ps // Timescale missing on this module as other modules have it (IEEE 1800-2017 3.14.2.2)
+
 `ifndef __TOP_PKG__
 `define __TOP_PKG__
-
 
 package opl3_pkg;
     /*
