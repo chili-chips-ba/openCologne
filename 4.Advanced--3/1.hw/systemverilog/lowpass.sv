@@ -35,43 +35,42 @@
 // Description: <your text goes here>
 //========================================================================
 
-/*
------------------------------------------------------------------------------
-Module: lowpass
-Description:
+//-----------------------------------------------------------------------------
+// Module: lowpass
+// Description:
+//
+//
+// This module simulates a simple RC low-pass filter using a clock and enable signal to define the sampling frequency.
+// The low-pass frequency is determined by the ratio of input bits to output bits, adjusted by an attenuation factor.
+//
+// Lowpass frequency is:
+// f_lowpass = f_sampling / 2^(C_bits_out-C_bits_in)
+//
+// Time factor: RC = 2^(C_bits_out-C_bits_in)
+//
+// At each sample this iteration is done:
+// -sum = sum + data_in - sum/RC
+// -sum is connected to output
+//
+// RC low pass filter analogy: 
+// voltage difference between input signal and charged capacitor C makes a charging current through resistor R
+// sum = voltage of capacitor
+// data_in - sum/RC = charging current
+//
+// Inputs:
+// - clock: Clock signal.
+// - enable: Enable signal to reduce the sampling frequency.
+// - data_in: Input data signal.
+//
+// Outputs:
+// - data_out: Output data signal.
+//
+// Parameters:
+// - C_bits_in: Number of bits for the input signal (default is 12).
+// - C_attenuation: Attenuation factor, represented as a power of 2 (default is 0).
+// - C_bits_out: Number of bits for the output signal (default is 16).
+//-----------------------------------------------------------------------------
 
-
-This module simulates a simple RC low-pass filter using a clock and enable signal to define the sampling frequency.
-The low-pass frequency is determined by the ratio of input bits to output bits, adjusted by an attenuation factor.
-
-Lowpass frequency is:
-f_lowpass = f_sampling / 2^(C_bits_out-C_bits_in)
-
-Time factor: RC = 2^(C_bits_out-C_bits_in)
-
-At each sample this iteration is done:
--sum = sum + data_in - sum/RC
--sum is connected to output
-
-RC low pass filter analogy: 
-voltage difference between input signal and charged capacitor C makes a charging current through resistor R
-sum = voltage of capacitor
-data_in - sum/RC = charging current
-
-Inputs:
-- clock: Clock signal.
-- enable: Enable signal to reduce the sampling frequency.
-- data_in: Input data signal.
-
-Outputs:
-- data_out: Output data signal.
-
-Parameters:
-- C_bits_in: Number of bits for the input signal (default is 12).
-- C_attenuation: Attenuation factor, represented as a power of 2 (default is 0).
-- C_bits_out: Number of bits for the output signal (default is 16).
------------------------------------------------------------------------------
-*/
 
 module lowpass#(
    parameter integer BITS_IN = 12, // input bits, must be less than C_bits_out

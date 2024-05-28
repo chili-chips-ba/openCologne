@@ -1,3 +1,86 @@
+//======================================================================== 
+// openCologne * NLnet-sponsored open-source design ware for GateMate
+//------------------------------------------------------------------------
+//                   Copyright (C) 2024 Chili.CHIPS*ba
+// 
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions 
+// are met:
+//
+// 1. Redistributions of source code must retain the above copyright 
+// notice, this list of conditions and the following disclaimer.
+//
+// 2. Redistributions in binary form must reproduce the above copyright 
+// notice, this list of conditions and the following disclaimer in the 
+// documentation and/or other materials provided with the distribution.
+//
+// 3. Neither the name of the copyright holder nor the names of its 
+// contributors may be used to endorse or promote products derived
+// from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS 
+// IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED 
+// TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
+// PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+// HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//              https://opensource.org/license/bsd-3-clause
+//------------------------------------------------------------------------
+// Description: <your text goes here>
+//========================================================================
+
+// -----------------------------------------------------------------------
+// Description:
+// This module implements an RDS (Radio Data System) encoder with the
+// following features:
+// - Generates a 1.824 MHz clock strobe for RDS timing based on input
+//   clock frequency, multiply and divide parameters.
+// - Supports optional stereo mixing with 19 kHz pilot and 38 kHz subcarrier.
+// - Optionally applies a low-pass filter to the input audio to cut off
+//   frequencies above 17 kHz.
+// - Optionally downsamples the input audio to 38 kHz before stereo mixing.
+// - Provides debug outputs to check subcarrier phases.
+// - Uses DBPSK modulation for the RDS signal at 1187.5 Hz and 57 kHz
+//   subcarrier.
+// - Allows configuration of RDS message length and fine/coarse subcarrier
+//   generation.
+//
+// Inputs:
+// - clk: System clock, typically 25 MHz.
+// - reset: System reset signal.
+// - rds_msg_len: Length of the RDS message in bytes.
+// - data: Memory address for RDS message RAM.
+// - pcm_in_left: Input PCM audio signal for the left channel.
+// - pcm_in_right: Input PCM audio signal for the right channel.
+//
+// Outputs:
+// - addr: Address for reading data from RDS message RAM.
+// - out_l: Filtered output for debugging (left channel).
+// - out_r: Filtered output for debugging (right channel).
+// - debug: Debug output signal.
+// - pcm_out: Mixed audio output to FM transmitter.
+//
+// Parameters:
+// - RDS_CLOCK_MULTIPLY: Clock multiply factor for generating 1.824 MHz strobe.
+// - RDS_CLOCK_DIVIDE: Clock divide factor for generating 1.824 MHz strobe.
+// - STEREO: Enables stereo mixing if set to true.
+// - FILTER: Enables low-pass filtering of input audio if set to true.
+// - DOWNSAMPLE: Enables downsampling of input audio to 38 kHz if set to true.
+// - DEBUG: Enables debug outputs if set to true.
+// - ADDR_BITS: Number of address bits for RDS message RAM.
+// - FINE_SUBC: Enables fine subcarrier generation using sine and multiplier.
+//
+// Notes:
+// - This module assumes a system clock of 25 MHz. Adjust the clock multiply
+//   and divide parameters accordingly for different clock frequencies.
+//========================================================================
+
 module rds #(
    /*c_rds_msg_len: integer range 1 to 512 := 260; -- circlar message length in bytes
    we need to generate 1.824 MHz for RDS clock strobe
@@ -510,3 +593,13 @@ endmodule
    [x] when rds_msg_len = 0 disable RDS (only mono/stereo mixing)
    [x] compare rds with <= when size changes, it will reset if out of range
 */
+
+/*
+------------------------------------------------------------------------------
+Version History:
+------------------------------------------------------------------------------
+ 2024/5/27 TH: Initial creation
+ 2024/5/28 TH: Revision
+
+*/
+
