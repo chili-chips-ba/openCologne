@@ -38,3 +38,9 @@ CologneChip support:
    be within "issue" track, and not via emails
 
 ---------------------------------------------------------------
+Gatemate Chipscope
+   https://www.youtube.com/watch?v=TZblFccw4kg
+   https://github.com/colognechip/gatemate_ila
+   https://www.linkedin.com/posts/dave-fohrn-35284026a_open-source-gatemate-ila-demo-on-the-cologne-activity-7201107083293851648-os2B?utm_source=share&utm_medium=member_desktop
+   
+---------------------------------------------------------------
