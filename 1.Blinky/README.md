@@ -44,7 +44,7 @@ The Cologne Chip Place & Route tool loads the Verilog netlist from the net direc
 
 To run the implementation, use:
 
-`make_impl`
+`make impl`
 ## Post-Synthesis Simulation
 
 `make impl_sim`
