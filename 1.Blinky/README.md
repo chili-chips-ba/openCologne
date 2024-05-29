@@ -21,6 +21,8 @@ Install the latest version of openFPGALoader from [here](https://trabucayre.gith
 
 Ensure you are in the desired project directory where all configuration files and the makefile are located in the 3.build directory.
 
+**Note** Make sure to uncomment and adapt this line "export CC_TOOL=/path/to/cc-toolchain-linux" in makefile of your project.
+
 ## Synthesis
 To run synthesis for the Verilog file, use the following command:
 
