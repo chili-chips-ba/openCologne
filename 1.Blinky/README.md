@@ -102,6 +102,6 @@ Changing the permissions of a USB device file to 666 (read and write for everyon
 
 Finally, to program the board, you can use:
 
-`$ openFPGALoader -b gatemate_evb_jtag --cable dirtyJtag --bitstream blink_00.cfg.bit`
+`$ sudo openFPGALoader -b gatemate_evb_jtag --cable dirtyJtag --bitstream blink_00.cfg.bit`
 
 **<h3>  End of Document </h3>** 
