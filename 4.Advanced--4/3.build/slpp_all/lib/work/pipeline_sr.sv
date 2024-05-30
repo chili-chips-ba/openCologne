@@ -42,7 +42,7 @@
 `default_nettype none
 
 module pipeline_sr #(
-    parameter DATA_WIDTH = 1,
+    parameter DATA_WIDTH = 0,
     parameter STARTING_CYCLE = 1,
     parameter ENDING_CYCLE = 1,
     parameter POR_VALUE = 0 // power on reset value of pipeline registers
