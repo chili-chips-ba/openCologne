@@ -32,72 +32,73 @@
 //
 //              https://opensource.org/license/bsd-3-clause
 //------------------------------------------------------------------------
-// Description: <your text goes here>
+// Description: bram_rds Module
+//------------------------------------------------------------------------
+// Module: bram_rds
+// Description:
+// Parameters:
+// Inputs:
+// Outputs:
 //========================================================================
 
-/*
------------------------------------------------------------------------------
-Module: FIR
-Description:
-Parameters:
-Inputs:
-Outputs:
+import message::*;
 
------------------------------------------------------------------------------
-*/
-
-module FIR#(
-   parameter integer BITS_X = 12, // external IN/OUT port bits
-   parameter integer FIR_STAGES = 16  // number of history stages for the FIR sum
+module bram_rds#(
+   parameter int MEM_BYTES = 260, // bytes
+   parameter int ADDR_BITS = 9 // adress bits of BRAM
 )(
-   input  logic clock,
-   input  logic enable = 1'b1,
-   input  logic reset = 1'b0,
-   input  logic [BITS_X-1:0] data_in,
-   output logic [BITS_X-1:9] data_out 
+   input  logic                 clk,
+   input  logic [ADDR_BITS-1:0] imem_addr,
+   input  logic                 dmem_write,
+   input  logic [ADDR_BITS-1:0] dmem_addr,
+   input  logic [7:0]           dmem_data_in,
+   output logic [7:0] imem_data_out,
+   output logic [7:0] dmem_data_out 
 );
 
-   // function integer ceiling log2
-   // returns how many bits are needed to represent a number of states
-   // example ceil_log2(255) = 8,  ceil_log2(256) = 8, ceil_log2(257) = 9
 
-   function automatic int ceil_log2(input int x);
-      int result;
-      real log_value;
+   typedef logic [7:0] bram_type [0:MEM_BYTES-1];
+
+   logic [7:0] ibram_0;
+   logic [7:0] dbram_0;
+
+   // Function to convert initial RDS message type to bram_type
+   function bram_type init_bram(input rds_msg_type x, input int lmax);
+      int i, n;
+      bram_type y;
       begin
-         if(x <= 0)begin
-            result = 0;
-         end else begin
-            log_value = $ln(x + 1.0E-6) / $ln(2.0) - 1.0E-6;
-            result = $ceil(log_value);
+         n = 52; // Fixed size of the rds_msg_type array
+         if (n > lmax) n = lmax;
+         for(i = 0; i < n; i++) begin
+            y[i] = x[i];
          end
-         return result;
-      end   
+		 for(i = n; i < lmax; i++) begin
+            y[i] = 8'h00; // Initialize remaining elements to 0
+         end
+         return y;
+      end
    endfunction
 
-   localparam int BITS_I = BITS_X + ceil_log2(FIR_STAGES); // internal sum bits: log2(16) = 4
-   typedef logic signed [BITS_I-1:0] d_t [FIR_STAGES-1:0];
-   d_t d;
-   logic signed[BITS_I-BITS_X-1:0] sign_expand;
-   logic signed[BITS_I-1:0] sum;
+   // TODO: Check when to initialize, maybe with reset?
+   (*ram_style = "block" *)bram_type bram_0 = init_bram(rds_msg_map, MEM_BYTES);
 
-   always_ff@(posedge clock or posedge reset) begin
-      if(reset == 1'b1) begin
-         d <= '{default: '0};
-         sum <= '0;
-         data_out <= '0;
-      end else if(enable == 1'b1) begin
-      /*
-         shifting
-         for i in 1 to d'length-1 loop
-            d(i) <= d(i-1);
-         end loop;
-         sign_expand <= (others => data_in(C_bits_x-1));
-         d(0) <= sign_expand & data_in; -- fill up MSB bits
-         sum <= sum + d(0) - d(C_fir_stages-1); -- add first entry, subtract last*/   
-         sum <= sum + (data_in - sum[BITS_I-1:BITS_I-BITS_X]);
-         data_out <= sum[BITS_I-1:BITS_I-BITS_X];
-         // data_out <= sum   
+
+   always_comb begin
+      dmem_data_out = dbram_0;
+      imem_data_out <= ibram_0;
+   end
+
+   always_ff @(posedge clk) begin
+      if (dmem_write == 1'b1) begin
+         // bram_0(conv_integer(dmem_addr)) <= dmem_data_in(7 downto 0);
       end
-   end 
+         // dbram_0 <= bram_0(conv_integer(dmem_adrr));
+         ibram_0 <= bram_0[imem_addr];
+   end
 endmodule
+/*
+Version History:
+-----------------------------------------------------------------------------
+2024/5/30 TH: Initial creation
+-----------------------------------------------------------------------------
+*/
