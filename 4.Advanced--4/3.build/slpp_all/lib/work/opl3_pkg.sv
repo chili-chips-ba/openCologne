@@ -41,6 +41,7 @@
 #
 #******************************************************************************/
 
+`timescale 1ns / 1ps // Timescale missing on this module as other modules have it (IEEE 1800-2017 3.14.2.2)
 
 
 
