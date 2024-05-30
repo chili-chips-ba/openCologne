@@ -32,76 +32,37 @@
 //
 //              https://opensource.org/license/bsd-3-clause
 //------------------------------------------------------------------------
-// Description: <your text goes here>
+// Description: message_ps module
+//------------------------------------------------------------------------
+// Module: message_ps
+// Description:
+// Parameters:
+// Inputs:
+// Outputs:
 //========================================================================
 
-/*
------------------------------------------------------------------------------
-Module: lowpass
-Description:
+package message;
 
+    typedef logic [7:0] rds_msg_type [0:51];
 
-This module simulates a simple RC low-pass filter using a clock and enable signal to define the sampling frequency.
-The low-pass frequency is determined by the ratio of input bits to output bits, adjusted by an attenuation factor.
+    // PI=0xCAFE
+    // STEREO=No
+    // TA=No
+    // AF=107.9 MHz
+    // PS="TEST1234"
+    const rds_msg_type rds_msg_map = '{
+        8'hca, 8'hfe, 8'ha0, 8'h01, 8'h00, 8'h2e, 8'h8e, 8'h1c, 8'hc2, 8'h31, 8'h51, 8'h15, 8'hfb,
+        8'hca, 8'hfe, 8'ha0, 8'h01, 8'h00, 8'h75, 8'h1c, 8'hdc, 8'hda, 8'hcd, 8'h4d, 8'h51, 8'he9,
+        8'hca, 8'hfe, 8'ha0, 8'h01, 8'h00, 8'h99, 8'hac, 8'hdc, 8'hda, 8'hcc, 8'hc4, 8'hcb, 8'hc6,
+        8'hca, 8'hfe, 8'ha0, 8'h01, 8'h00, 8'hc2, 8'h3c, 8'hdc, 8'hda, 8'hcc, 8'hcc, 8'hd2, 8'h51,
+        8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00
+    };
 
-Lowpass frequency is:
-f_lowpass = f_sampling / 2^(C_bits_out-C_bits_in)
-
-Time factor: RC = 2^(C_bits_out-C_bits_in)
-
-At each sample this iteration is done:
--sum = sum + data_in - sum/RC
--sum is connected to output
-
-RC low pass filter analogy: 
-voltage difference between input signal and charged capacitor C makes a charging current through resistor R
-sum = voltage of capacitor
-data_in - sum/RC = charging current
-
-Inputs:
-- clock: Clock signal.
-- enable: Enable signal to reduce the sampling frequency.
-- data_in: Input data signal.
-
-Outputs:
-- data_out: Output data signal.
-
-Parameters:
-- C_bits_in: Number of bits for the input signal (default is 12).
-- C_attenuation: Attenuation factor, represented as a power of 2 (default is 0).
-- C_bits_out: Number of bits for the output signal (default is 16).
------------------------------------------------------------------------------
-*/
-
-module lowpass#(
-   parameter integer BITS_IN = 12, // input bits, must be less than C_bits_out
-   parameter integer ATTENUATION = 0, // attenuation factor 2^n 
-   parameter integer BITS_OUT = 16 // output bits(integrator sum)
-)(
-   input  logic clock, // can run at high freq (CPU)
-   input  logic enable, // enable signal is a way to reduce sampling frequency
-   input  logic signed [BITS_IN -1:0] data_in,
-   output logic signed [BITS_OUT-1:0] data_out
-);
-
- reg signed [BITS_IN -1:0] r_data_in;
- reg signed [BITS_OUT-1:0] sum;
-
-always_ff @(posedge clock) begin
-   
-   if(enable == 1'b1) begin
-      r_data_in <= data_in;
-      sum <= (sum + (r_data_in >>> ATTENUATION)) - (sum >>> 2**(BITS_OUT-BITS_IN));
-      data_out <= sum;
-   end
-end
-endmodule
-
+endpackage
 /*
 ------------------------------------------------------------------------------
 Version History:
 ------------------------------------------------------------------------------
- 2024/5/27 TH: Initial creation
+ 2024/5/29 TH: Initial creation
 
 */
-

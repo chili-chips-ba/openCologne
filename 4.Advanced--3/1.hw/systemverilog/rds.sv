@@ -161,7 +161,7 @@ module rds #(
    typedef logic[5:0] sixbit_t;
    typedef logic[ADDR_BITS-1:0] addrbit_t;
 
-   sibit_t R_rds_cdiv; // 6 bit divisor 0..47
+   sixbit_t R_rds_cdiv; // 6 bit divisor 0..47
    logic signed [DBPSK_BITS-1:0] R_rds_pcm; // 7 bit ADC value for RDS waveform 
    addrbit_t R_rds_msg_index; // addr index for message
    localparam addrbit_t C_rds_msg_disable = '0; // message len -1 disables
@@ -170,7 +170,7 @@ module rds #(
    logic R_rds_bit; // current bit to send
    logic S_rds_bit; // current bit to send
    logic R_rds_phase; // current phase 0:(+) 1:(-)
-   counter_t R_rds_counter;; // 5-bit wav counter 0..31
+   counter_t R_rds_counter; // 5-bit wav counter 0..31
    logic S_rds_sign; // current sign of waveform 0:(+) 1:(-)
    logic [5:0] S_dbpsk_wav_index; // 6-bit index 0..63
    logic signed [DBPSK_BITS-1:0] S_dbpsk_wav_value;
@@ -214,7 +214,7 @@ module rds #(
    logic S_rds_strobe; // 1.824 MHz strobe signal
 
 
-   always_ff @(posedge clk) begin
+   /*always_ff @(posedge clk) begin
       if (reset == 1'b1) begin
          R_rds_counter <= '0;
          R_pilot_counter <= '0;
@@ -224,7 +224,7 @@ module rds #(
          S_stereo_pcm <= '0;
          S_pilot_pcm <= '0;
       end
-   end
+   end*/
 
    /* generate 1.824 MHz RDS clock strobe
       from this frequency we can generate
@@ -602,4 +602,3 @@ Version History:
  2024/5/28 TH: Revision
 
 */
-
