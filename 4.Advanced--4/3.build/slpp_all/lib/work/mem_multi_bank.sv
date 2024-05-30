@@ -42,11 +42,11 @@
 `default_nettype none
 
 module mem_multi_bank #(
-    parameter DATA_WIDTH = 3,
-    parameter DEPTH = 2,
+    parameter DATA_WIDTH = 0,
+    parameter DEPTH = 0,
     parameter OUTPUT_DELAY = 0, // 0, 1, or 2
     parameter DEFAULT_VALUE = 0,
-    parameter NUM_BANKS = 1,
+    parameter NUM_BANKS = 0,
     parameter BANK_WIDTH = $clog2(NUM_BANKS)
 ) (
     input wire clk,

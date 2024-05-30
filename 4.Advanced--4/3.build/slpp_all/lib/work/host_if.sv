@@ -89,7 +89,9 @@ module host_if
 		.i_wr_reset_n(ic_n),
 		.i_wr(wr_p1 && !wr_p2),
 		.i_wr_data({address_p1, din_p1}),
+        /* verilator lint_off PINCONNECTEMPTY */
 		.o_wr_full(),
+        /* verilator lint_on PINCONNECTEMPTY */
 		.i_rclk(clk),
 		.i_rd_reset_n(!reset),
 		.i_rd(!opl3_fifo_empty),
