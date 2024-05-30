@@ -1,3 +1,45 @@
+//======================================================================== 
+// openCologne * NLnet-sponsored open-source design ware for GateMate
+//------------------------------------------------------------------------
+//                   Copyright (C) 2024 Chili.CHIPS*ba
+// 
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions 
+// are met:
+//
+// 1. Redistributions of source code must retain the above copyright 
+// notice, this list of conditions and the following disclaimer.
+//
+// 2. Redistributions in binary form must reproduce the above copyright 
+// notice, this list of conditions and the following disclaimer in the 
+// documentation and/or other materials provided with the distribution.
+//
+// 3. Neither the name of the copyright holder nor the names of its 
+// contributors may be used to endorse or promote products derived
+// from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS 
+// IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED 
+// TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
+// PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+// HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//              https://opensource.org/license/bsd-3-clause
+//------------------------------------------------------------------------
+// Description: fmgen Module
+//------------------------------------------------------------------------
+// Module: fmgen
+// Description:
+// Parameters:
+// Inputs:
+// Outputs:
+//========================================================================
 module fmgen#(
    parameter logic             USE_PCM_IN = 1,
    parameter int               FM_ACCLEN = 28, 
@@ -32,15 +74,16 @@ module fmgen#(
    logic signed [31:0]          C_dds_mul_y;
    logic signed [63:0]          R_dds_mul_res;
 
-   initial begin // TODO: Check if this is okay, 2 WARNINGS
+   initial begin // TODO: Check if this is okay: Warning for real to signed conversion
       C_dds_mul_y = $signed($floor((2.0**30 / FDDS) * 2.0**28));
    end
 
    always_comb R_pcm_ac = pcm_in - R_pcm_avg; // subtract average to remove DC offset
    generate
       if(REMOVE_DC) begin: remove_dc_offset
+         fourbit_t R_clk_div; 
+         // delta not defined because it is unused
          always_ff @(posedge clk_pcm) begin
-            static logic [3:0] R_clk_div = '0;
             R_clk_div <= fourbit_t'(R_clk_div + fourbit_t'(1));
             if (R_clk_div == 4'b0000) begin
                if(R_pcm_ac > '0) begin
@@ -65,12 +108,21 @@ module fmgen#(
    
    always_ff@ (posedge clk_dds) begin
       // Cross clock domains
-      R_dds_mul_x2 <= R_dds_mul_x1;
+      R_dds_mul_x2  <= R_dds_mul_x1;
       R_dds_mul_res <= R_dds_mul_x2 * C_dds_mul_y;
-      fm_inc <= R_dds_mul_res[57:58-FM_ACCLEN];
-      fm_acc <= fm_acc + fm_inc;
+      fm_inc        <= R_dds_mul_res[57:58-FM_ACCLEN];
+      fm_acc        <= fm_acc + fm_inc;
    end
 
    always_comb fm_out = fm_acc[FM_ACCLEN-1];
  
 endmodule
+
+/*
+------------------------------------------------------------------------------
+Version History:
+------------------------------------------------------------------------------
+ 2024/5/28 TH: Initial creation
+ 2024/5/30 TH: Fixed Error on declaration of R_clk_div
+
+*/
