@@ -32,30 +32,20 @@
 //
 //              https://opensource.org/license/bsd-3-clause
 //------------------------------------------------------------------------
-// Description: FIR Filter Module
-//------------------------------------------------------------------------
-// Module: FIR
-// Description:
-//
-// Parameters:
-// - BITS_X: Number of bits for the input and output signal (default is 12).
-// - FIR_STAGES: Number of history stages for the FIR sum (default is 16).
-//
-// Inputs:
-// - clock: Clock signal.
-// - enable: Enable signal to control the FIR operation (default is 1).
-// - reset: Reset signal to initialize the filter (default is 0).
-// - data_in: Input data signal (signed).
-//
-// Outputs:
-// - data_out: Output data signal (signed).
-//
-// Internal Function:
-// - ceil_log2: A function to compute the ceiling of the base-2 logarithm of an integer, 
-//   used to determine the number of bits required for internal calculations.
-//
-//
+// Description: <your text goes here>
 //========================================================================
+
+/*
+-----------------------------------------------------------------------------
+Module: FIR
+Description:
+Parameters:
+Inputs:
+Outputs:
+
+-----------------------------------------------------------------------------
+*/
+
 module FIR#(
    parameter integer BITS_X = 12, // external IN/OUT port bits
    parameter integer FIR_STAGES = 16  // number of history stages for the FIR sum
@@ -111,12 +101,3 @@ module FIR#(
       end
    end 
 endmodule
-
-/*
-------------------------------------------------------------------------------
-Version History:
-------------------------------------------------------------------------------
- 2024/5/28 TH: Initial creation
-
-*/
-
