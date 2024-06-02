@@ -34,9 +34,9 @@
 #------------------------------------------------------------------------
 # Description: 
 # Gatemate E1 evaluation board hardware pin constraints
-# file: GateMateA1-EVB_adapted.ccf
+# file: GateMateA1-EVB.ccf
 =======
-## file: GateMateA1-EVB_adapted.ccf
+## file: GateMateA1-EVB.ccf
 ##
 ## Gatemate A1-EVB Olimex board hardware pin constraints
 ## #######################################################
@@ -98,5 +98,5 @@ Pin_out "rgb[10]" Loc = "IO_WB_A3";
 Pin_out "rgb[11]" Loc = "IO_WB_B3";
 
 ## #######################################################
-## End of hardware constraints GateMateA1-EVB_adapted.ccf
+## End of hardware constraints GateMateA1-EVB.ccf
 ## #######################################################
