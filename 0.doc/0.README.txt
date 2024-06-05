@@ -4,6 +4,7 @@ Our Inspirations:
    https://aignacio.com/posts/hdls/mpsoc_riscv
    https://github.com/trabucayre/GateMate_demos/tree/main/colorBarDVI
    https://github.com/goran-mahovlic/apple-one/tree/master/boards/olimex_gatemate
+   https://github.com/TurboVega/ogege/tree/cpu
    https://github.com/betrusted-io/betrusted-soc
    
 ---------------------------------------------------------------
