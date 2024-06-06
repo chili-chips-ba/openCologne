@@ -21,6 +21,8 @@ Install the latest version of openFPGALoader from [here](https://trabucayre.gith
 
 Ensure you are in the desired project directory where all configuration files and the makefile are located in the 3.build directory.
 
+**Note** Make sure to uncomment and adapt this line "export CC_TOOL=/path/to/cc-toolchain-linux" in makefile of your project.
+
 ## Synthesis
 To run synthesis for the Verilog file, use the following command:
 
@@ -44,7 +46,7 @@ The Cologne Chip Place & Route tool loads the Verilog netlist from the net direc
 
 To run the implementation, use:
 
-`make_impl`
+`make impl`
 ## Post-Synthesis Simulation
 
 `make impl_sim`
@@ -102,6 +104,6 @@ Changing the permissions of a USB device file to 666 (read and write for everyon
 
 Finally, to program the board, you can use:
 
-`$ openFPGALoader -b gatemate_evb_jtag --cable dirtyJtag --bitstream blink_00.cfg.bit`
+`$ sudo openFPGALoader -b gatemate_evb_jtag --cable dirtyJtag --bitstream blink_00.cfg.bit`
 
 **<h3>  End of Document </h3>** 

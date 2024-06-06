@@ -81,7 +81,7 @@ module env_rate_counter
         .ENDING_CYCLE(PIPELINE_DELAY)
     ) sample_clk_en_sr (
         .clk,
-        .in(sample_clk_en),
+        .in(sample_clk_en), 
         .out(sample_clk_en_p)
     );
 

@@ -15,6 +15,9 @@ SIM_DIR = $(CURDIR)
 HW_SRC  := $(SIM_DIR)/../1.hw
 SW_SRC  := $(SIM_DIR)/../2.sw
 
+SYSTEM_INCLUDE := /home/user/FPGA/tools/systemc-2.3.3/include
+SYSTEM_LIBDIR := /home/user/FPGA/tools/systemc-2.3.3/lib-linux64
+
 ifneq ($(words $(CURDIR)),1)
  $(error Unsupported: GNU Make cannot build in directories containing spaces, build elsewhere: '$(CURDIR)')
 endif
@@ -58,7 +61,19 @@ VERILATOR_FLAGS += --coverage
 # Run make to compile model, with as many CPUs as are free
 VERILATOR_FLAGS += --build -j
 VERILATOR_FLAGS += --timescale 1ns/1ps
+# Warnings Ignore 
 VERILATOR_FLAGS += -Wno-TIMESCALEMOD
+VERILATOR_FLAGS += -Wno-WIDTH
+VERILATOR_FLAGS += -Wno-UNOPTFLAT
+VERILATOR_FLAGS += -Wno-CASEINCOMPLETE
+VERILATOR_FLAGS += -Wno-LITENDIAN
+VERILATOR_FLAGS += -Wno-UNDRIVEN
+VERILATOR_FLAGS += -Wno-VARHIDDEN
+VERILATOR_FLAGS += -Wno-IMPORTSTAR
+VERILATOR_FLAGS += -Wno-REALCVT
+
+VERILATOR_FLAGS += -CFLAGS "-I$(SYSTEM_INCLUDE) -DVL_TIME_CONTEXT" \
+                   -LDFLAGS "-L$(SYSTEM_LIBDIR) -lsystemc"
 # Run Verilator in debug mode
 #VERILATOR_FLAGS += --debug
 # Add this trace to get a backtrace in gdb
