@@ -4,6 +4,7 @@ Our Inspirations:
    https://aignacio.com/posts/hdls/mpsoc_riscv
    https://github.com/trabucayre/GateMate_demos/tree/main/colorBarDVI
    https://github.com/goran-mahovlic/apple-one/tree/master/boards/olimex_gatemate
+   https://github.com/TurboVega/ogege/tree/cpu
    https://github.com/betrusted-io/betrusted-soc
    
 ---------------------------------------------------------------
@@ -37,4 +38,10 @@ CologneChip support:
    with link to the "issue". All further discussion thereafter need to
    be within "issue" track, and not via emails
 
+---------------------------------------------------------------
+Gatemate Chipscope
+   https://www.youtube.com/watch?v=TZblFccw4kg
+   https://github.com/colognechip/gatemate_ila
+   https://www.linkedin.com/posts/dave-fohrn-35284026a_open-source-gatemate-ila-demo-on-the-cologne-activity-7201107083293851648-os2B?utm_source=share&utm_medium=member_desktop
+   
 ---------------------------------------------------------------

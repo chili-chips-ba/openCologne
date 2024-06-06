@@ -1,6 +1,7 @@
-#include "Vtop.h"             // This is the Verilator-generated model class for your top module.
+#include "Vopl3.h"             // This is the Verilator-generated model class for your top module.
 #include "verilated.h"        // Includes basic Verilator utilities
 #include "verilated_vcd_c.h"  // If you want VCD waveform output
+#include "systemc.h"
 
 int main(int argc, char** argv, char** env) {
     if (false && argc && argv && env) {}  // Prevent unused variable warnings
@@ -8,41 +9,23 @@ int main(int argc, char** argv, char** env) {
     Verilated::traceEverOn(true);        // Enable waveform tracing
 
     // Create an instance of the top module.
-    Vtop* top = new Vtop;
+    Vopl3* opl3 = new Vopl3;
 
     // Create a VCD trace file
-    VerilatedVcdC* vcd = new VerilatedVcdC;
-    top->trace(vcd, 99);  // Trace 99 levels of hierarchy
-    vcd->open("top.vcd"); // Open the VCD file for dumping
+    //VerilatedVcdC* vcd = new VerilatedVcdC;
+    //opl3->trace(vcd, 99);  // Trace 99 levels of hierarchy
+    //vcd->open("opl3.vcd"); // Open the VCD file for dumping
 
     // Simulation main loop
     for (int i = 0; i < 100; i++) {
         // Toggle clock and evaluate
-        top->clk = !top->clk;  // Toggle the clock input
-        top->eval();           // Evaluate the model
-
-        // Dump VCD waveform trace
-        vcd->dump(i * 10 - 2); // Dump the negative edge at a time slightly before the actual edge
-        top->eval();           // Evaluate the model at clock edge
-        vcd->dump(i * 10);     // Dump the positive or negative edge
-
-        // Additional stimulus: add your code here to modify inputs
-        if (i == 10) {
-            top->reset = 1;   // Assert reset
-        } else if (i == 15) {
-            top->reset = 0;   // De-assert reset
-        }
-
-        top->eval();           // Evaluate the model after changing inputs
-        vcd->dump(i * 10 + 5); // Dump midway through the cycle
-        vcd->flush();          // Flush any pending waveform data
+        opl3->clk = !opl3->clk;  // Toggle the clock input
+        opl3->eval();           // Evaluate the model
     }
 
     // Final model evaluation at end of simulation
-    top->final();
-    vcd->close();  // Close the VCD file
-    delete top;    // Cleanup the top instance
-    delete vcd;    // Cleanup VCD trace
+    opl3->final();
+    delete opl3;    // Cleanup the top instance
 
     return 0;
 }
