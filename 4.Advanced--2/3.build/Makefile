@@ -32,7 +32,7 @@ CELLS_SYNTH = $(CC_TOOL)/bin/yosys/share/gatemate/cells_sim.v
 CELLS_IMPL = $(CC_TOOL)/bin/p_r/cpelib.v
 
 # Project Configuration
-TOP = blink# Define TOP MODULE here
+TOP = top8x8# Define TOP MODULE here
 CONSTR = $(TOP).ccf
 PRFLAGS += -ccf $(TOP).ccf -cCP
 
@@ -57,7 +57,7 @@ synth_vhdl: $(VHDL_SRC)
 	$(YOSYS) -ql log/synth.log -p 'ghdl --warn-no-binding -C --ieee=synopsys $^ -e $(TOP); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
 
 impl:
-	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf blink.ccf -cCP > log/$@.log
+	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf $(TOP).ccf -cCP > log/$@.log
 
 jtag:
 	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag $(TOP)_00.cfg
