@@ -21,7 +21,7 @@ Install the latest version of openFPGALoader from [here](https://trabucayre.gith
 
 Ensure you are in the desired project directory where all configuration files and the makefile are located in the 3.build directory.
 
-**Note** Make sure to uncomment and adapt this line "export CC_TOOL=/path/to/cc-toolchain-linux" in makefile of your project.
+**Note**: Make sure to uncomment and adapt this line "export CC_TOOL="/path/to/cc-toolchain-linux"" in makefile of your project.
 
 ## Synthesis
 To run synthesis for the Verilog file, use the following command:
@@ -40,7 +40,7 @@ Then, to view the waveform in the third-party simulator, use:
 
 `make wave`
 
-**Note** For this example, for the simulation, the simplified `CC_PLL` module from the `blink_tb.v` file needs to be present.
+**Note**: For this example, for the simulation, the simplified `CC_PLL` module from the `blink_tb.v` file needs to be present.
 ## Place & Route
 The Cologne Chip Place & Route tool loads the Verilog netlist from the net directory. Constraints for pin assignments or CPE pre-placement are set with the CCF file in the src directory.
 
@@ -60,7 +60,10 @@ The resulting VCD file can be opened with any waveform viewer:
 
 ## Programming the Board
 ### Linux
-To program the board, use the following command:
+It is important to use the latest version of openFPGALoader as specified above. If you specify in the makefile your path to the latest openFPGALoader in the variable `OFL` you can program the board by running the following command:
+`make jtag`
+
+The above command is just running the command below:
 
 `openFPGALoader -b gatemate_evb_jtag --cable dirtyJtag --bitstream blink_00.cfg.bit`
 ### WSL
