@@ -6,7 +6,7 @@ import unittest
 
 from amaranth.build import *
 from amaranth.vendor import GateMatePlatform
-from amaranth_boards.resources import *
+from .resources import *
 
 __all__ = [
     "GateMate_A1_EVB"
@@ -17,7 +17,7 @@ class _GateMate_A1_EVB(GateMatePlatform):
     default_clk            = "CLK0"
 
     resources = [
-        Resource("CLK0", 0, Pins("IO_SB_A8", dir = "i"), Clock(12e6), Attrs()),
+        Resource("CLK0", 0, Pins("IO_SB_A8", dir = "i"), Clock(12e6), Attrs(SCHMITT_TRIGGER="true")),
 
         *LEDResources(pins = "IO_SB_B6", attrs=Attrs())  
     ]
