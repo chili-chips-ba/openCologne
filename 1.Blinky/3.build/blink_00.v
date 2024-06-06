@@ -1,8 +1,8 @@
 //  (c) Cologne Chip AG
 //  FPGA Verilog netlist writer     Version: Version 4.2 (1 May 2024)
 //  Compile Time: 2024-05-10 11:57:45
-//  Program Run:  2024-05-20 22:18:50
-//  Program Call: /home/user/FPGA/GateMate/cc-toolchain-linux/bin/p_r/p_r -i net/blink_synth.v -o blink -ccf blink.ccf -cCP 
+//  Program Run:  2024-05-26 16:19:56
+//  Program Call: /home/ahmed/cc-toolchain-linux//bin/p_r/p_r -i net/blink_synth.v -o blink -ccf blink.ccf -cCP 
 //  File Type:    Verilog
 
 // Gatecount:     32
