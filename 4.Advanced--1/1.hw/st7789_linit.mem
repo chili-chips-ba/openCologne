@@ -1,0 +1,29 @@
+// ST7789 init lcd_video (display mounted pins down)
+// image normal (no flip)
+// 2+3+4+3+2*6+3*3+2 = 35 bytes
+//
+// Some displays won't initialize for the first time after power up.
+// workaround: 0.5s after 1st reset pulse, 2nd reset pulse.
+//
+// first action is to wait (no command)
+// after reset, delay 2^17 us = 131ms before sending commands
+80 11
+// send command byte, optional data and optional wait
+// SLPOUT, 0-param, delay 2^17 us = 131ms
+11 80 11
+// COLMOD, 16-bit color, 1-param, delay 2^14 us = 16ms
+3A 81  55  0E
+// MADCTL, 1-param
+36 01  C0
+// CASET X, 4-param, start MSB,LSB end MSB,LSB
+2A 04  00 00  00 EF
+// RASET Y, 4-param, start MSB,LSB end MSB,LSB
+2B 04  00 50  01 3F
+// INVON, 0-param, delay 2^14 us = 16ms
+21 80 0E
+// NORON, 0-param, delay 2^14 us = 16ms
+13 80 0E
+// DISPON, 0-param, delay 2^14 us = 16ms
+29 80 0E
+// RAMWR, 0-param
+2C 00
