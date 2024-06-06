@@ -43,11 +43,11 @@
 /* altera message_off 10230 */
 
 module mem_multi_bank_reset #(
-    parameter DATA_WIDTH = 3,
-    parameter DEPTH = 3,
+    parameter DATA_WIDTH = 0,
+    parameter DEPTH = 0,
     parameter OUTPUT_DELAY = 0, // 0, 1, or 2
     parameter DEFAULT_VALUE = '0,
-    parameter NUM_BANKS = 1,
+    parameter NUM_BANKS = 0,
     parameter BANK_WIDTH = $clog2(NUM_BANKS)
 ) (
     input wire clk,
@@ -67,7 +67,9 @@ module mem_multi_bank_reset #(
 
     logic [NUM_BANKS-1:0] wea_array;
     logic [DATA_WIDTH-1:0] dob_array [NUM_BANKS];
-    logic [PIPELINE_DELAY:1] [BANK_WIDTH-1:0] bankb_p;
+    logic [PIPELINE_DELAY-1:0] [BANK_WIDTH-1:0] bankb_p;
+    // Changed from logic [PIPELINE_DELAY:1] [BANK_WIDTH-1:0] bankb_p to logic [PIPELINE_DELAY-1:0] [BANK_WIDTH-1:0] bankb_p;
+    // Because of 'Warning: Limited support for multirange wires that don't start from 0'
 
     enum {
         IDLE,

@@ -57,7 +57,10 @@ module control_operators
     output logic ops_done_pulse = 0
 );
     localparam PIPELINE_DELAY = 6;
-    localparam MODULATION_DELAY = 1; // output of operator 0 must be ready by cycle 2 of operator 3 so it can modulate it
+    localparam MODULATION_DELAY = 2; // output of operator 0 must be ready by cycle 2 of operator 3 so it can modulate it
+                                     /* Changed MODULATION_DELAY=1 to MODULATION_DELAY=2 because of 'Negative value in instance "work@opl3.channels.control_operators"
+                                    text:     logic [$clog2(MODULATION_DELAY)-1:0] delay_counter = 0;
+                                    value: INT:-1.*/
     localparam NUM_OPERATOR_UPDATE_STATES = NUM_BANKS*NUM_OPERATORS_PER_BANK + 1; // 36 operators + idle state
     logic [$clog2(MODULATION_DELAY)-1:0] delay_counter = 0;
 
