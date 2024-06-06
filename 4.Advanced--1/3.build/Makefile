@@ -3,10 +3,28 @@
 # Copyright (C) 2024 Chili.CHIPS*ba
 #=============================================================
 
-# Toolchain download and setup instructions:
-# Download toolchain from: https://www.colognechip.com/programmable-logic/gatemate/gatemate-download/
+
+#=============================================================
+# Toolchain download and setup instructions
+#=============================================================
+# Download toolchain from: 
+# https://www.colognechip.com/programmable-logic/gatemate/gatemate-download/
+# There are two options: toolchain for linux and toolchain for windows
 # Extract archive and set CC_TOOL environment variable:
-# export CC_TOOL=/path/to/cc-toolchain-linux
+# 1.
+# Easiest way to do it is by running the following command: 
+#     $ echo 'export CC_TOOL="/path/to/cc-toolchain-linux"' >> ~/.bashrc
+# After that you either need to restart your terminal or source it with:
+#     $ source ~/.bashrc
+# (NOTE: By doing it this way you don't need to export the path everytime you open a new terminal)
+#
+# 2.
+# Running the following command in terminal:
+#     $ export CC_TOOL="/path/to/cc-toolchain-linux"
+# NOTE: Everytime you open a new terminal you need to export the command if you do it this way
+#
+#=============================================================
+
 
 # Set EXE for platform-specific executable extensions, if necessary
 EXE =
@@ -15,7 +33,10 @@ EXE =
 CC_TOOL_DIR = $(CC_TOOL)
 YOSYS = $(CC_TOOL)/bin/yosys/yosys$(EXE)
 PR = $(CC_TOOL)/bin/p_r/p_r$(EXE)
-OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE)
+
+#OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE) # Path to OFL needs to be latest version of OFL or you will get errors when programming the board
+## EDIT THIS SO IT IS the path to your installation of openFPGALoader!!! ##
+OFL = /home/user/FPGA/tools/openFPGALoader/build/openFPGALoader$(EXE) 
 
 # Simulation Tools and Flags
 GTKW = gtkwave
@@ -57,10 +78,10 @@ synth_vhdl: $(VHDL_SRC)
 	$(YOSYS) -ql log/synth.log -p 'ghdl --warn-no-binding -C --ieee=synopsys $^ -e $(TOP); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
 
 impl:
-	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf blink.ccf -cCP > log/$@.log
+	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf $(TOP).ccf -cCP > log/$@.log
 
 jtag:
-	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag $(TOP)_00.cfg
+	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag --cable dirtyJtag --bitstream $(TOP)_00.cfg
 
 jtag-flash:
 	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag -f --verify $(TOP)_00.cfg

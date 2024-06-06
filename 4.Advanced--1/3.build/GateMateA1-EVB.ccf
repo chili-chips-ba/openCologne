@@ -40,7 +40,7 @@
 ##
 ## Gatemate A1-EVB Olimex board hardware pin constraints
 ## #######################################################
->>>>>>> d7e8b4f6a4eac339cd0a3c8d811092c434bab1dd
+
 
 # Format:
 # <pin-direction> "<pin-name>" Loc = "<pin-location>" | <opt.-constraints>;
@@ -97,79 +97,79 @@
 # -------------------------------------------------------
 # Upper Row 
 # TOP LEFT PIN IS GND 
-Pin_out "NA_B0" Loc = "IO_NA_B0";
-Pin_out "NA_B1" Loc = "IO_NA_B1";
-Pin_out "NA_B2" Loc = "IO_NA_B2";
-Pin_out "NA_B3" Loc = "IO_NA_B3";
-Pin_out "NA_B4" Loc = "IO_NA_B4";
-Pin_out "NA_B5" Loc = "IO_NA_B5";
-Pin_out "NA_B6" Loc = "IO_NA_B6";
-Pin_out "NA_B7" Loc = "IO_NA_B7";
-Pin_out "NA_B8" Loc = "IO_NA_B8";
+Pin_inout "NA_B0" Loc = "IO_NA_B0";
+Pin_inout "NA_B1" Loc = "IO_NA_B1";
+Pin_inout "NA_B2" Loc = "IO_NA_B2";
+Pin_inout "NA_B3" Loc = "IO_NA_B3";
+Pin_inout "NA_B4" Loc = "IO_NA_B4";
+Pin_inout "NA_B5" Loc = "IO_NA_B5";
+Pin_inout "NA_B6" Loc = "IO_NA_B6";
+Pin_inout "NA_B7" Loc = "IO_NA_B7";
+Pin_inout "NA_B8" Loc = "IO_NA_B8";
 # ------------------ #
 # Lower Row 
 # BOTTOM LEFT PIN IS VDD 
-Pin_out "NA_A0" Loc = "IO_NA_A0";
-Pin_out "NA_A1" Loc = "IO_NA_A1";
-Pin_out "NA_A2" Loc = "IO_NA_A2";
-Pin_out "NA_A3" Loc = "IO_NA_A3";
-Pin_out "NA_A4" Loc = "IO_NA_A4";
-Pin_out "NA_A5" Loc = "IO_NA_A5";
-Pin_out "NA_A6" Loc = "IO_NA_A6";
-Pin_out "NA_A7" Loc = "IO_NA_A7";
-Pin_out "NA_A8" Loc = "IO_NA_A8";
+Pin_inout "NA_A0" Loc = "IO_NA_A0";
+Pin_inout "NA_A1" Loc = "IO_NA_A1";
+Pin_inout "NA_A2" Loc = "IO_NA_A2";
+Pin_inout "NA_A3" Loc = "IO_NA_A3";
+Pin_inout "NA_A4" Loc = "IO_NA_A4";
+Pin_inout "NA_A5" Loc = "IO_NA_A5";
+Pin_inout "NA_A6" Loc = "IO_NA_A6";
+Pin_inout "NA_A7" Loc = "IO_NA_A7";
+Pin_inout "NA_A8" Loc = "IO_NA_A8";
 
 ## Bank NB1
 # -------------------------------------------------------
 # Upper Row 
 # TOP LEFT PIN IS GND 
-Pin_out "NB_B0" Loc = "IO_NB_B0";
-Pin_out "NB_B1" Loc = "IO_NB_B1";
-Pin_out "NB_B2" Loc = "IO_NB_B2";
-Pin_out "NB_B3" Loc = "IO_NB_B3";
-Pin_out "NB_B4" Loc = "IO_NB_B4";
-Pin_out "NB_B5" Loc = "IO_NB_B5";
-Pin_out "NB_B6" Loc = "IO_NB_B6";
-Pin_out "NB_B7" Loc = "IO_NB_B7";
-Pin_out "NB_B8" Loc = "IO_NB_B8";
+Pin_inout "NB_B0" Loc = "IO_NB_B0";
+Pin_inout "NB_B1" Loc = "IO_NB_B1";
+Pin_inout "NB_B2" Loc = "IO_NB_B2";
+Pin_inout "NB_B3" Loc = "IO_NB_B3";
+Pin_inout "NB_B4" Loc = "IO_NB_B4";
+Pin_inout "NB_B5" Loc = "IO_NB_B5";
+Pin_inout "NB_B6" Loc = "IO_NB_B6";
+Pin_inout "NB_B7" Loc = "IO_NB_B7";
+Pin_inout "NB_B8" Loc = "IO_NB_B8";
 # ------------------ #
 # Lower Row 
 # BOTTOM LEFT PIN IS VDD #
-Pin_out "NB_A0" Loc = "IO_NB_A0";
-Pin_out "NB_A1" Loc = "IO_NB_A1";
-Pin_out "NB_A2" Loc = "IO_NB_A2";
-Pin_out "NB_A3" Loc = "IO_NB_A3";
-Pin_out "NB_A4" Loc = "IO_NB_A4";
-Pin_out "NB_A5" Loc = "IO_NB_A5";
-Pin_out "NB_A6" Loc = "IO_NB_A6";
-Pin_out "NB_A7" Loc = "IO_NB_A7";
-Pin_out "NB_A8" Loc = "IO_NB_A8";
+Pin_inout "NB_A0" Loc = "IO_NB_A0";
+Pin_inout "NB_A1" Loc = "IO_NB_A1";
+Pin_inout "NB_A2" Loc = "IO_NB_A2";
+Pin_inout "NB_A3" Loc = "IO_NB_A3";
+Pin_inout "NB_A4" Loc = "IO_NB_A4";
+Pin_inout "NB_A5" Loc = "IO_NB_A5";
+Pin_inout "NB_A6" Loc = "IO_NB_A6";
+Pin_inout "NB_A7" Loc = "IO_NB_A7";
+Pin_inout "NB_A8" Loc = "IO_NB_A8";
 
 ## BANK_EB1
 # -------------------------------------------------------
 # Upper Row 
 # TOP LEFT PIN IS GND 
-Pin_out "EB_B0" Loc = "IO_EB_B0";
-Pin_out "EB_B1" Loc = "IO_EB_B1";
-Pin_out "EB_B2" Loc = "IO_EB_B2";
-Pin_out "EB_B3" Loc = "IO_EB_B3";
-Pin_out "EB_B4" Loc = "IO_EB_B4";
-Pin_out "EB_B5" Loc = "IO_EB_B5";
-Pin_out "EB_B6" Loc = "IO_EB_B6";
-Pin_out "EB_B7" Loc = "IO_EB_B7";
-Pin_out "EB_B8" Loc = "IO_EB_B8";
+Pin_inout "EB_B0" Loc = "IO_EB_B0";
+Pin_inout "EB_B1" Loc = "IO_EB_B1";
+Pin_inout "EB_B2" Loc = "IO_EB_B2";
+Pin_inout "EB_B3" Loc = "IO_EB_B3";
+Pin_inout "EB_B4" Loc = "IO_EB_B4";
+Pin_inout "EB_B5" Loc = "IO_EB_B5";
+Pin_inout "EB_B6" Loc = "IO_EB_B6";
+Pin_inout "EB_B7" Loc = "IO_EB_B7";
+Pin_inout "EB_B8" Loc = "IO_EB_B8";
 # ------------------ #
 # Lower Row 
 # BOTTOM LEFT PIN IS VDD #
-Pin_out "EB_A0" Loc = "IO_EB_A0";
-Pin_out "EB_A1" Loc = "IO_EB_A1";
-Pin_out "EB_A2" Loc = "IO_EB_A2";
-Pin_out "EB_A3" Loc = "IO_EB_A3";
-Pin_out "EB_A4" Loc = "IO_EB_A4";
-Pin_out "EB_A5" Loc = "IO_EB_A5";
-Pin_out "EB_A6" Loc = "IO_EB_A6";
-Pin_out "EB_A7" Loc = "IO_EB_A7";
-Pin_out "EB_A8" Loc = "IO_EB_A8";
+Pin_inout "EB_A0" Loc = "IO_EB_A0";
+Pin_inout "EB_A1" Loc = "IO_EB_A1";
+Pin_inout "EB_A2" Loc = "IO_EB_A2";
+Pin_inout "EB_A3" Loc = "IO_EB_A3";
+Pin_inout "EB_A4" Loc = "IO_EB_A4";
+Pin_inout "EB_A5" Loc = "IO_EB_A5";
+Pin_inout "EB_A6" Loc = "IO_EB_A6";
+Pin_inout "EB_A7" Loc = "IO_EB_A7";
+Pin_inout "EB_A8" Loc = "IO_EB_A8";
 
 ## BANK_MISC1
 # -------------------------------------------------------
@@ -235,9 +235,9 @@ Pin_inout "SER_RX_P" Loc = "IO_SER_RX_P";
 #Pin_inout "EA_B7" Loc = "EA_B7";
 
 ## GPIO  
-# #######################################################
-# Mostly used for RP2040
-# #######################################################
+# ###################################################################
+# Mostly used for RP2040, change the names to better describe function
+# ###################################################################
 # -------------------------------------------------------
 Pin_inout "GPIO0" Loc = "IO_SA_A0";
 Pin_inout "GPIO1" Loc = "IO_SA_B0";
@@ -268,15 +268,15 @@ Pin_inout "GPIO29" Loc = "IO_SA_B8";
 # -------------------------------------------------------
 Pin_out "FPGA_LED" Loc = "IO_SB_B6"; # FPGA LED
 Pin_out "FPGA_BUT" Loc = "IO_SB_B7";
-Pin_out "CLK0" Loc = "IO_SB_A8"; # CLK0
-Pin_out "CLK3" Loc = "IO_SB_A5";
-Pin_out "GPIO24" Loc = "IO_SB_A6"; # CLK2
-Pin_out "GPIO23" Loc = "IO_SB_A7"; # CLK1
+Pin_in "CLK0" Loc = "IO_SB_A8"; # CLK0
+Pin_in "CLK3" Loc = "IO_SB_A5";
+Pin_in "GPIO24" Loc = "IO_SB_A6"; # CLK2
+Pin_in "GPIO23" Loc = "IO_SB_A7"; # CLK1
 
 
 ## JTAG Interface
 # #######################################################
-# 
+# I think the directions of the pins are properly set
 # #######################################################
 # -------------------------------------------------------
 Pin_out "GPIO25" Loc = "IO_SB_B5"; # JTAG LED
@@ -300,10 +300,10 @@ Pin_out "FPGA_SPI_FWD" Loc = "IO_WA_B5";
 
 ## PS2 Pin Configuration
 # #######################################################
-# 
+# Data might need to be in or out
 # #######################################################
 # -------------------------------------------------------
-Pin_inout "PS2_CLK" Loc = "IO_WB_A0";
+Pin_in "PS2_CLK" Loc = "IO_WB_A0";
 Pin_inout "PS2_DATA" Loc = "IO_WB_B0";
 
 ## VGA Configuration
@@ -343,8 +343,18 @@ Pin_out "PSRAM_DATA6" Loc = "IO_WC_A8";
 Pin_out "PSRAM_DATA7" Loc = "IO_WC_B8";
 
 
+#### TODO: ADD CONSTRAINTS FOR UEXT and PMOD
 ## UEXT
+# #######################################################
+# Data pins might need to be Pin_inout
+# #######################################################
+# -------------------------------------------------------
 
+## PMOD
+# #######################################################
+# Data pins might need to be Pin_inout
+# #######################################################
+# -------------------------------------------------------
 ## #######################################################
 ## End of hardware constraints GateMateA1-EVB.ccf
 ## #######################################################
