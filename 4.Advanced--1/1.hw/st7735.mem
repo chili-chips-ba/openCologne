@@ -1,0 +1,60 @@
+// ST7735 Display Initialization
+// Command followed by data in hexadecimal
+
+// Software reset
+01 00
+
+// Sleep out
+11 00
+
+// Frame rate control (In normal mode/full colors)
+B1 01 2C 2D
+B2 01 2C 2D
+B3 01 2C 2D 01 2C 2D
+
+// Display inversion control
+B4 07
+
+// Power control 1
+C0 A2 02 84
+
+// Power control 2
+C1 C5
+
+// Power control 3
+C2 0A 00
+
+//Power control 4
+C3 8A 2A
+
+// Power control 5
+C4 8A EE
+
+// VCOM control 1
+C5 0E
+
+// Memory data access control
+36 C8
+
+// Interface pixel format
+3A 05
+
+// Gamma set
+26 01
+
+// Positive gamma correction
+E0 02 1C 07 12 37 32 29 2D 29 25 2B 39 00 01 03 10
+
+// Negative gamma correction
+E1 03 1D 07 06 2E 2C 29 2D 2E 2E 37 3F 00 00 02 10
+
+// Column address set
+2A 00 00 00 7F
+
+// Row address set
+2B 00 00 00 9F
+
+// Display on
+29 00
+
+// End of initialization
