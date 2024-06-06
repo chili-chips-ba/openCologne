@@ -85,7 +85,7 @@ module bram_rds#(
 
    always_comb begin
       dmem_data_out = dbram_0;
-      imem_data_out <= ibram_0;
+      imem_data_out = ibram_0;
    end
 
    always_ff @(posedge clk) begin
