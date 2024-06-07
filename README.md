@@ -42,6 +42,22 @@ The full BetrustedSOC would indeed be a very fun thing to eventually do!
 ## *Beinvolved*
 We welcome everyone interested to contribute to this work. Please reach out to fpga@chili-chips.com, or join our <a href="https://discord.gg/F5UPDFFdsH">GateMate Discord Channel</a>. 
 
+## *Bonus Objectives (based on direct CologneChip input)*
+- Tool comps wrt Gowin, Lattice i Xilinx design flows:
+    - overall execution speed
+    - ease of use
+    - straighforward (or not) logic of design flow
+    - completness of tool suite
+    - bugs and idiosyncrasies
+    - ideas for enhancement and automation of the development process
+
+- Silicon comps wrt comparable Gowin, Lattice i Xilinx parts
+    - size: LUTs and FFs
+    - Fmax
+    - utilization metrics
+
+While we'll try to deliver on this special and direct CologneChip request, best would be to have a dedicated follow on project for the detailed analysis, comparisons and other work items that CologneChip may put on our plate.
+
 **<h3> Acknowledgements </h3>** 
 We are grateful to:
   - **NLnet Foundation's** sponsorship for this opportunity to put our minds on GateMate, the unique and EU-first FPGA device for the makers at heart.
