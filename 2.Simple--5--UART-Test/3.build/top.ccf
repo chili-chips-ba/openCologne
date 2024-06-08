@@ -1,0 +1,4 @@
+Pin_out "o_Tx_Serial" Loc = "IO_SA_B6";
+Pin_in "i_Rx_Serial" Loc = "IO_SA_A6" | PULLUP=true;
+
+Pin_in "clk" Loc = "IO_SB_A8" | SCHMITT_TRIGGER=true; # CLK0
