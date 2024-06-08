@@ -2,9 +2,13 @@ Our Inspirations:
    https://github.com/emard/ulx3s-misc/tree/master/examples
    https://github.com/chili-chips-ba/openXC7-TetriSaraj
    https://aignacio.com/posts/hdls/mpsoc_riscv
-   https://github.com/trabucayre/GateMate_demos/tree/main/colorBarDVI
+   https://github.com/trabucayre/GateMate_demos/tree/main
    https://github.com/goran-mahovlic/apple-one/tree/master/boards/olimex_gatemate
    https://github.com/TurboVega/ogege/tree/cpu
+   https://github.com/Martoni/cocotbext-hyperbus
+   
+   https://github.com/goran-mahovlic/ulx3s-extensions
+   
    https://github.com/betrusted-io/betrusted-soc
    
 ---------------------------------------------------------------
@@ -43,5 +47,9 @@ Gatemate Chipscope
    https://www.youtube.com/watch?v=TZblFccw4kg
    https://github.com/colognechip/gatemate_ila
    https://www.linkedin.com/posts/dave-fohrn-35284026a_open-source-gatemate-ila-demo-on-the-cologne-activity-7201107083293851648-os2B?utm_source=share&utm_medium=member_desktop
+
+---------------------------------------------------------------
+RP2040
+   https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf
    
 ---------------------------------------------------------------
