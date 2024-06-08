@@ -1,9 +1,0 @@
-// PI=0xCAFE
-// STEREO=No
-// TA=No
-// AF=107.9 MHz
-// PS="TEST1234"
-ca fe a0 01 00 2e 8e 1c c2 31 51 15 fb
-ca fe a0 01 00 75 1c dc da cd 4d 51 e9
-ca fe a0 01 00 99 ac dc da cc c4 cb c6
-ca fe a0 01 00 c2 3c dc da cc cc d2 51

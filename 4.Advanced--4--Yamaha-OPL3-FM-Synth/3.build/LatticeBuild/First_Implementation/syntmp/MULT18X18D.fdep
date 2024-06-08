@@ -1,0 +1,36 @@
+#OPTIONS:"|-modgen|-top|MULT18X18D|-I|/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/lib|-devicelib|/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/lib/xilinx/unisim.v|-encrypt|-pro|-sysv|-dw|-primux|-ram|-fixsmult|-tri_compatible|-autosm|-fid2|-sharing|on|-ll|2000|-params|/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.param"
+#CUR:"/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/linux_a_64/c_ver":1691686800
+#CUR:"/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/lib/vlog/hypermods.v":1691686317
+#CUR:"/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/lib/vlog/scemi_objects.v":1691686317
+#CUR:"/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase/lib/vlog/scemi_pipes.svh":1691686317
+#CUR:"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":1716506065
+#CUR:"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.param":1716506065
+#numinternalfiles:3
+#defaultlanguage:verilog
+0			"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v" verilog
+#Dependency Lists(Uses List)
+0 -1
+#Dependency Lists(Users Of)
+0 -1
+#Design Unit to File Association
+module work PUR 0
+module work GSR 0
+module work MULT2 0
+module work MULT9X9ADDSUBB 0
+module work MULT9X9ADDSUBSUMB 0
+module work MULT9X9B 0
+module work MULT18X18ADDSUBB 0
+module work MULT18X18ADDSUBSUMB 0
+module work MULT18X18B 0
+module work MULT18X18MACB 0
+module work MULT36X36B 0
+module work MULT9X9C 0
+module work MULT9X9D 0
+module work MULT18X18C 0
+module work MULT18X18D 0
+module work ALU54A 0
+module work ALU54B 0
+module work ALU24A 0
+module work ALU24B 0
+module work PRADD18A 0
+module work PRADD9A 0

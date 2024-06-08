@@ -1,1 +1,0 @@
- -link  -top  opl3  -multisrs  /home/user/openCologne/4.Advanced--4/First_Implementation/synwork/OPL3Test_First_Implementation_comp.srs  -osyn  /home/user/openCologne/4.Advanced--4/First_Implementation/synwork/OPL3Test_First_Implementation_mult.srs  -log  /home/user/openCologne/4.Advanced--4/First_Implementation/synlog/OPL3Test_First_Implementation_multi_srs_gen.srr 

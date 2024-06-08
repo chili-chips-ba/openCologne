@@ -1,0 +1,1 @@
+-link -encrypt -top opl3 -osyn /home/user/openCologne/4.Advanced--4/First_Implementation/synwork/OPL3Test_First_Implementation_comp.srs /home/user/openCologne/4.Advanced--4/First_Implementation/synwork/layer0.srs  -jobname linker  

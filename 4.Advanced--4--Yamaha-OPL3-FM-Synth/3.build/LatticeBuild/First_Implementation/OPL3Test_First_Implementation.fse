@@ -1,0 +1,30 @@
+
+fsm_encoding {18924922} sequential
+
+fsm_state_encoding {18924922} IDLE {0}
+
+fsm_state_encoding {18924922} RESETTING {1}
+
+fsm_registers {18924922} {state[0]} 
+
+fsm_encoding {616741671} onehot
+
+fsm_state_encoding {616741671} IDLE {000000001}
+
+fsm_state_encoding {616741671} LOAD_2_OP_SECOND_0 {000000010}
+
+fsm_state_encoding {616741671} LOAD_2_OP_SECOND_1 {000000100}
+
+fsm_state_encoding {616741671} LOAD_2_OP_FIRST_AND_ACCUMULATE {000001000}
+
+fsm_state_encoding {616741671} LOAD_4_OP_THIRD_0 {000010000}
+
+fsm_state_encoding {616741671} LOAD_4_OP_THIRD_1 {000100000}
+
+fsm_state_encoding {616741671} LOAD_4_OP_SECOND {001000000}
+
+fsm_state_encoding {616741671} LOAD_4_OP_FIRST_AND_ACCUMULATE {010000000}
+
+fsm_state_encoding {616741671} DONE {100000000}
+
+fsm_registers {616741671} {state[8]}  {state[7]}  {state[6]}  {state[5]}  {state[4]}  {state[3]}  {state[2]}  {state[1]}  {state[0]} 

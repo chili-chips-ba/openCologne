@@ -1,0 +1,388 @@
+<HTML>
+<HEAD><TITLE>Place & Route Report</TITLE>
+<STYLE TYPE="text/css">
+<!--
+ body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
+-->
+</STYLE>
+</HEAD>
+<PRE><A name="Par"></A>PAR: Place And Route Diamond (64-bit) 3.13.0.56.2.
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&amp;T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2023 Lattice Semiconductor Corporation,  All rights reserved.
+Fri May 24 01:14:35 2024
+
+/home/user/FPGA/tools/diamond/usr/local/diamond/3.13/ispfpga/bin/lin64/par -f
+OPL3Test_First_Implementation.p2t OPL3Test_First_Implementation_map.ncd
+OPL3Test_First_Implementation.dir OPL3Test_First_Implementation.prf -gui
+
+
+Preference file: OPL3Test_First_Implementation.prf.
+
+<A name="par_cts"></A><B><U><big>Cost Table Summary</big></U></B>
+Level/       Number       Worst        Timing       Worst        Timing       Run          NCD
+Cost [ncd]   Unrouted     Slack        Score        Slack(hold)  Score(hold)  Time         Status
+----------   --------     -----        ------       -----------  -----------  ----         ------
+5_1   *      0            -            -            -            -            01:15        Completed
+* : Design saved.
+
+Total (real) run time for 1-seed: 1 mins 15 secs 
+
+par done!
+
+Note: user must run &apos;Trace&apos; for timing closure signoff.
+
+Lattice Place and Route Report for Design &quot;OPL3Test_First_Implementation_map.ncd&quot;
+Fri May 24 01:14:35 2024
+
+
+<A name="par_best"></A><B><U><big>Best Par Run</big></U></B>
+PAR: Place And Route Diamond (64-bit) 3.13.0.56.2.
+Command Line: par -w -l 5 -i 6 -t 1 -c 0 -e 0 -gui -exp parUseNBR=1:parCDP=auto:parCDR=1:parPathBased=OFF:parASE=1:par_low_skew_clock_net=0 OPL3Test_First_Implementation_map.ncd OPL3Test_First_Implementation.dir/5_1.ncd OPL3Test_First_Implementation.prf
+Preference file: OPL3Test_First_Implementation.prf.
+Placement level-cost: 5-1.
+Routing Iterations: 6
+
+Loading design for application par from file OPL3Test_First_Implementation_map.ncd.
+Design name: opl3
+NCD version: 3.3
+Vendor:      LATTICE
+Device:      LFE5U-85F
+Package:     CABGA381
+Performance: 6
+Loading device for application par from file &apos;sa5p85.nph&apos; in environment: /home/user/FPGA/tools/diamond/usr/local/diamond/3.13/ispfpga.
+Package Status:                     Final          Version 1.37.
+Performance Hardware Data Status:   Final          Version 55.1.
+License checked out.
+
+
+Ignore Preference Error(s):  True
+
+<A name="par_dus"></A><B><U><big>Device utilization summary:</big></U></B>
+
+   PIO (prelim)      77/365          21% used
+                     77/205          37% bonded
+   IOLOGIC           47/365          12% used
+
+   SLICE           1902/41820         4% used
+
+   GSR                1/1           100% used
+   EBR                1/208          &lt;1% used
+   MULT18             2/156           1% used
+   ALU54              1/78            1% used
+
+
+Number of Signals: 5175
+Number of Connections: 15457
+
+Pin Constraint Summary:
+   0 out of 77 pins locked (0% locked).
+
+
+The following 14 signals are selected to use the primary clock routing resources:
+    clk_c (driver: clk, clk/ce/sr load #: 921/0/0)
+    clk_host_c (driver: clk_host, clk/ce/sr load #: 47/0/0)
+    channels/control_operators/reb_mem_o (driver: channels/control_operators/SLICE_1169, clk/ce/sr load #: 0/37/0)
+    channels/control_operators/reb_mem_o_0 (driver: channels/control_operators/SLICE_1170, clk/ce/sr load #: 0/37/0)
+    sample_clk_en (driver: sample_clk_gen/SLICE_1285, clk/ce/sr load #: 0/0/32)
+    channels/ram_and_0 (driver: channels/SLICE_1716, clk/ce/sr load #: 0/0/20)
+    channels/ram_and_2 (driver: channels/operator_out_mem/SLICE_1717, clk/ce/sr load #: 0/0/20)
+    channels/ram_and_0_0 (driver: channels/operator_out_mem/SLICE_1717, clk/ce/sr load #: 0/0/20)
+    channels/ram_and_2_0 (driver: channels/SLICE_1716, clk/ce/sr load #: 0/0/20)
+    channels/state[8] (driver: channels/SLICE_1236, clk/ce/sr load #: 0/18/0)
+    reset (driver: reset_sync/SLICE_1283, clk/ce/sr load #: 0/0/15)
+    channels/un1_state_19_i (driver: channels/control_operators/SLICE_1630, clk/ce/sr load #: 0/11/0)
+    channels/un1_state_18_i (driver: channels/control_operators/SLICE_1629, clk/ce/sr load #: 0/11/0)
+    channels/control_operators/out[2]_0 (driver: channels/control_operators/operator/envelope_generator/env_rate_counter/SLICE_1703, clk/ce/sr load #: 0/10/0)
+
+
+Signal ic_n_c is selected as Global Set/Reset.
+.
+Starting Placer Phase 0.
+...............
+Finished Placer Phase 0.  REAL time: 13 secs 
+
+
+Starting Placer Phase 1.
+.........................
+Placer score = 900022.
+Finished Placer Phase 1.  REAL time: 27 secs 
+
+Starting Placer Phase 2.
+.
+Placer score =  876839
+Finished Placer Phase 2.  REAL time: 28 secs 
+
+
+
+<A name="par_clk"></A><B><U><big>Clock Report</big></U></B>
+
+Global Clock Resources:
+  CLK_PIN    : 2 out of 12 (16%)
+  GR_PCLK    : 0 out of 12 (0%)
+  PLL        : 0 out of 4 (0%)
+  DCS        : 0 out of 2 (0%)
+  DCC        : 0 out of 60 (0%)
+  CLKDIV     : 0 out of 4 (0%)
+
+Quadrant TL Clocks:
+  PRIMARY &quot;clk_c&quot; from comp &quot;clk&quot; on CLK_PIN site &quot;B11 (PT65A)&quot;, CLK/CE/SR load = 396
+  PRIMARY &quot;clk_host_c&quot; from comp &quot;clk_host&quot; on CLK_PIN site &quot;A10 (PT63A)&quot;, CLK/CE/SR load = 44
+  PRIMARY &quot;channels/control_operators/reb_mem_o&quot; from Q0 on comp &quot;channels/control_operators/SLICE_1169&quot; on site &quot;R57C49D&quot;, CLK/CE/SR load = 14
+  PRIMARY &quot;channels/control_operators/reb_mem_o_0&quot; from Q0 on comp &quot;channels/control_operators/SLICE_1170&quot; on site &quot;R62C47D&quot;, CLK/CE/SR load = 14
+  PRIMARY &quot;sample_clk_en&quot; from Q0 on comp &quot;sample_clk_gen/SLICE_1285&quot; on site &quot;R29C25A&quot;, CLK/CE/SR load = 30
+  PRIMARY &quot;channels/ram_and_0&quot; from F0 on comp &quot;channels/SLICE_1716&quot; on site &quot;R42C48A&quot;, CLK/CE/SR load = 20
+  PRIMARY &quot;channels/ram_and_2&quot; from F0 on comp &quot;channels/operator_out_mem/SLICE_1717&quot; on site &quot;R41C48A&quot;, CLK/CE/SR load = 20
+  PRIMARY &quot;channels/ram_and_0_0&quot; from F1 on comp &quot;channels/operator_out_mem/SLICE_1717&quot; on site &quot;R41C48A&quot;, CLK/CE/SR load = 20
+  PRIMARY &quot;channels/ram_and_2_0&quot; from F1 on comp &quot;channels/SLICE_1716&quot; on site &quot;R42C48A&quot;, CLK/CE/SR load = 20
+  PRIMARY &quot;channels/state[8]&quot; from Q0 on comp &quot;channels/SLICE_1236&quot; on site &quot;R45C33B&quot;, CLK/CE/SR load = 14
+  PRIMARY &quot;reset&quot; from Q0 on comp &quot;reset_sync/SLICE_1283&quot; on site &quot;R91C54A&quot;, CLK/CE/SR load = 15
+  PRIMARY &quot;channels/un1_state_19_i&quot; from F0 on comp &quot;channels/control_operators/SLICE_1630&quot; on site &quot;R44C25C&quot;, CLK/CE/SR load = 11
+  PRIMARY &quot;channels/un1_state_18_i&quot; from F0 on comp &quot;channels/control_operators/SLICE_1629&quot; on site &quot;R45C25B&quot;, CLK/CE/SR load = 9
+
+  PRIMARY  : 13 out of 16 (81%)
+
+Quadrant TR Clocks:
+  PRIMARY &quot;clk_host_c&quot; from comp &quot;clk_host&quot; on CLK_PIN site &quot;A10 (PT63A)&quot;, CLK/CE/SR load = 3
+
+  PRIMARY  : 1 out of 16 (6%)
+
+Quadrant BL Clocks:
+  PRIMARY &quot;clk_c&quot; from comp &quot;clk&quot; on CLK_PIN site &quot;B11 (PT65A)&quot;, CLK/CE/SR load = 524
+  PRIMARY &quot;channels/control_operators/reb_mem_o&quot; from Q0 on comp &quot;channels/control_operators/SLICE_1169&quot; on site &quot;R57C49D&quot;, CLK/CE/SR load = 23
+  PRIMARY &quot;channels/control_operators/reb_mem_o_0&quot; from Q0 on comp &quot;channels/control_operators/SLICE_1170&quot; on site &quot;R62C47D&quot;, CLK/CE/SR load = 23
+  PRIMARY &quot;sample_clk_en&quot; from Q0 on comp &quot;sample_clk_gen/SLICE_1285&quot; on site &quot;R29C25A&quot;, CLK/CE/SR load = 2
+  PRIMARY &quot;channels/state[8]&quot; from Q0 on comp &quot;channels/SLICE_1236&quot; on site &quot;R45C33B&quot;, CLK/CE/SR load = 4
+  PRIMARY &quot;channels/un1_state_18_i&quot; from F0 on comp &quot;channels/control_operators/SLICE_1629&quot; on site &quot;R45C25B&quot;, CLK/CE/SR load = 2
+  PRIMARY &quot;channels/control_operators/out[2]_0&quot; from Q0 on comp &quot;channels/control_operators/operator/envelope_generator/env_rate_counter/SLICE_1703&quot; on site &quot;R61C53D&quot;, CLK/CE/SR load = 10
+
+  PRIMARY  : 7 out of 16 (43%)
+
+Quadrant BR Clocks:
+  PRIMARY &quot;clk_c&quot; from comp &quot;clk&quot; on CLK_PIN site &quot;B11 (PT65A)&quot;, CLK/CE/SR load = 1
+
+  PRIMARY  : 1 out of 16 (6%)
+
+Edge Clocks:
+
+  No edge clock selected.
+
+
+
+
+
++
+I/O Usage Summary (final):
+   77 out of 365 (21.1%) PIO sites used.
+   77 out of 205 (37.6%) bonded PIO sites used.
+   Number of PIO comps: 77; differential: 0.
+   Number of Vref pins used: 0.
+
+I/O Bank Usage Summary:
++----------+----------------+------------+------------+------------+
+| I/O Bank | Usage          | Bank Vccio | Bank Vref1 | Bank Vref2 |
++----------+----------------+------------+------------+------------+
+| 0        | 12 / 27 ( 44%) | 2.5V       | -          | -          |
+| 1        | 5 / 33 ( 15%)  | 2.5V       | -          | -          |
+| 2        | 10 / 34 ( 29%) | 2.5V       | -          | -          |
+| 3        | 7 / 33 ( 21%)  | 2.5V       | -          | -          |
+| 6        | 21 / 33 ( 63%) | 2.5V       | -          | -          |
+| 7        | 20 / 32 ( 62%) | 2.5V       | -          | -          |
+| 8        | 2 / 13 ( 15%)  | 2.5V       | -          | -          |
++----------+----------------+------------+------------+------------+
+
+---------------------------------- DSP Report ----------------------------------
+
+DSP Slice #:           1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26
+# of MULT9                                                                                         
+# of MULT18                                                                                        
+# of ALU24                                                                                         
+# of ALU54                                                                                         
+# of PRADD9                                                                                        
+# of PRADD18                                                                                       
+
+DSP Slice #:          27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+# of MULT9                                                                                         
+# of MULT18                                                                                        
+# of ALU24                                                                                         
+# of ALU54                                                                                         
+# of PRADD9                                                                                        
+# of PRADD18                                                                                       
+
+DSP Slice #:          53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78
+# of MULT9                                                                                         
+# of MULT18                                    2                                                   
+# of ALU24                                                                                         
+# of ALU54                                     1                                                   
+# of PRADD9                                                                                        
+# of PRADD18                                                                                       
+
+DSP Slice 61         Component_Type       Physical_Type                                       Instance_Name                                    
+ MULT18_R58C40         MULT18X18D             MULT18            channels/control_operators/operator/calc_phase_inc/un1_post_mult_p2[0:35]      
+ MULT18_R58C41         MULT18X18D             MULT18           channels/control_operators/operator/calc_phase_inc/un1_post_mult_p2_add_pt      
+  ALU54_R58C43           ALU54B               ALU54           channels/control_operators/operator/calc_phase_inc/un1_post_mult_p2_add[0:37]    
+
+------------------------------ End of DSP Report -------------------------------
+Total placer CPU time: 28 secs 
+
+Dumping design to file OPL3Test_First_Implementation.dir/5_1.ncd.
+
+
+-----------------------------------------------------------------
+INFO - par: ASE feature is off due to non timing-driven settings.  
+-----------------------------------------------------------------
+
+0 connections routed; 15457 unrouted.
+Starting router resource preassignment
+DSP info: No dsp pins have been swapped.
+
+Completed router resource preassignment. Real time: 1 mins 5 secs 
+
+Start NBR router at Fri May 24 01:15:40 CEST 2024
+
+*****************************************************************
+Info: NBR allows conflicts(one node used by more than one signal)
+      in the earlier iterations. In each iteration, it tries to  
+      solve the conflicts while keeping the critical connections 
+      routed as short as possible. The routing process is said to
+      be completed when no conflicts exist and all connections   
+      are routed.                                                
+Note: NBR uses a different method to calculate timing slacks. The
+      worst slack and total negative slack may not be the same as
+      that in TRCE report. You should always run TRCE to verify  
+      your design.                                               
+*****************************************************************
+
+Start NBR special constraint process at Fri May 24 01:15:40 CEST 2024
+
+Start NBR section for initial routing at Fri May 24 01:15:40 CEST 2024
+Level 4, iteration 1
+697(0.02%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 1 mins 9 secs 
+
+Info: Initial congestion level at 75% usage is 0
+Info: Initial congestion area  at 75% usage is 0 (0.00%)
+
+Start NBR section for normal routing at Fri May 24 01:15:44 CEST 2024
+Level 4, iteration 1
+345(0.01%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 1 mins 10 secs 
+Level 4, iteration 2
+119(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 1 mins 10 secs 
+Level 4, iteration 3
+29(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 1 mins 10 secs 
+Level 4, iteration 4
+5(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 1 mins 11 secs 
+Level 4, iteration 5
+0(0.00%) conflict; 0(0.00%) untouched conn; 0 (nbr) score; real time: 1 mins 11 secs 
+
+Start NBR section for re-routing at Fri May 24 01:15:46 CEST 2024
+Level 4, iteration 1
+0(0.00%) conflict; 0(0.00%) untouched conn; 0 (nbr) score; real time: 1 mins 11 secs 
+
+Start NBR section for post-routing at Fri May 24 01:15:46 CEST 2024
+
+End NBR router with 0 unrouted connection
+
+NBR Summary
+-----------
+  Number of unrouted connections : 0 (0.00%)
+  Number of connections with timing violations : 0 (0.00%)
+  Estimated worst slack&lt;setup&gt; : &lt;n/a&gt;
+  Timing score&lt;setup&gt; : 0
+-----------
+Notes: The timing info is calculated for SETUP only and all PAR_ADJs are ignored.
+
+
+
+Total CPU time 1 mins 11 secs 
+Total REAL time: 1 mins 11 secs 
+Completely routed.
+End of route.  15457 routed (100.00%); 0 unrouted.
+
+Hold time timing score: 0, hold timing errors: 0
+
+Timing score: 0 
+
+Dumping design to file OPL3Test_First_Implementation.dir/5_1.ncd.
+
+
+All signals are completely routed.
+
+
+PAR_SUMMARY::Run status = Completed
+PAR_SUMMARY::Number of unrouted conns = 0
+PAR_SUMMARY::Worst  slack&lt;setup/&lt;ns&gt;&gt; = &lt;n/a&gt;
+PAR_SUMMARY::Timing score&lt;setup/&lt;ns&gt;&gt; = &lt;n/a&gt;
+PAR_SUMMARY::Worst  slack&lt;hold /&lt;ns&gt;&gt; = &lt;n/a&gt;
+PAR_SUMMARY::Timing score&lt;hold /&lt;ns&gt;&gt; = &lt;n/a&gt;
+PAR_SUMMARY::Number of errors = 0
+
+Total CPU  time to completion: 1 mins 15 secs 
+Total REAL time to completion: 1 mins 15 secs 
+
+par done!
+
+Note: user must run &apos;Trace&apos; for timing closure signoff.
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&amp;T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2023 Lattice Semiconductor Corporation,  All rights reserved.
+
+
+
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+</PRE></FONT>
+</BODY>
+</HTML>

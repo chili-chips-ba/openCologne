@@ -1,0 +1,360 @@
+#======================================================================== 
+# openCologne * NLnet-sponsored open-source design ware for GateMate
+#------------------------------------------------------------------------
+#                   Copyright (C) 2024 Chili.CHIPS*ba
+# 
+# Redistribution and use in source and binary forms, with or without 
+# modification, are permitted provided that the following conditions 
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright 
+# notice, this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright 
+# notice, this list of conditions and the following disclaimer in the 
+# documentation and/or other materials provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its 
+# contributors may be used to endorse or promote products derived
+# from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS 
+# IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED 
+# TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
+# PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+#              https://opensource.org/license/bsd-3-clause
+#------------------------------------------------------------------------
+# Description: 
+# Gatemate E1 evaluation board hardware pin constraints
+# file: GateMateA1-EVB.ccf
+=======
+## file: GateMateA1-EVB.ccf
+##
+## Gatemate A1-EVB Olimex board hardware pin constraints
+## #######################################################
+
+
+# Format:
+# <pin-direction> "<pin-name>" Loc = "<pin-location>" | <opt.-constraints>;
+#
+# Additional constraints can be appended using the pipe symbol.
+# Files are read line by line. Text after the hash symbol is ignored.
+#
+# Available pin directions:
+#
+# Pin_in
+#   defines an input pin
+# Pin_out
+#   defines an output pin
+# Pin_inout
+#   defines a bidirectional pin
+#
+# Available pin constraints:
+#
+# SCHMITT_TRIGGER={true,false}
+#   enables or disables schmitt trigger (hysteresis) option
+# PULLUP={true,false}
+#   enables or disables I/O pullup resistor of nominal 50kOhm
+# PULLDOWN={true,false}
+#   enables or disables I/O pulldown resistor of nominal 50kOhm
+# KEEPER={true,false}
+#   enables or disables I/O keeper option
+# SLEW={slow,fast}
+#   sets slew rate to slow or fast
+# DRIVE={3,6,9,12}
+#   sets output drive strength to 3mA..12mA
+# DELAY_OBF={0..15}
+#   adds an additional delay of n * nominal 50ps to output signal
+# DELAY_IBF={0..15}
+#   adds an additional delay of n * nominal 50ps to input signal
+# FF_IBF={true,false}
+#   enables or disables placing of FF in input buffer, if possible
+# FF_OBF={true,false}
+#   enables or disables placing of FF in output buffer, if possible
+# LVDS_BOOST={true,false}
+#   enables increased LVDS output current of 6.4mA (default: 3.2mA)
+# LVDS_TERM={true,false}
+#   enables on-chip LVDS termination resistor of nominal 100Ohm, in output mode only
+#
+# Global IO constraints can be set with the default_GPIO statement. It can be
+# overwritten by individual settings for specific GPIOs, e.g.:
+#   default_GPIO | DRIVE=3; # sets all output strengths to 3mA, unless overwritten
+#========================================================================
+
+## GPIO Configuration - Free Bank Selectable Voltage
+# #######################################################
+## Bank Selectable VDD 1.2V/1.8V/2.5V/User PWR_Supply
+# #######################################################
+## Bank NA1
+# -------------------------------------------------------
+# Upper Row 
+# TOP LEFT PIN IS GND 
+Pin_inout "NA_B0" Loc = "IO_NA_B0";
+Pin_inout "NA_B1" Loc = "IO_NA_B1";
+Pin_inout "NA_B2" Loc = "IO_NA_B2";
+Pin_inout "NA_B3" Loc = "IO_NA_B3";
+Pin_inout "NA_B4" Loc = "IO_NA_B4";
+Pin_inout "NA_B5" Loc = "IO_NA_B5";
+Pin_inout "NA_B6" Loc = "IO_NA_B6";
+Pin_inout "NA_B7" Loc = "IO_NA_B7";
+Pin_inout "NA_B8" Loc = "IO_NA_B8";
+# ------------------ #
+# Lower Row 
+# BOTTOM LEFT PIN IS VDD 
+Pin_inout "NA_A0" Loc = "IO_NA_A0";
+Pin_inout "NA_A1" Loc = "IO_NA_A1";
+Pin_inout "NA_A2" Loc = "IO_NA_A2";
+Pin_inout "NA_A3" Loc = "IO_NA_A3";
+Pin_inout "NA_A4" Loc = "IO_NA_A4";
+Pin_inout "NA_A5" Loc = "IO_NA_A5";
+Pin_inout "NA_A6" Loc = "IO_NA_A6";
+Pin_inout "NA_A7" Loc = "IO_NA_A7";
+Pin_inout "NA_A8" Loc = "IO_NA_A8";
+
+## Bank NB1
+# -------------------------------------------------------
+# Upper Row 
+# TOP LEFT PIN IS GND 
+Pin_inout "NB_B0" Loc = "IO_NB_B0";
+Pin_inout "NB_B1" Loc = "IO_NB_B1";
+Pin_inout "NB_B2" Loc = "IO_NB_B2";
+Pin_inout "NB_B3" Loc = "IO_NB_B3";
+Pin_inout "NB_B4" Loc = "IO_NB_B4";
+Pin_inout "NB_B5" Loc = "IO_NB_B5";
+Pin_inout "NB_B6" Loc = "IO_NB_B6";
+Pin_inout "NB_B7" Loc = "IO_NB_B7";
+Pin_inout "NB_B8" Loc = "IO_NB_B8";
+# ------------------ #
+# Lower Row 
+# BOTTOM LEFT PIN IS VDD #
+Pin_inout "NB_A0" Loc = "IO_NB_A0";
+Pin_inout "NB_A1" Loc = "IO_NB_A1";
+Pin_inout "NB_A2" Loc = "IO_NB_A2";
+Pin_inout "NB_A3" Loc = "IO_NB_A3";
+Pin_inout "NB_A4" Loc = "IO_NB_A4";
+Pin_inout "NB_A5" Loc = "IO_NB_A5";
+Pin_inout "NB_A6" Loc = "IO_NB_A6";
+Pin_inout "NB_A7" Loc = "IO_NB_A7";
+Pin_inout "NB_A8" Loc = "IO_NB_A8";
+
+## BANK_EB1
+# -------------------------------------------------------
+# Upper Row 
+# TOP LEFT PIN IS GND 
+Pin_inout "EB_B0" Loc = "IO_EB_B0";
+Pin_inout "EB_B1" Loc = "IO_EB_B1";
+Pin_inout "EB_B2" Loc = "IO_EB_B2";
+Pin_inout "EB_B3" Loc = "IO_EB_B3";
+Pin_inout "EB_B4" Loc = "IO_EB_B4";
+Pin_inout "EB_B5" Loc = "IO_EB_B5";
+Pin_inout "EB_B6" Loc = "IO_EB_B6";
+Pin_inout "EB_B7" Loc = "IO_EB_B7";
+Pin_inout "EB_B8" Loc = "IO_EB_B8";
+# ------------------ #
+# Lower Row 
+# BOTTOM LEFT PIN IS VDD #
+Pin_inout "EB_A0" Loc = "IO_EB_A0";
+Pin_inout "EB_A1" Loc = "IO_EB_A1";
+Pin_inout "EB_A2" Loc = "IO_EB_A2";
+Pin_inout "EB_A3" Loc = "IO_EB_A3";
+Pin_inout "EB_A4" Loc = "IO_EB_A4";
+Pin_inout "EB_A5" Loc = "IO_EB_A5";
+Pin_inout "EB_A6" Loc = "IO_EB_A6";
+Pin_inout "EB_A7" Loc = "IO_EB_A7";
+Pin_inout "EB_A8" Loc = "IO_EB_A8";
+
+## BANK_MISC1
+# -------------------------------------------------------
+# Left Row
+# TOP LEFT PIN IS 2.5V
+Pin_inout "FPGA_SPI_FWD" Loc = "IO_WA_B5"
+Pin_inout "EA_A8" Loc = "IO_EA_A8";
+Pin_inout "EA_B8" Loc = "IO_EA_B8";
+Pin_inout "WB_A8" Loc = "IO_WB_A8";
+Pin_inout "WB_B8" Loc = "IO_WB_B8";
+Pin_inout "SB_B3" Loc = "IO_SB_B3";
+Pin_inout "SB_B2" Loc = "IO_SB_B2";
+Pin_inout "SB_A2" Loc = "IO_SB_A2";
+Pin_inout "SB_B1" Loc = "IO_SB_B1";
+Pin_inout "SB_A1" Loc = "IO_SB_A1";
+Pin_inout "SB_B0" Loc = "IO_SB_B0";
+Pin_inout "SB_A0" Loc = "IO_SB_A0";
+Pin_inout "FPGA_RESET_IN" Loc = "RST_N"; #
+# SECOND TO LAST PIN IS NET-(BANK_MISC1-PAD31) #
+# BOTTOM LEFT PIN IS GND #
+# ------------------ #
+# Right Row #
+# TOP RIGHT PIN IN 1.8V #
+Pin_inout "WC_B3" Loc = "IO_WC_B3";
+Pin_inout "WC_A3" Loc = "IO_WC_A3";
+Pin_inout "WC_B2" Loc = "IO_WC_B2";
+Pin_inout "WC_A2" Loc = "IO_WC_A2";
+Pin_inout "WC_B1" Loc = "IO_WC_B1";
+Pin_inout "WC_A1" Loc = "IO_WC_A1";
+Pin_inout "WC_B0" Loc = "IO_WC_B0";
+Pin_inout "WC_A0" Loc = "IO_WC_A0";
+## Serdes 
+# Note!: Take in mind that SerDes is not working when VDD_CORE = 0.9V(Low power mode) because VDDSER and VDDSER_PLL have got minimum working voltage 0.95V! 
+Pin_inout "SER_CLK_N" Loc = "IO_SER_CLK_N";
+Pin_inout "SER_CLK_P" Loc = "IO_SER_CLK_P";
+Pin_inout "SER_TX_P" Loc = "IO_SER_TX_P";
+Pin_inout "SER_TX_N" Loc = "IO_SER_TX_N";
+Pin_inout "SER_RX_N" Loc = "IO_SER_RX_N";
+Pin_inout "SER_RX_P" Loc = "IO_SER_RX_P";
+# SECOND TO LAST PIN IS NET-(BANK_MISC1-PAD32) #
+# BOTTOM RIGHT PIN IS GND # #
+
+## Not Free Banks(I dont know what for) 
+# #######################################################
+# I dont know what this is used for so I commented it out
+# #######################################################
+# -------------------------------------------------------
+#Pin_inout "EA_A0" Loc = "EA_A0";
+#Pin_inout "EA_B0" Loc = "EA_B0";
+#Pin_inout "EA_A1" Loc = "EA_A1";
+#Pin_inout "EA_B1" Loc = "EA_B1";
+#Pin_inout "EA_A2" Loc = "EA_A2";
+#Pin_inout "EA_B2" Loc = "EA_B2";
+#Pin_inout "EA_A3" Loc = "EA_A3";
+#Pin_inout "EA_B3" Loc = "EA_B3";
+#Pin_inout "EA_A4" Loc = "EA_A4";
+#Pin_inout "EA_B4" Loc = "EA_B4";
+#Pin_inout "EA_A5" Loc = "EA_A5";
+#Pin_inout "EA_B5" Loc = "EA_B5";
+#Pin_inout "EA_A6" Loc = "EA_A6";
+#Pin_inout "EA_B6" Loc = "EA_B6";
+#Pin_inout "EA_A7" Loc = "EA_A7";
+#Pin_inout "EA_B7" Loc = "EA_B7";
+
+## GPIO  
+# ###################################################################
+# Mostly used for RP2040, change the names to better describe function
+# ###################################################################
+# -------------------------------------------------------
+Pin_inout "GPIO0" Loc = "IO_SA_A0";
+Pin_inout "GPIO1" Loc = "IO_SA_B0";
+Pin_inout "GPIO2" Loc = "IO_SA_A1";
+Pin_inout "GPIO3" Loc = "IO_SA_B1";
+Pin_inout "GPIO4" Loc = "IO_SA_A2";
+Pin_inout "GPIO5" Loc = "IO_SA_B2";
+Pin_inout "GPIO6" Loc = "IO_SA_A3";
+Pin_inout "GPIO7" Loc = "IO_SA_B3";
+Pin_inout "GPIO8" Loc = "IO_SA_A4";
+Pin_inout "GPIO9" Loc = "IO_SA_B4";
+Pin_inout "GPIO10" Loc = "IO_SA_A5";
+Pin_inout "GPIO11" Loc = "IO_SA_B5";
+Pin_inout "GPIO12" Loc = "IO_SA_A6";
+Pin_inout "GPIO13" Loc = "IO_SA_B6";
+Pin_inout "GPIO14" Loc = "IO_SA_A7";
+Pin_inout "GPIO15" Loc = "IO_SA_B7";
+Pin_inout "GPIO21" Loc = "IO_SB_B8"; # GPIN1
+Pin_inout "GPIO26" Loc = "IO_SB_B4";
+Pin_inout "GPIO27" Loc = "IO_SB_A4";
+Pin_inout "GPIO28" Loc = "IO_SA_A8";
+Pin_inout "GPIO29" Loc = "IO_SA_B8";
+
+## Generaly used IO Pins
+# #######################################################
+# LED, 4 Clocks for PLL
+# #######################################################
+# -------------------------------------------------------
+Pin_out "FPGA_LED" Loc = "IO_SB_B6"; # FPGA LED
+Pin_out "FPGA_BUT" Loc = "IO_SB_B7";
+Pin_in "CLK0" Loc = "IO_SB_A8"; # CLK0
+Pin_in "CLK3" Loc = "IO_SB_A5";
+Pin_in "GPIO24" Loc = "IO_SB_A6"; # CLK2
+Pin_in "GPIO23" Loc = "IO_SB_A7"; # CLK1
+
+
+## JTAG Interface
+# #######################################################
+# I think the directions of the pins are properly set
+# #######################################################
+# -------------------------------------------------------
+Pin_out "GPIO25" Loc = "IO_SB_B5"; # JTAG LED
+Pin_in "GPIO18" Loc = "IO_WA_A5"; # JTAG_TCK(Test Clock)
+Pin_in "GPIO19" Loc = "IO_WA_B4"; # JTAG_TMS(Test Mode Select)
+Pin_in "GPIO16" Loc = "IO_WA_A4"; # JTAG_TDI(Test Data In)
+Pin_out "GPIO17" Loc = "IO_WA_B3"; # JTAG_TDO(Test Data Out)
+
+## SPI Configuration
+# #######################################################
+# Input/Output pins should be adjusted for given config
+# #######################################################
+# -------------------------------------------------------
+Pin_out "FPGA_SPI_CLK" Loc = "IO_WA_B8";
+Pin_out "FPGA_SPI_CSN" Loc = "IO_WA_A8";
+Pin_out "FPGA_SPI_D0" Loc = "IO_WA_B7";
+Pin_in  "FPGA_SPI_D1" Loc = "IO_WA_A7";
+Pin_out "FPGA_SPI_D2" Loc = "IO_WA_B6";
+Pin_out "FPGA_SPI_D3" Loc = "IO_WA_A6";
+Pin_out "FPGA_SPI_FWD" Loc = "IO_WA_B5";
+
+## PS2 Pin Configuration
+# #######################################################
+# Data might need to be in or out
+# #######################################################
+# -------------------------------------------------------
+Pin_in "PS2_CLK" Loc = "IO_WB_A0";
+Pin_inout "PS2_DATA" Loc = "IO_WB_B0";
+
+## VGA Configuration
+# #######################################################
+# TODO: Change the values to arrays
+# #######################################################
+# -------------------------------------------------------
+Pin_out "VGA_HSync" Loc = "IO_WB_A1";
+Pin_out "VGA_VSync" Loc = "IO_WB_B1";
+Pin_out "VGA_Red_3" Loc = "IO_WB_A2";
+Pin_out "VGA_Red_2" Loc = "IO_WB_B2";
+Pin_out "VGA_Red_1" Loc = "IO_WB_A3";
+Pin_out "VGA_Red_0" Loc = "IO_WB_B3";
+Pin_out "VGA_Green_3" Loc = "IO_WB_A4";
+Pin_out "VGA_Green_2" Loc = "IO_WB_B4";
+Pin_out "VGA_Green_1" Loc = "IO_WB_A5";
+Pin_out "VGA_Green_0" Loc = "IO_WB_B5";
+Pin_out "VGA_Blue_3" Loc = "IO_WB_A6";
+Pin_out "VGA_Blue_2" Loc = "IO_WB_B6";
+Pin_out "VGA_Blue_1" Loc = "IO_WB_A7";
+Pin_out "VGA_Blue_0" Loc = "IO_WB_B7";
+
+## PSRAM Configuration
+# #######################################################
+# Data pins might need to be Pin_inout
+# #######################################################
+# -------------------------------------------------------
+Pin_out "PSRAM_CS" Loc = "IO_WC_A4";
+Pin_out "PSRAM_SCLK" Loc = "IO_WC_B4";
+Pin_out "PSRAM_DATA0" Loc = "IO_WC_A5";
+Pin_out "PSRAM_DATA1" Loc = "IO_WC_B5";
+Pin_out "PSRAM_DATA2" Loc = "IO_WC_A6";
+Pin_out "PSRAM_DATA3" Loc = "IO_WC_B6";
+Pin_out "PSRAM_DATA4" Loc = "IO_WC_A7";
+Pin_out "PSRAM_DATA5" Loc = "IO_WC_B7";
+Pin_out "PSRAM_DATA6" Loc = "IO_WC_A8";
+Pin_out "PSRAM_DATA7" Loc = "IO_WC_B8";
+
+
+#### TODO: ADD CONSTRAINTS FOR UEXT and PMOD
+## UEXT
+# #######################################################
+# Data pins might need to be Pin_inout
+# #######################################################
+# -------------------------------------------------------
+
+## PMOD
+# #######################################################
+# Data pins might need to be Pin_inout
+# #######################################################
+# -------------------------------------------------------
+## #######################################################
+## End of hardware constraints GateMateA1-EVB.ccf
+## #######################################################

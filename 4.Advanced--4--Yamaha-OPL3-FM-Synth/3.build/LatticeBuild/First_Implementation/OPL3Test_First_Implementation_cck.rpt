@@ -1,0 +1,156 @@
+
+Copyright (C) 1994-2023 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: U-2023.03L-SP1
+Install: /home/user/FPGA/tools/diamond/usr/local/diamond/3.13/synpbase
+OS: Ubuntu 22.04.4 LTS
+Hostname: user-HP-ProBook-450-G5
+max virtual memory: unlimited (bytes)
+max user processes: 47069
+max stack size: 8388608 (bytes)
+
+
+Implementation : First_Implementation
+
+# Written on Fri May 24 01:14:00 2024
+
+##### DESIGN INFO #######################################################
+
+Top View:                "opl3"
+Constraint File(s):      (none)
+
+
+
+
+##### SUMMARY ############################################################
+
+Found 0 issues in 0 out of 0 constraints
+
+
+##### DETAILS ############################################################
+
+
+
+Clock Relationships
+*******************
+
+Starting          Ending            |     rise to rise     |     fall to fall     |     rise to fall     |     fall to rise                     
+-----------------------------------------------------------------------------------------------------------------------------------------------
+opl3|clk          opl3|clk          |     5.000            |     No paths         |     No paths         |     No paths                         
+opl3|clk          opl3|clk_host     |     Diff grp         |     No paths         |     No paths         |     No paths                         
+opl3|clk_host     opl3|clk          |     Diff grp         |     No paths         |     No paths         |     No paths                         
+opl3|clk_host     opl3|clk_host     |     5.000            |     No paths         |     No paths         |     No paths                         
+===============================================================================================================================================
+ Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
+       'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
+
+
+Unconstrained Start/End Points
+******************************
+
+p:address[0]
+p:address[1]
+p:clk_dac
+p:cs_n
+p:din[0]
+p:din[1]
+p:din[2]
+p:din[3]
+p:din[4]
+p:din[5]
+p:din[6]
+p:din[7]
+p:dout[0]
+p:dout[1]
+p:dout[2]
+p:dout[3]
+p:dout[4]
+p:dout[5]
+p:dout[6]
+p:dout[7]
+p:ic_n
+p:irq_n
+p:led[0]
+p:led[1]
+p:led[2]
+p:led[3]
+p:rd_n
+p:sample_l[0]
+p:sample_l[1]
+p:sample_l[2]
+p:sample_l[3]
+p:sample_l[4]
+p:sample_l[5]
+p:sample_l[6]
+p:sample_l[7]
+p:sample_l[8]
+p:sample_l[9]
+p:sample_l[10]
+p:sample_l[11]
+p:sample_l[12]
+p:sample_l[13]
+p:sample_l[14]
+p:sample_l[15]
+p:sample_l[16]
+p:sample_l[17]
+p:sample_l[18]
+p:sample_l[19]
+p:sample_l[20]
+p:sample_l[21]
+p:sample_l[22]
+p:sample_l[23]
+p:sample_r[0]
+p:sample_r[1]
+p:sample_r[2]
+p:sample_r[3]
+p:sample_r[4]
+p:sample_r[5]
+p:sample_r[6]
+p:sample_r[7]
+p:sample_r[8]
+p:sample_r[9]
+p:sample_r[10]
+p:sample_r[11]
+p:sample_r[12]
+p:sample_r[13]
+p:sample_r[14]
+p:sample_r[15]
+p:sample_r[16]
+p:sample_r[17]
+p:sample_r[18]
+p:sample_r[19]
+p:sample_r[20]
+p:sample_r[21]
+p:sample_r[22]
+p:sample_r[23]
+p:sample_valid
+p:wr_n
+
+
+Inapplicable constraints
+************************
+
+(none)
+
+
+Applicable constraints with issues
+**********************************
+
+(none)
+
+
+Constraints with matching wildcard expressions
+**********************************************
+
+(none)
+
+
+Library Report
+**************
+
+
+# End of Constraint Checker Report

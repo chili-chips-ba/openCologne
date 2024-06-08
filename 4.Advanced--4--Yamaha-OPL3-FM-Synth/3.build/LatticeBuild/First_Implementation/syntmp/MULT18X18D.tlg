@@ -1,0 +1,45 @@
+Selecting top level module MULT18X18D
+@N: CG364 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12524:7:12524:16|Synthesizing module MULT18X18D in library work.
+@W: CG532 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12654:4:12654:10|Within an initial block, only Verilog force statements and memory initialization statements and initialization of entire variable are recognized, and all other content is ignored. Simulation mismatch may occur
+@W: CG133 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12597:27:12597:41|Object c_sig_reg_async is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12597:44:12597:57|Object c_sig_reg_sync is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12624:8:12624:22|Object input_a_clk_sig is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12627:8:12627:23|Object pipeline_clk_sig is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12628:8:12628:21|Object output_clk_sig is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG360 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12648:9:12648:15|Removing wire PUR_sig, as there is no assignment to it.
+Running optimization stage 1 on MULT18X18D .......
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13496:4:13496:9|Pruning unused register p_sig_o1_sync[35:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13488:4:13488:9|Pruning unused register p_sig_o1_async[35:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13460:4:13460:9|Pruning unused register p_sig_o_sync[35:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13460:4:13460:9|Pruning unused register signedab_sig_sync. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13446:4:13446:9|Pruning unused register p_sig_o_async[35:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13446:4:13446:9|Pruning unused register signedab_sig_async. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13246:4:13246:9|Pruning unused register c_sig_sync[17:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13234:4:13234:9|Pruning unused register c_sig_async[17:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13220:4:13220:9|Pruning unused register b_sig_reg_sync[17:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13220:4:13220:9|Pruning unused register signedb_reg1_sync. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13206:4:13206:9|Pruning unused register b_sig_reg_async[17:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13206:4:13206:9|Pruning unused register signedb_reg1_async. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13190:4:13190:9|Pruning unused register a_sig_reg_sync[17:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13190:4:13190:9|Pruning unused register a_sig_gen1_sync[17:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13190:4:13190:9|Pruning unused register signeda_reg1_sync. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13174:4:13174:9|Pruning unused register a_sig_reg_async[17:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13174:4:13174:9|Pruning unused register a_sig_gen1_async[17:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13174:4:13174:9|Pruning unused register signeda_reg1_async. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13113:4:13113:9|Pruning unused register div2_clk2. Make sure that there are no unused intermediate registers.
+@W: CL169 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":13108:4:13108:9|Pruning unused register div2_clk1. Make sure that there are no unused intermediate registers.
+Finished optimization stage 1 on MULT18X18D (CPU Time 0h:00m:00s, Memory Used current: 135MB peak: 135MB)
+Running optimization stage 2 on MULT18X18D .......
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12549:6:12549:8|Input CE0 is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12549:10:12549:12|Input CE1 is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12549:14:12549:16|Input CE2 is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12549:18:12549:20|Input CE3 is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12549:22:12549:25|Input CLK0 is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12549:27:12549:30|Input CLK1 is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12549:32:12549:35|Input CLK2 is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12549:37:12549:40|Input CLK3 is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12549:42:12549:45|Input RST0 is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12549:47:12549:50|Input RST1 is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12549:52:12549:55|Input RST2 is unused.
+@N: CL159 :"/home/user/openCologne/4.Advanced--4/First_Implementation/syntmp/MULT18X18D.v":12549:57:12549:60|Input RST3 is unused.
+Finished optimization stage 2 on MULT18X18D (CPU Time 0h:00m:00s, Memory Used current: 135MB peak: 135MB)
