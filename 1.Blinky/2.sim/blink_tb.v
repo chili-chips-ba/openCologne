@@ -42,8 +42,8 @@
 // simplified CC_PLL model
 // Commented out so that make impl_sim command can work
 /*module CC_PLL #(
-	parameter REF_CLK = "", // e.g. "10.0"
-	parameter OUT_CLK = "", // e.g. "50.0"
+	parameter REF_CLK = "10.0", // e.g. "10.0"
+	parameter OUT_CLK = "100.0", // e.g. "50.0"
 	parameter PERF_MD = "", // LOWPOWER, ECONOMY, SPEED
 	parameter LOW_JITTER = 1,
 	parameter CI_FILTER_CONST = 2,
@@ -97,13 +97,14 @@
 		end
 		clkcnt = clkcnt + 1;
 	end
-endmodule */
-
+endmodule 
+*/
 module tb;
 
 	reg clk;
 	reg rst;
 	wire led;
+ reg clk_pll;
 
 	initial begin
 `ifdef CCSDF
@@ -115,18 +116,19 @@ module tb;
 		rst = 0;
 	end
 
-	always clk = #1 ~clk;
+	always clk = #50 ~clk;
 
 	blink dut (
 		.clk(clk),
 		.rst(rst),
-		.led(led)
+		.led(led),
+		.clk_pll(clk_pll)
 	);
 
 	initial begin
-		#200;
+		#2000;
 		rst = 1;
-		#500;
+		#4000;
 		$finish;
 	end
 
