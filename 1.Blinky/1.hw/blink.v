@@ -41,7 +41,8 @@
 module blink(
 		input wire clk,
 		input wire rst,
-		output wire led
+		output wire led,
+		output wire clk_pll
 	);
 
 	reg [26:0] counter;
@@ -63,6 +64,8 @@ module blink(
 	);
 
 	assign led = counter[26];
+
+ assign clk_pll = clk0;
 
 	always @(posedge clk0)
 	begin
