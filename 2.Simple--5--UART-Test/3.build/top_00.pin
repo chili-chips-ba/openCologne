@@ -1,0 +1,9 @@
+# Pinfile for Design top_00
+# 2024-06-08 21:00:03
+# Bounding Box for compact mode is (x5y56) - (x16y69)   box size: 168
+
+SizeX = 160 | SizeY = 128;
+
+Pin_in      "i_Rx_Serial"   Loc =   "IO_SA_A6"   Die_Loc = "GPIO_W1_A[6]";  #  preplaced by CCF file
+Pin_out     "o_Tx_Serial"   Loc =   "IO_SA_B6"   Die_Loc = "GPIO_W1_B[6]";  #  preplaced by CCF file
+Pin_in              "clk"   Loc =   "IO_SB_A8"   Die_Loc = "GPIO_W2_A[8]";  #  preplaced by CCF file

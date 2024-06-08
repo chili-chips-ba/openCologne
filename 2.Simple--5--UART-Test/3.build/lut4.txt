@@ -1,0 +1,17 @@
+0001   5 abcd
+008F   1 ((AB)+c)d
+0100   2 abcD
+0B04   1 AC?B^D:D:0:0
+0C07   1 BC?d:/Ad\:0:0
+1000   6 abCD
+100F   1 DC?1:0:0:ab
+308A   1 BD?Ac:A:C:0
+4000   1 aBCD
+7000   2 CD/AB\
+7F00   1 ((/AB\)+c)D
+8000   3 ABCD
+8F00   1 ((AB)+c)D
+ACCC   3 DC?B:B:B:A
+CACC   3 DC?B:A:B:B
+F8FF   1 (AB)+C+d
+ Gesamt:   33 DS4:     6

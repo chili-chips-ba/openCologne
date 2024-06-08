@@ -1,0 +1,16 @@
+0001   2 abc
+0007   1 c/AB\
+000E   1 c/ab\
+0010   2 abC
+0035   1 c?b:a
+0040   4 aBC
+0042   1 AB?0:c:C:0
+004F   1 (aB)+c
+0070   2 C/AB\
+0080  19 ABC
+00CA   2 C?A:B
+00E0  16 C/ab\
+00F1   1 (ab)+C
+00F4   2 (aB)+C
+00FE   1 /ab\+C
+ Gesamt:   56 DS4:     1
