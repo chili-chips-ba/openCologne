@@ -1,0 +1,141 @@
+         1  LUT2  8  AB
+         2  LUT2  4  aB
+         3  LUT2  4  aB
+         4  LUT2  4  aB
+         5  LUT3  80  ABC
+         6  LUT2  8  AB
+         7  LUT2  8  AB
+         8  LUT3  80  ABC
+         9  LUT2  4  aB
+        10  LUT4  8000  ABCD
+        11  LUT4  0001  abcd
+        12  LUT4  0001  abcd
+        13  LUT4  0001  abcd
+        14  LUT4  8000  ABCD
+        15  LUT3  0E  c/ab\
+        16  LUT3  80  ABC
+        17  LUT3  80  ABC
+        18  LUT3  80  ABC
+        19  LUT3  E0  C/ab\
+        20  LUT3  70  C/AB\
+        21  LUT3  40  aBC
+        22  LUT4  1000  abCD
+        23  LUT4  1000  abCD
+        24  LUT4  0100  abcD
+        25  LUT4  0001  abcd
+        26  LUT3  10  abC
+        27  LUT4  7000  CD/AB\
+        28  LUT3  40  aBC
+        29  LUT4  1000  abCD
+        30  LUT3  E0  C/ab\
+        31  LUT3  E0  C/ab\
+        32  LUT3  E0  C/ab\
+        33  LUT3  E0  C/ab\
+        34  LUT3  E0  C/ab\
+        35  LUT3  E0  C/ab\
+        36  LUT3  E0  C/ab\
+        37  LUT3  E0  C/ab\
+        38  LUT3  E0  C/ab\
+        39  LUT3  E0  C/ab\
+        40  LUT3  E0  C/ab\
+        41  LUT3  E0  C/ab\
+        42  LUT3  E0  C/ab\
+        43  LUT3  E0  C/ab\
+        44  LUT3  E0  C/ab\
+        45  LUT4  F8FF  (AB)+C+d
+        46  LUT4  8F00  ((AB)+c)D
+        47  LUT4  7000  CD/AB\
+        48  LUT2  8  AB
+        49  LUT4  008F  ((AB)+c)d
+        50  LUT3  01  abc
+        51  LUT2  E  /ab\
+        52  LUT3  FE  /ab\+C
+        53  LUT4  4000  aBCD
+        54  LUT2  4  aB
+        55  LUT3  70  C/AB\
+        56  LUT2  8  AB
+        57  LUT4  7F00  ((/AB\)+c)D
+        58  LUT3  10  abC
+        59  LUT3  80  ABC
+        60  LUT4  0C07  BC?d:/Ad\:0:0
+        61  LUT3  35  c?b:a
+        62  LUT2  8  AB
+        63  LUT2  8  AB
+        64  LUT3  80  ABC
+        65  LUT4  1000  abCD
+        66  LUT4  0100  abcD
+        67  LUT4  0B04  AC?B^D:D:0:0
+        68  LUT4  1000  abCD
+        69  LUT3  80  ABC
+        70  LUT3  80  ABC
+        71  LUT3  80  ABC
+        72  LUT3  80  ABC
+        73  LUT3  80  ABC
+        74  LUT3  80  ABC
+        75  LUT3  F4  (aB)+C
+        76  LUT3  80  ABC
+        77  LUT3  80  ABC
+        78  LUT3  80  ABC
+        79  LUT3  80  ABC
+        80  LUT3  07  c/AB\
+        81  LUT3  80  ABC
+        82  LUT4  100F  DC?1:0:0:ab
+        83  LUT3  42  AB?0:c:C:0
+        84  LUT3  F1  (ab)+C
+        85  LUT3  4F  (aB)+c
+        86  LUT3  01  abc
+        87  LUT2  4  aB
+        88  LUT3  CA  C?A:B
+        89  LUT4  0001  abcd
+        90  LUT4  ACCC  DC?B:B:B:A
+        91  LUT3  80  ABC
+        92  LUT4  ACCC  DC?B:B:B:A
+        93  LUT3  40  aBC
+        94  LUT4  ACCC  DC?B:B:B:A
+        95  LUT3  40  aBC
+        96  LUT3  CA  C?A:B
+        97  LUT4  1000  abCD
+        98  LUT4  CACC  DC?B:A:B:B
+        99  LUT4  CACC  DC?B:A:B:B
+       100  LUT4  CACC  DC?B:A:B:B
+       101  LUT1   1  a       deleted
+       102  LUT1   1  a       deleted
+       103  LUT1   1  a       deleted
+       104  LUT1   1  a       deleted
+       105  LUT1   1  a       deleted
+       106  LUT1   1  a       deleted
+       107  LUT1   1  a       deleted
+       108  LUT1   1  a       deleted
+       109  LUT1   1  a       deleted
+       110  LUT1   1  a       deleted
+       111  LUT1   1  a       deleted
+       112  LUT1   1  a       deleted
+       113  LUT1   1  a       deleted
+       114  LUT1   1  a       deleted
+       115  LUT1   1  a       deleted
+       116  LUT1   1  a       deleted
+       117  LUT1   1  a       deleted
+       118  LUT1   1  a       deleted
+       119  LUT1   1  a       deleted
+       120  LUT1   1  a       deleted
+       121  LUT1   1  a       deleted
+       122  LUT1   1  a       deleted
+       123  LUT1   1  a       deleted
+       124  LUT1   1  a       deleted
+       125  LUT1   1  a       deleted
+       126  LUT1   1  a       deleted
+       127  LUT1   1  a       deleted
+       128  LUT1   1  a       deleted
+       129  LUT1   1  a       deleted
+       130  LUT1   1  a       deleted
+       131  LUT1   1  a       deleted
+       132  LUT1   1  a       deleted
+       133  LUT1   1  a       deleted
+       134  LUT1   1  a       deleted
+       135  LUT1   1  a       deleted
+       136  LUT1   1  a       deleted
+       137  LUT2  4  aB
+       138  LUT1   1  a       deleted
+       139  LUT4  8000  ABCD
+       140  LUT4  308A  BD?Ac:A:C:0
+       141  LUT3  F4  (aB)+C

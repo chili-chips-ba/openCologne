@@ -53,7 +53,7 @@ CELLS_SYNTH = $(CC_TOOL)/bin/yosys/share/gatemate/cells_sim.v
 CELLS_IMPL = $(CC_TOOL)/bin/p_r/cpelib.v
 
 # Project Configuration
-TOP = blink# Define TOP MODULE here
+TOP = top# Define TOP MODULE here
 CONSTR = $(TOP).ccf
 PRFLAGS += -ccf $(TOP).ccf -cCP
 
