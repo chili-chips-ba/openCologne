@@ -6,7 +6,9 @@ Our Inspirations:
    https://github.com/goran-mahovlic/apple-one/tree/master/boards/olimex_gatemate
    https://github.com/TurboVega/ogege/tree/cpu
    https://github.com/Martoni/cocotbext-hyperbus
-   
+
+   https://github.com/newhouseb/onebitbt
+
    https://github.com/goran-mahovlic/ulx3s-extensions
    
    https://github.com/betrusted-io/betrusted-soc
