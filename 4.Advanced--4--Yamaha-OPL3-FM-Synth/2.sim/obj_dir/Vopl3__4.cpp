@@ -5,6 +5,1161 @@
 #include "Vopl3.h"
 #include "Vopl3__Syms.h"
 
+VL_INLINE_OPT void Vopl3::_sequent__TOP__11(Vopl3__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vopl3::_sequent__TOP__11\n"); );
+    Vopl3* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array[0U] 
+        = vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__bankgen__BRA__0__KET____DOT__genblk1__DOT__mem_bank.dob;
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array[1U] 
+        = vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__bankgen__BRA__1__KET____DOT__genblk1__DOT__mem_bank.dob;
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array[0U] 
+        = vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__bankgen__BRA__0__KET____DOT__genblk1__DOT__mem_bank.dob;
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array[1U] 
+        = vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__bankgen__BRA__1__KET____DOT__genblk1__DOT__mem_bank.dob;
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array[0U] 
+        = vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__bankgen__BRA__0__KET____DOT__genblk1__DOT__mem_bank.dob;
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array[1U] 
+        = vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__bankgen__BRA__1__KET____DOT__genblk1__DOT__mem_bank.dob;
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array[0U] 
+        = vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__bankgen__BRA__0__KET____DOT__genblk1__DOT__mem_bank.dob;
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array[1U] 
+        = vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__bankgen__BRA__1__KET____DOT__genblk1__DOT__mem_bank.dob;
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array[0U] 
+        = vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__bankgen__BRA__0__KET____DOT__genblk1__DOT__mem_bank.dob;
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array[1U] 
+        = vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__bankgen__BRA__1__KET____DOT__genblk1__DOT__mem_bank.dob;
+    if ((1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[2150]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0xeU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+                [0U]) | (1U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((2U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[2151]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0xdU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+                [0U]) | (2U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((4U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[2152]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0xbU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+                [0U]) | (4U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((8U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[2153]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((7U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+                [0U]) | (8U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[2154]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0xeU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+                [1U]) | (1U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((2U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[2155]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0xdU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+                [1U]) | (2U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((4U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[2156]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0xbU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+                [1U]) | (4U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((8U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[2157]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((7U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT____Vtogcov__dob_array
+                [1U]) | (8U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+                         [1U]));
+    }
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob 
+        = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__dob_array
+        [(0x12U < (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__state))];
+    if ((1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[2462]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x1feU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [0U]) | (1U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((2U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[2463]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x1fdU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [0U]) | (2U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((4U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[2464]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x1fbU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [0U]) | (4U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((8U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[2465]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x1f7U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [0U]) | (8U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((0x10U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                  [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                  [0U]))) {
+        ++(vlSymsp->__Vcoverage[2466]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x1efU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [0U]) | (0x10U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((0x20U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                  [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                  [0U]))) {
+        ++(vlSymsp->__Vcoverage[2467]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x1dfU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [0U]) | (0x20U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((0x40U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                  [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                  [0U]))) {
+        ++(vlSymsp->__Vcoverage[2468]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x1bfU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [0U]) | (0x40U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((0x80U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                  [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                  [0U]))) {
+        ++(vlSymsp->__Vcoverage[2469]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x17fU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [0U]) | (0x80U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((0x100U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                   [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                   [0U]))) {
+        ++(vlSymsp->__Vcoverage[2470]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0xffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [0U]) | (0x100U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[2471]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x1feU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [1U]) | (1U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((2U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[2472]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x1fdU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [1U]) | (2U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((4U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[2473]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x1fbU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [1U]) | (4U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((8U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[2474]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x1f7U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [1U]) | (8U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((0x10U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                  [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                  [1U]))) {
+        ++(vlSymsp->__Vcoverage[2475]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x1efU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [1U]) | (0x10U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((0x20U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                  [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                  [1U]))) {
+        ++(vlSymsp->__Vcoverage[2476]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x1dfU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [1U]) | (0x20U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((0x40U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                  [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                  [1U]))) {
+        ++(vlSymsp->__Vcoverage[2477]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x1bfU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [1U]) | (0x40U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((0x80U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                  [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                  [1U]))) {
+        ++(vlSymsp->__Vcoverage[2478]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x17fU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [1U]) | (0x80U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((0x100U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                   [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                   [1U]))) {
+        ++(vlSymsp->__Vcoverage[2479]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0xffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT____Vtogcov__dob_array
+                [1U]) | (0x100U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+                         [1U]));
+    }
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0 
+        = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_mem__DOT__dob_array
+        [(0x12U < (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__state))];
+    if ((1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[1040]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((6U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array
+                [0U]) | (1U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((2U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[1041]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((5U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array
+                [0U]) | (2U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((4U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[1042]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((3U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array
+                [0U]) | (4U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[1043]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((6U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array
+                [1U]) | (1U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((2U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[1044]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((5U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array
+                [1U]) | (2U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((4U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[1045]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((3U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT____Vtogcov__dob_array
+                [1U]) | (4U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array
+                         [1U]));
+    }
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws 
+        = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__dob_array
+        [(0x12U < (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__state))];
+    if ((1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[1065]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0xfeU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [0U]) | (1U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((2U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[1066]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0xfdU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [0U]) | (2U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((4U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[1067]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0xfbU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [0U]) | (4U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((8U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[1068]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0xf7U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [0U]) | (8U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((0x10U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                  [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                  [0U]))) {
+        ++(vlSymsp->__Vcoverage[1069]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0xefU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [0U]) | (0x10U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((0x20U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                  [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                  [0U]))) {
+        ++(vlSymsp->__Vcoverage[1070]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0xdfU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [0U]) | (0x20U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((0x40U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                  [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                  [0U]))) {
+        ++(vlSymsp->__Vcoverage[1071]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0xbfU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [0U]) | (0x40U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((0x80U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                  [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                  [0U]))) {
+        ++(vlSymsp->__Vcoverage[1072]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x7fU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [0U]) | (0x80U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[1073]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0xfeU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [1U]) | (1U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((2U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[1074]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0xfdU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [1U]) | (2U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((4U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[1075]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0xfbU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [1U]) | (4U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((8U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[1076]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0xf7U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [1U]) | (8U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((0x10U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                  [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                  [1U]))) {
+        ++(vlSymsp->__Vcoverage[1077]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0xefU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [1U]) | (0x10U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((0x20U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                  [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                  [1U]))) {
+        ++(vlSymsp->__Vcoverage[1078]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0xdfU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [1U]) | (0x20U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((0x40U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                  [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                  [1U]))) {
+        ++(vlSymsp->__Vcoverage[1079]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0xbfU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [1U]) | (0x40U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((0x80U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                  [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                  [1U]))) {
+        ++(vlSymsp->__Vcoverage[1080]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x7fU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob_array
+                [1U]) | (0x80U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+                         [1U]));
+    }
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob 
+        = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT__dob_array
+        [(0x12U < (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__state))];
+    if ((1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[1094]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x3eU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                [0U]) | (1U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((2U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[1095]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x3dU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                [0U]) | (2U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((4U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[1096]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x3bU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                [0U]) | (4U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((8U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+               [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+               [0U]))) {
+        ++(vlSymsp->__Vcoverage[1097]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x37U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                [0U]) | (8U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((0x10U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                  [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                  [0U]))) {
+        ++(vlSymsp->__Vcoverage[1098]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x2fU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                [0U]) | (0x10U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((0x20U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                  [0U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                  [0U]))) {
+        ++(vlSymsp->__Vcoverage[1099]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array[0U] 
+            = ((0x1fU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                [0U]) | (0x20U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                         [0U]));
+    }
+    if ((1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[1100]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x3eU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                [1U]) | (1U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((2U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[1101]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x3dU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                [1U]) | (2U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((4U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[1102]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x3bU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                [1U]) | (4U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((8U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+               [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+               [1U]))) {
+        ++(vlSymsp->__Vcoverage[1103]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x37U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                [1U]) | (8U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((0x10U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                  [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                  [1U]))) {
+        ++(vlSymsp->__Vcoverage[1104]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x2fU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                [1U]) | (0x10U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                         [1U]));
+    }
+    if ((0x20U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                  [1U] ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                  [1U]))) {
+        ++(vlSymsp->__Vcoverage[1105]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array[1U] 
+            = ((0x1fU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob_array
+                [1U]) | (0x20U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+                         [1U]));
+    }
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob 
+        = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT__dob_array
+        [(0x12U < (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__state))];
+    if ((1U & (~ VL_ONEHOT_I((((8U == (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob)) 
+                               << 3U) | (((4U == (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob)) 
+                                          << 2U) | 
+                                         (((2U == (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob)) 
+                                           << 1U) | 
+                                          (1U == (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob))))))))) {
+        if (VL_UNLIKELY(Verilated::assertOn())) {
+            VL_WRITEF("[%0t] %%Error: envelope_generator.sv:166: Assertion failed in %Nopl3.channels.control_operators.operator.envelope_generator: synthesis parallel_case, but multiple matches found\n",
+                      64,VL_TIME_UNITED_Q(1000),vlSymsp->name());
+            VL_STOP_MT("/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/operator/src/envelope_generator.sv", 166, "");
+        }
+    }
+    if ((1U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob))) {
+        if ((2U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob))) {
+            if ((4U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob))) {
+                if ((8U == (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob))) {
+                    ++(vlSymsp->__Vcoverage[2045]);
+                }
+            }
+        }
+    }
+    if ((1U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob))) {
+        if ((2U == (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob))) {
+            ++(vlSymsp->__Vcoverage[2043]);
+        }
+    }
+    if ((1U == (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob))) {
+        ++(vlSymsp->__Vcoverage[2042]);
+    }
+    if ((1U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob))) {
+        if ((2U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob))) {
+            if ((4U == (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob))) {
+                ++(vlSymsp->__Vcoverage[2044]);
+            }
+        }
+    }
+    if ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__state_p0))) {
+        ++(vlSymsp->__Vcoverage[1916]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__state_p0 
+            = ((0xeU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__state_p0)) 
+               | (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob)));
+    }
+    if ((2U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__state_p0))) {
+        ++(vlSymsp->__Vcoverage[1917]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__state_p0 
+            = ((0xdU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__state_p0)) 
+               | (2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob)));
+    }
+    if ((4U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__state_p0))) {
+        ++(vlSymsp->__Vcoverage[1918]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__state_p0 
+            = ((0xbU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__state_p0)) 
+               | (4U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob)));
+    }
+    if ((8U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__state_p0))) {
+        ++(vlSymsp->__Vcoverage[1919]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__state_p0 
+            = ((7U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__state_p0)) 
+               | (8U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vcellout__state_mem__dob)));
+    }
+    if ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0))) {
+        ++(vlSymsp->__Vcoverage[1937]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0 
+            = ((0x1feU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0)) 
+               | (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0)));
+    }
+    if ((2U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0))) {
+        ++(vlSymsp->__Vcoverage[1938]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0 
+            = ((0x1fdU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0)) 
+               | (2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0)));
+    }
+    if ((4U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0))) {
+        ++(vlSymsp->__Vcoverage[1939]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0 
+            = ((0x1fbU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0)) 
+               | (4U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0)));
+    }
+    if ((8U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0))) {
+        ++(vlSymsp->__Vcoverage[1940]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0 
+            = ((0x1f7U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0)) 
+               | (8U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0)));
+    }
+    if ((0x10U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0) 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0))) {
+        ++(vlSymsp->__Vcoverage[1941]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0 
+            = ((0x1efU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0)) 
+               | (0x10U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0)));
+    }
+    if ((0x20U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0) 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0))) {
+        ++(vlSymsp->__Vcoverage[1942]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0 
+            = ((0x1dfU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0)) 
+               | (0x20U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0)));
+    }
+    if ((0x40U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0) 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0))) {
+        ++(vlSymsp->__Vcoverage[1943]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0 
+            = ((0x1bfU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0)) 
+               | (0x40U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0)));
+    }
+    if ((0x80U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0) 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0))) {
+        ++(vlSymsp->__Vcoverage[1944]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0 
+            = ((0x17fU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0)) 
+               | (0x80U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0)));
+    }
+    if ((0x100U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0) 
+                   ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0))) {
+        ++(vlSymsp->__Vcoverage[1945]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0 
+            = ((0xffU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_int_p0)) 
+               | (0x100U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_int_p0)));
+    }
+    if ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__ws))) {
+        ++(vlSymsp->__Vcoverage[876]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__ws 
+            = ((6U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__ws)) 
+               | (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws)));
+    }
+    if ((2U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__ws))) {
+        ++(vlSymsp->__Vcoverage[877]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__ws 
+            = ((5U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__ws)) 
+               | (2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws)));
+    }
+    if ((4U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__ws))) {
+        ++(vlSymsp->__Vcoverage[878]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__ws 
+            = ((3U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__ws)) 
+               | (4U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws)));
+    }
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__ws_post_opl_p0 
+        = ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws) 
+           & ((IData)(vlTOPp->opl3__DOT__channels__DOT__is_new)
+               ? 7U : 3U));
+    if ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob))) {
+        ++(vlSymsp->__Vcoverage[1055]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob 
+            = ((0xfeU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob)) 
+               | (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob)));
+    }
+    if ((2U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob))) {
+        ++(vlSymsp->__Vcoverage[1056]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob 
+            = ((0xfdU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob)) 
+               | (2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob)));
+    }
+    if ((4U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob))) {
+        ++(vlSymsp->__Vcoverage[1057]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob 
+            = ((0xfbU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob)) 
+               | (4U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob)));
+    }
+    if ((8U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob))) {
+        ++(vlSymsp->__Vcoverage[1058]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob 
+            = ((0xf7U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob)) 
+               | (8U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob)));
+    }
+    if ((0x10U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob) 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob))) {
+        ++(vlSymsp->__Vcoverage[1059]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob 
+            = ((0xefU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob)) 
+               | (0x10U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob)));
+    }
+    if ((0x20U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob) 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob))) {
+        ++(vlSymsp->__Vcoverage[1060]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob 
+            = ((0xdfU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob)) 
+               | (0x20U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob)));
+    }
+    if ((0x40U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob) 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob))) {
+        ++(vlSymsp->__Vcoverage[1061]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob 
+            = ((0xbfU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob)) 
+               | (0x40U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob)));
+    }
+    if ((0x80U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob) 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob))) {
+        ++(vlSymsp->__Vcoverage[1062]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob 
+            = ((0x7fU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum_low_mem__DOT____Vtogcov__dob)) 
+               | (0x80U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob)));
+    }
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum 
+        = ((0x300U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum)) 
+           | (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__fnum_low_mem__dob));
+    if ((1U & (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+                >> 5U) ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__kon))) {
+        ++(vlSymsp->__Vcoverage[897]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__kon 
+            = (1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+                     >> 5U));
+    }
+    if ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob))) {
+        ++(vlSymsp->__Vcoverage[1090]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob 
+            = ((0x3eU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob)) 
+               | (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob)));
+    }
+    if ((2U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob))) {
+        ++(vlSymsp->__Vcoverage[1091]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob 
+            = ((0x3dU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__kon_block_fnum_high_mem__DOT____Vtogcov__dob)) 
+               | (2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob)));
+    }
+    if ((1U & (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+                >> 2U) ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__block))) {
+        ++(vlSymsp->__Vcoverage[894]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__block 
+            = ((6U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__block)) 
+               | (1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+                        >> 2U)));
+    }
+    if ((1U & (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+                >> 3U) ^ (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__block 
+                          >> 1U)))) {
+        ++(vlSymsp->__Vcoverage[895]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__block 
+            = ((5U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__block)) 
+               | (2U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+                        >> 2U)));
+    }
+    if ((1U & (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+                >> 4U) ^ (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__block 
+                          >> 2U)))) {
+        ++(vlSymsp->__Vcoverage[896]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__block 
+            = ((3U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__block)) 
+               | (4U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+                        >> 2U)));
+    }
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__key_off_pulse_p0 
+        = (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__prev_kon_p0) 
+            & (~ ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+                  >> 5U))) & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__op_sample_clk_en));
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__key_on_pulse_p0 
+        = ((((~ (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__prev_kon_p0)) 
+             & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+                >> 5U)) | (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__rhythm_kon_pulse)) 
+           & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__op_sample_clk_en));
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum 
+        = ((0xffU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum)) 
+           | (0x300U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+                        << 8U)));
+    if ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__ws_post_opl_p0) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vtogcov__ws_post_opl_p0))) {
+        ++(vlSymsp->__Vcoverage[2795]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vtogcov__ws_post_opl_p0 
+            = ((6U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vtogcov__ws_post_opl_p0)) 
+               | (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__ws_post_opl_p0)));
+    }
+    if ((2U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__ws_post_opl_p0) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vtogcov__ws_post_opl_p0))) {
+        ++(vlSymsp->__Vcoverage[2796]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vtogcov__ws_post_opl_p0 
+            = ((5U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vtogcov__ws_post_opl_p0)) 
+               | (2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__ws_post_opl_p0)));
+    }
+    if ((4U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__ws_post_opl_p0) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vtogcov__ws_post_opl_p0))) {
+        ++(vlSymsp->__Vcoverage[2797]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vtogcov__ws_post_opl_p0 
+            = ((3U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vtogcov__ws_post_opl_p0)) 
+               | (4U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__ws_post_opl_p0)));
+    }
+    if (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__key_off_pulse_p0) 
+         ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT____Vtogcov__key_off_pulse_p0)) {
+        ++(vlSymsp->__Vcoverage[1375]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT____Vtogcov__key_off_pulse_p0 
+            = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__key_off_pulse_p0;
+    }
+    if (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__key_on_pulse_p0) {
+        ++(vlSymsp->__Vcoverage[2048]);
+    }
+    if ((1U & (~ (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__key_on_pulse_p0)))) {
+        if (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__key_off_pulse_p0) {
+            ++(vlSymsp->__Vcoverage[2046]);
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__key_on_pulse_p0)))) {
+        if ((1U & (~ (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__key_off_pulse_p0)))) {
+            ++(vlSymsp->__Vcoverage[2047]);
+        }
+    }
+    if (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__key_on_pulse_p0) 
+         ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT____Vtogcov__key_on_pulse_p0)) {
+        ++(vlSymsp->__Vcoverage[1374]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT____Vtogcov__key_on_pulse_p0 
+            = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__key_on_pulse_p0;
+    }
+    if ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum))) {
+        ++(vlSymsp->__Vcoverage[884]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum 
+            = ((0x3feU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum)) 
+               | (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum)));
+    }
+    if ((2U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum))) {
+        ++(vlSymsp->__Vcoverage[885]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum 
+            = ((0x3fdU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum)) 
+               | (2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum)));
+    }
+    if ((4U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum))) {
+        ++(vlSymsp->__Vcoverage[886]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum 
+            = ((0x3fbU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum)) 
+               | (4U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum)));
+    }
+    if ((8U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum))) {
+        ++(vlSymsp->__Vcoverage[887]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum 
+            = ((0x3f7U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum)) 
+               | (8U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum)));
+    }
+    if ((0x10U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum) 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum))) {
+        ++(vlSymsp->__Vcoverage[888]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum 
+            = ((0x3efU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum)) 
+               | (0x10U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum)));
+    }
+    if ((0x20U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum) 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum))) {
+        ++(vlSymsp->__Vcoverage[889]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum 
+            = ((0x3dfU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum)) 
+               | (0x20U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum)));
+    }
+    if ((0x40U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum) 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum))) {
+        ++(vlSymsp->__Vcoverage[890]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum 
+            = ((0x3bfU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum)) 
+               | (0x40U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum)));
+    }
+    if ((0x80U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum) 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum))) {
+        ++(vlSymsp->__Vcoverage[891]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum 
+            = ((0x37fU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum)) 
+               | (0x80U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum)));
+    }
+    if ((0x100U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum) 
+                   ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum))) {
+        ++(vlSymsp->__Vcoverage[892]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum 
+            = ((0x2ffU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum)) 
+               | (0x100U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum)));
+    }
+    if ((0x200U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum) 
+                   ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum))) {
+        ++(vlSymsp->__Vcoverage[893]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum 
+            = ((0x1ffU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__fnum)) 
+               | (0x200U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum)));
+    }
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp0_p0 
+        = (1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__nts)
+                  ? ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum) 
+                     >> 8U) : ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum) 
+                               >> 9U)));
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+        = (0xfffffU & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__fnum) 
+                       << (7U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+                                 >> 2U))));
+    if (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp0_p0) 
+         ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp0_p0)) {
+        ++(vlSymsp->__Vcoverage[2199]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp0_p0 
+            = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp0_p0;
+    }
+    vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp1_p0 
+        = (0xfU & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp0_p0) 
+                   | (0xeU & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellout__kon_block_fnum_high_mem__dob) 
+                              >> 1U))));
+    if ((1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1774]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xffffeU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (1U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((2U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1775]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xffffdU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (2U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((4U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1776]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xffffbU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (4U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((8U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1777]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xffff7U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (8U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x10U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1778]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xfffefU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x10U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x20U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1779]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xfffdfU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x20U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x40U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1780]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xfffbfU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x40U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x80U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                  ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1781]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xfff7fU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x80U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x100U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                   ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1782]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xffeffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x100U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x200U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                   ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1783]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xffdffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x200U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x400U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                   ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1784]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xffbffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x400U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x800U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                   ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1785]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xff7ffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x800U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x1000U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                    ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1786]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xfefffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x1000U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x2000U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                    ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1787]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xfdfffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x2000U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x4000U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                    ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1788]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xfbfffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x4000U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x8000U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                    ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1789]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xf7fffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x8000U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x10000U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                     ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1790]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xeffffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x10000U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x20000U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                     ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1791]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xdffffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x20000U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x40000U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                     ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1792]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0xbffffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x40000U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((0x80000U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0 
+                     ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0))) {
+        ++(vlSymsp->__Vcoverage[1793]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0 
+            = ((0x7ffffU & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT____Vtogcov__pre_mult_p0) 
+               | (0x80000U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__pre_mult_p0));
+    }
+    if ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp1_p0) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp1_p0))) {
+        ++(vlSymsp->__Vcoverage[2200]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp1_p0 
+            = ((0xeU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp1_p0)) 
+               | (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp1_p0)));
+    }
+    if ((2U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp1_p0) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp1_p0))) {
+        ++(vlSymsp->__Vcoverage[2201]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp1_p0 
+            = ((0xdU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp1_p0)) 
+               | (2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp1_p0)));
+    }
+    if ((4U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp1_p0) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp1_p0))) {
+        ++(vlSymsp->__Vcoverage[2202]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp1_p0 
+            = ((0xbU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp1_p0)) 
+               | (4U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp1_p0)));
+    }
+    if ((8U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp1_p0) 
+               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp1_p0))) {
+        ++(vlSymsp->__Vcoverage[2203]);
+        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp1_p0 
+            = ((7U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp1_p0)) 
+               | (8U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp1_p0)));
+    }
+}
+
 VL_INLINE_OPT void Vopl3::_sequent__TOP__12(Vopl3__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vopl3::_sequent__TOP__12\n"); );
     Vopl3* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
@@ -195,11 +1350,11 @@ VL_INLINE_OPT void Vopl3::_sequent__TOP__12(Vopl3__Syms* __restrict vlSymsp) {
                | (8U & (IData)(vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__sl_rr_mem.dob)));
     }
     if ((0x80U & (IData)(vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__am_vib_egt_ksr_mult_mem.dob))) {
-        ++(vlSymsp->__Vcoverage[2061]);
+        ++(vlSymsp->__Vcoverage[2064]);
     }
     if ((1U & (~ ((IData)(vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__am_vib_egt_ksr_mult_mem.dob) 
                   >> 7U)))) {
-        ++(vlSymsp->__Vcoverage[2062]);
+        ++(vlSymsp->__Vcoverage[2065]);
     }
     if ((1U & (((IData)(vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__am_vib_egt_ksr_mult_mem.dob) 
                 >> 7U) ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__am))) {
@@ -228,11 +1383,6 @@ VL_INLINE_OPT void Vopl3::_sequent__TOP__12(Vopl3__Syms* __restrict vlSymsp) {
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__ksr 
             = (1U & ((IData)(vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__am_vib_egt_ksr_mult_mem.dob) 
                      >> 4U));
-    }
-    if ((2U & vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__vib_sr__DOT____Vtogcov__in)) {
-        ++(vlSymsp->__Vcoverage[1864]);
-        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__vib_sr__DOT____Vtogcov__in 
-            = (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__calc_phase_inc__DOT__vib_sr__DOT____Vtogcov__in));
     }
     if ((1U & ((IData)(vlSymsp->TOP__opl3__DOT__channels__DOT__control_operators__DOT__am_vib_egt_ksr_mult_mem.dob) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vtogcov__mult))) {
@@ -281,84 +1431,84 @@ VL_INLINE_OPT void Vopl3::_sequent__TOP__12(Vopl3__Syms* __restrict vlSymsp) {
                        >> 2U)));
     if ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2))) {
-        ++(vlSymsp->__Vcoverage[1986]);
+        ++(vlSymsp->__Vcoverage[1989]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2 
             = ((0x7feU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2)) 
                | (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2)));
     }
     if ((2U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2))) {
-        ++(vlSymsp->__Vcoverage[1987]);
+        ++(vlSymsp->__Vcoverage[1990]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2 
             = ((0x7fdU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2)) 
                | (2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2)));
     }
     if ((4U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2))) {
-        ++(vlSymsp->__Vcoverage[1988]);
+        ++(vlSymsp->__Vcoverage[1991]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2 
             = ((0x7fbU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2)) 
                | (4U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2)));
     }
     if ((8U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2))) {
-        ++(vlSymsp->__Vcoverage[1989]);
+        ++(vlSymsp->__Vcoverage[1992]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2 
             = ((0x7f7U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2)) 
                | (8U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2)));
     }
     if ((0x10U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2) 
                   ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2))) {
-        ++(vlSymsp->__Vcoverage[1990]);
+        ++(vlSymsp->__Vcoverage[1993]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2 
             = ((0x7efU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2)) 
                | (0x10U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2)));
     }
     if ((0x20U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2) 
                   ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2))) {
-        ++(vlSymsp->__Vcoverage[1991]);
+        ++(vlSymsp->__Vcoverage[1994]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2 
             = ((0x7dfU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2)) 
                | (0x20U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2)));
     }
     if ((0x40U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2) 
                   ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2))) {
-        ++(vlSymsp->__Vcoverage[1992]);
+        ++(vlSymsp->__Vcoverage[1995]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2 
             = ((0x7bfU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2)) 
                | (0x40U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2)));
     }
     if ((0x80U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2) 
                   ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2))) {
-        ++(vlSymsp->__Vcoverage[1993]);
+        ++(vlSymsp->__Vcoverage[1996]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2 
             = ((0x77fU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2)) 
                | (0x80U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2)));
     }
     if ((0x100U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2) 
                    ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2))) {
-        ++(vlSymsp->__Vcoverage[1994]);
+        ++(vlSymsp->__Vcoverage[1997]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2 
             = ((0x6ffU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2)) 
                | (0x100U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2)));
     }
     if ((0x200U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2) 
                    ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2))) {
-        ++(vlSymsp->__Vcoverage[1995]);
+        ++(vlSymsp->__Vcoverage[1998]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2 
             = ((0x5ffU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2)) 
                | (0x200U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2)));
     }
     if ((0x400U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2) 
                    ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2))) {
-        ++(vlSymsp->__Vcoverage[1996]);
+        ++(vlSymsp->__Vcoverage[1999]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2 
             = ((0x3ffU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__env_tmp_p2)) 
                | (0x400U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_tmp_p2)));
     }
     if (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT____Vcellinp__envelope_generator__egt) 
          ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__egt)) {
-        ++(vlSymsp->__Vcoverage[1911]);
+        ++(vlSymsp->__Vcoverage[1914]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__egt 
             = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT____Vcellinp__envelope_generator__egt;
     }
@@ -396,44 +1546,44 @@ VL_INLINE_OPT void Vopl3::_sequent__TOP__12(Vopl3__Syms* __restrict vlSymsp) {
     }
     if ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp2_p0) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp2_p0))) {
-        ++(vlSymsp->__Vcoverage[2191]);
+        ++(vlSymsp->__Vcoverage[2204]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp2_p0 
             = ((0xeU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp2_p0)) 
                | (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp2_p0)));
     }
     if ((2U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp2_p0) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp2_p0))) {
-        ++(vlSymsp->__Vcoverage[2192]);
+        ++(vlSymsp->__Vcoverage[2205]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp2_p0 
             = ((0xdU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp2_p0)) 
                | (2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp2_p0)));
     }
     if ((4U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp2_p0) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp2_p0))) {
-        ++(vlSymsp->__Vcoverage[2193]);
+        ++(vlSymsp->__Vcoverage[2206]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp2_p0 
             = ((0xbU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp2_p0)) 
                | (4U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp2_p0)));
     }
     if ((8U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp2_p0) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp2_p0))) {
-        ++(vlSymsp->__Vcoverage[2194]);
+        ++(vlSymsp->__Vcoverage[2207]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp2_p0 
             = ((7U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__rate_tmp2_p0)) 
                | (8U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__rate_tmp2_p0)));
     }
     if ((1U == (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0))) {
-        ++(vlSymsp->__Vcoverage[2047]);
+        ++(vlSymsp->__Vcoverage[2050]);
     }
     if ((1U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0))) {
         if ((2U == (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0))) {
-            ++(vlSymsp->__Vcoverage[2048]);
+            ++(vlSymsp->__Vcoverage[2051]);
         }
     }
     if ((1U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0))) {
         if ((2U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0))) {
             if ((4U == (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0))) {
-                ++(vlSymsp->__Vcoverage[2049]);
+                ++(vlSymsp->__Vcoverage[2052]);
             }
         }
     }
@@ -441,7 +1591,7 @@ VL_INLINE_OPT void Vopl3::_sequent__TOP__12(Vopl3__Syms* __restrict vlSymsp) {
         if ((2U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0))) {
             if ((4U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0))) {
                 if ((8U == (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0))) {
-                    ++(vlSymsp->__Vcoverage[2050]);
+                    ++(vlSymsp->__Vcoverage[2053]);
                 }
             }
         }
@@ -455,33 +1605,33 @@ VL_INLINE_OPT void Vopl3::_sequent__TOP__12(Vopl3__Syms* __restrict vlSymsp) {
         if (VL_UNLIKELY(Verilated::assertOn())) {
             VL_WRITEF("[%0t] %%Error: envelope_generator.sv:180: Assertion failed in %Nopl3.channels.control_operators.operator.envelope_generator: synthesis parallel_case, but multiple matches found\n",
                       64,VL_TIME_UNITED_Q(1000),vlSymsp->name());
-            VL_STOP_MT("/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/operator/src/envelope_generator.sv", 180, "");
+            VL_STOP_MT("/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/operator/src/envelope_generator.sv", 180, "");
         }
     }
     if ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__next_state_p0))) {
-        ++(vlSymsp->__Vcoverage[1917]);
+        ++(vlSymsp->__Vcoverage[1920]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__next_state_p0 
             = ((0xeU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__next_state_p0)) 
                | (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0)));
     }
     if ((2U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__next_state_p0))) {
-        ++(vlSymsp->__Vcoverage[1918]);
+        ++(vlSymsp->__Vcoverage[1921]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__next_state_p0 
             = ((0xdU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__next_state_p0)) 
                | (2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0)));
     }
     if ((4U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__next_state_p0))) {
-        ++(vlSymsp->__Vcoverage[1919]);
+        ++(vlSymsp->__Vcoverage[1922]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__next_state_p0 
             = ((0xbU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__next_state_p0)) 
                | (4U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0)));
     }
     if ((8U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__next_state_p0))) {
-        ++(vlSymsp->__Vcoverage[1920]);
+        ++(vlSymsp->__Vcoverage[1923]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__next_state_p0 
             = ((7U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__next_state_p0)) 
                | (8U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__next_state_p0)));
@@ -505,51 +1655,43 @@ VL_INLINE_OPT void Vopl3::_sequent__TOP__12(Vopl3__Syms* __restrict vlSymsp) {
             }
         }
     }
-    if ((1U & ((0U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0)) 
-               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__requested_rate_not_zero_sr__DOT____Vtogcov__in))) {
-        ++(vlSymsp->__Vcoverage[2309]);
+    if (((0U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0)) 
+         ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__requested_rate_not_zero_sr__DOT____Vtogcov__in)) {
+        ++(vlSymsp->__Vcoverage[2327]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__requested_rate_not_zero_sr__DOT____Vtogcov__in 
-            = ((2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__requested_rate_not_zero_sr__DOT____Vtogcov__in)) 
-               | (0U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0)));
-    }
-    if ((2U & ((0U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0)) 
-               ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__requested_rate_not_zero_sr__DOT____Vtogcov__in))) {
-        ++(vlSymsp->__Vcoverage[2310]);
-        vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__requested_rate_not_zero_sr__DOT____Vtogcov__in 
-            = ((1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT__requested_rate_not_zero_sr__DOT____Vtogcov__in)) 
-               | (2U & (0U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0))));
+            = (0U != (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0));
     }
     if ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__requested_rate_p0))) {
-        ++(vlSymsp->__Vcoverage[1979]);
+        ++(vlSymsp->__Vcoverage[1982]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__requested_rate_p0 
             = ((0xeU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__requested_rate_p0)) 
                | (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0)));
     }
     if ((2U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__requested_rate_p0))) {
-        ++(vlSymsp->__Vcoverage[1980]);
+        ++(vlSymsp->__Vcoverage[1983]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__requested_rate_p0 
             = ((0xdU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__requested_rate_p0)) 
                | (2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0)));
     }
     if ((4U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__requested_rate_p0))) {
-        ++(vlSymsp->__Vcoverage[1981]);
+        ++(vlSymsp->__Vcoverage[1984]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__requested_rate_p0 
             = ((0xbU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__requested_rate_p0)) 
                | (4U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0)));
     }
     if ((8U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
                ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__requested_rate_p0))) {
-        ++(vlSymsp->__Vcoverage[1982]);
+        ++(vlSymsp->__Vcoverage[1985]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__requested_rate_p0 
             = ((7U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT____Vtogcov__requested_rate_p0)) 
                | (8U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0)));
     }
     if ((1U & ((0x3fU & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
                          << 2U)) ^ vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0))) {
-        ++(vlSymsp->__Vcoverage[2202]);
+        ++(vlSymsp->__Vcoverage[2215]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0 
             = ((0x3eU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0)) 
                | (1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
@@ -558,14 +1700,14 @@ VL_INLINE_OPT void Vopl3::_sequent__TOP__12(Vopl3__Syms* __restrict vlSymsp) {
     if ((1U & ((0x1eU & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
                          << 1U)) ^ (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0 
                                     >> 1U)))) {
-        ++(vlSymsp->__Vcoverage[2203]);
+        ++(vlSymsp->__Vcoverage[2216]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0 
             = (0x3dU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0));
     }
     if ((1U & ((0xfU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0)) 
                ^ (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0 
                   >> 2U)))) {
-        ++(vlSymsp->__Vcoverage[2204]);
+        ++(vlSymsp->__Vcoverage[2217]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0 
             = ((0x3bU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0)) 
                | (4U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
@@ -574,7 +1716,7 @@ VL_INLINE_OPT void Vopl3::_sequent__TOP__12(Vopl3__Syms* __restrict vlSymsp) {
     if ((1U & ((7U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
                       >> 1U)) ^ (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0 
                                  >> 3U)))) {
-        ++(vlSymsp->__Vcoverage[2205]);
+        ++(vlSymsp->__Vcoverage[2218]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0 
             = ((0x37U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0)) 
                | (8U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
@@ -583,7 +1725,7 @@ VL_INLINE_OPT void Vopl3::_sequent__TOP__12(Vopl3__Syms* __restrict vlSymsp) {
     if ((1U & ((3U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
                       >> 2U)) ^ (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0 
                                  >> 4U)))) {
-        ++(vlSymsp->__Vcoverage[2206]);
+        ++(vlSymsp->__Vcoverage[2219]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0 
             = ((0x2fU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0)) 
                | (0x10U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
@@ -592,7 +1734,7 @@ VL_INLINE_OPT void Vopl3::_sequent__TOP__12(Vopl3__Syms* __restrict vlSymsp) {
     if ((1U & ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
                       >> 3U)) ^ (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0 
                                  >> 5U)))) {
-        ++(vlSymsp->__Vcoverage[2207]);
+        ++(vlSymsp->__Vcoverage[2220]);
         vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0 
             = ((0x1fU & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__env_rate_counter__DOT____Vtogcov__requested_rate_shifted_p0)) 
                | (0x20U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__requested_rate_p0) 
@@ -2648,7 +3790,7 @@ VL_INLINE_OPT void Vopl3::_combo__TOP__20(Vopl3__Syms* __restrict vlSymsp) {
                                     VL_WRITEF("[%0t] %%Error: channels.sv:202: Assertion failed in %Nopl3.channels: synthesis parallel_case, but multiple matches found\n",
                                               64,VL_TIME_UNITED_Q(1000),
                                               vlSymsp->name());
-                                    VL_STOP_MT("/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/channels/src/channels.sv", 202, "");
+                                    VL_STOP_MT("/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/channels/src/channels.sv", 202, "");
                                 }
                             }
                         }
@@ -3042,7 +4184,7 @@ VL_INLINE_OPT void Vopl3::_combo__TOP__20(Vopl3__Syms* __restrict vlSymsp) {
                                 VL_WRITEF("[%0t] %%Error: channels.sv:229: Assertion failed in %Nopl3.channels: synthesis parallel_case, but multiple matches found\n",
                                           64,VL_TIME_UNITED_Q(1000),
                                           vlSymsp->name());
-                                VL_STOP_MT("/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/channels/src/channels.sv", 229, "");
+                                VL_STOP_MT("/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/channels/src/channels.sv", 229, "");
                             }
                         }
                         if (((1U == ((2U & ((IData)(
@@ -3119,7 +4261,7 @@ VL_INLINE_OPT void Vopl3::_combo__TOP__20(Vopl3__Syms* __restrict vlSymsp) {
                                 VL_WRITEF("[%0t] %%Error: channels.sv:235: Assertion failed in %Nopl3.channels: synthesis parallel_case, but multiple matches found\n",
                                           64,VL_TIME_UNITED_Q(1000),
                                           vlSymsp->name());
-                                VL_STOP_MT("/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/channels/src/channels.sv", 235, "");
+                                VL_STOP_MT("/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/channels/src/channels.sv", 235, "");
                             }
                         }
                         if ((8U == (0xfU & ((vlTOPp->opl3__DOT__channels__DOT__self[2U] 
@@ -3169,7 +4311,7 @@ VL_INLINE_OPT void Vopl3::_combo__TOP__20(Vopl3__Syms* __restrict vlSymsp) {
                                     VL_WRITEF("[%0t] %%Error: channels.sv:257: Assertion failed in %Nopl3.channels: synthesis parallel_case, but multiple matches found\n",
                                               64,VL_TIME_UNITED_Q(1000),
                                               vlSymsp->name());
-                                    VL_STOP_MT("/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/channels/src/channels.sv", 257, "");
+                                    VL_STOP_MT("/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/channels/src/channels.sv", 257, "");
                                 }
                             }
                             vlTOPp->opl3__DOT__channels__DOT__next_state = 1U;
@@ -3474,7 +4616,7 @@ VL_INLINE_OPT void Vopl3::_combo__TOP__20(Vopl3__Syms* __restrict vlSymsp) {
                                                       64,
                                                       VL_TIME_UNITED_Q(1000),
                                                       vlSymsp->name());
-                                            VL_STOP_MT("/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/channels/src/channels.sv", 288, "");
+                                            VL_STOP_MT("/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/channels/src/channels.sv", 288, "");
                                         }
                                     }
                                     if ((0x20000U & 
@@ -3813,7 +4955,7 @@ VL_INLINE_OPT void Vopl3::_combo__TOP__20(Vopl3__Syms* __restrict vlSymsp) {
                                                       64,
                                                       VL_TIME_UNITED_Q(1000),
                                                       vlSymsp->name());
-                                            VL_STOP_MT("/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/channels/src/channels.sv", 312, "");
+                                            VL_STOP_MT("/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/channels/src/channels.sv", 312, "");
                                         }
                                     }
                                     if (((1U == ((2U 
@@ -3904,7 +5046,7 @@ VL_INLINE_OPT void Vopl3::_combo__TOP__20(Vopl3__Syms* __restrict vlSymsp) {
                                                       64,
                                                       VL_TIME_UNITED_Q(1000),
                                                       vlSymsp->name());
-                                            VL_STOP_MT("/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/channels/src/channels.sv", 318, "");
+                                            VL_STOP_MT("/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/channels/src/channels.sv", 318, "");
                                         }
                                     }
                                     if ((2U == (0xfU 
@@ -3979,7 +5121,7 @@ VL_INLINE_OPT void Vopl3::_combo__TOP__20(Vopl3__Syms* __restrict vlSymsp) {
         if (VL_UNLIKELY(Verilated::assertOn())) {
             VL_WRITEF("[%0t] %%Error: channels.sv:182: Assertion failed in %Nopl3.channels: synthesis parallel_case, but multiple matches found\n",
                       64,VL_TIME_UNITED_Q(1000),vlSymsp->name());
-            VL_STOP_MT("/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/channels/src/channels.sv", 182, "");
+            VL_STOP_MT("/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/channels/src/channels.sv", 182, "");
         }
     }
     if ((0x1000U & (vlTOPp->opl3__DOT__channels__DOT__next_self[2U] 
@@ -4532,12 +5674,12 @@ VL_INLINE_OPT void Vopl3::_sequent__TOP__21(Vopl3__Syms* __restrict vlSymsp) {
                                                | (IData)(vlTOPp->opl3__DOT__reset_sync__DOT__r1)));
     if ((0U == vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__state)) {
         if ((1U & (~ (IData)(vlTOPp->opl3__DOT__reset_sync__DOT__r2)))) {
-            ++(vlSymsp->__Vcoverage[2167]);
+            ++(vlSymsp->__Vcoverage[2179]);
         }
     }
     if ((0U == vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__envelope_generator__DOT__state_mem__DOT__state)) {
         if (vlTOPp->opl3__DOT__reset_sync__DOT__r2) {
-            ++(vlSymsp->__Vcoverage[2166]);
+            ++(vlSymsp->__Vcoverage[2178]);
         }
     }
     if (((IData)(vlTOPp->opl3__DOT__reset_sync__DOT__r2) 
@@ -5031,8 +6173,8 @@ VL_INLINE_OPT QData Vopl3::_change_request_1(Vopl3__Syms* __restrict vlSymsp) {
     QData __req = false;  // Logically a bool
     __req |= ((vlTOPp->opl3__DOT__host_if__DOT____Vcellinp__afifo__i_rd_reset_n ^ vlTOPp->__Vchglast__TOP__opl3__DOT__host_if__DOT____Vcellinp__afifo__i_rd_reset_n)
          | (vlTOPp->opl3__DOT__channels__DOT__signals ^ vlTOPp->__Vchglast__TOP__opl3__DOT__channels__DOT__signals));
-    VL_DEBUG_IF( if(__req && ((vlTOPp->opl3__DOT__host_if__DOT____Vcellinp__afifo__i_rd_reset_n ^ vlTOPp->__Vchglast__TOP__opl3__DOT__host_if__DOT____Vcellinp__afifo__i_rd_reset_n))) VL_DBG_MSGF("        CHANGE: /home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/afifo.v:91: opl3.host_if.__Vcellinp__afifo__i_rd_reset_n\n"); );
-    VL_DEBUG_IF( if(__req && ((vlTOPp->opl3__DOT__channels__DOT__signals ^ vlTOPp->__Vchglast__TOP__opl3__DOT__channels__DOT__signals))) VL_DBG_MSGF("        CHANGE: /home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/channels/src/channels.sv:165: opl3.channels.signals\n"); );
+    VL_DEBUG_IF( if(__req && ((vlTOPp->opl3__DOT__host_if__DOT____Vcellinp__afifo__i_rd_reset_n ^ vlTOPp->__Vchglast__TOP__opl3__DOT__host_if__DOT____Vcellinp__afifo__i_rd_reset_n))) VL_DBG_MSGF("        CHANGE: /home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/afifo.v:91: opl3.host_if.__Vcellinp__afifo__i_rd_reset_n\n"); );
+    VL_DEBUG_IF( if(__req && ((vlTOPp->opl3__DOT__channels__DOT__signals ^ vlTOPp->__Vchglast__TOP__opl3__DOT__channels__DOT__signals))) VL_DBG_MSGF("        CHANGE: /home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/channels/src/channels.sv:165: opl3.channels.signals\n"); );
     // Final
     vlTOPp->__Vchglast__TOP__opl3__DOT__host_if__DOT____Vcellinp__afifo__i_rd_reset_n 
         = vlTOPp->opl3__DOT__host_if__DOT____Vcellinp__afifo__i_rd_reset_n;

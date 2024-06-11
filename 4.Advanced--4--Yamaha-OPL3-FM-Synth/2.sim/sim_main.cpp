@@ -1,32 +1,36 @@
-#include "Vopl3.h"             // This is the Verilator-generated model class for your top module.
-#include "verilated.h"        // Includes basic Verilator utilities
-#include "verilated_vcd_c.h"  // If you want VCD waveform output
-#include "systemc.h"
+#include "Vopl3.h"
+#include "verilated.h"
 
-int main(int argc, char** argv, char** env) {
-    if (false && argc && argv && env) {}  // Prevent unused variable warnings
-    Verilated::commandArgs(argc, argv);  // Initialize Verilator's variables
-    Verilated::traceEverOn(true);        // Enable waveform tracing
+Vopl3* top;                    // Instantiation of module
 
-    // Create an instance of the top module.
-    Vopl3* opl3 = new Vopl3;
+unsigned int main_time = 0;     // Current simulation time
 
-    // Create a VCD trace file
-    //VerilatedVcdC* vcd = new VerilatedVcdC;
-    //opl3->trace(vcd, 99);  // Trace 99 levels of hierarchy
-    //vcd->open("opl3.vcd"); // Open the VCD file for dumping
+double sc_time_stamp () {       // Called by $time in Verilog
+    return main_time;
+}
 
-    // Simulation main loop
-    for (int i = 0; i < 100; i++) {
-        // Toggle clock and evaluate
-        opl3->clk = !opl3->clk;  // Toggle the clock input
-        opl3->eval();           // Evaluate the model
+int main(int argc, char** argv) {
+    Verilated::commandArgs(argc, argv);   // Remember args
+
+    top = new Vopl3;             // Create instance
+
+    top->clk = 0;                // Set initial clock value
+
+    while (!Verilated::gotFinish() && main_time < 100) { // Run simulation for 100 time units
+        if ((main_time % 10) == 1) {
+            top->clk = 1;       // Toggle clock
+        }
+        if ((main_time % 10) == 6) {
+            top->clk = 0;
+        }
+
+        top->eval();            // Evaluate model
+        main_time++;            // Time passes...
     }
 
-    // Final model evaluation at end of simulation
-    opl3->final();
-    delete opl3;    // Cleanup the top instance
+    top->final();               // Done simulating
 
+    delete top;                 // Cleanup
     return 0;
 }
 

@@ -43,12 +43,12 @@ VL_MODULE(Vopl3_mem_multi_bank__D1_DB12_O2_N2) {
     CData/*0:0*/ __PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram[18];
     
     // LOCAL VARIABLES
-    CData/*1:0*/ __Vcellout__bankb_sr__out;
-    CData/*0:0*/ __Vtogcov__banka;
+    CData/*2:0*/ __Vcellout__bankb_sr__out;
     CData/*0:0*/ __Vtogcov__dia;
     CData/*0:0*/ __Vtogcov__dob;
     CData/*1:0*/ __Vtogcov__wea_array;
     CData/*1:0*/ __Vtogcov__bankb_p;
+    CData/*2:0*/ bankb_sr__DOT____Vtogcov__out;
     CData/*0:0*/ bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__wea;
     CData/*0:0*/ bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__reb;
     CData/*0:0*/ bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__dob;
