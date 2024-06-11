@@ -19,8 +19,10 @@ SW_SRC  := $(BLD_DIR)/../2.sw
 
 SYNLIG = /home/user/FPGA/tools/synlig
 PLUGIN_PATH := $(SYNLIG)/build/release/systemverilog-plugin/systemverilog.so
-YOSYS = $(SYNLIG)/out/current/bin/yosys$(EXE)
+
+#YOSYS = $(SYNLIG)/out/current/bin/yosys$(EXE)
 #YOSYS = $(CC_TOOL)/bin/yosys/yosys$(EXE)
+YOSYS = /home/user/FPGA/tools/yosys/yosys
 PR = $(CC_TOOL)/bin/p_r/p_r$(EXE)
 OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE)
 
@@ -31,7 +33,7 @@ VVP = vvp
 IVLFLAGS = -Winfloop -g2012 -gspecify -Ttyp
 
 # Source Directory
-SRC = \
+SV_SRC = \
 \
 	$(HW_SRC)/modules/top_level/src/opl3.sv \
 	$(HW_SRC)/modules/top_level/pkg/opl3_pkg.sv \
@@ -65,13 +67,48 @@ SRC = \
 	$(HW_SRC)/modules/misc/src/leds.sv \
 	$(HW_SRC)/modules/host_if/src/host_if.sv \
 	$(HW_SRC)/modules/host_if/src/trick_sw_detection.sv
+	
+V_SRC = \
+\
+	$(HW_SRC)/modules/top_level/src/opl3.v \
+	$(HW_SRC)/modules/top_level/pkg/opl3_pkg.v \
+	$(HW_SRC)/modules/channels/src/dac_prep.v \
+	$(HW_SRC)/modules/channels/src/channels.v \
+	$(HW_SRC)/modules/channels/src/control_operators.v \
+	$(HW_SRC)/modules/clks/src/clk_div.v \
+	$(HW_SRC)/modules/clks/src/reset_sync.v \
+	$(HW_SRC)/modules/i2s/src/i2s.v \
+	$(HW_SRC)/modules/operator/src/operator.v \
+	$(HW_SRC)/modules/operator/src/calc_phase_inc.v \
+	$(HW_SRC)/modules/operator/src/calc_rhythm_phase.v \
+	$(HW_SRC)/modules/operator/src/phase_generator.v \
+	$(HW_SRC)/modules/operator/src/vibrato.v \
+	$(HW_SRC)/modules/operator/src/envelope_generator.v \
+	$(HW_SRC)/modules/operator/src/ksl_add_rom.v \
+	$(HW_SRC)/modules/operator/src/env_rate_counter.v \
+	$(HW_SRC)/modules/operator/src/tremolo.v \
+	$(HW_SRC)/modules/operator/src/opl3_log_sine_lut.v \
+	$(HW_SRC)/modules/operator/src/opl3_exp_lut.v \
+	$(HW_SRC)/modules/timers/src/timers.v \
+	$(HW_SRC)/modules/timers/src/timer.v \
+	$(HW_SRC)/modules/misc/src/afifo.v \
+	$(HW_SRC)/modules/misc/src/edge_detector.v \
+	$(HW_SRC)/modules/misc/src/mem_simple_dual_port_async_read.v \
+	$(HW_SRC)/modules/misc/src/mem_simple_dual_port.v \
+	$(HW_SRC)/modules/misc/src/mem_multi_bank.v \
+	$(HW_SRC)/modules/misc/src/mem_multi_bank_reset.v \
+	$(HW_SRC)/modules/misc/src/pipeline_sr.v \
+	$(HW_SRC)/modules/misc/src/synchronizer.v \
+	$(HW_SRC)/modules/misc/src/leds.v \
+	$(HW_SRC)/modules/host_if/src/host_if.v \
+	$(HW_SRC)/modules/host_if/src/trick_sw_detection.v
 
 SIM = \
 	$(HW_SRC)/modules/top_level/sim/opl3_tb.sv \
 	$(HW_SRC)/modules/operator/sim/save_dac_input.sv
 	
-PKG = $(HW_SRC)/modules/top_level/pkg/opl3_pkg.sv
-
+V_PKG = $(HW_SRC)/modules/top_level/pkg/opl3_pkg.v
+SV_PKG = $(HW_SRC)/modules/top_level/pkg/opl3_pkg.sv
 
 # Simulation Libraries
 CELLS_SYNTH = $(CC_TOOL)/bin/yosys/share/gatemate/cells_sim.v
@@ -83,8 +120,9 @@ CONSTR = $(HW_SRC)/constraints/blink.ccf
 PRFLAGS += -ccf $blink.ccf -cCP
 
 # Synthesize Sources
-VLOG_SRC = $(shell find $(SRC) -type f \( -iname \*.v -o -iname \*.sv \))
-VHDL_SRC = $(shell find $(SRC) -type f \( -iname \*.vhd -o -iname \*.vhdl \))
+SVLOG_SRC = $(shell find $(SV_SRC) -type f \( -iname \*.v -o -iname \*.sv \))
+VLOG_SRC = $(shell find $(V_SRC) -type f \( -iname \*.v -o -iname \*.sv \))
+#VHDL_SRC = $(shell find $(SRC) -type f \( -iname \*.vhd -o -iname \*.vhdl \))
 
 ## misc tools
 RM = rm -rf
@@ -92,13 +130,13 @@ RM = rm -rf
 ## toolchain targets
 synth: synth_vlog
 
-synth_svlog: $(VLOG_SRC) $(PKG)
+synth_svlog: $(SVLOG_SRC) $(SV_PKG)
 	@test -d log || mkdir -p log
 	@test -d net || mkdir -p net
-	$(YOSYS) -ql log/synth.log -p 'plugin -i $(PLUGIN_PATH); read_systemverilog $(VLOG_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
+	$(YOSYS) -ql log/synth.log -p 'plugin -i $(PLUGIN_PATH); read_systemverilog $(SVLOG_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
 
 
-synth_vlog: $(VLOG_SRC)
+synth_vlog: $(VLOG_SRC) $(V_PKG)
 	@test -d log || mkdir log
 	@test -d net || mkdir net
 	$(YOSYS) -ql log/synth.log -p 'read -sv $(VLOG_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
@@ -109,7 +147,7 @@ synth_vhdl: $(VHDL_SRC)
 	$(YOSYS) -ql log/synth.log -p 'read -vhdl $(PKG); read -vhdl $(VHDL_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
 
 impl:
-	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf blink.ccf -cCP > log/$@.log
+	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf $(CONSTR) -cCP > log/$@.log || { tail -n 50 log/$@.log; exit 1; }
 
 jtag:
 	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag $(TOP)_00.cfg
