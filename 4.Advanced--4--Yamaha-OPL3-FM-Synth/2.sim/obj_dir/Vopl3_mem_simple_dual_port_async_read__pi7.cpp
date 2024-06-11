@@ -11,12 +11,12 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     VL_DEBUG_IF(VL_DBG_MSGF("+                    Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__bankgen__BRA__0__KET____DOT__genblk1__DOT__mem_bank__5\n"); );
     Vopl3* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    ++(vlSymsp->__Vcoverage[4431]);
+    ++(vlSymsp->__Vcoverage[4452]);
     if ((1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4429]);
+        ++(vlSymsp->__Vcoverage[4450]);
     }
     if ((1U & (~ (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__wea_array)))) {
-        ++(vlSymsp->__Vcoverage[4430]);
+        ++(vlSymsp->__Vcoverage[4451]);
     }
     this->__Vdlyvset__ram__v0 = 0U;
     if ((1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__wea_array))) {
@@ -35,7 +35,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0U] ^ this->__Vtogcov__ram
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4361]);
+        ++(vlSymsp->__Vcoverage[4382]);
         this->__Vtogcov__ram[0U] = ((6U & this->__Vtogcov__ram
                                      [0U]) | (1U & 
                                               this->__PVT__ram
@@ -43,7 +43,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0U] ^ this->__Vtogcov__ram
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4362]);
+        ++(vlSymsp->__Vcoverage[4383]);
         this->__Vtogcov__ram[0U] = ((5U & this->__Vtogcov__ram
                                      [0U]) | (2U & 
                                               this->__PVT__ram
@@ -51,7 +51,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0U] ^ this->__Vtogcov__ram
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4363]);
+        ++(vlSymsp->__Vcoverage[4384]);
         this->__Vtogcov__ram[0U] = ((3U & this->__Vtogcov__ram
                                      [0U]) | (4U & 
                                               this->__PVT__ram
@@ -59,7 +59,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[1U] ^ this->__Vtogcov__ram
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4364]);
+        ++(vlSymsp->__Vcoverage[4385]);
         this->__Vtogcov__ram[1U] = ((6U & this->__Vtogcov__ram
                                      [1U]) | (1U & 
                                               this->__PVT__ram
@@ -67,7 +67,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[1U] ^ this->__Vtogcov__ram
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4365]);
+        ++(vlSymsp->__Vcoverage[4386]);
         this->__Vtogcov__ram[1U] = ((5U & this->__Vtogcov__ram
                                      [1U]) | (2U & 
                                               this->__PVT__ram
@@ -75,7 +75,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[1U] ^ this->__Vtogcov__ram
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4366]);
+        ++(vlSymsp->__Vcoverage[4387]);
         this->__Vtogcov__ram[1U] = ((3U & this->__Vtogcov__ram
                                      [1U]) | (4U & 
                                               this->__PVT__ram
@@ -83,7 +83,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[2U] ^ this->__Vtogcov__ram
                [2U]))) {
-        ++(vlSymsp->__Vcoverage[4367]);
+        ++(vlSymsp->__Vcoverage[4388]);
         this->__Vtogcov__ram[2U] = ((6U & this->__Vtogcov__ram
                                      [2U]) | (1U & 
                                               this->__PVT__ram
@@ -91,7 +91,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[2U] ^ this->__Vtogcov__ram
                [2U]))) {
-        ++(vlSymsp->__Vcoverage[4368]);
+        ++(vlSymsp->__Vcoverage[4389]);
         this->__Vtogcov__ram[2U] = ((5U & this->__Vtogcov__ram
                                      [2U]) | (2U & 
                                               this->__PVT__ram
@@ -99,7 +99,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[2U] ^ this->__Vtogcov__ram
                [2U]))) {
-        ++(vlSymsp->__Vcoverage[4369]);
+        ++(vlSymsp->__Vcoverage[4390]);
         this->__Vtogcov__ram[2U] = ((3U & this->__Vtogcov__ram
                                      [2U]) | (4U & 
                                               this->__PVT__ram
@@ -107,7 +107,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[3U] ^ this->__Vtogcov__ram
                [3U]))) {
-        ++(vlSymsp->__Vcoverage[4370]);
+        ++(vlSymsp->__Vcoverage[4391]);
         this->__Vtogcov__ram[3U] = ((6U & this->__Vtogcov__ram
                                      [3U]) | (1U & 
                                               this->__PVT__ram
@@ -115,7 +115,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[3U] ^ this->__Vtogcov__ram
                [3U]))) {
-        ++(vlSymsp->__Vcoverage[4371]);
+        ++(vlSymsp->__Vcoverage[4392]);
         this->__Vtogcov__ram[3U] = ((5U & this->__Vtogcov__ram
                                      [3U]) | (2U & 
                                               this->__PVT__ram
@@ -123,7 +123,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[3U] ^ this->__Vtogcov__ram
                [3U]))) {
-        ++(vlSymsp->__Vcoverage[4372]);
+        ++(vlSymsp->__Vcoverage[4393]);
         this->__Vtogcov__ram[3U] = ((3U & this->__Vtogcov__ram
                                      [3U]) | (4U & 
                                               this->__PVT__ram
@@ -131,7 +131,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[4U] ^ this->__Vtogcov__ram
                [4U]))) {
-        ++(vlSymsp->__Vcoverage[4373]);
+        ++(vlSymsp->__Vcoverage[4394]);
         this->__Vtogcov__ram[4U] = ((6U & this->__Vtogcov__ram
                                      [4U]) | (1U & 
                                               this->__PVT__ram
@@ -139,7 +139,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[4U] ^ this->__Vtogcov__ram
                [4U]))) {
-        ++(vlSymsp->__Vcoverage[4374]);
+        ++(vlSymsp->__Vcoverage[4395]);
         this->__Vtogcov__ram[4U] = ((5U & this->__Vtogcov__ram
                                      [4U]) | (2U & 
                                               this->__PVT__ram
@@ -147,7 +147,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[4U] ^ this->__Vtogcov__ram
                [4U]))) {
-        ++(vlSymsp->__Vcoverage[4375]);
+        ++(vlSymsp->__Vcoverage[4396]);
         this->__Vtogcov__ram[4U] = ((3U & this->__Vtogcov__ram
                                      [4U]) | (4U & 
                                               this->__PVT__ram
@@ -155,7 +155,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[5U] ^ this->__Vtogcov__ram
                [5U]))) {
-        ++(vlSymsp->__Vcoverage[4376]);
+        ++(vlSymsp->__Vcoverage[4397]);
         this->__Vtogcov__ram[5U] = ((6U & this->__Vtogcov__ram
                                      [5U]) | (1U & 
                                               this->__PVT__ram
@@ -163,7 +163,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[5U] ^ this->__Vtogcov__ram
                [5U]))) {
-        ++(vlSymsp->__Vcoverage[4377]);
+        ++(vlSymsp->__Vcoverage[4398]);
         this->__Vtogcov__ram[5U] = ((5U & this->__Vtogcov__ram
                                      [5U]) | (2U & 
                                               this->__PVT__ram
@@ -171,7 +171,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[5U] ^ this->__Vtogcov__ram
                [5U]))) {
-        ++(vlSymsp->__Vcoverage[4378]);
+        ++(vlSymsp->__Vcoverage[4399]);
         this->__Vtogcov__ram[5U] = ((3U & this->__Vtogcov__ram
                                      [5U]) | (4U & 
                                               this->__PVT__ram
@@ -179,7 +179,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[6U] ^ this->__Vtogcov__ram
                [6U]))) {
-        ++(vlSymsp->__Vcoverage[4379]);
+        ++(vlSymsp->__Vcoverage[4400]);
         this->__Vtogcov__ram[6U] = ((6U & this->__Vtogcov__ram
                                      [6U]) | (1U & 
                                               this->__PVT__ram
@@ -187,7 +187,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[6U] ^ this->__Vtogcov__ram
                [6U]))) {
-        ++(vlSymsp->__Vcoverage[4380]);
+        ++(vlSymsp->__Vcoverage[4401]);
         this->__Vtogcov__ram[6U] = ((5U & this->__Vtogcov__ram
                                      [6U]) | (2U & 
                                               this->__PVT__ram
@@ -195,7 +195,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[6U] ^ this->__Vtogcov__ram
                [6U]))) {
-        ++(vlSymsp->__Vcoverage[4381]);
+        ++(vlSymsp->__Vcoverage[4402]);
         this->__Vtogcov__ram[6U] = ((3U & this->__Vtogcov__ram
                                      [6U]) | (4U & 
                                               this->__PVT__ram
@@ -203,7 +203,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[7U] ^ this->__Vtogcov__ram
                [7U]))) {
-        ++(vlSymsp->__Vcoverage[4382]);
+        ++(vlSymsp->__Vcoverage[4403]);
         this->__Vtogcov__ram[7U] = ((6U & this->__Vtogcov__ram
                                      [7U]) | (1U & 
                                               this->__PVT__ram
@@ -211,7 +211,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[7U] ^ this->__Vtogcov__ram
                [7U]))) {
-        ++(vlSymsp->__Vcoverage[4383]);
+        ++(vlSymsp->__Vcoverage[4404]);
         this->__Vtogcov__ram[7U] = ((5U & this->__Vtogcov__ram
                                      [7U]) | (2U & 
                                               this->__PVT__ram
@@ -219,7 +219,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[7U] ^ this->__Vtogcov__ram
                [7U]))) {
-        ++(vlSymsp->__Vcoverage[4384]);
+        ++(vlSymsp->__Vcoverage[4405]);
         this->__Vtogcov__ram[7U] = ((3U & this->__Vtogcov__ram
                                      [7U]) | (4U & 
                                               this->__PVT__ram
@@ -227,7 +227,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[8U] ^ this->__Vtogcov__ram
                [8U]))) {
-        ++(vlSymsp->__Vcoverage[4385]);
+        ++(vlSymsp->__Vcoverage[4406]);
         this->__Vtogcov__ram[8U] = ((6U & this->__Vtogcov__ram
                                      [8U]) | (1U & 
                                               this->__PVT__ram
@@ -235,7 +235,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[8U] ^ this->__Vtogcov__ram
                [8U]))) {
-        ++(vlSymsp->__Vcoverage[4386]);
+        ++(vlSymsp->__Vcoverage[4407]);
         this->__Vtogcov__ram[8U] = ((5U & this->__Vtogcov__ram
                                      [8U]) | (2U & 
                                               this->__PVT__ram
@@ -243,7 +243,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[8U] ^ this->__Vtogcov__ram
                [8U]))) {
-        ++(vlSymsp->__Vcoverage[4387]);
+        ++(vlSymsp->__Vcoverage[4408]);
         this->__Vtogcov__ram[8U] = ((3U & this->__Vtogcov__ram
                                      [8U]) | (4U & 
                                               this->__PVT__ram
@@ -251,7 +251,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[9U] ^ this->__Vtogcov__ram
                [9U]))) {
-        ++(vlSymsp->__Vcoverage[4388]);
+        ++(vlSymsp->__Vcoverage[4409]);
         this->__Vtogcov__ram[9U] = ((6U & this->__Vtogcov__ram
                                      [9U]) | (1U & 
                                               this->__PVT__ram
@@ -259,7 +259,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[9U] ^ this->__Vtogcov__ram
                [9U]))) {
-        ++(vlSymsp->__Vcoverage[4389]);
+        ++(vlSymsp->__Vcoverage[4410]);
         this->__Vtogcov__ram[9U] = ((5U & this->__Vtogcov__ram
                                      [9U]) | (2U & 
                                               this->__PVT__ram
@@ -267,7 +267,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[9U] ^ this->__Vtogcov__ram
                [9U]))) {
-        ++(vlSymsp->__Vcoverage[4390]);
+        ++(vlSymsp->__Vcoverage[4411]);
         this->__Vtogcov__ram[9U] = ((3U & this->__Vtogcov__ram
                                      [9U]) | (4U & 
                                               this->__PVT__ram
@@ -275,7 +275,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0xaU] ^ this->__Vtogcov__ram
                [0xaU]))) {
-        ++(vlSymsp->__Vcoverage[4391]);
+        ++(vlSymsp->__Vcoverage[4412]);
         this->__Vtogcov__ram[0xaU] = ((6U & this->__Vtogcov__ram
                                        [0xaU]) | (1U 
                                                   & this->__PVT__ram
@@ -283,7 +283,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0xaU] ^ this->__Vtogcov__ram
                [0xaU]))) {
-        ++(vlSymsp->__Vcoverage[4392]);
+        ++(vlSymsp->__Vcoverage[4413]);
         this->__Vtogcov__ram[0xaU] = ((5U & this->__Vtogcov__ram
                                        [0xaU]) | (2U 
                                                   & this->__PVT__ram
@@ -291,7 +291,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0xaU] ^ this->__Vtogcov__ram
                [0xaU]))) {
-        ++(vlSymsp->__Vcoverage[4393]);
+        ++(vlSymsp->__Vcoverage[4414]);
         this->__Vtogcov__ram[0xaU] = ((3U & this->__Vtogcov__ram
                                        [0xaU]) | (4U 
                                                   & this->__PVT__ram
@@ -299,7 +299,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0xbU] ^ this->__Vtogcov__ram
                [0xbU]))) {
-        ++(vlSymsp->__Vcoverage[4394]);
+        ++(vlSymsp->__Vcoverage[4415]);
         this->__Vtogcov__ram[0xbU] = ((6U & this->__Vtogcov__ram
                                        [0xbU]) | (1U 
                                                   & this->__PVT__ram
@@ -307,7 +307,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0xbU] ^ this->__Vtogcov__ram
                [0xbU]))) {
-        ++(vlSymsp->__Vcoverage[4395]);
+        ++(vlSymsp->__Vcoverage[4416]);
         this->__Vtogcov__ram[0xbU] = ((5U & this->__Vtogcov__ram
                                        [0xbU]) | (2U 
                                                   & this->__PVT__ram
@@ -315,7 +315,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0xbU] ^ this->__Vtogcov__ram
                [0xbU]))) {
-        ++(vlSymsp->__Vcoverage[4396]);
+        ++(vlSymsp->__Vcoverage[4417]);
         this->__Vtogcov__ram[0xbU] = ((3U & this->__Vtogcov__ram
                                        [0xbU]) | (4U 
                                                   & this->__PVT__ram
@@ -323,7 +323,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0xcU] ^ this->__Vtogcov__ram
                [0xcU]))) {
-        ++(vlSymsp->__Vcoverage[4397]);
+        ++(vlSymsp->__Vcoverage[4418]);
         this->__Vtogcov__ram[0xcU] = ((6U & this->__Vtogcov__ram
                                        [0xcU]) | (1U 
                                                   & this->__PVT__ram
@@ -331,7 +331,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0xcU] ^ this->__Vtogcov__ram
                [0xcU]))) {
-        ++(vlSymsp->__Vcoverage[4398]);
+        ++(vlSymsp->__Vcoverage[4419]);
         this->__Vtogcov__ram[0xcU] = ((5U & this->__Vtogcov__ram
                                        [0xcU]) | (2U 
                                                   & this->__PVT__ram
@@ -339,7 +339,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0xcU] ^ this->__Vtogcov__ram
                [0xcU]))) {
-        ++(vlSymsp->__Vcoverage[4399]);
+        ++(vlSymsp->__Vcoverage[4420]);
         this->__Vtogcov__ram[0xcU] = ((3U & this->__Vtogcov__ram
                                        [0xcU]) | (4U 
                                                   & this->__PVT__ram
@@ -347,7 +347,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0xdU] ^ this->__Vtogcov__ram
                [0xdU]))) {
-        ++(vlSymsp->__Vcoverage[4400]);
+        ++(vlSymsp->__Vcoverage[4421]);
         this->__Vtogcov__ram[0xdU] = ((6U & this->__Vtogcov__ram
                                        [0xdU]) | (1U 
                                                   & this->__PVT__ram
@@ -355,7 +355,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0xdU] ^ this->__Vtogcov__ram
                [0xdU]))) {
-        ++(vlSymsp->__Vcoverage[4401]);
+        ++(vlSymsp->__Vcoverage[4422]);
         this->__Vtogcov__ram[0xdU] = ((5U & this->__Vtogcov__ram
                                        [0xdU]) | (2U 
                                                   & this->__PVT__ram
@@ -363,7 +363,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0xdU] ^ this->__Vtogcov__ram
                [0xdU]))) {
-        ++(vlSymsp->__Vcoverage[4402]);
+        ++(vlSymsp->__Vcoverage[4423]);
         this->__Vtogcov__ram[0xdU] = ((3U & this->__Vtogcov__ram
                                        [0xdU]) | (4U 
                                                   & this->__PVT__ram
@@ -371,7 +371,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0xeU] ^ this->__Vtogcov__ram
                [0xeU]))) {
-        ++(vlSymsp->__Vcoverage[4403]);
+        ++(vlSymsp->__Vcoverage[4424]);
         this->__Vtogcov__ram[0xeU] = ((6U & this->__Vtogcov__ram
                                        [0xeU]) | (1U 
                                                   & this->__PVT__ram
@@ -379,7 +379,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0xeU] ^ this->__Vtogcov__ram
                [0xeU]))) {
-        ++(vlSymsp->__Vcoverage[4404]);
+        ++(vlSymsp->__Vcoverage[4425]);
         this->__Vtogcov__ram[0xeU] = ((5U & this->__Vtogcov__ram
                                        [0xeU]) | (2U 
                                                   & this->__PVT__ram
@@ -387,7 +387,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0xeU] ^ this->__Vtogcov__ram
                [0xeU]))) {
-        ++(vlSymsp->__Vcoverage[4405]);
+        ++(vlSymsp->__Vcoverage[4426]);
         this->__Vtogcov__ram[0xeU] = ((3U & this->__Vtogcov__ram
                                        [0xeU]) | (4U 
                                                   & this->__PVT__ram
@@ -395,7 +395,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0xfU] ^ this->__Vtogcov__ram
                [0xfU]))) {
-        ++(vlSymsp->__Vcoverage[4406]);
+        ++(vlSymsp->__Vcoverage[4427]);
         this->__Vtogcov__ram[0xfU] = ((6U & this->__Vtogcov__ram
                                        [0xfU]) | (1U 
                                                   & this->__PVT__ram
@@ -403,7 +403,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0xfU] ^ this->__Vtogcov__ram
                [0xfU]))) {
-        ++(vlSymsp->__Vcoverage[4407]);
+        ++(vlSymsp->__Vcoverage[4428]);
         this->__Vtogcov__ram[0xfU] = ((5U & this->__Vtogcov__ram
                                        [0xfU]) | (2U 
                                                   & this->__PVT__ram
@@ -411,7 +411,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0xfU] ^ this->__Vtogcov__ram
                [0xfU]))) {
-        ++(vlSymsp->__Vcoverage[4408]);
+        ++(vlSymsp->__Vcoverage[4429]);
         this->__Vtogcov__ram[0xfU] = ((3U & this->__Vtogcov__ram
                                        [0xfU]) | (4U 
                                                   & this->__PVT__ram
@@ -419,7 +419,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0x10U] ^ this->__Vtogcov__ram
                [0x10U]))) {
-        ++(vlSymsp->__Vcoverage[4409]);
+        ++(vlSymsp->__Vcoverage[4430]);
         this->__Vtogcov__ram[0x10U] = ((6U & this->__Vtogcov__ram
                                         [0x10U]) | 
                                        (1U & this->__PVT__ram
@@ -427,7 +427,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0x10U] ^ this->__Vtogcov__ram
                [0x10U]))) {
-        ++(vlSymsp->__Vcoverage[4410]);
+        ++(vlSymsp->__Vcoverage[4431]);
         this->__Vtogcov__ram[0x10U] = ((5U & this->__Vtogcov__ram
                                         [0x10U]) | 
                                        (2U & this->__PVT__ram
@@ -435,7 +435,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0x10U] ^ this->__Vtogcov__ram
                [0x10U]))) {
-        ++(vlSymsp->__Vcoverage[4411]);
+        ++(vlSymsp->__Vcoverage[4432]);
         this->__Vtogcov__ram[0x10U] = ((3U & this->__Vtogcov__ram
                                         [0x10U]) | 
                                        (4U & this->__PVT__ram
@@ -443,7 +443,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0x11U] ^ this->__Vtogcov__ram
                [0x11U]))) {
-        ++(vlSymsp->__Vcoverage[4412]);
+        ++(vlSymsp->__Vcoverage[4433]);
         this->__Vtogcov__ram[0x11U] = ((6U & this->__Vtogcov__ram
                                         [0x11U]) | 
                                        (1U & this->__PVT__ram
@@ -451,7 +451,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0x11U] ^ this->__Vtogcov__ram
                [0x11U]))) {
-        ++(vlSymsp->__Vcoverage[4413]);
+        ++(vlSymsp->__Vcoverage[4434]);
         this->__Vtogcov__ram[0x11U] = ((5U & this->__Vtogcov__ram
                                         [0x11U]) | 
                                        (2U & this->__PVT__ram
@@ -459,7 +459,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0x11U] ^ this->__Vtogcov__ram
                [0x11U]))) {
-        ++(vlSymsp->__Vcoverage[4414]);
+        ++(vlSymsp->__Vcoverage[4435]);
         this->__Vtogcov__ram[0x11U] = ((3U & this->__Vtogcov__ram
                                         [0x11U]) | 
                                        (4U & this->__PVT__ram
@@ -467,7 +467,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0x12U] ^ this->__Vtogcov__ram
                [0x12U]))) {
-        ++(vlSymsp->__Vcoverage[4415]);
+        ++(vlSymsp->__Vcoverage[4436]);
         this->__Vtogcov__ram[0x12U] = ((6U & this->__Vtogcov__ram
                                         [0x12U]) | 
                                        (1U & this->__PVT__ram
@@ -475,7 +475,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0x12U] ^ this->__Vtogcov__ram
                [0x12U]))) {
-        ++(vlSymsp->__Vcoverage[4416]);
+        ++(vlSymsp->__Vcoverage[4437]);
         this->__Vtogcov__ram[0x12U] = ((5U & this->__Vtogcov__ram
                                         [0x12U]) | 
                                        (2U & this->__PVT__ram
@@ -483,7 +483,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0x12U] ^ this->__Vtogcov__ram
                [0x12U]))) {
-        ++(vlSymsp->__Vcoverage[4417]);
+        ++(vlSymsp->__Vcoverage[4438]);
         this->__Vtogcov__ram[0x12U] = ((3U & this->__Vtogcov__ram
                                         [0x12U]) | 
                                        (4U & this->__PVT__ram
@@ -491,7 +491,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0x13U] ^ this->__Vtogcov__ram
                [0x13U]))) {
-        ++(vlSymsp->__Vcoverage[4418]);
+        ++(vlSymsp->__Vcoverage[4439]);
         this->__Vtogcov__ram[0x13U] = ((6U & this->__Vtogcov__ram
                                         [0x13U]) | 
                                        (1U & this->__PVT__ram
@@ -499,7 +499,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0x13U] ^ this->__Vtogcov__ram
                [0x13U]))) {
-        ++(vlSymsp->__Vcoverage[4419]);
+        ++(vlSymsp->__Vcoverage[4440]);
         this->__Vtogcov__ram[0x13U] = ((5U & this->__Vtogcov__ram
                                         [0x13U]) | 
                                        (2U & this->__PVT__ram
@@ -507,7 +507,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0x13U] ^ this->__Vtogcov__ram
                [0x13U]))) {
-        ++(vlSymsp->__Vcoverage[4420]);
+        ++(vlSymsp->__Vcoverage[4441]);
         this->__Vtogcov__ram[0x13U] = ((3U & this->__Vtogcov__ram
                                         [0x13U]) | 
                                        (4U & this->__PVT__ram
@@ -515,7 +515,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0x14U] ^ this->__Vtogcov__ram
                [0x14U]))) {
-        ++(vlSymsp->__Vcoverage[4421]);
+        ++(vlSymsp->__Vcoverage[4442]);
         this->__Vtogcov__ram[0x14U] = ((6U & this->__Vtogcov__ram
                                         [0x14U]) | 
                                        (1U & this->__PVT__ram
@@ -523,7 +523,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0x14U] ^ this->__Vtogcov__ram
                [0x14U]))) {
-        ++(vlSymsp->__Vcoverage[4422]);
+        ++(vlSymsp->__Vcoverage[4443]);
         this->__Vtogcov__ram[0x14U] = ((5U & this->__Vtogcov__ram
                                         [0x14U]) | 
                                        (2U & this->__PVT__ram
@@ -531,7 +531,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0x14U] ^ this->__Vtogcov__ram
                [0x14U]))) {
-        ++(vlSymsp->__Vcoverage[4423]);
+        ++(vlSymsp->__Vcoverage[4444]);
         this->__Vtogcov__ram[0x14U] = ((3U & this->__Vtogcov__ram
                                         [0x14U]) | 
                                        (4U & this->__PVT__ram
@@ -539,7 +539,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0x15U] ^ this->__Vtogcov__ram
                [0x15U]))) {
-        ++(vlSymsp->__Vcoverage[4424]);
+        ++(vlSymsp->__Vcoverage[4445]);
         this->__Vtogcov__ram[0x15U] = ((6U & this->__Vtogcov__ram
                                         [0x15U]) | 
                                        (1U & this->__PVT__ram
@@ -547,7 +547,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0x15U] ^ this->__Vtogcov__ram
                [0x15U]))) {
-        ++(vlSymsp->__Vcoverage[4425]);
+        ++(vlSymsp->__Vcoverage[4446]);
         this->__Vtogcov__ram[0x15U] = ((5U & this->__Vtogcov__ram
                                         [0x15U]) | 
                                        (2U & this->__PVT__ram
@@ -555,7 +555,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0x15U] ^ this->__Vtogcov__ram
                [0x15U]))) {
-        ++(vlSymsp->__Vcoverage[4426]);
+        ++(vlSymsp->__Vcoverage[4447]);
         this->__Vtogcov__ram[0x15U] = ((3U & this->__Vtogcov__ram
                                         [0x15U]) | 
                                        (4U & this->__PVT__ram
@@ -569,24 +569,24 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     // Body
     if ((1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__wea_array) 
                ^ this->__Vtogcov__wea))) {
-        ++(vlSymsp->__Vcoverage[4357]);
+        ++(vlSymsp->__Vcoverage[4378]);
         this->__Vtogcov__wea = (1U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__wea_array));
     }
     this->dob = ((0x15U >= (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator_mem_rd_address))
                   ? this->__PVT__ram[vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator_mem_rd_address]
                   : 0U);
     if ((1U & ((IData)(this->dob) ^ this->__Vtogcov__dob))) {
-        ++(vlSymsp->__Vcoverage[4358]);
+        ++(vlSymsp->__Vcoverage[4379]);
         this->__Vtogcov__dob = ((6U & (IData)(this->__Vtogcov__dob)) 
                                 | (1U & (IData)(this->dob)));
     }
     if ((2U & ((IData)(this->dob) ^ this->__Vtogcov__dob))) {
-        ++(vlSymsp->__Vcoverage[4359]);
+        ++(vlSymsp->__Vcoverage[4380]);
         this->__Vtogcov__dob = ((5U & (IData)(this->__Vtogcov__dob)) 
                                 | (2U & (IData)(this->dob)));
     }
     if ((4U & ((IData)(this->dob) ^ this->__Vtogcov__dob))) {
-        ++(vlSymsp->__Vcoverage[4360]);
+        ++(vlSymsp->__Vcoverage[4381]);
         this->__Vtogcov__dob = ((3U & (IData)(this->__Vtogcov__dob)) 
                                 | (4U & (IData)(this->dob)));
     }
@@ -596,13 +596,13 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     VL_DEBUG_IF(VL_DBG_MSGF("+                    Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__bankgen__BRA__1__KET____DOT__genblk1__DOT__mem_bank__6\n"); );
     Vopl3* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    ++(vlSymsp->__Vcoverage[4431]);
+    ++(vlSymsp->__Vcoverage[4452]);
     if ((2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4429]);
+        ++(vlSymsp->__Vcoverage[4450]);
     }
     if ((1U & (~ ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__wea_array) 
                   >> 1U)))) {
-        ++(vlSymsp->__Vcoverage[4430]);
+        ++(vlSymsp->__Vcoverage[4451]);
     }
     this->__Vdlyvset__ram__v0 = 0U;
     if ((2U & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__wea_array))) {
@@ -621,7 +621,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0U] ^ this->__Vtogcov__ram
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4361]);
+        ++(vlSymsp->__Vcoverage[4382]);
         this->__Vtogcov__ram[0U] = ((6U & this->__Vtogcov__ram
                                      [0U]) | (1U & 
                                               this->__PVT__ram
@@ -629,7 +629,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0U] ^ this->__Vtogcov__ram
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4362]);
+        ++(vlSymsp->__Vcoverage[4383]);
         this->__Vtogcov__ram[0U] = ((5U & this->__Vtogcov__ram
                                      [0U]) | (2U & 
                                               this->__PVT__ram
@@ -637,7 +637,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0U] ^ this->__Vtogcov__ram
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4363]);
+        ++(vlSymsp->__Vcoverage[4384]);
         this->__Vtogcov__ram[0U] = ((3U & this->__Vtogcov__ram
                                      [0U]) | (4U & 
                                               this->__PVT__ram
@@ -645,7 +645,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[1U] ^ this->__Vtogcov__ram
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4364]);
+        ++(vlSymsp->__Vcoverage[4385]);
         this->__Vtogcov__ram[1U] = ((6U & this->__Vtogcov__ram
                                      [1U]) | (1U & 
                                               this->__PVT__ram
@@ -653,7 +653,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[1U] ^ this->__Vtogcov__ram
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4365]);
+        ++(vlSymsp->__Vcoverage[4386]);
         this->__Vtogcov__ram[1U] = ((5U & this->__Vtogcov__ram
                                      [1U]) | (2U & 
                                               this->__PVT__ram
@@ -661,7 +661,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[1U] ^ this->__Vtogcov__ram
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4366]);
+        ++(vlSymsp->__Vcoverage[4387]);
         this->__Vtogcov__ram[1U] = ((3U & this->__Vtogcov__ram
                                      [1U]) | (4U & 
                                               this->__PVT__ram
@@ -669,7 +669,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[2U] ^ this->__Vtogcov__ram
                [2U]))) {
-        ++(vlSymsp->__Vcoverage[4367]);
+        ++(vlSymsp->__Vcoverage[4388]);
         this->__Vtogcov__ram[2U] = ((6U & this->__Vtogcov__ram
                                      [2U]) | (1U & 
                                               this->__PVT__ram
@@ -677,7 +677,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[2U] ^ this->__Vtogcov__ram
                [2U]))) {
-        ++(vlSymsp->__Vcoverage[4368]);
+        ++(vlSymsp->__Vcoverage[4389]);
         this->__Vtogcov__ram[2U] = ((5U & this->__Vtogcov__ram
                                      [2U]) | (2U & 
                                               this->__PVT__ram
@@ -685,7 +685,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[2U] ^ this->__Vtogcov__ram
                [2U]))) {
-        ++(vlSymsp->__Vcoverage[4369]);
+        ++(vlSymsp->__Vcoverage[4390]);
         this->__Vtogcov__ram[2U] = ((3U & this->__Vtogcov__ram
                                      [2U]) | (4U & 
                                               this->__PVT__ram
@@ -693,7 +693,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[3U] ^ this->__Vtogcov__ram
                [3U]))) {
-        ++(vlSymsp->__Vcoverage[4370]);
+        ++(vlSymsp->__Vcoverage[4391]);
         this->__Vtogcov__ram[3U] = ((6U & this->__Vtogcov__ram
                                      [3U]) | (1U & 
                                               this->__PVT__ram
@@ -701,7 +701,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[3U] ^ this->__Vtogcov__ram
                [3U]))) {
-        ++(vlSymsp->__Vcoverage[4371]);
+        ++(vlSymsp->__Vcoverage[4392]);
         this->__Vtogcov__ram[3U] = ((5U & this->__Vtogcov__ram
                                      [3U]) | (2U & 
                                               this->__PVT__ram
@@ -709,7 +709,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[3U] ^ this->__Vtogcov__ram
                [3U]))) {
-        ++(vlSymsp->__Vcoverage[4372]);
+        ++(vlSymsp->__Vcoverage[4393]);
         this->__Vtogcov__ram[3U] = ((3U & this->__Vtogcov__ram
                                      [3U]) | (4U & 
                                               this->__PVT__ram
@@ -717,7 +717,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[4U] ^ this->__Vtogcov__ram
                [4U]))) {
-        ++(vlSymsp->__Vcoverage[4373]);
+        ++(vlSymsp->__Vcoverage[4394]);
         this->__Vtogcov__ram[4U] = ((6U & this->__Vtogcov__ram
                                      [4U]) | (1U & 
                                               this->__PVT__ram
@@ -725,7 +725,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[4U] ^ this->__Vtogcov__ram
                [4U]))) {
-        ++(vlSymsp->__Vcoverage[4374]);
+        ++(vlSymsp->__Vcoverage[4395]);
         this->__Vtogcov__ram[4U] = ((5U & this->__Vtogcov__ram
                                      [4U]) | (2U & 
                                               this->__PVT__ram
@@ -733,7 +733,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[4U] ^ this->__Vtogcov__ram
                [4U]))) {
-        ++(vlSymsp->__Vcoverage[4375]);
+        ++(vlSymsp->__Vcoverage[4396]);
         this->__Vtogcov__ram[4U] = ((3U & this->__Vtogcov__ram
                                      [4U]) | (4U & 
                                               this->__PVT__ram
@@ -741,7 +741,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[5U] ^ this->__Vtogcov__ram
                [5U]))) {
-        ++(vlSymsp->__Vcoverage[4376]);
+        ++(vlSymsp->__Vcoverage[4397]);
         this->__Vtogcov__ram[5U] = ((6U & this->__Vtogcov__ram
                                      [5U]) | (1U & 
                                               this->__PVT__ram
@@ -749,7 +749,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[5U] ^ this->__Vtogcov__ram
                [5U]))) {
-        ++(vlSymsp->__Vcoverage[4377]);
+        ++(vlSymsp->__Vcoverage[4398]);
         this->__Vtogcov__ram[5U] = ((5U & this->__Vtogcov__ram
                                      [5U]) | (2U & 
                                               this->__PVT__ram
@@ -757,7 +757,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[5U] ^ this->__Vtogcov__ram
                [5U]))) {
-        ++(vlSymsp->__Vcoverage[4378]);
+        ++(vlSymsp->__Vcoverage[4399]);
         this->__Vtogcov__ram[5U] = ((3U & this->__Vtogcov__ram
                                      [5U]) | (4U & 
                                               this->__PVT__ram
@@ -765,7 +765,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[6U] ^ this->__Vtogcov__ram
                [6U]))) {
-        ++(vlSymsp->__Vcoverage[4379]);
+        ++(vlSymsp->__Vcoverage[4400]);
         this->__Vtogcov__ram[6U] = ((6U & this->__Vtogcov__ram
                                      [6U]) | (1U & 
                                               this->__PVT__ram
@@ -773,7 +773,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[6U] ^ this->__Vtogcov__ram
                [6U]))) {
-        ++(vlSymsp->__Vcoverage[4380]);
+        ++(vlSymsp->__Vcoverage[4401]);
         this->__Vtogcov__ram[6U] = ((5U & this->__Vtogcov__ram
                                      [6U]) | (2U & 
                                               this->__PVT__ram
@@ -781,7 +781,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[6U] ^ this->__Vtogcov__ram
                [6U]))) {
-        ++(vlSymsp->__Vcoverage[4381]);
+        ++(vlSymsp->__Vcoverage[4402]);
         this->__Vtogcov__ram[6U] = ((3U & this->__Vtogcov__ram
                                      [6U]) | (4U & 
                                               this->__PVT__ram
@@ -789,7 +789,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[7U] ^ this->__Vtogcov__ram
                [7U]))) {
-        ++(vlSymsp->__Vcoverage[4382]);
+        ++(vlSymsp->__Vcoverage[4403]);
         this->__Vtogcov__ram[7U] = ((6U & this->__Vtogcov__ram
                                      [7U]) | (1U & 
                                               this->__PVT__ram
@@ -797,7 +797,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[7U] ^ this->__Vtogcov__ram
                [7U]))) {
-        ++(vlSymsp->__Vcoverage[4383]);
+        ++(vlSymsp->__Vcoverage[4404]);
         this->__Vtogcov__ram[7U] = ((5U & this->__Vtogcov__ram
                                      [7U]) | (2U & 
                                               this->__PVT__ram
@@ -805,7 +805,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[7U] ^ this->__Vtogcov__ram
                [7U]))) {
-        ++(vlSymsp->__Vcoverage[4384]);
+        ++(vlSymsp->__Vcoverage[4405]);
         this->__Vtogcov__ram[7U] = ((3U & this->__Vtogcov__ram
                                      [7U]) | (4U & 
                                               this->__PVT__ram
@@ -813,7 +813,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[8U] ^ this->__Vtogcov__ram
                [8U]))) {
-        ++(vlSymsp->__Vcoverage[4385]);
+        ++(vlSymsp->__Vcoverage[4406]);
         this->__Vtogcov__ram[8U] = ((6U & this->__Vtogcov__ram
                                      [8U]) | (1U & 
                                               this->__PVT__ram
@@ -821,7 +821,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[8U] ^ this->__Vtogcov__ram
                [8U]))) {
-        ++(vlSymsp->__Vcoverage[4386]);
+        ++(vlSymsp->__Vcoverage[4407]);
         this->__Vtogcov__ram[8U] = ((5U & this->__Vtogcov__ram
                                      [8U]) | (2U & 
                                               this->__PVT__ram
@@ -829,7 +829,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[8U] ^ this->__Vtogcov__ram
                [8U]))) {
-        ++(vlSymsp->__Vcoverage[4387]);
+        ++(vlSymsp->__Vcoverage[4408]);
         this->__Vtogcov__ram[8U] = ((3U & this->__Vtogcov__ram
                                      [8U]) | (4U & 
                                               this->__PVT__ram
@@ -837,7 +837,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[9U] ^ this->__Vtogcov__ram
                [9U]))) {
-        ++(vlSymsp->__Vcoverage[4388]);
+        ++(vlSymsp->__Vcoverage[4409]);
         this->__Vtogcov__ram[9U] = ((6U & this->__Vtogcov__ram
                                      [9U]) | (1U & 
                                               this->__PVT__ram
@@ -845,7 +845,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[9U] ^ this->__Vtogcov__ram
                [9U]))) {
-        ++(vlSymsp->__Vcoverage[4389]);
+        ++(vlSymsp->__Vcoverage[4410]);
         this->__Vtogcov__ram[9U] = ((5U & this->__Vtogcov__ram
                                      [9U]) | (2U & 
                                               this->__PVT__ram
@@ -853,7 +853,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[9U] ^ this->__Vtogcov__ram
                [9U]))) {
-        ++(vlSymsp->__Vcoverage[4390]);
+        ++(vlSymsp->__Vcoverage[4411]);
         this->__Vtogcov__ram[9U] = ((3U & this->__Vtogcov__ram
                                      [9U]) | (4U & 
                                               this->__PVT__ram
@@ -861,7 +861,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0xaU] ^ this->__Vtogcov__ram
                [0xaU]))) {
-        ++(vlSymsp->__Vcoverage[4391]);
+        ++(vlSymsp->__Vcoverage[4412]);
         this->__Vtogcov__ram[0xaU] = ((6U & this->__Vtogcov__ram
                                        [0xaU]) | (1U 
                                                   & this->__PVT__ram
@@ -869,7 +869,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0xaU] ^ this->__Vtogcov__ram
                [0xaU]))) {
-        ++(vlSymsp->__Vcoverage[4392]);
+        ++(vlSymsp->__Vcoverage[4413]);
         this->__Vtogcov__ram[0xaU] = ((5U & this->__Vtogcov__ram
                                        [0xaU]) | (2U 
                                                   & this->__PVT__ram
@@ -877,7 +877,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0xaU] ^ this->__Vtogcov__ram
                [0xaU]))) {
-        ++(vlSymsp->__Vcoverage[4393]);
+        ++(vlSymsp->__Vcoverage[4414]);
         this->__Vtogcov__ram[0xaU] = ((3U & this->__Vtogcov__ram
                                        [0xaU]) | (4U 
                                                   & this->__PVT__ram
@@ -885,7 +885,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0xbU] ^ this->__Vtogcov__ram
                [0xbU]))) {
-        ++(vlSymsp->__Vcoverage[4394]);
+        ++(vlSymsp->__Vcoverage[4415]);
         this->__Vtogcov__ram[0xbU] = ((6U & this->__Vtogcov__ram
                                        [0xbU]) | (1U 
                                                   & this->__PVT__ram
@@ -893,7 +893,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0xbU] ^ this->__Vtogcov__ram
                [0xbU]))) {
-        ++(vlSymsp->__Vcoverage[4395]);
+        ++(vlSymsp->__Vcoverage[4416]);
         this->__Vtogcov__ram[0xbU] = ((5U & this->__Vtogcov__ram
                                        [0xbU]) | (2U 
                                                   & this->__PVT__ram
@@ -901,7 +901,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0xbU] ^ this->__Vtogcov__ram
                [0xbU]))) {
-        ++(vlSymsp->__Vcoverage[4396]);
+        ++(vlSymsp->__Vcoverage[4417]);
         this->__Vtogcov__ram[0xbU] = ((3U & this->__Vtogcov__ram
                                        [0xbU]) | (4U 
                                                   & this->__PVT__ram
@@ -909,7 +909,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0xcU] ^ this->__Vtogcov__ram
                [0xcU]))) {
-        ++(vlSymsp->__Vcoverage[4397]);
+        ++(vlSymsp->__Vcoverage[4418]);
         this->__Vtogcov__ram[0xcU] = ((6U & this->__Vtogcov__ram
                                        [0xcU]) | (1U 
                                                   & this->__PVT__ram
@@ -917,7 +917,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0xcU] ^ this->__Vtogcov__ram
                [0xcU]))) {
-        ++(vlSymsp->__Vcoverage[4398]);
+        ++(vlSymsp->__Vcoverage[4419]);
         this->__Vtogcov__ram[0xcU] = ((5U & this->__Vtogcov__ram
                                        [0xcU]) | (2U 
                                                   & this->__PVT__ram
@@ -925,7 +925,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0xcU] ^ this->__Vtogcov__ram
                [0xcU]))) {
-        ++(vlSymsp->__Vcoverage[4399]);
+        ++(vlSymsp->__Vcoverage[4420]);
         this->__Vtogcov__ram[0xcU] = ((3U & this->__Vtogcov__ram
                                        [0xcU]) | (4U 
                                                   & this->__PVT__ram
@@ -933,7 +933,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0xdU] ^ this->__Vtogcov__ram
                [0xdU]))) {
-        ++(vlSymsp->__Vcoverage[4400]);
+        ++(vlSymsp->__Vcoverage[4421]);
         this->__Vtogcov__ram[0xdU] = ((6U & this->__Vtogcov__ram
                                        [0xdU]) | (1U 
                                                   & this->__PVT__ram
@@ -941,7 +941,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0xdU] ^ this->__Vtogcov__ram
                [0xdU]))) {
-        ++(vlSymsp->__Vcoverage[4401]);
+        ++(vlSymsp->__Vcoverage[4422]);
         this->__Vtogcov__ram[0xdU] = ((5U & this->__Vtogcov__ram
                                        [0xdU]) | (2U 
                                                   & this->__PVT__ram
@@ -949,7 +949,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0xdU] ^ this->__Vtogcov__ram
                [0xdU]))) {
-        ++(vlSymsp->__Vcoverage[4402]);
+        ++(vlSymsp->__Vcoverage[4423]);
         this->__Vtogcov__ram[0xdU] = ((3U & this->__Vtogcov__ram
                                        [0xdU]) | (4U 
                                                   & this->__PVT__ram
@@ -957,7 +957,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0xeU] ^ this->__Vtogcov__ram
                [0xeU]))) {
-        ++(vlSymsp->__Vcoverage[4403]);
+        ++(vlSymsp->__Vcoverage[4424]);
         this->__Vtogcov__ram[0xeU] = ((6U & this->__Vtogcov__ram
                                        [0xeU]) | (1U 
                                                   & this->__PVT__ram
@@ -965,7 +965,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0xeU] ^ this->__Vtogcov__ram
                [0xeU]))) {
-        ++(vlSymsp->__Vcoverage[4404]);
+        ++(vlSymsp->__Vcoverage[4425]);
         this->__Vtogcov__ram[0xeU] = ((5U & this->__Vtogcov__ram
                                        [0xeU]) | (2U 
                                                   & this->__PVT__ram
@@ -973,7 +973,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0xeU] ^ this->__Vtogcov__ram
                [0xeU]))) {
-        ++(vlSymsp->__Vcoverage[4405]);
+        ++(vlSymsp->__Vcoverage[4426]);
         this->__Vtogcov__ram[0xeU] = ((3U & this->__Vtogcov__ram
                                        [0xeU]) | (4U 
                                                   & this->__PVT__ram
@@ -981,7 +981,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0xfU] ^ this->__Vtogcov__ram
                [0xfU]))) {
-        ++(vlSymsp->__Vcoverage[4406]);
+        ++(vlSymsp->__Vcoverage[4427]);
         this->__Vtogcov__ram[0xfU] = ((6U & this->__Vtogcov__ram
                                        [0xfU]) | (1U 
                                                   & this->__PVT__ram
@@ -989,7 +989,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0xfU] ^ this->__Vtogcov__ram
                [0xfU]))) {
-        ++(vlSymsp->__Vcoverage[4407]);
+        ++(vlSymsp->__Vcoverage[4428]);
         this->__Vtogcov__ram[0xfU] = ((5U & this->__Vtogcov__ram
                                        [0xfU]) | (2U 
                                                   & this->__PVT__ram
@@ -997,7 +997,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0xfU] ^ this->__Vtogcov__ram
                [0xfU]))) {
-        ++(vlSymsp->__Vcoverage[4408]);
+        ++(vlSymsp->__Vcoverage[4429]);
         this->__Vtogcov__ram[0xfU] = ((3U & this->__Vtogcov__ram
                                        [0xfU]) | (4U 
                                                   & this->__PVT__ram
@@ -1005,7 +1005,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0x10U] ^ this->__Vtogcov__ram
                [0x10U]))) {
-        ++(vlSymsp->__Vcoverage[4409]);
+        ++(vlSymsp->__Vcoverage[4430]);
         this->__Vtogcov__ram[0x10U] = ((6U & this->__Vtogcov__ram
                                         [0x10U]) | 
                                        (1U & this->__PVT__ram
@@ -1013,7 +1013,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0x10U] ^ this->__Vtogcov__ram
                [0x10U]))) {
-        ++(vlSymsp->__Vcoverage[4410]);
+        ++(vlSymsp->__Vcoverage[4431]);
         this->__Vtogcov__ram[0x10U] = ((5U & this->__Vtogcov__ram
                                         [0x10U]) | 
                                        (2U & this->__PVT__ram
@@ -1021,7 +1021,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0x10U] ^ this->__Vtogcov__ram
                [0x10U]))) {
-        ++(vlSymsp->__Vcoverage[4411]);
+        ++(vlSymsp->__Vcoverage[4432]);
         this->__Vtogcov__ram[0x10U] = ((3U & this->__Vtogcov__ram
                                         [0x10U]) | 
                                        (4U & this->__PVT__ram
@@ -1029,7 +1029,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0x11U] ^ this->__Vtogcov__ram
                [0x11U]))) {
-        ++(vlSymsp->__Vcoverage[4412]);
+        ++(vlSymsp->__Vcoverage[4433]);
         this->__Vtogcov__ram[0x11U] = ((6U & this->__Vtogcov__ram
                                         [0x11U]) | 
                                        (1U & this->__PVT__ram
@@ -1037,7 +1037,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0x11U] ^ this->__Vtogcov__ram
                [0x11U]))) {
-        ++(vlSymsp->__Vcoverage[4413]);
+        ++(vlSymsp->__Vcoverage[4434]);
         this->__Vtogcov__ram[0x11U] = ((5U & this->__Vtogcov__ram
                                         [0x11U]) | 
                                        (2U & this->__PVT__ram
@@ -1045,7 +1045,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0x11U] ^ this->__Vtogcov__ram
                [0x11U]))) {
-        ++(vlSymsp->__Vcoverage[4414]);
+        ++(vlSymsp->__Vcoverage[4435]);
         this->__Vtogcov__ram[0x11U] = ((3U & this->__Vtogcov__ram
                                         [0x11U]) | 
                                        (4U & this->__PVT__ram
@@ -1053,7 +1053,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0x12U] ^ this->__Vtogcov__ram
                [0x12U]))) {
-        ++(vlSymsp->__Vcoverage[4415]);
+        ++(vlSymsp->__Vcoverage[4436]);
         this->__Vtogcov__ram[0x12U] = ((6U & this->__Vtogcov__ram
                                         [0x12U]) | 
                                        (1U & this->__PVT__ram
@@ -1061,7 +1061,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0x12U] ^ this->__Vtogcov__ram
                [0x12U]))) {
-        ++(vlSymsp->__Vcoverage[4416]);
+        ++(vlSymsp->__Vcoverage[4437]);
         this->__Vtogcov__ram[0x12U] = ((5U & this->__Vtogcov__ram
                                         [0x12U]) | 
                                        (2U & this->__PVT__ram
@@ -1069,7 +1069,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0x12U] ^ this->__Vtogcov__ram
                [0x12U]))) {
-        ++(vlSymsp->__Vcoverage[4417]);
+        ++(vlSymsp->__Vcoverage[4438]);
         this->__Vtogcov__ram[0x12U] = ((3U & this->__Vtogcov__ram
                                         [0x12U]) | 
                                        (4U & this->__PVT__ram
@@ -1077,7 +1077,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0x13U] ^ this->__Vtogcov__ram
                [0x13U]))) {
-        ++(vlSymsp->__Vcoverage[4418]);
+        ++(vlSymsp->__Vcoverage[4439]);
         this->__Vtogcov__ram[0x13U] = ((6U & this->__Vtogcov__ram
                                         [0x13U]) | 
                                        (1U & this->__PVT__ram
@@ -1085,7 +1085,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0x13U] ^ this->__Vtogcov__ram
                [0x13U]))) {
-        ++(vlSymsp->__Vcoverage[4419]);
+        ++(vlSymsp->__Vcoverage[4440]);
         this->__Vtogcov__ram[0x13U] = ((5U & this->__Vtogcov__ram
                                         [0x13U]) | 
                                        (2U & this->__PVT__ram
@@ -1093,7 +1093,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0x13U] ^ this->__Vtogcov__ram
                [0x13U]))) {
-        ++(vlSymsp->__Vcoverage[4420]);
+        ++(vlSymsp->__Vcoverage[4441]);
         this->__Vtogcov__ram[0x13U] = ((3U & this->__Vtogcov__ram
                                         [0x13U]) | 
                                        (4U & this->__PVT__ram
@@ -1101,7 +1101,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0x14U] ^ this->__Vtogcov__ram
                [0x14U]))) {
-        ++(vlSymsp->__Vcoverage[4421]);
+        ++(vlSymsp->__Vcoverage[4442]);
         this->__Vtogcov__ram[0x14U] = ((6U & this->__Vtogcov__ram
                                         [0x14U]) | 
                                        (1U & this->__PVT__ram
@@ -1109,7 +1109,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0x14U] ^ this->__Vtogcov__ram
                [0x14U]))) {
-        ++(vlSymsp->__Vcoverage[4422]);
+        ++(vlSymsp->__Vcoverage[4443]);
         this->__Vtogcov__ram[0x14U] = ((5U & this->__Vtogcov__ram
                                         [0x14U]) | 
                                        (2U & this->__PVT__ram
@@ -1117,7 +1117,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0x14U] ^ this->__Vtogcov__ram
                [0x14U]))) {
-        ++(vlSymsp->__Vcoverage[4423]);
+        ++(vlSymsp->__Vcoverage[4444]);
         this->__Vtogcov__ram[0x14U] = ((3U & this->__Vtogcov__ram
                                         [0x14U]) | 
                                        (4U & this->__PVT__ram
@@ -1125,7 +1125,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((1U & (this->__PVT__ram[0x15U] ^ this->__Vtogcov__ram
                [0x15U]))) {
-        ++(vlSymsp->__Vcoverage[4424]);
+        ++(vlSymsp->__Vcoverage[4445]);
         this->__Vtogcov__ram[0x15U] = ((6U & this->__Vtogcov__ram
                                         [0x15U]) | 
                                        (1U & this->__PVT__ram
@@ -1133,7 +1133,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((2U & (this->__PVT__ram[0x15U] ^ this->__Vtogcov__ram
                [0x15U]))) {
-        ++(vlSymsp->__Vcoverage[4425]);
+        ++(vlSymsp->__Vcoverage[4446]);
         this->__Vtogcov__ram[0x15U] = ((5U & this->__Vtogcov__ram
                                         [0x15U]) | 
                                        (2U & this->__PVT__ram
@@ -1141,7 +1141,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     }
     if ((4U & (this->__PVT__ram[0x15U] ^ this->__Vtogcov__ram
                [0x15U]))) {
-        ++(vlSymsp->__Vcoverage[4426]);
+        ++(vlSymsp->__Vcoverage[4447]);
         this->__Vtogcov__ram[0x15U] = ((3U & this->__Vtogcov__ram
                                         [0x15U]) | 
                                        (4U & this->__PVT__ram
@@ -1155,7 +1155,7 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
     // Body
     if ((1U & (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__wea_array) 
                 >> 1U) ^ this->__Vtogcov__wea))) {
-        ++(vlSymsp->__Vcoverage[4357]);
+        ++(vlSymsp->__Vcoverage[4378]);
         this->__Vtogcov__wea = (1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__ws_mem__DOT__wea_array) 
                                       >> 1U));
     }
@@ -1163,17 +1163,17 @@ VL_INLINE_OPT void Vopl3_mem_simple_dual_port_async_read__pi7::_sequent__TOP__op
                   ? this->__PVT__ram[vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator_mem_rd_address]
                   : 0U);
     if ((1U & ((IData)(this->dob) ^ this->__Vtogcov__dob))) {
-        ++(vlSymsp->__Vcoverage[4358]);
+        ++(vlSymsp->__Vcoverage[4379]);
         this->__Vtogcov__dob = ((6U & (IData)(this->__Vtogcov__dob)) 
                                 | (1U & (IData)(this->dob)));
     }
     if ((2U & ((IData)(this->dob) ^ this->__Vtogcov__dob))) {
-        ++(vlSymsp->__Vcoverage[4359]);
+        ++(vlSymsp->__Vcoverage[4380]);
         this->__Vtogcov__dob = ((5U & (IData)(this->__Vtogcov__dob)) 
                                 | (2U & (IData)(this->dob)));
     }
     if ((4U & ((IData)(this->dob) ^ this->__Vtogcov__dob))) {
-        ++(vlSymsp->__Vcoverage[4360]);
+        ++(vlSymsp->__Vcoverage[4381]);
         this->__Vtogcov__dob = ((3U & (IData)(this->__Vtogcov__dob)) 
                                 | (4U & (IData)(this->dob)));
     }

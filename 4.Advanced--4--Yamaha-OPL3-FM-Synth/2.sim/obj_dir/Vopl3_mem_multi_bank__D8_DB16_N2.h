@@ -38,10 +38,11 @@ VL_MODULE(Vopl3_mem_multi_bank__D8_DB16_N2) {
     CData/*7:0*/ __PVT__dob_array[2];
     
     // LOCAL VARIABLES
-    CData/*1:0*/ __Vcellout__bankb_sr__out;
+    CData/*2:0*/ __Vcellout__bankb_sr__out;
     CData/*0:0*/ __Vtogcov__wea;
     CData/*1:0*/ __Vtogcov__wea_array;
     CData/*1:0*/ __Vtogcov__bankb_p;
+    CData/*2:0*/ bankb_sr__DOT____Vtogcov__out;
     CData/*7:0*/ __Vtogcov__dob_array[2];
     
     // INTERNAL VARIABLES

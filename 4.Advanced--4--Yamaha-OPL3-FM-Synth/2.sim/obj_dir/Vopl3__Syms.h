@@ -65,7 +65,7 @@ class Vopl3__Syms : public VerilatedSyms {
     Vopl3_mem_simple_dual_port__pi5 TOP__opl3__DOT__channels__DOT__operator_out_mem__DOT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank;
     
     // COVERAGE
-    uint32_t __Vcoverage[5141];
+    uint32_t __Vcoverage[5162];
     
     // SCOPE NAMES
     VerilatedScope __Vscope_opl3__channels;

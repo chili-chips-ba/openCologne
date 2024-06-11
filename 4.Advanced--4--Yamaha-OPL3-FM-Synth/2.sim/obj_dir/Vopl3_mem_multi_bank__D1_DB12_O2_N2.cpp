@@ -13,36 +13,36 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     // Body
     this->__Vdlyvset__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 = 0U;
     this->__Vdlyvset__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 = 0U;
-    ++(vlSymsp->__Vcoverage[4015]);
-    ++(vlSymsp->__Vcoverage[4042]);
-    ++(vlSymsp->__Vcoverage[4047]);
-    ++(vlSymsp->__Vcoverage[4049]);
-    ++(vlSymsp->__Vcoverage[4077]);
-    ++(vlSymsp->__Vcoverage[4082]);
-    ++(vlSymsp->__Vcoverage[4084]);
+    ++(vlSymsp->__Vcoverage[4035]);
+    ++(vlSymsp->__Vcoverage[4062]);
+    ++(vlSymsp->__Vcoverage[4067]);
+    ++(vlSymsp->__Vcoverage[4069]);
+    ++(vlSymsp->__Vcoverage[4097]);
+    ++(vlSymsp->__Vcoverage[4102]);
+    ++(vlSymsp->__Vcoverage[4104]);
     if (this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__reb_mem) {
-        ++(vlSymsp->__Vcoverage[4045]);
+        ++(vlSymsp->__Vcoverage[4065]);
     }
     if ((1U & (~ (IData)(this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__reb_mem)))) {
-        ++(vlSymsp->__Vcoverage[4046]);
+        ++(vlSymsp->__Vcoverage[4066]);
     }
     if (this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__reb_mem) {
-        ++(vlSymsp->__Vcoverage[4080]);
+        ++(vlSymsp->__Vcoverage[4100]);
     }
     if ((1U & (~ (IData)(this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__reb_mem)))) {
-        ++(vlSymsp->__Vcoverage[4081]);
+        ++(vlSymsp->__Vcoverage[4101]);
     }
     if ((1U & (IData)(this->__PVT__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4040]);
+        ++(vlSymsp->__Vcoverage[4060]);
     }
     if ((1U & (~ (IData)(this->__PVT__wea_array)))) {
-        ++(vlSymsp->__Vcoverage[4041]);
+        ++(vlSymsp->__Vcoverage[4061]);
     }
     if ((2U & (IData)(this->__PVT__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4075]);
+        ++(vlSymsp->__Vcoverage[4095]);
     }
     if ((1U & (~ ((IData)(this->__PVT__wea_array) >> 1U)))) {
-        ++(vlSymsp->__Vcoverage[4076]);
+        ++(vlSymsp->__Vcoverage[4096]);
     }
     this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__genblk1__DOT__genblk2__DOT__dob_p2 
         = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__genblk1__DOT__dob_p1;
@@ -52,33 +52,33 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vlvbound2 
             = (1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__final_phase_p4 
                      >> 0x13U));
-        if ((0x11U >= (0x1fU & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
-                                >> 0xfU)))) {
+        if ((0x11U >= (0x1fU & (IData)((vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
+                                        >> 0xfU))))) {
             this->__Vdlyvval__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 
                 = this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vlvbound2;
             this->__Vdlyvset__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 = 1U;
             this->__Vdlyvdim0__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 
-                = (0x1fU & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
-                            >> 0xfU));
+                = (0x1fU & (IData)((vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
+                                    >> 0xfU)));
         }
     }
     if ((1U & (IData)(this->__PVT__wea_array))) {
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vlvbound2 
             = (1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__final_phase_p4 
                      >> 0x13U));
-        if ((0x11U >= (0x1fU & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
-                                >> 0xfU)))) {
+        if ((0x11U >= (0x1fU & (IData)((vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
+                                        >> 0xfU))))) {
             this->__Vdlyvval__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 
                 = this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vlvbound2;
             this->__Vdlyvset__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 = 1U;
             this->__Vdlyvdim0__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 
-                = (0x1fU & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
-                            >> 0xfU));
+                = (0x1fU & (IData)((vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
+                                    >> 0xfU)));
         }
     }
-    this->__Vcellout__bankb_sr__out = (3U & ((IData)(this->__Vcellout__bankb_sr__out) 
+    this->__Vcellout__bankb_sr__out = (7U & ((IData)(this->__Vcellout__bankb_sr__out) 
                                              << 1U));
-    this->__Vcellout__bankb_sr__out = ((2U & (IData)(this->__Vcellout__bankb_sr__out)) 
+    this->__Vcellout__bankb_sr__out = ((6U & (IData)(this->__Vcellout__bankb_sr__out)) 
                                        | (0x12U < (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__state)));
     if (this->__Vdlyvset__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0) {
         this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram[this->__Vdlyvdim0__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0] 
@@ -94,7 +94,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     }
     if (((IData)(this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__genblk1__DOT__genblk2__DOT__dob_p2) 
          ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__dob)) {
-        ++(vlSymsp->__Vcoverage[4053]);
+        ++(vlSymsp->__Vcoverage[4073]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__dob 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__genblk1__DOT__genblk2__DOT__dob_p2;
     }
@@ -105,7 +105,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     }
     if (((IData)(this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__genblk1__DOT__genblk2__DOT__dob_p2) 
          ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__dob)) {
-        ++(vlSymsp->__Vcoverage[4018]);
+        ++(vlSymsp->__Vcoverage[4038]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__dob 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__genblk1__DOT__genblk2__DOT__dob_p2;
     }
@@ -113,7 +113,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0U])) {
-        ++(vlSymsp->__Vcoverage[4055]);
+        ++(vlSymsp->__Vcoverage[4075]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0U];
@@ -121,7 +121,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [1U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [1U])) {
-        ++(vlSymsp->__Vcoverage[4056]);
+        ++(vlSymsp->__Vcoverage[4076]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[1U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [1U];
@@ -129,7 +129,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [2U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [2U])) {
-        ++(vlSymsp->__Vcoverage[4057]);
+        ++(vlSymsp->__Vcoverage[4077]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[2U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [2U];
@@ -137,7 +137,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [3U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [3U])) {
-        ++(vlSymsp->__Vcoverage[4058]);
+        ++(vlSymsp->__Vcoverage[4078]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[3U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [3U];
@@ -145,7 +145,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [4U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [4U])) {
-        ++(vlSymsp->__Vcoverage[4059]);
+        ++(vlSymsp->__Vcoverage[4079]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[4U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [4U];
@@ -153,7 +153,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [5U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [5U])) {
-        ++(vlSymsp->__Vcoverage[4060]);
+        ++(vlSymsp->__Vcoverage[4080]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[5U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [5U];
@@ -161,7 +161,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [6U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [6U])) {
-        ++(vlSymsp->__Vcoverage[4061]);
+        ++(vlSymsp->__Vcoverage[4081]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[6U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [6U];
@@ -169,7 +169,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [7U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [7U])) {
-        ++(vlSymsp->__Vcoverage[4062]);
+        ++(vlSymsp->__Vcoverage[4082]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[7U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [7U];
@@ -177,7 +177,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [8U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [8U])) {
-        ++(vlSymsp->__Vcoverage[4063]);
+        ++(vlSymsp->__Vcoverage[4083]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[8U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [8U];
@@ -185,7 +185,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [9U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [9U])) {
-        ++(vlSymsp->__Vcoverage[4064]);
+        ++(vlSymsp->__Vcoverage[4084]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[9U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [9U];
@@ -193,7 +193,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xaU] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xaU])) {
-        ++(vlSymsp->__Vcoverage[4065]);
+        ++(vlSymsp->__Vcoverage[4085]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xaU] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xaU];
@@ -201,7 +201,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xbU] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xbU])) {
-        ++(vlSymsp->__Vcoverage[4066]);
+        ++(vlSymsp->__Vcoverage[4086]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xbU] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xbU];
@@ -209,7 +209,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xcU] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xcU])) {
-        ++(vlSymsp->__Vcoverage[4067]);
+        ++(vlSymsp->__Vcoverage[4087]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xcU] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xcU];
@@ -217,7 +217,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xdU] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xdU])) {
-        ++(vlSymsp->__Vcoverage[4068]);
+        ++(vlSymsp->__Vcoverage[4088]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xdU] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xdU];
@@ -225,7 +225,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xeU] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xeU])) {
-        ++(vlSymsp->__Vcoverage[4069]);
+        ++(vlSymsp->__Vcoverage[4089]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xeU] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xeU];
@@ -233,7 +233,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xfU] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xfU])) {
-        ++(vlSymsp->__Vcoverage[4070]);
+        ++(vlSymsp->__Vcoverage[4090]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xfU] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xfU];
@@ -241,7 +241,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0x10U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0x10U])) {
-        ++(vlSymsp->__Vcoverage[4071]);
+        ++(vlSymsp->__Vcoverage[4091]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0x10U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0x10U];
@@ -249,7 +249,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0x11U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0x11U])) {
-        ++(vlSymsp->__Vcoverage[4072]);
+        ++(vlSymsp->__Vcoverage[4092]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0x11U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0x11U];
@@ -257,7 +257,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0U])) {
-        ++(vlSymsp->__Vcoverage[4020]);
+        ++(vlSymsp->__Vcoverage[4040]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0U];
@@ -265,7 +265,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [1U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [1U])) {
-        ++(vlSymsp->__Vcoverage[4021]);
+        ++(vlSymsp->__Vcoverage[4041]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[1U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [1U];
@@ -273,7 +273,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [2U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [2U])) {
-        ++(vlSymsp->__Vcoverage[4022]);
+        ++(vlSymsp->__Vcoverage[4042]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[2U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [2U];
@@ -281,7 +281,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [3U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [3U])) {
-        ++(vlSymsp->__Vcoverage[4023]);
+        ++(vlSymsp->__Vcoverage[4043]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[3U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [3U];
@@ -289,7 +289,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [4U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [4U])) {
-        ++(vlSymsp->__Vcoverage[4024]);
+        ++(vlSymsp->__Vcoverage[4044]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[4U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [4U];
@@ -297,7 +297,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [5U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [5U])) {
-        ++(vlSymsp->__Vcoverage[4025]);
+        ++(vlSymsp->__Vcoverage[4045]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[5U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [5U];
@@ -305,7 +305,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [6U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [6U])) {
-        ++(vlSymsp->__Vcoverage[4026]);
+        ++(vlSymsp->__Vcoverage[4046]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[6U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [6U];
@@ -313,7 +313,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [7U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [7U])) {
-        ++(vlSymsp->__Vcoverage[4027]);
+        ++(vlSymsp->__Vcoverage[4047]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[7U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [7U];
@@ -321,7 +321,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [8U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [8U])) {
-        ++(vlSymsp->__Vcoverage[4028]);
+        ++(vlSymsp->__Vcoverage[4048]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[8U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [8U];
@@ -329,7 +329,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [9U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [9U])) {
-        ++(vlSymsp->__Vcoverage[4029]);
+        ++(vlSymsp->__Vcoverage[4049]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[9U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [9U];
@@ -337,7 +337,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xaU] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xaU])) {
-        ++(vlSymsp->__Vcoverage[4030]);
+        ++(vlSymsp->__Vcoverage[4050]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xaU] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xaU];
@@ -345,7 +345,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xbU] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xbU])) {
-        ++(vlSymsp->__Vcoverage[4031]);
+        ++(vlSymsp->__Vcoverage[4051]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xbU] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xbU];
@@ -353,7 +353,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xcU] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xcU])) {
-        ++(vlSymsp->__Vcoverage[4032]);
+        ++(vlSymsp->__Vcoverage[4052]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xcU] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xcU];
@@ -361,7 +361,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xdU] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xdU])) {
-        ++(vlSymsp->__Vcoverage[4033]);
+        ++(vlSymsp->__Vcoverage[4053]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xdU] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xdU];
@@ -369,7 +369,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xeU] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xeU])) {
-        ++(vlSymsp->__Vcoverage[4034]);
+        ++(vlSymsp->__Vcoverage[4054]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xeU] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xeU];
@@ -377,7 +377,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xfU] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xfU])) {
-        ++(vlSymsp->__Vcoverage[4035]);
+        ++(vlSymsp->__Vcoverage[4055]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xfU] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xfU];
@@ -385,7 +385,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0x10U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0x10U])) {
-        ++(vlSymsp->__Vcoverage[4036]);
+        ++(vlSymsp->__Vcoverage[4056]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0x10U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0x10U];
@@ -393,32 +393,40 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0x11U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0x11U])) {
-        ++(vlSymsp->__Vcoverage[4037]);
+        ++(vlSymsp->__Vcoverage[4057]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0x11U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0x11U];
     }
+    if ((4U & ((IData)(this->__Vcellout__bankb_sr__out) 
+               ^ this->bankb_sr__DOT____Vtogcov__out))) {
+        ++(vlSymsp->__Vcoverage[4033]);
+        this->bankb_sr__DOT____Vtogcov__out = ((3U 
+                                                & (IData)(this->bankb_sr__DOT____Vtogcov__out)) 
+                                               | (4U 
+                                                  & (IData)(this->__Vcellout__bankb_sr__out)));
+    }
     if ((1U & ((IData)(this->__Vcellout__bankb_sr__out) 
                ^ this->__Vtogcov__bankb_p))) {
-        ++(vlSymsp->__Vcoverage[4007]);
+        ++(vlSymsp->__Vcoverage[4026]);
         this->__Vtogcov__bankb_p = ((2U & (IData)(this->__Vtogcov__bankb_p)) 
                                     | (1U & (IData)(this->__Vcellout__bankb_sr__out)));
     }
     if ((2U & ((IData)(this->__Vcellout__bankb_sr__out) 
                ^ this->__Vtogcov__bankb_p))) {
-        ++(vlSymsp->__Vcoverage[4008]);
+        ++(vlSymsp->__Vcoverage[4027]);
         this->__Vtogcov__bankb_p = ((1U & (IData)(this->__Vtogcov__bankb_p)) 
                                     | (2U & (IData)(this->__Vcellout__bankb_sr__out)));
     }
     if ((this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
          [0U])) {
-        ++(vlSymsp->__Vcoverage[4005]);
+        ++(vlSymsp->__Vcoverage[4024]);
         this->__Vtogcov__dob_array[0U] = this->__PVT__dob_array
             [0U];
     }
     if ((this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
          [1U])) {
-        ++(vlSymsp->__Vcoverage[4006]);
+        ++(vlSymsp->__Vcoverage[4025]);
         this->__Vtogcov__dob_array[1U] = this->__PVT__dob_array
             [1U];
     }
@@ -428,12 +436,6 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     VL_DEBUG_IF(VL_DBG_MSGF("+                  Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__final_phase_msb_mem__7\n"); );
     Vopl3* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    if ((1U & (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__bank_num_sr__out) 
-                >> 3U) ^ this->__Vtogcov__banka))) {
-        ++(vlSymsp->__Vcoverage[4001]);
-        this->__Vtogcov__banka = (1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__bank_num_sr__out) 
-                                        >> 3U));
-    }
     this->__PVT__wea_array = ((2U & (IData)(this->__PVT__wea_array)) 
                               | (1U & (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__key_on_pulse_sr__out) 
                                         >> 3U) & (~ 
@@ -445,36 +447,35 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
                                        >> 2U)));
     if ((1U & ((vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__final_phase_p4 
                 >> 0x13U) ^ this->__Vtogcov__dia))) {
-        ++(vlSymsp->__Vcoverage[2627]);
+        ++(vlSymsp->__Vcoverage[2643]);
         this->__Vtogcov__dia = (1U & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__final_phase_p4 
                                       >> 0x13U));
     }
-    this->dob = this->__PVT__dob_array[(1U & ((IData)(this->__Vcellout__bankb_sr__out) 
-                                              >> 1U))];
+    this->dob = this->__PVT__dob_array[(1U & (IData)(this->__Vcellout__bankb_sr__out))];
     if ((1U & ((IData)(this->__PVT__wea_array) ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__wea))) {
-        ++(vlSymsp->__Vcoverage[4016]);
+        ++(vlSymsp->__Vcoverage[4036]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__wea 
             = (1U & (IData)(this->__PVT__wea_array));
     }
     if ((1U & (((IData)(this->__PVT__wea_array) >> 1U) 
                ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__wea))) {
-        ++(vlSymsp->__Vcoverage[4051]);
+        ++(vlSymsp->__Vcoverage[4071]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__wea 
             = (1U & ((IData)(this->__PVT__wea_array) 
                      >> 1U));
     }
     if ((1U & ((IData)(this->__PVT__wea_array) ^ this->__Vtogcov__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4003]);
+        ++(vlSymsp->__Vcoverage[4022]);
         this->__Vtogcov__wea_array = ((2U & (IData)(this->__Vtogcov__wea_array)) 
                                       | (1U & (IData)(this->__PVT__wea_array)));
     }
     if ((2U & ((IData)(this->__PVT__wea_array) ^ this->__Vtogcov__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4004]);
+        ++(vlSymsp->__Vcoverage[4023]);
         this->__Vtogcov__wea_array = ((1U & (IData)(this->__Vtogcov__wea_array)) 
                                       | (2U & (IData)(this->__PVT__wea_array)));
     }
     if (((IData)(this->dob) ^ this->__Vtogcov__dob)) {
-        ++(vlSymsp->__Vcoverage[4002]);
+        ++(vlSymsp->__Vcoverage[4021]);
         this->__Vtogcov__dob = this->dob;
     }
 }
@@ -499,25 +500,25 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
            & (0x12U < (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__state)));
     if (((IData)(this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__dob_p0) 
          ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__dob_p0)) {
-        ++(vlSymsp->__Vcoverage[4019]);
+        ++(vlSymsp->__Vcoverage[4039]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__dob_p0 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__dob_p0;
     }
     if (((IData)(this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__dob_p0) 
          ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__dob_p0)) {
-        ++(vlSymsp->__Vcoverage[4054]);
+        ++(vlSymsp->__Vcoverage[4074]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__dob_p0 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__dob_p0;
     }
     if (((IData)(this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__reb_mem) 
          ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__reb)) {
-        ++(vlSymsp->__Vcoverage[4017]);
+        ++(vlSymsp->__Vcoverage[4037]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__reb 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__reb_mem;
     }
     if (((IData)(this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__reb_mem) 
          ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__reb)) {
-        ++(vlSymsp->__Vcoverage[4052]);
+        ++(vlSymsp->__Vcoverage[4072]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__reb 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__reb_mem;
     }
@@ -529,36 +530,36 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     // Body
     this->__Vdlyvset__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 = 0U;
     this->__Vdlyvset__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 = 0U;
-    ++(vlSymsp->__Vcoverage[4015]);
-    ++(vlSymsp->__Vcoverage[4042]);
-    ++(vlSymsp->__Vcoverage[4047]);
-    ++(vlSymsp->__Vcoverage[4049]);
-    ++(vlSymsp->__Vcoverage[4077]);
-    ++(vlSymsp->__Vcoverage[4082]);
-    ++(vlSymsp->__Vcoverage[4084]);
+    ++(vlSymsp->__Vcoverage[4035]);
+    ++(vlSymsp->__Vcoverage[4062]);
+    ++(vlSymsp->__Vcoverage[4067]);
+    ++(vlSymsp->__Vcoverage[4069]);
+    ++(vlSymsp->__Vcoverage[4097]);
+    ++(vlSymsp->__Vcoverage[4102]);
+    ++(vlSymsp->__Vcoverage[4104]);
     if (this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__reb_mem) {
-        ++(vlSymsp->__Vcoverage[4045]);
+        ++(vlSymsp->__Vcoverage[4065]);
     }
     if ((1U & (~ (IData)(this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__reb_mem)))) {
-        ++(vlSymsp->__Vcoverage[4046]);
+        ++(vlSymsp->__Vcoverage[4066]);
     }
     if (this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__reb_mem) {
-        ++(vlSymsp->__Vcoverage[4080]);
+        ++(vlSymsp->__Vcoverage[4100]);
     }
     if ((1U & (~ (IData)(this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__reb_mem)))) {
-        ++(vlSymsp->__Vcoverage[4081]);
+        ++(vlSymsp->__Vcoverage[4101]);
     }
     if ((1U & (IData)(this->__PVT__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4040]);
+        ++(vlSymsp->__Vcoverage[4060]);
     }
     if ((1U & (~ (IData)(this->__PVT__wea_array)))) {
-        ++(vlSymsp->__Vcoverage[4041]);
+        ++(vlSymsp->__Vcoverage[4061]);
     }
     if ((2U & (IData)(this->__PVT__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4075]);
+        ++(vlSymsp->__Vcoverage[4095]);
     }
     if ((1U & (~ ((IData)(this->__PVT__wea_array) >> 1U)))) {
-        ++(vlSymsp->__Vcoverage[4076]);
+        ++(vlSymsp->__Vcoverage[4096]);
     }
     this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__genblk1__DOT__genblk2__DOT__dob_p2 
         = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__genblk1__DOT__dob_p1;
@@ -567,32 +568,32 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((2U & (IData)(this->__PVT__wea_array))) {
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vlvbound2 
             = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__is_odd_period_p5;
-        if ((0x11U >= (0x1fU & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
-                                >> 0x14U)))) {
+        if ((0x11U >= (0x1fU & (IData)((vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
+                                        >> 0x14U))))) {
             this->__Vdlyvval__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 
                 = this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vlvbound2;
             this->__Vdlyvset__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 = 1U;
             this->__Vdlyvdim0__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 
-                = (0x1fU & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
-                            >> 0x14U));
+                = (0x1fU & (IData)((vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
+                                    >> 0x14U)));
         }
     }
     if ((1U & (IData)(this->__PVT__wea_array))) {
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vlvbound2 
             = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__is_odd_period_p5;
-        if ((0x11U >= (0x1fU & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
-                                >> 0x14U)))) {
+        if ((0x11U >= (0x1fU & (IData)((vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
+                                        >> 0x14U))))) {
             this->__Vdlyvval__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 
                 = this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vlvbound2;
             this->__Vdlyvset__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 = 1U;
             this->__Vdlyvdim0__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0 
-                = (0x1fU & (vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
-                            >> 0x14U));
+                = (0x1fU & (IData)((vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__op_num_sr__out 
+                                    >> 0x14U)));
         }
     }
-    this->__Vcellout__bankb_sr__out = (3U & ((IData)(this->__Vcellout__bankb_sr__out) 
+    this->__Vcellout__bankb_sr__out = (7U & ((IData)(this->__Vcellout__bankb_sr__out) 
                                              << 1U));
-    this->__Vcellout__bankb_sr__out = ((2U & (IData)(this->__Vcellout__bankb_sr__out)) 
+    this->__Vcellout__bankb_sr__out = ((6U & (IData)(this->__Vcellout__bankb_sr__out)) 
                                        | (0x12U < (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__state)));
     if (this->__Vdlyvset__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0) {
         this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram[this->__Vdlyvdim0__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram__v0] 
@@ -608,7 +609,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     }
     if (((IData)(this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__genblk1__DOT__genblk2__DOT__dob_p2) 
          ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__dob)) {
-        ++(vlSymsp->__Vcoverage[4053]);
+        ++(vlSymsp->__Vcoverage[4073]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__dob 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__genblk1__DOT__genblk2__DOT__dob_p2;
     }
@@ -619,7 +620,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     }
     if (((IData)(this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__genblk1__DOT__genblk2__DOT__dob_p2) 
          ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__dob)) {
-        ++(vlSymsp->__Vcoverage[4018]);
+        ++(vlSymsp->__Vcoverage[4038]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__dob 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__genblk1__DOT__genblk2__DOT__dob_p2;
     }
@@ -627,7 +628,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0U])) {
-        ++(vlSymsp->__Vcoverage[4055]);
+        ++(vlSymsp->__Vcoverage[4075]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0U];
@@ -635,7 +636,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [1U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [1U])) {
-        ++(vlSymsp->__Vcoverage[4056]);
+        ++(vlSymsp->__Vcoverage[4076]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[1U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [1U];
@@ -643,7 +644,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [2U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [2U])) {
-        ++(vlSymsp->__Vcoverage[4057]);
+        ++(vlSymsp->__Vcoverage[4077]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[2U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [2U];
@@ -651,7 +652,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [3U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [3U])) {
-        ++(vlSymsp->__Vcoverage[4058]);
+        ++(vlSymsp->__Vcoverage[4078]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[3U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [3U];
@@ -659,7 +660,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [4U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [4U])) {
-        ++(vlSymsp->__Vcoverage[4059]);
+        ++(vlSymsp->__Vcoverage[4079]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[4U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [4U];
@@ -667,7 +668,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [5U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [5U])) {
-        ++(vlSymsp->__Vcoverage[4060]);
+        ++(vlSymsp->__Vcoverage[4080]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[5U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [5U];
@@ -675,7 +676,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [6U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [6U])) {
-        ++(vlSymsp->__Vcoverage[4061]);
+        ++(vlSymsp->__Vcoverage[4081]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[6U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [6U];
@@ -683,7 +684,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [7U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [7U])) {
-        ++(vlSymsp->__Vcoverage[4062]);
+        ++(vlSymsp->__Vcoverage[4082]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[7U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [7U];
@@ -691,7 +692,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [8U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [8U])) {
-        ++(vlSymsp->__Vcoverage[4063]);
+        ++(vlSymsp->__Vcoverage[4083]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[8U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [8U];
@@ -699,7 +700,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [9U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [9U])) {
-        ++(vlSymsp->__Vcoverage[4064]);
+        ++(vlSymsp->__Vcoverage[4084]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[9U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [9U];
@@ -707,7 +708,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xaU] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xaU])) {
-        ++(vlSymsp->__Vcoverage[4065]);
+        ++(vlSymsp->__Vcoverage[4085]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xaU] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xaU];
@@ -715,7 +716,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xbU] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xbU])) {
-        ++(vlSymsp->__Vcoverage[4066]);
+        ++(vlSymsp->__Vcoverage[4086]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xbU] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xbU];
@@ -723,7 +724,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xcU] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xcU])) {
-        ++(vlSymsp->__Vcoverage[4067]);
+        ++(vlSymsp->__Vcoverage[4087]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xcU] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xcU];
@@ -731,7 +732,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xdU] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xdU])) {
-        ++(vlSymsp->__Vcoverage[4068]);
+        ++(vlSymsp->__Vcoverage[4088]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xdU] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xdU];
@@ -739,7 +740,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xeU] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xeU])) {
-        ++(vlSymsp->__Vcoverage[4069]);
+        ++(vlSymsp->__Vcoverage[4089]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xeU] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xeU];
@@ -747,7 +748,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xfU] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xfU])) {
-        ++(vlSymsp->__Vcoverage[4070]);
+        ++(vlSymsp->__Vcoverage[4090]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xfU] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xfU];
@@ -755,7 +756,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0x10U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0x10U])) {
-        ++(vlSymsp->__Vcoverage[4071]);
+        ++(vlSymsp->__Vcoverage[4091]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0x10U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0x10U];
@@ -763,7 +764,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0x11U] ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0x11U])) {
-        ++(vlSymsp->__Vcoverage[4072]);
+        ++(vlSymsp->__Vcoverage[4092]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0x11U] 
             = this->__PVT__bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0x11U];
@@ -771,7 +772,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0U])) {
-        ++(vlSymsp->__Vcoverage[4020]);
+        ++(vlSymsp->__Vcoverage[4040]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0U];
@@ -779,7 +780,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [1U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [1U])) {
-        ++(vlSymsp->__Vcoverage[4021]);
+        ++(vlSymsp->__Vcoverage[4041]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[1U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [1U];
@@ -787,7 +788,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [2U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [2U])) {
-        ++(vlSymsp->__Vcoverage[4022]);
+        ++(vlSymsp->__Vcoverage[4042]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[2U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [2U];
@@ -795,7 +796,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [3U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [3U])) {
-        ++(vlSymsp->__Vcoverage[4023]);
+        ++(vlSymsp->__Vcoverage[4043]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[3U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [3U];
@@ -803,7 +804,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [4U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [4U])) {
-        ++(vlSymsp->__Vcoverage[4024]);
+        ++(vlSymsp->__Vcoverage[4044]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[4U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [4U];
@@ -811,7 +812,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [5U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [5U])) {
-        ++(vlSymsp->__Vcoverage[4025]);
+        ++(vlSymsp->__Vcoverage[4045]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[5U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [5U];
@@ -819,7 +820,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [6U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [6U])) {
-        ++(vlSymsp->__Vcoverage[4026]);
+        ++(vlSymsp->__Vcoverage[4046]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[6U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [6U];
@@ -827,7 +828,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [7U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [7U])) {
-        ++(vlSymsp->__Vcoverage[4027]);
+        ++(vlSymsp->__Vcoverage[4047]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[7U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [7U];
@@ -835,7 +836,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [8U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [8U])) {
-        ++(vlSymsp->__Vcoverage[4028]);
+        ++(vlSymsp->__Vcoverage[4048]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[8U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [8U];
@@ -843,7 +844,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [9U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [9U])) {
-        ++(vlSymsp->__Vcoverage[4029]);
+        ++(vlSymsp->__Vcoverage[4049]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[9U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [9U];
@@ -851,7 +852,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xaU] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xaU])) {
-        ++(vlSymsp->__Vcoverage[4030]);
+        ++(vlSymsp->__Vcoverage[4050]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xaU] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xaU];
@@ -859,7 +860,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xbU] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xbU])) {
-        ++(vlSymsp->__Vcoverage[4031]);
+        ++(vlSymsp->__Vcoverage[4051]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xbU] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xbU];
@@ -867,7 +868,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xcU] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xcU])) {
-        ++(vlSymsp->__Vcoverage[4032]);
+        ++(vlSymsp->__Vcoverage[4052]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xcU] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xcU];
@@ -875,7 +876,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xdU] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xdU])) {
-        ++(vlSymsp->__Vcoverage[4033]);
+        ++(vlSymsp->__Vcoverage[4053]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xdU] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xdU];
@@ -883,7 +884,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xeU] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xeU])) {
-        ++(vlSymsp->__Vcoverage[4034]);
+        ++(vlSymsp->__Vcoverage[4054]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xeU] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xeU];
@@ -891,7 +892,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0xfU] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0xfU])) {
-        ++(vlSymsp->__Vcoverage[4035]);
+        ++(vlSymsp->__Vcoverage[4055]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0xfU] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0xfU];
@@ -899,7 +900,7 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0x10U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0x10U])) {
-        ++(vlSymsp->__Vcoverage[4036]);
+        ++(vlSymsp->__Vcoverage[4056]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0x10U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0x10U];
@@ -907,32 +908,40 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     if ((this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
          [0x11U] ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram
          [0x11U])) {
-        ++(vlSymsp->__Vcoverage[4037]);
+        ++(vlSymsp->__Vcoverage[4057]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__ram[0x11U] 
             = this->__PVT__bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT__ram
             [0x11U];
     }
+    if ((4U & ((IData)(this->__Vcellout__bankb_sr__out) 
+               ^ this->bankb_sr__DOT____Vtogcov__out))) {
+        ++(vlSymsp->__Vcoverage[4033]);
+        this->bankb_sr__DOT____Vtogcov__out = ((3U 
+                                                & (IData)(this->bankb_sr__DOT____Vtogcov__out)) 
+                                               | (4U 
+                                                  & (IData)(this->__Vcellout__bankb_sr__out)));
+    }
     if ((1U & ((IData)(this->__Vcellout__bankb_sr__out) 
                ^ this->__Vtogcov__bankb_p))) {
-        ++(vlSymsp->__Vcoverage[4007]);
+        ++(vlSymsp->__Vcoverage[4026]);
         this->__Vtogcov__bankb_p = ((2U & (IData)(this->__Vtogcov__bankb_p)) 
                                     | (1U & (IData)(this->__Vcellout__bankb_sr__out)));
     }
     if ((2U & ((IData)(this->__Vcellout__bankb_sr__out) 
                ^ this->__Vtogcov__bankb_p))) {
-        ++(vlSymsp->__Vcoverage[4008]);
+        ++(vlSymsp->__Vcoverage[4027]);
         this->__Vtogcov__bankb_p = ((1U & (IData)(this->__Vtogcov__bankb_p)) 
                                     | (2U & (IData)(this->__Vcellout__bankb_sr__out)));
     }
     if ((this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
          [0U])) {
-        ++(vlSymsp->__Vcoverage[4005]);
+        ++(vlSymsp->__Vcoverage[4024]);
         this->__Vtogcov__dob_array[0U] = this->__PVT__dob_array
             [0U];
     }
     if ((this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
          [1U])) {
-        ++(vlSymsp->__Vcoverage[4006]);
+        ++(vlSymsp->__Vcoverage[4025]);
         this->__Vtogcov__dob_array[1U] = this->__PVT__dob_array
             [1U];
     }
@@ -942,12 +951,6 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
     VL_DEBUG_IF(VL_DBG_MSGF("+                  Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT__is_odd_period_msb_mem__8\n"); );
     Vopl3* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    if ((1U & (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__bank_num_sr__out) 
-                >> 4U) ^ this->__Vtogcov__banka))) {
-        ++(vlSymsp->__Vcoverage[4001]);
-        this->__Vtogcov__banka = (1U & ((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__bank_num_sr__out) 
-                                        >> 4U));
-    }
     this->__PVT__wea_array = ((2U & (IData)(this->__PVT__wea_array)) 
                               | (1U & (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__key_on_pulse_sr__out) 
                                         >> 4U) & (~ 
@@ -957,32 +960,31 @@ VL_INLINE_OPT void Vopl3_mem_multi_bank__D1_DB12_O2_N2::_sequent__TOP__opl3__DOT
                               | (2U & (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__key_on_pulse_sr__out) 
                                         & (IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT__operator__DOT__phase_generator__DOT____Vcellout__bank_num_sr__out)) 
                                        >> 3U)));
-    this->dob = this->__PVT__dob_array[(1U & ((IData)(this->__Vcellout__bankb_sr__out) 
-                                              >> 1U))];
+    this->dob = this->__PVT__dob_array[(1U & (IData)(this->__Vcellout__bankb_sr__out))];
     if ((1U & ((IData)(this->__PVT__wea_array) ^ this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__wea))) {
-        ++(vlSymsp->__Vcoverage[4016]);
+        ++(vlSymsp->__Vcoverage[4036]);
         this->bankgen__BRA__0__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__wea 
             = (1U & (IData)(this->__PVT__wea_array));
     }
     if ((1U & (((IData)(this->__PVT__wea_array) >> 1U) 
                ^ this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__wea))) {
-        ++(vlSymsp->__Vcoverage[4051]);
+        ++(vlSymsp->__Vcoverage[4071]);
         this->bankgen__BRA__1__KET____DOT__genblk2__DOT__mem_bank__DOT____Vtogcov__wea 
             = (1U & ((IData)(this->__PVT__wea_array) 
                      >> 1U));
     }
     if ((1U & ((IData)(this->__PVT__wea_array) ^ this->__Vtogcov__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4003]);
+        ++(vlSymsp->__Vcoverage[4022]);
         this->__Vtogcov__wea_array = ((2U & (IData)(this->__Vtogcov__wea_array)) 
                                       | (1U & (IData)(this->__PVT__wea_array)));
     }
     if ((2U & ((IData)(this->__PVT__wea_array) ^ this->__Vtogcov__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4004]);
+        ++(vlSymsp->__Vcoverage[4023]);
         this->__Vtogcov__wea_array = ((1U & (IData)(this->__Vtogcov__wea_array)) 
                                       | (2U & (IData)(this->__PVT__wea_array)));
     }
     if (((IData)(this->dob) ^ this->__Vtogcov__dob)) {
-        ++(vlSymsp->__Vcoverage[4002]);
+        ++(vlSymsp->__Vcoverage[4021]);
         this->__Vtogcov__dob = this->dob;
     }
 }
