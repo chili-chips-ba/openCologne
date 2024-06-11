@@ -143,7 +143,14 @@ run:
 	@echo "-- RUN ---------------------"
 	@rm -rf logs
 	@mkdir -p logs
-	obj_dir/Vtop
+	obj_dir/Vopl3
+
+	#@echo
+	#@echo "-- VERIFY COVERAGE FILE ----"
+	#@if [ ! -f logs/coverage.dat ]; then \
+	#	echo "Error: Coverage data file 'logs/coverage.dat' not found!"; \
+	#	exit 1; \
+	#fi
 
 	@echo
 	@echo "-- COVERAGE ----------------"
@@ -152,9 +159,6 @@ run:
 
 	@echo
 	@echo "-- DONE --------------------"
-
-
-######################################################################
 # Other targets
 
 show-config:

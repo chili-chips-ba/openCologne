@@ -33,11 +33,11 @@ VM_PREFIX = Vopl3
 VM_MODPREFIX = Vopl3
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
-	-I/home/user/FPGA/tools/systemc-2.3.3/include/ -DVL_TIME_CONTEXT \
+	-I/home/user/FPGA/tools/systemc-2.3.3/include -DVL_TIME_CONTEXT \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
-	-L/home/user/FPGA/tools/systemc-2.3.3/lib-linux64/ -lsystemc \
+	-L/home/user/FPGA/tools/systemc-2.3.3/lib-linux64 -lsystemc \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
