@@ -40,9 +40,9 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     VL_DEBUG_IF(VL_DBG_MSGF("+                  Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__control_operators__DOT__am_vib_egt_ksr_mult_mem__1\n"); );
     Vopl3* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    ++(vlSymsp->__Vcoverage[4107]);
-    ++(vlSymsp->__Vcoverage[4108]);
-    ++(vlSymsp->__Vcoverage[4109]);
+    ++(vlSymsp->__Vcoverage[4127]);
+    ++(vlSymsp->__Vcoverage[4128]);
+    ++(vlSymsp->__Vcoverage[4129]);
 }
 
 void Vopl3_mem_multi_bank__D8_DB16_N2::_initial__TOP__opl3__DOT__channels__DOT__control_operators__DOT__am_vib_egt_ksr_mult_mem__5(Vopl3__Syms* __restrict vlSymsp) {
@@ -50,28 +50,36 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_initial__TOP__opl3__DOT__channels__DOT__
     Vopl3* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     this->__Vcellout__bankb_sr__out = 0U;
-    ++(vlSymsp->__Vcoverage[4110]);
+    ++(vlSymsp->__Vcoverage[4131]);
 }
 
 void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__control_operators__DOT__am_vib_egt_ksr_mult_mem__21(Vopl3__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+                  Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__control_operators__DOT__am_vib_egt_ksr_mult_mem__21\n"); );
     Vopl3* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    if ((4U & ((IData)(this->__Vcellout__bankb_sr__out) 
+               ^ this->bankb_sr__DOT____Vtogcov__out))) {
+        ++(vlSymsp->__Vcoverage[4130]);
+        this->bankb_sr__DOT____Vtogcov__out = ((3U 
+                                                & (IData)(this->bankb_sr__DOT____Vtogcov__out)) 
+                                               | (4U 
+                                                  & (IData)(this->__Vcellout__bankb_sr__out)));
+    }
     if ((1U & ((IData)(this->__Vcellout__bankb_sr__out) 
                ^ this->__Vtogcov__bankb_p))) {
-        ++(vlSymsp->__Vcoverage[4105]);
+        ++(vlSymsp->__Vcoverage[4125]);
         this->__Vtogcov__bankb_p = ((2U & (IData)(this->__Vtogcov__bankb_p)) 
                                     | (1U & (IData)(this->__Vcellout__bankb_sr__out)));
     }
     if ((2U & ((IData)(this->__Vcellout__bankb_sr__out) 
                ^ this->__Vtogcov__bankb_p))) {
-        ++(vlSymsp->__Vcoverage[4106]);
+        ++(vlSymsp->__Vcoverage[4126]);
         this->__Vtogcov__bankb_p = ((1U & (IData)(this->__Vtogcov__bankb_p)) 
                                     | (2U & (IData)(this->__Vcellout__bankb_sr__out)));
     }
     if (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellinp__am_vib_egt_ksr_mult_mem__wea) 
          ^ this->__Vtogcov__wea)) {
-        ++(vlSymsp->__Vcoverage[4086]);
+        ++(vlSymsp->__Vcoverage[4106]);
         this->__Vtogcov__wea = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellinp__am_vib_egt_ksr_mult_mem__wea;
     }
     this->__PVT__wea_array = ((2U & (IData)(this->__PVT__wea_array)) 
@@ -86,18 +94,18 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     this->__PVT__dob_array[0U] = __PVT__bankgen__BRA__0__KET____DOT__genblk1__DOT__mem_bank->__PVT__dob;
     this->__PVT__dob_array[1U] = __PVT__bankgen__BRA__1__KET____DOT__genblk1__DOT__mem_bank->__PVT__dob;
     if ((1U & ((IData)(this->__PVT__wea_array) ^ this->__Vtogcov__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4087]);
+        ++(vlSymsp->__Vcoverage[4107]);
         this->__Vtogcov__wea_array = ((2U & (IData)(this->__Vtogcov__wea_array)) 
                                       | (1U & (IData)(this->__PVT__wea_array)));
     }
     if ((2U & ((IData)(this->__PVT__wea_array) ^ this->__Vtogcov__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4088]);
+        ++(vlSymsp->__Vcoverage[4108]);
         this->__Vtogcov__wea_array = ((1U & (IData)(this->__Vtogcov__wea_array)) 
                                       | (2U & (IData)(this->__PVT__wea_array)));
     }
     if ((1U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4089]);
+        ++(vlSymsp->__Vcoverage[4109]);
         this->__Vtogcov__dob_array[0U] = ((0xfeU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -106,7 +114,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((2U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4090]);
+        ++(vlSymsp->__Vcoverage[4110]);
         this->__Vtogcov__dob_array[0U] = ((0xfdU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -115,7 +123,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((4U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4091]);
+        ++(vlSymsp->__Vcoverage[4111]);
         this->__Vtogcov__dob_array[0U] = ((0xfbU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -124,7 +132,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((8U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4092]);
+        ++(vlSymsp->__Vcoverage[4112]);
         this->__Vtogcov__dob_array[0U] = ((0xf7U & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -133,7 +141,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x10U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4093]);
+        ++(vlSymsp->__Vcoverage[4113]);
         this->__Vtogcov__dob_array[0U] = ((0xefU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -143,7 +151,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x20U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4094]);
+        ++(vlSymsp->__Vcoverage[4114]);
         this->__Vtogcov__dob_array[0U] = ((0xdfU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -153,7 +161,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x40U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4095]);
+        ++(vlSymsp->__Vcoverage[4115]);
         this->__Vtogcov__dob_array[0U] = ((0xbfU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -163,7 +171,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x80U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4096]);
+        ++(vlSymsp->__Vcoverage[4116]);
         this->__Vtogcov__dob_array[0U] = ((0x7fU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -173,7 +181,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((1U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4097]);
+        ++(vlSymsp->__Vcoverage[4117]);
         this->__Vtogcov__dob_array[1U] = ((0xfeU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -182,7 +190,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((2U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4098]);
+        ++(vlSymsp->__Vcoverage[4118]);
         this->__Vtogcov__dob_array[1U] = ((0xfdU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -191,7 +199,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((4U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4099]);
+        ++(vlSymsp->__Vcoverage[4119]);
         this->__Vtogcov__dob_array[1U] = ((0xfbU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -200,7 +208,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((8U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4100]);
+        ++(vlSymsp->__Vcoverage[4120]);
         this->__Vtogcov__dob_array[1U] = ((0xf7U & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -209,7 +217,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x10U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4101]);
+        ++(vlSymsp->__Vcoverage[4121]);
         this->__Vtogcov__dob_array[1U] = ((0xefU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -219,7 +227,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x20U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4102]);
+        ++(vlSymsp->__Vcoverage[4122]);
         this->__Vtogcov__dob_array[1U] = ((0xdfU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -229,7 +237,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x40U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4103]);
+        ++(vlSymsp->__Vcoverage[4123]);
         this->__Vtogcov__dob_array[1U] = ((0xbfU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -239,7 +247,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x80U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4104]);
+        ++(vlSymsp->__Vcoverage[4124]);
         this->__Vtogcov__dob_array[1U] = ((0x7fU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -254,21 +262,29 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     VL_DEBUG_IF(VL_DBG_MSGF("+                  Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__control_operators__DOT__ksl_tl_mem__22\n"); );
     Vopl3* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    if ((4U & ((IData)(this->__Vcellout__bankb_sr__out) 
+               ^ this->bankb_sr__DOT____Vtogcov__out))) {
+        ++(vlSymsp->__Vcoverage[4130]);
+        this->bankb_sr__DOT____Vtogcov__out = ((3U 
+                                                & (IData)(this->bankb_sr__DOT____Vtogcov__out)) 
+                                               | (4U 
+                                                  & (IData)(this->__Vcellout__bankb_sr__out)));
+    }
     if ((1U & ((IData)(this->__Vcellout__bankb_sr__out) 
                ^ this->__Vtogcov__bankb_p))) {
-        ++(vlSymsp->__Vcoverage[4105]);
+        ++(vlSymsp->__Vcoverage[4125]);
         this->__Vtogcov__bankb_p = ((2U & (IData)(this->__Vtogcov__bankb_p)) 
                                     | (1U & (IData)(this->__Vcellout__bankb_sr__out)));
     }
     if ((2U & ((IData)(this->__Vcellout__bankb_sr__out) 
                ^ this->__Vtogcov__bankb_p))) {
-        ++(vlSymsp->__Vcoverage[4106]);
+        ++(vlSymsp->__Vcoverage[4126]);
         this->__Vtogcov__bankb_p = ((1U & (IData)(this->__Vtogcov__bankb_p)) 
                                     | (2U & (IData)(this->__Vcellout__bankb_sr__out)));
     }
     if (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellinp__ksl_tl_mem__wea) 
          ^ this->__Vtogcov__wea)) {
-        ++(vlSymsp->__Vcoverage[4086]);
+        ++(vlSymsp->__Vcoverage[4106]);
         this->__Vtogcov__wea = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellinp__ksl_tl_mem__wea;
     }
     this->__PVT__wea_array = ((2U & (IData)(this->__PVT__wea_array)) 
@@ -283,18 +299,18 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     this->__PVT__dob_array[0U] = __PVT__bankgen__BRA__0__KET____DOT__genblk1__DOT__mem_bank->__PVT__dob;
     this->__PVT__dob_array[1U] = __PVT__bankgen__BRA__1__KET____DOT__genblk1__DOT__mem_bank->__PVT__dob;
     if ((1U & ((IData)(this->__PVT__wea_array) ^ this->__Vtogcov__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4087]);
+        ++(vlSymsp->__Vcoverage[4107]);
         this->__Vtogcov__wea_array = ((2U & (IData)(this->__Vtogcov__wea_array)) 
                                       | (1U & (IData)(this->__PVT__wea_array)));
     }
     if ((2U & ((IData)(this->__PVT__wea_array) ^ this->__Vtogcov__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4088]);
+        ++(vlSymsp->__Vcoverage[4108]);
         this->__Vtogcov__wea_array = ((1U & (IData)(this->__Vtogcov__wea_array)) 
                                       | (2U & (IData)(this->__PVT__wea_array)));
     }
     if ((1U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4089]);
+        ++(vlSymsp->__Vcoverage[4109]);
         this->__Vtogcov__dob_array[0U] = ((0xfeU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -303,7 +319,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((2U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4090]);
+        ++(vlSymsp->__Vcoverage[4110]);
         this->__Vtogcov__dob_array[0U] = ((0xfdU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -312,7 +328,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((4U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4091]);
+        ++(vlSymsp->__Vcoverage[4111]);
         this->__Vtogcov__dob_array[0U] = ((0xfbU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -321,7 +337,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((8U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4092]);
+        ++(vlSymsp->__Vcoverage[4112]);
         this->__Vtogcov__dob_array[0U] = ((0xf7U & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -330,7 +346,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x10U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4093]);
+        ++(vlSymsp->__Vcoverage[4113]);
         this->__Vtogcov__dob_array[0U] = ((0xefU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -340,7 +356,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x20U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4094]);
+        ++(vlSymsp->__Vcoverage[4114]);
         this->__Vtogcov__dob_array[0U] = ((0xdfU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -350,7 +366,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x40U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4095]);
+        ++(vlSymsp->__Vcoverage[4115]);
         this->__Vtogcov__dob_array[0U] = ((0xbfU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -360,7 +376,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x80U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4096]);
+        ++(vlSymsp->__Vcoverage[4116]);
         this->__Vtogcov__dob_array[0U] = ((0x7fU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -370,7 +386,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((1U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4097]);
+        ++(vlSymsp->__Vcoverage[4117]);
         this->__Vtogcov__dob_array[1U] = ((0xfeU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -379,7 +395,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((2U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4098]);
+        ++(vlSymsp->__Vcoverage[4118]);
         this->__Vtogcov__dob_array[1U] = ((0xfdU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -388,7 +404,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((4U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4099]);
+        ++(vlSymsp->__Vcoverage[4119]);
         this->__Vtogcov__dob_array[1U] = ((0xfbU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -397,7 +413,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((8U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4100]);
+        ++(vlSymsp->__Vcoverage[4120]);
         this->__Vtogcov__dob_array[1U] = ((0xf7U & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -406,7 +422,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x10U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4101]);
+        ++(vlSymsp->__Vcoverage[4121]);
         this->__Vtogcov__dob_array[1U] = ((0xefU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -416,7 +432,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x20U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4102]);
+        ++(vlSymsp->__Vcoverage[4122]);
         this->__Vtogcov__dob_array[1U] = ((0xdfU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -426,7 +442,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x40U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4103]);
+        ++(vlSymsp->__Vcoverage[4123]);
         this->__Vtogcov__dob_array[1U] = ((0xbfU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -436,7 +452,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x80U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4104]);
+        ++(vlSymsp->__Vcoverage[4124]);
         this->__Vtogcov__dob_array[1U] = ((0x7fU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -451,21 +467,29 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     VL_DEBUG_IF(VL_DBG_MSGF("+                  Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__control_operators__DOT__ar_dr_mem__23\n"); );
     Vopl3* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    if ((4U & ((IData)(this->__Vcellout__bankb_sr__out) 
+               ^ this->bankb_sr__DOT____Vtogcov__out))) {
+        ++(vlSymsp->__Vcoverage[4130]);
+        this->bankb_sr__DOT____Vtogcov__out = ((3U 
+                                                & (IData)(this->bankb_sr__DOT____Vtogcov__out)) 
+                                               | (4U 
+                                                  & (IData)(this->__Vcellout__bankb_sr__out)));
+    }
     if ((1U & ((IData)(this->__Vcellout__bankb_sr__out) 
                ^ this->__Vtogcov__bankb_p))) {
-        ++(vlSymsp->__Vcoverage[4105]);
+        ++(vlSymsp->__Vcoverage[4125]);
         this->__Vtogcov__bankb_p = ((2U & (IData)(this->__Vtogcov__bankb_p)) 
                                     | (1U & (IData)(this->__Vcellout__bankb_sr__out)));
     }
     if ((2U & ((IData)(this->__Vcellout__bankb_sr__out) 
                ^ this->__Vtogcov__bankb_p))) {
-        ++(vlSymsp->__Vcoverage[4106]);
+        ++(vlSymsp->__Vcoverage[4126]);
         this->__Vtogcov__bankb_p = ((1U & (IData)(this->__Vtogcov__bankb_p)) 
                                     | (2U & (IData)(this->__Vcellout__bankb_sr__out)));
     }
     if (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellinp__ar_dr_mem__wea) 
          ^ this->__Vtogcov__wea)) {
-        ++(vlSymsp->__Vcoverage[4086]);
+        ++(vlSymsp->__Vcoverage[4106]);
         this->__Vtogcov__wea = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellinp__ar_dr_mem__wea;
     }
     this->__PVT__wea_array = ((2U & (IData)(this->__PVT__wea_array)) 
@@ -480,18 +504,18 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     this->__PVT__dob_array[0U] = __PVT__bankgen__BRA__0__KET____DOT__genblk1__DOT__mem_bank->__PVT__dob;
     this->__PVT__dob_array[1U] = __PVT__bankgen__BRA__1__KET____DOT__genblk1__DOT__mem_bank->__PVT__dob;
     if ((1U & ((IData)(this->__PVT__wea_array) ^ this->__Vtogcov__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4087]);
+        ++(vlSymsp->__Vcoverage[4107]);
         this->__Vtogcov__wea_array = ((2U & (IData)(this->__Vtogcov__wea_array)) 
                                       | (1U & (IData)(this->__PVT__wea_array)));
     }
     if ((2U & ((IData)(this->__PVT__wea_array) ^ this->__Vtogcov__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4088]);
+        ++(vlSymsp->__Vcoverage[4108]);
         this->__Vtogcov__wea_array = ((1U & (IData)(this->__Vtogcov__wea_array)) 
                                       | (2U & (IData)(this->__PVT__wea_array)));
     }
     if ((1U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4089]);
+        ++(vlSymsp->__Vcoverage[4109]);
         this->__Vtogcov__dob_array[0U] = ((0xfeU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -500,7 +524,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((2U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4090]);
+        ++(vlSymsp->__Vcoverage[4110]);
         this->__Vtogcov__dob_array[0U] = ((0xfdU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -509,7 +533,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((4U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4091]);
+        ++(vlSymsp->__Vcoverage[4111]);
         this->__Vtogcov__dob_array[0U] = ((0xfbU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -518,7 +542,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((8U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4092]);
+        ++(vlSymsp->__Vcoverage[4112]);
         this->__Vtogcov__dob_array[0U] = ((0xf7U & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -527,7 +551,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x10U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4093]);
+        ++(vlSymsp->__Vcoverage[4113]);
         this->__Vtogcov__dob_array[0U] = ((0xefU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -537,7 +561,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x20U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4094]);
+        ++(vlSymsp->__Vcoverage[4114]);
         this->__Vtogcov__dob_array[0U] = ((0xdfU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -547,7 +571,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x40U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4095]);
+        ++(vlSymsp->__Vcoverage[4115]);
         this->__Vtogcov__dob_array[0U] = ((0xbfU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -557,7 +581,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x80U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4096]);
+        ++(vlSymsp->__Vcoverage[4116]);
         this->__Vtogcov__dob_array[0U] = ((0x7fU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -567,7 +591,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((1U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4097]);
+        ++(vlSymsp->__Vcoverage[4117]);
         this->__Vtogcov__dob_array[1U] = ((0xfeU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -576,7 +600,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((2U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4098]);
+        ++(vlSymsp->__Vcoverage[4118]);
         this->__Vtogcov__dob_array[1U] = ((0xfdU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -585,7 +609,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((4U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4099]);
+        ++(vlSymsp->__Vcoverage[4119]);
         this->__Vtogcov__dob_array[1U] = ((0xfbU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -594,7 +618,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((8U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4100]);
+        ++(vlSymsp->__Vcoverage[4120]);
         this->__Vtogcov__dob_array[1U] = ((0xf7U & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -603,7 +627,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x10U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4101]);
+        ++(vlSymsp->__Vcoverage[4121]);
         this->__Vtogcov__dob_array[1U] = ((0xefU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -613,7 +637,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x20U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4102]);
+        ++(vlSymsp->__Vcoverage[4122]);
         this->__Vtogcov__dob_array[1U] = ((0xdfU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -623,7 +647,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x40U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4103]);
+        ++(vlSymsp->__Vcoverage[4123]);
         this->__Vtogcov__dob_array[1U] = ((0xbfU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -633,7 +657,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x80U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4104]);
+        ++(vlSymsp->__Vcoverage[4124]);
         this->__Vtogcov__dob_array[1U] = ((0x7fU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -648,21 +672,29 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     VL_DEBUG_IF(VL_DBG_MSGF("+                  Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__control_operators__DOT__sl_rr_mem__24\n"); );
     Vopl3* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    if ((4U & ((IData)(this->__Vcellout__bankb_sr__out) 
+               ^ this->bankb_sr__DOT____Vtogcov__out))) {
+        ++(vlSymsp->__Vcoverage[4130]);
+        this->bankb_sr__DOT____Vtogcov__out = ((3U 
+                                                & (IData)(this->bankb_sr__DOT____Vtogcov__out)) 
+                                               | (4U 
+                                                  & (IData)(this->__Vcellout__bankb_sr__out)));
+    }
     if ((1U & ((IData)(this->__Vcellout__bankb_sr__out) 
                ^ this->__Vtogcov__bankb_p))) {
-        ++(vlSymsp->__Vcoverage[4105]);
+        ++(vlSymsp->__Vcoverage[4125]);
         this->__Vtogcov__bankb_p = ((2U & (IData)(this->__Vtogcov__bankb_p)) 
                                     | (1U & (IData)(this->__Vcellout__bankb_sr__out)));
     }
     if ((2U & ((IData)(this->__Vcellout__bankb_sr__out) 
                ^ this->__Vtogcov__bankb_p))) {
-        ++(vlSymsp->__Vcoverage[4106]);
+        ++(vlSymsp->__Vcoverage[4126]);
         this->__Vtogcov__bankb_p = ((1U & (IData)(this->__Vtogcov__bankb_p)) 
                                     | (2U & (IData)(this->__Vcellout__bankb_sr__out)));
     }
     if (((IData)(vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellinp__sl_rr_mem__wea) 
          ^ this->__Vtogcov__wea)) {
-        ++(vlSymsp->__Vcoverage[4086]);
+        ++(vlSymsp->__Vcoverage[4106]);
         this->__Vtogcov__wea = vlTOPp->opl3__DOT__channels__DOT__control_operators__DOT____Vcellinp__sl_rr_mem__wea;
     }
     this->__PVT__wea_array = ((2U & (IData)(this->__PVT__wea_array)) 
@@ -677,18 +709,18 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     this->__PVT__dob_array[0U] = __PVT__bankgen__BRA__0__KET____DOT__genblk1__DOT__mem_bank->__PVT__dob;
     this->__PVT__dob_array[1U] = __PVT__bankgen__BRA__1__KET____DOT__genblk1__DOT__mem_bank->__PVT__dob;
     if ((1U & ((IData)(this->__PVT__wea_array) ^ this->__Vtogcov__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4087]);
+        ++(vlSymsp->__Vcoverage[4107]);
         this->__Vtogcov__wea_array = ((2U & (IData)(this->__Vtogcov__wea_array)) 
                                       | (1U & (IData)(this->__PVT__wea_array)));
     }
     if ((2U & ((IData)(this->__PVT__wea_array) ^ this->__Vtogcov__wea_array))) {
-        ++(vlSymsp->__Vcoverage[4088]);
+        ++(vlSymsp->__Vcoverage[4108]);
         this->__Vtogcov__wea_array = ((1U & (IData)(this->__Vtogcov__wea_array)) 
                                       | (2U & (IData)(this->__PVT__wea_array)));
     }
     if ((1U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4089]);
+        ++(vlSymsp->__Vcoverage[4109]);
         this->__Vtogcov__dob_array[0U] = ((0xfeU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -697,7 +729,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((2U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4090]);
+        ++(vlSymsp->__Vcoverage[4110]);
         this->__Vtogcov__dob_array[0U] = ((0xfdU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -706,7 +738,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((4U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4091]);
+        ++(vlSymsp->__Vcoverage[4111]);
         this->__Vtogcov__dob_array[0U] = ((0xfbU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -715,7 +747,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((8U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                [0U]))) {
-        ++(vlSymsp->__Vcoverage[4092]);
+        ++(vlSymsp->__Vcoverage[4112]);
         this->__Vtogcov__dob_array[0U] = ((0xf7U & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -724,7 +756,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x10U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4093]);
+        ++(vlSymsp->__Vcoverage[4113]);
         this->__Vtogcov__dob_array[0U] = ((0xefU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -734,7 +766,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x20U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4094]);
+        ++(vlSymsp->__Vcoverage[4114]);
         this->__Vtogcov__dob_array[0U] = ((0xdfU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -744,7 +776,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x40U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4095]);
+        ++(vlSymsp->__Vcoverage[4115]);
         this->__Vtogcov__dob_array[0U] = ((0xbfU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -754,7 +786,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x80U & (this->__PVT__dob_array[0U] ^ this->__Vtogcov__dob_array
                   [0U]))) {
-        ++(vlSymsp->__Vcoverage[4096]);
+        ++(vlSymsp->__Vcoverage[4116]);
         this->__Vtogcov__dob_array[0U] = ((0x7fU & 
                                            this->__Vtogcov__dob_array
                                            [0U]) | 
@@ -764,7 +796,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((1U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4097]);
+        ++(vlSymsp->__Vcoverage[4117]);
         this->__Vtogcov__dob_array[1U] = ((0xfeU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -773,7 +805,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((2U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4098]);
+        ++(vlSymsp->__Vcoverage[4118]);
         this->__Vtogcov__dob_array[1U] = ((0xfdU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -782,7 +814,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((4U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4099]);
+        ++(vlSymsp->__Vcoverage[4119]);
         this->__Vtogcov__dob_array[1U] = ((0xfbU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -791,7 +823,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((8U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                [1U]))) {
-        ++(vlSymsp->__Vcoverage[4100]);
+        ++(vlSymsp->__Vcoverage[4120]);
         this->__Vtogcov__dob_array[1U] = ((0xf7U & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -800,7 +832,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x10U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4101]);
+        ++(vlSymsp->__Vcoverage[4121]);
         this->__Vtogcov__dob_array[1U] = ((0xefU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -810,7 +842,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x20U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4102]);
+        ++(vlSymsp->__Vcoverage[4122]);
         this->__Vtogcov__dob_array[1U] = ((0xdfU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -820,7 +852,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x40U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4103]);
+        ++(vlSymsp->__Vcoverage[4123]);
         this->__Vtogcov__dob_array[1U] = ((0xbfU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -830,7 +862,7 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_settle__TOP__opl3__DOT__channels__DOT__c
     }
     if ((0x80U & (this->__PVT__dob_array[1U] ^ this->__Vtogcov__dob_array
                   [1U]))) {
-        ++(vlSymsp->__Vcoverage[4104]);
+        ++(vlSymsp->__Vcoverage[4124]);
         this->__Vtogcov__dob_array[1U] = ((0x7fU & 
                                            this->__Vtogcov__dob_array
                                            [1U]) | 
@@ -857,77 +889,79 @@ void Vopl3_mem_multi_bank__D8_DB16_N2::_ctor_var_reset() {
     { int __Vi0=0; for (; __Vi0<2; ++__Vi0) {
             __PVT__dob_array[__Vi0] = VL_RAND_RESET_I(8);
     }}
-    __Vcellout__bankb_sr__out = VL_RAND_RESET_I(2);
+    __Vcellout__bankb_sr__out = VL_RAND_RESET_I(3);
     __Vtogcov__wea = VL_RAND_RESET_I(1);
     __Vtogcov__wea_array = VL_RAND_RESET_I(2);
     { int __Vi0=0; for (; __Vi0<2; ++__Vi0) {
             __Vtogcov__dob_array[__Vi0] = VL_RAND_RESET_I(8);
     }}
     __Vtogcov__bankb_p = VL_RAND_RESET_I(2);
+    bankb_sr__DOT____Vtogcov__out = VL_RAND_RESET_I(3);
 }
 
 void Vopl3_mem_multi_bank__D8_DB16_N2::_configure_coverage(Vopl3__Syms* __restrict vlSymsp, bool first) {
     VL_DEBUG_IF(VL_DBG_MSGF("+                  Vopl3_mem_multi_bank__D8_DB16_N2::_configure_coverage\n"); );
     // Body
     if (false && vlSymsp && first) {}  // Prevent unused
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[0]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 52, 16, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "clk", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4086]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 53, 16, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "wea", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[792]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 54, 16, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "reb", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[82]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 55, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "banka[0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[83]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 56, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addra[0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[84]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 56, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addra[1]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[85]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 56, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addra[2]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[86]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 56, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addra[3]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[87]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 56, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addra[4]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[733]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 57, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "bankb[0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[879]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 58, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addrb[0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[880]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 58, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addrb[1]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[881]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 58, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addrb[2]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[882]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 58, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addrb[3]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[883]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 58, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addrb[4]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[91]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[92]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[1]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[93]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[2]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[94]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[3]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[95]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[4]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[96]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[5]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[97]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[6]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[98]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[7]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[872]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[873]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[1]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[874]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[2]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[875]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[3]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[868]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[4]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[869]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[5]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[870]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[6]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[871]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[7]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4087]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 64, 27, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "wea_array[0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4088]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 64, 27, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "wea_array[1]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4089]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4090]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][1]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4091]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][2]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4092]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][3]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4093]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][4]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4094]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][5]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4095]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][6]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4096]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][7]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4097]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4098]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][1]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4099]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][2]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4100]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][3]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4101]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][4]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4102]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][5]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4103]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][6]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4104]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][7]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4105]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 66, 47, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "bankb_p[1][0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4106]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 66, 47, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "bankb_p[2][0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4107]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 80, 9, "", "v_line/mem_multi_bank__D8_DB16_N2", "block", "79-80");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4108]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 80, 9, "", "v_line/mem_multi_bank__D8_DB16_N2", "block", "79-80");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4109]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 119, 9, "", "v_line/mem_multi_bank__D8_DB16_N2", "block", "119");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[0]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/pipeline_sr.sv", 50, 16, ".bankb_sr", "v_toggle/pipeline_sr__D1_E2", "clk", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[733]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/pipeline_sr.sv", 51, 33, ".bankb_sr", "v_toggle/pipeline_sr__D1_E2", "in[0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4105]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/pipeline_sr.sv", 52, 65, ".bankb_sr", "v_toggle/pipeline_sr__D1_E2", "out[1][0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4106]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/pipeline_sr.sv", 52, 65, ".bankb_sr", "v_toggle/pipeline_sr__D1_E2", "out[2][0]", "");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4110]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/pipeline_sr.sv", 52, 71, ".bankb_sr", "v_line/pipeline_sr__D1_E2", "block", "52");
-    __vlCoverInsert(&(vlSymsp->__Vcoverage[4111]), first, "/home/user/openCologne/4.Advanced--4/2.sim/../1.hw/modules/misc/src/pipeline_sr.sv", 54, 5, ".bankb_sr", "v_line/pipeline_sr__D1_E2", "block", "54-56");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[0]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 52, 16, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "clk", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4106]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 53, 16, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "wea", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[792]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 54, 16, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "reb", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[82]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 55, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "banka[0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[83]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 56, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addra[0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[84]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 56, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addra[1]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[85]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 56, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addra[2]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[86]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 56, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addra[3]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[87]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 56, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addra[4]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[733]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 57, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "bankb[0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[879]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 58, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addrb[0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[880]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 58, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addrb[1]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[881]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 58, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addrb[2]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[882]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 58, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addrb[3]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[883]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 58, 36, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "addrb[4]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[91]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[92]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[1]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[93]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[2]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[94]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[3]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[95]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[4]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[96]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[5]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[97]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[6]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[98]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 59, 33, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dia[7]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[872]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[873]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[1]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[874]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[2]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[875]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[3]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[868]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[4]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[869]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[5]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[870]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[6]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[871]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 60, 35, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob[7]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4107]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 64, 27, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "wea_array[0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4108]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 64, 27, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "wea_array[1]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4109]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4110]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][1]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4111]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][2]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4112]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][3]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4113]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][4]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4114]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][5]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4115]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][6]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4116]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[0][7]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4117]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4118]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][1]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4119]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][2]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4120]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][3]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4121]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][4]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4122]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][5]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4123]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][6]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4124]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 65, 28, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "dob_array[1][7]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4125]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 66, 49, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "bankb_p[0][0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4126]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 66, 49, "", "v_toggle/mem_multi_bank__D8_DB16_N2", "bankb_p[1][0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4127]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 82, 9, "", "v_line/mem_multi_bank__D8_DB16_N2", "block", "81-82");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4128]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 82, 9, "", "v_line/mem_multi_bank__D8_DB16_N2", "block", "81-82");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4129]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/mem_multi_bank.sv", 121, 9, "", "v_line/mem_multi_bank__D8_DB16_N2", "block", "121");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[0]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/pipeline_sr.sv", 52, 16, ".bankb_sr", "v_toggle/pipeline_sr__D1_E2", "clk", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[733]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/pipeline_sr.sv", 53, 33, ".bankb_sr", "v_toggle/pipeline_sr__D1_E2", "in[0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4125]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/pipeline_sr.sv", 54, 65, ".bankb_sr", "v_toggle/pipeline_sr__D1_E2", "out[0][0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4126]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/pipeline_sr.sv", 54, 65, ".bankb_sr", "v_toggle/pipeline_sr__D1_E2", "out[1][0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4130]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/pipeline_sr.sv", 54, 65, ".bankb_sr", "v_toggle/pipeline_sr__D1_E2", "out[2][0]", "");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4131]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/pipeline_sr.sv", 54, 71, ".bankb_sr", "v_line/pipeline_sr__D1_E2", "block", "54");
+    __vlCoverInsert(&(vlSymsp->__Vcoverage[4132]), first, "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/../1.hw/modules/misc/src/pipeline_sr.sv", 56, 5, ".bankb_sr", "v_line/pipeline_sr__D1_E2", "block", "56-58");
 }
