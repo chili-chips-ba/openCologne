@@ -45,18 +45,54 @@ module opl3 (
 		.arst_n(ic_n),
 		.reset(reset)
 	);
-	host_if host_if(.*);
+	host_if host_if(
+		.clk(clk),
+		.reset(reset),
+		.clk_host(clk_host),
+		.ic_n(ic_n),
+		.cs_n(cs_n),
+		.rd_n(rd_n),
+		.wr_n(wr_n),
+		.address(address),
+		.din(din),
+		.dout(dout),
+		.opl3_reg_wr(opl3_reg_wr),
+		.status(status),
+		.force_timer_overflow(force_timer_overflow)
+	);
 	localparam signed [31:0] opl3_pkg_CLK_DIV_COUNT = 256;
 	clk_div #(.CLK_DIV_COUNT(opl3_pkg_CLK_DIV_COUNT)) sample_clk_gen(
 		.clk_en(sample_clk_en),
-		.*
+		.clk(clk)
 	);
-	channels channels(.*);
-	leds leds(.*);
+	channels channels(
+		.clk(clk),
+		.reset(reset),
+		.clk_dac(clk_dac),
+		.opl3_reg_wr(opl3_reg_wr),
+		.sample_clk_en(sample_clk_en),
+		.sample_valid(sample_valid),
+		.sample_l(sample_l),
+		.sample_r(sample_r)
+	);
+	leds leds(
+		.clk(clk),
+		.opl3_reg_wr(opl3_reg_wr),
+		.led(led)
+	);
 	localparam opl3_pkg_INSTANTIATE_TIMERS = 0;
 	generate
 		if (opl3_pkg_INSTANTIATE_TIMERS) begin : genblk1
-			timers timers(.*);
+			wire [1:1] sv2v_tmp_timers_irq_n;
+			always @(*) irq_n = sv2v_tmp_timers_irq_n;
+			timers timers(
+				.clk(clk),
+				.reset(reset),
+				.opl3_reg_wr(opl3_reg_wr),
+				.irq_n(sv2v_tmp_timers_irq_n),
+				.status(status),
+				.force_timer_overflow(force_timer_overflow)
+			);
 		end
 		else begin : genblk1
 			always @(*) begin

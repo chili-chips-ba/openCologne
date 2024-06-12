@@ -3,7 +3,6 @@
 # Copyright (C) 2024 Chili.CHIPS*ba
 #=============================================================
 
-
 #=============================================================
 # Toolchain download and setup instructions
 #=============================================================
@@ -25,18 +24,24 @@
 #
 #=============================================================
 
-
 # Set EXE for platform-specific executable extensions, if necessary
 EXE =
 
 # Toolchain Directories and Executable Commands
 CC_TOOL_DIR = $(CC_TOOL)
-YOSYS = $(CC_TOOL)/bin/yosys/yosys$(EXE)
-PR = $(CC_TOOL)/bin/p_r/p_r$(EXE)
+TOOL_ROOT = /home/user/FPGA/tools
+BLD_DIR = $(CURDIR)
+HW_SRC  := $(BLD_DIR)/../1.hw
+SW_SRC  := $(BLD_DIR)/../2.sw
 
-#OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE) # Path to OFL needs to be latest version of OFL or you will get errors when programming the board
-## EDIT THIS SO IT IS the path to your installation of openFPGALoader!!! ##
-OFL = /home/user/FPGA/tools/openFPGALoader/build/openFPGALoader$(EXE) 
+SYNLIG = $(TOOL_ROOT)/synlig
+PLUGIN_PATH := $(SYNLIG)/build/release/systemverilog-plugin/systemverilog.so
+
+#YOSYS = $(SYNLIG)/out/current/bin/yosys$(EXE)
+#YOSYS = $(CC_TOOL)/bin/yosys/yosys$(EXE)
+YOSYS = $(TOOL_ROOT)/yosys/yosys
+PR = $(CC_TOOL)/bin/p_r/p_r$(EXE)
+OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE)
 
 # Simulation Tools and Flags
 GTKW = gtkwave
@@ -45,21 +50,27 @@ VVP = vvp
 IVLFLAGS = -Winfloop -g2012 -gspecify -Ttyp
 
 # Source Directory
-SRC = ../1.hw
-SIM = ../2.sim
+V_SRC = $(shell cat $(HW_SRC)/rtl.filelist)
+
+SIM = \
+	$(HW_SRC)/modules/top_level/sim/opl3_tb.sv \
+	$(HW_SRC)/modules/operator/sim/save_dac_input.sv
+
+V_PKG = $(HW_SRC)/modules/top_level/pkg/opl3_pkg.v
+SV_PKG = $(HW_SRC)/modules/top_level/pkg/opl3_pkg.sv
 
 # Simulation Libraries
 CELLS_SYNTH = $(CC_TOOL)/bin/yosys/share/gatemate/cells_sim.v
 CELLS_IMPL = $(CC_TOOL)/bin/p_r/cpelib.v
 
 # Project Configuration
-TOP = blink# Define TOP MODULE here
-CONSTR = $(TOP).ccf
-PRFLAGS += -ccf $(TOP).ccf -cCP
+TOP = opl3 # Define TOP MODULE here
+CONSTR = $(HW_SRC)/constraints/blink.ccf
+PRFLAGS += -ccf $blink.ccf -cCP
 
 # Synthesize Sources
-VLOG_SRC = $(shell find ./$(SRC)/ -type f \( -iname \*.v -o -iname \*.sv \))
-VHDL_SRC = $(shell find ./$(SRC)/ -type f \( -iname \*.vhd -o -iname \*.vhdl \))
+VLOG_SRC = $(shell cat $(HW_SRC)/rtl.filelist)
+#VHDL_SRC = $(shell find $(SRC) -type f \( -iname \*.vhd -o -iname \*.vhdl \))
 
 ## misc tools
 RM = rm -rf
@@ -67,21 +78,26 @@ RM = rm -rf
 ## toolchain targets
 synth: synth_vlog
 
-synth_vlog: $(VLOG_SRC)
+synth_svlog: $(VLOG_SRC) $(SV_PKG)
+	@test -d log || mkdir -p log
+	@test -d net || mkdir -p net
+	$(YOSYS) -ql log/synth.log -p 'plugin -i $(PLUGIN_PATH); read_systemverilog $(SV_PKG) $(VLOG_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
+
+synth_vlog: $(VLOG_SRC) $(V_PKG)
 	@test -d log || mkdir log
 	@test -d net || mkdir net
-	$(YOSYS) -ql log/synth.log -p 'read -sv $^; synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
+	$(YOSYS) -ql log/synth.log -p 'read -sv $(V_PKG) $(VLOG_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
 
 synth_vhdl: $(VHDL_SRC)
 	@test -d log || mkdir log
 	@test -d net || mkdir net
-	$(YOSYS) -ql log/synth.log -p 'ghdl --warn-no-binding -C --ieee=synopsys $^ -e $(TOP); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
+	$(YOSYS) -ql log/synth.log -p 'read -vhdl $(PKG); read -vhdl $(VHDL_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
 
 impl:
-	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf $(TOP).ccf -cCP > log/$@.log
+	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf $(CONSTR) -cCP > log/$@.log || { tail -n 50 log/$@.log; exit 1; }
 
 jtag:
-	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag --cable dirtyJtag --bitstream $(TOP)_00.cfg
+	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag $(TOP)_00.cfg
 
 jtag-flash:
 	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag -f --verify $(TOP)_00.cfg
@@ -136,8 +152,32 @@ clean:
 	$(RM) $(SIM)/*.vcd
 	$(RM) $(SIM)/*.vvp
 	$(RM) $(SIM)/*.gtkw
+	find $(HW_SRC) -maxdepth 1 -type f -name "*.v" ! -name "afifo.v" -exec $(RM) {} +
 	test ! -d log || rmdir log
 	test ! -d net || rmdir net
+
+# New target for generating rtl.filelist and converting files
+rtl_gen:
+	@echo "Generating rtl.filelist with -sv2v parameter..."
+	./create_rtl_filelist.sh -sv2v
+	@echo "Converting RTL files to Verilog..."
+	SRC=$(shell $(HW_SRC)/rtl.filelist)
+	sv2v --write=adjacent $${SRC}
+	@echo "Conversion completed. Converted files are located adjacent to their respective source files."
+	./create_rtl_filelist.sh -v
+
+# Synthesize with sv2v
+synth_sv2v: rtl_gen synth_vlog
+
+# Synthesize with normal SystemVerilog
+synth_sv: 
+	@echo "Generating rtl.filelist with -sv parameter..."
+	./create_rtl_filelist.sh -sv
+	$(MAKE) synth_vlog
+
+# Default synthesis target
+synth: synth_sv
+
 #=============================================================
 # End-of-File
 #=============================================================
