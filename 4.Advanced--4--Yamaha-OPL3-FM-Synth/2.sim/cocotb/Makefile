@@ -15,14 +15,14 @@ VERILOG_SOURCES = \
     $(HW_SRC)/modules/i2s/src/i2s.sv \
     $(HW_SRC)/modules/misc/src/edge_detector.sv \
     $(HW_SRC)/modules/misc/src/mem_multi_bank.sv \
-    $(HW_SRC)/modules/misc/src/pipeline_sr.v \
+    $(HW_SRC)/modules/misc/src/pipeline_sr.sv \
     $(HW_SRC)/modules/misc/src/mem_simple_dual_port_async_read.sv \
     $(HW_SRC)/modules/host_if/src/host_if.sv \
     $(HW_SRC)/modules/misc/src/mem_multi_bank_reset.sv \
     $(HW_SRC)/modules/operator/src/operator.sv \
     $(HW_SRC)/modules/top_level/src/opl3.sv \
     $(HW_SRC)/modules/channels/src/channels.sv \
-    $(HW_SRC)/modules/channels/src/control_operators.v \
+    $(HW_SRC)/modules/channels/src/control_operators.sv \
     $(HW_SRC)/modules/operator/src/calc_rhythm_phase.sv \
     $(HW_SRC)/modules/operator/src/phase_generator.sv \
     $(HW_SRC)/modules/operator/src/vibrato.sv \
