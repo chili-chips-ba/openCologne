@@ -43,6 +43,9 @@
 `timescale 1ns / 1ps
 `default_nettype none
 
+`define SYNTHESIS
+
+
 module control_operators
     import opl3_pkg::*;
 (
