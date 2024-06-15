@@ -2,7 +2,6 @@
 ## * WORK IN PROGRESS * UNDER CONSTRUCTION *
 > WHILE THIS NOTICE IS PRESENT, DON'T EXPECT DESIGN, SIM, OR ANY OTHER FILE IN HERE 2BE DOIN' WHAT IT'S SAYIN'
 
-Your description goes here
 **To do list**:
 - [ ] Fix UART issues (tx of multiple bytes is incorrect)
 - [ ] Run integration tests on PSRAM + UART + PySerial
