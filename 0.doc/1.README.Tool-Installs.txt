@@ -1,3 +1,30 @@
+#####################
+# CologneChip Tools
+#####################
+
+  https://www.colognechip.com/docs/ug1002-toolchain-install-latest.pdf
+
+Installation steps:
+  https://www.youtube.com/watch?v=lMUQplZXPoM
+
+
+#####################
+# CologneChip ILA for Olimex
+#####################
+
+The ILA can now be used with the Olimex GateMateA1-EVB.
+You need to modify the config.py file and install the pyusb library.
+I have also added the library to the requirements:
+   https://github.com/colognechip/gatemate_ila#installation-of-external-python-packages
+
+Follow the configuration steps to make the ILA ready for the Olimex GateMateA1-EVB:
+   https://github.com/colognechip/gatemate_ila#use-with-the-olimex-gatematea1-evb 
+
+Also see:
+  https://github.com/colognechip/gatemate_ila
+  https://www.youtube.com/watch?v=TZblFccw4kg
+
+
 ####################
 # WSL2 and Ubuntu Install
 #####################
@@ -63,7 +90,6 @@ An option to GTKwave, and only for VCD (hence not suitable for larger designs)
 #    antlr4
 #    Yosys 0.34+55
 #####################
-https://www.colognechip.com/docs/ug1002-toolchain-install-latest.pdf
 
 #---Prerequisites
 - everything from Verilator compilation
