@@ -41,37 +41,21 @@
 #
 #******************************************************************************/
 
-`timescale 1ns / 1ps // Timescale missing on this module as other modules have it (IEEE 1800-2017 3.14.2.2)
-
-`ifndef __TOP_PKG__
-`define __TOP_PKG__
+`timescale 1ns / 1ps // Timescale declaration
 
 package opl3_pkg;
-    /*
-     * Original OPL3 used a 14.31818MHz master clock, divided by 288 giving a
-     * sample clock of 49.7159KHz. Since our SSM2603 DAC uses fixed 256
-     * oversampling, we'll use a 12.727MHz master clock which is the closest
-     * value we can generate using an MMCM and 125MHz input clock. This will
-     * give us a 49.7148KHz sample clock. We don't have to worry about clock
-     * domain crossings.
-     */
-    localparam CLK_FREQ = 12727000; // Changed from 12.727e6 to 12727000
+
+    // Constants
+    localparam CLK_FREQ = 12727000; // 12.727 MHz
     localparam DAC_OUTPUT_WIDTH = 24;
-    localparam INSTANTIATE_TIMERS = 0; // set to 1 to use timers, 0 to save area
-    localparam NUM_LEDS = 4; // connected to kon bank 0 starting at 0
+    localparam INSTANTIATE_TIMERS = 0; // 1 to use timers, 0 to save area
+    localparam NUM_LEDS = 4; // Connected to kon bank 0 starting at 0
     localparam INSTANTIATE_SAMPLE_SYNC_TO_DAC_CLK = 0;
 
-    localparam DESIRED_SAMPLE_FREQ = 49716; // Changed from 49.7159e3 to 49715.9 ~ 49716
-    /*  Changed from $ceil(CLK_FREQ/DESIRED_SAMPLE_FREQ); to 256*/
-    localparam int CLK_DIV_COUNT = 256;// unsupported by Quartus 17, set manually
+    localparam DESIRED_SAMPLE_FREQ = 49716; // 49.716 kHz
+    localparam int CLK_DIV_COUNT = 256; // Set manually
 
-    /* Gives an error Illegal implicit net "ACTUAL_SAMPLE_FREQ".
-       CLK_FREQ = 12727000
-       DESIRED_SAMPLE_FREQ = 49715.9
-       CLK_DIV_COUNT = 256
-       ACTUAL_SAMPLE_FREQ = 49714.84375 --> 49715
-    */
-    localparam ACTUAL_SAMPLE_FREQ = 49715; 
+    localparam ACTUAL_SAMPLE_FREQ = 49715; // 49.715 kHz
 
     localparam NUM_REG_PER_BANK = 'hF6;
     localparam REG_FILE_DATA_WIDTH = 8;
@@ -107,6 +91,7 @@ package opl3_pkg;
     localparam int TIMER1_TICK_INTERVAL= CLK_FREQ * 80e-6;  // 80 microseconds in clock cycles
     localparam int TIMER2_TICK_INTERVAL= CLK_FREQ * 320e-6; // 320 microseconds in clock cycles
 
+    // Types
     typedef enum logic [2:0] {
         OP_NORMAL,
         OP_BASS_DRUM,
@@ -131,4 +116,3 @@ package opl3_pkg;
     } operator_out_t;
 
 endpackage
-`endif //__TOP_PKG__

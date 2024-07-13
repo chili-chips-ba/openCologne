@@ -57,7 +57,7 @@ SIM = \
 	$(HW_SRC)/modules/top_level/sim/opl3_tb.sv \
 	$(HW_SRC)/modules/operator/sim/save_dac_input.sv
 
-V_PKG = $(HW_SRC)/modules/top_level/pkg/opl3_pkg.v
+#V_PKG = $(HW_SRC)/modules/top_level/pkg/opl3_pkg.v
 SV_PKG = $(HW_SRC)/modules/top_level/pkg/opl3_pkg.sv
 
 # Simulation Libraries
@@ -86,10 +86,10 @@ synth_svlog: $(VLOG_SRC) $(SV_PKG)
 	@test -d net || mkdir -p net
 	$(YOSYS) -ql log/synth.log -p 'plugin -i $(PLUGIN_PATH); read_systemverilog $(SV_PKG) $(VLOG_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
 
-synth_vlog: $(VLOG_SRC) $(V_PKG)
+synth_vlog: $(VLOG_SRC)
 	@test -d log || mkdir log
 	@test -d net || mkdir net
-	$(YOSYS) -ql log/synth.log -p 'read -sv $(V_PKG) $(VLOG_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
+	$(YOSYS) -ql log/synth.log -p 'read -sv  $(VLOG_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
 
 synth_vhdl: $(VHDL_SRC)
 	@test -d log || mkdir log
