@@ -1,21 +1,76 @@
 [*]
-[*] GTKWave Analyzer v3.3.118 (w)1999-2023 BSI
-[*] Sat Apr 20 07:43:13 2024
+[*] GTKWave Analyzer v3.3.117 (w)1999-2023 BSI
+[*] Sat Jun 15 13:20:26 2024
 [*]
-[dumpfile] "/mnt/d/Projects/GitHub-repo/eduSOC/4.sim/output/wave.fst"
-[dumpfile_mtime] "Sat Apr 20 06:25:58 2024"
-[dumpfile_size] 31441595
-[savefile] "/mnt/d/Projects/GitHub-repo/eduSOC/4.sim/.gtkwaverc"
-[timestart] 2
-[size] 1380 793
-[pos] -1 -1
-*0.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[dumpfile] "/home/tibrahimovic/projects/2.Simple--1/2.sim/output/wave.fst"
+[dumpfile_mtime] "Sat Jun 15 13:20:16 2024"
+[dumpfile_size] 20260934
+[savefile] "/home/tibrahimovic/projects/2.Simple--1/2.sim/.gtkwaverc"
+[timestart] 764000000
+[size] 1908 1107
+[pos] 192421 203285
+*-27.290089 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.tb.
 [treeopen] TOP.tb.dut.
-[sst_width] 214
-[signals_width] 319
+[sst_width] 225
+[signals_width] 249
 [sst_expanded] 1
-[sst_vpaned_height] 220
+[sst_vpaned_height] 332
+@200
+-
+-uart buffer
+@28
+TOP.tb.dut.clk_out
+TOP.tb.dut.uart_tx_write
+TOP.tb.dut.tick_1us
+@22
+TOP.tb.dut.u_uart.tx_data[7:0]
+@200
+-uart signals
+@28
+TOP.tb.dut.u_uart.uart_rx
+TOP.tb.dut.u_uart.uart_tx
+@100000028
+TOP.tb.dut.u_uart.rx_state[3:0]
+@22
+TOP.tb.dut.u_uart.rx_shift[7:0]
+@200
+-uart
+@22
+TOP.tb.dut.u_uart.tx_data[7:0]
+TOP.tb.dut.uart_buffer_state[1:0]
+TOP.tb.dut.uart_buffer[15:0]
+TOP.tb.dut.uart_tx_data[7:0]
+@28
+TOP.tb.dut.u_uart.uart_tx_busy
+@100000028
+TOP.tb.dut.u_uart.tx_state[3:0]
+@100c00028
+TOP.tb.dut.u_uart.rx_state[3:0]
+@28
+(0)TOP.tb.dut.u_uart.rx_state[3:0]
+(1)TOP.tb.dut.u_uart.rx_state[3:0]
+(2)TOP.tb.dut.u_uart.rx_state[3:0]
+(3)TOP.tb.dut.u_uart.rx_state[3:0]
+@1401200
+-group_end
+@200
+-
+-
+-psram command
+@22
+TOP.tb.dut.command_bytes[0][7:0]
+TOP.tb.dut.command_bytes[1][7:0]
+TOP.tb.dut.command_bytes[2][7:0]
+TOP.tb.dut.command_bytes[3][7:0]
+TOP.tb.dut.command_bytes[4][7:0]
+@200
+-
+-
+@24
+TOP.tb.dut.byte_count[2:0]
+@200
+-PSRAM
 [pattern_trace] 1
 [pattern_trace] 0

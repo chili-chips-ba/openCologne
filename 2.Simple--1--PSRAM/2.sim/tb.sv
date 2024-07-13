@@ -10,88 +10,98 @@
 // dissemination to all third parties; and (3) shall use the same for operation
 // and maintenance purposes only.
 //--------------------------------------------------------------------------
-// Description: Simulation testbench for FPGA. It provides models of 
-//              external resources, as connected on the actual board
+// Description: Simulation testbench just stimulating uart at the time
 //==========================================================================
 
 `timescale 1ps/1ps
-
 module tb #(
-   parameter int RUN_SIM_US = 15_000
+   parameter int RUN_SIM_US = 1_000_00
 )();
 
-   import top_pkg::*;
-  
+
 //--------------------------------------------------------------
 // Generate clock and run sim for the specified amount of time
-   localparam  HALF_PERIOD_PS = 5_000; // 50MHz
-   logic       clk_100;
-   logic       reset;
+   localparam  HALF_PERIOD_PS = 50_000; // 50MHz
+   logic       clk_10, clk_100;
+   logic       tick_1us;
 
+   logic uart_rx, uart_tx;
+   logic arst_n;
+   
+   task output_byte;
+      input logic [7:0] value;
+      uart_rx = 1'b0;  #8.68us; //start
+      for (int i = 0; i < 8; i = i+1) begin
+         uart_rx = value[i]; #8.68us;
+      end
+      uart_rx = 1'b1; #8.68us; //STOP
+   endtask
    initial begin
-      reset    = 1'b1;
-      clk_100  = 1'b0;
-      
+      clk_10  = 1'b0;
+
+
+      $dumpfile("../2.sim/tb.vcd");
+		$dumpvars(0, tb);
+
       fork 
          forever begin: clock_gen
-            #(HALF_PERIOD_PS * 1ps) clk_100 = ~clk_100;
+            #(HALF_PERIOD_PS * 1ps) clk_10 = ~clk_10;
          end
 
          begin: run_sim
             #(RUN_SIM_US * 1us);
-            $finish(2);
+            $finish();
+         end
+
+         begin: reset
+            uart_rx = 1'b1;
+            arst_n = 1'b0;
+            #100ns
+            arst_n = 1'b1;  
+            #1000000ns
+            output_byte(8'b0); //R
+            output_byte(8'h22); //AB
+            output_byte(8'h33); //12
+            output_byte(8'h44); //CD
+/*             output_byte(8'b00000001); //R
+            output_byte(8'h2); //AB
+            output_byte(8'h3); //12
+            output_byte(8'h4); //12
+            output_byte(8'h7); //34
+            output_byte(8'h7); //56 */
+            #10000ns;
+/*             for (int i = 0; i < 12; i = i + 1) begin
+               $display("Array Element [%d]: %h",i, dut.command_bytes[i]);   
+            end */
+            
          end
       join
    end
 
+   logic tick_100ms;
+   logic led;
+   
+   logic data0, data1, data2, data3, data4, data5, data6 , data7;
+   logic clk_psram,csn;
 //--------------------------------------------------------------
-   lane_diff_t cam_dphy_dat;
-
    top dut (
-      .areset        (reset),        //i     
-      .clk_ext       (clk_100),      //i 
-
-     //I2C_Master to Camera
-      .i2c_sda       (),             //io 
-      .i2c_scl       (),             //io 
-   
-     //MIPI DPHY from/to Camera
-      .cam_dphy_clk  (),             //i'diff_t 
-      .cam_dphy_dat  (cam_dphy_dat), //i'lane_diff_t
-
-      .cam_en        (),             //o
-      
-     //HDMI output, goes directly to connector
-      .hdmi_clk_p    (),             //o 
-      .hdmi_clk_n    (),             //o 
-      .hdmi_dat_p    (),             //o'bus3_t
-      .hdmi_dat_n    (),             //o'bus3_t 
-   
-     //Misc/Debug
-      .led           (),             //o'bus3_t
-      .debug_pins    ()              //o'bus8_t
+      .clk(clk_10),
+      .arst_n(arst_n),
+      .tick_1us(tick_1us),
+      .uart_tx(uart_tx),
+      .uart_rx(uart_rx),
+      .o_psram_csn(csn),
+      .o_psram_sclk(clk_psram),
+      .io_psram_data0(data0),
+      .io_psram_data1(data1),
+      .io_psram_data2(data2),
+      .io_psram_data3(data3),
+      .io_psram_data4(data4),
+      .io_psram_data5(data5),
+      .io_psram_data6(data6),
+      .io_psram_data7(data7), 
+      .led(led)
    );
-
-//--------------------------------------------------------------
-// FIXME: models of external components
-//--------------------------------------------------------------
-
-
-//--------------------------------------------------------------
-/* Assertions have to be done like this
-
-    always_ff @(posedge clk) begin
-
-       $display("a = %b, b = %b, c = %b, y = %b",a,b,c,y);
-
-       if ($past(b) > 2'b0) begin
-          if (y !== 1'b1) $fatal("Assertion failed for Test Case: b > 2'b0");
-       end 
-       else begin
-          if (y !== 1'b0) $fatal("Assertion failed for Test Case: b <= 2'b0");
-       end
-    end
-*/
 
 endmodule: tb
 
@@ -99,5 +109,5 @@ endmodule: tb
 ------------------------------------------------------------------------------
 Version History:
 ------------------------------------------------------------------------------
- 2024/05/02 AnelH: initial creation    
+ 2024/06/12 TarikI: initial creation    
 */

@@ -1,0 +1,26 @@
+#==========================================================================
+# List of file to make 'top.sv' design module
+#   DeviceName= "CCGM1A1"
+#==========================================================================
+
+#---Primitives_lib
+${SIM_SRC}/models/cpelib_prim_sim.sv
+
+#---Packages
+${HW_SRC}/csr_pkg.sv
+${HW_SRC}/csr_if.sv
+
+#---Files
+${HW_SRC}/uart.WITHOUT-FIFO.sv
+${HW_SRC}/psram.sv
+
+#---TOP
+${HW_SRC}/top.sv
+
+
+#---Constraints
+#${HW_SRC}/constraints/constraints.ccf
+
+#==========================================================================
+# End-of-File
+#==========================================================================
