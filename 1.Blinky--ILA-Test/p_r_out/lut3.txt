@@ -1,0 +1,12 @@
+0010   1 abC
+0040   8 aBC
+0060   2 C(A^B)
+0070   1 C/AB\
+0080   2 ABC
+00AC   2 c?A:B
+00B0   1 C/aB\
+00BE   1 /(B^c)a\
+00CA  10 C?A:B
+00E0   3 C/ab\
+00F4   1 (aB)+C
+ Gesamt:   32 DS4:     0
