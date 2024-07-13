@@ -1,0 +1,421 @@
+    (240)         1 CC_LUT4      DS4          _157_
+    (249)         2 CC_LUT2      AND          _158_
+    (256)         3 CC_LUT4      AND          _159_
+    (265)         4 CC_LUT4      AND          _160_
+    (274)         5 CC_LUT3      AND          _161_
+    (282)         6 CC_LUT2      AND          _162_
+    (289)         7 CC_LUT2      AND          _163_
+    (296)         8 CC_LUT2      AND          _164_
+    (303)         9 CC_LUT2      AND          _165_
+    (310)        10 CC_LUT2      AND          _166_
+    (317)        11 CC_LUT2      AND          _167_
+    (324)        12 CC_LUT2      AND          _168_
+    (331)        13 CC_LUT2      AND          _169_
+    (338)        14 CC_LUT2      AND          _170_
+    (345)        15 CC_LUT4      AND          _171_
+    (354)        16 CC_LUT3      AND          _172_
+    (362)        17 CC_LUT2      AND          _173_
+    (369)        18 CC_LUT2      AND          _174_
+    (376)        19 CC_LUT3      AND          _175_
+    (384)        20 CC_LUT4      DS           _176_
+    (393)        21 CC_LUT4      AND          _177_
+    (402)        22 CC_LUT4      AND          _178_
+    (411)        23 CC_LUT4      AND          _179_
+    (420)        24 CC_LUT4      AND          _180_
+    (429)        25 CC_LUT4      AND          _181_
+    (438)        26 CC_LUT2      AND          _182_
+    (445)        27 CC_LUT4      AND          _183_
+    (454)        28 CC_LUT2      AND          _184_
+    (461)        29 CC_LUT2      AND          _185_
+    (468)        30 CC_LUT2      AND          _186_
+    (475)        31 CC_LUT2      AND          _187_
+    (482)        32 CC_LUT2      AND          _188_
+    (489)        33 CC_LUT2      AND          _189_
+    (496)        34 CC_LUT2      AND          _190_
+    (503)        35 CC_LUT2      AND          _191_
+    (510)        36 CC_LUT2      AND          _192_
+    (517)        37 CC_LUT3      AND          _193_
+    (525)        38 CC_LUT2      AND          _194_
+    (532)        39 CC_LUT4      AND          _195_
+    (541)        40 CC_LUT2      AND          _196_
+    (548)        41 CC_LUT2      AND          _197_
+    (555)        42 CC_LUT2      AND          _198_
+    (562)        43 CC_LUT4      AND          _199_
+    (571)        44 CC_LUT4      AND          _200_
+    (580)        45 CC_LUT4      AND          _201_
+    (589)        46 CC_LUT4      AND          _202_
+    (598)        47 CC_LUT4      AND          _203_
+    (607)        48 CC_LUT4      AND          _204_
+    (616)        49 CC_LUT4      AND          _205_
+    (625)        50 CC_LUT4      AND          _206_
+    (634)        51 CC_LUT4      AND          _207_
+    (643)        52 CC_LUT4      AND          _208_
+    (652)        53 CC_LUT4      AND          _209_
+    (661)        54 CC_LUT4      AND          _210_
+    (670)        55 CC_LUT4      AND          _211_
+    (679)        56 CC_LUT4      AND          _212_
+    (688)        57 CC_LUT4      DS4          _213_
+    (697)        58 CC_LUT2      AND          _214_
+    (704)        59 CC_LUT2      AND          _215_
+    (711)        60 CC_LUT4      AND          _216_
+    (720)        61 CC_LUT4      DS4          _217_
+    (729)        62 CC_LUT4      DS           _218_
+    (738)        63 CC_LUT4      AND          _219_
+    (747)        64 CC_LUT2      AND          _220_
+    (754)        65 CC_LUT4      DS4          _221_
+    (763)        66 CC_LUT2      AND          _222_
+    (770)        67 CC_LUT4      DS4          _223_
+    (779)        68 CC_LUT3      DS           _224_
+    (787)        69 CC_LUT4      AND          _225_
+    (796)        70 CC_LUT4      OR           _226_
+    (805)        71 CC_LUT3      AND          _227_
+    (813)        72 CC_LUT4      DS           _228_
+    (822)        73 CC_LUT4      DS4          _229_
+    (831)        74 CC_LUT4      DS4          _230_
+    (840)        75 CC_LUT3      AND          _231_
+    (848)        76 CC_LUT4      AND          _232_
+    (857)        77 CC_LUT2      AND          _233_
+    (864)        78 CC_LUT2      AND          _234_
+    (871)        79 CC_LUT2      AND          _235_
+    (878)        80 CC_LUT3      DS           _236_
+    (886)        81 CC_LUT3      AND          _237_
+    (894)        82 CC_LUT3      AND          _238_
+    (902)        83 CC_LUT3      AND          _239_
+    (910)        84 CC_LUT2      AND          _240_
+    (917)        85 CC_LUT3      AND          _241_
+    (925)        86 CC_LUT2      AND          _242_
+    (932)        87 CC_LUT3      DS           _243_
+    (940)        88 CC_LUT3      DS           _244_
+    (948)        89 CC_LUT3      DS           _245_
+    (956)        90 CC_LUT3      DS           _246_
+    (964)        91 CC_LUT3      DS           _247_
+    (972)        92 CC_LUT3      DS           _248_
+    (980)        93 CC_LUT3      DS           _249_
+    (988)        94 CC_LUT3      DS           _250_
+    (996)        95 CC_LUT3      DS           _251_
+   (1004)        96 CC_LUT3      DS           _252_
+   (1012)        97 CC_LUT3      DS           _253_
+   (1020)        98 CC_LUT3      DS           _254_
+   (1028)        99 CC_LUT3      AND          _255_
+   (1036)       100 CC_LUT4      AND          _256_
+   (1045)       101 CC_LUT2      AND          _257_
+   (1052)       102 CC_LUT2      AND          _258_
+   (1059)       103 CC_LUT2      AND          _259_
+   (1066)       104 CC_LUT4      AND          _260_
+   (1075)       105 CC_LUT4      AND          _261_
+   (1084)       106 CC_LUT4      AND          _262_
+   (1093)       107 CC_LUT4      AND          _263_
+   (1102)       108 CC_LUT4      AND          _264_
+   (1111)       109 CC_LUT4      AND          _265_
+   (1120)       110 CC_LUT3      AND          _266_
+   (1128)       111 CC_LUT4      AND          _267_
+   (1137)       112 CC_LUT3      AND          _268_
+   (1145)       113 CC_LUT4      AND          _269_
+   (1154)       114 CC_LUT4      AND          _270_
+   (1163)       115 CC_LUT4      AND          _271_
+   (1172)       116 CC_LUT4      OR           _272_
+   (1181)       117 CC_LUT4      AND          _273_
+   (1190)       118 CC_LUT4      AND          _274_
+   (1199)       119 CC_LUT4      AND          _275_
+   (1208)       120 CC_LUT4      AND          _276_
+   (1217)       121 CC_LUT4      AND          _277_
+   (1226)       122 CC_LUT4      AND          _278_
+   (1235)       123 CC_LUT4      AND          _279_
+   (1244)       124 CC_LUT4      AND          _280_
+   (1253)       125 CC_LUT4      AND          _281_
+   (1262)       126 CC_LUT4      AND          _282_
+   (1271)       127 CC_LUT2      AND          _283_
+   (1278)       128 CC_LUT2      AND          _284_
+   (1285)       129 CC_LUT2      AND          _285_
+   (1292)       130 CC_LUT2      AND          _286_
+   (1299)       131 CC_LUT4      AND          _287_
+   (1308)       132 CC_LUT4      AND          _288_
+   (1317)       133 CC_LUT4      AND          _289_
+   (1326)       134 CC_LUT3      OR           _290_
+   (1334)       135 CC_LUT1                   _291_
+   (1340)       136 CC_LUT1                   _292_
+   (1346)       137 CC_LUT1                   _293_
+   (1352)       138 CC_LUT4      DS4          _294_
+   (1361)       139 CC_LUT4      AND          _295_
+   (1370)       140 CC_ADDF      ADDF         _296_
+   (1377)       141 CC_ADDF      ADDF         _297_
+   (1384)       142 CC_ADDF      ADDF         _298_
+   (1391)       143 CC_ADDF      ADDF         _299_
+   (1398)       144 CC_ADDF      ADDF         _300_
+   (1405)       145 CC_ADDF      ADDF         _301_
+   (1412)       146 CC_ADDF      ADDF         _302_
+   (1419)       147 CC_ADDF      ADDF         _303_
+   (1426)       148 CC_ADDF      ADDF         _304_
+   (1433)       149 CC_ADDF      ADDF         _305_
+   (1440)       150 CC_ADDF      ADDF         _306_
+   (1447)       151 CC_ADDF      ADDF         _307_
+   (1454)       152 CC_ADDF      ADDF         _308_
+   (1461)       153 CC_ADDF      ADDF         _309_
+   (1468)       154 CC_ADDF      ADDF         _310_
+   (1475)       155 CC_ADDF      ADDF         _311_
+   (1482)       156 CC_ADDF      ADDF         _312_
+   (1489)       157 CC_ADDF      ADDF         _313_
+   (1496)       158 CC_ADDF      ADDF         _314_
+   (1503)       159 CC_ADDF      ADDF         _315_
+   (1510)       160 CC_ADDF      ADDF         _316_
+   (1517)       161 CC_ADDF      ADDF         _317_
+   (1524)       162 CC_ADDF      ADDF         _318_
+   (1531)       163 CC_ADDF      ADDF         _319_
+   (1538)       164 CC_ADDF      ADDF         _320_
+   (1545)       165 CC_ADDF      ADDF         _321_
+   (1552)       166 CC_ADDF      ADDF         _322_
+   (1559)       167 CC_ADDF      ADDF         _323_
+   (1566)       168 CC_ADDF      ADDF         _324_
+   (1573)       169 CC_ADDF      ADDF         _325_
+   (1580)       170 CC_ADDF      ADDF         _326_
+   (1587)       171 CC_ADDF      ADDF         _327_
+   (1594)       172 CC_ADDF      ADDF         _328_
+   (1601)       173 CC_ADDF      ADDF         _329_
+   (1608)       174 CC_ADDF      ADDF         _330_
+   (1615)       175 CC_ADDF      ADDF         _331_
+   (1622)       176 CC_ADDF      ADDF         _332_
+   (1629)       177 CC_ADDF      ADDF         _333_
+   (1636)       178 CC_ADDF      ADDF         _334_
+   (1643)       179 CC_ADDF      ADDF         _335_
+   (1650)       180 CC_ADDF      ADDF         _336_
+   (1657)       181 CC_ADDF      ADDF         _337_
+   (1664)       182 CC_ADDF      ADDF         _338_
+   (1671)       183 CC_ADDF      ADDF         _339_
+   (1678)       184 CC_ADDF      ADDF         _340_
+   (1685)       185 CC_ADDF      ADDF         _341_
+   (1692)       186 CC_ADDF      ADDF         _342_
+   (1699)       187 CC_ADDF      ADDF         _343_
+   (1706)       188 CC_ADDF      ADDF         _344_
+   (1713)       189 CC_ADDF      ADDF         _345_
+   (1720)       190 CC_ADDF      ADDF         _346_
+   (1727)       191 CC_ADDF      ADDF         _347_
+   (1734)       192 CC_ADDF      ADDF         _348_
+   (1741)       193 CC_ADDF      ADDF         _349_
+   (1748)       194 CC_ADDF      ADDF         _350_
+   (1755)       195 CC_ADDF      ADDF         _351_
+   (1762)       196 CC_ADDF      ADDF         _352_
+   (1769)       197 CC_ADDF      ADDF         _353_
+   (1776)       198 CC_ADDF      ADDF         _354_
+   (1783)       199 CC_ADDF      ADDF         _355_
+   (1790)       200 CC_ADDF      ADDF         _356_
+   (1797)       201 CC_ADDF      ADDF         _357_
+   (1804)       202 CC_ADDF      ADDF         _358_
+   (1811)       203 CC_ADDF      ADDF         _359_
+   (1818)       204 CC_ADDF      ADDF         _360_
+   (1825)       205 CC_ADDF      ADDF         _361_
+   (1832)       206 CC_ADDF      ADDF         _362_
+   (1839)       207 CC_ADDF      ADDF         _363_
+   (1846)       208 CC_ADDF      ADDF         _364_
+   (1853)       209 CC_ADDF      ADDF         _365_
+   (1860)       210 CC_ADDF      ADDF         _366_
+   (1867)       211 CC_ADDF      ADDF         _367_
+   (1874)       212 CC_ADDF      ADDF         _368_
+   (1881)       213 CC_BUFG      BUFG         _369_
+   (1885)       214 CC_BUFG      BUFG         _370_
+   (1889)       215 CC_DFF       DRSE         _371_
+   (1902)       216 CC_DFF       DRSE         _372_
+   (1915)       217 CC_DFF       DRSE         _373_
+   (1928)       218 CC_DFF       DRSE         _374_
+   (1941)       219 CC_DFF       DRSE         _375_
+   (1954)       220 CC_DFF       DRSE         _376_
+   (1967)       221 CC_DFF       DRSE         _377_
+   (1980)       222 CC_DFF       DRSE         _378_
+   (1993)       223 CC_DFF       DRSE         _379_
+   (2006)       224 CC_DFF       DRSE         _380_
+   (2019)       225 CC_DFF       DRSE         _381_
+   (2032)       226 CC_DFF       DRSE         _382_
+   (2045)       227 CC_DFF       DRSE         _383_
+   (2058)       228 CC_DFF       DRSE         _384_
+   (2071)       229 CC_DFF       DRSE         _385_
+   (2084)       230 CC_DFF       DRSE         _386_
+   (2097)       231 CC_DFF       DRSE         _387_
+   (2110)       232 CC_DFF       DRSE         _388_
+   (2123)       233 CC_DFF       DRSE         _389_
+   (2136)       234 CC_DFF       DRSE         _390_
+   (2149)       235 CC_DFF       DRSE         _391_
+   (2162)       236 CC_DFF       DRSE         _392_
+   (2175)       237 CC_DFF       DRSE         _393_
+   (2188)       238 CC_DFF       DRSE         _394_
+   (2201)       239 CC_DFF       DRSE         _395_
+   (2214)       240 CC_DFF       DRSE         _396_
+   (2227)       241 CC_DFF       DRSE         _397_
+   (2240)       242 CC_DFF       DRSE         _398_
+   (2253)       243 CC_DFF       DRSE         _399_
+   (2266)       244 CC_DFF       DRSE         _400_
+   (2279)       245 CC_DFF       DRSE         _401_
+   (2292)       246 CC_DFF       DRSE         _402_
+   (2305)       247 CC_DFF       DRSE         _403_
+   (2318)       248 CC_DFF       DRSE         _404_
+   (2331)       249 CC_DFF       DRSE         _405_
+   (2344)       250 CC_DFF       DRSE         _406_
+   (2357)       251 CC_DFF       DRSE         _407_
+   (2370)       252 CC_DFF       DRSE         _408_
+   (2383)       253 CC_DFF       DRSE         _409_
+   (2396)       254 CC_DFF       DRSE         _410_
+   (2409)       255 CC_DFF       DRSE         _411_
+   (2422)       256 CC_DFF       DRSE         _412_
+   (2435)       257 CC_DFF       DRSE         _413_
+   (2448)       258 CC_DFF       DRSE         _414_
+   (2461)       259 CC_DFF       DRSE         _415_
+   (2474)       260 CC_DFF       DRSE         _416_
+   (2487)       261 CC_DFF       DRSE         _417_
+   (2500)       262 CC_DFF       DRSE         _418_
+   (2513)       263 CC_DFF       DRSE         _419_
+   (2526)       264 CC_DFF       DRSE         _420_
+   (2539)       265 CC_DFF       DRSE         _421_
+   (2552)       266 CC_DFF       DRSE         _422_
+   (2565)       267 CC_DFF       DRSE         _423_
+   (2578)       268 CC_DFF       DRSE         _424_
+   (2591)       269 CC_DFF       DRSE         _425_
+   (2604)       270 CC_DFF       DRSE         _426_
+   (2617)       271 CC_DFF       DRSE         _427_
+   (2630)       272 CC_DFF       DRSE         _428_
+   (2643)       273 CC_DFF       DRSE         _429_
+   (2656)       274 CC_DFF       DRSE         _430_
+   (2669)       275 CC_DFF       DRSE         _431_
+   (2682)       276 CC_DFF       DRSE         _432_
+   (2695)       277 CC_DFF       DRSE         _433_
+   (2708)       278 CC_DFF       DRSE         _434_
+   (2721)       279 CC_DFF       DRSE         _435_
+   (2734)       280 CC_DFF       DRSE         _436_
+   (2747)       281 CC_DFF       DRSE         _437_
+   (2760)       282 CC_DFF       DRSE         _438_
+   (2773)       283 CC_DFF       DRSE         _439_
+   (2786)       284 CC_DFF       DRSE         _440_
+   (2799)       285 CC_DFF       DRSE         _441_
+   (2812)       286 CC_DFF       DRSE         _442_
+   (2825)       287 CC_DFF       DRSE         _443_
+   (2838)       288 CC_DFF       DRSE         _444_
+   (2851)       289 CC_DFF       DRSE         _445_
+   (2864)       290 CC_DFF       DRSE         _446_
+   (2877)       291 CC_DFF       DRSE         _447_
+   (2890)       292 CC_DFF       DRSE         _448_
+   (2903)       293 CC_DFF       DRSE         _449_
+   (2916)       294 CC_DFF       DRSE         _450_
+   (2929)       295 CC_DFF       DRSE         _451_
+   (2942)       296 CC_DFF       DRSE         _452_
+   (2955)       297 CC_DFF       DRSE         _453_
+   (2968)       298 CC_DFF       DRSE         _454_
+   (2981)       299 CC_DFF       DRSE         _455_
+   (2994)       300 CC_DFF       DRSE         _456_
+   (3007)       301 CC_DFF       DRSE         _457_
+   (3020)       302 CC_DFF       DRSE         _458_
+   (3033)       303 CC_DFF       DRSE         _459_
+   (3046)       304 CC_DFF       DRSE         _460_
+   (3059)       305 CC_DFF       DRSE         _461_
+   (3072)       306 CC_DFF       DRSE         _462_
+   (3085)       307 CC_DFF       DRSE         _463_
+   (3098)       308 CC_DFF       DRSE         _464_
+   (3111)       309 CC_DFF       DRSE         _465_
+   (3124)       310 CC_DFF       DRSE         _466_
+   (3137)       311 CC_DFF       DRSE         _467_
+   (3150)       312 CC_DFF       DRSE         _468_
+   (3163)       313 CC_DFF       DRSE         _469_
+   (3176)       314 CC_DFF       DRSE         _470_
+   (3189)       315 CC_DFF       DRSE         _471_
+   (3202)       316 CC_DFF       DRSE         _472_
+   (3215)       317 CC_DFF       DRSE         _473_
+   (3228)       318 CC_DFF       DRSE         _474_
+   (3241)       319 CC_DFF       DRSE         _475_
+   (3254)       320 CC_DFF       DRSE         _476_
+   (3267)       321 CC_DFF       DRSE         _477_
+   (3280)       322 CC_DFF       DRSE         _478_
+   (3293)       323 CC_DFF       DRSE         _479_
+   (3306)       324 CC_DFF       DRSE         _480_
+   (3319)       325 CC_DFF       DRSE         _481_
+   (3332)       326 CC_DFF       DRSE         _482_
+   (3345)       327 CC_DFF       DRSE         _483_
+   (3358)       328 CC_DFF       DRSE         _484_
+   (3371)       329 CC_DFF       DRSE         _485_
+   (3384)       330 CC_DFF       DRSE         _486_
+   (3397)       331 CC_DFF       DRSE         _487_
+   (3410)       332 CC_DFF       DRSE         _488_
+   (3423)       333 CC_DFF       DRSE         _489_
+   (3436)       334 CC_DFF       DRSE         _490_
+   (3449)       335 CC_DFF       DRSE         _491_
+   (3462)       336 CC_DFF       DRSE         _492_
+   (3475)       337 CC_DFF       DRSE         _493_
+   (3488)       338 CC_DFF       DRSE         _494_
+   (3501)       339 CC_DFF       DRSE         _495_
+   (3514)       340 CC_DFF       DRSE         _496_
+   (3527)       341 CC_DFF       DRSE         _497_
+   (3540)       342 CC_MX4       DS4          _498_
+   (3549)       343 CC_IBUF      IBF          _499_
+   (3553)       344 CC_IBUF      IBF          _500_
+   (3557)       345 CC_IBUF      IBF          _501_
+   (3561)       346 CC_IBUF      IBF          _502_
+   (3565)       347 CC_OBUF      OBF          _503_
+   (3569)       348 CC_OBUF      OBF          _504_
+   (3573)       349 CC_PLL       CC_PLL       \DUT.pll_inst
+   (3593)       350 CC_PLL       CC_PLL       \genblk1.pll_inst_ila
+   (3613)       351 CC_BRAM_20K  FPGA_RAM     \mem_control.loop[0].loop[0].ila_bram.memory.0.0
+   (3703)       352 CC_USR_RSTN  CC_USR_RSTN  usr_rstn_inst
+    (256)       353 DS                    3 CC_LUT4      _159_
+    (354)       354 XOR                  16 CC_LUT3      _172_
+    (384)       355 AND                  20 CC_LUT4      _176_
+    (393)       356 DS                   21 CC_LUT4      _177_
+    (402)       357 DS                   22 CC_LUT4      _178_
+    (411)       358 DS                   23 CC_LUT4      _179_
+    (420)       359 DS                   24 CC_LUT4      _180_
+    (429)       360 DS                   25 CC_LUT4      _181_
+    (445)       361 DS                   27 CC_LUT4      _183_
+    (517)       362 XOR                  37 CC_LUT3      _193_
+    (532)       363 AND                  39 CC_LUT4      _195_
+    (562)       364 DS                   43 CC_LUT4      _199_
+    (571)       365 DS                   44 CC_LUT4      _200_
+    (580)       366 DS                   45 CC_LUT4      _201_
+    (598)       367 DS                   47 CC_LUT4      _203_
+    (607)       368 DS                   48 CC_LUT4      _204_
+    (616)       369 DS                   49 CC_LUT4      _205_
+    (625)       370 DS                   50 CC_LUT4      _206_
+    (643)       371 DS                   52 CC_LUT4      _208_
+    (652)       372 DS                   53 CC_LUT4      _209_
+    (661)       373 DS                   54 CC_LUT4      _210_
+    (670)       374 DS                   55 CC_LUT4      _211_
+    (679)       375 DS                   56 CC_LUT4      _212_
+    (688)       376 XOR                  57 CC_LUT4      _213_
+    (711)       377 AND                  60 CC_LUT4      _216_
+    (729)       378 AND                  62 CC_LUT4      _218_
+    (738)       379 DS                   63 CC_LUT4      _219_
+    (787)       380 OR                   69 CC_LUT4      _225_
+    (787)       381 AND                  69 CC_LUT4      _225_
+    (796)       382 AND                  70 CC_LUT4      _226_
+    (796)       383 AND                  70 CC_LUT4      _226_
+    (813)       384 AND                  72 CC_LUT4      _228_
+    (917)       385 AND                  85 CC_LUT3      _241_
+   (1028)       386 AND                  99 CC_LUT3      _255_
+   (1036)       387 DS                  100 CC_LUT4      _256_
+   (1066)       388 AND                 104 CC_LUT4      _260_
+   (1075)       389 DS                  105 CC_LUT4      _261_
+   (1084)       390 AND                 106 CC_LUT4      _262_
+   (1093)       391 OR                  107 CC_LUT4      _263_
+   (1093)       392 AND                 107 CC_LUT4      _263_
+   (1102)       393 DS                  108 CC_LUT4      _264_
+   (1111)       394 DS                  109 CC_LUT4      _265_
+   (1137)       395 AND                 112 CC_LUT3      _268_
+   (1145)       396 DS                  113 CC_LUT4      _269_
+   (1154)       397 DS                  114 CC_LUT4      _270_
+   (1163)       398 DS                  115 CC_LUT4      _271_
+   (1172)       399 DS                  116 CC_LUT4      _272_
+   (1181)       400 DS                  117 CC_LUT4      _273_
+   (1190)       401 DS                  118 CC_LUT4      _274_
+   (1199)       402 DS                  119 CC_LUT4      _275_
+   (1208)       403 DS                  120 CC_LUT4      _276_
+   (1217)       404 DS                  121 CC_LUT4      _277_
+   (1226)       405 DS                  122 CC_LUT4      _278_
+   (1235)       406 DS                  123 CC_LUT4      _279_
+   (1244)       407 DS                  124 CC_LUT4      _280_
+   (1253)       408 DS                  125 CC_LUT4      _281_
+   (1262)       409 DS                  126 CC_LUT4      _282_
+   (1299)       410 DS                  131 CC_LUT4      _287_
+   (1308)       411 DS                  132 CC_LUT4      _288_
+   (1317)       412 DS                  133 CC_LUT4      _289_
+   (1326)       413 AND                 134 CC_LUT3      _290_
+   (1361)       414 OR                  139 CC_LUT4      _295_
+   (1361)       415 AND                 139 CC_LUT4      _295_
+    (175)       453                     353 #input       clk
+    (184)       454                     354 #input       i_mosi_ILA
+    (186)       455                     355 #input       i_sclk_ILA
+    (188)       456                     356 #input       i_ss_ILA
+    (193)       457                     357 #output      led
+    (215)       458                     358 #output      o_miso_ILA

@@ -1,0 +1,20 @@
+00BF   1 ((/aB\)+c)d
+00F8   1 ((AB)+C)d
+0C0A   5 DC?A:B:0:0
+0E00   4 cD/ab\
+1000   2 abCD
+4000   2 aBCD
+440F   1 D?c:aB
+770F   1 D?c:/AB\
+7800   1 AD?0:0:C:B^C
+7F00   1 ((/AB\)+c)D
+8000   1 ABCD
+AC00   1 D(c?A:B)
+BB0F   1 D?c:/aB\
+BBF0   1 D?C:/aB\
+CA00  30 D(C?A:B)
+CACC   1 DC?B:A:B:B
+CAFF   1 (C?A:B)+d
+F800   2 ((AB)+C)D
+FF07   1 (c/AB\)+D
+ Gesamt:   58 DS4:     4

@@ -1,0 +1,17 @@
+# CC ILA
+
+#Pin_in "i_clk"           Loc = "IO_SB_A8" | SCHMITT_TRIGGER=true;    # Clock0
+#Pin_in "i_reset"         Loc = "IO_SA_A0";
+
+# jtag Port
+Pin_in   "i_sclk_ILA"     Loc = "IO_WA_A5" | SCHMITT_TRIGGER=true;   
+Pin_in   "i_mosi_ILA"  	  Loc = "IO_WA_A4";
+Pin_out  "o_miso_ILA"     Loc = "IO_WA_B3";
+Pin_in   "i_ss_ILA"  	  Loc = "IO_WA_B4";
+
+
+#################################################################################################
+# *******************************SUT Signals*************************************************** #
+# // __Place~for~Signals~SUT__
+Pin_in   "clk"  Loc = "IO_SB_A8" | SCHMITT_TRIGGER=true;
+Pin_out  "led"                   Loc = "IO_SB_B6";                           # LED D1

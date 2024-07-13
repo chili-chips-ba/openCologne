@@ -1,0 +1,19 @@
+
+Pin_in "clk"           Loc = "IO_SB_A8" | SCHMITT_TRIGGER=true;    # Clock0
+Pin_in   "reset"   Loc = "IO_EB_B0"; 
+
+Pin_out  "led[0]"                   Loc = "IO_EB_B1";                           # LED D1
+Pin_out  "led[1]"                   Loc = "IO_EB_B2";                           # LED D2
+Pin_out  "led[2]"                   Loc = "IO_EB_B3";                           # LED D1
+Pin_out  "led[3]"                   Loc = "IO_EB_B4";                           # LED D2
+Pin_out  "led[4]"                   Loc = "IO_EB_B5";                           # LED D1
+Pin_out  "led[5]"                   Loc = "IO_EB_B6";                           # LED D2
+Pin_out  "led[6]"                   Loc = "IO_EB_B7";                           # LED D1
+Pin_out  "led[7]"                   Loc = "IO_EB_B8";                           # LED D2
+
+Pin_out   "ws2812_out" Loc = "IO_NB_A0";
+
+Pin_in   "i_sclk"       Loc = "IO_WA_B8" | SCHMITT_TRIGGER=true;   
+Pin_in   "i_mosi"  	    Loc = "IO_WA_B7";
+Pin_out  "o_miso"       Loc = "IO_WA_A7";
+Pin_in   "i_ss"  	    Loc = "IO_WA_A8";

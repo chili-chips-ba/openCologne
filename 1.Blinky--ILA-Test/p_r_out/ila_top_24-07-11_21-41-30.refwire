@@ -1,0 +1,1718 @@
+         1 I       I0 1 _146_[0]
+         1 I       I1 2 _146_[1]
+         1 I       I2 3 _146_[2]
+         1 I       I3 4 _146_[3]
+         1 O        O 1 _050_
+         2 I       I0 1 \spi_passiv.bit_cnt [1]
+         2 I       I1 2 \spi_passiv.bit_cnt [0]
+         2 O        O 1 _146_[1]
+         3 I       I0 1 \spi_passiv.bit_cnt [1]
+         3 I       I1 2 \spi_passiv.bit_cnt [0]
+         3 I       I2 3 \spi_passiv.tx_shift_reg [1]
+         3 I       I3 4 \spi_passiv.i_ss 
+         3 O        O 1 _146_[3]
+         4 I       I0 1 \mem_control.genblk4.byte_from_smp.o_send_nib [2]
+         4 I       I1 2 \mem_control.genblk4.byte_from_smp.i_read_active 
+         4 I       I2 3 \mem_control.o_write_done 
+         4 O        O 1 _146_[0]
+         5 I       I0 1 \mem_control.genblk4.byte_from_smp.i_read_active 
+         5 I       I1 2 read_active_pipe
+         5 I       I2 3 \spi_passiv.rx_shift_reg [2]
+         5 I       I3 4 \mem_control.o_write_done 
+         5 O        O 1 _146_[2]
+         6 I       I0 1 \DUT.ILA_rst 
+         6 I       I1 2 \DUT._1_ [8]
+         6 O        O 1 _067_
+         7 I       I0 1 \DUT.ILA_rst 
+         7 I       I1 2 \DUT._1_ [0]
+         7 O        O 1 _059_
+         8 I       I0 1 \change_trigger.o_hold 
+         8 I       I1 2 conf_trigger_start
+         8 I       I2 3 \mem_control.i_reset 
+         8 I       I3 4 ila_reset_register_sclk
+         8 O        O 1 _044_
+         9 I       I0 1 \mem_control.write_done_edge.i_signal 
+         9 I       I1 2 \mem_control.i_reset 
+         9 I       I2 3 \mem_control.write_done_edge.signal_old 
+         9 O        O 1 _057_
+        10 I       I0 1 trigger_pipe[4]
+        10 I       I1 2 _152_[1]
+        10 I       I2 3 trigger_column[2]
+        10 O        O 1 _143_
+        11 I       I0 1 \change_trigger.i_nib [3]
+        11 I       I1 2 \spi_passiv.rx_shift_reg [3]
+        11 I       I2 3 \spi_passiv.i_ss 
+        11 I       I3 4 _146_[1]
+        11 O        O 1 _056_
+        12 I       I0 1 \spi_passiv.tx_shift_reg [0]
+        12 I       I1 2 _151_[1]
+        12 I       I2 3 \spi_passiv.i_ss 
+        12 I       I3 4 _146_[1]
+        12 O        O 1 _049_
+        13 I       I0 1 \mem_control.genblk4.byte_from_smp.o_send_nib [1]
+        13 I       I1 2 \mem_control.genblk4.byte_from_smp.i_read_active 
+        13 I       I2 3 \spi_passiv.rx_shift_reg [1]
+        13 I       I3 4 \mem_control.o_write_done 
+        13 O        O 1 _151_[1]
+        14 I       I0 1 \spi_passiv.i_ss 
+        14 I       I1 2 \spi_passiv.bit_cnt [1]
+        14 I       I2 3 \spi_passiv.bit_cnt [0]
+        14 O        O 1 _048_
+        15 I       I0 1 \change_trigger.i_nib [1]
+        15 I       I1 2 \change_trigger.i_nib [3]
+        15 I       I2 3 _145_[1]
+        15 O        O 1 _058_
+        16 I       I0 1 conf_trigger_start
+        16 I       I1 2 \change_trigger.i_nib [0]
+        16 I       I2 3 \mem_control.genblk4.byte_from_smp.i_slave_end_byte_post_edge 
+        16 I       I3 4 \change_trigger.i_nib [2]
+        16 O        O 1 _145_[1]
+        17 I       I0 1 \DUT.ILA_rst 
+        17 I       I1 2 \DUT._1_ [5]
+        17 O        O 1 _064_
+        18 I       I0 1 \DUT.ILA_rst 
+        18 I       I1 2 \DUT._1_ [1]
+        18 O        O 1 _060_
+        19 I       I0 1 \DUT.ILA_rst 
+        19 I       I1 2 \DUT._1_ [6]
+        19 O        O 1 _065_
+        20 I       I0 1 \DUT.ILA_rst 
+        20 I       I1 2 \DUT._1_ [2]
+        20 O        O 1 _061_
+        21 I       I0 1 _135_[3]
+        21 I       I1 2 \mem_control.addr_cnt_wd [3]
+        21 I       I2 3 \mem_control.o_write_done 
+        21 I       I3 4 \mem_control.i_reset 
+        21 O        O 1 _005_
+        22 I       I0 1 \DUT.ILA_rst 
+        22 I       I1 2 \DUT._1_ [12]
+        22 O        O 1 _071_
+        23 I       I0 1 \mem_control.addr_cnt_wd [2]
+        23 I       I1 2 \mem_control.addr_cnt_wd_pip [2]
+        23 I       I2 3 \mem_control.o_write_done 
+        23 I       I3 4 \mem_control.i_reset 
+        23 O        O 1 _104_
+        24 I       I0 1 \mem_control.addr_cnt_wd [1]
+        24 I       I1 2 \mem_control.addr_cnt_wd_pip [1]
+        24 I       I2 3 \mem_control.o_write_done 
+        24 I       I3 4 \mem_control.i_reset 
+        24 O        O 1 _103_
+        25 I       I0 1 \mem_control.addr_cnt_wd [0]
+        25 I       I1 2 \mem_control.addr_cnt_wd_pip [0]
+        25 I       I2 3 \mem_control.o_write_done 
+        25 I       I3 4 \mem_control.i_reset 
+        25 O        O 1 _102_
+        26 I       I0 1 \mem_control.o_write_done 
+        26 I       I1 2 \mem_control.i_reset 
+        26 I       I2 3 \mem_control.i_trigger_triggered 
+        26 I       I3 4 \mem_control.save_before_done 
+        26 O        O 1 _101_
+        27 I       I0 1 _135_[4]
+        27 I       I1 2 \mem_control.addr_cnt_wd [4]
+        27 I       I2 3 \mem_control.o_write_done 
+        27 I       I3 4 \mem_control.i_reset 
+        27 O        O 1 _006_
+        28 I       I0 1 \mem_control.addr_cnt_wd [4]
+        28 I       I1 2 \mem_control.addr_cnt_wd_pip [4]
+        28 I       I2 3 \mem_control.o_write_done 
+        28 I       I3 4 \mem_control.i_reset 
+        28 O        O 1 _106_
+        29 I       I0 1 _135_[6]
+        29 I       I1 2 \mem_control.addr_cnt_wd [6]
+        29 I       I2 3 \mem_control.o_write_done 
+        29 I       I3 4 \mem_control.i_reset 
+        29 O        O 1 _008_
+        30 I       I0 1 \trigger_edge.signal_new 
+        30 I       I1 2 ila_reset_register_clk
+        30 I       I2 3 \trigger_edge.signal_old 
+        30 O        O 1 _026_
+        31 I       I0 1 \mem_control.save_before_done_edge.o_nedge_edge 
+        31 I       I1 2 \mem_control.save_before_done 
+        31 I       I2 3 \mem_control.i_reset 
+        31 O        O 1 _100_
+        32 I       I0 1 \mem_control.addr_cnt_wd [7]
+        32 I       I1 2 \mem_control.addr_cnt_wd_pip [7]
+        32 I       I2 3 \mem_control.o_write_done 
+        32 I       I3 4 \mem_control.i_reset 
+        32 O        O 1 _109_
+        33 I       I0 1 \mem_control.genblk4.byte_from_smp.signal_old 
+        33 I       I1 2 \mem_control.genblk4.byte_from_smp.rd 
+        33 I       I2 3 \mem_control.genblk4.byte_from_smp.i_read_active 
+        33 O        O 1 _099_
+        34 I       I0 1 \mem_control.save_before_done_edge.i_signal 
+        34 I       I1 2 \mem_control.i_reset 
+        34 I       I2 3 \mem_control.save_before_done_edge.signal_old 
+        34 O        O 1 _098_
+        35 I       I0 1 \command_read.o_hold 
+        35 I       I1 2 read_active_pipe
+        35 I       I2 3 \mem_control.genblk4.byte_from_smp.i_read_active 
+        35 I       I3 4 ila_reset_register_sclk
+        35 O        O 1 _035_
+        36 I       I0 1 trigger_activation[1]
+        36 I       I1 2 \change_trigger.i_nib [1]
+        36 I       I2 3 _149_[1]
+        36 I       I3 4 ila_reset_register_sclk
+        36 O        O 1 _038_
+        37 I       I0 1 conf_trigger_start
+        37 I       I1 2 \mem_control.genblk4.byte_from_smp.i_slave_end_byte_post_edge 
+        37 I       I2 3 state_trigger_conf[0]
+        37 I       I3 4 state_trigger_conf[1]
+        37 O        O 1 _149_[1]
+        38 I       I0 1 read_active_pipe
+        38 I       I1 2 \mem_control.genblk4.byte_from_smp.i_slave_end_byte_post_edge 
+        38 I       I2 3 \mem_control.genblk4.byte_from_smp.i_read_active 
+        38 I       I3 4 ila_reset_register_sclk
+        38 O        O 1 _034_
+        39 I       I0 1 \mem_control.genblk4.byte_from_smp.i_read_active 
+        39 I       I1 2 \mem_control.genblk4.byte_from_smp.shift_reg [3]
+        39 O        O 1 _097_
+        40 I       I0 1 _147_[0]
+        40 I       I1 2 \mem_control.BRAM_do_tmp[0] [2]
+        40 O        O 1 _023_
+        41 I       I0 1 \mem_control.genblk4.byte_from_smp.i_slave_end_byte_post_edge 
+        41 I       I1 2 \mem_control.genblk4.byte_from_smp.shift_counter 
+        41 I       I2 3 \mem_control.genblk4.byte_from_smp.i_read_active 
+        41 O        O 1 _147_[0]
+        42 I       I0 1 ila_reset_register_clk
+        42 I       I1 2 \DUT.counter_5_0 
+        42 O        O 1 _028_
+        43 I       I0 1 _147_[0]
+        43 I       I1 2 \mem_control.BRAM_do_tmp[0] [4]
+        43 O        O 1 _025_
+        44 I       I0 1 ila_reset_register_clk
+        44 I       I1 2 \DUT.clk270 
+        44 O        O 1 _029_
+        45 I       I0 1 ila_reset_register_clk
+        45 I       I1 2 \DUT.clk180 
+        45 O        O 1 _030_
+        46 I       I0 1 ila_reset_register_clk
+        46 I       I1 2 \DUT.clk0 
+        46 O        O 1 _031_
+        47 I       I0 1 \mem_control.genblk4.byte_from_smp.i_read_active 
+        47 I       I1 2 \mem_control.genblk4.byte_from_smp.shift_reg [2]
+        47 O        O 1 _096_
+        48 I       I0 1 \mem_control.genblk4.byte_from_smp.i_read_active 
+        48 I       I1 2 \mem_control.genblk4.byte_from_smp.shift_reg [1]
+        48 O        O 1 _095_
+        49 I       I0 1 \mem_control.genblk4.byte_from_smp.i_read_active 
+        49 I       I1 2 \mem_control.genblk4.byte_from_smp.shift_reg [0]
+        49 O        O 1 _094_
+        50 I       I0 1 \mem_control.genblk4.byte_from_smp.shift_counter 
+        50 I       I1 2 \mem_control.genblk4.byte_from_smp.i_slave_end_byte_post_edge 
+        50 I       I2 3 \mem_control.genblk4.byte_from_smp.i_read_active 
+        50 O        O 1 _093_
+        51 I       I0 1 \mem_control.genblk4.byte_from_smp.rd 
+        51 I       I1 2 \mem_control.genblk4.byte_from_smp.i_slave_end_byte_post_edge 
+        51 I       I2 3 _147_[0]
+        51 O        O 1 _092_
+        52 I       I0 1 _153_[0]
+        52 I       I1 2 \spi_passiv.i_ss 
+        52 I       I2 3 _146_[1]
+        52 O        O 1 _091_
+        53 I       I0 1 \mem_control.genblk4.byte_from_smp.o_send_nib [0]
+        53 I       I1 2 \mem_control.genblk4.byte_from_smp.i_read_active 
+        53 I       I2 3 \spi_passiv.rx_shift_reg [0]
+        53 I       I3 4 \mem_control.o_write_done 
+        53 O        O 1 _153_[0]
+        54 I       I0 1 ila_reset_register_clk
+        54 I       I1 2 \trigger_edge.o_nedge_edge 
+        54 O        O 1 _090_
+        55 I       I0 1 \spi_passiv.i_ss 
+        55 I       I1 2 \spi_passiv.rx_shift_reg [2]
+        55 O        O 1 _089_
+        56 I       I0 1 \spi_passiv.i_ss 
+        56 I       I1 2 \spi_passiv.rx_shift_reg [1]
+        56 O        O 1 _088_
+        57 I       I0 1 \change_trigger.i_nib [3]
+        57 I       I1 2 _145_[1]
+        57 I       I2 3 \change_trigger.i_nib [1]
+        57 O        O 1 _011_
+        58 I       I0 1 \spi_passiv.i_ss 
+        58 I       I1 2 _146_[1]
+        58 O        O 1 _052_
+        59 I       I0 1 \spi_passiv.i_ss 
+        59 I       I1 2 \spi_passiv.rx_shift_reg [0]
+        59 O        O 1 _087_
+        60 I       I0 1 \change_trigger.i_nib [0]
+        60 I       I1 2 \spi_passiv.rx_shift_reg [0]
+        60 I       I2 3 \spi_passiv.i_ss 
+        60 I       I3 4 _146_[1]
+        60 O        O 1 _053_
+        61 I       I0 1 \change_trigger.i_nib [1]
+        61 I       I1 2 \spi_passiv.rx_shift_reg [1]
+        61 I       I2 3 \spi_passiv.i_ss 
+        61 I       I3 4 _146_[1]
+        61 O        O 1 _054_
+        62 I       I0 1 _135_[2]
+        62 I       I1 2 \mem_control.addr_cnt_wd [2]
+        62 I       I2 3 \mem_control.o_write_done 
+        62 I       I3 4 \mem_control.i_reset 
+        62 O        O 1 _113_
+        63 I       I0 1 \spi_passiv.i_ss 
+        63 I       I1 2 \spi_passiv.i_mosi 
+        63 O        O 1 _086_
+        64 I       I0 1 \trigger_edge.signal_old 
+        64 I       I1 2 \trigger_edge.signal_new 
+        64 I       I2 3 ila_reset_register_clk
+        64 O        O 1 _085_
+        65 I       I0 1 conf_trigger_start
+        65 I       I1 2 _155_[1]
+        65 I       I2 3 \mem_control.genblk4.byte_from_smp.i_slave_end_byte_post_edge 
+        65 O        O 1 _084_
+        66 I       I0 1 \change_trigger.i_nib [1]
+        66 I       I1 2 \change_trigger.i_nib [2]
+        66 I       I2 3 \change_trigger.i_nib [0]
+        66 I       I3 4 \change_trigger.i_nib [3]
+        66 O        O 1 _155_[1]
+        67 I       I0 1 \DUT.ILA_rst 
+        67 I       I1 2 \DUT._1_ [24]
+        67 O        O 1 _083_
+        68 I       I0 1 ila_reset_register_clk
+        68 I       I1 2 \DUT.clk 
+        68 O        O 1 _032_
+        69 I       I0 1 ila_reset_register_clk
+        69 I       I1 2 \trigger_edge.o_post_edge 
+        69 O        O 1 _033_
+        70 I       I0 1 _135_[1]
+        70 I       I1 2 \mem_control.addr_cnt_wd [1]
+        70 I       I2 3 \mem_control.o_write_done 
+        70 I       I3 4 \mem_control.i_reset 
+        70 O        O 1 _112_
+        71 I       I0 1 \DUT.ILA_rst 
+        71 I       I1 2 \DUT._1_ [23]
+        71 O        O 1 _082_
+        72 I       I0 1 trigger_column[0]
+        72 I       I1 2 \change_trigger.i_nib [0]
+        72 I       I2 3 _148_[2]
+        72 I       I3 4 ila_reset_register_sclk
+        72 O        O 1 _039_
+        73 I       I0 1 state_trigger_conf[0]
+        73 I       I1 2 \mem_control.genblk4.byte_from_smp.i_slave_end_byte_post_edge 
+        73 I       I2 3 conf_trigger_start
+        73 I       I3 4 state_trigger_conf[1]
+        73 O        O 1 _148_[2]
+        74 I       I0 1 conf_trigger_start
+        74 I       I1 2 \mem_control.genblk4.byte_from_smp.i_slave_end_byte_post_edge 
+        74 I       I2 3 state_trigger_conf[0]
+        74 I       I3 4 ila_reset_register_sclk
+        74 O        O 1 _042_
+        75 I       I0 1 trigger_column[1]
+        75 I       I1 2 \change_trigger.i_nib [1]
+        75 I       I2 3 _148_[2]
+        75 I       I3 4 ila_reset_register_sclk
+        75 O        O 1 _040_
+        76 I       I0 1 _135_[5]
+        76 I       I1 2 \mem_control.save_before_done_edge.i_signal 
+        76 I       I2 3 \mem_control.o_write_done 
+        76 I       I3 4 \mem_control.i_reset 
+        76 O        O 1 _007_
+        77 I       I0 1 \mem_control.wd_cnt_done_edge.i_signal 
+        77 I       I1 2 \mem_control.addr_cnt_wd_pip [8]
+        77 I       I2 3 \mem_control.o_write_done 
+        77 I       I3 4 \mem_control.i_reset 
+        77 O        O 1 _110_
+        78 I       I0 1 \DUT.ILA_rst 
+        78 I       I1 2 \DUT._1_ [22]
+        78 O        O 1 _081_
+        79 I       I0 1 trigger_column[2]
+        79 I       I1 2 \change_trigger.i_nib [2]
+        79 I       I2 3 _148_[2]
+        79 I       I3 4 ila_reset_register_sclk
+        79 O        O 1 _041_
+        80 I       I0 1 _144_[0]
+        80 I       I1 2 state_trigger_conf[1]
+        80 I       I2 3 ila_reset_register_sclk
+        80 O        O 1 _043_
+        81 I       I0 1 conf_trigger_start
+        81 I       I1 2 \mem_control.genblk4.byte_from_smp.i_slave_end_byte_post_edge 
+        81 I       I2 3 state_trigger_conf[0]
+        81 O        O 1 _144_[0]
+        82 I       I0 1 \DUT.ILA_rst 
+        82 I       I1 2 \DUT._1_ [21]
+        82 O        O 1 _080_
+        83 I       I0 1 _135_[7]
+        83 I       I1 2 \mem_control.addr_cnt_wd [7]
+        83 I       I2 3 \mem_control.o_write_done 
+        83 I       I3 4 \mem_control.i_reset 
+        83 O        O 1 _009_
+        84 I       I0 1 \DUT.ILA_rst 
+        84 I       I1 2 \DUT._1_ [20]
+        84 O        O 1 _079_
+        85 I       I0 1 _138_[3]
+        85 I       I1 2 \mem_control.wd_counter [3]
+        85 I       I2 3 \mem_control.make_wd_cnt 
+        85 I       I3 4 \mem_control.i_reset 
+        85 O        O 1 _015_
+        86 I       I0 1 \DUT.ILA_rst 
+        86 I       I1 2 \DUT._1_ [19]
+        86 O        O 1 _078_
+        87 I       I0 1 \DUT.ILA_rst 
+        87 I       I1 2 \DUT._1_ [18]
+        87 O        O 1 _077_
+        88 I       I0 1 \DUT.ILA_rst 
+        88 I       I1 2 \DUT._1_ [17]
+        88 O        O 1 _076_
+        89 I       I0 1 \DUT.ILA_rst 
+        89 I       I1 2 \DUT._1_ [16]
+        89 O        O 1 _075_
+        90 I       I0 1 _135_[8]
+        90 I       I1 2 \mem_control.wd_cnt_done_edge.i_signal 
+        90 I       I2 3 \mem_control.o_write_done 
+        90 I       I3 4 \mem_control.i_reset 
+        90 O        O 1 _010_
+        91 I       I0 1 _135_[0]
+        91 I       I1 2 \mem_control.addr_cnt_wd [0]
+        91 I       I2 3 \mem_control.o_write_done 
+        91 I       I3 4 \mem_control.i_reset 
+        91 O        O 1 _111_
+        92 I       I0 1 \mem_control.wd_counter [6]
+        92 I       I1 2 _138_[6]
+        92 I       I2 3 \mem_control.make_wd_cnt 
+        92 I       I3 4 \mem_control.i_reset 
+        92 O        O 1 _018_
+        93 I       I0 1 \mem_control.wd_counter [5]
+        93 I       I1 2 _138_[5]
+        93 I       I2 3 \mem_control.make_wd_cnt 
+        93 I       I3 4 \mem_control.i_reset 
+        93 O        O 1 _017_
+        94 I       I0 1 \mem_control.wd_counter [7]
+        94 I       I1 2 _138_[7]
+        94 I       I2 3 \mem_control.make_wd_cnt 
+        94 I       I3 4 \mem_control.i_reset 
+        94 O        O 1 _019_
+        95 I       I0 1 \DUT.ILA_rst 
+        95 I       I1 2 \DUT._1_ [15]
+        95 O        O 1 _074_
+        96 I       I0 1 \mem_control.addr_cnt_wd [6]
+        96 I       I1 2 \mem_control.addr_cnt_wd_pip [6]
+        96 I       I2 3 \mem_control.o_write_done 
+        96 I       I3 4 \mem_control.i_reset 
+        96 O        O 1 _108_
+        97 I       I0 1 \mem_control.write_done_edge.o_nedge_edge 
+        97 I       I1 2 \mem_control.o_write_done 
+        97 I       I2 3 \mem_control.i_reset 
+        97 O        O 1 _021_
+        98 I       I0 1 _147_[0]
+        98 I       I1 2 \mem_control.BRAM_do_tmp[0] [1]
+        98 O        O 1 _022_
+        99 I       I0 1 \mem_control.write_done_edge.i_signal 
+        99 I       I1 2 _138_[8]
+        99 I       I2 3 \mem_control.make_wd_cnt 
+        99 I       I3 4 \mem_control.i_reset 
+        99 O        O 1 _020_
+       100 I       I0 1 \mem_control.wd_counter [0]
+       100 I       I1 2 _138_[0]
+       100 I       I2 3 \mem_control.make_wd_cnt 
+       100 I       I3 4 \mem_control.i_reset 
+       100 O        O 1 _012_
+       101 I       I0 1 \mem_control.wd_counter [1]
+       101 I       I1 2 _138_[1]
+       101 I       I2 3 \mem_control.make_wd_cnt 
+       101 I       I3 4 \mem_control.i_reset 
+       101 O        O 1 _013_
+       102 I       I0 1 \mem_control.wd_counter [2]
+       102 I       I1 2 _138_[2]
+       102 I       I2 3 \mem_control.make_wd_cnt 
+       102 I       I3 4 \mem_control.i_reset 
+       102 O        O 1 _014_
+       103 I       I0 1 \change_trigger.i_nib [2]
+       103 I       I1 2 \spi_passiv.rx_shift_reg [2]
+       103 I       I2 3 \spi_passiv.i_ss 
+       103 I       I3 4 _146_[1]
+       103 O        O 1 _055_
+       104 I       I0 1 \DUT.ILA_rst 
+       104 I       I1 2 \DUT._1_ [11]
+       104 O        O 1 _070_
+       105 I       I0 1 \DUT.ILA_rst 
+       105 I       I1 2 \DUT._1_ [3]
+       105 O        O 1 _062_
+       106 I       I0 1 \DUT.ILA_rst 
+       106 I       I1 2 \DUT._1_ [14]
+       106 O        O 1 _073_
+       107 I       I0 1 \DUT.ILA_rst 
+       107 I       I1 2 \DUT._1_ [7]
+       107 O        O 1 _066_
+       108 I       I0 1 sclk_reset_check
+       108 I       I1 2 ila_reset_register_sclk
+       108 I       I2 3 ila_reset_signal
+       108 I       I3 4 \DUT.ILA_rst 
+       108 O        O 1 _045_
+       109 I       I0 1 \mem_control.save_before_done_edge.i_signal 
+       109 I       I1 2 \mem_control.addr_cnt_wd_pip [5]
+       109 I       I2 3 \mem_control.o_write_done 
+       109 I       I3 4 \mem_control.i_reset 
+       109 O        O 1 _107_
+       110 I       I0 1 trigger
+       110 I       I1 2 \trigger_edge.signal_new 
+       110 I       I2 3 ila_reset_register_clk
+       110 O        O 1 _124_
+       111 I       I0 1 \mem_control.BRAM_do_tmp[0] [0]
+       111 I       I1 2 \mem_control.genblk4.byte_from_smp.shift_reg [4]
+       111 I       I2 3 _147_[0]
+       111 O        O 1 _123_
+       112 I       I0 1 \DUT.ILA_rst 
+       112 I       I1 2 \DUT._1_ [10]
+       112 O        O 1 _069_
+       113 I       I0 1 \DUT.ILA_rst 
+       113 I       I1 2 \DUT._1_ [4]
+       113 O        O 1 _063_
+       114 I       I0 1 \DUT.ILA_rst 
+       114 I       I1 2 \DUT._1_ [9]
+       114 O        O 1 _068_
+       115 I       I0 1 \mem_control.i_reset 
+       115 I       I1 2 _149_[1]
+       115 I       I2 3 ila_reset_register_sclk
+       115 O        O 1 _036_
+       116 I       I0 1 _129_[0]
+       116 I       I1 2 _132_[0]
+       116 I       I2 3 \mem_control.genblk4.byte_from_smp.o_rd 
+       116 O        O 1 _114_
+       117 I       I0 1 _132_[1]
+       117 I       I1 2 _129_[1]
+       117 I       I2 3 \mem_control.genblk4.byte_from_smp.o_rd 
+       117 O        O 1 _115_
+       118 I       I0 1 _132_[2]
+       118 I       I1 2 _129_[2]
+       118 I       I2 3 \mem_control.genblk4.byte_from_smp.o_rd 
+       118 O        O 1 _116_
+       119 I       I0 1 _132_[3]
+       119 I       I1 2 _129_[3]
+       119 I       I2 3 \mem_control.genblk4.byte_from_smp.o_rd 
+       119 O        O 1 _117_
+       120 I       I0 1 _132_[4]
+       120 I       I1 2 _129_[4]
+       120 I       I2 3 \mem_control.genblk4.byte_from_smp.o_rd 
+       120 O        O 1 _118_
+       121 I       I0 1 _132_[5]
+       121 I       I1 2 _129_[5]
+       121 I       I2 3 \mem_control.genblk4.byte_from_smp.o_rd 
+       121 O        O 1 _119_
+       122 I       I0 1 _132_[6]
+       122 I       I1 2 _129_[6]
+       122 I       I2 3 \mem_control.genblk4.byte_from_smp.o_rd 
+       122 O        O 1 _120_
+       123 I       I0 1 _132_[7]
+       123 I       I1 2 _129_[7]
+       123 I       I2 3 \mem_control.genblk4.byte_from_smp.o_rd 
+       123 O        O 1 _121_
+       124 I       I0 1 _132_[8]
+       124 I       I1 2 _129_[8]
+       124 I       I2 3 \mem_control.genblk4.byte_from_smp.o_rd 
+       124 O        O 1 _122_
+       125 I       I0 1 trigger_activation[0]
+       125 I       I1 2 \change_trigger.i_nib [0]
+       125 I       I2 3 _149_[1]
+       125 I       I3 4 ila_reset_register_sclk
+       125 O        O 1 _037_
+       126 I       I0 1 clk_reset_check
+       126 I       I1 2 ila_reset_register_clk
+       126 I       I2 3 ila_reset_signal
+       126 I       I3 4 \DUT.ILA_rst 
+       126 O        O 1 _046_
+       127 I       I0 1 \spi_passiv.i_ss 
+       127 I       I1 2 \spi_passiv.bit_cnt [0]
+       127 O        O 1 _047_
+       128 I       I0 1 \mem_control.addr_cnt_wd [3]
+       128 I       I1 2 \mem_control.addr_cnt_wd_pip [3]
+       128 I       I2 3 \mem_control.o_write_done 
+       128 I       I3 4 \mem_control.i_reset 
+       128 O        O 1 _105_
+       129 I       I0 1 \DUT.ILA_rst 
+       129 I       I1 2 \DUT._1_ [13]
+       129 O        O 1 _072_
+       130 I       I0 1 _147_[0]
+       130 I       I1 2 \mem_control.BRAM_do_tmp[0] [3]
+       130 O        O 1 _024_
+       131 I       I0 1 \mem_control.wd_counter [4]
+       131 I       I1 2 _138_[4]
+       131 I       I2 3 \mem_control.make_wd_cnt 
+       131 I       I3 4 \mem_control.i_reset 
+       131 O        O 1 _016_
+       132 I       I0 1 \spi_passiv.bit_cnt [1]
+       132 I       I1 2 \spi_passiv.bit_cnt [0]
+       132 I       I2 3 \spi_passiv.tx_shift_reg [2]
+       132 I       I3 4 \spi_passiv.i_ss 
+       132 O        O 1 _154_[3]
+       133 I       I0 1 \mem_control.genblk4.byte_from_smp.i_read_active 
+       133 I       I1 2 \mem_control.o_write_done 
+       133 I       I2 3 \mem_control.genblk4.byte_from_smp.o_rd 
+       133 O        O 1 _003_
+       134 I       I0 1 \mem_control.genblk4.byte_from_smp.i_slave_end_byte_post_edge 
+       134 I       I1 2 _147_[0]
+       134 O        O 1 _002_
+       135 I       I0 1 \mem_control.o_write_done 
+       135 O        O 1 _004_
+       136 I       I0 1 ila_reset_register_sclk
+       136 O        O 1 _001_
+       137 I       I0 1 ila_reset_register_clk
+       137 O        O 1 _000_
+       138 I       I0 1 trigger_post_edge
+       138 I       I1 2 trigger_nedge_edge
+       138 I       I2 3 trigger_activation[1]
+       138 I       I3 4 trigger_activation[0]
+       138 O        O 1 _150_[1]
+       139 I       I0 1 \mem_control.i_reset 
+       139 I       I1 2 _150_[1]
+       139 I       I2 3 \mem_control.i_trigger_triggered 
+       139 I       I3 4 ila_reset_register_clk
+       139 O        O 1 _027_
+       140 I       I0 1 \mem_control.genblk4.byte_from_smp.o_send_nib [3]
+       140 I       I1 2 \mem_control.genblk4.byte_from_smp.i_read_active 
+       140 I       I2 3 \spi_passiv.rx_shift_reg [3]
+       140 I       I3 4 \mem_control.o_write_done 
+       140 O        O 1 _154_[2]
+       141 I       I0 1 \spi_passiv.bit_cnt [1]
+       141 I       I1 2 \spi_passiv.bit_cnt [0]
+       141 I       I2 3 _154_[2]
+       141 I       I3 4 _154_[3]
+       141 O        O 1 _051_
+       142 I        A 1 1'h1
+       142 I        B 2 \DUT.counter [0]
+       142 I       CI 3 1'h0
+       142 O       CO 1 _125_[1]
+       142 O        S 2 \DUT._1_ [0]
+       143 I        A 1 1'h0
+       143 I        B 2 \DUT.counter [10]
+       143 I       CI 3 _125_[10]
+       143 O       CO 1 _125_[11]
+       143 O        S 2 \DUT._1_ [10]
+       144 I        A 1 1'h0
+       144 I        B 2 \DUT.counter [11]
+       144 I       CI 3 _125_[11]
+       144 O       CO 1 _125_[12]
+       144 O        S 2 \DUT._1_ [11]
+       145 I        A 1 1'h0
+       145 I        B 2 \DUT.counter [12]
+       145 I       CI 3 _125_[12]
+       145 O       CO 1 _125_[13]
+       145 O        S 2 \DUT._1_ [12]
+       146 I        A 1 1'h0
+       146 I        B 2 \DUT.counter [13]
+       146 I       CI 3 _125_[13]
+       146 O       CO 1 _125_[14]
+       146 O        S 2 \DUT._1_ [13]
+       147 I        A 1 1'h0
+       147 I        B 2 \DUT.counter [14]
+       147 I       CI 3 _125_[14]
+       147 O       CO 1 _125_[15]
+       147 O        S 2 \DUT._1_ [14]
+       148 I        A 1 1'h0
+       148 I        B 2 \DUT.counter [15]
+       148 I       CI 3 _125_[15]
+       148 O       CO 1 _125_[16]
+       148 O        S 2 \DUT._1_ [15]
+       149 I        A 1 1'h0
+       149 I        B 2 \DUT.counter [16]
+       149 I       CI 3 _125_[16]
+       149 O       CO 1 _125_[17]
+       149 O        S 2 \DUT._1_ [16]
+       150 I        A 1 1'h0
+       150 I        B 2 \DUT.counter [17]
+       150 I       CI 3 _125_[17]
+       150 O       CO 1 _125_[18]
+       150 O        S 2 \DUT._1_ [17]
+       151 I        A 1 1'h0
+       151 I        B 2 \DUT.counter [18]
+       151 I       CI 3 _125_[18]
+       151 O       CO 1 _125_[19]
+       151 O        S 2 \DUT._1_ [18]
+       152 I        A 1 1'h0
+       152 I        B 2 \DUT.counter [19]
+       152 I       CI 3 _125_[19]
+       152 O       CO 1 _125_[20]
+       152 O        S 2 \DUT._1_ [19]
+       153 I        A 1 1'h0
+       153 I        B 2 \DUT.counter [1]
+       153 I       CI 3 _125_[1]
+       153 O       CO 1 _125_[2]
+       153 O        S 2 \DUT._1_ [1]
+       154 I        A 1 1'h0
+       154 I        B 2 \DUT.counter [20]
+       154 I       CI 3 _125_[20]
+       154 O       CO 1 _125_[21]
+       154 O        S 2 \DUT._1_ [20]
+       155 I        A 1 1'h0
+       155 I        B 2 \DUT.counter [21]
+       155 I       CI 3 _125_[21]
+       155 O       CO 1 _125_[22]
+       155 O        S 2 \DUT._1_ [21]
+       156 I        A 1 1'h0
+       156 I        B 2 \DUT.counter [22]
+       156 I       CI 3 _125_[22]
+       156 O       CO 1 _125_[23]
+       156 O        S 2 \DUT._1_ [22]
+       157 I        A 1 1'h0
+       157 I        B 2 \DUT.counter [23]
+       157 I       CI 3 _125_[23]
+       157 O       CO 1 _125_[24]
+       157 O        S 2 \DUT._1_ [23]
+       158 I        A 1 1'h0
+       158 I        B 2 \DUT.led 
+       158 I       CI 3 _125_[24]
+       158 O       CO 1 _126_[24]
+       158 O        S 2 \DUT._1_ [24]
+       159 I        A 1 1'h0
+       159 I        B 2 \DUT.counter [2]
+       159 I       CI 3 _125_[2]
+       159 O       CO 1 _125_[3]
+       159 O        S 2 \DUT._1_ [2]
+       160 I        A 1 1'h0
+       160 I        B 2 \DUT.counter [3]
+       160 I       CI 3 _125_[3]
+       160 O       CO 1 _125_[4]
+       160 O        S 2 \DUT._1_ [3]
+       161 I        A 1 1'h0
+       161 I        B 2 \DUT.counter_5_0 
+       161 I       CI 3 _125_[4]
+       161 O       CO 1 _125_[5]
+       161 O        S 2 \DUT._1_ [4]
+       162 I        A 1 1'h0
+       162 I        B 2 \DUT.counter [5]
+       162 I       CI 3 _125_[5]
+       162 O       CO 1 _125_[6]
+       162 O        S 2 \DUT._1_ [5]
+       163 I        A 1 1'h0
+       163 I        B 2 \DUT.counter [6]
+       163 I       CI 3 _125_[6]
+       163 O       CO 1 _125_[7]
+       163 O        S 2 \DUT._1_ [6]
+       164 I        A 1 1'h0
+       164 I        B 2 \DUT.counter [7]
+       164 I       CI 3 _125_[7]
+       164 O       CO 1 _125_[8]
+       164 O        S 2 \DUT._1_ [7]
+       165 I        A 1 1'h0
+       165 I        B 2 \DUT.counter [8]
+       165 I       CI 3 _125_[8]
+       165 O       CO 1 _125_[9]
+       165 O        S 2 \DUT._1_ [8]
+       166 I        A 1 1'h0
+       166 I        B 2 \DUT.counter [9]
+       166 I       CI 3 _125_[9]
+       166 O       CO 1 _125_[10]
+       166 O        S 2 \DUT._1_ [9]
+       167 I        A 1 1'h1
+       167 I        B 2 \mem_control.addr_cnt_rd [0]
+       167 I       CI 3 1'h0
+       167 O       CO 1 _127_[1]
+       167 O        S 2 _129_[0]
+       168 I        A 1 1'h0
+       168 I        B 2 \mem_control.addr_cnt_rd [1]
+       168 I       CI 3 _127_[1]
+       168 O       CO 1 _127_[2]
+       168 O        S 2 _129_[1]
+       169 I        A 1 1'h0
+       169 I        B 2 \mem_control.addr_cnt_rd [2]
+       169 I       CI 3 _127_[2]
+       169 O       CO 1 _127_[3]
+       169 O        S 2 _129_[2]
+       170 I        A 1 1'h0
+       170 I        B 2 \mem_control.addr_cnt_rd [3]
+       170 I       CI 3 _127_[3]
+       170 O       CO 1 _127_[4]
+       170 O        S 2 _129_[3]
+       171 I        A 1 1'h0
+       171 I        B 2 \mem_control.addr_cnt_rd [4]
+       171 I       CI 3 _127_[4]
+       171 O       CO 1 _127_[5]
+       171 O        S 2 _129_[4]
+       172 I        A 1 1'h0
+       172 I        B 2 \mem_control.addr_cnt_rd [5]
+       172 I       CI 3 _127_[5]
+       172 O       CO 1 _127_[6]
+       172 O        S 2 _129_[5]
+       173 I        A 1 1'h0
+       173 I        B 2 \mem_control.addr_cnt_rd [6]
+       173 I       CI 3 _127_[6]
+       173 O       CO 1 _127_[7]
+       173 O        S 2 _129_[6]
+       174 I        A 1 1'h0
+       174 I        B 2 \mem_control.addr_cnt_rd [7]
+       174 I       CI 3 _127_[7]
+       174 O       CO 1 _127_[8]
+       174 O        S 2 _129_[7]
+       175 I        A 1 1'h0
+       175 I        B 2 \mem_control.addr_cnt_rd [8]
+       175 I       CI 3 _127_[8]
+       175 O       CO 1 _128_[8]
+       175 O        S 2 _129_[8]
+       176 I        A 1 1'h1
+       176 I        B 2 \mem_control.addr_cnt_wd_pip [0]
+       176 I       CI 3 1'h0
+       176 O       CO 1 _130_[1]
+       176 O        S 2 _132_[0]
+       177 I        A 1 1'h0
+       177 I        B 2 \mem_control.addr_cnt_wd_pip [1]
+       177 I       CI 3 _130_[1]
+       177 O       CO 1 _130_[2]
+       177 O        S 2 _132_[1]
+       178 I        A 1 1'h0
+       178 I        B 2 \mem_control.addr_cnt_wd_pip [2]
+       178 I       CI 3 _130_[2]
+       178 O       CO 1 _130_[3]
+       178 O        S 2 _132_[2]
+       179 I        A 1 1'h0
+       179 I        B 2 \mem_control.addr_cnt_wd_pip [3]
+       179 I       CI 3 _130_[3]
+       179 O       CO 1 _130_[4]
+       179 O        S 2 _132_[3]
+       180 I        A 1 1'h0
+       180 I        B 2 \mem_control.addr_cnt_wd_pip [4]
+       180 I       CI 3 _130_[4]
+       180 O       CO 1 _130_[5]
+       180 O        S 2 _132_[4]
+       181 I        A 1 1'h0
+       181 I        B 2 \mem_control.addr_cnt_wd_pip [5]
+       181 I       CI 3 _130_[5]
+       181 O       CO 1 _130_[6]
+       181 O        S 2 _132_[5]
+       182 I        A 1 1'h0
+       182 I        B 2 \mem_control.addr_cnt_wd_pip [6]
+       182 I       CI 3 _130_[6]
+       182 O       CO 1 _130_[7]
+       182 O        S 2 _132_[6]
+       183 I        A 1 1'h0
+       183 I        B 2 \mem_control.addr_cnt_wd_pip [7]
+       183 I       CI 3 _130_[7]
+       183 O       CO 1 _130_[8]
+       183 O        S 2 _132_[7]
+       184 I        A 1 1'h0
+       184 I        B 2 \mem_control.addr_cnt_wd_pip [8]
+       184 I       CI 3 _130_[8]
+       184 O       CO 1 _131_[8]
+       184 O        S 2 _132_[8]
+       185 I        A 1 1'h1
+       185 I        B 2 \mem_control.addr_cnt_wd [0]
+       185 I       CI 3 1'h0
+       185 O       CO 1 _133_[1]
+       185 O        S 2 _135_[0]
+       186 I        A 1 1'h0
+       186 I        B 2 \mem_control.addr_cnt_wd [1]
+       186 I       CI 3 _133_[1]
+       186 O       CO 1 _133_[2]
+       186 O        S 2 _135_[1]
+       187 I        A 1 1'h0
+       187 I        B 2 \mem_control.addr_cnt_wd [2]
+       187 I       CI 3 _133_[2]
+       187 O       CO 1 _133_[3]
+       187 O        S 2 _135_[2]
+       188 I        A 1 1'h0
+       188 I        B 2 \mem_control.addr_cnt_wd [3]
+       188 I       CI 3 _133_[3]
+       188 O       CO 1 _133_[4]
+       188 O        S 2 _135_[3]
+       189 I        A 1 1'h0
+       189 I        B 2 \mem_control.addr_cnt_wd [4]
+       189 I       CI 3 _133_[4]
+       189 O       CO 1 _133_[5]
+       189 O        S 2 _135_[4]
+       190 I        A 1 1'h0
+       190 I        B 2 \mem_control.save_before_done_edge.i_signal 
+       190 I       CI 3 _133_[5]
+       190 O       CO 1 _133_[6]
+       190 O        S 2 _135_[5]
+       191 I        A 1 1'h0
+       191 I        B 2 \mem_control.addr_cnt_wd [6]
+       191 I       CI 3 _133_[6]
+       191 O       CO 1 _133_[7]
+       191 O        S 2 _135_[6]
+       192 I        A 1 1'h0
+       192 I        B 2 \mem_control.addr_cnt_wd [7]
+       192 I       CI 3 _133_[7]
+       192 O       CO 1 _133_[8]
+       192 O        S 2 _135_[7]
+       193 I        A 1 1'h0
+       193 I        B 2 \mem_control.wd_cnt_done_edge.i_signal 
+       193 I       CI 3 _133_[8]
+       193 O       CO 1 _134_[8]
+       193 O        S 2 _135_[8]
+       194 I        A 1 1'h1
+       194 I        B 2 \mem_control.wd_counter [0]
+       194 I       CI 3 1'h0
+       194 O       CO 1 _136_[1]
+       194 O        S 2 _138_[0]
+       195 I        A 1 1'h0
+       195 I        B 2 \mem_control.wd_counter [1]
+       195 I       CI 3 _136_[1]
+       195 O       CO 1 _136_[2]
+       195 O        S 2 _138_[1]
+       196 I        A 1 1'h0
+       196 I        B 2 \mem_control.wd_counter [2]
+       196 I       CI 3 _136_[2]
+       196 O       CO 1 _136_[3]
+       196 O        S 2 _138_[2]
+       197 I        A 1 1'h0
+       197 I        B 2 \mem_control.wd_counter [3]
+       197 I       CI 3 _136_[3]
+       197 O       CO 1 _136_[4]
+       197 O        S 2 _138_[3]
+       198 I        A 1 1'h0
+       198 I        B 2 \mem_control.wd_counter [4]
+       198 I       CI 3 _136_[4]
+       198 O       CO 1 _136_[5]
+       198 O        S 2 _138_[4]
+       199 I        A 1 1'h0
+       199 I        B 2 \mem_control.wd_counter [5]
+       199 I       CI 3 _136_[5]
+       199 O       CO 1 _136_[6]
+       199 O        S 2 _138_[5]
+       200 I        A 1 1'h0
+       200 I        B 2 \mem_control.wd_counter [6]
+       200 I       CI 3 _136_[6]
+       200 O       CO 1 _136_[7]
+       200 O        S 2 _138_[6]
+       201 I        A 1 1'h0
+       201 I        B 2 \mem_control.wd_counter [7]
+       201 I       CI 3 _136_[7]
+       201 O       CO 1 _136_[8]
+       201 O        S 2 _138_[7]
+       202 I        A 1 1'h0
+       202 I        B 2 \mem_control.write_done_edge.i_signal 
+       202 I       CI 3 _136_[8]
+       202 O       CO 1 _137_[8]
+       202 O        S 2 _138_[8]
+       203 I        I 1 _139_
+       203 O        O 1 \DUT.clk0 
+       204 I        I 1 _140_
+       204 O        O 1 clk180
+       205 I      CLK 2 clk180
+       205 I        D 1 _005_
+       205 I       EN 3 1'h1
+       205 I       SR 4 1'h0
+       205 O        Q 1 \mem_control.addr_cnt_wd [3]
+       206 I      CLK 2 clk180
+       206 I        D 1 _006_
+       206 I       EN 3 1'h1
+       206 I       SR 4 1'h0
+       206 O        Q 1 \mem_control.addr_cnt_wd [4]
+       207 I      CLK 2 clk180
+       207 I        D 1 _007_
+       207 I       EN 3 1'h1
+       207 I       SR 4 1'h0
+       207 O        Q 1 \mem_control.save_before_done_edge.i_signal 
+       208 I      CLK 2 clk180
+       208 I        D 1 _008_
+       208 I       EN 3 1'h1
+       208 I       SR 4 1'h0
+       208 O        Q 1 \mem_control.addr_cnt_wd [6]
+       209 I      CLK 2 clk180
+       209 I        D 1 _009_
+       209 I       EN 3 1'h1
+       209 I       SR 4 1'h0
+       209 O        Q 1 \mem_control.addr_cnt_wd [7]
+       210 I      CLK 2 clk180
+       210 I        D 1 _010_
+       210 I       EN 3 1'h1
+       210 I       SR 4 1'h0
+       210 O        Q 1 \mem_control.wd_cnt_done_edge.i_signal 
+       211 I      CLK 2 \spi_passiv.i_sclk 
+       211 I        D 1 _011_
+       211 I       EN 3 1'h1
+       211 I       SR 4 1'h0
+       211 O        Q 1 ila_reset_signal
+       212 I      CLK 2 clk180
+       212 I        D 1 _012_
+       212 I       EN 3 1'h1
+       212 I       SR 4 1'h0
+       212 O        Q 1 \mem_control.wd_counter [0]
+       213 I      CLK 2 clk180
+       213 I        D 1 _013_
+       213 I       EN 3 1'h1
+       213 I       SR 4 1'h0
+       213 O        Q 1 \mem_control.wd_counter [1]
+       214 I      CLK 2 clk180
+       214 I        D 1 _014_
+       214 I       EN 3 1'h1
+       214 I       SR 4 1'h0
+       214 O        Q 1 \mem_control.wd_counter [2]
+       215 I      CLK 2 clk180
+       215 I        D 1 _015_
+       215 I       EN 3 1'h1
+       215 I       SR 4 1'h0
+       215 O        Q 1 \mem_control.wd_counter [3]
+       216 I      CLK 2 clk180
+       216 I        D 1 _016_
+       216 I       EN 3 1'h1
+       216 I       SR 4 1'h0
+       216 O        Q 1 \mem_control.wd_counter [4]
+       217 I      CLK 2 clk180
+       217 I        D 1 _017_
+       217 I       EN 3 1'h1
+       217 I       SR 4 1'h0
+       217 O        Q 1 \mem_control.wd_counter [5]
+       218 I      CLK 2 clk180
+       218 I        D 1 _018_
+       218 I       EN 3 1'h1
+       218 I       SR 4 1'h0
+       218 O        Q 1 \mem_control.wd_counter [6]
+       219 I      CLK 2 clk180
+       219 I        D 1 _019_
+       219 I       EN 3 1'h1
+       219 I       SR 4 1'h0
+       219 O        Q 1 \mem_control.wd_counter [7]
+       220 I      CLK 2 clk180
+       220 I        D 1 _020_
+       220 I       EN 3 1'h1
+       220 I       SR 4 1'h0
+       220 O        Q 1 \mem_control.write_done_edge.i_signal 
+       221 I      CLK 2 clk180
+       221 I        D 1 _021_
+       221 I       EN 3 1'h1
+       221 I       SR 4 1'h0
+       221 O        Q 1 \mem_control.o_write_done 
+       222 I      CLK 2 \spi_passiv.i_sclk 
+       222 I        D 1 _022_
+       222 I       EN 3 _002_
+       222 I       SR 4 1'h0
+       222 O        Q 1 \mem_control.genblk4.byte_from_smp.shift_reg [1]
+       223 I      CLK 2 \spi_passiv.i_sclk 
+       223 I        D 1 _023_
+       223 I       EN 3 _002_
+       223 I       SR 4 1'h0
+       223 O        Q 1 \mem_control.genblk4.byte_from_smp.shift_reg [2]
+       224 I      CLK 2 \spi_passiv.i_sclk 
+       224 I        D 1 _024_
+       224 I       EN 3 _002_
+       224 I       SR 4 1'h0
+       224 O        Q 1 \mem_control.genblk4.byte_from_smp.shift_reg [3]
+       225 I      CLK 2 \spi_passiv.i_sclk 
+       225 I        D 1 _025_
+       225 I       EN 3 _002_
+       225 I       SR 4 1'h0
+       225 O        Q 1 \mem_control.genblk4.byte_from_smp.shift_reg [4]
+       226 I      CLK 2 \spi_passiv.i_sclk 
+       226 I        D 1 _123_
+       226 I       EN 3 _002_
+       226 I       SR 4 1'h0
+       226 O        Q 1 \mem_control.genblk4.byte_from_smp.shift_reg [0]
+       227 I      CLK 2 clk180
+       227 I        D 1 _026_
+       227 I       EN 3 1'h1
+       227 I       SR 4 1'h0
+       227 O        Q 1 \trigger_edge.o_nedge_edge 
+       228 I      CLK 2 clk180
+       228 I        D 1 _027_
+       228 I       EN 3 1'h1
+       228 I       SR 4 1'h0
+       228 O        Q 1 \mem_control.i_trigger_triggered 
+       229 I      CLK 2 clk180
+       229 I        D 1 _028_
+       229 I       EN 3 1'h1
+       229 I       SR 4 1'h0
+       229 O        Q 1 trigger_pipe[0]
+       230 I      CLK 2 clk180
+       230 I        D 1 _029_
+       230 I       EN 3 1'h1
+       230 I       SR 4 1'h0
+       230 O        Q 1 trigger_pipe[1]
+       231 I      CLK 2 clk180
+       231 I        D 1 _030_
+       231 I       EN 3 1'h1
+       231 I       SR 4 1'h0
+       231 O        Q 1 trigger_pipe[2]
+       232 I      CLK 2 clk180
+       232 I        D 1 _031_
+       232 I       EN 3 1'h1
+       232 I       SR 4 1'h0
+       232 O        Q 1 trigger_pipe[3]
+       233 I      CLK 2 clk180
+       233 I        D 1 _032_
+       233 I       EN 3 1'h1
+       233 I       SR 4 1'h0
+       233 O        Q 1 trigger_pipe[4]
+       234 I      CLK 2 clk180
+       234 I        D 1 _033_
+       234 I       EN 3 1'h1
+       234 I       SR 4 1'h0
+       234 O        Q 1 trigger_post_edge
+       235 I      CLK 2 clk180
+       235 I        D 1 _143_
+       235 I       EN 3 1'h1
+       235 I       SR 4 1'h0
+       235 O        Q 1 trigger
+       236 I      CLK 2 \spi_passiv.i_sclk 
+       236 I        D 1 _034_
+       236 I       EN 3 1'h1
+       236 I       SR 4 1'h0
+       236 O        Q 1 \mem_control.genblk4.byte_from_smp.i_read_active 
+       237 I      CLK 2 \spi_passiv.i_sclk 
+       237 I        D 1 _035_
+       237 I       EN 3 1'h1
+       237 I       SR 4 1'h0
+       237 O        Q 1 read_active_pipe
+       238 I      CLK 2 \spi_passiv.i_sclk 
+       238 I        D 1 _036_
+       238 I       EN 3 1'h1
+       238 I       SR 4 1'h0
+       238 O        Q 1 \mem_control.i_reset 
+       239 I      CLK 2 \spi_passiv.i_sclk 
+       239 I        D 1 _037_
+       239 I       EN 3 1'h1
+       239 I       SR 4 1'h0
+       239 O        Q 1 trigger_activation[0]
+       240 I      CLK 2 \spi_passiv.i_sclk 
+       240 I        D 1 _038_
+       240 I       EN 3 1'h1
+       240 I       SR 4 1'h0
+       240 O        Q 1 trigger_activation[1]
+       241 I      CLK 2 \spi_passiv.i_sclk 
+       241 I        D 1 _039_
+       241 I       EN 3 1'h1
+       241 I       SR 4 1'h0
+       241 O        Q 1 trigger_column[0]
+       242 I      CLK 2 \spi_passiv.i_sclk 
+       242 I        D 1 _040_
+       242 I       EN 3 1'h1
+       242 I       SR 4 1'h0
+       242 O        Q 1 trigger_column[1]
+       243 I      CLK 2 \spi_passiv.i_sclk 
+       243 I        D 1 _041_
+       243 I       EN 3 1'h1
+       243 I       SR 4 1'h0
+       243 O        Q 1 trigger_column[2]
+       244 I      CLK 2 \spi_passiv.i_sclk 
+       244 I        D 1 _042_
+       244 I       EN 3 1'h1
+       244 I       SR 4 1'h0
+       244 O        Q 1 state_trigger_conf[0]
+       245 I      CLK 2 \spi_passiv.i_sclk 
+       245 I        D 1 _043_
+       245 I       EN 3 1'h1
+       245 I       SR 4 1'h0
+       245 O        Q 1 state_trigger_conf[1]
+       246 I      CLK 2 \spi_passiv.i_sclk 
+       246 I        D 1 _044_
+       246 I       EN 3 1'h1
+       246 I       SR 4 1'h0
+       246 O        Q 1 conf_trigger_start
+       247 I      CLK 2 \spi_passiv.i_sclk 
+       247 I        D 1 _001_
+       247 I       EN 3 1'h1
+       247 I       SR 4 1'h0
+       247 O        Q 1 sclk_reset_check
+       248 I      CLK 2 clk180
+       248 I        D 1 _000_
+       248 I       EN 3 1'h1
+       248 I       SR 4 1'h0
+       248 O        Q 1 clk_reset_check
+       249 I      CLK 2 clk180
+       249 I        D 1 _045_
+       249 I       EN 3 1'h1
+       249 I       SR 4 1'h0
+       249 O        Q 1 ila_reset_register_sclk
+       250 I      CLK 2 clk180
+       250 I        D 1 _046_
+       250 I       EN 3 1'h1
+       250 I       SR 4 1'h0
+       250 O        Q 1 ila_reset_register_clk
+       251 I      CLK 2 \spi_passiv.i_sclk 
+       251 I        D 1 _047_
+       251 I       EN 3 1'h1
+       251 I       SR 4 1'h0
+       251 O        Q 1 \spi_passiv.bit_cnt [0]
+       252 I      CLK 2 \spi_passiv.i_sclk 
+       252 I        D 1 _048_
+       252 I       EN 3 1'h1
+       252 I       SR 4 1'h0
+       252 O        Q 1 \spi_passiv.bit_cnt [1]
+       253 I      CLK 2 \spi_passiv.i_sclk 
+       253 I        D 1 _049_
+       253 I       EN 3 1'h1
+       253 I       SR 4 1'h0
+       253 O        Q 1 \spi_passiv.tx_shift_reg [1]
+       254 I      CLK 2 \spi_passiv.i_sclk 
+       254 I        D 1 _050_
+       254 I       EN 3 1'h1
+       254 I       SR 4 1'h0
+       254 O        Q 1 \spi_passiv.tx_shift_reg [2]
+       255 I      CLK 2 \spi_passiv.i_sclk 
+       255 I        D 1 _051_
+       255 I       EN 3 1'h1
+       255 I       SR 4 1'h0
+       255 O        Q 1 \spi_passiv.o_miso 
+       256 I      CLK 2 \spi_passiv.i_sclk 
+       256 I        D 1 _052_
+       256 I       EN 3 1'h1
+       256 I       SR 4 1'h0
+       256 O        Q 1 \mem_control.genblk4.byte_from_smp.i_slave_end_byte_post_edge 
+       257 I      CLK 2 \spi_passiv.i_sclk 
+       257 I        D 1 _053_
+       257 I       EN 3 1'h1
+       257 I       SR 4 1'h0
+       257 O        Q 1 \change_trigger.i_nib [0]
+       258 I      CLK 2 \spi_passiv.i_sclk 
+       258 I        D 1 _054_
+       258 I       EN 3 1'h1
+       258 I       SR 4 1'h0
+       258 O        Q 1 \change_trigger.i_nib [1]
+       259 I      CLK 2 \spi_passiv.i_sclk 
+       259 I        D 1 _055_
+       259 I       EN 3 1'h1
+       259 I       SR 4 1'h0
+       259 O        Q 1 \change_trigger.i_nib [2]
+       260 I      CLK 2 \spi_passiv.i_sclk 
+       260 I        D 1 _056_
+       260 I       EN 3 1'h1
+       260 I       SR 4 1'h0
+       260 O        Q 1 \change_trigger.i_nib [3]
+       261 I      CLK 2 clk180
+       261 I        D 1 _057_
+       261 I       EN 3 1'h1
+       261 I       SR 4 1'h0
+       261 O        Q 1 \mem_control.write_done_edge.o_nedge_edge 
+       262 I      CLK 2 \spi_passiv.i_sclk 
+       262 I        D 1 _058_
+       262 I       EN 3 1'h1
+       262 I       SR 4 1'h0
+       262 O        Q 1 \command_read.o_hold 
+       263 I      CLK 2 \DUT.clk0 
+       263 I        D 1 _059_
+       263 I       EN 3 1'h1
+       263 I       SR 4 1'h0
+       263 O        Q 1 \DUT.counter [0]
+       264 I      CLK 2 \DUT.clk0 
+       264 I        D 1 _060_
+       264 I       EN 3 1'h1
+       264 I       SR 4 1'h0
+       264 O        Q 1 \DUT.counter [1]
+       265 I      CLK 2 \DUT.clk0 
+       265 I        D 1 _061_
+       265 I       EN 3 1'h1
+       265 I       SR 4 1'h0
+       265 O        Q 1 \DUT.counter [2]
+       266 I      CLK 2 \DUT.clk0 
+       266 I        D 1 _062_
+       266 I       EN 3 1'h1
+       266 I       SR 4 1'h0
+       266 O        Q 1 \DUT.counter [3]
+       267 I      CLK 2 \DUT.clk0 
+       267 I        D 1 _063_
+       267 I       EN 3 1'h1
+       267 I       SR 4 1'h0
+       267 O        Q 1 \DUT.counter_5_0 
+       268 I      CLK 2 \DUT.clk0 
+       268 I        D 1 _064_
+       268 I       EN 3 1'h1
+       268 I       SR 4 1'h0
+       268 O        Q 1 \DUT.counter [5]
+       269 I      CLK 2 \DUT.clk0 
+       269 I        D 1 _065_
+       269 I       EN 3 1'h1
+       269 I       SR 4 1'h0
+       269 O        Q 1 \DUT.counter [6]
+       270 I      CLK 2 \DUT.clk0 
+       270 I        D 1 _066_
+       270 I       EN 3 1'h1
+       270 I       SR 4 1'h0
+       270 O        Q 1 \DUT.counter [7]
+       271 I      CLK 2 \DUT.clk0 
+       271 I        D 1 _067_
+       271 I       EN 3 1'h1
+       271 I       SR 4 1'h0
+       271 O        Q 1 \DUT.counter [8]
+       272 I      CLK 2 \DUT.clk0 
+       272 I        D 1 _068_
+       272 I       EN 3 1'h1
+       272 I       SR 4 1'h0
+       272 O        Q 1 \DUT.counter [9]
+       273 I      CLK 2 \DUT.clk0 
+       273 I        D 1 _069_
+       273 I       EN 3 1'h1
+       273 I       SR 4 1'h0
+       273 O        Q 1 \DUT.counter [10]
+       274 I      CLK 2 \DUT.clk0 
+       274 I        D 1 _070_
+       274 I       EN 3 1'h1
+       274 I       SR 4 1'h0
+       274 O        Q 1 \DUT.counter [11]
+       275 I      CLK 2 \DUT.clk0 
+       275 I        D 1 _071_
+       275 I       EN 3 1'h1
+       275 I       SR 4 1'h0
+       275 O        Q 1 \DUT.counter [12]
+       276 I      CLK 2 \DUT.clk0 
+       276 I        D 1 _072_
+       276 I       EN 3 1'h1
+       276 I       SR 4 1'h0
+       276 O        Q 1 \DUT.counter [13]
+       277 I      CLK 2 \DUT.clk0 
+       277 I        D 1 _073_
+       277 I       EN 3 1'h1
+       277 I       SR 4 1'h0
+       277 O        Q 1 \DUT.counter [14]
+       278 I      CLK 2 \DUT.clk0 
+       278 I        D 1 _074_
+       278 I       EN 3 1'h1
+       278 I       SR 4 1'h0
+       278 O        Q 1 \DUT.counter [15]
+       279 I      CLK 2 \DUT.clk0 
+       279 I        D 1 _075_
+       279 I       EN 3 1'h1
+       279 I       SR 4 1'h0
+       279 O        Q 1 \DUT.counter [16]
+       280 I      CLK 2 \DUT.clk0 
+       280 I        D 1 _076_
+       280 I       EN 3 1'h1
+       280 I       SR 4 1'h0
+       280 O        Q 1 \DUT.counter [17]
+       281 I      CLK 2 \DUT.clk0 
+       281 I        D 1 _077_
+       281 I       EN 3 1'h1
+       281 I       SR 4 1'h0
+       281 O        Q 1 \DUT.counter [18]
+       282 I      CLK 2 \DUT.clk0 
+       282 I        D 1 _078_
+       282 I       EN 3 1'h1
+       282 I       SR 4 1'h0
+       282 O        Q 1 \DUT.counter [19]
+       283 I      CLK 2 \DUT.clk0 
+       283 I        D 1 _079_
+       283 I       EN 3 1'h1
+       283 I       SR 4 1'h0
+       283 O        Q 1 \DUT.counter [20]
+       284 I      CLK 2 \DUT.clk0 
+       284 I        D 1 _080_
+       284 I       EN 3 1'h1
+       284 I       SR 4 1'h0
+       284 O        Q 1 \DUT.counter [21]
+       285 I      CLK 2 \DUT.clk0 
+       285 I        D 1 _081_
+       285 I       EN 3 1'h1
+       285 I       SR 4 1'h0
+       285 O        Q 1 \DUT.counter [22]
+       286 I      CLK 2 \DUT.clk0 
+       286 I        D 1 _082_
+       286 I       EN 3 1'h1
+       286 I       SR 4 1'h0
+       286 O        Q 1 \DUT.counter [23]
+       287 I      CLK 2 \DUT.clk0 
+       287 I        D 1 _083_
+       287 I       EN 3 1'h1
+       287 I       SR 4 1'h0
+       287 O        Q 1 \DUT.led 
+       288 I      CLK 2 \spi_passiv.i_sclk 
+       288 I        D 1 _084_
+       288 I       EN 3 1'h1
+       288 I       SR 4 1'h0
+       288 O        Q 1 \change_trigger.o_hold 
+       289 I      CLK 2 clk180
+       289 I        D 1 _124_
+       289 I       EN 3 1'h1
+       289 I       SR 4 1'h0
+       289 O        Q 1 \trigger_edge.signal_old 
+       290 I      CLK 2 clk180
+       290 I        D 1 trigger
+       290 I       EN 3 1'h1
+       290 I       SR 4 1'h0
+       290 O        Q 1 \trigger_edge.signal_new 
+       291 I      CLK 2 clk180
+       291 I        D 1 _085_
+       291 I       EN 3 1'h1
+       291 I       SR 4 1'h0
+       291 O        Q 1 \trigger_edge.o_post_edge 
+       292 I      CLK 2 \spi_passiv.i_sclk 
+       292 I        D 1 _086_
+       292 I       EN 3 1'h1
+       292 I       SR 4 1'h0
+       292 O        Q 1 \spi_passiv.rx_shift_reg [0]
+       293 I      CLK 2 \spi_passiv.i_sclk 
+       293 I        D 1 _087_
+       293 I       EN 3 1'h1
+       293 I       SR 4 1'h0
+       293 O        Q 1 \spi_passiv.rx_shift_reg [1]
+       294 I      CLK 2 \spi_passiv.i_sclk 
+       294 I        D 1 _088_
+       294 I       EN 3 1'h1
+       294 I       SR 4 1'h0
+       294 O        Q 1 \spi_passiv.rx_shift_reg [2]
+       295 I      CLK 2 \spi_passiv.i_sclk 
+       295 I        D 1 _089_
+       295 I       EN 3 1'h1
+       295 I       SR 4 1'h0
+       295 O        Q 1 \spi_passiv.rx_shift_reg [3]
+       296 I      CLK 2 clk180
+       296 I        D 1 _090_
+       296 I       EN 3 1'h1
+       296 I       SR 4 1'h0
+       296 O        Q 1 trigger_nedge_edge
+       297 I      CLK 2 \spi_passiv.i_sclk 
+       297 I        D 1 _091_
+       297 I       EN 3 1'h1
+       297 I       SR 4 1'h0
+       297 O        Q 1 \spi_passiv.tx_shift_reg [0]
+       298 I      CLK 2 \spi_passiv.i_sclk 
+       298 I        D 1 _092_
+       298 I       EN 3 1'h1
+       298 I       SR 4 1'h0
+       298 O        Q 1 \mem_control.genblk4.byte_from_smp.rd 
+       299 I      CLK 2 \spi_passiv.i_sclk 
+       299 I        D 1 _114_
+       299 I       EN 3 _003_
+       299 I       SR 4 1'h0
+       299 O        Q 1 \mem_control.addr_cnt_rd [0]
+       300 I      CLK 2 \spi_passiv.i_sclk 
+       300 I        D 1 _115_
+       300 I       EN 3 _003_
+       300 I       SR 4 1'h0
+       300 O        Q 1 \mem_control.addr_cnt_rd [1]
+       301 I      CLK 2 \spi_passiv.i_sclk 
+       301 I        D 1 _116_
+       301 I       EN 3 _003_
+       301 I       SR 4 1'h0
+       301 O        Q 1 \mem_control.addr_cnt_rd [2]
+       302 I      CLK 2 \spi_passiv.i_sclk 
+       302 I        D 1 _117_
+       302 I       EN 3 _003_
+       302 I       SR 4 1'h0
+       302 O        Q 1 \mem_control.addr_cnt_rd [3]
+       303 I      CLK 2 \spi_passiv.i_sclk 
+       303 I        D 1 _118_
+       303 I       EN 3 _003_
+       303 I       SR 4 1'h0
+       303 O        Q 1 \mem_control.addr_cnt_rd [4]
+       304 I      CLK 2 \spi_passiv.i_sclk 
+       304 I        D 1 _119_
+       304 I       EN 3 _003_
+       304 I       SR 4 1'h0
+       304 O        Q 1 \mem_control.addr_cnt_rd [5]
+       305 I      CLK 2 \spi_passiv.i_sclk 
+       305 I        D 1 _120_
+       305 I       EN 3 _003_
+       305 I       SR 4 1'h0
+       305 O        Q 1 \mem_control.addr_cnt_rd [6]
+       306 I      CLK 2 \spi_passiv.i_sclk 
+       306 I        D 1 _121_
+       306 I       EN 3 _003_
+       306 I       SR 4 1'h0
+       306 O        Q 1 \mem_control.addr_cnt_rd [7]
+       307 I      CLK 2 \spi_passiv.i_sclk 
+       307 I        D 1 _122_
+       307 I       EN 3 _003_
+       307 I       SR 4 1'h0
+       307 O        Q 1 \mem_control.addr_cnt_rd [8]
+       308 I      CLK 2 \spi_passiv.i_sclk 
+       308 I        D 1 _093_
+       308 I       EN 3 1'h1
+       308 I       SR 4 1'h0
+       308 O        Q 1 \mem_control.genblk4.byte_from_smp.shift_counter 
+       309 I      CLK 2 \spi_passiv.i_sclk 
+       309 I        D 1 _094_
+       309 I       EN 3 1'h1
+       309 I       SR 4 1'h0
+       309 O        Q 1 \mem_control.genblk4.byte_from_smp.o_send_nib [0]
+       310 I      CLK 2 \spi_passiv.i_sclk 
+       310 I        D 1 _095_
+       310 I       EN 3 1'h1
+       310 I       SR 4 1'h0
+       310 O        Q 1 \mem_control.genblk4.byte_from_smp.o_send_nib [1]
+       311 I      CLK 2 \spi_passiv.i_sclk 
+       311 I        D 1 _096_
+       311 I       EN 3 1'h1
+       311 I       SR 4 1'h0
+       311 O        Q 1 \mem_control.genblk4.byte_from_smp.o_send_nib [2]
+       312 I      CLK 2 \spi_passiv.i_sclk 
+       312 I        D 1 _097_
+       312 I       EN 3 1'h1
+       312 I       SR 4 1'h0
+       312 O        Q 1 \mem_control.genblk4.byte_from_smp.o_send_nib [3]
+       313 I      CLK 2 \spi_passiv.i_sclk 
+       313 I        D 1 \mem_control.genblk4.byte_from_smp.rd 
+       313 I       EN 3 1'h1
+       313 I       SR 4 1'h0
+       313 O        Q 1 \mem_control.genblk4.byte_from_smp.signal_old 
+       314 I      CLK 2 clk180
+       314 I        D 1 _098_
+       314 I       EN 3 1'h1
+       314 I       SR 4 1'h0
+       314 O        Q 1 \mem_control.save_before_done_edge.o_nedge_edge 
+       315 I      CLK 2 clk180
+       315 I        D 1 \mem_control.write_done_edge.i_signal 
+       315 I       EN 3 1'h1
+       315 I       SR 4 1'h0
+       315 O        Q 1 \mem_control.write_done_edge.signal_old 
+       316 I      CLK 2 \spi_passiv.i_sclk 
+       316 I        D 1 _099_
+       316 I       EN 3 1'h1
+       316 I       SR 4 1'h0
+       316 O        Q 1 \mem_control.genblk4.byte_from_smp.o_rd 
+       317 I      CLK 2 clk180
+       317 I        D 1 \mem_control.save_before_done_edge.i_signal 
+       317 I       EN 3 1'h1
+       317 I       SR 4 1'h0
+       317 O        Q 1 \mem_control.save_before_done_edge.signal_old 
+       318 I      CLK 2 clk180
+       318 I        D 1 _100_
+       318 I       EN 3 1'h1
+       318 I       SR 4 1'h0
+       318 O        Q 1 \mem_control.save_before_done 
+       319 I      CLK 2 clk180
+       319 I        D 1 _101_
+       319 I       EN 3 1'h1
+       319 I       SR 4 1'h0
+       319 O        Q 1 \mem_control.make_wd_cnt 
+       320 I      CLK 2 clk180
+       320 I        D 1 _102_
+       320 I       EN 3 1'h1
+       320 I       SR 4 1'h0
+       320 O        Q 1 \mem_control.addr_cnt_wd_pip [0]
+       321 I      CLK 2 clk180
+       321 I        D 1 _103_
+       321 I       EN 3 1'h1
+       321 I       SR 4 1'h0
+       321 O        Q 1 \mem_control.addr_cnt_wd_pip [1]
+       322 I      CLK 2 clk180
+       322 I        D 1 _104_
+       322 I       EN 3 1'h1
+       322 I       SR 4 1'h0
+       322 O        Q 1 \mem_control.addr_cnt_wd_pip [2]
+       323 I      CLK 2 clk180
+       323 I        D 1 _105_
+       323 I       EN 3 1'h1
+       323 I       SR 4 1'h0
+       323 O        Q 1 \mem_control.addr_cnt_wd_pip [3]
+       324 I      CLK 2 clk180
+       324 I        D 1 _106_
+       324 I       EN 3 1'h1
+       324 I       SR 4 1'h0
+       324 O        Q 1 \mem_control.addr_cnt_wd_pip [4]
+       325 I      CLK 2 clk180
+       325 I        D 1 _107_
+       325 I       EN 3 1'h1
+       325 I       SR 4 1'h0
+       325 O        Q 1 \mem_control.addr_cnt_wd_pip [5]
+       326 I      CLK 2 clk180
+       326 I        D 1 _108_
+       326 I       EN 3 1'h1
+       326 I       SR 4 1'h0
+       326 O        Q 1 \mem_control.addr_cnt_wd_pip [6]
+       327 I      CLK 2 clk180
+       327 I        D 1 _109_
+       327 I       EN 3 1'h1
+       327 I       SR 4 1'h0
+       327 O        Q 1 \mem_control.addr_cnt_wd_pip [7]
+       328 I      CLK 2 clk180
+       328 I        D 1 _110_
+       328 I       EN 3 1'h1
+       328 I       SR 4 1'h0
+       328 O        Q 1 \mem_control.addr_cnt_wd_pip [8]
+       329 I      CLK 2 clk180
+       329 I        D 1 _111_
+       329 I       EN 3 1'h1
+       329 I       SR 4 1'h0
+       329 O        Q 1 \mem_control.addr_cnt_wd [0]
+       330 I      CLK 2 clk180
+       330 I        D 1 _112_
+       330 I       EN 3 1'h1
+       330 I       SR 4 1'h0
+       330 O        Q 1 \mem_control.addr_cnt_wd [1]
+       331 I      CLK 2 clk180
+       331 I        D 1 _113_
+       331 I       EN 3 1'h1
+       331 I       SR 4 1'h0
+       331 O        Q 1 \mem_control.addr_cnt_wd [2]
+       332 I       D0 3 trigger_pipe[0]
+       332 I       D1 4 trigger_pipe[1]
+       332 I       D2 5 trigger_pipe[2]
+       332 I       D3 6 trigger_pipe[3]
+       332 I       S0 1 trigger_column[0]
+       332 I       S1 2 trigger_column[1]
+       332 O        Y 1 _152_[1]
+       333 I        I 1 clk
+       333 O        Y 1 \DUT.clk 
+       334 I        I 1 i_mosi_ILA
+       334 O        Y 1 \spi_passiv.i_mosi 
+       335 I        I 1 i_sclk_ILA
+       335 O        Y 1 \spi_passiv.i_sclk 
+       336 I        I 1 i_ss_ILA
+       336 O        Y 1 \spi_passiv.i_ss 
+       337 I        A 1 \DUT.led 
+       337 O        O 1 led
+       338 I        A 1 \spi_passiv.o_miso 
+       338 O        O 1 o_miso_ILA
+       339 I CLK_FEEDBACK 2 1'h0
+       339 I  CLK_REF 1 \DUT.clk 
+       339 I USR_CLK_REF 3 1'h0
+       339 I USR_LOCKED_STDY_RST 4 1'h0
+       339 O     CLK0 6 _139_
+       339 O   CLK180 4 \DUT.clk180 
+       339 O   CLK270 3 \DUT.clk270 
+       339 O    CLK90 5 \DUT.clk90 
+       339 O CLK_REF_OUT 7 \DUT.usr_ref_out 
+       339 O USR_PLL_LOCKED 2 \DUT.usr_pll_lock 
+       339 O USR_PLL_LOCKED_STDY 1 \DUT.usr_pll_lock_stdy 
+       340 I CLK_FEEDBACK 2 1'h0
+       340 I  CLK_REF 1 \DUT.clk 
+       340 I USR_CLK_REF 3 1'h0
+       340 I USR_LOCKED_STDY_RST 4 1'h0
+       340 O     CLK0 6 clk0
+       340 O   CLK180 4 _140_
+       340 O   CLK270 3 clk270
+       340 O    CLK90 5 clk90
+       340 O CLK_REF_OUT 7 usr_ref_out_1
+       340 O USR_PLL_LOCKED 2 usr_pll_lock_1
+       340 O USR_PLL_LOCKED_STDY 1 usr_pll_lock_stdy_1
+       341 I A_ADDR[0] 102 1'b0
+       341 I A_ADDR[1] 101 1'b0
+       341 I A_ADDR[2] 100 1'b0
+       341 I A_ADDR[3] 99 \mem_control.addr_cnt_wd_pip [0]
+       341 I A_ADDR[4] 98 \mem_control.addr_cnt_wd_pip [1]
+       341 I A_ADDR[5] 97 \mem_control.addr_cnt_wd_pip [2]
+       341 I A_ADDR[6] 96 1'b0
+       341 I A_ADDR[7] 95 \mem_control.addr_cnt_wd_pip [3]
+       341 I A_ADDR[8] 94 \mem_control.addr_cnt_wd_pip [4]
+       341 I A_ADDR[9] 93 \mem_control.addr_cnt_wd_pip [5]
+       341 I A_ADDR[10] 92 \mem_control.addr_cnt_wd_pip [6]
+       341 I A_ADDR[11] 91 \mem_control.addr_cnt_wd_pip [7]
+       341 I A_ADDR[12] 90 \mem_control.addr_cnt_wd_pip [8]
+       341 I A_ADDR[13] 89 1'b0
+       341 I A_ADDR[14] 88 1'b0
+       341 I A_ADDR[15] 87 1'b0
+       341 I  A_BM[0] 66 _004_
+       341 I  A_BM[1] 65 _004_
+       341 I  A_BM[2] 64 _004_
+       341 I  A_BM[3] 63 _004_
+       341 I  A_BM[4] 62 _004_
+       341 I  A_BM[5] 61 1'b0
+       341 I  A_BM[6] 60 1'b0
+       341 I  A_BM[7] 59 1'b0
+       341 I  A_BM[8] 58 1'b0
+       341 I  A_BM[9] 57 1'b0
+       341 I A_BM[10] 56 1'b0
+       341 I A_BM[11] 55 1'b0
+       341 I A_BM[12] 54 1'b0
+       341 I A_BM[13] 53 1'b0
+       341 I A_BM[14] 52 1'b0
+       341 I A_BM[15] 51 1'b0
+       341 I A_BM[16] 50 1'b0
+       341 I A_BM[17] 49 1'b0
+       341 I A_BM[18] 48 1'b0
+       341 I A_BM[19] 47 1'b0
+       341 I    A_CLK 1 clk180
+       341 I  A_DI[0] 26 \DUT.counter_5_0 
+       341 I  A_DI[1] 25 \DUT.clk270 
+       341 I  A_DI[2] 24 \DUT.clk180 
+       341 I  A_DI[3] 23 \DUT.clk0 
+       341 I  A_DI[4] 22 \DUT.clk 
+       341 I  A_DI[5] 21 1'b0
+       341 I  A_DI[6] 20 1'b0
+       341 I  A_DI[7] 19 1'b0
+       341 I  A_DI[8] 18 1'b0
+       341 I  A_DI[9] 17 1'b0
+       341 I A_DI[10] 16 1'b0
+       341 I A_DI[11] 15 1'b0
+       341 I A_DI[12] 14 1'b0
+       341 I A_DI[13] 13 1'b0
+       341 I A_DI[14] 12 1'b0
+       341 I A_DI[15] 11 1'b0
+       341 I A_DI[16] 10 1'b0
+       341 I A_DI[17] 9 1'b0
+       341 I A_DI[18] 8 1'b0
+       341 I A_DI[19] 7 1'b0
+       341 I     A_EN 3 1'h1
+       341 I     A_WE 5 _004_
+       341 I B_ADDR[0] 118 1'b0
+       341 I B_ADDR[1] 117 1'b0
+       341 I B_ADDR[2] 116 1'b0
+       341 I B_ADDR[3] 115 \mem_control.addr_cnt_rd [0]
+       341 I B_ADDR[4] 114 \mem_control.addr_cnt_rd [1]
+       341 I B_ADDR[5] 113 \mem_control.addr_cnt_rd [2]
+       341 I B_ADDR[6] 112 1'b0
+       341 I B_ADDR[7] 111 \mem_control.addr_cnt_rd [3]
+       341 I B_ADDR[8] 110 \mem_control.addr_cnt_rd [4]
+       341 I B_ADDR[9] 109 \mem_control.addr_cnt_rd [5]
+       341 I B_ADDR[10] 108 \mem_control.addr_cnt_rd [6]
+       341 I B_ADDR[11] 107 \mem_control.addr_cnt_rd [7]
+       341 I B_ADDR[12] 106 \mem_control.addr_cnt_rd [8]
+       341 I B_ADDR[13] 105 1'b0
+       341 I B_ADDR[14] 104 1'b0
+       341 I B_ADDR[15] 103 1'b0
+       341 I  B_BM[0] 86 1'b0
+       341 I  B_BM[1] 85 1'b0
+       341 I  B_BM[2] 84 1'b0
+       341 I  B_BM[3] 83 1'b0
+       341 I  B_BM[4] 82 1'b0
+       341 I  B_BM[5] 81 1'b0
+       341 I  B_BM[6] 80 1'b0
+       341 I  B_BM[7] 79 1'b0
+       341 I  B_BM[8] 78 1'b0
+       341 I  B_BM[9] 77 1'b0
+       341 I B_BM[10] 76 1'b0
+       341 I B_BM[11] 75 1'b0
+       341 I B_BM[12] 74 1'b0
+       341 I B_BM[13] 73 1'b0
+       341 I B_BM[14] 72 1'b0
+       341 I B_BM[15] 71 1'b0
+       341 I B_BM[16] 70 1'b0
+       341 I B_BM[17] 69 1'b0
+       341 I B_BM[18] 68 1'b0
+       341 I B_BM[19] 67 1'b0
+       341 I    B_CLK 2 \spi_passiv.i_sclk 
+       341 I  B_DI[0] 46 1'bx
+       341 I  B_DI[1] 45 1'bx
+       341 I  B_DI[2] 44 1'bx
+       341 I  B_DI[3] 43 1'bx
+       341 I  B_DI[4] 42 1'bx
+       341 I  B_DI[5] 41 1'bx
+       341 I  B_DI[6] 40 1'bx
+       341 I  B_DI[7] 39 1'bx
+       341 I  B_DI[8] 38 1'bx
+       341 I  B_DI[9] 37 1'bx
+       341 I B_DI[10] 36 1'bx
+       341 I B_DI[11] 35 1'bx
+       341 I B_DI[12] 34 1'bx
+       341 I B_DI[13] 33 1'bx
+       341 I B_DI[14] 32 1'bx
+       341 I B_DI[15] 31 1'bx
+       341 I B_DI[16] 30 1'bx
+       341 I B_DI[17] 29 1'bx
+       341 I B_DI[18] 28 1'bx
+       341 I B_DI[19] 27 1'bx
+       341 I     B_EN 4 1'h1
+       341 I     B_WE 6 1'h0
+       341 O  A_DO[0] 20 _142_[0]
+       341 O  A_DO[1] 19 _142_[1]
+       341 O  A_DO[2] 18 _142_[2]
+       341 O  A_DO[3] 17 _142_[3]
+       341 O  A_DO[4] 16 _142_[4]
+       341 O  A_DO[5] 15 _142_[5]
+       341 O  A_DO[6] 14 _142_[6]
+       341 O  A_DO[7] 13 _142_[7]
+       341 O  A_DO[8] 12 _142_[8]
+       341 O  A_DO[9] 11 _142_[9]
+       341 O A_DO[10] 10 _142_[10]
+       341 O A_DO[11] 9 _142_[11]
+       341 O A_DO[12] 8 _142_[12]
+       341 O A_DO[13] 7 _142_[13]
+       341 O A_DO[14] 6 _142_[14]
+       341 O A_DO[15] 5 _142_[15]
+       341 O A_DO[16] 4 _142_[16]
+       341 O A_DO[17] 3 _142_[17]
+       341 O A_DO[18] 2 _142_[18]
+       341 O A_DO[19] 1 _142_[19]
+       341 O  B_DO[0] 40 \mem_control.BRAM_do_tmp[0] [0]
+       341 O  B_DO[1] 39 \mem_control.BRAM_do_tmp[0] [1]
+       341 O  B_DO[2] 38 \mem_control.BRAM_do_tmp[0] [2]
+       341 O  B_DO[3] 37 \mem_control.BRAM_do_tmp[0] [3]
+       341 O  B_DO[4] 36 \mem_control.BRAM_do_tmp[0] [4]
+       341 O  B_DO[5] 35 _141_[0]
+       341 O  B_DO[6] 34 _141_[1]
+       341 O  B_DO[7] 33 _141_[2]
+       341 O  B_DO[8] 32 _141_[3]
+       341 O  B_DO[9] 31 _141_[4]
+       341 O B_DO[10] 30 _141_[5]
+       341 O B_DO[11] 29 _141_[6]
+       341 O B_DO[12] 28 _141_[7]
+       341 O B_DO[13] 27 _141_[8]
+       341 O B_DO[14] 26 _141_[9]
+       341 O B_DO[15] 25 _141_[10]
+       341 O B_DO[16] 24 _141_[11]
+       341 O B_DO[17] 23 _141_[12]
+       341 O B_DO[18] 22 _141_[13]
+       341 O B_DO[19] 21 _141_[14]
+       342 O USR_RSTN 1 \DUT.ILA_rst 
+       343 O   #input 1 clk
+       344 O   #input 1 i_mosi_ILA
+       345 O   #input 1 i_sclk_ILA
+       346 O   #input 1 i_ss_ILA
+       347 I  #output 1 led
+       348 I  #output 1 o_miso_ILA

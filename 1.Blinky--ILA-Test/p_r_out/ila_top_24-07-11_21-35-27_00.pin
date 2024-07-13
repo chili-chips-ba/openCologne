@@ -1,0 +1,12 @@
+# Pinfile for Design /home/user/FPGA/Boards/GateMate/gatemate_ila/p_r_out/ila_top_24-07-11_21-35-27_00
+# 2024-07-11 21:35:50
+# Bounding Box for compact mode is (x36y34) - (x47y55)   box size: 264
+
+SizeX = 160 | SizeY = 128;
+
+Pin_out             "led"   Loc =   "IO_EB_B1"   Die_Loc = "GPIO_N2_B[1]";  #  preplaced by CCF file
+Pin_in              "clk"   Loc =   "IO_SB_A8"   Die_Loc = "GPIO_W2_A[8]";  #  preplaced by CCF file
+Pin_in       "i_mosi_ILA"   Loc =   "IO_WA_A4"   Die_Loc = "GPIO_S3_A[4]";  #  preplaced by CCF file
+Pin_in       "i_sclk_ILA"   Loc =   "IO_WA_A5"   Die_Loc = "GPIO_S3_A[5]";  #  preplaced by CCF file
+Pin_out      "o_miso_ILA"   Loc =   "IO_WA_B3"   Die_Loc = "GPIO_S3_B[3]";  #  preplaced by CCF file
+Pin_in         "i_ss_ILA"   Loc =   "IO_WA_B4"   Die_Loc = "GPIO_S3_B[4]";  #  preplaced by CCF file

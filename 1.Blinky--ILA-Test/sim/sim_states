@@ -1,0 +1,14 @@
+0000 Reset_ILA
+0001 Reset_DUT
+0010 change_pattern_start
+0011 send_pattern
+0100 shift_pattern
+0101 Trigger_signal_1
+0110 Trigger_signal_2
+0111 Trigger_activarion
+1000 wait_for_trigger
+1001 start_receive
+1010 wait_for_cnt_end
+1011 st_spi_first_byte
+1100 s_receive_Signals
+1101 get_data

@@ -1,0 +1,2 @@
+Pin_in   "clk"  Loc = "IO_SB_A8" | SCHMITT_TRIGGER=true;
+Pin_out  "led"                   Loc = "IO_SB_B6";                           # LED D1
