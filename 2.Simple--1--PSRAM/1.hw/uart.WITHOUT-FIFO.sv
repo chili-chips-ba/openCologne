@@ -1,0 +1,395 @@
+//==========================================================================
+// Copyright (C) 2023 Chili.CHIPS*ba
+//--------------------------------------------------------------------------
+//                      PROPRIETARY INFORMATION
+//
+// The information contained in this file is the property of CHILI CHIPS LLC.
+// Except as specifically authorized in writing by CHILI CHIPS LLC, the holder
+// of this file: (1) shall keep all information contained herein confidential;
+// and (2) shall protect the same in whole or in part from disclosure and
+// dissemination to all third parties; and (3) shall use the same for operation
+// and maintenance purposes only.
+//--------------------------------------------------------------------------
+// Description: 
+//   Minimal UART, with all serial parameters fixed in hardware:
+//     - 115.2kbps (i.e. one bit period is 8.68usec)
+//     - 8 Data bits
+//     - 1 Stop bit
+//     - 0 Parity
+//
+//   It is designed for the minimal expenditure in hardware resources.
+//   It therefore does not have Rx/Tx FIFOs, but only single-byte buffer
+//   in each direction. Handshake with SW is based on 'tx.busy' and
+//   'rx.valid+overflow' flags:
+//     - New Tx data is accepted from SW only when 'tx.busy=0'
+//     - New Rx data is loaded into holding register only when 'rx.valid=0'.
+//       Otherwise, 'rx.overflow' is raised
+//
+//   Both Rx flags are Clear-on-Read -- Zero value on them tells HW that
+//   SW has got the posted value. See 'csr_pkg.sv for additional detail.
+//==========================================================================
+
+module uart
+   import csr_pkg::*;
+(
+   input  logic       arst_n,
+   input  logic       clk,
+   input  logic       tick_1us,
+                       
+   input  logic       uart_rx,
+   output logic       uart_tx,
+                  
+   input  logic       uart_tx_write,
+   input  logic [7:0] uart_tx_data,
+   input  logic       uart_rx_read,
+
+   output logic       uart_tx_busy,
+   output uart_rx_t   uart_rx_arr
+);
+
+//--------------------------------------
+// Common
+//--------------------------------------
+
+   typedef enum logic[3:0] {
+      IDLE  = 4'd14,
+
+      START = 4'd15, // skipped altogether in RxFSM
+
+      D0    = 4'd0,  // LSB first
+      D1    = 4'd1,  //  | 
+      D2    = 4'd2,  //  | 
+      D3    = 4'd3,  //  | 
+      D4    = 4'd4,  //  | 
+      D5    = 4'd5,  //  | 
+      D6    = 4'd6,  //  V 
+      D7    = 4'd7,  // MSB last
+                      
+      STOP  = 4'd8   // only one Stop bit
+
+      // Zero Parity bit
+   } state_t;
+
+
+   typedef logic [3:0] cnt1us_t;
+
+   
+//--------------------------------------
+// Rx
+//--------------------------------------
+// To save resources, SOC-level 1us tick is used as time base for
+// Rx sampling. Since one bit period is 8.68us, upon detecting START,
+// the FSM first waits 9+4=13us to skip the START bit and get close to 
+// the middle of D0, where it samples it. It then waits 8us or 9us for 
+// subsequent data bits. This keep the sampling sufficiently centered, 
+// despite 'tick_1us' being completely asynchronous to incoming data:
+//
+// - START+D0center=8.68us+4.34us=13.02us is the ideal D0 sampling point.
+//   Given that 'tick_1us' is async to START, actual D0 sampling can fall
+//   anywhere in (13..14)us window. Max D0 sampling error is thus +0.98us
+//
+// - D1 ideal sampling is (2*8.68)+4.34=21.70us
+//   Actual is (13..14)+8=(21..22)us: Max error: -0.70us
+//
+// - D2 ideal sampling is (3*8.68)+4.34=30.38us
+//   Actual is (21..22)+9=(30..31)us: Max error: +0.62us
+//
+// - D3 ideal sampling is (4*8.68)+4.34=39.06us
+//   Actual is (30..31)+9=(39..40)us: Max error: +0.94us
+//
+// - D4 ideal sampling is (5*8.68)+4.34=47.74us
+//   Actual is (39..40)+8=(47..48)us: Max error: -0.74us
+//
+// - D5 ideal sampling is (6*8.68)+4.34=56.42us
+//   Actual is (47..48)+9=(56..57)us: Max error: +0.58us
+//
+// - D6 ideal sampling is (7*8.68)+4.34=65.10us
+//   Actual is (56..57)+9=(65..66)us: Max error: +0.90us
+//
+// - D7 ideal sampling is (8*8.68)+4.34=73.78us
+//   Actual is (65..66)+8=(73..74)us: Max error: -0.78us
+//
+// - STOP ideal sampling is (9*8.68)+4.34=82.46us
+//   Actual is (73..74)+9=(82..83)us: Max error: +0.54us
+//
+// In other words, sampling error is within +/-1us from the center
+// of +/-4.34us window, thus leaving more than sufficient margin 
+// for reliable data reception.
+//--------------------------------------
+
+   localparam bit[3:0] RX_WAIT_D0   = 4'd13; //=14 ticks: From 13 to 0
+   localparam bit[3:0] RX_WAIT_D1   = 4'd7;
+   localparam bit[3:0] RX_WAIT_D2   = 4'd8;
+   localparam bit[3:0] RX_WAIT_D3   = 4'd8;
+   localparam bit[3:0] RX_WAIT_D4   = 4'd7;
+   localparam bit[3:0] RX_WAIT_D5   = 4'd8;
+   localparam bit[3:0] RX_WAIT_D6   = 4'd8;
+   localparam bit[3:0] RX_WAIT_D7   = 4'd7;
+   localparam bit[3:0] RX_WAIT_STOP = 4'd8;
+   
+   state_t  rx_state;
+   cnt1us_t rx_cnt1us; // counts 1us ticks
+   logic    rx_cnt1us_is0;
+   assign   rx_cnt1us_is0 = (rx_cnt1us == '0);
+
+   logic    rx_nextbit;
+   assign   rx_nextbit = tick_1us & rx_cnt1us_is0;
+
+   logic [7:0] rx_shift;
+
+   always_ff @(negedge arst_n or posedge clk) begin
+      if (arst_n == 1'b0) begin
+         rx_state          <= IDLE;
+         rx_cnt1us         <= '0;
+         rx_shift          <= '0;
+
+         uart_rx_arr.valid <= 1'b0;
+         uart_rx_arr.oflow <= 1'b0;
+         uart_rx_arr.data  <= '0;
+      end 
+      else begin
+
+        // when not in IDLE, count 1us ticks
+         if ((tick_1us == 1'b1) && (rx_state != IDLE)) begin
+            rx_cnt1us <= cnt1us_t'(rx_cnt1us - cnt1us_t'(1));
+         end
+
+        // SW Clear-on-Read is async to UART traffic 
+        //  and with lower priority to HW Set
+         if (uart_rx_read == 1'b1) begin
+            uart_rx_arr.valid <= 1'b0;
+            uart_rx_arr.oflow <= 1'b0;
+         end
+
+        // FSM runs on main clock, with most states gated by 'rx_cnt1us_is0'
+         unique case (rx_state)
+
+           //---Wait for 'uart_rx' negedge to start reception
+            IDLE: begin
+               rx_cnt1us <= RX_WAIT_D0;
+
+               if (uart_rx == 1'b0) begin
+                  rx_state <= D0;
+               end
+            end
+
+            //---New Rx data is collected:
+            // - if SW has already taken previous data, present the new data
+            // - otherwise, report overflow. New data is dropped in such case
+            STOP: if (rx_nextbit == 1'b1) begin
+
+               if (uart_rx_arr.valid == 1'b1) begin
+                  uart_rx_arr.oflow <= 1'b1;
+               end
+               else begin
+                  uart_rx_arr.valid <= 1'b1;
+                  uart_rx_arr.data  <= rx_shift;
+               end
+
+               rx_state <= IDLE;
+
+            `ifdef UART_DEBUG
+               $display("%t %m RX'd %0h (%s)", $time, rx_shift, string'(rx_shift));
+            `endif 
+            end
+
+           //---Wait the prescribed amount of time to position sampling
+           //   point to Rx bit center, then capture DATA bits
+            default: if (rx_nextbit == 1'b1) begin
+               rx_shift <= {uart_rx, rx_shift[7:1]}; // MSB goes in last
+
+               unique case (rx_state)
+                  D0: begin
+                         rx_cnt1us <= RX_WAIT_D1;
+                         rx_state  <= D1;
+                      end 
+                  D1: begin
+                         rx_cnt1us <= RX_WAIT_D2;
+                         rx_state  <= D2;
+                      end 
+                  D2: begin
+                         rx_cnt1us <= RX_WAIT_D3;
+                         rx_state  <= D3;
+                      end 
+                  D3: begin
+                         rx_cnt1us <= RX_WAIT_D4;
+                         rx_state  <= D4;
+                      end 
+                  D4: begin
+                         rx_cnt1us <= RX_WAIT_D5;
+                         rx_state  <= D5;
+                      end 
+                  D5: begin
+                         rx_cnt1us <= RX_WAIT_D6;
+                         rx_state  <= D6;
+                      end 
+                  D6: begin
+                         rx_cnt1us <= RX_WAIT_D7;
+                         rx_state  <= D7;
+                      end 
+                  D7: begin
+                         rx_cnt1us <= RX_WAIT_STOP;
+                         rx_state  <= STOP;
+                      end 
+                 default: begin end
+               endcase // unique case (rx_state)
+            end
+         endcase // unique case (rx_state)
+
+      end
+   end
+   
+
+//--------------------------------------
+// Tx
+//--------------------------------------
+// To save resources, SOC-level 1us tick is used as Tx time base.
+// Upon detecting SW request to send, and given 8.68us bit period,
+// the FSM employs the following delay scheme to generate bits:
+// - START ideal end: 1*8.68us= 8.68us. Actual: 9(+9). Error: +0.32us
+// - D0    ideal end: 2*8.68us=17.38us. Actual:17(+8). Error: -0.38us
+// - D1    ideal end: 3*8.68us=26.04us. Actual:26(+9). Error: -0.04us
+// - D2    ideal end: 4*8.68us=34.72us. Actual:35(+9). Error: +0.28us
+// - D3    ideal end: 5*8.68us=43.40us. Actual:43(+8). Error: -0.40us
+// - D4    ideal end: 6*8.68us=52.08us. Actual:52(+9). Error: -0.08us
+// - D5    ideal end: 7*8.68us=60.76us. Actual:61(+9). Error: +0.24us
+// - D6    ideal end: 8*8.68us=69.44us. Actual:69(+8). Error: -0.44us
+// - D7    ideal end: 9*8.68us=78.12us. Actual:78(+9). Error: -0.12us
+// - STOP  ideal end:10*8.68us=86.80us. Actual:87(+9). Error: +0.20us
+//
+// In other words, edge placement error is within +/-0.44us for 8.68us
+// period, i.e. +/-5%, thus leaving sufficient margin for reliable 
+// data reception on the other end.
+//--------------------------------------
+
+   localparam bit[3:0] TX_WAIT_START = 4'd9; //+1 tick for initial sync
+   localparam bit[3:0] TX_WAIT_D0    = 4'd7; //=8 ticks, from 7 to 0
+   localparam bit[3:0] TX_WAIT_D1    = 4'd8;
+   localparam bit[3:0] TX_WAIT_D2    = 4'd8;
+   localparam bit[3:0] TX_WAIT_D3    = 4'd7;
+   localparam bit[3:0] TX_WAIT_D4    = 4'd8;
+   localparam bit[3:0] TX_WAIT_D5    = 4'd8;
+   localparam bit[3:0] TX_WAIT_D6    = 4'd7;
+   localparam bit[3:0] TX_WAIT_D7    = 4'd8;
+   localparam bit[3:0] TX_WAIT_STOP  = 4'd8;
+
+   state_t  tx_state;
+   cnt1us_t tx_cnt1us; // counts 1us ticks
+   logic    tx_cnt1us_is0;
+   assign   tx_cnt1us_is0 = (tx_cnt1us == '0);
+
+   logic    tx_nextbit;
+   assign   tx_nextbit = tick_1us & tx_cnt1us_is0;
+ 
+   logic [7:0] tx_data;
+
+  // SW write is ignored when sending another byte
+   assign uart_tx_busy = (tx_state != IDLE);
+
+   always_ff @(negedge arst_n or posedge clk) begin
+      if (arst_n == 1'b0) begin
+         tx_state  <= IDLE;
+         tx_cnt1us <= '0;
+         tx_data   <= '0;
+
+         uart_tx   <= 1'b1; //STOP
+      end 
+      else begin
+
+        // when not in IDLE, count 1us ticks
+         if ((tick_1us == 1'b1) && (tx_state != IDLE)) begin
+            tx_cnt1us <= cnt1us_t'(tx_cnt1us - cnt1us_t'(1));
+         end
+
+        // FSM runs on main clock, with most states gated by 'tx_cnt1us_is0'
+         unique case (tx_state) 
+
+           //---Wait for SW write (which is ignored when not IDLE)
+           //   to store SW data that needs to be sent
+            IDLE: begin
+               uart_tx   <= 1'b1; //STOP
+               tx_cnt1us <= TX_WAIT_START;
+
+               if (uart_tx_write == 1'b1) begin
+                  tx_data  <= uart_tx_data;
+                  tx_state <= START;
+               end
+            end
+           
+           //---Wait for next 1us tick to start driving 0 (i.e. sync TX to
+           //   the tick), then wait the prescribed amount of time to move on 
+           START: if (tick_1us == 1'b1) begin
+              uart_tx <= 1'b0; //START
+
+              if (tx_cnt1us_is0 == 1'b1) begin 
+                 uart_tx   <= tx_data[0]; //LSB goes out first
+                 tx_cnt1us <= TX_WAIT_D0;
+                 tx_state  <= D0;
+              end
+           end
+           //---Wait the prescribed amount of time while driving D0,
+           //   then move on. Keep repeating the same, till D7
+           D0: if (tx_nextbit == 1'b1) begin
+              uart_tx   <= tx_data[1];
+              tx_cnt1us <= TX_WAIT_D1;
+              tx_state  <= D1;
+           end
+           D1: if (tx_nextbit == 1'b1) begin
+              uart_tx   <= tx_data[2];
+              tx_cnt1us <= TX_WAIT_D2;
+              tx_state  <= D2;
+           end
+           D2: if (tx_nextbit == 1'b1) begin
+              uart_tx   <= tx_data[3];
+              tx_cnt1us <= TX_WAIT_D3;
+              tx_state  <= D3;
+           end
+           D3: if (tx_nextbit == 1'b1) begin
+              uart_tx   <= tx_data[4];
+              tx_cnt1us <= TX_WAIT_D4;
+              tx_state  <= D4;
+           end
+           D4: if (tx_nextbit == 1'b1) begin
+              uart_tx   <= tx_data[5];
+              tx_cnt1us <= TX_WAIT_D5;
+              tx_state  <= D5;
+           end
+           D5: if (tx_nextbit == 1'b1) begin
+              uart_tx   <= tx_data[6];
+              tx_cnt1us <= TX_WAIT_D6;
+              tx_state  <= D6;
+           end
+           D6: if (tx_nextbit == 1'b1) begin
+              uart_tx   <= tx_data[7];
+              tx_cnt1us <= TX_WAIT_D7;
+              tx_state  <= D7;
+           end
+           D7: if (tx_nextbit == 1'b1) begin
+              uart_tx   <= 1'b1; // STOP bit
+              tx_cnt1us <= TX_WAIT_STOP;
+              tx_state  <= STOP;
+
+            `ifdef UART_DEBUG
+               $display("%t %m TX'd \t\t%0h (%s)", $time, 
+                         tx_data, string'(tx_data));
+            `endif 
+           end
+
+           //---Wait the prescribed amount of time while driving STOP bit
+           STOP: if (tx_nextbit == 1'b1) begin
+              tx_state  <= IDLE;
+           end
+
+           default: begin end
+         endcase // unique case (tx_state)
+      end
+   end   
+
+endmodule: uart
+
+/*
+-----------------------------------------------------------------------------
+Version History:
+-----------------------------------------------------------------------------
+ 2024/3/2 JI: original creation
+*/

@@ -1,0 +1,31 @@
+[*]
+[*] GTKWave Analyzer v3.3.117 (w)1999-2023 BSI
+[*] Sat Jun 15 13:23:13 2024
+[*]
+[dumpfile] "/home/tibrahimovic/projects/2.Simple--1/2.sim/tb.vcd"
+[dumpfile_mtime] "Sat Jun 15 13:18:49 2024"
+[dumpfile_size] 1729297
+[savefile] "/home/tibrahimovic/projects/2.Simple--1/.gtkwaverc"
+[timestart] 1343410000
+[size] 2548 743
+[pos] 29495 33499
+*-16.275654 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb.
+[treeopen] tb.dut.
+[sst_width] 214
+[signals_width] 240
+[sst_expanded] 1
+[sst_vpaned_height] 202
+@28
+tb.dut.tick_1us
+tb.dut.sent
+tb.dut.uart_tx
+tb.dut.arst_n
+@22
+tb.dut.u_uart.tx_state[3:0]
+tb.dut.u_uart.tx_data[7:0]
+tb.dut.u_psram.o_state[5:0]
+@23
+tb.dut.u_psram.o_dout[15:0]
+[pattern_trace] 1
+[pattern_trace] 0
