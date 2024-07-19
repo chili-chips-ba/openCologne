@@ -95,9 +95,9 @@
 # LED, 4 Clocks for PLL
 # #######################################################
 # -------------------------------------------------------
-Pin_in "clk" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0
-Pin_in "rst" Loc = "IO_SB_B7" | PULLUP=true; # FPGA_BUT
-Pin_out "led" Loc = "IO_SB_B6"; # FPGA LED
+#Pin_in "clk" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0
+#Pin_in "rst" Loc = "IO_SB_B7" | PULLUP=true; # FPGA_BUT
+#Pin_out "led" Loc = "IO_SB_B6"; # FPGA LED
 
 
 ## #######################################################

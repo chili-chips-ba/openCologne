@@ -10,13 +10,18 @@ module pipeline_sr (
 	parameter POR_VALUE = 0;
 	input wire clk;
 	input wire [DATA_WIDTH - 1:0] in;
-	function automatic [DATA_WIDTH - 1:0] sv2v_cast_DD846;
-		input reg [DATA_WIDTH - 1:0] inp;
-		sv2v_cast_DD846 = inp;
-	endfunction
-	output reg [(ENDING_CYCLE >= STARTING_CYCLE ? (((ENDING_CYCLE - STARTING_CYCLE) + 1) * DATA_WIDTH) + ((STARTING_CYCLE * DATA_WIDTH) - 1) : (((STARTING_CYCLE - ENDING_CYCLE) + 1) * DATA_WIDTH) + ((ENDING_CYCLE * DATA_WIDTH) - 1)):(ENDING_CYCLE >= STARTING_CYCLE ? STARTING_CYCLE * DATA_WIDTH : ENDING_CYCLE * DATA_WIDTH)] out = {(ENDING_CYCLE >= STARTING_CYCLE ? (ENDING_CYCLE - STARTING_CYCLE) + 1 : (STARTING_CYCLE - ENDING_CYCLE) + 1) {sv2v_cast_DD846(POR_VALUE)}};
+	output reg [(ENDING_CYCLE >= STARTING_CYCLE ? (((ENDING_CYCLE - STARTING_CYCLE) + 1) * DATA_WIDTH) + ((STARTING_CYCLE * DATA_WIDTH) - 1) : (((STARTING_CYCLE - ENDING_CYCLE) + 1) * DATA_WIDTH) + ((ENDING_CYCLE * DATA_WIDTH) - 1)):(ENDING_CYCLE >= STARTING_CYCLE ? STARTING_CYCLE * DATA_WIDTH : ENDING_CYCLE * DATA_WIDTH)] out;
+	initial begin : sv2v_autoblock_1
+		reg signed [31:0] i;
+		for (i = STARTING_CYCLE; i <= ENDING_CYCLE; i = i + 1)
+			out[(ENDING_CYCLE >= STARTING_CYCLE ? i : STARTING_CYCLE - (i - ENDING_CYCLE)) * DATA_WIDTH+:DATA_WIDTH] = POR_VALUE;
+	end
 	always @(posedge clk) begin
-		out <= out << DATA_WIDTH;
+		begin : sv2v_autoblock_2
+			reg signed [31:0] i;
+			for (i = ENDING_CYCLE; i > STARTING_CYCLE; i = i - 1)
+				out[(ENDING_CYCLE >= STARTING_CYCLE ? i : STARTING_CYCLE - (i - ENDING_CYCLE)) * DATA_WIDTH+:DATA_WIDTH] <= out[(ENDING_CYCLE >= STARTING_CYCLE ? i - 1 : STARTING_CYCLE - ((i - 1) - ENDING_CYCLE)) * DATA_WIDTH+:DATA_WIDTH];
+		end
 		out[(ENDING_CYCLE >= STARTING_CYCLE ? STARTING_CYCLE : STARTING_CYCLE - (STARTING_CYCLE - ENDING_CYCLE)) * DATA_WIDTH+:DATA_WIDTH] <= in;
 	end
 endmodule
