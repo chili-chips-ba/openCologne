@@ -4,43 +4,35 @@
 // Internal details; most calling programs do not need this header,
 // unless using verilator public meta comments.
 
-#ifndef _VOPL3__SYMS_H_
-#define _VOPL3__SYMS_H_  // guard
+#ifndef VERILATED_VOPL3__SYMS_H_
+#define VERILATED_VOPL3__SYMS_H_  // guard
 
-#include "verilated_heavy.h"
+#include "verilated.h"
+
+// INCLUDE MODEL CLASS
+
+#include "Vopl3.h"
 
 // INCLUDE MODULE CLASSES
-#include "Vopl3.h"
-#include "Vopl3___024unit.h"
+#include "Vopl3___024root.h"
 
-// SYMS CLASS
-class Vopl3__Syms : public VerilatedSyms {
+// SYMS CLASS (contains all model state)
+class alignas(VL_CACHE_LINE_BYTES)Vopl3__Syms final : public VerilatedSyms {
   public:
-    
-    // LOCAL STATE
-    const char* __Vm_namep;
-    bool __Vm_didInit;
-    
-    // SUBCELL STATE
-    Vopl3*                         TOPp;
-    
-    // SCOPE NAMES
-    VerilatedScope __Vscope_opl3__channels;
-    VerilatedScope __Vscope_opl3__channels__control_operators;
-    VerilatedScope __Vscope_opl3__channels__control_operators__operator__calc_phase_inc;
-    VerilatedScope __Vscope_opl3__channels__control_operators__operator__envelope_generator;
-    VerilatedScope __Vscope_opl3__channels__control_operators__operator__envelope_generator__ksl_add_rom;
-    VerilatedScope __Vscope_opl3__channels__control_operators__operator__envelope_generator__state_mem;
-    VerilatedScope __Vscope_opl3__channels__control_operators__operator__phase_generator;
-    VerilatedScope __Vscope_opl3__channels__control_operators__operator__phase_generator__calc_rhythm_phase;
-    
-    // CREATORS
-    Vopl3__Syms(Vopl3* topp, const char* namep);
-    ~Vopl3__Syms() {}
-    
+    // INTERNAL STATE
+    Vopl3* const __Vm_modelp;
+    VlDeleter __Vm_deleter;
+    bool __Vm_didInit = false;
+
+    // MODULE INSTANCE STATE
+    Vopl3___024root                TOP;
+
+    // CONSTRUCTORS
+    Vopl3__Syms(VerilatedContext* contextp, const char* namep, Vopl3* modelp);
+    ~Vopl3__Syms();
+
     // METHODS
-    inline const char* name() { return __Vm_namep; }
-    
-} VL_ATTR_ALIGNED(VL_CACHE_LINE_BYTES);
+    const char* name() { return TOP.name(); }
+};
 
 #endif  // guard

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/3.build/../1.hw/modules/misc/src/afifo.v
 /home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/3.build/../1.hw/modules/top_level/pkg/opl3_pkg.v
 /home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/3.build/../1.hw/modules/clks/src/clk_div.v
@@ -31,62 +30,3 @@
 /home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/3.build/../1.hw/modules/host_if/src/trick_sw_detection.v
 /home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/3.build/../1.hw/modules/misc/src/mem_simple_dual_port.v
 /home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/3.build/../1.hw/modules/operator/src/calc_phase_inc.v
-=======
-#-----------------------------------------------
-# List of RTL files and options that make OPL3_FPGA design
-#-----------------------------------------------
-
-+define+SYNTHESIS
-
-#---TOP
-${HW_SRC}/modules/top_level/pkg/opl3_pkg.sv
-${HW_SRC}/modules/top_level/src/opl3.sv
-
-#---CLKS
-${HW_SRC}/modules/clks/src/clk_div.sv
-${HW_SRC}/modules/clks/src/reset_sync.sv
-
-#---HOST_IF
-${HW_SRC}/modules/host_if/src/trick_sw_detection.sv
-${HW_SRC}/modules/host_if/src/host_if.sv
-
-#---CHANNELS
-${HW_SRC}/modules/channels/src/dac_prep.sv
-${HW_SRC}/modules/channels/src/channels.sv
-${HW_SRC}/modules/channels/src/control_operators.sv
-
-#---OPERATOR
-${HW_SRC}/modules/operator/src/vibrato.sv
-${HW_SRC}/modules/operator/src/tremolo.sv
-${HW_SRC}/modules/operator/src/calc_rhythm_phase.sv
-${HW_SRC}/modules/operator/src/phase_generator.sv
-${HW_SRC}/modules/operator/src/envelope_generator.sv
-${HW_SRC}/modules/operator/src/ksl_add_rom.sv
-${HW_SRC}/modules/operator/src/env_rate_counter.sv
-${HW_SRC}/modules/operator/src/calc_phase_inc.sv
-${HW_SRC}/modules/operator/src/opl3_log_sine_lut.sv
-${HW_SRC}/modules/operator/src/opl3_exp_lut.sv
-${HW_SRC}/modules/operator/src/operator.sv
-
-#---TIMERS
-${HW_SRC}/modules/timers/src/timer.sv
-${HW_SRC}/modules/timers/src/timers.sv
-
-#---I2S
-${HW_SRC}/modules/i2s/src/i2s.sv
-
-#---MISC
-${HW_SRC}/modules/misc/src/leds.sv
-${HW_SRC}/modules/misc/src/synchronizer.sv
-${HW_SRC}/modules/misc/src/edge_detector.sv
-${HW_SRC}/modules/misc/src/pipeline_sr.sv
-${HW_SRC}/modules/misc/src/afifo.v
-${HW_SRC}/modules/misc/src/mem_multi_bank.sv
-${HW_SRC}/modules/misc/src/mem_simple_dual_port_async_read.sv
-${HW_SRC}/modules/misc/src/mem_multi_bank_reset.sv
-${HW_SRC}/modules/misc/src/mem_simple_dual_port.sv
-
-#-----------------------------------------------
-# End-of-File
-#-----------------------------------------------
->>>>>>> 7132772508b816eb359f420e843728ce4216646f
