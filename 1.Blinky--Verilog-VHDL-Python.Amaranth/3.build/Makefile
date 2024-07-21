@@ -36,11 +36,6 @@
 #      2a. Open terminal and run the following command 
 #          (replace `/path/to/cc-toolchain-linux` with the actual path to the extracted toolchain):
 #          % export CC_TOOL="/path/to/cc-toolchain-linux"
-#
-# 4.Set the TOOL_ROOT Environment Variable
-#     While yoIt is also needed to set the TOOL_ROOT environment variable, which is used for your tool path. 
-# If you don't place all your tools in one place then the path is needed to change accordingly.
-# You can also declare the variable here in the Makefile instead of placing it in your PATH.
 
 #========================================================================================
 # Set EXE for platform-specific executable extensions, if necessary
@@ -80,7 +75,7 @@ OFL = $(BLD_PATH)/openFPGALoader$(EXE)
 #DONT_USE--| #       very rudimentary and results in lots of errors. As of now, SystemVerilog support for 
 #DONT_USE--| #       yosys isn't the best for large projects. We will see how it goes. Also see:
 #DONT_USE--| #       https://github.com/chili-chips-ba/openCologne/issues/3
-#DONT_USE--| SYNLIG = $(TOOL_ROOT)/synlig
+#DONT_USE--| SYNLIG = $(<path-to-your-Synlig-install-directory>)/synlig
 #DONT_USE--| PLUGIN_PATH := $(SYNLIG)/build/release/systemverilog-plugin/systemverilog.so
 
 # Tarik, how about, for completeness, also add instructions for GHDL plugin
