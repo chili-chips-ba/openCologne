@@ -45,6 +45,7 @@
 # You can also declare the variable here in the Makefile instead of placing it in your PATH.
 #========================================================================================
 # Set EXE for platform-specific executable extensions, if necessary
+#========================================================================================
 
 EXE =
 
