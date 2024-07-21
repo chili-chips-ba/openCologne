@@ -31,7 +31,7 @@ module dac_prep (
 	end
 	localparam opl3_pkg_INSTANTIATE_SAMPLE_SYNC_TO_DAC_CLK = 0;
 	generate
-		if (opl3_pkg_INSTANTIATE_SAMPLE_SYNC_TO_DAC_CLK) begin : genblk1
+		if (opl3_pkg_INSTANTIATE_SAMPLE_SYNC_TO_DAC_CLK) begin : gen_sample_sync
 			reg [2:0] sample_valid_opl3_pulse_extend;
 			reg sample_valid_opl3_extended_pulse = 0;
 			wire sample_valid_cpu_p0;
