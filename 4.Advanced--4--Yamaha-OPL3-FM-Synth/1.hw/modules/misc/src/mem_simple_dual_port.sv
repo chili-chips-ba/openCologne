@@ -58,21 +58,7 @@ module mem_simple_dual_port #(
 );
     logic [DATA_WIDTH-1:0] dob_p0;
 
-    /* Changed from logic [DATA_WIDTH-1:0] ram [DEPTH-1:0] = '{default: DEFAULT_VALUE}; to 
-    initial begin
-        for (int i = 0; i < DEPTH; i = i + 1) begin
-            ram[i] = DEFAULT_VALUE;
-        end
-    end
-    Because of 'ERROR: Couldn't find ancestor for tagged pattern!' */
-
-    logic [DATA_WIDTH-1:0] ram [DEPTH-1:0];
-
-    initial begin
-        for (int i = 0; i < DEPTH; i = i + 1) begin
-            ram[i] = DEFAULT_VALUE;
-        end
-    end
+    logic [DATA_WIDTH-1:0] ram [DEPTH-1:0] = '{default: DEFAULT_VALUE};
 
     always_ff @(posedge clka)
         if (wea)

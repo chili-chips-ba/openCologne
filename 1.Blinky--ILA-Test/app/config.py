@@ -23,12 +23,12 @@
 #################################################################################################
 
 #YOSYS = 'yosys'
-YOSYS = '/home/user/FPGA/tools/oss-cad-suite/bin/yosys'
+YOSYS = '/home/user/FPGA/Boards/GateMate/cc-toolchain-linux/bin/yosys/yosys'
 YOSYS_FLAGS = '-nomx8'
 PR = 'p_r'
 PR_FLAGS = '-sp -cCP +uCIO ' # The removal of the +uCIO flag is not permissible. The ccf file is automatically appended
-#UPLOAD = 'openFPGALoader'
-UPLOAD = '/home/user/FPGA/tools/openFPGALoader/build/openFPGALoader'
+UPLOAD = 'openFPGALoader'
+#UPLOAD = '/home/user/FPGA/tools/openFPGALoader/build/openFPGALoader'
 UPLOAD_FLAGS = ' -b olimex_gatemateevb ' # gatemate_evb_jtag,  olimex_gatemateevb
 REPRESENTATION_SOFTWARE = ['gtkwave']
 REPRESENTATION_FLAGS = ['--save', 'save.gtkw']

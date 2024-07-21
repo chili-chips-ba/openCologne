@@ -28,7 +28,7 @@ USE IEEE.numeric_std.ALL;
 entity lowpass is
   generic(
     C_bits_in: integer := 12; -- input bits, must be less than C_bits_out
-    C_attenuation: integer := 0; -- attenuation factor 2^n
+    C_attenuation: integer := 1; -- attenuation factor 2^n
     C_bits_out: integer := 16 -- output bits (integrator sum)
   );
   port(
@@ -39,15 +39,17 @@ entity lowpass is
   );
 end lowpass;
 architecture behavior of lowpass is
-  signal R_data_in: signed(C_bits_in-1 downto 0);
-  signal sum: signed(C_bits_out-1 downto 0);
+  signal R_data_in: signed(C_bits_in-1 downto 0) := (others => '0');
+  signal sum: signed(C_bits_out-1 downto 0) := (others => '0');
 begin 
-  process(clock,enable)
+  process(clock)
   begin
-    if rising_edge(clock) and enable='1' then
-      R_data_in <= data_in;
-      sum <= sum + R_data_in / 2**C_attenuation - sum / 2**(C_bits_out-C_bits_in);
-      data_out <= sum;
+    if rising_edge(clock) then
+      if enable = '1' then
+        R_data_in <= data_in;
+        sum <= sum + R_data_in / 2**C_attenuation - sum / 2**(C_bits_out-C_bits_in);
+        data_out <= sum;
+      end if;
     end if;
   end process;
-end behavior;	
+end behavior;

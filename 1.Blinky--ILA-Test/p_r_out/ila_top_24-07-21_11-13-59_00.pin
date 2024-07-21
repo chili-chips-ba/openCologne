@@ -1,0 +1,12 @@
+# Pinfile for Design /home/user/openCologne/1.Blinky--ILA-Test/p_r_out/ila_top_24-07-21_11-13-59_00
+# 2024-07-21 11:14:20
+# Bounding Box for compact mode is (x8y27) - (x20y46)   box size: 260
+
+SizeX = 160 | SizeY = 128;
+
+Pin_in              "clk"   Loc =   "IO_SB_A8"   Die_Loc = "GPIO_W2_A[8]";  #  preplaced by CCF file
+Pin_out             "led"   Loc =   "IO_SB_B6"   Die_Loc = "GPIO_W2_B[6]";  #  preplaced by CCF file
+Pin_in       "i_mosi_ILA"   Loc =   "IO_WA_A4"   Die_Loc = "GPIO_S3_A[4]";  #  preplaced by CCF file
+Pin_in       "i_sclk_ILA"   Loc =   "IO_WA_A5"   Die_Loc = "GPIO_S3_A[5]";  #  preplaced by CCF file
+Pin_out      "o_miso_ILA"   Loc =   "IO_WA_B3"   Die_Loc = "GPIO_S3_B[3]";  #  preplaced by CCF file
+Pin_in         "i_ss_ILA"   Loc =   "IO_WA_B4"   Die_Loc = "GPIO_S3_B[4]";  #  preplaced by CCF file

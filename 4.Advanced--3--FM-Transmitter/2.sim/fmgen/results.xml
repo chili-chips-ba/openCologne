@@ -1,0 +1,11 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1719701579" />
+    <testcase name="fmgen_vhdl_test" classname="fmgen_tb" file="/home/user/openCologne/4.Advanced--3--FM-Transmitter/2.sim/fmgen/fmgen_tb.py" lineno="34" time="0.0003612041473388672" sim_time_ns="0.001" ratio_time="2.768517491749175">
+      <failure message="Test failed with RANDOM_SEED=1719701579" />
+    </testcase>
+    <testcase name="fmgen_sv_test" classname="fmgen_tb" file="/home/user/openCologne/4.Advanced--3--FM-Transmitter/2.sim/fmgen/fmgen_tb.py" lineno="39" time="0.00022077560424804688" sim_time_ns="0.001" ratio_time="4.52948596112311">
+      <failure message="Test failed with RANDOM_SEED=1719701579" />
+    </testcase>
+  </testsuite>
+</testsuites>

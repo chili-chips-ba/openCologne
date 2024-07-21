@@ -29,7 +29,7 @@ module mem_multi_bank (
 	localparam PIPELINE_DELAY = 2;
 	reg [NUM_BANKS - 1:0] wea_array;
 	wire [DATA_WIDTH - 1:0] dob_array [0:NUM_BANKS - 1];
-	wire [(2 * BANK_WIDTH) - 1:0] bankb_p;
+	wire [(PIPELINE_DELAY * BANK_WIDTH) + (BANK_WIDTH - 1):BANK_WIDTH] bankb_p;
 	pipeline_sr #(
 		.DATA_WIDTH(BANK_WIDTH),
 		.ENDING_CYCLE(PIPELINE_DELAY)

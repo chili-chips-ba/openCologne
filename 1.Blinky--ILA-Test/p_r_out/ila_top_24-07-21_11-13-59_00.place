@@ -1,0 +1,339 @@
+# placefile for Design /home/user/openCologne/1.Blinky--ILA-Test/p_r_out/ila_top_24-07-21_11-13-59_00
+# 2024-07-21 11:14:22
+
+CPE 1 PosX 17 PosY 36; 
+CPE 2 PosX 19 PosY 32; 
+CPE 3 PosX 21 PosY 27; 
+CPE 5 PosX 11 PosY 40; 
+CPE 6 PosX 17 PosY 33; 
+CPE 7 PosX 12 PosY 37; 
+CPE 8 PosX 8 PosY 46; 
+CPE 10 PosX 9 PosY 46; 
+CPE 12 PosX 20 PosY 38; 
+CPE 14 PosX 20 PosY 36; 
+CPE 15 PosX 23 PosY 34; 
+CPE 16 PosX 17 PosY 34; 
+CPE 17 PosX 20 PosY 35; 
+CPE 21 PosX 13 PosY 31; 
+CPE 22 PosX 16 PosY 33; 
+CPE 24 PosX 23 PosY 35; 
+CPE 25 PosX 15 PosY 35; 
+CPE 27 PosX 7 PosY 43; 
+CPE 31 PosX 10 PosY 46; 
+CPE 32 PosX 10 PosY 44; 
+CPE 35 PosX 8 PosY 45; 
+CPE 37 PosX 7 PosY 45; 
+CPE 40 PosX 18 PosY 38; 
+CPE 41 PosX 23 PosY 37; 
+CPE 42 PosX 16 PosY 35; 
+CPE 43 PosX 7 PosY 46; 
+CPE 44 PosX 7 PosY 47; 
+CPE 45 PosX 15 PosY 33; 
+CPE 46 PosX 21 PosY 34; 
+CPE 47 PosX 15 PosY 39; 
+CPE 49 PosX 15 PosY 37; 
+CPE 50 PosX 16 PosY 34; 
+CPE 51 PosX 21 PosY 33; 
+CPE 53 PosX 16 PosY 39; 
+CPE 54 PosX 24 PosY 32; 
+CPE 55 PosX 21 PosY 35; 
+CPE 56 PosX 11 PosY 33; 
+CPE 57 PosX 12 PosY 40; 
+CPE 58 PosX 16 PosY 34; 
+CPE 59 PosX 15 PosY 37; 
+CPE 60 PosX 21 PosY 31; 
+CPE 61 PosX 18 PosY 34; 
+CPE 62 PosX 8 PosY 44; 
+CPE 64 PosX 15 PosY 36; 
+CPE 65 PosX 14 PosY 35; 
+CPE 66 PosX 11 PosY 42; 
+CPE 68 PosX 18 PosY 39; 
+CPE 69 PosX 15 PosY 31; 
+CPE 72 PosX 10 PosY 45; 
+CPE 73 PosX 14 PosY 37; 
+CPE 74 PosX 7 PosY 42; 
+CPE 75 PosX 14 PosY 38; 
+CPE 76 PosX 17 PosY 30; 
+CPE 78 PosX 16 PosY 36; 
+CPE 81 PosX 21 PosY 28; 
+CPE 82 PosX 16 PosY 28; 
+CPE 83 PosX 19 PosY 28; 
+CPE 84 PosX 20 PosY 28; 
+CPE 85 PosX 22 PosY 25; 
+CPE 86 PosX 17 PosY 29; 
+CPE 87 PosX 17 PosY 31; 
+CPE 88 PosX 20 PosY 29; 
+CPE 89 PosX 20 PosY 30; 
+CPE 90 PosX 20 PosY 31; 
+CPE 91 PosX 20 PosY 32; 
+CPE 92 PosX 21 PosY 30; 
+CPE 93 PosX 19 PosY 29; 
+CPE 95 PosX 14 PosY 40; 
+CPE 96 PosX 11 PosY 37; 
+CPE 97 PosX 12 PosY 45; 
+CPE 98 PosX 18 PosY 40; 
+CPE 100 PosX 11 PosY 34; 
+CPE 102 PosX 19 PosY 30; 
+CPE 104 PosX 16 PosY 32; 
+CPE 107 PosX 16 PosY 41; 
+CPE 108 PosX 21 PosY 29; 
+CPE 110 PosX 16 PosY 42; 
+CPE 111 PosX 16 PosY 38; 
+CPE 112 PosX 18 PosY 37; 
+CPE 114 PosX 10 PosY 36; 
+CPE 116 PosX 11 PosY 43; 
+CPE 117 PosX 11 PosY 38; 
+CPE 118 PosX 7 PosY 27; 
+CPE 119 PosX 12 PosY 35; 
+CPE 120 PosX 12 PosY 34; 
+CPE 121 PosX 15 PosY 40; 
+CPE 122 PosX 23 PosY 27; 
+CPE 123 PosX 22 PosY 29; 
+CPE 124 PosX 19 PosY 33; 
+CPE 128 PosX 15 PosY 30; 
+CPE 129 PosX 16 PosY 27; 
+CPE 130 PosX 13 PosY 29; 
+CPE 131 PosX 12 PosY 29; 
+CPE 132 PosX 24 PosY 28; 
+CPE 133 PosX 15 PosY 27; 
+CPE 136 PosX 9 PosY 39; # Adder: column: 1  row: 7
+CPE 138 PosX 9 PosY 40; # Adder: column: 1  row: 8
+CPE 140 PosX 9 PosY 41; # Adder: column: 1  row: 9
+CPE 142 PosX 9 PosY 42; # Adder: column: 1  row: 10
+CPE 144 PosX 9 PosY 43; # Adder: column: 1  row: 11
+CPE 145 PosX 9 PosY 34; # Adder: column: 1  row: 2
+CPE 147 PosX 9 PosY 44; # Adder: column: 1  row: 12
+CPE 149 PosX 9 PosY 45; # Adder: column: 1  row: 13
+CPE 152 PosX 9 PosY 35; # Adder: column: 1  row: 3
+CPE 154 PosX 9 PosY 36; # Adder: column: 1  row: 4
+CPE 156 PosX 9 PosY 37; # Adder: column: 1  row: 5
+CPE 158 PosX 9 PosY 38; # Adder: column: 1  row: 6
+CPE 159 PosX 9 PosY 33; # Adder: column: 1  row: 1
+CPE 161 PosX 18 PosY 29; # Adder: column: 2  row: 2
+CPE 163 PosX 18 PosY 30; # Adder: column: 2  row: 3
+CPE 165 PosX 18 PosY 31; # Adder: column: 2  row: 4
+CPE 167 PosX 18 PosY 32; # Adder: column: 2  row: 5
+CPE 169 PosX 18 PosY 33; # Adder: column: 2  row: 6
+CPE 170 PosX 18 PosY 28; # Adder: column: 2  row: 1
+CPE 172 PosX 14 PosY 29; # Adder: column: 3  row: 2
+CPE 174 PosX 14 PosY 30; # Adder: column: 3  row: 3
+CPE 176 PosX 14 PosY 31; # Adder: column: 3  row: 4
+CPE 178 PosX 14 PosY 32; # Adder: column: 3  row: 5
+CPE 180 PosX 14 PosY 33; # Adder: column: 3  row: 6
+CPE 181 PosX 14 PosY 28; # Adder: column: 3  row: 1
+CPE 183 PosX 19 PosY 34; # Adder: column: 4  row: 2
+CPE 185 PosX 19 PosY 35; # Adder: column: 4  row: 3
+CPE 187 PosX 19 PosY 36; # Adder: column: 4  row: 4
+CPE 189 PosX 19 PosY 37; # Adder: column: 4  row: 5
+CPE 191 PosX 19 PosY 38; # Adder: column: 4  row: 6
+CPE 192 PosX 19 PosY 33; # Adder: column: 4  row: 1
+CPE 194 PosX 13 PosY 37; # Adder: column: 5  row: 2
+CPE 196 PosX 13 PosY 38; # Adder: column: 5  row: 3
+CPE 198 PosX 13 PosY 39; # Adder: column: 5  row: 4
+CPE 200 PosX 13 PosY 40; # Adder: column: 5  row: 5
+CPE 202 PosX 13 PosY 41; # Adder: column: 5  row: 6
+CPE 205 PosX 0 PosY 0; 
+CPE 223 PosX 14 PosY 39; 
+CPE 224 PosX 11 PosY 41; 
+CPE 274 PosX 13 PosY 32; 
+CPE 286 PosX 16 PosY 36; 
+IBF 326 PosX 0 PosY 101;
+IBF 327 PosX 21 PosY 0;
+IBF 328 PosX 25 PosY 0;
+IBF 329 PosX 23 PosY 0;
+OBF 330 PosX 0 PosY 95;
+OBF 331 PosX 19 PosY 0;
+CPE 332 PosX 33 PosY 128; 
+CPE 333 PosX 34 PosY 128; 
+CPE 334 PosX 33 PosY 17; 
+CPE 335 PosX 0 PosY 0; 
+CPE 336 PosX 23 PosY 26; 
+CPE 337 PosX 21 PosY 38; 
+CPE 338 PosX 0 PosY 0; 
+CPE 339 PosX 23 PosY 30; 
+CPE 340 PosX 20 PosY 37; 
+CPE 341 PosX 17 PosY 32; 
+CPE 342 PosX 22 PosY 36; 
+CPE 343 PosX 17 PosY 37; 
+CPE 344 PosX 15 PosY 32; 
+CPE 345 PosX 1 PosY 66; 
+CPE 346 PosX 35 PosY 17; 
+CPE 347 PosX 20 PosY 34; 
+CPE 348 PosX 22 PosY 34; 
+CPE 349 PosX 12 PosY 31; 
+CPE 350 PosX 18 PosY 36; 
+CPE 351 PosX 16 PosY 40; 
+CPE 352 PosX 24 PosY 33; 
+CPE 353 PosX 22 PosY 35; 
+CPE 354 PosX 19 PosY 40; 
+CPE 355 PosX 27 PosY 17; 
+CPE 356 PosX 28 PosY 24; 
+CPE 357 PosX 28 PosY 24; 
+CPE 358 PosX 17 PosY 42; 
+CPE 359 PosX 11 PosY 31; 
+CPE 360 PosX 23 PosY 32; 
+CPE 361 PosX 7 PosY 34; 
+CPE 362 PosX 28 PosY 23; 
+CPE 363 PosX 28 PosY 23; 
+CPE 364 PosX 23 PosY 28; 
+CPE 365 PosX 22 PosY 32; 
+CPE 366 PosX 28 PosY 22; 
+CPE 367 PosX 28 PosY 22; 
+CPE 368 PosX 24 PosY 29; 
+CPE 369 PosX 28 PosY 21; 
+CPE 370 PosX 22 PosY 38; 
+CPE 371 PosX 16 PosY 29; 
+CPE 372 PosX 24 PosY 34; 
+CPE 373 PosX 25 PosY 32; 
+CPE 374 PosX 28 PosY 21; 
+CPE 375 PosX 17 PosY 41; 
+CPE 376 PosX 12 PosY 36; 
+CPE 377 PosX 26 PosY 34; 
+CPE 378 PosX 24 PosY 31; 
+CPE 379 PosX 14 PosY 42; 
+CPE 380 PosX 15 PosY 43; 
+CPE 381 PosX 20 PosY 39; 
+CPE 382 PosX 13 PosY 42; 
+CPE 383 PosX 12 PosY 38; 
+CPE 384 PosX 10 PosY 33; 
+CPE 385 PosX 28 PosY 20; 
+CPE 386 PosX 12 PosY 41; 
+CPE 387 PosX 20 PosY 27; 
+CPE 388 PosX 26 PosY 29; 
+CPE 389 PosX 28 PosY 20; 
+CPE 390 PosX 25 PosY 30; 
+CPE 391 PosX 20 PosY 33; 
+CPE 392 PosX 13 PosY 36; # Adder: column: 5  row: 1
+CPE 393 PosX 1 PosY 95; 
+CPE 394 PosX 19 PosY 1; 
+CPE 395 PosX 28 PosY 19; 
+CPE 396 PosX 28 PosY 19; 
+CPE 397 PosX 28 PosY 18; 
+CPE 398 PosX 28 PosY 18; 
+CPE 399 PosX 28 PosY 17; 
+CPE 400 PosX 28 PosY 17; 
+CPE 401 PosX 37 PosY 24; 
+CPE 402 PosX 37 PosY 24; 
+CPE 403 PosX 37 PosY 23; 
+CPE 404 PosX 37 PosY 23; 
+CPE 405 PosX 37 PosY 22; 
+CPE 406 PosX 37 PosY 22; 
+CPE 407 PosX 37 PosY 21; 
+CPE 408 PosX 37 PosY 21; 
+CPE 409 PosX 37 PosY 20; 
+CPE 410 PosX 37 PosY 20; 
+CPE 411 PosX 37 PosY 19; 
+CPE 412 PosX 37 PosY 19; 
+CPE 413 PosX 37 PosY 18; 
+CPE 414 PosX 37 PosY 18; 
+CPE 415 PosX 37 PosY 17; 
+CPE 416 PosX 37 PosY 17; 
+CPE 417 PosX 30 PosY 24; 
+CPE 418 PosX 30 PosY 24; 
+CPE 419 PosX 30 PosY 23; 
+CPE 420 PosX 30 PosY 23; 
+CPE 421 PosX 32 PosY 24; 
+CPE 422 PosX 32 PosY 24; 
+CPE 423 PosX 32 PosY 23; 
+CPE 424 PosX 32 PosY 23; 
+CPE 425 PosX 32 PosY 22; 
+CPE 426 PosX 32 PosY 22; 
+CPE 427 PosX 32 PosY 21; 
+CPE 428 PosX 32 PosY 21; 
+CPE 429 PosX 32 PosY 20; 
+CPE 430 PosX 32 PosY 20; 
+CPE 431 PosX 32 PosY 19; 
+CPE 432 PosX 32 PosY 19; 
+CPE 433 PosX 32 PosY 18; 
+CPE 434 PosX 32 PosY 18; 
+CPE 435 PosX 32 PosY 17; 
+CPE 436 PosX 32 PosY 17; 
+CPE 437 PosX 29 PosY 24; 
+CPE 438 PosX 29 PosY 24; 
+CPE 439 PosX 29 PosY 23; 
+CPE 440 PosX 29 PosY 23; 
+CPE 441 PosX 31 PosY 24; 
+CPE 442 PosX 31 PosY 24; 
+CPE 443 PosX 31 PosY 23; 
+CPE 444 PosX 31 PosY 23; 
+CPE 445 PosX 31 PosY 22; 
+CPE 446 PosX 31 PosY 22; 
+CPE 447 PosX 31 PosY 21; 
+CPE 448 PosX 31 PosY 21; 
+CPE 449 PosX 31 PosY 20; 
+CPE 450 PosX 31 PosY 20; 
+CPE 451 PosX 31 PosY 19; 
+CPE 452 PosX 34 PosY 17; 
+CPE 453 PosX 34 PosY 17; 
+CPE_bridge 454 PosX 24 PosY 29;
+CPE 454 PosX 24 PosY 29; 
+CPE_bridge 455 PosX 12 PosY 39;
+CPE 455 PosX 12 PosY 39; 
+CPE_bridge 456 PosX 16 PosY 29;
+CPE 456 PosX 16 PosY 29; 
+CPE_bridge 457 PosX 17 PosY 32;
+CPE 457 PosX 17 PosY 32; 
+CPE_bridge 458 PosX 15 PosY 32;
+CPE 458 PosX 15 PosY 32; 
+CPE_bridge 459 PosX 19 PosY 28;
+CPE 459 PosX 19 PosY 28; 
+CPE_bridge 460 PosX 18 PosY 36;
+CPE 460 PosX 18 PosY 36; 
+CPE_bridge 461 PosX 25 PosY 32;
+CPE 461 PosX 25 PosY 32; 
+CPE_bridge 462 PosX 23 PosY 32;
+CPE 462 PosX 23 PosY 32; 
+CPE_bridge 463 PosX 15 PosY 30;
+CPE 463 PosX 15 PosY 30; 
+CPE_bridge 464 PosX 23 PosY 36;
+CPE 464 PosX 23 PosY 36; 
+CPE_bridge 465 PosX 15 PosY 38;
+CPE 465 PosX 15 PosY 38; 
+CPE_bridge 466 PosX 13 PosY 34;
+CPE 466 PosX 13 PosY 34; 
+CPE_bridge 467 PosX 22 PosY 25;
+CPE 467 PosX 22 PosY 25; 
+CPE_bridge 468 PosX 25 PosY 28;
+CPE 468 PosX 25 PosY 28; 
+CPE_bridge 469 PosX 26 PosY 31;
+CPE 469 PosX 26 PosY 31; 
+CPE_bridge 470 PosX 21 PosY 32;
+CPE 470 PosX 21 PosY 32; 
+CPE_bridge 471 PosX 16 PosY 37;
+CPE 471 PosX 16 PosY 37; 
+CPE_bridge 472 PosX 23 PosY 38;
+CPE 472 PosX 23 PosY 38; 
+CPE_bridge 473 PosX 10 PosY 33;
+CPE 473 PosX 10 PosY 33; 
+CPE_bridge 474 PosX 20 PosY 33;
+CPE 474 PosX 20 PosY 33; 
+CPE_bridge 475 PosX 14 PosY 36;
+CPE 475 PosX 14 PosY 36; 
+CPE_bridge 476 PosX 15 PosY 33;
+CPE 476 PosX 15 PosY 33; 
+CPE_bridge 477 PosX 25 PosY 33;
+CPE 477 PosX 25 PosY 33; 
+CPE_bridge 478 PosX 18 PosY 28;
+CPE 478 PosX 18 PosY 28; 
+CPE_bridge 479 PosX 22 PosY 28;
+CPE 479 PosX 22 PosY 28; 
+CPE_bridge 480 PosX 20 PosY 30;
+CPE 480 PosX 20 PosY 30; 
+CPE_bridge 481 PosX 20 PosY 32;
+CPE 481 PosX 20 PosY 32; 
+CPE_bridge 482 PosX 22 PosY 30;
+CPE 482 PosX 22 PosY 30; 
+CPE_bridge 483 PosX 22 PosY 32;
+CPE 483 PosX 22 PosY 32; 
+CPE_bridge 484 PosX 20 PosY 25;
+CPE 484 PosX 20 PosY 25; 
+CPE_bridge 485 PosX 24 PosY 25;
+CPE 485 PosX 24 PosY 25; 
+CPE_bridge 486 PosX 20 PosY 27;
+CPE 486 PosX 20 PosY 27; 
+CPE_bridge 487 PosX 22 PosY 27;
+CPE 487 PosX 22 PosY 27; 
+CPE_bridge 488 PosX 8 PosY 43;
+CPE 488 PosX 8 PosY 43; 
+CPE_bridge 489 PosX 8 PosY 42;
+CPE 489 PosX 8 PosY 42; 

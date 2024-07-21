@@ -25,7 +25,7 @@ module host_if (
 	input wire [1:0] address;
 	localparam opl3_pkg_REG_FILE_DATA_WIDTH = 8;
 	input wire [7:0] din;
-	output reg [7:0] dout = 0;
+	output reg [7:0] dout;
 	output reg [17:0] opl3_reg_wr = 0;
 	input wire [7:0] status;
 	output reg force_timer_overflow;

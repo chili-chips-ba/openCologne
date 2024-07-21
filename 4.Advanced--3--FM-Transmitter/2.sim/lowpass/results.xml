@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1721052029" />
+    <testcase name="test_lowpass" classname="lowpass_tb" file="/home/user/openCologne/4.Advanced--3--FM-Transmitter/2.sim/lowpass/lowpass_tb.py" lineno="6" time="0.05968189239501953" sim_time_ns="800.000001" ratio_time="13404.400713452582" />
+  </testsuite>
+</testsuites>

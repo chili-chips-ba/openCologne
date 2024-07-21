@@ -40,22 +40,27 @@
 #   Copyright (C) 2010-2013 by carbon14 and opl3
 #
 #******************************************************************************/
-
-`timescale 1ns / 1ps // Timescale declaration
+`timescale 1ns / 1ps
+`default_nettype none
 
 package opl3_pkg;
-
-    // Constants
-    localparam CLK_FREQ = 12727000; // 12.727 MHz
+    /*
+     * Original OPL3 used a 14.31818MHz master clock, divided by 288 giving a
+     * sample clock of 49.7159KHz. Since our SSM2603 DAC uses fixed 256
+     * oversampling, we'll use a 12.727MHz master clock which is the closest
+     * value we can generate using an MMCM and 125MHz input clock. This will
+     * give us a 49.7148KHz sample clock. We don't have to worry about clock
+     * domain crossings.
+     */
+    localparam CLK_FREQ = 12.727e6;
     localparam DAC_OUTPUT_WIDTH = 24;
-    localparam INSTANTIATE_TIMERS = 0; // 1 to use timers, 0 to save area
-    localparam NUM_LEDS = 4; // Connected to kon bank 0 starting at 0
+    localparam INSTANTIATE_TIMERS = 0; // set to 1 to use timers, 0 to save area
+    localparam NUM_LEDS = 4; // connected to kon bank 0 starting at 0
     localparam INSTANTIATE_SAMPLE_SYNC_TO_DAC_CLK = 0;
 
-    localparam DESIRED_SAMPLE_FREQ = 49716; // 49.716 kHz
-    localparam int CLK_DIV_COUNT = 256; // Set manually
-
-    localparam ACTUAL_SAMPLE_FREQ = 49715; // 49.715 kHz
+    localparam DESIRED_SAMPLE_FREQ = 49.7159e3;
+    localparam CLK_DIV_COUNT = int'($ceil(CLK_FREQ/DESIRED_SAMPLE_FREQ)); // unsupported by Quartus 17, set manually
+    localparam ACTUAL_SAMPLE_FREQ = CLK_FREQ/CLK_DIV_COUNT;
 
     localparam NUM_REG_PER_BANK = 'hF6;
     localparam REG_FILE_DATA_WIDTH = 8;
@@ -71,12 +76,13 @@ package opl3_pkg;
     localparam REG_FB_WIDTH = 3;
 
     localparam SAMPLE_WIDTH = 16;
-    localparam DAC_LEFT_SHIFT = signed'(DAC_OUTPUT_WIDTH - SAMPLE_WIDTH - 2) < 0 ? 0 : DAC_OUTPUT_WIDTH - SAMPLE_WIDTH - 2;
-    localparam ENV_WIDTH = 9;
+    localparam DAC_LEFT_SHIFT = signed'(DAC_OUTPUT_WIDTH - SAMPLE_WIDTH - 2) < 0 ? 0 : DAC_OUTPUT_WIDTH - SAMPLE_WIDTH - 3;
+    localparam FINAL_ENV_WIDTH = 11;
     localparam OP_OUT_WIDTH = 13;
     localparam PHASE_ACC_WIDTH = 20;
+    localparam PHASE_FINAL_WIDTH = 10;
     localparam VIB_VAL_WIDTH = REG_FNUM_WIDTH - 7;
-    localparam ENV_RATE_COUNTER_OVERFLOW_WIDTH = $clog2(7);
+    localparam ENV_SHIFT_WIDTH = 2;
     localparam TREMOLO_MAX_COUNT = 13*1024;
     localparam TREMOLO_INDEX_WIDTH = $clog2(TREMOLO_MAX_COUNT);
     localparam AM_VAL_WIDTH = TREMOLO_INDEX_WIDTH - 8;
@@ -88,10 +94,9 @@ package opl3_pkg;
     localparam BANK_NUM_WIDTH = $clog2(NUM_BANKS);
     localparam OP_NUM_WIDTH = $clog2(NUM_OPERATORS_PER_BANK);
 
-    localparam int TIMER1_TICK_INTERVAL= CLK_FREQ * 80e-6;  // 80 microseconds in clock cycles
-    localparam int TIMER2_TICK_INTERVAL= CLK_FREQ * 320e-6; // 320 microseconds in clock cycles
+    localparam TIMER1_TICK_INTERVAL = 80e-6;  // in seconds
+    localparam TIMER2_TICK_INTERVAL = 320e-6; // in seconds
 
-    // Types
     typedef enum logic [2:0] {
         OP_NORMAL,
         OP_BASS_DRUM,
@@ -116,3 +121,4 @@ package opl3_pkg;
     } operator_out_t;
 
 endpackage
+`default_nettype wire

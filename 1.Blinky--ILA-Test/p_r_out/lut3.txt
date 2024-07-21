@@ -1,12 +1,11 @@
+0007   1 c/AB\
 0010   1 abC
-0040   8 aBC
-0060   2 C(A^B)
-0070   1 C/AB\
-0080   2 ABC
-00AC   2 c?A:B
-00B0   1 C/aB\
+0040   7 aBC
+0060   1 C(A^B)
+0080   1 ABC
+00AC   1 c?A:B
 00BE   1 /(B^c)a\
-00CA  10 C?A:B
+00CA   9 C?A:B
 00E0   3 C/ab\
 00F4   1 (aB)+C
- Gesamt:   32 DS4:     0
+ Gesamt:   26 DS4:     0

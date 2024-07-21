@@ -52,15 +52,14 @@ module timers (
 			st1 <= 0;
 		end
 	end
-	localparam opl3_pkg_CLK_FREQ = 12727000;
-	localparam signed [31:0] opl3_pkg_TIMER1_TICK_INTERVAL = opl3_pkg_CLK_FREQ * 80e-6;
+	localparam opl3_pkg_TIMER1_TICK_INTERVAL = 80e-6;
 	timer #(.TIMER_TICK_INTERVAL(opl3_pkg_TIMER1_TICK_INTERVAL)) timer1_inst(
 		.clk(clk),
 		.timer_reg(timer1),
 		.start_timer(st1),
 		.timer_overflow_pulse(timer1_overflow_pulse)
 	);
-	localparam signed [31:0] opl3_pkg_TIMER2_TICK_INTERVAL = opl3_pkg_CLK_FREQ * 320e-6;
+	localparam opl3_pkg_TIMER2_TICK_INTERVAL = 320e-6;
 	timer #(.TIMER_TICK_INTERVAL(opl3_pkg_TIMER2_TICK_INTERVAL)) timer2_inst(
 		.clk(clk),
 		.timer_reg(timer2),

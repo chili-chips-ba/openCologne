@@ -23,7 +23,7 @@ module dac_prep (
 	reg sample_valid_opl3_p1 = 0;
 	reg signed [23:0] sample_opl3_l_p1 = 0;
 	reg signed [23:0] sample_opl3_r_p1 = 0;
-	localparam opl3_pkg_DAC_LEFT_SHIFT = ($signed(6) < 0 ? 0 : 6);
+	localparam opl3_pkg_DAC_LEFT_SHIFT = ($signed(6) < 0 ? 0 : 5);
 	always @(posedge clk) begin
 		sample_valid_opl3_p1 <= channel_valid;
 		sample_opl3_l_p1 <= channel_l <<< opl3_pkg_DAC_LEFT_SHIFT;

@@ -41,9 +41,8 @@
 `timescale 1ns / 1ps
 `default_nettype none
 
-import opl3_pkg::*;
 module dac_prep
-
+    import opl3_pkg::*;
 (
     input wire clk,
     input wire clk_dac,
@@ -65,7 +64,7 @@ module dac_prep
     end
 
     generate
-    if (INSTANTIATE_SAMPLE_SYNC_TO_DAC_CLK) begin
+    if (INSTANTIATE_SAMPLE_SYNC_TO_DAC_CLK) begin : gen_sample_sync
         logic [2:0] sample_valid_opl3_pulse_extend;
         logic sample_valid_opl3_extended_pulse = 0;
         logic sample_valid_cpu_p0;

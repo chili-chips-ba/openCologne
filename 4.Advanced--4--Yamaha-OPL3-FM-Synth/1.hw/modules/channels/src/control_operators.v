@@ -25,7 +25,8 @@ module control_operators (
 	output reg [19:0] operator_out;
 	output reg ops_done_pulse = 0;
 	localparam PIPELINE_DELAY = 6;
-	localparam MODULATION_DELAY = 2;
+	localparam MODULATION_DELAY = 1;
+	localparam DELAY_COUNTER_WIDTH = 1;
 	localparam opl3_pkg_NUM_BANKS = 2;
 	localparam NUM_OPERATOR_UPDATE_STATES = 37;
 	reg [0:0] delay_counter = 0;
@@ -38,8 +39,7 @@ module control_operators (
 	reg [4:0] op_num;
 	reg [4:0] op_num_p1 = 0;
 	reg use_feedback_p1 = 0;
-	reg signed [12:0] modulation_p1 = 0;
-	reg [2:0] op_type;
+	reg signed [12:0] modulation_p1;
 	wire signed [12:0] out_p6;
 	reg signed [12:0] modulation_out_p1;
 	reg op_sample_clk_en;
@@ -352,24 +352,8 @@ module control_operators (
 					use_feedback_p1 <= !connection_sel[2];
 				else
 					use_feedback_p1 <= !connection_sel[5];
-			13: use_feedback_p1 <= !((bank_num == 0) && ryt);
-			14: use_feedback_p1 <= !((bank_num == 0) && ryt);
+			13, 14: use_feedback_p1 <= !((bank_num == 0) && ryt);
 		endcase
-	always @(*) begin
-		if (_sv2v_0)
-			;
-		op_type = 3'd0;
-		if ((bank_num == 0) && ryt)
-			(* full_case, parallel_case *)
-			case (op_num)
-				12, 15: op_type = 3'd1;
-				13: op_type = 3'd2;
-				14: op_type = 3'd3;
-				16: op_type = 3'd4;
-				17: op_type = 3'd5;
-				default: op_type = 3'd0;
-			endcase
-	end
 	always @(posedge clk) begin
 		bank_num_p1 <= bank_num;
 		connection_sel_p1 <= connection_sel;
@@ -437,8 +421,7 @@ module control_operators (
 					endcase
 				else
 					modulation_p1 = (cnt0_p1 ? 0 : modulation_out_p1);
-			16: modulation_p1 = (cnt0_p1 || (ryt_p1 && (bank_num_p1 == 0)) ? 0 : modulation_out_p1);
-			17: modulation_p1 = (cnt0_p1 || (ryt_p1 && (bank_num_p1 == 0)) ? 0 : modulation_out_p1);
+			16, 17: modulation_p1 = (cnt0_p1 || (ryt_p1 && (bank_num_p1 == 0)) ? 0 : modulation_out_p1);
 		endcase
 	end
 	always @(posedge clk) state <= next_state;
@@ -513,10 +496,10 @@ module control_operators (
 		.tom(tom),
 		.tc(tc),
 		.hh(hh),
+		.ryt(ryt),
 		.use_feedback_p1(use_feedback_p1),
 		.fb_p1(fb_p1),
 		.modulation_p1(modulation_p1),
-		.op_type(op_type),
 		.out_p6(out_p6)
 	);
 	pipeline_sr #(.ENDING_CYCLE(PIPELINE_DELAY)) sample_clk_en_sr(

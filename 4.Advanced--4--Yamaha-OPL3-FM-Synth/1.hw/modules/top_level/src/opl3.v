@@ -60,7 +60,13 @@ module opl3 (
 		.status(status),
 		.force_timer_overflow(force_timer_overflow)
 	);
-	localparam signed [31:0] opl3_pkg_CLK_DIV_COUNT = 256;
+	localparam opl3_pkg_CLK_FREQ = 12.727e6;
+	localparam opl3_pkg_DESIRED_SAMPLE_FREQ = 49.7159e3;
+	function automatic signed [31:0] sv2v_cast_32_signed;
+		input reg signed [31:0] inp;
+		sv2v_cast_32_signed = inp;
+	endfunction
+	localparam opl3_pkg_CLK_DIV_COUNT = sv2v_cast_32_signed($ceil(opl3_pkg_CLK_FREQ / opl3_pkg_DESIRED_SAMPLE_FREQ));
 	clk_div #(.CLK_DIV_COUNT(opl3_pkg_CLK_DIV_COUNT)) sample_clk_gen(
 		.clk_en(sample_clk_en),
 		.clk(clk)

@@ -29,10 +29,10 @@ module calc_phase_inc (
 	input wire vib;
 	input wire dvb;
 	localparam opl3_pkg_PHASE_ACC_WIDTH = 20;
-	output reg [19:0] phase_inc_p2 = 0;
+	output reg [19:0] phase_inc_p2;
 	localparam PIPELINE_DELAY = 2;
-	reg signed [19:0] pre_mult_p0;
-	reg signed [19:0] pre_mult_p1 = 0;
+	reg signed [16:0] pre_mult_p0;
+	reg signed [16:0] pre_mult_p1 = 0;
 	reg signed [19:0] post_mult_p2 = 0;
 	localparam opl3_pkg_VIB_VAL_WIDTH = 3;
 	wire [2:0] vib_val_p2;
@@ -41,7 +41,7 @@ module calc_phase_inc (
 	always @(*) begin
 		if (_sv2v_0)
 			;
-		pre_mult_p0 = fnum << block;
+		pre_mult_p0 = (fnum << block) >> 1;
 	end
 	always @(posedge clk)
 		(* full_case, parallel_case *)

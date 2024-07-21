@@ -38,6 +38,11 @@
 #
 # Note: Every time you open a new terminal, you will need to export the variable again if you use this method.
 #
+#
+# Set the TOOL_ROOT Enviroment Variable
+# It is also needed to set the TOOL_ROOT enviroment variable, which is used for your tool path. If you don't place all your tools in one place then the path is needed
+# to change accordingly
+# You can also declare the variable here in the Makefile instead of placing it in your PATH
 #=============================================================
 
 # Set EXE for platform-specific executable extensions, if necessary
@@ -102,6 +107,20 @@ VLOG_SRC = $(shell cat $(HW_SRC)/rtl.filelist)
 
 ## Toolchain Targets
 
+v_gen:
+	@echo "Generating rtl.filelist with -v parameter..."
+	./create_rtl_filelist.sh -v
+	
+sv_gen:
+	@echo "Generating rtl.filelist with -sv parameter..."
+	./create_rtl_filelist.sh -sv
+
+rtl_gen:
+	@echo "Running convert_sv2v.sh"
+	./convert_sv2v.sh
+	./create_rtl_filelist.sh -v
+
+
 # NOTE: Not sure how to add PKG?
 synth_svlog: $(VLOG_SRC) $(SV_PKG) 
 	@test -d log || mkdir -p log
@@ -117,20 +136,6 @@ synth_vhdl: $(VHDL_SRC)
 	@test -d log || mkdir log
 	@test -d net || mkdir net
 	$(YOSYS) -ql log/synth.log -p 'read -vhdl $(PKG); read -vhdl $(VHDL_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
-	
-rtl_gen:
-	@echo "Running convert_sv2v.sh"
-	./convert_sv2v.sh
-	@echo "Running create_rtl_filelist.sh with -v parameter"
-	./create_rtl_filelist.sh -v
-
-v_gen:
-	@echo "Generating rtl.filelist with -v parameter..."
-	./create_rtl_filelist.sh -v
-	
-sv_gen:
-	@echo "Generating rtl.filelist with -sv parameter..."
-	./create_rtl_filelist.sh -sv
 
 
 # Synthesize with sv2v
@@ -148,9 +153,9 @@ synth: synth_sv2v
 
 # Lint target
 lint: $(VLOG_SRC)
-	#slang $(VLOG_SRC)
-	#verilator --lint-only -Wno-WIDTHEXPAND -Wno-WIDTHTRUNC --top-module $(TOP) $(VLOG_SRC)
-	verible-verilog-lint $(VLOG_SRC)
+	slang $(VLOG_SRC)
+	verilator --lint-only -Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wall --top-module $(TOP) $(VLOG_SRC)
+	#verible-verilog-lint $(VLOG_SRC)
 
 lint_v: v_gen lint
 

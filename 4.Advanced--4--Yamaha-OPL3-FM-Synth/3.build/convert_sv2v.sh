@@ -29,7 +29,7 @@ main() {
     echo "Running convert_sv2v script"
     echo "First create rtl_filelist with .sv extensions because of sv2v function"
     # Create RTL file list
-    create_rtl_filelist
+    #create_rtl_filelist
    
     # Read the list of files
     local src=$(cat "$HW_SRC/rtl.filelist")

@@ -53,7 +53,7 @@ module host_if
     input wire wr_n,
     input wire [1:0] address,
     input wire [REG_FILE_DATA_WIDTH-1:0] din,
-    output logic [REG_FILE_DATA_WIDTH-1:0] dout = 0,
+    output logic [REG_FILE_DATA_WIDTH-1:0] dout,
     output opl3_reg_wr_t opl3_reg_wr = 0,
     input wire [REG_FILE_DATA_WIDTH-1:0] status,
     output logic force_timer_overflow
@@ -89,9 +89,7 @@ module host_if
 		.i_wr_reset_n(ic_n),
 		.i_wr(wr_p1 && !wr_p2),
 		.i_wr_data({address_p1, din_p1}),
-        /* verilator lint_off PINCONNECTEMPTY */
 		.o_wr_full(),
-        /* verilator lint_on PINCONNECTEMPTY */
 		.i_rclk(clk),
 		.i_rd_reset_n(!reset),
 		.i_rd(!opl3_fifo_empty),

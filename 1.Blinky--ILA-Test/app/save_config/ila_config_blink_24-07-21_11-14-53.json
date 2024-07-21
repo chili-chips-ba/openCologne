@@ -1,0 +1,156 @@
+{
+    "explanation_ILA_sampling_freq_MHz": "The string represents the frequency in MHz at which the signals under test are captured. String that contains only a decimal number.",
+    "ILA_sampling_freq_MHz": "2",
+    "explanation_SUT_signals": [
+        "This array contains all signals found in the Design under Test.",
+        {
+            "explanation_Signal_type": "Signal type. Possible types are: 'wire', or 'reg'",
+            "explanation_Signal_range": "Size and orientation of the signal vector.",
+            "explanation_Signal_moduls": "Module where the signal is defined, listed hierarchically.",
+            "explanation_Signal_name": "Name of the signal.",
+            "explanation_selected": "Select a signal to be analyzed by the ILA. 'A' = full signalwidth, e.g: '[1:0]' =  area of the vector (The area shouldbe within the vector area and orientation), e.g.: '1' = individual signal, e.g.: '9, [7:5], 3, [1:0] = anycombination of areas and individual signals."
+        }
+    ],
+    "SUT_signals": [
+        {
+            "Signal_type": "wire",
+            "Signal_range": null,
+            "Signal_moduls": "",
+            "Signal_name": "clk",
+            "selected": [
+                "A"
+            ]
+        },
+        {
+            "Signal_type": "wire",
+            "Signal_range": null,
+            "Signal_moduls": "",
+            "Signal_name": "clk0",
+            "selected": []
+        },
+        {
+            "Signal_type": "wire",
+            "Signal_range": null,
+            "Signal_moduls": "",
+            "Signal_name": "clk180",
+            "selected": []
+        },
+        {
+            "Signal_type": "wire",
+            "Signal_range": null,
+            "Signal_moduls": "",
+            "Signal_name": "clk270",
+            "selected": []
+        },
+        {
+            "Signal_type": "wire",
+            "Signal_range": null,
+            "Signal_moduls": "",
+            "Signal_name": "clk90",
+            "selected": []
+        },
+        {
+            "Signal_type": "reg",
+            "Signal_range": "[24:0]",
+            "Signal_moduls": "",
+            "Signal_name": "counter",
+            "selected": []
+        },
+        {
+            "Signal_type": "wire",
+            "Signal_range": null,
+            "Signal_moduls": "",
+            "Signal_name": "led",
+            "selected": []
+        },
+        {
+            "Signal_type": "wire",
+            "Signal_range": null,
+            "Signal_moduls": "",
+            "Signal_name": "rst",
+            "selected": []
+        },
+        {
+            "Signal_type": "wire",
+            "Signal_range": null,
+            "Signal_moduls": "",
+            "Signal_name": "usr_pll_lock",
+            "selected": []
+        },
+        {
+            "Signal_type": "wire",
+            "Signal_range": null,
+            "Signal_moduls": "",
+            "Signal_name": "usr_pll_lock_stdy",
+            "selected": []
+        },
+        {
+            "Signal_type": "wire",
+            "Signal_range": null,
+            "Signal_moduls": "",
+            "Signal_name": "usr_ref_out",
+            "selected": []
+        }
+    ],
+    "explanation_external_clk_freq": "defines the external clock frequency",
+    "external_clk_freq": "10.0",
+    "explanation_SUT_top_name": "Name of the top level entity of the design to be tested",
+    "SUT_top_name": "blink",
+    "explanation_clk_name": "Name of the DUT clk-input port. The clk-source is crucial as it also serves as the ILA's clk source",
+    "clk_name": "clk",
+    "explanation_sample_compare_pattern": "With this parameter, you can toggle the pattern compare function, reducing logic use and shortening the critical path when deactivated.",
+    "sample_compare_pattern": false,
+    "explanation_ILA_clk_delay": "here you can set the delay of the sampling frequency. 0 = 0\u00b0, 1 = 90\u00b0, 2 = 180\u00b0 and 3 = 270\u00b0 (default: 2)",
+    "ILA_clk_delay": 2,
+    "explanation_sync_level": "Determines the number of register levels via which the signals to be analysed are synchronised.",
+    "sync_level": 0,
+    "explanation_opt": "This optimizes the design by deleting all unused signals before signal evaluation.",
+    "opt": false,
+    "explanation_verilog_sources": "[(paths to the folder containing the Verilog source code files)]",
+    "verilog_sources": [
+        "../example_dut/blink/src/"
+    ],
+    "explanation_VHDL_sources": "[(paths to the folder containing the VHDL source code files)]",
+    "VHDL_sources": [],
+    "explanation_make_pll": "This signal decides whether an additional pll should be instantiated; if this value is False, a signal from the DUT must be selected as the clk signal.",
+    "make_pll": true,
+    "explanation_clk_source": "This signal decides whether an external signal or an internal signal is to be used as the clk source",
+    "ILA_clk_from_DUT": false,
+    "explanation_found_init_mem": "defines information about BRAMS initialized from files.",
+    "found_init_mem": [],
+    "explanation_DUT_BRAMS": "BRAMS in use by the DUT",
+    "DUT_BRAMS_20k": 0,
+    "DUT_BRAMS_40k": 0,
+    "external_clk_pin": false,
+    "external_clk_pin_name": "",
+    "DUT_file_name_flat": "/home/user/openCologne/1.Blinky--ILA-Test/app/config_design/blink_24-07-21_11-14-53_flat.v",
+    "bram_single_wide": 5,
+    "bram_matrix_wide": 1,
+    "ports_DUT": [
+        {
+            "Signal_type": "input",
+            "Signal_range": null,
+            "Signal_moduls": "",
+            "Signal_name": "clk",
+            "selected": []
+        },
+        {
+            "Signal_type": "output",
+            "Signal_range": null,
+            "Signal_moduls": "",
+            "Signal_name": "led",
+            "selected": []
+        }
+    ],
+    "toolchain_info": "/home/user/openCologne/1.Blinky--ILA-Test/p_r_out/ila_top_24-07-21_11-14-53_00.cfg",
+    "time_stamp": "24-07-21_11-14-53",
+    "reset_name": null,
+    "use_cc_rst": false,
+    "bits_samples_count": 9,
+    "bits_samples_count_before_trigger": 6,
+    "samples_count_before_trigger": 64,
+    "use_reset_fuction": false,
+    "explanation_SUT_ccf_file_source": "Folder containing the .ccf file",
+    "SUT_ccf_file_source": "/home/user/openCologne/1.Blinky--ILA-Test/example_dut/blink/src/blink.ccf",
+    "cc_usr_rst_found": true
+}

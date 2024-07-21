@@ -17,19 +17,18 @@ module mem_simple_dual_port_async_read (
 	input wire [$clog2(DEPTH) - 1:0] addrb;
 	input wire [DATA_WIDTH - 1:0] dia;
 	output reg [DATA_WIDTH - 1:0] dob;
-	reg [DATA_WIDTH - 1:0] ram [DEPTH - 1:0];
-	initial begin : sv2v_autoblock_1
-		reg signed [31:0] i;
-		for (i = 0; i < DEPTH; i = i + 1)
-			ram[i] = DEFAULT_VALUE;
-	end
+	function automatic [DATA_WIDTH - 1:0] sv2v_cast_DD846;
+		input reg [DATA_WIDTH - 1:0] inp;
+		sv2v_cast_DD846 = inp;
+	endfunction
+	reg [(DEPTH * DATA_WIDTH) - 1:0] ram = {DEPTH {sv2v_cast_DD846(DEFAULT_VALUE)}};
 	always @(posedge clka)
 		if (wea)
-			ram[addra] <= dia;
+			ram[addra * DATA_WIDTH+:DATA_WIDTH] <= dia;
 	always @(*) begin
 		if (_sv2v_0)
 			;
-		dob = ram[addrb];
+		dob = ram[addrb * DATA_WIDTH+:DATA_WIDTH];
 	end
 	initial _sv2v_0 = 0;
 endmodule

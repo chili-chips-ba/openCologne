@@ -58,29 +58,12 @@ module mem_simple_dual_port_async_read #(
     output logic [DATA_WIDTH-1:0] dob
 );
     /* synthesis syn_ramstyle = "MLAB, no_rw_check" */
-    /* Changed from logic [DATA_WIDTH-1:0] ram [DEPTH-1:0] = '{default: DEFAULT_VALUE}; to 
-    initial begin
-        for (int i = 0; i < DEPTH; i = i + 1) begin
-            ram[i] = DEFAULT_VALUE;
-        end
-    end
-    Because of 'ERROR: Couldn't find ancestor for tagged pattern!' */
-    logic [DATA_WIDTH-1:0] ram [DEPTH-1:0];
+    logic [DATA_WIDTH-1:0] ram [DEPTH-1:0] = '{default: DEFAULT_VALUE};
 
-    initial begin
-        for (int i = 0; i < DEPTH; i = i + 1) begin
-            ram[i] = DEFAULT_VALUE;
-        end
-    end
-
-    always_ff @(posedge clka) begin
-        if (wea) begin
+    always_ff @(posedge clka)
+        if (wea)
             ram[addra] <= dia;
-        end
-    end
 
-    always_comb begin
-        dob = ram[addrb];
-    end
+    always_comb dob = ram[addrb];
 endmodule
 `default_nettype wire

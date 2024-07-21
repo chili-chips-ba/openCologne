@@ -63,9 +63,7 @@ module mem_multi_bank #(
 
     logic [NUM_BANKS-1:0] wea_array;
     logic [DATA_WIDTH-1:0] dob_array [NUM_BANKS];
-    logic [PIPELINE_DELAY-1:0] [BANK_WIDTH-1:0] bankb_p; 
-    // Changed from logic [PIPELINE_DELAY:1] [BANK_WIDTH-1:0] bankb_p to logic [PIPELINE_DELAY-1:0] [BANK_WIDTH-1:0] bankb_p;
-    // Because of 'Warning: Limited support for multirange wires that don't start from 0'
+    logic [PIPELINE_DELAY:1] [BANK_WIDTH-1:0] bankb_p;
 
     pipeline_sr #(
         .DATA_WIDTH(BANK_WIDTH),

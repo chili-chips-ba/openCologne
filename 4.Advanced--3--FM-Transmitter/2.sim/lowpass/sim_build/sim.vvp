@@ -1,0 +1,59 @@
+#! /usr/local/bin/vvp
+:ivl_version "13.0 (devel)" "(s20221226-347-g58dcf39db)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/usr/local/lib/ivl/system.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/local/lib/ivl/v2005_math.vpi";
+:vpi_module "/usr/local/lib/ivl/va_math.vpi";
+:vpi_module "/usr/local/lib/ivl/v2009.vpi";
+S_0x63a93dfd4210 .scope package, "$unit" "$unit" 2 1;
+ .timescale -9 -12;
+S_0x63a93dfd43a0 .scope module, "lowpass" "lowpass" 3 76;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 1 "clock";
+    .port_info 1 /INPUT 1 "enable";
+    .port_info 2 /INPUT 12 "data_in";
+    .port_info 3 /OUTPUT 16 "data_out";
+P_0x63a93dfd5510 .param/l "ATTENUATION" 0 3 78, +C4<00000000000000000000000000000000>;
+P_0x63a93dfd5550 .param/l "BITS_IN" 0 3 77, +C4<00000000000000000000000000001100>;
+P_0x63a93dfd5590 .param/l "BITS_OUT" 0 3 79, +C4<00000000000000000000000000010000>;
+o0x722f5c495018 .functor BUFZ 1, C4<z>; HiZ drive
+v0x63a93dfd5670_0 .net "clock", 0 0, o0x722f5c495018;  0 drivers
+o0x722f5c495048 .functor BUFZ 12, C4<zzzzzzzzzzzz>; HiZ drive
+v0x63a93e01e6f0_0 .net/s "data_in", 11 0, o0x722f5c495048;  0 drivers
+v0x63a93e01e7d0_0 .var/s "data_out", 15 0;
+o0x722f5c4950a8 .functor BUFZ 1, C4<z>; HiZ drive
+v0x63a93e01e8c0_0 .net "enable", 0 0, o0x722f5c4950a8;  0 drivers
+v0x63a93e01e980_0 .var/s "r_data_in", 11 0;
+v0x63a93e01eab0_0 .var/s "sum", 15 0;
+E_0x63a93e00d3e0 .event posedge, v0x63a93dfd5670_0;
+    .scope S_0x63a93dfd43a0;
+T_0 ;
+    %wait E_0x63a93e00d3e0;
+    %load/vec4 v0x63a93e01e8c0_0;
+    %cmpi/e 1, 0, 1;
+    %jmp/0xz  T_0.0, 4;
+    %load/vec4 v0x63a93e01e6f0_0;
+    %assign/vec4 v0x63a93e01e980_0, 0;
+    %load/vec4 v0x63a93e01eab0_0;
+    %load/vec4 v0x63a93e01e980_0;
+    %pad/s 16;
+    %add;
+    %load/vec4 v0x63a93e01eab0_0;
+    %parti/s 1, 15, 5;
+    %pad/s 16;
+    %sub;
+    %assign/vec4 v0x63a93e01eab0_0, 0;
+    %load/vec4 v0x63a93e01eab0_0;
+    %assign/vec4 v0x63a93e01e7d0_0, 0;
+T_0.0 ;
+    %jmp T_0;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "-";
+    "hdl/systemverilog/lowpass.sv";

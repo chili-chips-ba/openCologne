@@ -6,13 +6,13 @@ module timer (
 	timer_overflow_pulse
 );
 	reg _sv2v_0;
-	parameter TIMER_TICK_INTERVAL = 0;
+	parameter real TIMER_TICK_INTERVAL = 0;
 	input wire clk;
 	localparam opl3_pkg_REG_TIMER_WIDTH = 8;
 	input wire [7:0] timer_reg;
 	input wire start_timer;
 	output reg timer_overflow_pulse = 0;
-	localparam opl3_pkg_CLK_FREQ = 12727000;
+	localparam opl3_pkg_CLK_FREQ = 12.727e6;
 	localparam signed [31:0] TICK_TIMER_COUNT_VALUE = opl3_pkg_CLK_FREQ * TIMER_TICK_INTERVAL;
 	reg [$clog2(TICK_TIMER_COUNT_VALUE) - 1:0] tick_counter = 0;
 	reg tick_pulse = 0;

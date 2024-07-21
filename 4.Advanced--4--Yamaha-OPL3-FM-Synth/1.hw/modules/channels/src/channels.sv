@@ -53,14 +53,13 @@ module channels
     output logic signed [DAC_OUTPUT_WIDTH-1:0] sample_l,
     output logic signed [DAC_OUTPUT_WIDTH-1:0] sample_r
 );
-    localparam CHAN_2_OP_WIDTH = OP_OUT_WIDTH + 1;
-    localparam CHAN_4_OP_WIDTH = OP_OUT_WIDTH + 2;
+    localparam CHANNEL_OUT_WIDTH = OP_OUT_WIDTH + 2;
 
     // + 1 because we combine 2 channels together for left and right
     localparam CHANNEL_ACCUMULATOR_WIDTH = OP_OUT_WIDTH + $clog2(NUM_OPERATORS_PER_BANK*NUM_BANKS) + 1;
 
     operator_out_t operator_out;
-    logic unsigned [OP_OUT_WIDTH-1:0] operator_mem_out; // Changed from signed to unsigned because in mem_multi_bank the assignment is unsigned
+    logic signed [OP_OUT_WIDTH-1:0] operator_mem_out;
     logic signed [SAMPLE_WIDTH-1:0] channel_l = 0;
     logic signed [SAMPLE_WIDTH-1:0] channel_r = 0;
     logic channel_valid = 0;
@@ -75,7 +74,44 @@ module channels
     logic cnt; // operator connection
     logic [REG_FB_WIDTH-1:0] fb_dummy;
 
-    always_ff @(posedge clk)
+    enum {
+        IDLE,
+        LOAD_2_OP_SECOND_0,
+        LOAD_2_OP_SECOND_1,
+        LOAD_2_OP_FIRST_AND_ACCUMULATE,
+        LOAD_4_OP_THIRD_0,
+        LOAD_4_OP_THIRD_1,
+        LOAD_4_OP_SECOND,
+        LOAD_4_OP_FIRST_AND_ACCUMULATE,
+        DONE
+    } state = IDLE, next_state;
+
+    struct packed {
+        logic cnt_second;
+        logic signed [OP_OUT_WIDTH-1:0] operator_out_third;
+        logic signed [OP_OUT_WIDTH-1:0] operator_out_second;
+        logic bank_num;
+        logic [$clog2(NUM_OPERATORS_PER_BANK)-1:0] op_num;
+        logic [$clog2(NUM_CHANNELS_PER_BANK)-1:0] channel_num;
+        logic signed [CHANNEL_ACCUMULATOR_WIDTH-1:0] channel_l_acc_pre_clamp;
+        logic signed [CHANNEL_ACCUMULATOR_WIDTH-1:0] channel_r_acc_pre_clamp;
+    } self = 0, next_self;
+
+    // verilator lint_off UNOPTFLAT
+    struct packed {
+        logic [$clog2(NUM_OPERATORS_PER_BANK)-1:0] op_mem_op_num;
+        logic op_mem_rd;
+        logic [$clog2(NUM_CHANNELS_PER_BANK)-1:0] ch_abcd_cnt_mem_channel_num;
+        logic signed [CHANNEL_OUT_WIDTH-1:0] channel_out;
+        logic latch_channels;
+        logic add_a;
+        logic add_b;
+        logic add_c;
+        logic add_d;
+    } signals;
+    // verilator lint_on UNOPTFLAT
+
+    always_ff @(posedge clk) begin
         if (opl3_reg_wr.valid) begin
             if (opl3_reg_wr.bank_num == 1 && opl3_reg_wr.address == 4)
                 connection_sel <= opl3_reg_wr.data[REG_CONNECTION_SEL_WIDTH-1:0];
@@ -86,6 +122,13 @@ module channels
             if (opl3_reg_wr.bank_num == 0 && opl3_reg_wr.address == 'hBD)
                 ryt <= opl3_reg_wr.data[5];
         end
+
+        if (reset) begin
+            // these should be reset as next game after reset may be OPL2 and not clear bank 1
+            connection_sel <= 0;
+            is_new <= 0;
+        end
+    end
 
     mem_multi_bank #(
         .DATA_WIDTH(REG_FILE_DATA_WIDTH),
@@ -127,43 +170,6 @@ module channels
         .dob(operator_mem_out)
     );
 
-    enum {
-        IDLE,
-        LOAD_2_OP_SECOND_0,
-        LOAD_2_OP_SECOND_1,
-        LOAD_2_OP_FIRST_AND_ACCUMULATE,
-        LOAD_4_OP_THIRD_0,
-        LOAD_4_OP_THIRD_1,
-        LOAD_4_OP_SECOND,
-        LOAD_4_OP_FIRST_AND_ACCUMULATE,
-        DONE
-    } state = IDLE, next_state;
-
-    struct packed {
-        logic cnt_second;
-        logic signed [OP_OUT_WIDTH-1:0] operator_out_third;
-        logic signed [OP_OUT_WIDTH-1:0] operator_out_second;
-        logic bank_num;
-        logic [$clog2(NUM_OPERATORS_PER_BANK)-1:0] op_num;
-        logic [$clog2(NUM_CHANNELS_PER_BANK)-1:0] channel_num;
-        logic signed [CHANNEL_ACCUMULATOR_WIDTH-1:0] channel_l_acc_pre_clamp;
-        logic signed [CHANNEL_ACCUMULATOR_WIDTH-1:0] channel_r_acc_pre_clamp;
-    } self = 0, next_self;
-
-
-    struct packed {
-        logic [$clog2(NUM_OPERATORS_PER_BANK)-1:0] op_mem_op_num;
-        logic op_mem_rd;
-        logic [$clog2(NUM_CHANNELS_PER_BANK)-1:0] ch_abcd_cnt_mem_channel_num;
-        logic signed [CHAN_2_OP_WIDTH-1:0] channel_2_op;
-        logic signed [CHAN_4_OP_WIDTH-1:0] channel_4_op;
-        logic latch_channels;
-        logic add_a;
-        logic add_b;
-        logic add_c;
-        logic add_d;
-    } signals;
-
     always_ff @(posedge clk)
         if (sample_clk_en) begin
             state <= IDLE;
@@ -197,11 +203,11 @@ module channels
         end
         LOAD_2_OP_FIRST_AND_ACCUMULATE: begin
             signals.ch_abcd_cnt_mem_channel_num = self.channel_num;
-            signals.channel_2_op = cnt ? operator_mem_out + self.operator_out_second : self.operator_out_second;
+            signals.channel_out = cnt ? operator_mem_out + self.operator_out_second : self.operator_out_second;
             if (ryt && self.bank_num == 0)
                 unique case (self.channel_num)
-                6:    signals.channel_2_op = cnt ? self.operator_out_second : operator_mem_out; // bass drum
-                7, 8: signals.channel_2_op = operator_mem_out + self.operator_out_second; // hi-hat and snare drum, tom-tom and top cymbal
+                6:    signals.channel_out = self.operator_out_second*2; // bass drum
+                7, 8: signals.channel_out = (operator_mem_out + self.operator_out_second)*2; // hi-hat and snare drum, tom-tom and top cymbal
                 default:;
                 endcase
 
@@ -219,6 +225,20 @@ module channels
                     signals.add_d = chd && !connection_sel[self.channel_num+3];
                 end
             end
+            else if (self.channel_num < 6) begin
+                if (self.bank_num == 0) begin
+                    signals.add_a = !is_new || (cha && !connection_sel[self.channel_num-3]);
+                    signals.add_b = !is_new || (chb && !connection_sel[self.channel_num-3]);
+                    signals.add_c = !is_new || (chc && !connection_sel[self.channel_num-3]);
+                    signals.add_d = !is_new || (chd && !connection_sel[self.channel_num-3]);
+                end
+                else begin
+                    signals.add_a = cha && !connection_sel[self.channel_num];
+                    signals.add_b = chb && !connection_sel[self.channel_num];
+                    signals.add_c = chc && !connection_sel[self.channel_num];
+                    signals.add_d = chd && !connection_sel[self.channel_num];
+                end
+            end
             else begin
                 signals.add_a = (self.bank_num == 0 && !is_new) || cha;
                 signals.add_b = (self.bank_num == 0 && !is_new) || chb;
@@ -227,14 +247,14 @@ module channels
             end
 
             unique case ({signals.add_a, signals.add_c})
-            'b01, 'b10: next_self.channel_l_acc_pre_clamp = self.channel_l_acc_pre_clamp + signals.channel_2_op;
-            'b11:       next_self.channel_l_acc_pre_clamp = self.channel_l_acc_pre_clamp + signals.channel_2_op*2;
+            'b01, 'b10: next_self.channel_l_acc_pre_clamp = self.channel_l_acc_pre_clamp + signals.channel_out;
+            'b11:       next_self.channel_l_acc_pre_clamp = self.channel_l_acc_pre_clamp + signals.channel_out*2;
             default:;
             endcase
 
             unique case ({signals.add_b, signals.add_d})
-            'b01, 'b10: next_self.channel_r_acc_pre_clamp = self.channel_r_acc_pre_clamp + signals.channel_2_op;
-            'b11:       next_self.channel_r_acc_pre_clamp = self.channel_r_acc_pre_clamp + signals.channel_2_op*2;
+            'b01, 'b10: next_self.channel_r_acc_pre_clamp = self.channel_r_acc_pre_clamp + signals.channel_out;
+            'b11:       next_self.channel_r_acc_pre_clamp = self.channel_r_acc_pre_clamp + signals.channel_out*2;
             default:;
             endcase
 
@@ -286,10 +306,10 @@ module channels
         LOAD_4_OP_FIRST_AND_ACCUMULATE: begin
             signals.ch_abcd_cnt_mem_channel_num = self.channel_num;
             unique case ({cnt, self.cnt_second})
-            'b00: signals.channel_4_op = self.operator_out_third;
-            'b01: signals.channel_4_op = operator_mem_out + self.operator_out_third;
-            'b10: signals.channel_4_op = operator_mem_out + self.operator_out_third;
-            'b11: signals.channel_4_op = operator_mem_out + self.operator_out_second + self.operator_out_third;
+            'b00: signals.channel_out = self.operator_out_third;
+            'b01: signals.channel_out = operator_mem_out + self.operator_out_third;
+            'b10: signals.channel_out = operator_mem_out + self.operator_out_third;
+            'b11: signals.channel_out = operator_mem_out + self.operator_out_second + self.operator_out_third;
             endcase
 
             if (self.bank_num == 0) begin
@@ -310,14 +330,14 @@ module channels
             * after the YAC512 DAC outputs. Here we'll just add digitally.
             */
             unique case ({signals.add_a, signals.add_c})
-            'b01, 'b10: next_self.channel_l_acc_pre_clamp = self.channel_l_acc_pre_clamp + signals.channel_4_op;
-            'b11:       next_self.channel_l_acc_pre_clamp = self.channel_l_acc_pre_clamp + signals.channel_4_op*2;
+            'b01, 'b10: next_self.channel_l_acc_pre_clamp = self.channel_l_acc_pre_clamp + signals.channel_out;
+            'b11:       next_self.channel_l_acc_pre_clamp = self.channel_l_acc_pre_clamp + signals.channel_out*2;
             default:;
             endcase
 
             unique case ({signals.add_b, signals.add_d})
-            'b01, 'b10: next_self.channel_r_acc_pre_clamp = self.channel_r_acc_pre_clamp + signals.channel_4_op;
-            'b11:       next_self.channel_r_acc_pre_clamp = self.channel_r_acc_pre_clamp + signals.channel_4_op*2;
+            'b01, 'b10: next_self.channel_r_acc_pre_clamp = self.channel_r_acc_pre_clamp + signals.channel_out;
+            'b11:       next_self.channel_r_acc_pre_clamp = self.channel_r_acc_pre_clamp + signals.channel_out*2;
             default:;
             endcase
 

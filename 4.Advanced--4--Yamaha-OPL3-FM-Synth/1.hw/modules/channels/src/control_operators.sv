@@ -43,9 +43,6 @@
 `timescale 1ns / 1ps
 `default_nettype none
 
-`define SYNTHESIS
-
-
 module control_operators
     import opl3_pkg::*;
 (
@@ -60,12 +57,10 @@ module control_operators
     output logic ops_done_pulse = 0
 );
     localparam PIPELINE_DELAY = 6;
-    localparam MODULATION_DELAY = 2; // output of operator 0 must be ready by cycle 2 of operator 3 so it can modulate it
-                                     /* Changed MODULATION_DELAY=1 to MODULATION_DELAY=2 because of 'Negative value in instance "work@opl3.channels.control_operators"
-                                    text:     logic [$clog2(MODULATION_DELAY)-1:0] delay_counter = 0;
-                                    value: INT:-1.*/
+    localparam MODULATION_DELAY = 1; // output of operator 0 must be ready by cycle 2 of operator 3 so it can modulate it
+    localparam DELAY_COUNTER_WIDTH = MODULATION_DELAY > 1 ? $clog2(MODULATION_DELAY) : 1;
     localparam NUM_OPERATOR_UPDATE_STATES = NUM_BANKS*NUM_OPERATORS_PER_BANK + 1; // 36 operators + idle state
-    logic [$clog2(MODULATION_DELAY)-1:0] delay_counter = 0;
+    logic [DELAY_COUNTER_WIDTH-1:0] delay_counter = 0;
 
     logic [$clog2(NUM_OPERATOR_UPDATE_STATES)-1:0] state = 0;
     logic [$clog2(NUM_OPERATOR_UPDATE_STATES)-1:0] next_state;
@@ -76,8 +71,7 @@ module control_operators
     logic [OP_NUM_WIDTH-1:0] op_num_p1 = 0;
 
     logic use_feedback_p1 = 0;
-    logic signed [OP_OUT_WIDTH-1:0] modulation_p1 = 0;
-    operator_t op_type;
+    logic signed [OP_OUT_WIDTH-1:0] modulation_p1;
     logic signed [OP_OUT_WIDTH-1:0] out_p6;
     logic signed [OP_OUT_WIDTH-1:0] modulation_out_p1;
 
@@ -390,22 +384,8 @@ module control_operators
            else               use_feedback_p1 <= !connection_sel[4];
         8: if (bank_num == 0) use_feedback_p1 <= !connection_sel[2];
            else               use_feedback_p1 <= !connection_sel[5];
-        13:                   use_feedback_p1 <= !(bank_num == 0 && ryt); // aka hi hat operator in bank 0
-        14:                   use_feedback_p1 <= !(bank_num == 0 && ryt); // aka tom tom operator in bank 0
+        13, 14:               use_feedback_p1 <= !(bank_num == 0 && ryt); // hi-hat and tom-tom do not use feedback
         endcase
-
-    always_comb begin
-        op_type = OP_NORMAL;
-        if (bank_num == 0 && ryt)
-            unique case (op_num)
-            12, 15:  op_type = OP_BASS_DRUM;
-            13:      op_type = OP_HI_HAT;
-            14:      op_type = OP_TOM_TOM;
-            16:      op_type = OP_SNARE_DRUM;
-            17:      op_type = OP_TOP_CYMBAL;
-            default: op_type = OP_NORMAL;
-            endcase
-    end
 
     always_ff @(posedge clk) begin
         bank_num_p1 <= bank_num;
@@ -460,8 +440,7 @@ module control_operators
                 'b11:             modulation_p1 = 0;
                 endcase
             else                  modulation_p1 = cnt0_p1 ? 0 : modulation_out_p1;
-        16:                       modulation_p1 = cnt0_p1 || (ryt_p1 && bank_num_p1 == 0) ? 0 : modulation_out_p1; // aka snare drum operator in bank 0
-        17:                       modulation_p1 = cnt0_p1 || (ryt_p1 && bank_num_p1 == 0) ? 0 : modulation_out_p1; // aka top cymbal operator in bank 0
+        16, 17:                   modulation_p1 = cnt0_p1 || (ryt_p1 && bank_num_p1 == 0) ? 0 : modulation_out_p1; // snare drum and top cymbal do not use modulation
         endcase
 
     always_ff @(posedge clk)
@@ -540,12 +519,9 @@ module control_operators
     always_ff @(posedge clk)
         modulation_out_p1 <= out_p6;
 
-    // Conditional synthesis directive to include assertion only in simulation
-    `ifndef SYNTHESIS
-        ERROR_operators_not_aligned_for_modulation:
-        assert property (@(posedge clk)
-            op_sample_clk_en && op_num == 3 |-> operator_out.valid && operator_out.op_num == 0);
-    `endif
+    ERROR_operators_not_aligned_for_modulation:
+    assert property (@(posedge clk)
+        op_sample_clk_en && op_num == 3 |-> operator_out.valid && operator_out.op_num == 0);
 
     always_comb begin
         operator_out.valid = op_sample_clk_en_p[6];

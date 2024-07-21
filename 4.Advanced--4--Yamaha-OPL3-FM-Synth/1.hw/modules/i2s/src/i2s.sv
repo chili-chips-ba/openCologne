@@ -56,8 +56,8 @@ module i2s (
     output logic i2s_sd = 0
 );
     localparam BITS_PER_FRAME = 64;
-    localparam SCLK_FREQ = opl3_pkg::ACTUAL_SAMPLE_FREQ * BITS_PER_FRAME; // Use the correct package prefix
-    localparam int SCLK_DIV = $ceil(CLK_FREQ/SCLK_FREQ/2);
+    localparam SCLK_FREQ = ACTUAL_SAMPLE_FREQ*BITS_PER_FRAME;
+    localparam int SCLK_DIV = CLK_FREQ/SCLK_FREQ/2;
 
     logic i2s_sclk_en;
     logic [$clog2(SCLK_DIV)-1:0] i2s_sclk_counter = 0;

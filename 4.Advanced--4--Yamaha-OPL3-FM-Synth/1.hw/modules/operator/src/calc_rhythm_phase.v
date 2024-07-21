@@ -4,8 +4,8 @@ module calc_rhythm_phase (
 	sample_clk_en,
 	bank_num,
 	op_num,
-	phase_acc_p3,
-	op_type,
+	phase_p2,
+	op_type_p0,
 	rhythm_phase_p3
 );
 	reg _sv2v_0;
@@ -17,20 +17,23 @@ module calc_rhythm_phase (
 	localparam opl3_pkg_NUM_OPERATORS_PER_BANK = 18;
 	localparam opl3_pkg_OP_NUM_WIDTH = 5;
 	input wire [4:0] op_num;
-	localparam opl3_pkg_PHASE_ACC_WIDTH = 20;
-	input wire [19:0] phase_acc_p3;
-	input wire [2:0] op_type;
-	output reg [19:0] rhythm_phase_p3;
+	localparam opl3_pkg_PHASE_FINAL_WIDTH = 10;
+	input wire [9:0] phase_p2;
+	input wire [2:0] op_type_p0;
+	output reg [9:0] rhythm_phase_p3 = 0;
 	localparam PIPELINE_DELAY = 3;
 	localparam RAND_POLYNOMIAL = 'h800302;
 	localparam RAND_NUM_WIDTH = $clog2('h800302);
-	reg [19:0] hh_phase_friend = 0;
-	reg [19:0] hh_phase_p3;
-	reg [19:0] phase_bit_p3;
-	reg [19:0] noise_bit_p3;
+	reg [9:0] hh_phase_friend = 0;
+	reg [9:0] tc_phase_friend = 0;
+	reg [9:0] hh_phase_p2;
+	reg [9:0] tc_phase_p2;
+	reg rm_xor_p2;
 	reg [RAND_NUM_WIDTH - 1:0] rand_num = 1;
 	wire [PIPELINE_DELAY:1] sample_clk_en_p;
 	wire [11:3] op_type_p;
+	wire [3:1] bank_num_p;
+	wire [19:5] op_num_p;
 	pipeline_sr #(.ENDING_CYCLE(PIPELINE_DELAY)) sample_clk_en_sr(
 		.clk(clk),
 		.in(sample_clk_en),
@@ -42,37 +45,46 @@ module calc_rhythm_phase (
 		.POR_VALUE(3'd0)
 	) op_type_sr(
 		.clk(clk),
-		.in(op_type),
+		.in(op_type_p0),
 		.out(op_type_p)
 	);
+	pipeline_sr #(
+		.DATA_WIDTH(opl3_pkg_BANK_NUM_WIDTH),
+		.ENDING_CYCLE(PIPELINE_DELAY)
+	) bank_num_sr(
+		.clk(clk),
+		.in(bank_num),
+		.out(bank_num_p)
+	);
+	pipeline_sr #(
+		.DATA_WIDTH(opl3_pkg_OP_NUM_WIDTH),
+		.ENDING_CYCLE(PIPELINE_DELAY)
+	) op_num_sr(
+		.clk(clk),
+		.in(op_num),
+		.out(op_num_p)
+	);
+	always @(posedge clk) begin
+		if ((sample_clk_en_p[2] && (bank_num_p[2+:1] == 0)) && (op_num_p[10+:5] == 13))
+			hh_phase_friend <= phase_p2;
+		if ((sample_clk_en_p[2] && (bank_num_p[2+:1] == 0)) && (op_num_p[10+:5] == 17))
+			tc_phase_friend <= phase_p2;
+	end
+	always @(*) begin
+		if (_sv2v_0)
+			;
+		hh_phase_p2 = (op_type_p[6+:3] == 3'd2 ? phase_p2 : hh_phase_friend);
+		tc_phase_p2 = (op_type_p[6+:3] == 3'd5 ? phase_p2 : tc_phase_friend);
+		rm_xor_p2 = ((hh_phase_p2[2] ^ hh_phase_p2[7]) || (hh_phase_p2[3] ^ tc_phase_p2[5])) || (tc_phase_p2[3] ^ tc_phase_p2[5]);
+	end
 	always @(posedge clk)
-		if ((sample_clk_en_p[3] && (bank_num == 0)) && (op_num == 13))
-			hh_phase_friend <= phase_acc_p3;
-	always @(*) begin
-		if (_sv2v_0)
-			;
 		(* full_case, parallel_case *)
-		case (op_type_p[9+:3])
-			3'd4: hh_phase_p3 = (hh_phase_friend & 'h100 ? 'h200 : 'h100);
-			3'd5: hh_phase_p3 = hh_phase_friend;
-			default: hh_phase_p3 = phase_acc_p3;
+		case (op_type_p[6+:3])
+			3'd2: rhythm_phase_p3 <= (rm_xor_p2 << 9) | (rm_xor_p2 ^ rand_num[0] ? 'hd0 : 'h34);
+			3'd4: rhythm_phase_p3 <= (hh_phase_p2[8] << 9) | ((hh_phase_p2[8] ^ rand_num[0]) << 8);
+			3'd5: rhythm_phase_p3 <= (rm_xor_p2 << 9) | 'h80;
+			default: rhythm_phase_p3 <= phase_p2;
 		endcase
-		phase_bit_p3 = (((hh_phase_p3 & 'h88) ^ ((hh_phase_p3 << 5) & 'h80)) | ((hh_phase_p3 ^ (hh_phase_p3 << 2)) & 'h20) ? 'h2 : 'h0);
-		noise_bit_p3 = (op_type_p[9+:3] == 3'd2 ? rand_num[0] << 1 : rand_num[0] << 8);
-	end
-	always @(*) begin
-		if (_sv2v_0)
-			;
-		(* full_case, parallel_case *)
-		case (op_type_p[9+:3])
-			3'd0: rhythm_phase_p3 = phase_acc_p3;
-			3'd1: rhythm_phase_p3 = phase_acc_p3;
-			3'd2: rhythm_phase_p3 = (phase_bit_p3 << 8) | ('h34 << (phase_bit_p3 ^ noise_bit_p3));
-			3'd3: rhythm_phase_p3 = phase_acc_p3;
-			3'd4: rhythm_phase_p3 = hh_phase_p3 ^ noise_bit_p3;
-			3'd5: rhythm_phase_p3 = (1 + phase_bit_p3) << 8;
-		endcase
-	end
 	always @(posedge clk)
 		if ((sample_clk_en && (bank_num == 0)) && (op_num == 0)) begin
 			if (rand_num & 1)

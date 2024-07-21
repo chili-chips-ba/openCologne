@@ -45,7 +45,7 @@ module top_fm
 #(
    parameter abcxyz =  0,
    parameter USE_ECP5PLL = 1,
-   parameter USE_GM = 0,
+   parameter USE_GM = 0
 )
 (
    input  logic       clk_25mhz,
@@ -56,7 +56,7 @@ module top_fm
 );
 
    generate 
-      if(USE_ECP5PLL = 1'b1) begin
+      if(USE_ECP5PLL == 1'b1) begin
           // TODO: Check if this initialization is okay
           // clock generator
           logic clk_locked;
@@ -79,14 +79,12 @@ module top_fm
             );
 
            
-      end else if(USE_GM = 1'b1) begin
+      end else if(USE_GM == 1'b1) begin
          // For GateMate // 
 
-         clk = clk0_1;
-         clk_fmdds = clk0_2;
 
          logic clk270_1, clk180_1, clk90_1, clk0_1, usr_ref_out_1;
-	        logic usr_pll_lock_stdy_1, usr_pll_lock_1;
+	     logic usr_pll_lock_stdy_1, usr_pll_lock_1;
 
          CC_PLL #(
             .REF_CLK("25.0"),    // reference input in MHz
@@ -116,6 +114,9 @@ module top_fm
             .USR_LOCKED_STDY_RST(1'b0), .USR_PLL_LOCKED_STDY(usr_pll_lock_stdy_2), .USR_PLL_LOCKED(usr_pll_lock_2),
             .CLK270(clk270_2), .CLK180(clk180_2), .CLK90(clk90_2), .CLK0(clk0_2), .CLK_REF_OUT(usr_ref_out_2)
          );
+		 
+		  logic clk = clk0_1;
+          logic clk_fmdds = clk0_2;
 
       end
    endgenerate

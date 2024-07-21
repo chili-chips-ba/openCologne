@@ -44,7 +44,7 @@
 module timer
     import opl3_pkg::*;
 #(
-    parameter TIMER_TICK_INTERVAL = 0 // time in seconds, changed from real to integer for synthesis
+    parameter real TIMER_TICK_INTERVAL = 0 // time in seconds
 ) (
     input wire clk,
     input wire [REG_TIMER_WIDTH-1:0] timer_reg,

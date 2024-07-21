@@ -29,10 +29,10 @@ module operator (
 	tom,
 	tc,
 	hh,
+	ryt,
 	use_feedback_p1,
 	fb_p1,
 	modulation_p1,
-	op_type,
 	out_p6
 );
 	reg _sv2v_0;
@@ -76,12 +76,12 @@ module operator (
 	input wire tom;
 	input wire tc;
 	input wire hh;
+	input wire ryt;
 	input wire use_feedback_p1;
 	localparam opl3_pkg_REG_FB_WIDTH = 3;
 	input wire [2:0] fb_p1;
 	localparam opl3_pkg_OP_OUT_WIDTH = 13;
 	input wire signed [12:0] modulation_p1;
-	input wire [2:0] op_type;
 	output wire signed [12:0] out_p6;
 	localparam PIPELINE_DELAY = 6;
 	wire [PIPELINE_DELAY:1] sample_clk_en_p;
@@ -89,23 +89,18 @@ module operator (
 	wire [34:5] op_num_p;
 	localparam opl3_pkg_PHASE_ACC_WIDTH = 20;
 	wire [19:0] phase_inc_p2;
-	reg key_on_pulse_p0;
-	reg key_off_pulse_p0;
-	localparam opl3_pkg_ENV_WIDTH = 9;
-	wire [8:0] env_p3;
+	wire key_on_p0_pulse_p0;
+	wire key_off_pulse_p0;
+	localparam opl3_pkg_FINAL_ENV_WIDTH = 11;
+	wire [10:0] env_p3;
 	reg signed [12:0] feedback_result_p1;
 	reg signed [21:0] feedback_result_tmp_p1;
-	wire bd_on_pulse;
-	wire sd_on_pulse;
-	wire tom_on_pulse;
-	wire tc_on_pulse;
-	wire hh_on_pulse;
-	reg rhythm_kon_pulse;
-	wire prev_kon_p0;
-	reg kon_p1;
 	wire [25:0] feedback_p1;
 	reg [25:0] feedback_p6;
 	wire [181:52] feedback_p;
+	reg [2:0] op_type_p0;
+	reg key_on_p0;
+	wire pg_reset_p2;
 	pipeline_sr #(.ENDING_CYCLE(PIPELINE_DELAY)) sample_clk_en_sr(
 		.clk(clk),
 		.in(sample_clk_en),
@@ -127,83 +122,37 @@ module operator (
 		.in(op_num),
 		.out(op_num_p)
 	);
-	always @(posedge clk) kon_p1 <= kon;
-	mem_multi_bank #(
-		.DATA_WIDTH(1),
-		.DEPTH(opl3_pkg_NUM_OPERATORS_PER_BANK),
-		.OUTPUT_DELAY(0),
-		.DEFAULT_VALUE(0),
-		.NUM_BANKS(opl3_pkg_NUM_BANKS)
-	) kon_mem(
-		.clk(clk),
-		.wea(sample_clk_en_p[1]),
-		.reb(sample_clk_en),
-		.banka(bank_num_p[1+:1]),
-		.addra(op_num_p[5+:5]),
-		.bankb(bank_num),
-		.addrb(op_num),
-		.dia(kon_p1),
-		.dob(prev_kon_p0)
-	);
-	edge_detector #(
-		.EDGE_LEVEL(1),
-		.CLK_DLY(0)
-	) bd_edge_detect(
-		.clk_en((op_type == 3'd1) && sample_clk_en),
-		.in(bd),
-		.edge_detected(bd_on_pulse),
-		.clk(clk)
-	);
-	edge_detector #(
-		.EDGE_LEVEL(1),
-		.CLK_DLY(0)
-	) sd_edge_detect(
-		.clk_en((op_type == 3'd4) && sample_clk_en),
-		.in(sd),
-		.edge_detected(sd_on_pulse),
-		.clk(clk)
-	);
-	edge_detector #(
-		.EDGE_LEVEL(1),
-		.CLK_DLY(0)
-	) tom_edge_detect(
-		.clk_en((op_type == 3'd3) && sample_clk_en),
-		.in(tom),
-		.edge_detected(tom_on_pulse),
-		.clk(clk)
-	);
-	edge_detector #(
-		.EDGE_LEVEL(1),
-		.CLK_DLY(0)
-	) tc_edge_detect(
-		.clk_en((op_type == 3'd5) && sample_clk_en),
-		.in(tc),
-		.edge_detected(tc_on_pulse),
-		.clk(clk)
-	);
-	edge_detector #(
-		.EDGE_LEVEL(1),
-		.CLK_DLY(0)
-	) hh_edge_detect(
-		.clk_en((op_type == 3'd2) && sample_clk_en),
-		.in(hh),
-		.edge_detected(hh_on_pulse),
-		.clk(clk)
-	);
 	always @(*) begin
 		if (_sv2v_0)
 			;
-		rhythm_kon_pulse = (((((op_type == 3'd1) && bd_on_pulse) || ((op_type == 3'd4) && sd_on_pulse)) || ((op_type == 3'd3) && tom_on_pulse)) || ((op_type == 3'd5) && tc_on_pulse)) || ((op_type == 3'd2) && hh_on_pulse);
-	end
-	always @(*) begin
-		if (_sv2v_0)
-			;
-		key_on_pulse_p0 = ((!prev_kon_p0 && kon) || rhythm_kon_pulse) && sample_clk_en;
-	end
-	always @(*) begin
-		if (_sv2v_0)
-			;
-		key_off_pulse_p0 = (prev_kon_p0 && !kon) && sample_clk_en;
+		op_type_p0 = 3'd0;
+		key_on_p0 = kon;
+		if ((bank_num == 0) && ryt)
+			(* full_case, parallel_case *)
+			case (op_num)
+				12, 15: begin
+					op_type_p0 = 3'd1;
+					key_on_p0 = bd;
+				end
+				13: begin
+					op_type_p0 = 3'd2;
+					key_on_p0 = hh;
+				end
+				14: begin
+					op_type_p0 = 3'd3;
+					key_on_p0 = tom;
+				end
+				16: begin
+					op_type_p0 = 3'd4;
+					key_on_p0 = sd;
+				end
+				17: begin
+					op_type_p0 = 3'd5;
+					key_on_p0 = tc;
+				end
+				default:
+					;
+			endcase
 	end
 	calc_phase_inc calc_phase_inc(
 		.clk(clk),
@@ -218,7 +167,6 @@ module operator (
 		.phase_inc_p2(phase_inc_p2)
 	);
 	envelope_generator envelope_generator(
-		.egt(egt && (op_type == 3'd0)),
 		.clk(clk),
 		.reset(reset),
 		.sample_clk_en(sample_clk_en),
@@ -231,15 +179,16 @@ module operator (
 		.tl(tl),
 		.ksr(ksr),
 		.ksl(ksl),
+		.egt(egt),
 		.am(am),
 		.dam(dam),
 		.nts(nts),
 		.fnum(fnum),
 		.mult(mult),
 		.block(block),
-		.key_on_pulse_p0(key_on_pulse_p0),
-		.key_off_pulse_p0(key_off_pulse_p0),
-		.env_p3(env_p3)
+		.key_on_p0(key_on_p0),
+		.env_p3(env_p3),
+		.pg_reset_p2(pg_reset_p2)
 	);
 	phase_generator phase_generator(
 		.modulation_p1((use_feedback_p1 ? feedback_result_p1 : modulation_p1)),
@@ -251,8 +200,8 @@ module operator (
 		.phase_inc_p2(phase_inc_p2),
 		.ws(ws),
 		.env_p3(env_p3),
-		.key_on_pulse_p0(key_on_pulse_p0),
-		.op_type(op_type),
+		.pg_reset_p2(pg_reset_p2),
+		.op_type_p0(op_type_p0),
 		.out_p6(out_p6)
 	);
 	always @(*) begin

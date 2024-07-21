@@ -35,7 +35,7 @@ module mem_multi_bank_reset (
 	localparam PIPELINE_DELAY = 2;
 	reg [NUM_BANKS - 1:0] wea_array;
 	wire [DATA_WIDTH - 1:0] dob_array [0:NUM_BANKS - 1];
-	wire [(2 * BANK_WIDTH) - 1:0] bankb_p;
+	wire [(PIPELINE_DELAY * BANK_WIDTH) + (BANK_WIDTH - 1):BANK_WIDTH] bankb_p;
 	reg [31:0] state = 32'd0;
 	reg [31:0] next_state;
 	reg [(BANK_WIDTH + $clog2(DEPTH)) + 0:0] self = 0;

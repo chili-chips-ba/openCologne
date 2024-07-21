@@ -18,10 +18,16 @@ module i2s (
 	output reg i2s_ws = 0;
 	output reg i2s_sd = 0;
 	localparam BITS_PER_FRAME = 64;
-	localparam opl3_pkg_ACTUAL_SAMPLE_FREQ = 49715;
-	localparam SCLK_FREQ = 3181760;
-	localparam opl3_pkg_CLK_FREQ = 12727000;
-	localparam signed [31:0] SCLK_DIV = $ceil(1);
+	localparam opl3_pkg_CLK_FREQ = 12.727e6;
+	localparam opl3_pkg_DESIRED_SAMPLE_FREQ = 49.7159e3;
+	function automatic signed [31:0] sv2v_cast_32_signed;
+		input reg signed [31:0] inp;
+		sv2v_cast_32_signed = inp;
+	endfunction
+	localparam opl3_pkg_CLK_DIV_COUNT = sv2v_cast_32_signed($ceil(opl3_pkg_CLK_FREQ / opl3_pkg_DESIRED_SAMPLE_FREQ));
+	localparam opl3_pkg_ACTUAL_SAMPLE_FREQ = opl3_pkg_CLK_FREQ / opl3_pkg_CLK_DIV_COUNT;
+	localparam SCLK_FREQ = opl3_pkg_ACTUAL_SAMPLE_FREQ * BITS_PER_FRAME;
+	localparam signed [31:0] SCLK_DIV = (opl3_pkg_CLK_FREQ / SCLK_FREQ) / 2;
 	reg i2s_sclk_en;
 	reg [$clog2(SCLK_DIV) - 1:0] i2s_sclk_counter = 0;
 	reg [5:0] bit_counter = 0;
