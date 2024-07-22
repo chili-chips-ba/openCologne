@@ -47,14 +47,15 @@ EXE =
 #========================================================================================
 BLD_DIR  = $(CURDIR)
 HW_SRC  := $(BLD_DIR)/../1.hw
-SW_SRC  := $(BLD_DIR)/../2.sw
+SIM_SRC  := $(BLD_DIR)/../2.sim
 
 BLD_PATH = /usr/local/bin
 
 #========================================================================================
 # GateMate CologneChip Tools
 #========================================================================================
-YOSYS = $(CC_TOOL)/bin/yosys/yosys$(EXE)
+#YOSYS = $(CC_TOOL)/bin/yosys/yosys$(EXE)
+YOSYS = /usr/local/bin/yosys$(EXE)
 PNR   = $(CC_TOOL)/bin/p_r/p_r$(EXE)
 
 #DONT_USE--| This OFL line does not work for me. If you have the same problem, update OFL to the newest 
@@ -67,9 +68,10 @@ PNR   = $(CC_TOOL)/bin/p_r/p_r$(EXE)
 OFL = $(BLD_PATH)/openFPGALoader$(EXE) 
 
 #========================================================================================
-# Plugin Paths
+# Plugins
 #========================================================================================
 
+## SYNLIG Plugin
 #DONT_USE--| # NOTE: SYNLIG is outdated and not working with the latest version of yosys so 'synth_svlog'
 #DONT_USE--| #       is not recommended as of now. Using the read -sv command that comes with yosys is 
 #DONT_USE--| #       very rudimentary and results in lots of errors. As of now, SystemVerilog support for 
@@ -78,13 +80,66 @@ OFL = $(BLD_PATH)/openFPGALoader$(EXE)
 #DONT_USE--| SYNLIG = $(<path-to-your-Synlig-install-directory>)/synlig
 #DONT_USE--| PLUGIN_PATH := $(SYNLIG)/build/release/systemverilog-plugin/systemverilog.so
 
-# Tarik, how about, for completeness, also add instructions for GHDL plugin
+# GHDL Plugin Installation
+# See: https://github.com/chili-chips-ba/openCologne/issues/24
+
+# Step 1---| Install Yosys from source
+#    git clone https://github.com/YosysHQ/yosys.git
+#    cd yosys
+#    make config-clang
+#    git submodule update --init
+#    make -j$(nproc)
+#    sudo make install
+
+# Step 2---| Install GHDL from source
+#    git clone https://github.com/ghdl/ghdl.git
+#    cd ghdl
+#    ./configure --prefix=/usr/local
+#    make -j$(nproc)
+#    sudo make install
+
+# Step 3---| Install the GHDL-Yosys Plugin
+#    git clone https://github.com/ghdl/ghdl-yosys-plugin.git
+#    cd ghdl-yosys-plugin
+#    make GHDL=/usr/local/bin/ghdl -j$(nproc)
+#    sudo make GHDL=/usr/local/bin/ghdl install
+
+#IMPORTANT--| Make sure to test out `yosys -m ghdl` command in terminal, and then in yosys run `help ghdl`
+#IMPORTANT--| Its should give back details how to use ghdl plugin for yosys. If not see the link above.
+#IMPORTANT--| Check if your ghdl.so plugin is installed in the correct directory
+
+
+#========================================================================================
+# Tools
+#========================================================================================
+
+# sv2v Installation
+# Github reference: https://github.com/zachjs/sv2v
+# Build requirements: Install stack https://docs.haskellstack.org/en/stable/
+#    git clone https://github.com/zachjs/sv2v.git
+#    cd sv2v
+#    make
+# This creates the executable at ./bin/sv2v. Stack takes care of installing exact (compatible) versions of the compiler and sv2v's build dependencies. 
+# You can install the binary to your local bin path (typically ~/.local/bin) by running stack install, or copy over the executable manually, or just add ./bin.sv2v to your path.
 
 #========================================================================================
 # Linters
 #========================================================================================
-# Tarik, add instructions for SV2V, Verible and Slang installatation and setup
+# Slang Installation
+# Github reference: https://github.com/MikePopoloski/slang
 
+# Build requirements: python3, CMake(3.20 or later), C++20 Compatible compiler(GCC 11, clang 16, Xcode 15)
+#     git clone https://github.com/MikePopoloski/slang.git
+#     cmake -B build
+#     cmake --build build -j8 
+
+# Verible Installation
+# Github reference: https://github.com/chipsalliance/verible
+# Best way to install is to use the binary releases: https://github.com/chipsalliance/verible?tab=readme-ov-file#installation
+# Dont forget to add them to your /usr/local/bin or /opt directories and source them
+# Check if the commands work directly from the terminal  
+
+#
 #========================================================================================
 # Simulation Tools and Flags
 #========================================================================================
@@ -92,11 +147,52 @@ GTKW = gtkwave
 IVL  = iverilog
 VVP  = vvp
 
-IVLFLAGS = -Winfloop -g2012 -gspecify -Ttyp
+IVLFLAGS = -g2012 -gspecify -Ttyp
 OFLFLAGS = --cable dirtyJtag # BEWARE: When using Olimex GateMate it is a must to add this
 
-# Tarik, how about, for completeness, also add instructions for Verilator and cocotb?
-# Have you tried Surfer? https://surfer-project.org
+#-------------------------------
+# Icarus Verilog
+#-------------------------------
+# Github reference: https://github.com/steveicarus/iverilog
+# Installation reference: https://steveicarus.github.io/iverilog/usage/installation.html
+
+#-------------------------------
+# Verilator
+#-------------------------------
+# Github reference: https://github.com/verilator/verilator
+# Installation reference: https://verilator.org/guide/latest/install.html
+# To use Verilator for simulation you need to make a `sim_main.cpp` file and a Makefile suited for Verilator
+# See: https://github.com/chili-chips-ba/openCologne/tree/main/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim 
+# Where I have verilator.mk file that takes care of the Verilator side of things and a Makefile that is specific to the project
+#-------------------------------
+# cocotb
+#-------------------------------
+# Github reference: https://github.com/cocotb/cocotb
+# Documentation reference: https://docs.cocotb.org/en/stable/
+# Installation: 
+# Dependencies: python3.6+, GNU Make 3+, An HDL Simulator(Icarus, Verilator, GHDL...) 
+#    pip install cocotb 
+
+# See: https://github.com/chili-chips-ba/openCologne/tree/main/4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/cocotb
+# There is a config.mk file for cocotb with setups for different flags that can be found in the documentation
+# There is a Makefile that takes into account all of the needed simulation files and their names(RTL file, testbench...)
+# And the testbench written in python  
+
+#========================================================================================
+# Waveform viewers
+#========================================================================================
+
+#-------------------------------
+# GTKWave
+#-------------------------------
+# Github reference: https://github.com/gtkwave/gtkwave.git
+# Installation tutorial is given on the github for different Operating Systems
+
+#-------------------------------
+# Surfer
+#-------------------------------
+# Gitlab reference: https://gitlab.com/surfer-project/surfer/-/tree/main?ref_type=heads
+# Easiest way is to download pre-built binaries and add them to your path, you can also build from source checking the link above
 
 #========================================================================================
 # Simulation Libraries
@@ -181,8 +277,7 @@ synth_vhdl: $(VHDL_SRC)
 	@echo "=============================================="
 	@test -d log || mkdir log
 	@test -d net || mkdir net
-	$(YOSYS) -ql log/synth.log -p 'ghdl --warn-no-binding -C --ieee=synopsys $^ -e $(TOP); \
-	synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
+	$(YOSYS) -ql log/synth.log -m ghdl -p 'ghdl --warn-no-binding -C --ieee=synopsys $(VHDL_SRC) -e $(TOP); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
 	@echo "=============================================="
 	@echo "Yosys synthesis complete. Logs in log/synth.log."
 	@echo "=============================================="
@@ -192,7 +287,7 @@ synth: synth_vlog
 #-------------------------------
 # PNR
 #-------------------------------
-impl
+impl:
 	@echo "=============================================="
 	@echo "Running Place and Route..."
 	@echo "=============================================="
@@ -252,7 +347,7 @@ vlog_sim.vvp:
 	@echo "=============================================="
 	@echo "Running Verilog simulation..."
 	@echo "=============================================="
-	$(IVL) $(IVLFLAGS) -o $(SIM)/$@ $(VLOG_SRC) $(SIM)/$(TOP)_tb.v
+	$(IVL) $(IVLFLAGS) -o $(SIM_SRC)/$@ $(VLOG_SRC) $(SIM_SRC)/$(TOP)_tb.v
 	@echo "=============================================="
 	@echo "Verilog simulation complete."
 	@echo "=============================================="
@@ -261,7 +356,7 @@ synth_sim.vvp:
 	@echo "=============================================="
 	@echo "Running synthesis simulation..."
 	@echo "=============================================="
-	$(IVL) $(IVLFLAGS) -o $(SIM)/$@ net/$(TOP)_synth.v $(SIM)/$(TOP)_tb.v $(CELLS_SYNTH)
+	$(IVL) $(IVLFLAGS) -o $(SIM_SRC)/$@ net/$(TOP)_synth.v $(SIM)/$(TOP)_tb.v $(CELLS_SYNTH)
 	@echo "=============================================="
 	@echo "Synthesis simulation complete."
 	@echo "=============================================="
@@ -270,7 +365,7 @@ impl_sim.vvp:
 	@echo "=============================================="
 	@echo "Running implementation simulation..."
 	@echo "=============================================="
-	$(IVL) $(IVLFLAGS) -o $(SIM)/$@ $(TOP)_00.v $(SIM)/$(TOP)_tb.v $(CELLS_IMPL)
+	$(IVL) $(IVLFLAGS) -o $(SIM_SRC)/$@ $(TOP)_00.v $(SIM)/$(TOP)_tb.v $(CELLS_IMPL)
 	@echo "=============================================="
 	@echo "Implementation simulation complete."
 	@echo "=============================================="
@@ -280,21 +375,31 @@ impl_sim.vvp:
 	@echo "=============================================="
 	@echo "Running simulation with VVP..."
 	@echo "=============================================="
-	$(VVP) -N $(SIM)/$< -fst
-	@$(RM) $(SIM)/$^
+	$(VVP) -N $(SIM_SRC)/$< -fst
+	@$(RM) $(SIM_SRC)/$^
 	@echo "=============================================="
 	@echo "Simulation complete."
 	@echo "=============================================="
 
-wave:
+wave_gtkwave:
 	@echo "=============================================="
 	@echo "Opening GTKWave..."
 	@echo "=============================================="
-	$(GTKW) $(SIM)/$(TOP)_tb.vcd $(SIM)/config.gtkw
+	$(GTKW) $(SIM_SRC)/$(TOP)_tb.vcd $(SIM_SRC)/config.gtkw
 	@echo "=============================================="
 	@echo "GTKWave opened."
 	@echo "=============================================="
 
+wave_surfer:
+	@echo "=============================================="
+	@echo "Opening Surfer..."
+	@echo "=============================================="
+	surfer $(SIM_SRC)/$(TOP)_tb.vcd 
+	@echo "=============================================="
+	@echo "Surfer opened."
+	@echo "=============================================="
+
+wave: wave_gtkwave
 #========================================================================================
 # Housekeeping
 #========================================================================================

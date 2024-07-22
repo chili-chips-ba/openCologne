@@ -42,8 +42,7 @@ module blink (
     input  wire clk,
     input  wire rst,
     output wire led,
-    output wire clk_pll,
-    output wire clk_pin   // For testing
+    output wire clk_pll
 );
 
   reg [26:0] counter;
@@ -52,12 +51,12 @@ module blink (
   wire usr_pll_lock_stdy, usr_pll_lock;
 
   CC_PLL #(
-      .REF_CLK        ("10.0"),      // reference input in MHz
-      .OUT_CLK        ("35.0"),      // pll output frequency in MHz
-      .PERF_MD        ("LOWPOWER"),  // LOWPOWER, ECONOMY, SPEED
-      .LOW_JITTER     (1),           // 0: disable, 1: enable low jitter mode
-      .CI_FILTER_CONST(2),           // optional CI filter constant
-      .CP_FILTER_CONST(4)            // optional CP filter constant
+      .REF_CLK        ("10.0"),     // reference input in MHz
+      .OUT_CLK        ("100.0"),    // pll output frequency in MHz
+      .PERF_MD        ("ECONOMY"),  // LOWPOWER, ECONOMY, SPEED
+      .LOW_JITTER     (1),          // 0: disable, 1: enable low jitter mode
+      .CI_FILTER_CONST(2),          // optional CI filter constant
+      .CP_FILTER_CONST(4)           // optional CP filter constant
   ) pll_inst (
       .CLK_REF(clk),
       .CLK_FEEDBACK(1'b0),
@@ -75,8 +74,6 @@ module blink (
   assign led = counter[26];
 
   assign clk_pll = clk0;
-
-  assign clk_pin = clk0;
 
   always @(posedge clk0) begin
     if (!rst) begin

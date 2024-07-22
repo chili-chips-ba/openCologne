@@ -1,59 +1,24 @@
-#======================================================================== 
-# openCologne * NLnet-sponsored open-source design ware for GateMate
-#------------------------------------------------------------------------
-#                   Copyright (C) 2024 Chili.CHIPS*ba
-# 
-# Redistribution and use in source and binary forms, with or without 
-# modification, are permitted provided that the following conditions 
-# are met:
+## blink.ccf
 #
-# 1. Redistributions of source code must retain the above copyright 
-# notice, this list of conditions and the following disclaimer.
+# Date: 2024-07-18
 #
-# 2. Redistributions in binary form must reproduce the above copyright 
-# notice, this list of conditions and the following disclaimer in the 
-# documentation and/or other materials provided with the distribution.
+# Syntax:
+# NET "<pin-name>" Loc = "<pin-location>" | <opt.-constraints>;
 #
-# 3. Neither the name of the copyright holder nor the names of its 
-# contributors may be used to endorse or promote products derived
-# from this software without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS 
-# IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED 
-# TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-# PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
-# HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
-# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
-#              https://opensource.org/license/bsd-3-clause
-#------------------------------------------------------------------------
-# Description: 
-# Gatemate E1 evaluation board hardware pin constraints
-# file: GateMateA1-EVB.ccf
-
-## file: GateMateA1-EVB.ccf
-##
-## Gatemate A1-EVB Olimex board hardware pin constraints
-## #######################################################
-
-
-# Format:
+# Backward compatible legacy syntax:
 # <pin-direction> "<pin-name>" Loc = "<pin-location>" | <opt.-constraints>;
 #
 # Additional constraints can be appended using the pipe symbol.
 # Files are read line by line. Text after the hash symbol is ignored.
 #
-# Available pin directions:
+# Available legacy pin directions:
 #
 # Pin_in
 #   defines an input pin
 # Pin_out
 #   defines an output pin
+# Pin_triout
+#   defines a tristate output pin
 # Pin_inout
 #   defines a bidirectional pin
 #
@@ -81,27 +46,14 @@
 #   enables or disables placing of FF in output buffer, if possible
 # LVDS_BOOST={true,false}
 #   enables increased LVDS output current of 6.4mA (default: 3.2mA)
-# LVDS_TERM={true,false}
-#   enables on-chip LVDS termination resistor of nominal 100Ohm, in output mode only
+# LVDS_RTERM={true,false}
+#   enables on-chip LVDS termination resistor of nominal 100Ohm, in input mode only
 #
 # Global IO constraints can be set with the default_GPIO statement. It can be
 # overwritten by individual settings for specific GPIOs, e.g.:
 #   default_GPIO | DRIVE=3; # sets all output strengths to 3mA, unless overwritten
-#========================================================================
+#
 
-
-## Generaly used IO Pins
-# #######################################################
-# LED, 4 Clocks for PLL
-# #######################################################
-# -------------------------------------------------------
-Pin_in "clk" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0
-Pin_in "rst" Loc = "IO_SB_B7" | PULLUP=true; # FPGA_BUT
-Pin_out "led" Loc = "IO_SB_B6"; # FPGA LED
-Pin_out "clk_pin" Loc = "IO_NA_B0"; # CLK Testing pin
-
-
-
-## #######################################################
-## End of hardware constraints blink.ccf
-## #######################################################
+Net   "clk"  Loc = "IO_SB_A8" | SCHMITT_TRIGGER=true;
+Net   "rst"  Loc = "IO_EB_B0"; # SW3
+Net   "led"  Loc = "IO_EB_B1"; # D1
