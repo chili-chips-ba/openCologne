@@ -1,76 +1,41 @@
 [*]
 [*] GTKWave Analyzer v3.3.117 (w)1999-2023 BSI
-[*] Sat Jun 15 13:20:26 2024
+[*] Mon Jul 22 16:29:47 2024
 [*]
 [dumpfile] "/home/tibrahimovic/projects/2.Simple--1/2.sim/output/wave.fst"
-[dumpfile_mtime] "Sat Jun 15 13:20:16 2024"
-[dumpfile_size] 20260934
+[dumpfile_mtime] "Mon Jul 22 16:27:26 2024"
+[dumpfile_size] 5124758
 [savefile] "/home/tibrahimovic/projects/2.Simple--1/2.sim/.gtkwaverc"
-[timestart] 764000000
-[size] 1908 1107
-[pos] 192421 203285
-*-27.290089 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 8594550000
+[size] 3428 1359
+[pos] 224792 237648
+*-19.083246 8597046000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.tb.
 [treeopen] TOP.tb.dut.
-[sst_width] 225
+[sst_width] 466
 [signals_width] 249
 [sst_expanded] 1
-[sst_vpaned_height] 332
+[sst_vpaned_height] 421
 @200
 -
+@28
+TOP.tb.dut.tick_1us
+@200
 -uart buffer
 @28
-TOP.tb.dut.clk_out
-TOP.tb.dut.uart_tx_write
-TOP.tb.dut.tick_1us
-@22
-TOP.tb.dut.u_uart.tx_data[7:0]
-@200
--uart signals
-@28
-TOP.tb.dut.u_uart.uart_rx
-TOP.tb.dut.u_uart.uart_tx
-@100000028
-TOP.tb.dut.u_uart.rx_state[3:0]
-@22
-TOP.tb.dut.u_uart.rx_shift[7:0]
+TOP.tb.uart_rx
+TOP.tb.uart_tx
 @200
 -uart
-@22
-TOP.tb.dut.u_uart.tx_data[7:0]
-TOP.tb.dut.uart_buffer_state[1:0]
-TOP.tb.dut.uart_buffer[15:0]
-TOP.tb.dut.uart_tx_data[7:0]
 @28
-TOP.tb.dut.u_uart.uart_tx_busy
-@100000028
-TOP.tb.dut.u_uart.tx_state[3:0]
-@100c00028
-TOP.tb.dut.u_uart.rx_state[3:0]
-@28
-(0)TOP.tb.dut.u_uart.rx_state[3:0]
-(1)TOP.tb.dut.u_uart.rx_state[3:0]
-(2)TOP.tb.dut.u_uart.rx_state[3:0]
-(3)TOP.tb.dut.u_uart.rx_state[3:0]
-@1401200
--group_end
-@200
--
--
--psram command
-@22
-TOP.tb.dut.command_bytes[0][7:0]
-TOP.tb.dut.command_bytes[1][7:0]
-TOP.tb.dut.command_bytes[2][7:0]
-TOP.tb.dut.command_bytes[3][7:0]
-TOP.tb.dut.command_bytes[4][7:0]
-@200
--
--
-@24
-TOP.tb.dut.byte_count[2:0]
-@200
--PSRAM
+TOP.tb.uart_tx
+TOP.tb.clk_10
+TOP.tb.dut.clk_out
+@420
+TOP.tb.dut.CLK_OUT_FREQ_MHZ
+TOP.tb.dut.COUNT_1US_TICK
+@421
+TOP.tb.dut.NUM_OF_BITS_1US_TICK
 [pattern_trace] 1
 [pattern_trace] 0
