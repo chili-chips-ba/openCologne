@@ -33,7 +33,7 @@ PRFLAGS = -cCP --verbose
 
 # Synthesize Sources
 VLOG_SRC = $(HW_SRC)/csr_pkg.sv $(HW_SRC)/csr_if.sv $(HW_SRC)/uart.WITHOUT-FIFO.sv $(HW_SRC)/psram.sv $(HW_SRC)/top.sv 
-V_SRC    =  $(HW_SRC)/*.v
+V_SRC    =  ./*v
 
 ## misc tools
 RM = rm -rf
@@ -73,7 +73,7 @@ hw_clean:
 	rm -rf $(HW_BLD)
 
 convert:
-	sv2v --write=adjacent $(VLOG_SRC)
+	sv2v --write=./ $(VLOG_SRC)
 # Synthesis 
 #synth_vlog: $(VLOG_SRC)
 #	@test -d log || mkdir log

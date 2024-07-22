@@ -6,6 +6,9 @@ import random
 #addr = ['0','1','2','3','4']
 #wdat = ['2','3','A','B']
 
+#addr = bytearray([0,2,0])
+#wdat = bytearray([5,8])
+
 addr = []
 wdat = []
 ready_to_read = 1 # sort of a mutex, cant read until the command is sent
@@ -23,12 +26,15 @@ def send_data(ser):
         randomize_data()
         to_write = bytearray([1]) + bytearray(addr) + bytearray(wdat)
         to_read =  bytearray([0]) + bytearray(addr)
+
+
         ready_to_read = 0
         ser.write(to_write)  # Send bytes directly
-        #print("Sent write command:", to_write)  # Optional: for debugging        
-        time.sleep(0.001)  # Wait for 1 millisecond
+        #print(f"Sent write command:, {to_write}")  # Optional: for debugging        
+        time.sleep(0.01)  # Wait for 1 millisecond
 
         ser.write(to_read)  # Send bytes directly
+        #print(f"Sent read command:{to_read}\n\n")
         time.sleep(0.01)
 
         ready_to_read = 1
@@ -37,10 +43,10 @@ def send_data(ser):
 
 def read_data(ser):
     global addr, wdat, ready_to_read
+
     while True:
         if ser.in_waiting == 2 and ready_to_read:  # Check if any data is available to read
             data = ser.read(2)  # Read one byte at a time
-            print(data)
             if data:
                 # Convert the byte to an integer and print it
                 data_hex = hex(int.from_bytes(data, byteorder='little'))
@@ -50,11 +56,10 @@ def read_data(ser):
                 print(f"Address: {addr_hex: <10}  Wrote: {wdat_hex: <10}   Read: {data_hex: <10}")
                 if(wdat_hex != data_hex):
                     print(' ERROR')
-                #print(data_int, end=' ', flush=True)
         elif ser.in_waiting > 2:
             data = ser.read(ser.in_waiting)
         else:
-            time.sleep(0.002)
+            time.sleep(0.0001)
 
 def main():
     port = '/dev/ttyACM0'  # Serial port to use (change as needed)
