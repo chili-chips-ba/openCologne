@@ -23,9 +23,5 @@
 ++ comp _uart_buffer:G4 type _uart_buffer:G4 parent top
 ++ module _uart_buffer:G4 file  lines 0 - 0
 ++ endbegin _uart_buffer
-++ begin _count_bf_wr file  line 0
-++ comp _count_bf_wr:G5 type _count_bf_wr:G5 parent top
-++ module _count_bf_wr:G5 file  lines 0 - 0
-++ endbegin _count_bf_wr
 ++ module uart file  lines 0 - 0
 ++ module psram file  lines 0 - 0
