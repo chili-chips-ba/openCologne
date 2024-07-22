@@ -23,11 +23,13 @@ VLOG_SRC = $(HW_SRC)/csr_pkg.sv  $(HW_SRC)/uart.WITHOUT-FIFO.sv $(HW_SRC)/psram.
 
 #------------------------
 .PHONY: all
-all: clean execute wave
+all: clean compile execute wave
+
+all_impl: clean compile_impl execute wave
 
 #------------------------
 clean:
-	rm -rf output
+	rm -rf ./output
 
 #-------------------------------------------------------------
 #___Global macros___
@@ -68,6 +70,24 @@ compile:
 		${TB_NAME}.sv \
 		--top-module ${TB_NAME}
 
+
+compile_impl: 
+	verilator \
+		--cc \
+		--timing \
+		--trace-fst \
+		--trace-structs \
+		--timescale-override 1ps/1ps \
+		--exe versimSV.cpp \
+		--Mdir ./output \
+		-Wno-fatal \
+		\
+		$(CELLS_SYNTH) \
+		$(CELLS_IMPL) \
+		./../3.build/top_00.v \
+		\
+		${TB_NAME}.sv \
+		--top-module ${TB_NAME}
 #		-O1 \
 #		-O3 \
 #		-Wno-fatal \
@@ -90,7 +110,7 @@ compile:
 
 
 #------------------------
-execute: compile
+execute: 
 	cd output; \
 	make -f V${TB_NAME}.mk  V${TB_NAME}; \
 	./V${TB_NAME} | tee sim.log
@@ -160,7 +180,7 @@ vlog_sim.vvp:
 		$(SIM_SRC)/tb.sv
 
 # Run make vlog_synth   first in 3.build
-synth_sim.vvp:
+synth_sim.vvp: clean_iverilog
 	iverilog \
 		-Winfloop \
 		-g2012 \
@@ -168,13 +188,12 @@ synth_sim.vvp:
 		-Ttyp \
 		-o $(SIM_SRC)/$@ \
 		$(CELLS_SYNTH) \
-		$(CELLS_IMPL) \
 		$(BLD_DIR)/net/$(TOP)_synth.v \
 		$(SIM_SRC)/tb.sv \
 		
 
 # Run make vlog_synth \ make impl  first in 3.build
-impl_sim.vvp:
+impl_sim.vvp: clean_iverilog
 	iverilog \
 		-Winfloop \
 		-g2012 \
@@ -190,6 +209,8 @@ impl_sim.vvp:
 %sim: %sim.vvp
 	vvp -N $(SIM_SRC)/$< -fst
 	@$(RM) $(SIM_SRC)/$^
+	$(MAKE) wave_iverilog
+
 
 wave_iverilog: 
 	gtkwave --saveonexit \

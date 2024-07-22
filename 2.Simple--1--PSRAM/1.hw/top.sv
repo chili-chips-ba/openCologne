@@ -45,7 +45,7 @@ module top
    output  logic tick_1us, 
    input   logic uart_rx,
    output  logic uart_tx,
-
+   output logic sent,
    output  logic o_psram_csn,
    output  logic o_psram_sclk,
    inout   logic io_psram_data0,
@@ -59,49 +59,32 @@ module top
    output  logic led
 );
  
- //----------------------------------------------------
- // 10 MHz -> 40 MHz PLL + SIM model
-   logic clk270, clk180, clk90, clk0, usr_ref_out, clk_out;
-   logic usr_pll_lock_stdy, usr_pll_lock;
+   logic  clk_out;
 
-`ifdef SIM_ONLY
-   initial begin
-      clk_out = 1'b0;
-      forever begin
-         #12.5ns clk_out = ~clk_out; 
-      end
-   end
-`else
-   CC_PLL #(
-      .REF_CLK("10.0"),    // reference input in MHz
-      .OUT_CLK("40.0"),    // pll output frequency in MHz
-      .PERF_MD("ECONOMY"), // LOWPOWER, ECONOMY, SPEED
-      .LOW_JITTER(1),      // 0: disable, 1: enable low jitter mode
-      .CI_FILTER_CONST(2), // optional CI filter constant
-      .CP_FILTER_CONST(4)  // optional CP filter constant
-   ) u_pll (
-      .CLK_REF(clk), .CLK_FEEDBACK(1'b0), .USR_CLK_REF(1'b0),
-      .USR_LOCKED_STDY_RST(1'b0), .USR_PLL_LOCKED_STDY(usr_pll_lock_stdy), .USR_PLL_LOCKED(usr_pll_lock),
-      .CLK270(clk270), .CLK180(clk180), .CLK90(clk90), .CLK0(clk_out), .CLK_REF_OUT(usr_ref_out)
-   );
-`endif
+   assign clk_out = clk;
+   assign sent = uart_tx;
 
    //--------------------------
-   // Generating 1us ticks
-   logic [5:0] counter;
+   // Generating 1us ticks 
+
+   //**********************
+   // HERE THE ERRORS BEGIN
+   //**********************
+   logic [5:0] counter; //**change this to 5 or 4 bits, stops working although the MSB isn't used for anything,
    logic tick_1us_reg;
+
    always_ff @(posedge clk_out or negedge arst_n) begin
       if(arst_n == 1'b0) begin
          counter <= '0;
       end
       else begin
-         if(counter == 6'd39) begin
+         if(counter == 9) begin
             tick_1us_reg <= 1'b1;
-            counter      <= 6'b0;
+            counter      <= 0;
          end
          else begin
             tick_1us_reg <= 1'b0;
-            counter <= counter + 6'b1;
+            counter <= counter + 1;
          end
       end
    end
@@ -109,14 +92,7 @@ module top
    //------------------------------------------------------------
    // UART instance: 
    // -potential error: flop necessary for keeping UART in sync
-/*     always_ff @( clk_out ) begin : rx_sure
-      if(arst_n == 1'b0) begin
-         uart_rx_flop      <= 1'b1;
-      end
-      else begin
-         uart_rx_flop      <= uart_rx;
-      end
-   end  */
+
    logic [7:0] uart_tx_data;
    logic uart_tx_write;
    logic uart_rx_read, uart_tx_busy, uart_rx_flop; 
@@ -147,7 +123,7 @@ module top
  
    psram u_psram (
       .arst_n(arst_n),     //i
-      .i_clk(clk_out),         //i
+      .i_clk(clk_out),         //i 10 MHz by design
 
       .i_stb(psram_stb),
       .i_we(psram_we),
@@ -187,7 +163,7 @@ module top
    
    always_ff @(posedge clk_out or negedge arst_n) begin
       if(arst_n == 1'b0) begin
-         psram_state <= IDLE;
+         psram_state   <= IDLE;
          byte_count    <= '0;
       end
       else begin
@@ -201,7 +177,7 @@ module top
             READ_COMMAND: begin                                                              //fill up the command buffer
                if(uart_rx_arr.valid == 1'b1) begin
                   command_bytes[byte_count] <= uart_rx_arr.data;
-                  byte_count <= byte_count + 3'b1;
+                  byte_count  <= byte_count + 3'b1;
                end
                if(byte_count == 3'd6 | (byte_count == 3'd4 & command_bytes[0] == '0)) begin
                   psram_state <= WAIT_PSRAM;
@@ -222,9 +198,6 @@ module top
          endcase
       end
    end
-
-
-   // UART buffer for sending: YET TO BE FIGURED OUT
    
    //-------------------------
    // UART buffer for sending
@@ -248,26 +221,14 @@ module top
       end
    end 
 
-   logic [2:0] count_before_write;
-   always_ff @( posedge clk_out ) begin : _count_bf_wr
-      if(arst_n == 1'b0) begin
-         count_before_write <= '0;
-      end
-      else begin
-         if(uart_tx_busy == 1'b0 & uart_buffer_state != 2'b0 & tick_1us) begin
-            count_before_write <= count_before_write + 3'b1;   
-         end
-         if(count_before_write == '1) begin
-            count_before_write <= 3'b0;
-         end
-      end
-   end
    //----------------------------
    // Write out read data on UART
-   assign uart_tx_data  = (uart_buffer_state == 2'd2)? psram_rdat[7:0] : uart_buffer[15:8]; // samo emituje uart buffer[15:8]
-   assign uart_tx_write = (count_before_write == '1); 
-   assign uart_rx_read = uart_rx_arr.valid;      
-   
+
+   assign uart_tx_data  = (uart_buffer_state == 2'd2)? uart_buffer[15:8] : uart_buffer[7:0]; // samo emituje uart buffer[15:8]
+   assign uart_tx_write = uart_tx_busy == 1'b0 & uart_buffer_state != 2'b0; 
+   assign uart_rx_read  = uart_rx_arr.valid;      
+
+
 
    //------------------------------------------
    // Generating 163ms ticks on 14 bits counter

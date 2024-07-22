@@ -27,24 +27,33 @@
 //
 //   Both Rx flags are Clear-on-Read -- Zero value on them tells HW that
 //   SW has got the posted value. See 'csr_pkg.sv for additional detail.
+//--------------------------------------------------------------------------
+//
+//  This module also houses the FSM for loading new CPU program via Rx UART.
 //==========================================================================
 
 module uart
    import csr_pkg::*;
 (
-   input  logic       arst_n,
-   input  logic       clk,
-   input  logic       tick_1us,
-                       
-   input  logic       uart_rx,
-   output logic       uart_tx,
+   input  logic    arst_n,
+   input  logic    clk,
+   input  logic    tick_1us,
+                    
+   input  logic    uart_rx,
+   output logic    uart_tx,
                   
-   input  logic       uart_tx_write,
+   input  logic uart_tx_write,
    input  logic [7:0] uart_tx_data,
-   input  logic       uart_rx_read,
+   input  logic uart_rx_read,
 
-   output logic       uart_tx_busy,
-   output uart_rx_t   uart_rx_arr
+   output logic uart_tx_busy,
+   output uart_rx_t uart_rx_arr
+   //csr_if.SLV_UART csr
+
+ // IMEM Write port, for live updates of CPU program
+/*    output logic        imem_we,
+   output logic [31:2] imem_waddr,
+   output logic [31:0] imem_wdat */
 );
 
 //--------------------------------------
@@ -273,6 +282,17 @@ module uart
    localparam bit[3:0] TX_WAIT_D7    = 4'd8;
    localparam bit[3:0] TX_WAIT_STOP  = 4'd8;
 
+/*    localparam bit[3:0] TX_WAIT_START = 4'd9; //+1 tick for initial sync
+   localparam bit[3:0] TX_WAIT_D0    = 4'd7; //=8 ticks, from 7 to 0
+   localparam bit[3:0] TX_WAIT_D1    = 4'd8;
+   localparam bit[3:0] TX_WAIT_D2    = 4'd8;
+   localparam bit[3:0] TX_WAIT_D3    = 4'd7;
+   localparam bit[3:0] TX_WAIT_D4    = 4'd8;
+   localparam bit[3:0] TX_WAIT_D5    = 4'd8;
+   localparam bit[3:0] TX_WAIT_D6    = 4'd7;
+   localparam bit[3:0] TX_WAIT_D7    = 4'd8;
+   localparam bit[3:0] TX_WAIT_STOP  = 4'd7; */
+
    state_t  tx_state;
    cnt1us_t tx_cnt1us; // counts 1us ticks
    logic    tx_cnt1us_is0;
@@ -383,7 +403,311 @@ module uart
            default: begin end
          endcase // unique case (tx_state)
       end
-   end   
+   end
+   
+
+//=========================================
+// TODO: FSM for loading IMEM via UART
+//=========================================
+/*    assign imem_we    = '0;
+   assign imem_waddr = '0;
+   assign imem_wdat  = '0;
+ */
+/* Anel's code from TetriSaraj
+   parameter [3:0] T_STATES_WAIT_SOP = 0;
+   parameter [3:0] T_STATES_CMD = 1;
+   parameter [3:0] T_STATES_LEN_LB = 2;
+   parameter [3:0] T_STATES_LEN_HB = 3;
+   parameter [3:0] T_STATES_DATA0 = 4;
+   parameter [3:0] T_STATES_DATA1 = 5;
+   parameter [3:0] T_STATES_DATA2 = 6;
+   parameter [3:0] T_STATES_DATA3 = 7;
+   parameter [3:0] T_STATES_CS = 8;
+   parameter [3:0] T_STATES_EOP = 9;
+   parameter [3:0] T_STATES_ERROR = 10;
+   parameter [3:0] T_STATES_FINISH = 11;
+   
+   // command protocol constants:
+   parameter [7:0]  C_SOP = 8'h23;
+   parameter [7:0]  C_EOP = 8'h0d;
+   
+   // commands:
+   parameter [7:0]  C_REGISTER_RD = 8'h08;
+   parameter [7:0]  C_REGISTER_WR = 8'h07;
+   
+   wire             rx_busy, tx_busy, converted, data_valid;
+   reg [15:0]       data_length, data_cnt;
+   reg [7:0]        command;  
+
+    // Local control logic variables
+    // FSM state        
+    reg [3:0] state;
+
+    // This variable is super critical in preventing wrong FSM state changes
+    reg allow_next;     // Local signal to prevent race conditions 
+    
+    // IO related variables
+    reg flush_ctrl;     // Flush the RX data after reading
+    reg tx_enable_ctrl; // Allow tranmission of output, after data is settled
+
+    wire [7:0]  uart_data;   // The actual RX UART data         
+    reg  [7:0]  out_data;     // The data that will be sent over TX    
+                
+        reg             ram_wen;        
+        reg [31:0]      ram_data, ram_addr;
+    reg [15:0]  display_data;
+    reg [7:0]   checksum;       
+        reg [8:0]       leds;
+
+    // UART clock related variables
+    reg                 clk_uart;           // (100MHz) / (BAUD_RATE*OVERSAMPLING*2) 
+    reg [4:0]   counter;        
+
+
+    // Divided clock for UART @ 115200 baud
+        always @(posedge clk_bufg) 
+        begin           
+                if(sw[15]) begin
+                        counter <= counter + 1;
+                        if(counter == 5'd27) begin 
+                                counter <= 0;
+                                clk_uart <= ~clk_uart;
+                        end
+                end else begin
+                        counter         <= 0;
+                        clk_uart        <= 0;                   
+                end             
+        end
+
+        always @(posedge clk_uart)
+        begin
+                if(!resetn) begin
+                        leds = 0;
+                        display_data = 16'd1234;
+                        state = T_STATES_WAIT_SOP;
+                        ram_wen = 0;                    
+                        ram_data = 0;
+                        ram_addr = 32'hFFFFFFFF;
+                end else begin
+                        case (state)
+                                T_STATES_WAIT_SOP : begin
+                                        tx_enable_ctrl <= 0;                                    
+                                        leds = 0;
+                                        command <= 0;                                   
+                                        data_cnt <= 0;
+                                        if(converted) begin
+                                                if (uart_data == C_SOP) begin
+                                                        leds[0] = 1;                                                    
+                                                        checksum = 8'b0;
+                                                        data_length = 0;
+                                                        flush_ctrl <= 1;        // Flush UART RX registers
+                                                        state = T_STATES_CMD;
+                                                end
+                                        end
+                                end
+
+                                T_STATES_CMD : begin
+                                        if(~flush_ctrl && ~converted)
+                                                allow_next <= 1;        // Allow RX after registers cleared
+                                                        
+                                        if(converted && ~flush_ctrl && allow_next) begin
+                                                flush_ctrl <= 1;        // Data read, flush RX register
+                                                allow_next <= 0;
+                                                
+                                                command  <= uart_data;
+                                                state = T_STATES_LEN_LB;
+                                        end else
+                                                flush_ctrl <= 0;
+                                end
+
+                                T_STATES_LEN_LB : begin
+                                        if(~flush_ctrl && ~converted)
+                                                allow_next <= 1;        // Allow RX after registers cleared
+                                                        
+                                        if(converted && ~flush_ctrl && allow_next) begin
+                                                flush_ctrl <= 1;        // Data read, flush RX register
+                                                allow_next <= 0;
+                                                
+                                                data_length <= {8'b0, uart_data};
+                                                state = T_STATES_LEN_HB;
+                                        end else
+                                                flush_ctrl <= 0;
+                                end
+                                        
+                                T_STATES_LEN_HB : begin
+                                        if(~flush_ctrl && ~converted)
+                                                allow_next <= 1;        // Allow RX after registers cleared
+                                                        
+                                        if(converted && ~flush_ctrl && allow_next) begin
+                                                flush_ctrl <= 1;        // Data read, flush RX register
+                                                allow_next <= 0;
+                                                
+                                                data_length <= { uart_data, data_length[7:0]};
+                                                state = T_STATES_DATA0;
+                                        end else
+                                                flush_ctrl <= 0;
+                                end
+
+                                T_STATES_DATA0 : begin
+                                        ram_wen <= 0;
+                                        if(~flush_ctrl && ~converted)
+                                                allow_next <= 1;        // Allow RX after registers cleared
+                                                        
+                                        if(converted && ~flush_ctrl && allow_next) begin
+                                                flush_ctrl <= 1;        // Data read, flush RX register
+                                                allow_next <= 0;
+                                                
+                                                ram_data[7:0] <= uart_data;
+                                                checksum <= checksum + uart_data;
+                                                state = T_STATES_DATA1;
+                                        end else
+                                                flush_ctrl <= 0;
+                                end
+
+                                T_STATES_DATA1 : begin
+                                        if(~flush_ctrl && ~converted)
+                                                allow_next <= 1;        // Allow RX after registers cleared
+                                                        
+                                        if(converted && ~flush_ctrl && allow_next) begin
+                                                flush_ctrl <= 1;        // Data read, flush RX register
+                                                allow_next <= 0;
+                                                
+                                                ram_data[15:8] <= uart_data;
+                                                checksum <= checksum + uart_data;
+                                                state = T_STATES_DATA2;
+                                        end else
+                                                flush_ctrl <= 0;
+                                end
+
+                                T_STATES_DATA2 : begin
+                                        if(~flush_ctrl && ~converted)
+                                                allow_next <= 1;        // Allow RX after registers cleared
+                                                        
+                                        if(converted && ~flush_ctrl && allow_next) begin
+                                                flush_ctrl <= 1;        // Data read, flush RX register
+                                                allow_next <= 0;
+                                                
+                                                ram_data[23:16] <= uart_data;
+                                                checksum <= checksum + uart_data;
+                                                state = T_STATES_DATA3;
+                                        end else
+                                                flush_ctrl <= 0;
+                                end
+                                        
+                                T_STATES_DATA3 : begin
+                                        if(~flush_ctrl && ~converted)
+                                                allow_next <= 1;        // Allow RX after registers cleared
+                                                        
+                                        if(converted && ~flush_ctrl && allow_next) begin        
+                                                leds[1] = 1;
+                                                flush_ctrl <= 1;        // Data read, flush RX register
+                                                allow_next <= 0;
+
+                                                data_cnt <= data_cnt + 1;
+                                                display_data <= data_cnt + 1;
+                                                
+                                                ram_data[31:24] <= uart_data;
+                                                checksum <= checksum + uart_data;                                               
+                                                ram_addr <= {16'd0, data_cnt};
+                                                ram_wen <= 1;                                           
+                                                
+                                                if (data_cnt == (data_length - 16'd1)) begin
+                                                        state  = T_STATES_CS;
+                                                end else
+                                                        state  = T_STATES_DATA0;
+                                        end else
+                                                flush_ctrl <= 0;
+                                end
+                                        
+                                T_STATES_CS : begin
+                                        ram_wen <= 0;
+                                        if(~flush_ctrl && ~converted)
+                                                allow_next <= 1;        // Allow RX after registers cleared
+                                                        
+                                        if(converted && ~flush_ctrl && allow_next) begin
+                                                leds[2] = 1;
+                                                flush_ctrl <= 1;        // Data read, flush RX register
+                                                allow_next <= 0;
+                                                state = (uart_data == checksum[7:0]) ? T_STATES_EOP : T_STATES_ERROR;
+                                        end else
+                                                flush_ctrl <= 0;
+                                end
+                                        
+                                T_STATES_EOP : begin                                    
+                                        // Once RX module has produced the final output(converted)
+                                        // and registers are cleared(converted is set low), go ahead
+                                        if(~flush_ctrl && ~converted)
+                                                allow_next <= 1;        // Allow RX after registers cleared
+                                                        
+                                        if(converted && ~flush_ctrl && allow_next) begin
+                                                leds[3] = 1;
+                                                flush_ctrl <= 1;        // Data read, flush RX register
+                                                allow_next <= 0;
+                                                
+                                                state = (uart_data == C_EOP) ? T_STATES_FINISH : T_STATES_ERROR;
+                                        end else
+                                                flush_ctrl <= 0;
+                                end
+                                        
+                                T_STATES_ERROR : begin  
+                                        leds[4] = 1;
+                                        out_data <= checksum[7:0];
+                                        // Once TX is complete, allow going to next state
+                                        if(~tx_busy && ~allow_next)
+                                                tx_enable_ctrl <= 1;
+                                        else begin
+                                                allow_next <= 1;
+                                                flush_ctrl <= 0;
+                                                tx_enable_ctrl <= 0;
+                                        end
+                                        // TX complete, go to next state
+                                        if(~tx_busy && allow_next) begin
+                                                allow_next <= 0;
+                                                state = T_STATES_WAIT_SOP;
+                                        end
+                                end
+
+                                T_STATES_FINISH : begin
+                                        leds[5] = 1;
+                                        out_data <= 8'h55;
+                                        // Once TX is complete, allow going to next state
+                                        if(~tx_busy && ~allow_next)
+                                                tx_enable_ctrl <= 1;
+                                        else begin
+                                                allow_next <= 1;
+                                                flush_ctrl <= 0;
+                                                tx_enable_ctrl <= 0;
+                                        end
+                                        // TX complete, go to next state
+                                        if(~tx_busy && allow_next) begin
+                                                allow_next <= 0;
+                                                state = T_STATES_WAIT_SOP;
+                                        end
+                                end
+
+                                default:begin
+                                        state = T_STATES_WAIT_SOP;
+                                end
+                        endcase
+                end
+        end
+        
+        reg progmem_wen;
+        reg ram_wen_dl1, ram_wen_dl2;
+    always @(posedge clk)  
+    begin       
+                if(sw[15]) begin        
+                        ram_wen_dl1 <= ram_wen; 
+                        ram_wen_dl2 <= ram_wen_dl1;
+                        if(ram_wen_dl2 == 1'b0 && ram_wen == 1'b1)
+                                progmem_wen <= 1'b1;
+                        else 
+                                progmem_wen <= 1'b0;
+                end else begin
+                        progmem_wen <= 1'b0;
+                end
+        end
+*/
 
 endmodule: uart
 

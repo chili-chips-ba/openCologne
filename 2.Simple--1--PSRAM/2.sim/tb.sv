@@ -63,12 +63,13 @@ module tb #(
             output_byte(8'h22); //AB
             output_byte(8'h33); //12
             output_byte(8'h44); //CD
-/*             output_byte(8'b00000001); //R
+            #1000000ns
+            output_byte(8'b00000001); //W
             output_byte(8'h2); //AB
             output_byte(8'h3); //12
             output_byte(8'h4); //12
             output_byte(8'h7); //34
-            output_byte(8'h7); //56 */
+            output_byte(8'h7); //56
             #10000ns;
 /*             for (int i = 0; i < 12; i = i + 1) begin
                $display("Array Element [%d]: %h",i, dut.command_bytes[i]);   
