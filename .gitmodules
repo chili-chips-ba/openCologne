@@ -1,6 +1,0 @@
-[submodule "1.Blinky--Verilog-VHDL-Python.Amaranth/1.Blinky--Verilog-VHDL-Pytgon.Amaranth/4.amaranth/amaranth_boards"]
-	path = 1.Blinky--Verilog-VHDL-Python.Amaranth/1.Blinky--Verilog-VHDL-Pytgon.Amaranth/4.amaranth/amaranth_boards
-	url = https://github.com/TarikHamedovic/amaranth-boards.git
-[submodule "1.Blinky--Verilog-VHDL-Python.Amaranth/1.Blinky--Verilog-VHDL-Pytgon.Amaranth/4.amaranth/amaranth"]
-	path = 1.Blinky--Verilog-VHDL-Python.Amaranth/1.Blinky--Verilog-VHDL-Pytgon.Amaranth/4.amaranth/amaranth
-	url = https://github.com/TarikHamedovic/amaranth-boards.git
