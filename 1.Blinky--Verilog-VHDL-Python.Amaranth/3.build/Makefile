@@ -122,6 +122,12 @@ OFL = $(BLD_PATH)/openFPGALoader$(EXE)
 # This creates the executable at ./bin/sv2v. Stack takes care of installing exact (compatible) versions of the compiler and sv2v's build dependencies. 
 # You can install the binary to your local bin path (typically ~/.local/bin) by running stack install, or copy over the executable manually, or just add ./bin.sv2v to your path.
 
+# Amaranth Installation
+# Github reference: https://github.com/amaranth-lang/amaranth
+# Documentation reference: https://amaranth-lang.org/docs/amaranth/latest/
+# Installation reference: https://github.com/chili-chips-ba/openCologne/tree/branch1/1.Blinky--Verilog-VHDL-Python.Amaranth/4.amaranth
+# To install Amaranth for GateMate please follow the installation tutorial linked above.
+
 #========================================================================================
 # Linters
 #========================================================================================
