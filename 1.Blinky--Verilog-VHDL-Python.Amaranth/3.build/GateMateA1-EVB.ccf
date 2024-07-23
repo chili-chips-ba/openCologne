@@ -189,7 +189,7 @@ Net "EB_A8" Loc = "IO_EB_A8";
 #========================================================================
 # Left Row
 # TOP LEFT PIN IS 2.5V
-Net "FPGA_SPI_FWD" Loc = "IO_WA_B5"
+#Net "FPGA_SPI_FWD" Loc = "IO_WA_B5"
 Net "EA_A8" Loc = "IO_EA_A8";
 Net "EA_B8" Loc = "IO_EA_B8";
 Net "WB_A8" Loc = "IO_WB_A8";
@@ -230,44 +230,21 @@ Net "SER_RX_P"  Loc = "IO_SER_RX_P";
 # BOTTOM RIGHT PIN IS GND # #
 
 #========================================================================
-# Not Free Banks(I dont know what for) 
-#========================================================================
-# I dont know what this is used for so I commented it out
-#========================================================================
-# -------------------------------------------------------
-#Net "EA_A0" Loc = "EA_A0";
-#Net "EA_B0" Loc = "EA_B0";
-#Net "EA_A1" Loc = "EA_A1";
-#Net "EA_B1" Loc = "EA_B1";
-#Net "EA_A2" Loc = "EA_A2";
-#Net "EA_B2" Loc = "EA_B2";
-#Net "EA_A3" Loc = "EA_A3";
-#Net "EA_B3" Loc = "EA_B3";
-#Net "EA_A4" Loc = "EA_A4";
-#Net "EA_B4" Loc = "EA_B4";
-#Net "EA_A5" Loc = "EA_A5";
-#Net "EA_B5" Loc = "EA_B5";
-#Net "EA_A6" Loc = "EA_A6";
-#Net "EA_B6" Loc = "EA_B6";
-#Net "EA_A7" Loc = "EA_A7";
-#Net "EA_B7" Loc = "EA_B7";
-
-#========================================================================
 # GPIO  
 #========================================================================
 # Mostly used for RP2040, change the names to better describe function
 #========================================================================
 
-Net "GPIO0" Loc = "IO_SA_A0";
-Net "GPIO1" Loc = "IO_SA_B0";
-Net "GPIO2" Loc = "IO_SA_A1";
-Net "GPIO3" Loc = "IO_SA_B1";
-Net "GPIO4" Loc = "IO_SA_A2";
-Net "GPIO5" Loc = "IO_SA_B2";
-Net "GPIO6" Loc = "IO_SA_A3";
-Net "GPIO7" Loc = "IO_SA_B3";
-Net "GPIO8" Loc = "IO_SA_A4";
-Net "GPIO9" Loc = "IO_SA_B4";
+Net "GPIO0"  Loc = "IO_SA_A0";
+Net "GPIO1"  Loc = "IO_SA_B0";
+Net "GPIO2"  Loc = "IO_SA_A1";
+Net "GPIO3"  Loc = "IO_SA_B1";
+Net "GPIO4"  Loc = "IO_SA_A2";
+Net "GPIO5"  Loc = "IO_SA_B2";
+Net "GPIO6"  Loc = "IO_SA_A3";
+Net "GPIO7"  Loc = "IO_SA_B3";
+Net "GPIO8"  Loc = "IO_SA_A4";
+Net "GPIO9"  Loc = "IO_SA_B4";
 Net "GPIO10" Loc = "IO_SA_A5";
 Net "GPIO11" Loc = "IO_SA_B5";
 Net "GPIO14" Loc = "IO_SA_A7";
@@ -286,10 +263,10 @@ Net "GPIO29" Loc = "IO_SA_B8";
 
 Net "FPGA_LED" Loc = "IO_SB_B6"; # FPGA LED
 Net "FPGA_BUT" Loc = "IO_SB_B7";
-Net "CLK0" Loc = "IO_SB_A8"; # CLK0
-Net "CLK3" Loc = "IO_SB_A5";
-Net "GPIO24" Loc = "IO_SB_A6"; # CLK2
-Net "GPIO23" Loc = "IO_SB_A7"; # CLK1
+Net "CLK0"     Loc = "IO_SB_A8"; # CLK0
+Net "CLK3"     Loc = "IO_SB_A5";
+Net "GPIO24"   Loc = "IO_SB_A6"; # CLK2
+Net "GPIO23"   Loc = "IO_SB_A7"; # CLK1
 
 #========================================================================
 # UART Interface
@@ -381,15 +358,15 @@ Net "UEXT_CS"   Loc = "IO_EA_B3";
 #========================================================================
 # PMOD
 #========================================================================
-                                            #      ___________
-Net "PMOD_1"  Loc = "EA_A4";                #      | 1     7 |   
-Net "PMOD_7"  Loc = "EA_B4";                #      | 2     8 |
-Net "PMOD_2"  Loc = "EA_A5";                #      | 3     9 |
-Net "PMOD_8"  Loc = "EA_B5";                #      | 4    10 |
-Net "PMOD_3"  Loc = "EA_A6";                # GND -| 5    11 | --- GND
-Net "PMOD_9"  Loc = "EA_B6";                # 3-3V-| 6    12 | --- 3.3V
-Net "PMOD_4"  Loc = "EA_B7";                #      ___________
-Net "PMOD_10"  Loc = "EA_A7";
+                                                #      ___________
+Net "PMOD_1"   Loc = "IO_EA_A4";                #      | 1     7 |   
+Net "PMOD_7"   Loc = "IO_EA_B4";                #      | 2     8 |
+Net "PMOD_2"   Loc = "IO_EA_A5";                #      | 3     9 |
+Net "PMOD_8"   Loc = "IO_EA_B5";                #      | 4    10 |
+Net "PMOD_3"   Loc = "IO_EA_A6";                # GND -| 5    11 | --- GND
+Net "PMOD_9"   Loc = "IO_EA_B6";                # 3-3V-| 6    12 | --- 3.3V
+Net "PMOD_4"   Loc = "IO_EA_B7";                #      ___________
+Net "PMOD_10"  Loc = "IO_EA_A7";
 
 #========================================================================
 # End of hardware constraints GateMateA1-EVB.ccf

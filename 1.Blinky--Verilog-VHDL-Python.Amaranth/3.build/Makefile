@@ -139,7 +139,6 @@ OFL = $(BLD_PATH)/openFPGALoader$(EXE)
 # Dont forget to add them to your /usr/local/bin or /opt directories and source them
 # Check if the commands work directly from the terminal  
 
-#
 #========================================================================================
 # Simulation Tools and Flags
 #========================================================================================

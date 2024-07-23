@@ -1,0 +1,16 @@
+0001   3 abcd
+004F   1 ((aB)+c)d
+007F   1 ((/AB\)+c)d
+00EF   1 ((/ab\)+c)d
+00F4  16 ((aB)+C)d
+00F8   1 ((AB)+C)d
+0100   1 abcD
+0C0A   4 DC?A:B:0:0
+1000   2 abCD
+3DFF   1 (BC?a:1:1:0)+d
+4000   1 aBCD
+7F00   1 ((/AB\)+c)D
+8000   1 ABCD
+F800  16 ((AB)+C)D
+FFF8   1 (AB)+C+D
+ Gesamt:   51 DS4:     1
