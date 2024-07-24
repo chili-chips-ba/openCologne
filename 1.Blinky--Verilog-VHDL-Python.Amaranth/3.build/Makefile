@@ -270,8 +270,7 @@ synth_vlog: $(VLOG_SRC)
 	@echo "=============================================="
 	@test -d log || mkdir log
 	@test -d net || mkdir net
-	$(YOSYS) -ql log/synth.log -p 'read -sv $(VLOG_SRC); \
-	synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
+	$(YOSYS) -ql log/synth.log -p 'read -sv $(VLOG_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
 	@echo "=============================================="
 	@echo "Yosys synthesis complete. Logs in log/synth.log."
 	@echo "=============================================="
@@ -343,7 +342,7 @@ spi-flash:
 #-------------------------------
 # All
 #-------------------------------
-all: lint synth impl jtag
+all: synth impl jtag
 
 #========================================================================================
 # Verilog Simulation Targets
