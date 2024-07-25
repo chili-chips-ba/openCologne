@@ -1,0 +1,5 @@
+0001   1 abc
+0010   1 abC
+0040   4 aBC
+0080   1 ABC
+ Gesamt:    7 DS4:     0
