@@ -68,6 +68,15 @@ PNR   = $(CC_TOOL)/bin/p_r/p_r$(EXE)
 OFL = $(BLD_PATH)/openFPGALoader$(EXE) 
 
 #========================================================================================
+# Miscellaneous Tools
+#========================================================================================
+# Clock Domain Crossing Tool
+CDC_DIR = $(TOOL_ROOT)/Bedrock/build-tools
+JSON_OUTPUT := $(BLD_DIR)/cdc_check
+SCRIPT_FILE := $(CDC_DIR)/cdc_snitch_proc.ys
+PYTHON_SCRIPT := $(CDC_DIR)/cdc_snitch.py
+
+#========================================================================================
 # Plugins
 #========================================================================================
 
@@ -227,6 +236,18 @@ RM = rm -rf
 #========================================================================================
 # Toolchain Targets
 #========================================================================================
+
+#-------------------------------
+# Clock Domain Crossing targets
+#-------------------------------
+cdc_ys: $(VLOG_SRC)
+	$(YOSYS) -p 'read_verilog -sv $(VLOG_SRC); script $(SCRIPT_FILE); write_json $(JSON_OUTPUT).json'
+
+cdc_python: $(PYTHON_SCRIPT) $(JSON_OUTPUT).json
+	python3 $^ -o $(JSON_OUTPUT).txt
+	
+cdc: cdc_ys cdc_python
+
 
 #-------------------------------
 # Lint targets
