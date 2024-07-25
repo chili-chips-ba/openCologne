@@ -1,0 +1,85 @@
+         1  LUT4  00F4  ((aB)+C)d
+         2  LUT4  F800  ((AB)+C)D
+         3  LUT2  4  aB
+         4  LUT4  8000  ABCD
+         5  LUT4  0001  abcd
+         6  LUT4  0001  abcd
+         7  LUT4  1000  abCD
+         8  LUT4  1000  abCD
+         9  LUT3  10  abC
+        10  LUT4  7F00  ((/AB\)+c)D
+        11  LUT2  8  AB
+        12  LUT4  4000  aBCD
+        13  LUT4  0100  abcD
+        14  LUT2  4  aB
+        15  LUT4  007F  ((/AB\)+c)d
+        16  LUT2  4  aB
+        17  LUT3  40  aBC
+        18  LUT4  00F4  ((aB)+C)d
+        19  LUT4  F800  ((AB)+C)D
+        20  LUT4  00F4  ((aB)+C)d
+        21  LUT4  F800  ((AB)+C)D
+        22  LUT4  00F4  ((aB)+C)d
+        23  LUT4  F800  ((AB)+C)D
+        24  LUT4  00F4  ((aB)+C)d
+        25  LUT4  F800  ((AB)+C)D
+        26  LUT4  00F4  ((aB)+C)d
+        27  LUT4  F800  ((AB)+C)D
+        28  LUT4  00F4  ((aB)+C)d
+        29  LUT4  F800  ((AB)+C)D
+        30  LUT4  00F4  ((aB)+C)d
+        31  LUT4  F800  ((AB)+C)D
+        32  LUT4  00F4  ((aB)+C)d
+        33  LUT4  F800  ((AB)+C)D
+        34  LUT2  1  ab
+        35  LUT4  004F  ((aB)+c)d
+        36  LUT3  40  aBC
+        37  LUT2  4  aB
+        38  LUT3  80  ABC
+        39  LUT4  0001  abcd
+        40  LUT4  00F8  ((AB)+C)d
+        41  LUT4  FFF8  (AB)+C+D
+        42  LUT3  40  aBC
+        43  LUT2  4  aB
+        44  LUT2  E  /ab\
+        45  LUT2  E  /ab\
+        46  LUT4  0C0A  DC?A:B:0:0
+        47  LUT3  40  aBC
+        48  LUT3  01  abc
+        49  LUT4  0C0A  DC?A:B:0:0
+        50  LUT4  00F4  ((aB)+C)d
+        51  LUT4  F800  ((AB)+C)D
+        52  LUT4  00F4  ((aB)+C)d
+        53  LUT4  F800  ((AB)+C)D
+        54  LUT4  00F4  ((aB)+C)d
+        55  LUT4  F800  ((AB)+C)D
+        56  LUT4  00F4  ((aB)+C)d
+        57  LUT4  F800  ((AB)+C)D
+        58  LUT4  00F4  ((aB)+C)d
+        59  LUT4  F800  ((AB)+C)D
+        60  LUT4  00F4  ((aB)+C)d
+        61  LUT4  F800  ((AB)+C)D
+        62  LUT4  0C0A  DC?A:B:0:0
+        63  LUT2  8  AB
+        64  LUT4  0C0A  DC?A:B:0:0
+        65  LUT2  8  AB
+        66  LUT4  00F4  ((aB)+C)d
+        67  LUT4  F800  ((AB)+C)D
+        68  LUT1   1  a       deleted
+        69  LUT1   1  a       deleted
+        70  LUT1   1  a       deleted
+        71  LUT1   1  a       deleted
+        72  LUT1   1  a       deleted
+        73  LUT1   1  a       deleted
+        74  LUT1   1  a       deleted
+        75  LUT1   1  a       deleted
+        76  LUT1   1  a       deleted
+        77  LUT1   1  a       deleted
+        78  LUT1   1  a       deleted
+        79  LUT1   1  a       deleted
+        80  LUT1   1  a       deleted
+        81  LUT1   1  a       deleted
+        82  LUT1   1  a       deleted
+        83  LUT1   1  a       deleted
+        84  LUT4  3DFF  (BC?a:1:1:0)+d
+        85  LUT4  00EF  ((/ab\)+c)d

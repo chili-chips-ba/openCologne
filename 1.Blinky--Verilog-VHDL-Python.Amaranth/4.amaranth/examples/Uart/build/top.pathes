@@ -1,0 +1,291 @@
+  117: Path from Q of Net 26_2 to D-Input of Component 26/D2 Delay: 16011 ps   9   4 5 2 7 8 7 5 2 
+  285: Path from Q of Net 26_2 to D-Input of Component 85/D1 Delay: 15889 ps   9   8 1 1 1 6 8 5 2 
+  115: Path from Q of Net 26_2 to D-Input of Component 26/D2 Delay: 15428 ps   9   3 3 1 1 6 8 5 2 
+  219: Path from Q of Net 26_2 to D-Input of Component 52/D2 Delay: 15128 ps   9   3 7 1 1 6 8 5 2 
+  109: Path from Q of Net 26_2 to D-Input of Component 26/D1 Delay: 15017 ps   9   8 7 1 1 6 8 5 2 
+  261: Path from Q of Net 26_2 to D-Input of Component 60/D2 Delay: 14813 ps   9   3 3 1 1 6 8 5 2 
+  213: Path from Q of Net 26_2 to D-Input of Component 52/D1 Delay: 14780 ps   9   8 3 1 1 6 8 5 2 
+  237: Path from Q of Net 26_2 to D-Input of Component 54/D2 Delay: 14774 ps   9   3 3 1 1 6 8 5 2 
+  103: Path from Q of Net 26_2 to D-Input of Component 26/D1 Delay: 14506 ps   9   7 1 2 7 8 7 5 2 
+  254: Path from Q of Net 26_2 to D-Input of Component 58/D2 Delay: 14233 ps   9   4 3 1 1 6 8 5 2 
+  231: Path from Q of Net 26_2 to D-Input of Component 54/D1 Delay: 14174 ps   9   8 3 1 1 6 8 5 2 
+  245: Path from Q of Net 26_2 to D-Input of Component 58/D1 Delay: 14028 ps   9   7 7 1 1 6 8 5 2 
+  136: Path from Q of Net 26_2 to D-Input of Component 28/D2 Delay: 13904 ps   9   4 7 1 1 6 8 5 2 
+   97: Path from Q of Net 26_2 to D-Input of Component 20/D1 Delay: 13800 ps   9   7 7 1 1 6 8 5 2 
+  154: Path from Q of Net 26_2 to D-Input of Component 32/D2 Delay: 13761 ps   9   4 7 1 1 6 8 5 2 
+  208: Path from Q of Net 26_2 to D-Input of Component 52/D1 Delay: 13702 ps   8   7 6 7 8 7 5 2 
+  127: Path from Q of Net 26_2 to D-Input of Component 28/D1 Delay: 13571 ps   9   8 3 1 1 6 8 5 2 
+  145: Path from Q of Net 26_2 to D-Input of Component 32/D1 Delay: 13463 ps   9   8 3 1 1 6 8 5 2 
+   53: Path from Q of Net 26_2 to D-Input of Component 1/D1 Delay: 13309 ps   9   8 7 1 1 6 8 5 2 
+   52: Path from Q of Net 26_2 to D-Input of Component 1/D1 Delay: 13309 ps   9   8 7 1 1 6 8 5 2 
+  177: Path from Q of Net 26_2 to D-Input of Component 40/D1 Delay: 13243 ps   9   8 6 1 1 6 8 5 2 
+  164: Path from Q of Net 26_2 to D-Input of Component 34/D2 Delay: 13073 ps   9   4 7 1 1 6 8 5 2 
+   91: Path from Q of Net 26_2 to D-Input of Component 1/D2 Delay: 13003 ps   9   4 7 1 1 6 8 5 2 
+  199: Path from Q of Net 26_2 to D-Input of Component 49/D1 Delay: 12956 ps   8   4 5 1 6 8 5 2 
+  168: Path from Q of Net 26_2 to D-Input of Component 40/D1 Delay: 12763 ps   8   7 1 1 6 8 5 2 
+  263: Path from Q of Net 26_2 to D-Input of Component 60/D2 Delay: 12751 ps   9   4 1 2 7 8 7 5 2 
+  239: Path from Q of Net 26_2 to D-Input of Component 54/D2 Delay: 12728 ps   8   4 2 7 8 7 5 2 
+  251: Path from Q of Net 26_2 to D-Input of Component 58/D2 Delay: 12700 ps   8   3 2 7 8 7 5 2 
+  274: Path from Q of Net 26_2 to D-Input of Component 64/D1 Delay: 12493 ps   8   2 1 1 6 8 5 2 
+  131: Path from Q of Net 26_2 to D-Input of Component 28/D2 Delay: 12409 ps   8   3 6 7 8 7 5 2 
+  222: Path from Q of Net 26_2 to D-Input of Component 52/D2 Delay: 12206 ps   8   4 6 7 8 7 5 2 
+  148: Path from Q of Net 26_2 to D-Input of Component 32/D2 Delay: 12133 ps   8   3 6 7 8 7 5 2 
+  122: Path from Q of Net 26_2 to D-Input of Component 28/D1 Delay: 12117 ps   8   7 2 7 8 7 5 2 
+   83: Path from Q of Net 26_2 to D-Input of Component 1/D2 Delay: 12116 ps   8   3 6 7 8 7 5 2 
+  247: Path from Q of Net 26_2 to D-Input of Component 58/D1 Delay: 11912 ps   8   8 6 7 8 7 5 2 
+  266: Path from Q of Net 26_2 to D-Input of Component 62/D1 Delay: 11831 ps   8   2 1 1 6 8 5 2 
+  192: Path from Q of Net 26_2 to D-Input of Component 46/D1 Delay: 11822 ps   8   4 5 1 6 8 5 2 
+  139: Path from Q of Net 26_2 to D-Input of Component 32/D1 Delay: 11774 ps   8   7 2 7 8 7 5 2 
+   99: Path from Q of Net 26_2 to D-Input of Component 20/D1 Delay: 11627 ps   8   8 2 7 8 7 5 2 
+  300: Path from Q of Net 26_2 to D-Input of Component 85/D2 Delay: 11292 ps   7   1 1 6 8 5 2 
+  225: Path from Q of Net 26_2 to D-Input of Component 54/D1 Delay: 11143 ps   8   7 2 7 8 7 5 2 
+   19: Path from Q of Net 26_2 to D-Input of Component 1/D1 Delay: 10166 ps   8   7 2 7 8 7 5 2 
+   80: Path from Q of Net 26_2 to D-Input of Component 1/D1 Delay: 9971 ps   7   8 7 4 7 5 2 
+  294: Path from Q of Net 26_2 to D-Input of Component 85/D1 Delay: 9798 ps   6   8 4 7 5 2 
+  116: Path from Q of Net 85_2 to D-Input of Component 26/D2 Delay: 9564 ps   5   4 5 2 8 
+   51: Path from Q of Net 1_1 to D-Input of Component 1/D1 Delay: 9482 ps   8   8 7 1 1 6 8 4 
+  284: Path from Q of Net 52_1 to D-Input of Component 85/D1 Delay: 9305 ps   6   8 1 1 1 5 
+   56: Path from Q of Net 1_2 to D-Input of Component 1/D1 Delay: 9231 ps   8   8 7 1 1 6 8 8 
+   21: Path from Q of Net 32_2 to D-Input of Component 1/D1 Delay: 9076 ps   7   7 2 7 8 7 7 
+  160: Path from Q of Net 26_2 to D-Input of Component 34/D2 Delay: 9016 ps   6   3 4 7 5 2 
+   20: Path from Q of Net 26_1 to D-Input of Component 1/D1 Delay: 9015 ps   7   7 2 7 8 7 6 
+   22: Path from Q of Net 1_1 to D-Input of Component 1/D1 Delay: 8910 ps   7   7 2 7 8 7 8 
+   54: Path from Q of Net 26_1 to D-Input of Component 1/D1 Delay: 8823 ps   8   8 7 1 1 6 8 6 
+   48: Path from Q of Net 28_2 to D-Input of Component 1/D1 Delay: 8806 ps   8   8 7 1 1 6 8 1 
+   10: Path from Q of Net 60_2 to D-Input of Component 1/D1 Delay: 8801 ps   7   7 2 7 8 3 2 
+   11: Path from Q of Net 54_2 to D-Input of Component 1/D1 Delay: 8793 ps   7   7 2 7 8 3 3 
+   12: Path from Q of Net 58_1 to D-Input of Component 1/D1 Delay: 8752 ps   7   7 2 7 8 3 4 
+   15: Path from Q of Net 20_1 to D-Input of Component 1/D1 Delay: 8679 ps   7   7 2 7 8 4 7 
+   18: Path from Q of Net 32_1 to D-Input of Component 1/D1 Delay: 8653 ps   7   7 2 7 8 6 3 
+   50: Path from Q of Net 32_1 to D-Input of Component 1/D1 Delay: 8339 ps   8   8 7 1 1 6 8 3 
+   55: Path from Q of Net 32_2 to D-Input of Component 1/D1 Delay: 8285 ps   8   8 7 1 1 6 8 7 
+  102: Path from Q of Net 85_2 to D-Input of Component 26/D1 Delay: 8059 ps   5   7 1 2 8 
+   16: Path from Q of Net 58_2 to D-Input of Component 1/D1 Delay: 7967 ps   7   7 2 7 8 4 8 
+   44: Path from Q of Net 54_2 to D-Input of Component 1/D1 Delay: 7853 ps   7   8 7 1 1 6 3 
+   46: Path from Q of Net 60_2 to D-Input of Component 1/D1 Delay: 7851 ps   7   8 7 1 1 6 6 
+   58: Path from Q of Net 1_2 to D-Input of Component 1/D1 Delay: 7822 ps   7   8 7 1 3 13 4 
+   13: Path from Q of Net 52_2 to D-Input of Component 1/D1 Delay: 7749 ps   7   7 2 7 8 4 5 
+   47: Path from Q of Net 54_1 to D-Input of Component 1/D1 Delay: 7669 ps   7   8 7 1 1 6 7 
+    7: Path from Q of Net 85_2 to D-Input of Component 1/D1 Delay: 7622 ps   6   7 2 7 7 8 
+  114: Path from Q of Net 28_1 to D-Input of Component 26/D2 Delay: 7616 ps   5   3 3 4 5 
+   65: Path from Q of Net 32_2 to D-Input of Component 1/D1 Delay: 7547 ps   11   8 7 1 3 13 13 13 13 13 3 
+   23: Path from Q of Net 1_2 to D-Input of Component 1/D1 Delay: 7505 ps   6   7 2 7 8 8 
+  218: Path from Q of Net 28_1 to D-Input of Component 52/D2 Delay: 7316 ps   5   3 7 4 5 
+    5: Path from Q of Net 34_2 to D-Input of Component 1/D1 Delay: 7313 ps   6   7 2 7 7 6 
+   59: Path from Q of Net 1_1 to D-Input of Component 1/D1 Delay: 7305 ps   8   8 7 1 3 13 13 4 
+   73: Path from Q of Net 58_2 to D-Input of Component 1/D1 Delay: 7280 ps   14   8 7 1 3 13 13 13 13 13 13 13 13 8 
+  207: Path from Q of Net 85_2 to D-Input of Component 52/D1 Delay: 7255 ps   4   7 6 8 
+  108: Path from Q of Net 28_1 to D-Input of Component 26/D1 Delay: 7205 ps   5   8 7 4 5 
+   45: Path from Q of Net 58_1 to D-Input of Component 1/D1 Delay: 7139 ps   7   8 7 1 1 6 4 
+   70: Path from Q of Net 54_2 to D-Input of Component 1/D1 Delay: 7138 ps   13   8 7 1 3 13 13 13 13 13 13 13 7 
+  288: Path from Q of Net 40_1 to D-Input of Component 85/D1 Delay: 7092 ps   5   8 1 5 8 
+    8: Path from Q of Net 28_2 to D-Input of Component 1/D1 Delay: 7072 ps   6   7 2 7 8 1 
+   71: Path from Q of Net 58_1 to D-Input of Component 1/D1 Delay: 7005 ps   14   8 7 1 3 13 13 13 13 13 13 13 13 4 
+  260: Path from Q of Net 28_1 to D-Input of Component 60/D2 Delay: 7001 ps   5   3 3 4 5 
+  212: Path from Q of Net 28_1 to D-Input of Component 52/D1 Delay: 6968 ps   5   8 3 4 5 
+  236: Path from Q of Net 28_1 to D-Input of Component 54/D2 Delay: 6962 ps   5   3 3 4 5 
+   67: Path from Q of Net 52_1 to D-Input of Component 1/D1 Delay: 6958 ps   12   8 7 1 3 13 13 13 13 13 13 1 
+   68: Path from Q of Net 52_2 to D-Input of Component 1/D1 Delay: 6942 ps   12   8 7 1 3 13 13 13 13 13 13 5 
+   62: Path from Q of Net 28_1 to D-Input of Component 1/D1 Delay: 6868 ps   9   8 7 1 3 13 13 13 5 
+   60: Path from Q of Net 32_1 to D-Input of Component 1/D1 Delay: 6860 ps   8   8 7 1 3 13 13 7 
+   61: Path from Q of Net 28_2 to D-Input of Component 1/D1 Delay: 6857 ps   9   8 7 1 3 13 13 13 1 
+   69: Path from Q of Net 54_1 to D-Input of Component 1/D1 Delay: 6848 ps   13   8 7 1 3 13 13 13 13 13 13 13 3 
+  113: Path from Q of Net 32_2 to D-Input of Component 26/D2 Delay: 6843 ps   5   3 2 13 3 
+   63: Path from Q of Net 26_1 to D-Input of Component 1/D1 Delay: 6830 ps   10   8 7 1 3 13 13 13 13 2 
+   64: Path from Q of Net 26_2 to D-Input of Component 1/D1 Delay: 6789 ps   10   8 7 1 3 13 13 13 13 6 
+   72: Path from Q of Net 60_2 to D-Input of Component 1/D1 Delay: 6753 ps   14   8 7 1 3 13 13 13 13 13 13 13 13 6 
+   66: Path from Q of Net 20_1 to D-Input of Component 1/D1 Delay: 6734 ps   11   8 7 1 3 13 13 13 13 13 7 
+  287: Path from Q of Net 62_1 to D-Input of Component 85/D1 Delay: 6727 ps   5   8 1 5 6 
+  279: Path from Q of Net 40_1 to D-Input of Component 64/D1 Delay: 6672 ps   5   6 3 1 8 
+  176: Path from Q of Net 52_1 to D-Input of Component 40/D1 Delay: 6659 ps   6   8 6 1 1 5 
+   17: Path from Q of Net 28_1 to D-Input of Component 1/D1 Delay: 6618 ps   6   7 2 7 8 5 
+   78: Path from Q of Net 85_2 to D-Input of Component 1/D1 Delay: 6505 ps   5   8 7 3 8 
+  163: Path from Q of Net 52_1 to D-Input of Component 34/D2 Delay: 6489 ps   6   4 7 1 1 5 
+  253: Path from Q of Net 28_1 to D-Input of Component 58/D2 Delay: 6421 ps   5   4 3 4 5 
+  269: Path from Q of Net 40_1 to D-Input of Component 62/D1 Delay: 6413 ps   5   5 7 1 8 
+  230: Path from Q of Net 28_1 to D-Input of Component 54/D1 Delay: 6395 ps   5   8 3 4 5 
+  198: Path from Q of Net 52_1 to D-Input of Component 49/D1 Delay: 6372 ps   5   4 5 1 5 
+  292: Path from Q of Net 85_2 to D-Input of Component 85/D1 Delay: 6314 ps   4   8 3 8 
+  262: Path from Q of Net 85_2 to D-Input of Component 60/D2 Delay: 6304 ps   5   4 1 2 8 
+  238: Path from Q of Net 85_2 to D-Input of Component 54/D2 Delay: 6281 ps   4   4 2 8 
+  250: Path from Q of Net 85_2 to D-Input of Component 58/D2 Delay: 6253 ps   4   3 2 8 
+  244: Path from Q of Net 28_1 to D-Input of Component 58/D1 Delay: 6216 ps   5   7 7 4 5 
+  167: Path from Q of Net 52_1 to D-Input of Component 40/D1 Delay: 6184 ps   5   7 1 1 5 
+   77: Path from Q of Net 34_2 to D-Input of Component 1/D1 Delay: 6157 ps   5   8 7 3 6 
+  173: Path from Q of Net 85_2 to D-Input of Component 40/D1 Delay: 6157 ps   5   7 3 2 4 
+   95: Path from Q of Net 54_2 to D-Input of Component 20/D1 Delay: 6155 ps   6   7 5 13 13 7 
+  107: Path from Q of Net 32_2 to D-Input of Component 26/D1 Delay: 6120 ps   5   8 6 13 3 
+  162: Path from Q of Net 85_2 to D-Input of Component 34/D2 Delay: 6110 ps   4   4 6 4 
+  135: Path from Q of Net 28_1 to D-Input of Component 28/D2 Delay: 6092 ps   5   4 7 4 5 
+  290: Path from Q of Net 85_2 to D-Input of Component 85/D1 Delay: 6032 ps   4   8 2 4 
+   96: Path from Q of Net 28_1 to D-Input of Component 20/D1 Delay: 5988 ps   5   7 7 4 5 
+  125: Path from Q of Net 32_2 to D-Input of Component 28/D1 Delay: 5980 ps   6   8 1 13 13 3 
+  291: Path from Q of Net 34_2 to D-Input of Component 85/D1 Delay: 5966 ps   4   8 3 6 
+  130: Path from Q of Net 85_2 to D-Input of Component 28/D2 Delay: 5962 ps   4   3 6 8 
+  153: Path from Q of Net 28_1 to D-Input of Component 32/D2 Delay: 5949 ps   5   4 7 4 5 
+  211: Path from Q of Net 54_2 to D-Input of Component 52/D1 Delay: 5940 ps   5   8 2 13 7 
+   42: Path from Q of Net 58_2 to D-Input of Component 1/D1 Delay: 5920 ps   6   8 7 1 1 4 
+  143: Path from Q of Net 32_2 to D-Input of Component 32/D1 Delay: 5908 ps   7   8 2 13 13 13 3 
+  172: Path from Q of Net 34_2 to D-Input of Component 40/D1 Delay: 5852 ps   5   7 3 2 2 
+  112: Path from Q of Net 20_1 to D-Input of Component 26/D2 Delay: 5846 ps   5   3 2 13 7 
+  161: Path from Q of Net 34_2 to D-Input of Component 34/D2 Delay: 5805 ps   4   4 6 2 
+   57: Path from Q of Net 20_1 to D-Input of Component 1/D1 Delay: 5777 ps   6   8 7 1 1 7 
+  126: Path from Q of Net 28_1 to D-Input of Component 28/D1 Delay: 5763 ps   5   8 3 4 5 
+  221: Path from Q of Net 85_2 to D-Input of Component 52/D2 Delay: 5759 ps   4   4 6 8 
+  289: Path from Q of Net 34_2 to D-Input of Component 85/D1 Delay: 5727 ps   4   8 2 2 
+  201: Path from Q of Net 85_2 to D-Input of Component 49/D1 Delay: 5690 ps   4   4 6 4 
+  147: Path from Q of Net 85_2 to D-Input of Component 32/D2 Delay: 5686 ps   4   3 6 8 
+  121: Path from Q of Net 85_2 to D-Input of Component 28/D1 Delay: 5670 ps   4   7 2 8 
+   82: Path from Q of Net 85_2 to D-Input of Component 1/D2 Delay: 5669 ps   4   3 6 8 
+  144: Path from Q of Net 28_1 to D-Input of Component 32/D1 Delay: 5651 ps   5   8 3 4 5 
+   41: Path from Q of Net 52_2 to D-Input of Component 1/D1 Delay: 5617 ps   6   8 7 1 1 1 
+    4: Path from Q of Net 44_2 to D-Input of Component 1/D1 Delay: 5608 ps   5   7 2 7 5 
+  217: Path from Q of Net 54_2 to D-Input of Component 52/D2 Delay: 5554 ps   5   3 6 13 7 
+  169: Path from Q of Net 64_1 to D-Input of Component 40/D1 Delay: 5541 ps   5   7 3 1 5 
+  158: Path from Q of Net 85_2 to D-Input of Component 34/D2 Delay: 5533 ps   4   3 3 8 
+  171: Path from Q of Net 40_1 to D-Input of Component 40/D1 Delay: 5529 ps   5   7 3 1 8 
+  152: Path from Q of Net 54_2 to D-Input of Component 32/D2 Delay: 5521 ps   6   4 5 13 13 7 
+   79: Path from Q of Net 28_1 to D-Input of Component 1/D1 Delay: 5497 ps   5   8 7 4 5 
+   94: Path from Q of Net 52_2 to D-Input of Component 20/D1 Delay: 5476 ps   5   7 5 13 5 
+  246: Path from Q of Net 85_2 to D-Input of Component 58/D1 Delay: 5465 ps   4   8 6 8 
+  200: Path from Q of Net 34_2 to D-Input of Component 49/D1 Delay: 5385 ps   4   4 6 2 
+   89: Path from Q of Net 32_2 to D-Input of Component 1/D2 Delay: 5374 ps   8   4 5 13 13 13 13 3 
+  210: Path from Q of Net 58_1 to D-Input of Component 52/D1 Delay: 5359 ps   6   8 2 13 13 4 
+  138: Path from Q of Net 85_2 to D-Input of Component 32/D1 Delay: 5327 ps   4   7 2 8 
+  293: Path from Q of Net 28_1 to D-Input of Component 85/D1 Delay: 5324 ps   4   8 4 5 
+   43: Path from Q of Net 52_1 to D-Input of Component 1/D1 Delay: 5315 ps   6   8 7 1 1 5 
+  298: Path from Q of Net 85_2 to D-Input of Component 85/D1 Delay: 5313 ps   4   8 7 4 
+  170: Path from Q of Net 62_1 to D-Input of Component 40/D1 Delay: 5290 ps   5   7 3 1 6 
+  191: Path from Q of Net 52_1 to D-Input of Component 46/D1 Delay: 5285 ps   5   4 5 1 5 
+  134: Path from Q of Net 32_2 to D-Input of Component 28/D2 Delay: 5224 ps   6   4 5 13 13 3 
+   90: Path from Q of Net 28_1 to D-Input of Component 1/D2 Delay: 5191 ps   5   4 7 4 5 
+  157: Path from Q of Net 34_2 to D-Input of Component 34/D2 Delay: 5185 ps   4   3 3 6 
+   98: Path from Q of Net 85_2 to D-Input of Component 20/D1 Delay: 5180 ps   4   8 2 8 
+  106: Path from Q of Net 20_1 to D-Input of Component 26/D1 Delay: 5147 ps   5   8 6 13 7 
+  278: Path from Q of Net 85_1 to D-Input of Component 64/D1 Delay: 5088 ps   4   6 3 4 
+   24: Path from Q of Net 85_2 to D-Input of Component 1/D1 Delay: 5024 ps   4   7 2 8 
+  124: Path from Q of Net 20_1 to D-Input of Component 28/D1 Delay: 4983 ps   6   8 1 13 13 7 
+  216: Path from Q of Net 58_1 to D-Input of Component 52/D2 Delay: 4973 ps   6   3 6 13 13 4 
+  142: Path from Q of Net 20_1 to D-Input of Component 32/D1 Delay: 4911 ps   7   8 2 13 13 13 7 
+  235: Path from Q of Net 58_2 to D-Input of Component 54/D2 Delay: 4909 ps   5   3 1 13 8 
+   76: Path from Q of Net 85_2 to D-Input of Component 1/D1 Delay: 4860 ps   5   8 7 2 4 
+  151: Path from Q of Net 52_2 to D-Input of Component 32/D2 Delay: 4843 ps   5   4 5 13 5 
+  268: Path from Q of Net 85_1 to D-Input of Component 62/D1 Delay: 4826 ps   4   5 7 4 
+  299: Path from Q of Net 52_1 to D-Input of Component 85/D2 Delay: 4739 ps   4   1 1 5 
+  224: Path from Q of Net 85_2 to D-Input of Component 54/D1 Delay: 4696 ps   4   7 2 8 
+  296: Path from Q of Net 34_2 to D-Input of Component 85/D1 Delay: 4612 ps   4   8 7 2 
+  189: Path from Q of Net 85_2 to D-Input of Component 46/D1 Delay: 4596 ps   4   4 2 4 
+   75: Path from Q of Net 34_2 to D-Input of Component 1/D1 Delay: 4586 ps   5   8 7 2 2 
+  234: Path from Q of Net 58_1 to D-Input of Component 54/D2 Delay: 4567 ps   5   3 1 13 4 
+  159: Path from Q of Net 28_1 to D-Input of Component 34/D2 Delay: 4542 ps   4   3 4 5 
+  229: Path from Q of Net 58_2 to D-Input of Component 54/D1 Delay: 4508 ps   5   8 1 13 8 
+  111: Path from Q of Net 26_2 to D-Input of Component 26/D2 Delay: 4499 ps   4   3 2 6 
+  286: Path from Q of Net 85_1 to D-Input of Component 85/D1 Delay: 4491 ps   4   8 1 4 
+   88: Path from Q of Net 20_1 to D-Input of Component 1/D2 Delay: 4377 ps   8   4 5 13 13 13 13 7 
+   31: Path from Q of Net 32_2 to D-Input of Component 1/D1 Delay: 4324 ps   7   8 6 13 13 13 3 
+  118: Path from Q of Net 26_2 to D-Input of Component 26/D2 Delay: 4314 ps   3   4 6 
+   36: Path from Q of Net 54_2 to D-Input of Component 1/D1 Delay: 4307 ps   9   8 6 13 13 13 13 13 7 
+  174: Path from Q of Net 85_1 to D-Input of Component 40/D1 Delay: 4293 ps   4   7 3 4 
+  188: Path from Q of Net 34_2 to D-Input of Component 46/D1 Delay: 4291 ps   4   4 2 2 
+  133: Path from Q of Net 20_1 to D-Input of Component 28/D2 Delay: 4274 ps   6   4 5 13 13 7 
+  270: Path from Q of Net 62_1 to D-Input of Component 62/D1 Delay: 4274 ps   4   5 8 2 
+  150: Path from Q of Net 32_2 to D-Input of Component 32/D2 Delay: 4250 ps   4   4 5 3 
+  123: Path from Q of Net 28_1 to D-Input of Component 28/D1 Delay: 4222 ps   4   8 1 5 
+  295: Path from Q of Net 44_2 to D-Input of Component 85/D1 Delay: 4210 ps   4   8 7 1 
+  228: Path from Q of Net 58_1 to D-Input of Component 54/D1 Delay: 4166 ps   5   8 1 13 4 
+   39: Path from Q of Net 58_2 to D-Input of Component 1/D1 Delay: 4107 ps   10   8 6 13 13 13 13 13 13 8 
+  252: Path from Q of Net 58_2 to D-Input of Component 58/D2 Delay: 4105 ps   3   3 4 
+  105: Path from Q of Net 26_1 to D-Input of Component 26/D1 Delay: 4045 ps   4   8 6 2 
+  165: Path from Q of Net 85_1 to D-Input of Component 34/D2 Delay: 4044 ps   3   4 8 
+   28: Path from Q of Net 28_1 to D-Input of Component 1/D1 Delay: 4040 ps   5   8 6 13 5 
+  209: Path from Q of Net 52_1 to D-Input of Component 52/D1 Delay: 4033 ps   4   8 2 1 
+   27: Path from Q of Net 28_2 to D-Input of Component 1/D1 Delay: 4026 ps   5   8 6 13 1 
+   35: Path from Q of Net 54_1 to D-Input of Component 1/D1 Delay: 4019 ps   9   8 6 13 13 13 13 13 3 
+   86: Path from Q of Net 1_1 to D-Input of Component 1/D2 Delay: 3989 ps   5   4 5 13 4 
+   25: Path from Q of Net 1_1 to D-Input of Component 1/D1 Delay: 3951 ps   3   7 4 
+   84: Path from Q of Net 1_2 to D-Input of Component 1/D2 Delay: 3927 ps   3   3 8 
+   38: Path from Q of Net 60_2 to D-Input of Component 1/D1 Delay: 3918 ps   10   8 6 13 13 13 13 13 13 6 
+   26: Path from Q of Net 1_1 to D-Input of Component 1/D1 Delay: 3907 ps   4   8 6 4 
+  180: Path from Q of Net 85_2 to D-Input of Component 40/D1 Delay: 3885 ps   4   8 6 8 
+   93: Path from Q of Net 20_1 to D-Input of Component 20/D1 Delay: 3859 ps   4   7 5 7 
+  206: Path from Q of Net 52_1 to D-Input of Component 52/D1 Delay: 3858 ps   3   7 5 
+  233: Path from Q of Net 54_2 to D-Input of Component 54/D2 Delay: 3822 ps   4   3 1 7 
+   37: Path from Q of Net 58_1 to D-Input of Component 1/D1 Delay: 3822 ps   10   8 6 13 13 13 13 13 13 4 
+   85: Path from Q of Net 1_2 to D-Input of Component 1/D2 Delay: 3807 ps   4   4 5 4 
+  179: Path from Q of Net 85_1 to D-Input of Component 40/D1 Delay: 3803 ps   4   8 6 4 
+  141: Path from Q of Net 32_1 to D-Input of Component 32/D1 Delay: 3790 ps   4   8 2 7 
+   33: Path from Q of Net 52_1 to D-Input of Component 1/D1 Delay: 3770 ps   8   8 6 13 13 13 13 1 
+  280: Path from Q of Net 64_1 to D-Input of Component 64/D1 Delay: 3757 ps   4   6 4 5 
+   34: Path from Q of Net 52_2 to D-Input of Component 1/D1 Delay: 3750 ps   8   8 6 13 13 13 13 5 
+  273: Path from Q of Net 34_2 to D-Input of Component 64/D1 Delay: 3700 ps   3   2 2 
+  132: Path from Q of Net 28_2 to D-Input of Component 28/D2 Delay: 3690 ps   4   4 5 1 
+  276: Path from Q of Net 123_1 to D-Input of Component 64/D1 Delay: 3645 ps   3   4 1 
+  275: Path from Q of Net 123_1 to D-Input of Component 64/D1 Delay: 3645 ps   3   4 1 
+   29: Path from Q of Net 26_1 to D-Input of Component 1/D1 Delay: 3641 ps   6   8 6 13 13 2 
+  215: Path from Q of Net 52_2 to D-Input of Component 52/D2 Delay: 3641 ps   4   3 6 5 
+  202: Path from Q of Net 85_1 to D-Input of Component 49/D1 Delay: 3628 ps   3   4 8 
+  193: Path from Q of Net 62_1 to D-Input of Component 46/D1 Delay: 3608 ps   3   4 6 
+   30: Path from Q of Net 26_2 to D-Input of Component 1/D1 Delay: 3597 ps   6   8 6 13 13 6 
+  258: Path from Q of Net 58_2 to D-Input of Component 60/D2 Delay: 3571 ps   4   3 2 8 
+   87: Path from Q of Net 32_1 to D-Input of Component 1/D2 Delay: 3551 ps   5   4 5 13 7 
+  178: Path from Q of Net 34_2 to D-Input of Component 40/D1 Delay: 3537 ps   4   8 6 2 
+   32: Path from Q of Net 20_1 to D-Input of Component 1/D1 Delay: 3526 ps   7   8 6 13 13 13 7 
+  104: Path from Q of Net 26_1 to D-Input of Component 26/D1 Delay: 3465 ps   3   7 2 
+  257: Path from Q of Net 60_2 to D-Input of Component 60/D2 Delay: 3403 ps   4   3 2 6 
+  281: Path from Q of Net 40_1 to D-Input of Component 64/D1 Delay: 3373 ps   4   6 4 8 
+  187: Path from Q of Net 64_1 to D-Input of Component 46/D1 Delay: 3340 ps   3   4 1 
+  227: Path from Q of Net 54_1 to D-Input of Component 54/D1 Delay: 3312 ps   4   8 1 3 
+  302: Path from Q of Net 85_2 to D-Input of Component 85/D2 Delay: 3270 ps   3   2 4 
+  140: Path from Q of Net 32_1 to D-Input of Component 32/D1 Delay: 3270 ps   3   7 3 
+  242: Path from Q of Net 58_1 to D-Input of Component 58/D1 Delay: 3249 ps   4   7 6 4 
+  175: Path from Q of Net 40_1 to D-Input of Component 40/D1 Delay: 3162 ps   3   7 4 
+  265: Path from Q of Net 34_2 to D-Input of Component 62/D1 Delay: 3017 ps   3   2 2 
+  100: Path from Q of Net 20_1 to D-Input of Component 20/D1 Delay: 3004 ps   3   8 3 
+  120: Path from Q of Net 28_1 to D-Input of Component 28/D1 Delay: 2990 ps   3   7 1 
+  301: Path from Q of Net 34_2 to D-Input of Component 85/D2 Delay: 2965 ps   3   2 2 
+  240: Path from Q of Net 54_2 to D-Input of Component 54/D2 Delay: 2932 ps   3   4 3 
+  156: Path from Q of Net 44_2 to D-Input of Component 34/D2 Delay: 2841 ps   3   3 1 
+  149: Path from Q of Net 32_2 to D-Input of Component 32/D2 Delay: 2804 ps   3   3 7 
+  194: Path from Q of Net 40_1 to D-Input of Component 46/D1 Delay: 2780 ps   3   4 8 
+  190: Path from Q of Net 85_1 to D-Input of Component 46/D1 Delay: 2773 ps   3   4 4 
+  129: Path from Q of Net 28_2 to D-Input of Component 28/D2 Delay: 2700 ps   3   3 5 
+  267: Path from Q of Net 123_1 to D-Input of Component 62/D1 Delay: 2547 ps   3   4 1 
+  248: Path from Q of Net 58_1 to D-Input of Component 58/D1 Delay: 2523 ps   3   8 8 
+  220: Path from Q of Net 52_2 to D-Input of Component 52/D2 Delay: 2362 ps   3   4 5 
+  304: Path from Q of Net 85_1 to D-Input of Component 85/D2 Delay: 2359 ps   2   4 
+  264: Path from Q of Net 60_2 to D-Input of Component 60/D2 Delay: 2353 ps   3   4 2 
+  255: Path from Q of Net 58_2 to D-Input of Component 58/D2 Delay: 2289 ps   3   4 4 
+  303: Path from Q of Net 123_1 to D-Input of Component 85/D2 Delay: 2231 ps   3   3 1 
+  241: Path from Q of Net 123_1 to D-Input of Component 58/D1 Delay: 2218 ps   2   5 
+  283: Path from Q of Net 123_1 to D-Input of Component 85/D1 Delay: 2213 ps   2   5 
+  181: Path from Q of Net 40_1 to D-Input of Component 40/D1 Delay: 2116 ps   3   8 8 
+  249: Path from Q of Net 123_1 to D-Input of Component 58/D2 Delay: 2112 ps   2   1 
+  226: Path from Q of Net 54_1 to D-Input of Component 54/D1 Delay: 1924 ps   3   7 3 
+  166: Path from Q of Net 123_1 to D-Input of Component 40/D1 Delay: 1914 ps   2   5 
+   92: Path from Q of Net 123_1 to D-Input of Component 20/D1 Delay: 1898 ps   2   5 
+  204: Path from Q of Net 46_1 to D-Input of Component 49/D1 Delay: 1880 ps   3   8 3 
+  155: Path from Q of Net 123_1 to D-Input of Component 34/D2 Delay: 1810 ps   2   1 
+  205: Path from Q of Net 123_1 to D-Input of Component 52/D1 Delay: 1781 ps   2   5 
+  184: Path from Q of Net 123_1 to D-Input of Component 45/D1 Delay: 1753 ps   2   5 
+  223: Path from Q of Net 123_1 to D-Input of Component 54/D1 Delay: 1749 ps   2   5 
+  195: Path from Q of Net 44_2 to D-Input of Component 46/D1 Delay: 1727 ps   2   5 
+  305: Path from Q of Net 154_2 to D-Input of Component 123/D1 Delay: 1712 ps   2   6 
+  214: Path from Q of Net 123_1 to D-Input of Component 52/D2 Delay: 1678 ps   2   1 
+  232: Path from Q of Net 123_1 to D-Input of Component 54/D2 Delay: 1677 ps   2   1 
+  277: Path from Q of Net 64_1 to D-Input of Component 64/D1 Delay: 1594 ps   2   5 
+  101: Path from Q of Net 123_1 to D-Input of Component 26/D1 Delay: 1567 ps   2   5 
+  186: Path from Q of Net 123_1 to D-Input of Component 46/D1 Delay: 1468 ps   2   1 
+  110: Path from Q of Net 123_1 to D-Input of Component 26/D2 Delay: 1462 ps   2   1 
+  119: Path from Q of Net 123_1 to D-Input of Component 28/D1 Delay: 1455 ps   2   5 
+  256: Path from Q of Net 123_1 to D-Input of Component 60/D2 Delay: 1439 ps   2   1 
+  196: Path from Q of Net 46_1 to D-Input of Component 46/D1 Delay: 1344 ps   2   7 
+  128: Path from Q of Net 123_1 to D-Input of Component 28/D2 Delay: 1338 ps   2   1 
+  137: Path from Q of Net 123_1 to D-Input of Component 32/D1 Delay: 1334 ps   2   5 
+  203: Path from Q of Net 49_1 to D-Input of Component 49/D1 Delay: 1281 ps   2   6 
+  183: Path from Q of Net 45_1 to D-Input of Component 44/D2 Delay: 1254 ps   2   2 
+  146: Path from Q of Net 123_1 to D-Input of Component 32/D2 Delay: 1227 ps   2   1 
+  182: Path from Q of Net 123_1 to D-Input of Component 44/D2 Delay: 1217 ps   2   1 
+  197: Path from Q of Net 123_1 to D-Input of Component 49/D1 Delay: 1175 ps   2   1 
+  272: Path from Q of Net 62_1 to D-Input of Component 62/D1 Delay: 1152 ps   2   6 
+    3: Path from Q of Net 123_1 to D-Input of Component 1/D1 Delay: 580 ps   2   5 
+   81: Path from Q of Net 123_1 to D-Input of Component 1/D2 Delay: 499 ps   2   1 
