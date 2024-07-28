@@ -302,7 +302,7 @@ cdc_ys: $(VLOG_SRC)
 cdc_python: $(PYTHON_SCRIPT) $(JSON_OUTPUT).json
 	python3 $^ -o $(JSON_OUTPUT).txt
 	
-cdc: cdc_ys cdc_python
+cdc: v_gen cdc_ys cdc_python
 
 #-------------------------------
 # Lint targets
