@@ -1,0 +1,29 @@
+#---------------CODEC
+https://www.cirrus.com/products/wm8960
+www.waveshare.com/wiki/WM8960_Audio_Board
+www.waveshare.com/wm8960-audio-hat.htm
+
+https://www.robotshop.com/en/waveshare-wm8960-stereo-codec-audio-module.html?utm_source=google&utm_medium=surfaces&utm_campaign=surfaces_across_google_usen&gclid=CjwKCAjwiaX8BRBZEiwAQQxGx5KlOL6RZKMcMZvfLHLZ_iNWco-9MknD6XVt3hXp-LYKHCJZ8j1g7BoCwu0QAvD_BwE
+
+
+https://www.ebay.com/itm/Audio-Module-WM8960-Stereo-CODEC-Supports-Stereo-Encoding-Decoding-Sound-Record/253849856608?hash=item3b1aa16a60:g:BQ8AAOSw7vxbjj-L
+
+
+#---------------
+https://www.maximintegrated.com/en/products/analog/audio/MAX9867.html
+
+
+#---------------BUFFER
+https://www.ranecommercial.com/legacy/pdf/ranenotes/High_Quality_Low_Voltage_Audio.pdf
+
+opa1671 OpAmp #1 -- 
+MC33501
+ad8517 OpAmp -- Bipolar
+LT1677  --      $$$
+TLV2460, TLV2461 $$
+
+http://www.muzique.com/lab/buffers.htm
+
+
+#---------------I2S
+https://www.allaboutcircuits.com/technical-articles/introduction-to-the-i2s-interface/
