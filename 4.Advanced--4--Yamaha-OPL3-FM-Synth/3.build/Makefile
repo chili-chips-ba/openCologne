@@ -59,35 +59,35 @@ BLD_DIR = $(CURDIR)
 HW_SRC  := $(BLD_DIR)/../1.hw
 SW_SRC  := $(BLD_DIR)/../2.sw
 
-BLD_PATH = /usr/local/bin
 TOOL_ROOT = /home/user/FPGA/tools
 
 #========================================================================================
 # GateMate CologneChip Tools
 #========================================================================================
 #YOSYS = $(CC_TOOL)/bin/yosys/yosys$(EXE)
-YOSYS = /usr/local/bin/yosys$(EXE)
 PNR   = $(CC_TOOL)/bin/p_r/p_r$(EXE)
-
 #DONT_USE--| This OFL line does not work for me. If you have the same problem, update OFL to the newest 
 #DONT_USE--| version, next paragraph. Also see: https://github.com/chili-chips-ba/openCologne/issues/7
 #DONT_USE--| OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE) 
 
 # Uncomment to use newer/other version of Yosys synthesizer
 # See: https://github.com/chili-chips-ba/openCologne/issues/13
-# YOSYS = $(BLD_PATH)/yosys/yosys
-OFL = $(BLD_PATH)/openFPGALoader$(EXE) 
+YOSYS = yosys
+YOSYS_QUIET = -q
+OFL = openFPGALoader$(EXE) 
+
 
 #========================================================================================
 # Miscellaneous Tools
 #========================================================================================
-
 # Clock Domain Crossing Tool
-CDC_DIR = $(TOOL_ROOT)/Bedrock/build-tools
-JSON_OUTPUT := $(BLD_DIR)/cdc_check
-SCRIPT_FILE := $(CDC_DIR)/cdc_snitch_proc.ys
-PYTHON_SCRIPT := $(CDC_DIR)/cdc_snitch.py
+# See https://github.com/BerkeleyLab/Bedrock/blob/master/build-tools/cdc_snitch.md
+CDC_TOOLDIR = $(TOOL_ROOT)/Bedrock/build-tools
+CDC_SNITCH_PROC := $(CDC_TOOLDIR)/cdc_snitch_proc.ys
+CDC_SNITCH := $(CDC_TOOLDIR)/cdc_snitch.py
 
+# Python
+PYTHON = python3
 
 #========================================================================================
 # Plugins
@@ -286,7 +286,7 @@ sv_gen:
 	@echo "=============================================="
 	./create_rtl_filelist.sh -sv
 
-rtl_gen:
+sv2v_gen:
 	@echo "=============================================="
 	@echo "Running convert_sv2v.sh"
 	@echo "=============================================="
@@ -296,13 +296,17 @@ rtl_gen:
 #-------------------------------
 # Clock Domain Crossing targets
 #-------------------------------
-cdc_ys: $(VLOG_SRC)
-	$(YOSYS) -p 'read_verilog -sv $(VLOG_SRC); script $(SCRIPT_FILE); write_json $(JSON_OUTPUT).json'
 
-cdc_python: $(PYTHON_SCRIPT) $(JSON_OUTPUT).json
-	python3 $^ -o $(JSON_OUTPUT).txt
-	
-cdc: v_gen cdc_ys cdc_python
+opl3_cdc.json: $(VLOG_SRC)
+#	$(YOSYS) $(YOSYS_QUIET) -p 'read_verilog $(VLOG_SRC); script $(CDC_SNITCH_PROC); write_json $@'
+#	$(YOSYS) $(YOSYS_QUIET) -p 'read_verilog $(VLOG_SRC); synth_gatemate -top $(TOP) -nomx8; script $(CDC_SNITCH_PROC); write_json $@'
+	$(YOSYS) $(YOSYS_QUIET) -p 'read_verilog $(VLOG_SRC); synth_gatemate -top $(TOP) -nomx8 -json opl3_cdc.json; script $(CDC_SNITCH_PROC)'
+
+opl3_cdc.txt: $(CDC_SNITCH) opl3_cdc.json
+	$(PYTHON) $^ -o $@
+
+cdc: v_gen opl3_cdc.txt
+.PHONY:cdc
 
 #-------------------------------
 # Lint targets
@@ -379,7 +383,7 @@ synth_vhdl: $(VHDL_SRC)
 	@echo "=============================================="
 	
 # Synthesize with sv2v
-synth_sv2v: rtl_gen synth_vlog
+synth_sv2v: sv2v_gen synth_vlog
 
 # Synthesize with normal SystemVerilog
 synth_sv:
@@ -542,12 +546,12 @@ clean:
 	$(RM) $(SIM)/*.vvp
 	$(RM) $(SIM)/*.gtkw
 	$(RM) $(JSON_OUTPUT).json $(JSON_OUTPUT).txt
-	find $(HW_SRC) -maxdepth 1 -type f -name "*.v" ! -name "afifo.v" -exec $(RM) {} +
 	test ! -d log || rmdir log
 	test ! -d net || rmdir net
 	@echo "=============================================="
 	@echo "Cleanup complete."
 	@echo "=============================================="
+.PHONY:clean
 #=============================================================
 # End-of-File
 #=============================================================
