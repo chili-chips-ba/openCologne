@@ -1,13 +1,14 @@
+
+# Python script to: -  connect the UART
+#                   -  randomize the input PSRAM command data 
+#                   -  read out the result and compare
 import serial
 import time
 import threading
 import random 
 
-#addr = ['0','1','2','3','4']
-#wdat = ['2','3','A','B']
-
-#addr = bytearray([0,2,0])
-#wdat = bytearray([5,8])
+addr = bytearray([4,3,2])
+wdat = bytearray([7,8])
 
 addr = []
 wdat = []

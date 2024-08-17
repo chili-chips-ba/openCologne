@@ -9,12 +9,12 @@ SIM_SRC = ../2.sim
 
 # Toolchain Directories and Executable Commands
 CC_TOOL_DIR = $(CC_TOOL)
-SYNLIG = ~/0.git-repo/synlig
-PLUGIN_PATH := $(SYNLIG)/build/release/systemverilog-plugin/systemverilog.so
-#YOSYS = $(SYNLIG)/out/current/bin/yosys
-YOSYS = yosys
+TOOL_ROOT = /home/tibrahimovic/0.git-repo/
+
+#PLUGIN_PATH := $(SYNLIG)/build/release/systemverilog-plugin/systemverilog.so
+YOSYS = $(TOOL_ROOT)/yosys/yosys
 PR = $(CC_TOOL)/bin/p_r/p_r
-OFL = openFPGALoader
+OFL = $(TOOL_ROOT)/openFPGALoader/build/openFPGALoader
 
 # Simulation Tools and Flags
 GTKW = gtkwave
@@ -27,12 +27,15 @@ CELLS_SYNTH = $(CC_TOOL)/bin/yosys/share/gatemate/cells_sim.v
 CELLS_IMPL = $(CC_TOOL)/bin/p_r/cpelib.v
 
 # Project Configuration
-TOP = top# Define TOP MODULE here
+TOP = top
 CONSTR = $(HW_SRC)/constraints/constraints.ccf
 PRFLAGS = -cCP --verbose
 
 # Synthesize Sources
-VLOG_SRC = $(HW_SRC)/csr_pkg.sv $(HW_SRC)/csr_if.sv $(HW_SRC)/uart.WITHOUT-FIFO.sv $(HW_SRC)/psram.sv $(HW_SRC)/top.sv 
+TOP_FILELIST = $(shell perl -ne 's/\$$\{HW_SRC\}\///g ; print unless /^\s*\#/' ${HW_SRC}/rtl.filelist)
+VERILOG_SOURCES += $(TOP_FILELIST:%=$(HW_SRC)/%)
+SIM_MODELS = $(SIM_SRC)/models/psram_sim.sv
+
 V_SRC    =  ./*v
 
 ## misc tools
@@ -45,24 +48,6 @@ RM = rm -rf
 #=============================================================
 # HW Build
 #-------------------------------------------------------------
-# This step must be run after SW build, as we first need to
-# have SW program to then store it into RTL for IMEM
-#-------------------------------------------------------------
-# You must have GowinEDA package installed for this.
-#
-#  1) Download 'Gowin_V1.9.9.01_x64_win.zip' fajl from our WebDisk:
-#     https://www.chili-chips.xyz:2078/Gowin_V1.9.9.01_x64_win.zip
-#       UserID: student@chili-chips.xyz
-#       Pass  : fpga123
-#   
-#  2) Unzip and install. The license is free, but you have to register on:
-#       https://www.gowinsemi.com/en/support/license
-#   
-#  3) Add Gowin Windows install to your Linux $PATH, such as (for 'tcsh'):
-#       setenv GOWIN_ROOT '/mnt/c/Gowin/Gowin_V1.9.9.01_x64/IDE/bin'
-#       setenv PATH       "${WIN_ROOT}:${PATH}"
-#
-#   For more, see: 0.doc/1.README.Tool-Installs.txt  
 #=============================================================
 
 #------------------------
@@ -73,13 +58,13 @@ hw_clean:
 	rm -rf $(HW_BLD)
 
 convert:
-	sv2v --write=./ $(VLOG_SRC)
+	sv2v --write=./ $(VERILOG_SOURCES)
 # Synthesis 
-#synth_vlog: $(VLOG_SRC)
+#synth_vlog: $(VERILOG_SOURCES)
 #	@test -d log || mkdir log
 #	@test -d net || mkdir net
-#	$(YOSYS) -ql log/synth.log -p 'plugin -i $(PLUGIN_PATH); read_systemverilog $(VLOG_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
-synth_vlog: $(VLOG_SRC)
+#	$(YOSYS) -ql log/synth.log -p 'plugin -i $(PLUGIN_PATH); read_systemverilog $(VERILOG_SOURCES); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
+synth_vlog: $(VERILOG_SOURCES)
 	@test -d log || mkdir log
 	@test -d net || mkdir net
 	$(YOSYS) -ql log/synth.log -p 'read_verilog -sv $(V_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
@@ -102,33 +87,12 @@ jtag:
 
 #spi-flash:
 #	$(OFL) $(OFLFLAGS) -b gatemate_evb_spi -f --verify $(TOP)_00.cfg
-
-
-## verilog simulation targets
-vlog_sim.vvp:
-	$(IVL) $(IVLFLAGS) -o $(SIM_SRC)/$@ $(VLOG_SRC) $(SIM_SRC)/tb.sv
-
-synth_sim.vvp:
-	$(IVL) $(IVLFLAGS) -o $(SIM_SRC)/$@ net/$(TOP)_synth.v $(SIM_SRC)/tb.sv $(CELLS_SYNTH)
-
-impl_sim.vvp:
-	$(IVL) $(IVLFLAGS) -o $(SIM_SRC)/$@ $(TOP)_00.v $(SIM_SRC)/tb.sv $(CELLS_IMPL)
-%sim: %sim.vvp
-	$(VVP) -N $(SIM_SRC)/$< -fst
-	@$(RM) $(SIM_SRC)/$^
-
-wave:
-	$(GTKW) $(SIM_SRC)/tb.vcd $(SIM_SRC)/config.gtkw
-
-
-
-
 clean:
 	$(RM) log/*.log
 	$(RM) net/*_synth.v
 	$(RM) *.history
 	$(RM) *.txt
-	$(RM) */.v
+	$(RM) ./*.v
 	$(RM) *.refwire
 	$(RM) *.refparam
 	$(RM) *.refcomp
@@ -152,32 +116,6 @@ clean:
 
 	test ! -d log || rmdir log
 	test ! -d net || rmdir net
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#------------------------
-# Execute HW Build using Gowin Synth->PNR->Bitgen flow
-# hw_build:
-#	gw_sh.exe run-hwbuild.tcl
-
-
 
 #=============================================================
 # End-of-File
