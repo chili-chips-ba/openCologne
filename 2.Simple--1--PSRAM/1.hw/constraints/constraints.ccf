@@ -102,7 +102,6 @@ Pin_out "led" Loc = "IO_SB_B6"; # FPGA LED
 Pin_in       "uart_rx"         Loc = "IO_SA_A6";
 Pin_out      "uart_tx"         Loc = "IO_SA_B6";
 
-#Pin_out      "received"            Loc = "IO_NB_A0";
 Pin_out      "sent"                Loc = "IO_NB_A1";
 
 

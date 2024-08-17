@@ -32,7 +32,7 @@
 //
 //              https://opensource.org/license/bsd-3-clause
 //------------------------------------------------------------------------
-// TurboVega's PSRAM controller
+// TurboVega's PSRAM controller (stripped down a bit)
 //========================================================================
 `default_nettype none
 
@@ -88,9 +88,7 @@ module psram (
     // read and ready signals
     output  logic psram_busy,
 
-    output  logic o_done,
-    // output  logic [5:0] o_state
-    
+    output  logic o_done,    
     // outputs 
 	output  logic [15:0] o_dout,
 
@@ -104,7 +102,6 @@ module psram (
     inout   logic io_psram_data5,
     inout   logic io_psram_data6,
     inout   logic io_psram_data7
-/*     output  logic [34:0] states_hit */
 );
 
 // The main clock (i_clk) here is 100 MHz, which ticks every

@@ -1,30 +1,28 @@
 #=============================================================
 # Copyright (C) 2024 Chili.CHIPS*ba
 #=============================================================
-SHELL   := /bin/bash
 
 HW_SRC	:= $(CURDIR)/../1.hw
 BLD_DIR := $(CURDIR)/../3.build
 TB_NAME := tb
 SIM_SRC := $(CURDIR)
 
-export HW_SRC BLD_DIR TB_NAME SIM_SRC
-
 # Toolchain Directories and Executable Commands
 CC_TOOL_DIR = $(CC_TOOL)
 
 # Simulation Libraries
-CELLS_SYNTH = $(CC_TOOL)/bin/yosys/share/gatemate/cells_sim.v
-CELLS_IMPL = $(CC_TOOL)/bin/p_r/cpelib.v
+CELLS_SYNTH = $(CC_TOOL_DIR)/bin/yosys/share/gatemate/cells_sim.v
+CELLS_IMPL = $(CC_TOOL_DIR)/bin/p_r/cpelib.v
+
+export HW_SRC BLD_DIR TB_NAME SIM_SRC CC_TOOL_DIR
 
 # Project Configuration
 TOP = top
-VLOG_SRC = $(HW_SRC)/csr_pkg.sv  $(HW_SRC)/uart.WITHOUT-FIFO.sv $(HW_SRC)/psram.sv $(HW_SRC)/top.sv 
 
 #------------------------
 .PHONY: all
 all: clean compile execute wave
-
+all_synth: clean compile_synth execute wave
 all_impl: clean compile_impl execute wave
 
 #------------------------
@@ -35,20 +33,22 @@ clean:
 #___Global macros___
 #   +define+SIM_ONLY \    to speed-up things for sim
 #   +define+MIPI_4_LANE \
-#
-#___Xilinx macros___
-#   +define+XIL_TIMING \
-#   +define+HACKED_UNISIM \
-#
 #-------------------------------------------------------------
 
 
 #---------------------------------------------------
 # Option 1: verilator simulations: 
-#					Source RTL
+#					Source RTL make, make all
+#					Post synth make all_synth
+#                   Post PnR   make all_impl
 # May produce some warnings since primitives are
 # differing from source modules in port declarations
 #---------------------------------------------------
+
+# Read verilog sources from 1.hw/rtl.filelist
+TOP_FILELIST = $(shell perl -ne 's/\$$\{HW_SRC\}\///g ; print unless /^\s*\#/' ${HW_SRC}/rtl.filelist)
+VERILOG_SOURCES += $(TOP_FILELIST:%=$(HW_SRC)/%)
+SIM_MODELS = $(SIM_SRC)/models/psram_sim.sv
 
 
 compile: 
@@ -65,8 +65,9 @@ compile:
 		+define+SIM_ONLY \
 		+define+HACKED_UNISIM \
 		\
-		-f ${HW_SRC}/top.filelist \
+		-f ${HW_SRC}/rtl.filelist \
 		\
+		$(SIM_MODELS) \
 		${TB_NAME}.sv \
 		--top-module ${TB_NAME}
 
@@ -84,7 +85,27 @@ compile_impl:
 		\
 		$(CELLS_SYNTH) \
 		$(CELLS_IMPL) \
+		$(SIM_MODELS) \
 		./../3.build/top_00.v \
+		\
+		${TB_NAME}.sv \
+		--top-module ${TB_NAME}
+
+compile_synth: 
+	verilator \
+		--cc \
+		--timing \
+		--trace-fst \
+		--trace-structs \
+		--timescale-override 1ps/1ps \
+		--exe versimSV.cpp \
+		--Mdir ./output \
+		-Wno-fatal \
+		\
+		$(CELLS_SYNTH) \
+		$(CELLS_IMPL) \
+		$(SIM_MODELS) \
+		$(BLD_DIR)/net/$(TOP)_synth.v \
 		\
 		${TB_NAME}.sv \
 		--top-module ${TB_NAME}
@@ -141,11 +162,11 @@ xml2stems:
 		-xml-output tb.xml \
 		-Wno-fatal \
 		--timescale 1ps/1ps \
-		-f ${HW_SRC}/top.filelist \
+		-f ${HW_SRC}/rtl.filelist \
+		${SIM_MODELS} \
 		${TB_NAME}.sv \
                 \
 		+define+SIM_ONLY \
-		+define+HACKED_UNISIM \
                 \
 		--top-module ${TB_NAME}
 	xml2stems tb.xml tb.stems
@@ -154,7 +175,6 @@ xml2stems:
 #------------------------
 rtlbrowse: xml2stems
 	rtlbrowse tb.stems   
-
 
 #-------------------------------------------------
 # Option 2: iverilog simulations:
@@ -175,8 +195,8 @@ vlog_sim.vvp:
 		-Ttyp \
 		-DSIM_ONLY \
 		-o $(SIM_SRC)/$@ \
-		$(CELLS_IMPL) \
-		$(VLOG_SRC) \
+		$(VERILOG_SOURCES) \
+		$(SIM_MODELS) \
 		$(SIM_SRC)/tb.sv
 
 # Run make vlog_synth   first in 3.build
@@ -188,8 +208,9 @@ synth_sim.vvp: clean_iverilog
 		-Ttyp \
 		-o $(SIM_SRC)/$@ \
 		$(CELLS_SYNTH) \
+		$(SIM_MODELS) \ 
 		$(BLD_DIR)/net/$(TOP)_synth.v \
-		$(SIM_SRC)/tb.sv \
+		$(SIM_SRC)/tb.sv 
 		
 
 # Run make vlog_synth \ make impl  first in 3.build
@@ -200,6 +221,7 @@ impl_sim.vvp: clean_iverilog
 		-gspecify \
 		-Ttyp \
 		-o $(SIM_SRC)/$@ \
+		$(SIM_MODELS) \ 
 		$(BLD_DIR)/$(TOP)_00.v \
 		$(SIM_SRC)/tb.sv \
 		$(CELLS_IMPL)

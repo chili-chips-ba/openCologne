@@ -1,15 +1,37 @@
-//==========================================================================
-// Copyright (C) 2023 Chili.CHIPS*ba
-//--------------------------------------------------------------------------
-//                      PROPRIETARY INFORMATION
+//======================================================================== 
+// openCologne * NLnet-sponsored open-source design ware for GateMate
+//------------------------------------------------------------------------
+//                   Copyright (C) 2024 Chili.CHIPS*ba
+// 
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions 
+// are met:
 //
-// The information contained in this file is the property of CHILI CHIPS LLC.
-// Except as specifically authorized in writing by CHILI CHIPS LLC, the holder
-// of this file: (1) shall keep all information contained herein confidential;
-// and (2) shall protect the same in whole or in part from disclosure and
-// dissemination to all third parties; and (3) shall use the same for operation
-// and maintenance purposes only.
-//--------------------------------------------------------------------------
+// 1. Redistributions of source code must retain the above copyright 
+// notice, this list of conditions and the following disclaimer.
+//
+// 2. Redistributions in binary form must reproduce the above copyright 
+// notice, this list of conditions and the following disclaimer in the 
+// documentation and/or other materials provided with the distribution.
+//
+// 3. Neither the name of the copyright holder nor the names of its 
+// contributors may be used to endorse or promote products derived
+// from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS 
+// IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED 
+// TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
+// PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+// HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//              https://opensource.org/license/bsd-3-clause
+//------------------------------------------------------------------------
 // Description: This is a package with declarations of SOC-specific Control 
 //    and Status registers. This is the DNA of register set. It is purposely 
 //    structured and formal, to facilitate future automation/scripted generation.
@@ -18,7 +40,7 @@
 //    registers therefore don't have HW readback path. Instead, SW can use 
 //    own variables in places where readback is needed. And, since SW 
 //    variables are in RAM, they cost less than FPGA flip-flops and LUTs.
-//==========================================================================
+//========================================================================
 
 package csr_pkg;
  //import soc_pkg::clog2;
@@ -83,10 +105,5 @@ endpackage: csr_pkg
 -----------------------------------------------------------------------------
 Version History:
 -----------------------------------------------------------------------------
- 2024/1/2  JI: initial creation    
- 2024/3/1  JI: Streamlined HW/SW handshake for area efficiency.
-               Added full explanation.
-               Added ADC1/2_RX, GPO and GPI registers.
- 2024/3/28 JI: Added DAC1/2
- 2024/4/22 JI: Added MISC
+ 2024/6/7  Tarik Ibrahimovic: initial creation    
 */

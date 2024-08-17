@@ -13,15 +13,21 @@
 ++ begin reset file  line 0
 ++ comp reset:G3 type reset:G3 parent clock_gen:G1
 ++ module reset:G3 file  lines 0 - 0
+++ begin unnamedblk2 file  line 0
+++ comp unnamedblk2:G4 type unnamedblk2:G4 parent reset:G3
+++ module unnamedblk2:G4 file  lines 0 - 0
 ++ endbegin run_sim
 ++ endbegin reset
+++ endbegin unnamedblk2
 ++ comp dut type top parent tb
+++ comp u_psram type psram_sim parent tb
 ++ module top file  lines 0 - 0
 ++ comp u_uart type uart parent top
 ++ comp u_psram type psram parent top
 ++ begin _uart_buffer file  line 0
-++ comp _uart_buffer:G4 type _uart_buffer:G4 parent top
-++ module _uart_buffer:G4 file  lines 0 - 0
+++ comp _uart_buffer:G5 type _uart_buffer:G5 parent top
+++ module _uart_buffer:G5 file  lines 0 - 0
 ++ endbegin _uart_buffer
+++ module psram_sim file  lines 0 - 0
 ++ module uart file  lines 0 - 0
 ++ module psram file  lines 0 - 0

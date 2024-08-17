@@ -1,0 +1,2848 @@
+         1 I       I0 1 psram_busy
+         1 I       I1 2 _125_[1]
+         1 I       I2 3 psram_state[3]
+         1 I       I3 4 \u_psram.arst_n 
+         1 O        O 1 _129_[1]
+         2 I       I0 1 _124_[0]
+         2 I       I1 2 _124_[1]
+         2 O        O 1 _125_[1]
+         3 I       I0 1 \command_bytes[0] [4]
+         3 I       I1 2 \command_bytes[0] [5]
+         3 I       I2 3 \command_bytes[0] [6]
+         3 I       I3 4 \command_bytes[0] [7]
+         3 O        O 1 _124_[0]
+         4 I       I0 1 \command_bytes[0] [0]
+         4 I       I1 2 \command_bytes[0] [1]
+         4 I       I2 3 \command_bytes[0] [2]
+         4 I       I3 4 \command_bytes[0] [3]
+         4 O        O 1 _124_[1]
+         5 I       I0 1 _129_[0]
+         5 I       I1 2 _129_[1]
+         5 O        O 1 _052_
+         6 I       I0 1 uart_buffer_state[0]
+         6 I       I1 2 uart_buffer_state[1]
+         6 I       I2 3 \u_uart.tx_state [2]
+         6 I       I3 4 _128_[3]
+         6 O        O 1 _129_[0]
+         7 I       I0 1 \u_uart.tx_state [9]
+         7 I       I1 2 _127_[1]
+         7 I       I2 3 _127_[2]
+         7 O        O 1 _128_[3]
+         8 I       I0 1 \u_uart.tx_state [5]
+         8 I       I1 2 \u_uart.tx_state [8]
+         8 I       I2 3 _126_[2]
+         8 O        O 1 _127_[2]
+         9 I       I0 1 \u_uart.tx_state [6]
+         9 I       I1 2 \u_uart.tx_state [1]
+         9 I       I2 3 \u_uart.tx_state [3]
+         9 O        O 1 _126_[2]
+        10 I       I0 1 \u_uart.tx_state [7]
+        10 I       I1 2 \u_uart.tx_state [4]
+        10 I       I2 3 \u_uart.tx_state [10]
+        10 O        O 1 _127_[1]
+        11 I       I0 1 _141_[0]
+        11 I       I1 2 _216_[1]
+        11 I       I2 3 \u_uart.rx_state [0]
+        11 O        O 1 _118_[0]
+        12 I       I0 1 \u_uart.rx_state [2]
+        12 I       I1 2 _136_[2]
+        12 O        O 1 _141_[0]
+        13 I       I0 1 \u_uart.rx_state [8]
+        13 I       I1 2 \u_uart.rx_state [1]
+        13 I       I2 3 \u_uart.rx_state [5]
+        13 I       I3 4 _135_[3]
+        13 O        O 1 _136_[2]
+        14 I       I0 1 \u_uart.rx_cnt1us [0]
+        14 I       I1 2 tick_1us_reg
+        14 I       I2 3 _134_[2]
+        14 O        O 1 _135_[3]
+        15 I       I0 1 \u_uart.rx_cnt1us [1]
+        15 I       I1 2 \u_uart.rx_cnt1us [2]
+        15 I       I2 3 \u_uart.rx_cnt1us [3]
+        15 O        O 1 _134_[2]
+        16 I       I0 1 \u_uart.rx_cnt1us [0]
+        16 I       I1 2 _111_[0]
+        16 I       I2 3 _140_[2]
+        16 I       I3 4 _140_[3]
+        16 O        O 1 _216_[1]
+        17 I       I0 1 _139_[0]
+        17 I       I1 2 _138_[0]
+        17 I       I2 3 tick_1us_reg
+        17 O        O 1 _140_[3]
+        18 I       I0 1 \u_uart.rx_state [6]
+        18 I       I1 2 \u_uart.rx_state [7]
+        18 I       I2 3 _137_[2]
+        18 O        O 1 _138_[0]
+        19 I       I0 1 \u_uart.rx_state [9]
+        19 I       I1 2 \u_uart.rx_state [3]
+        19 I       I2 3 \u_uart.rx_state [4]
+        19 O        O 1 _137_[2]
+        20 I       I0 1 \u_uart.rx_state [2]
+        20 I       I1 2 \u_uart.rx_state [1]
+        20 I       I2 3 \u_uart.rx_state [5]
+        20 I       I3 4 \u_uart.rx_state [8]
+        20 O        O 1 _139_[0]
+        21 I       I0 1 _138_[0]
+        21 I       I1 2 \u_uart.rx_state [2]
+        21 I       I2 3 _135_[3]
+        21 O        O 1 _140_[2]
+        22 I       I0 1 _142_[0]
+        22 I       I1 2 _142_[1]
+        22 I       I2 3 _142_[2]
+        22 O        O 1 _118_[1]
+        23 I       I0 1 \u_uart.rx_state [2]
+        23 I       I1 2 \u_uart.rx_state [0]
+        23 I       I2 3 _136_[2]
+        23 O        O 1 _142_[2]
+        24 I       I0 1 \u_uart.rx_state [2]
+        24 I       I1 2 \u_uart.rx_state [0]
+        24 I       I2 3 _140_[2]
+        24 O        O 1 _142_[0]
+        25 I       I0 1 \u_uart.rx_cnt1us [1]
+        25 I       I1 2 _111_[1]
+        25 I       I2 3 _140_[3]
+        25 O        O 1 _142_[1]
+        26 I       I0 1 _141_[0]
+        26 I       I1 2 _141_[1]
+        26 I       I2 3 \u_uart.rx_state [0]
+        26 O        O 1 _118_[2]
+        27 I       I0 1 \u_uart.rx_cnt1us [2]
+        27 I       I1 2 _111_[2]
+        27 I       I2 3 _140_[2]
+        27 I       I3 4 _140_[3]
+        27 O        O 1 _141_[1]
+        28 I       I0 1 _143_[0]
+        28 I       I1 2 _141_[0]
+        28 I       I2 3 _140_[2]
+        28 I       I3 4 \u_uart.rx_state [0]
+        28 O        O 1 _118_[3]
+        29 I       I0 1 \u_uart.rx_cnt1us [3]
+        29 I       I1 2 _111_[3]
+        29 I       I2 3 _140_[3]
+        29 O        O 1 _143_[0]
+        30 I       I0 1 _160_[0]
+        30 I       I1 2 _099_[0]
+        30 O        O 1 _001_[0]
+        31 I       I0 1 counter[1]
+        31 I       I1 2 counter[0]
+        31 I       I2 3 _159_[2]
+        31 O        O 1 _160_[0]
+        32 I       I0 1 counter[2]
+        32 I       I1 2 counter[4]
+        32 I       I2 3 counter[5]
+        32 I       I3 4 counter[3]
+        32 O        O 1 _159_[2]
+        33 I       I0 1 _160_[0]
+        33 I       I1 2 _099_[1]
+        33 O        O 1 _001_[1]
+        34 I       I0 1 _160_[0]
+        34 I       I1 2 _099_[2]
+        34 O        O 1 _001_[2]
+        35 I       I0 1 _160_[0]
+        35 I       I1 2 _099_[3]
+        35 O        O 1 _001_[3]
+        36 I       I0 1 _160_[0]
+        36 I       I1 2 _099_[4]
+        36 O        O 1 _001_[4]
+        37 I       I0 1 _160_[0]
+        37 I       I1 2 _099_[5]
+        37 O        O 1 _001_[5]
+        38 I       I0 1 psram_state[2]
+        38 I       I1 2 _090_[0]
+        38 O        O 1 _000_[0]
+        39 I       I0 1 psram_state[2]
+        39 I       I1 2 _090_[1]
+        39 O        O 1 _000_[1]
+        40 I       I0 1 psram_state[2]
+        40 I       I1 2 _090_[2]
+        40 O        O 1 _000_[2]
+        41 I       I0 1 _218_[0]
+        41 I       I1 2 _218_[1]
+        41 I       I2 3 _170_[3]
+        41 I       I3 4 _218_[3]
+        41 O        O 1 _116_[0]
+        42 I       I0 1 \u_uart.tx_state [2]
+        42 I       I1 2 _128_[3]
+        42 I       I2 3 _108_[0]
+        42 I       I3 4 tick_1us_reg
+        42 O        O 1 _218_[0]
+        43 I       I0 1 \u_uart.tx_state [2]
+        43 I       I1 2 _128_[3]
+        43 I       I2 3 tick_1us_reg
+        43 I       I3 4 \u_uart.tx_cnt1us [0]
+        43 O        O 1 _218_[1]
+        44 I       I0 1 _167_[1]
+        44 I       I1 2 \u_uart.tx_state [0]
+        44 I       I2 3 _169_[2]
+        44 I       I3 4 _127_[1]
+        44 O        O 1 _170_[3]
+        45 I       I0 1 \u_uart.tx_state [9]
+        45 I       I1 2 _127_[2]
+        45 O        O 1 _169_[2]
+        46 I       I0 1 _166_[0]
+        46 I       I1 2 tick_1us_reg
+        46 O        O 1 _167_[1]
+        47 I       I0 1 \u_uart.tx_cnt1us [0]
+        47 I       I1 2 \u_uart.tx_cnt1us [1]
+        47 I       I2 3 \u_uart.tx_cnt1us [2]
+        47 I       I3 4 \u_uart.tx_cnt1us [3]
+        47 O        O 1 _166_[0]
+        48 I       I0 1 _168_[0]
+        48 I       I1 2 \u_uart.tx_state [0]
+        48 O        O 1 _218_[3]
+        49 I       I0 1 _127_[1]
+        49 I       I1 2 _167_[1]
+        49 O        O 1 _168_[0]
+        50 I       I0 1 _168_[0]
+        50 I       I1 2 _171_[1]
+        50 I       I2 3 _171_[2]
+        50 I       I3 4 _170_[3]
+        50 O        O 1 _116_[1]
+        51 I       I0 1 \u_uart.tx_state [2]
+        51 I       I1 2 _128_[3]
+        51 I       I2 3 tick_1us_reg
+        51 I       I3 4 _108_[1]
+        51 O        O 1 _171_[1]
+        52 I       I0 1 \u_uart.tx_state [2]
+        52 I       I1 2 _128_[3]
+        52 I       I2 3 tick_1us_reg
+        52 I       I3 4 \u_uart.tx_cnt1us [1]
+        52 O        O 1 _171_[2]
+        53 I       I0 1 _168_[0]
+        53 I       I1 2 _170_[1]
+        53 I       I2 3 _170_[2]
+        53 I       I3 4 _170_[3]
+        53 O        O 1 _116_[2]
+        54 I       I0 1 \u_uart.tx_state [2]
+        54 I       I1 2 _128_[3]
+        54 I       I2 3 tick_1us_reg
+        54 I       I3 4 \u_uart.tx_cnt1us [2]
+        54 O        O 1 _170_[1]
+        55 I       I0 1 \u_uart.tx_state [2]
+        55 I       I1 2 _128_[3]
+        55 I       I2 3 tick_1us_reg
+        55 I       I3 4 _108_[2]
+        55 O        O 1 _170_[2]
+        56 I       I0 1 _219_[0]
+        56 I       I1 2 _168_[0]
+        56 I       I2 3 _219_[2]
+        56 I       I3 4 _219_[3]
+        56 O        O 1 _116_[3]
+        57 I       I0 1 \u_uart.tx_state [2]
+        57 I       I1 2 _128_[3]
+        57 I       I2 3 tick_1us_reg
+        57 I       I3 4 \u_uart.tx_cnt1us [3]
+        57 O        O 1 _219_[0]
+        58 I       I0 1 \u_uart.tx_state [2]
+        58 I       I1 2 _128_[3]
+        58 I       I2 3 _108_[3]
+        58 I       I3 4 tick_1us_reg
+        58 O        O 1 _219_[2]
+        59 I       I0 1 _167_[1]
+        59 I       I1 2 _169_[2]
+        59 I       I2 3 \u_uart.tx_state [0]
+        59 O        O 1 _219_[3]
+        60 I       I0 1 _172_[0]
+        60 I       I1 2 _102_[3]
+        60 O        O 1 _062_
+        61 I       I0 1 _120_[2]
+        61 I       I1 2 _146_[0]
+        61 O        O 1 _172_[0]
+        62 I       I0 1 \u_psram.o_state [5]
+        62 I       I1 2 \u_psram.o_state [4]
+        62 O        O 1 _120_[2]
+        63 I       I0 1 \u_psram.o_state [3]
+        63 I       I1 2 \u_psram.o_state [0]
+        63 I       I2 3 \u_psram.o_state [1]
+        63 I       I3 4 \u_psram.o_state [2]
+        63 O        O 1 _146_[0]
+        64 I       I0 1 _172_[0]
+        64 I       I1 2 _102_[2]
+        64 O        O 1 _063_
+        65 I       I0 1 _172_[0]
+        65 I       I1 2 _102_[1]
+        65 O        O 1 _064_
+        66 I       I0 1 uart_buffer_state[1]
+        66 I       I1 2 uart_buffer_state[0]
+        66 I       I2 3 _129_[0]
+        66 I       I3 4 \u_psram.arst_n 
+        66 O        O 1 _065_
+        67 I       I0 1 \u_psram.arst_n 
+        67 I       I1 2 psram_rdat[15]
+        67 O        O 1 _066_
+        68 I       I0 1 \u_psram.arst_n 
+        68 I       I1 2 psram_rdat[14]
+        68 O        O 1 _067_
+        69 I       I0 1 \u_psram.arst_n 
+        69 I       I1 2 psram_rdat[13]
+        69 O        O 1 _068_
+        70 I       I0 1 \u_psram.arst_n 
+        70 I       I1 2 psram_rdat[12]
+        70 O        O 1 _069_
+        71 I       I0 1 \u_psram.arst_n 
+        71 I       I1 2 psram_rdat[11]
+        71 O        O 1 _070_
+        72 I       I0 1 \u_psram.arst_n 
+        72 I       I1 2 psram_rdat[10]
+        72 O        O 1 _071_
+        73 I       I0 1 \u_psram.arst_n 
+        73 I       I1 2 psram_rdat[9]
+        73 O        O 1 _072_
+        74 I       I0 1 \u_psram.arst_n 
+        74 I       I1 2 psram_rdat[8]
+        74 O        O 1 _073_
+        75 I       I0 1 \u_psram.arst_n 
+        75 I       I1 2 psram_rdat[7]
+        75 O        O 1 _074_
+        76 I       I0 1 \u_psram.arst_n 
+        76 I       I1 2 psram_rdat[6]
+        76 O        O 1 _075_
+        77 I       I0 1 \u_psram.arst_n 
+        77 I       I1 2 psram_rdat[5]
+        77 O        O 1 _076_
+        78 I       I0 1 \u_psram.arst_n 
+        78 I       I1 2 psram_rdat[4]
+        78 O        O 1 _077_
+        79 I       I0 1 \u_psram.arst_n 
+        79 I       I1 2 psram_rdat[3]
+        79 O        O 1 _078_
+        80 I       I0 1 \u_psram.arst_n 
+        80 I       I1 2 psram_rdat[2]
+        80 O        O 1 _079_
+        81 I       I0 1 \u_psram.arst_n 
+        81 I       I1 2 psram_rdat[1]
+        81 O        O 1 _080_
+        82 I       I0 1 _127_[2]
+        82 I       I1 2 _127_[1]
+        82 I       I2 3 _176_[2]
+        82 O        O 1 _117_
+        83 I       I0 1 \u_uart.tx_state [10]
+        83 I       I1 2 _166_[0]
+        83 I       I2 3 \u_uart.tx_data [0]
+        83 I       I3 4 _175_[3]
+        83 O        O 1 _176_[2]
+        84 I       I0 1 \u_uart.tx_data [5]
+        84 I       I1 2 \u_uart.tx_state [3]
+        84 I       I2 3 _174_[2]
+        84 I       I3 4 _174_[3]
+        84 O        O 1 _175_[3]
+        85 I       I0 1 \u_uart.tx_data [2]
+        85 I       I1 2 \u_uart.tx_state [6]
+        85 I       I2 3 _173_[2]
+        85 I       I3 4 _173_[3]
+        85 O        O 1 _174_[2]
+        86 I       I0 1 \u_uart.tx_state [8]
+        86 I       I1 2 \u_uart.tx_data [4]
+        86 O        O 1 _173_[2]
+        87 I       I0 1 \u_uart.tx_state [1]
+        87 I       I1 2 \u_uart.tx_data [1]
+        87 I       I2 3 \u_uart.tx_state [7]
+        87 I       I3 4 \u_uart.tx_data [6]
+        87 O        O 1 _173_[3]
+        88 I       I0 1 \u_uart.tx_data [7]
+        88 I       I1 2 \u_uart.tx_state [5]
+        88 I       I2 3 \u_uart.tx_state [4]
+        88 I       I3 4 \u_uart.tx_data [3]
+        88 O        O 1 _174_[3]
+        89 I       I0 1 in[1]
+        89 I       I1 2 in[2]
+        89 I       I2 3 in[0]
+        89 I       I3 4 _096_[2]
+        89 O        O 1 _081_
+        90 I       I0 1 in[1]
+        90 I       I1 2 in[2]
+        90 I       I2 3 in[0]
+        90 I       I3 4 _096_[1]
+        90 O        O 1 _082_
+        91 I       I0 1 in[1]
+        91 I       I1 2 in[2]
+        91 I       I2 3 in[0]
+        91 I       I3 4 _096_[0]
+        91 O        O 1 _083_
+        92 I       I0 1 \u_psram.arst_n 
+        92 I       I1 2 psram_rdat[0]
+        92 O        O 1 _084_
+        93 I       I0 1 \u_uart.tx_state [2]
+        93 I       I1 2 _177_[1]
+        93 I       I2 3 _128_[3]
+        93 O        O 1 _085_
+        94 I       I0 1 uart_buffer_state[0]
+        94 I       I1 2 uart_buffer_state[1]
+        94 I       I2 3 \u_psram.arst_n 
+        94 O        O 1 _177_[1]
+        95 I       I0 1 _172_[0]
+        95 I       I1 2 _102_[0]
+        95 O        O 1 _086_
+        96 I       I0 1 _178_[0]
+        96 I       I1 2 _178_[1]
+        96 I       I2 3 u_counter[27]
+        96 O        O 1 _003_
+        97 I       I0 1 \u_uart.uart_rx_read 
+        97 I       I1 2 \u_uart.rx_state [2]
+        97 I       I2 3 _135_[3]
+        97 O        O 1 _041_
+        98 I       I0 1 uart_buffer[8]
+        98 I       I1 2 uart_buffer[0]
+        98 I       I2 3 uart_buffer_state[0]
+        98 I       I3 4 uart_buffer_state[1]
+        98 O        O 1 \u_uart.uart_tx_data [0]
+        99 I       I0 1 uart_buffer[9]
+        99 I       I1 2 uart_buffer[1]
+        99 I       I2 3 uart_buffer_state[0]
+        99 I       I3 4 uart_buffer_state[1]
+        99 O        O 1 \u_uart.uart_tx_data [1]
+       100 I       I0 1 uart_buffer[10]
+       100 I       I1 2 uart_buffer[2]
+       100 I       I2 3 uart_buffer_state[0]
+       100 I       I3 4 uart_buffer_state[1]
+       100 O        O 1 \u_uart.uart_tx_data [2]
+       101 I       I0 1 uart_buffer[11]
+       101 I       I1 2 uart_buffer[3]
+       101 I       I2 3 uart_buffer_state[0]
+       101 I       I3 4 uart_buffer_state[1]
+       101 O        O 1 \u_uart.uart_tx_data [3]
+       102 I       I0 1 uart_buffer[12]
+       102 I       I1 2 uart_buffer[4]
+       102 I       I2 3 uart_buffer_state[0]
+       102 I       I3 4 uart_buffer_state[1]
+       102 O        O 1 \u_uart.uart_tx_data [4]
+       103 I       I0 1 uart_buffer[13]
+       103 I       I1 2 uart_buffer[5]
+       103 I       I2 3 uart_buffer_state[0]
+       103 I       I3 4 uart_buffer_state[1]
+       103 O        O 1 \u_uart.uart_tx_data [5]
+       104 I       I0 1 uart_buffer[14]
+       104 I       I1 2 uart_buffer[6]
+       104 I       I2 3 uart_buffer_state[0]
+       104 I       I3 4 uart_buffer_state[1]
+       104 O        O 1 \u_uart.uart_tx_data [6]
+       105 I       I0 1 uart_buffer[15]
+       105 I       I1 2 uart_buffer[7]
+       105 I       I2 3 uart_buffer_state[0]
+       105 I       I3 4 uart_buffer_state[1]
+       105 O        O 1 \u_uart.uart_tx_data [7]
+       106 I       I0 1 \u_psram.hold_clk_lo 
+       106 I       I1 2 clk_out
+       106 O        O 1 \u_psram.o_psram_sclk 
+       107 I       I0 1 psram_state[1]
+       107 I       I1 2 byte_count[0]
+       107 I       I2 3 byte_count[2]
+       107 I       I3 4 byte_count[1]
+       107 O        O 1 _087_
+       108 I       I0 1 _123_[0]
+       108 I       I1 2 _157_[0]
+       108 I       I2 3 _220_[2]
+       108 I       I3 4 _220_[3]
+       108 O        O 1 _115_[0]
+       109 I       I0 1 psram_we
+       109 I       I1 2 _154_[0]
+       109 O        O 1 _157_[0]
+       110 I       I0 1 _131_[1]
+       110 I       I1 2 _152_[1]
+       110 O        O 1 _154_[0]
+       111 I       I0 1 \u_psram.o_state [4]
+       111 I       I1 2 \u_psram.o_state [5]
+       111 O        O 1 _131_[1]
+       112 I       I0 1 \u_psram.o_state [0]
+       112 I       I1 2 \u_psram.o_state [1]
+       112 I       I2 3 \u_psram.o_state [2]
+       112 I       I3 4 \u_psram.o_state [3]
+       112 O        O 1 _152_[1]
+       113 I       I0 1 _131_[1]
+       113 I       I1 2 _122_[0]
+       113 O        O 1 _185_[1]
+       114 I       I0 1 \u_psram.o_state [2]
+       114 I       I1 2 \u_psram.o_state [3]
+       114 I       I2 3 \u_psram.o_state [0]
+       114 I       I3 4 \u_psram.o_state [1]
+       114 O        O 1 _122_[0]
+       115 I       I0 1 _179_[0]
+       115 I       I1 2 _149_[0]
+       115 I       I2 3 \u_psram.o_state [5]
+       115 O        O 1 _220_[2]
+       116 I       I0 1 \u_psram.o_state [3]
+       116 I       I1 2 \u_psram.o_state [0]
+       116 I       I2 3 \u_psram.o_state [2]
+       116 I       I3 4 \u_psram.o_state [1]
+       116 O        O 1 _121_[0]
+       117 I       I0 1 \u_psram.o_state [0]
+       117 I       I1 2 \u_psram.o_state [3]
+       117 I       I2 3 \u_psram.o_state [2]
+       117 I       I3 4 \u_psram.o_state [1]
+       117 O        O 1 _150_[0]
+       118 I       I0 1 _149_[0]
+       118 I       I1 2 _149_[2]
+       118 O        O 1 _191_[0]
+       119 I       I0 1 \u_psram.o_state [0]
+       119 I       I1 2 \u_psram.o_state [1]
+       119 O        O 1 _149_[0]
+       120 I       I0 1 \u_psram.o_state [2]
+       120 I       I1 2 \u_psram.o_state [5]
+       120 I       I2 3 \u_psram.o_state [3]
+       120 I       I3 4 \u_psram.o_state [4]
+       120 O        O 1 _149_[2]
+       121 I       I0 1 \u_psram.o_state [4]
+       121 I       I1 2 _145_[0]
+       121 I       I2 3 \u_psram.o_state [5]
+       121 O        O 1 _179_[0]
+       122 I       I0 1 \u_psram.o_state [2]
+       122 I       I1 2 \u_psram.o_state [3]
+       122 I       I2 3 \u_psram.o_state [0]
+       122 I       I3 4 \u_psram.o_state [1]
+       122 O        O 1 _145_[0]
+       123 I       I0 1 \u_psram.o_state [5]
+       123 I       I1 2 \u_psram.o_state [0]
+       123 I       I2 3 \u_psram.o_state [1]
+       123 I       I3 4 \u_psram.o_state [4]
+       123 O        O 1 _123_[0]
+       124 I       I0 1 _180_[0]
+       124 I       I1 2 _133_[0]
+       124 I       I2 3 _155_[3]
+       124 I       I3 4 \u_psram.o_state [0]
+       124 O        O 1 _220_[3]
+       125 I       I0 1 _131_[0]
+       125 I       I1 2 _131_[1]
+       125 O        O 1 _133_[0]
+       126 I       I0 1 \u_psram.o_state [2]
+       126 I       I1 2 \u_psram.o_state [3]
+       126 O        O 1 _131_[0]
+       127 I       I0 1 _120_[2]
+       127 I       I1 2 _152_[1]
+       127 O        O 1 _180_[0]
+       128 I       I0 1 _120_[2]
+       128 I       I1 2 _121_[0]
+       128 O        O 1 _210_[1]
+       129 I       I0 1 _122_[0]
+       129 I       I1 2 _122_[1]
+       129 I       I2 3 _120_[2]
+       129 O        O 1 _123_[2]
+       130 I       I0 1 \u_psram.o_state [1]
+       130 I       I1 2 \u_psram.o_state [3]
+       130 I       I2 3 \u_psram.o_state [0]
+       130 I       I3 4 \u_psram.o_state [2]
+       130 O        O 1 _122_[1]
+       131 I       I0 1 _120_[2]
+       131 I       I1 2 _130_[1]
+       131 O        O 1 _151_[0]
+       132 I       I0 1 \u_psram.o_state [2]
+       132 I       I1 2 \u_psram.o_state [3]
+       132 I       I2 3 \u_psram.o_state [1]
+       132 I       I3 4 \u_psram.o_state [0]
+       132 O        O 1 _130_[1]
+       133 I       I0 1 _122_[0]
+       133 I       I1 2 _130_[1]
+       133 I       I2 3 _131_[1]
+       133 O        O 1 _148_[1]
+       134 I       I0 1 _149_[0]
+       134 I       I1 2 _132_[2]
+       134 I       I2 3 _149_[2]
+       134 O        O 1 _151_[1]
+       135 I       I0 1 \u_psram.o_state [1]
+       135 I       I1 2 \u_psram.o_state [0]
+       135 O        O 1 _132_[2]
+       136 I       I0 1 _144_[0]
+       136 I       I1 2 _131_[1]
+       136 O        O 1 _189_[2]
+       137 I       I0 1 \u_psram.o_state [3]
+       137 I       I1 2 \u_psram.o_state [0]
+       137 I       I2 3 \u_psram.o_state [1]
+       137 I       I3 4 \u_psram.o_state [2]
+       137 O        O 1 _144_[0]
+       138 I       I0 1 _133_[0]
+       138 I       I1 2 \u_psram.o_state [0]
+       138 I       I2 3 \u_psram.o_state [1]
+       138 I       I3 4 _133_[3]
+       138 O        O 1 _210_[3]
+       139 I       I0 1 _120_[2]
+       139 I       I1 2 _120_[1]
+       139 I       I2 3 _132_[2]
+       139 O        O 1 _133_[3]
+       140 I       I0 1 \u_psram.o_state [3]
+       140 I       I1 2 \u_psram.o_state [2]
+       140 O        O 1 _120_[1]
+       141 I       I0 1 _158_[0]
+       141 I       I1 2 _158_[1]
+       141 I       I2 3 _123_[3]
+       141 O        O 1 _115_[2]
+       142 I       I0 1 _155_[0]
+       142 I       I1 2 _155_[1]
+       142 I       I2 3 _155_[2]
+       142 I       I3 4 _155_[3]
+       142 O        O 1 _158_[0]
+       143 I       I0 1 _123_[0]
+       143 I       I1 2 _123_[1]
+       143 I       I2 3 _123_[2]
+       143 I       I3 4 _123_[3]
+       143 O        O 1 _155_[0]
+       144 I       I0 1 _121_[0]
+       144 I       I1 2 _121_[1]
+       144 I       I2 3 _120_[2]
+       144 O        O 1 _123_[3]
+       145 I       I0 1 \u_psram.o_state [2]
+       145 I       I1 2 \u_psram.o_state [3]
+       145 I       I2 3 \u_psram.o_state [0]
+       145 I       I3 4 \u_psram.o_state [1]
+       145 O        O 1 _121_[1]
+       146 I       I0 1 \u_psram.o_state [1]
+       146 I       I1 2 _120_[1]
+       146 I       I2 3 _120_[2]
+       146 O        O 1 _123_[1]
+       147 I       I0 1 _151_[0]
+       147 I       I1 2 _151_[1]
+       147 I       I2 3 _151_[2]
+       147 O        O 1 _155_[1]
+       148 I       I0 1 _152_[1]
+       148 I       I1 2 _122_[1]
+       148 I       I2 3 _120_[2]
+       148 O        O 1 _156_[0]
+       149 I       I0 1 _150_[0]
+       149 I       I1 2 _150_[1]
+       149 I       I2 3 _120_[2]
+       149 O        O 1 _151_[2]
+       150 I       I0 1 \u_psram.o_state [2]
+       150 I       I1 2 \u_psram.o_state [3]
+       150 I       I2 3 \u_psram.o_state [0]
+       150 I       I3 4 \u_psram.o_state [1]
+       150 O        O 1 _150_[1]
+       151 I       I0 1 _154_[0]
+       151 I       I1 2 _154_[1]
+       151 O        O 1 _155_[2]
+       152 I       I0 1 _153_[0]
+       152 I       I1 2 \u_psram.o_state [2]
+       152 I       I2 3 \u_psram.o_state [3]
+       152 I       I3 4 _131_[1]
+       152 O        O 1 _154_[1]
+       153 I       I0 1 \u_psram.o_state [0]
+       153 I       I1 2 \u_psram.o_state [1]
+       153 O        O 1 _153_[0]
+       154 I       I0 1 _148_[0]
+       154 I       I1 2 _148_[1]
+       154 I       I2 3 _148_[2]
+       154 I       I3 4 _148_[3]
+       154 O        O 1 _155_[3]
+       155 I       I0 1 _145_[0]
+       155 I       I1 2 _131_[1]
+       155 O        O 1 _148_[0]
+       156 I       I0 1 _146_[0]
+       156 I       I1 2 _121_[1]
+       156 I       I2 3 _144_[0]
+       156 I       I3 4 _131_[1]
+       156 O        O 1 _148_[2]
+       157 I       I0 1 \u_psram.o_state [4]
+       157 I       I1 2 _145_[0]
+       157 I       I2 3 _147_[2]
+       157 I       I3 4 \u_psram.o_state [5]
+       157 O        O 1 _148_[3]
+       158 I       I0 1 \u_psram.o_state [2]
+       158 I       I1 2 \u_psram.o_state [3]
+       158 I       I2 3 \u_psram.o_state [0]
+       158 I       I3 4 \u_psram.o_state [1]
+       158 O        O 1 _147_[2]
+       159 I       I0 1 _157_[0]
+       159 I       I1 2 _157_[1]
+       159 I       I2 3 _123_[1]
+       159 I       I3 4 _148_[2]
+       159 O        O 1 _158_[1]
+       160 I       I0 1 _156_[0]
+       160 I       I1 2 _151_[2]
+       160 O        O 1 _157_[1]
+       161 I       I0 1 _158_[0]
+       161 I       I1 2 _181_[0]
+       161 I       I2 3 _155_[2]
+       161 I       I3 4 _221_[3]
+       161 O        O 1 _115_[3]
+       162 I       I0 1 _157_[1]
+       162 I       I1 2 _151_[1]
+       162 O        O 1 _221_[3]
+       163 I       I0 1 _123_[0]
+       163 I       I1 2 _131_[0]
+       163 O        O 1 _181_[0]
+       164 I       I0 1 _191_[1]
+       164 I       I1 2 _211_[0]
+       164 I       I2 3 _155_[0]
+       164 I       I3 4 _155_[1]
+       164 O        O 1 _115_[4]
+       165 I       I0 1 _131_[1]
+       165 I       I1 2 _147_[2]
+       165 O        O 1 _191_[1]
+       166 I       I0 1 _131_[1]
+       166 I       I1 2 _152_[1]
+       166 I       I2 3 psram_we
+       166 O        O 1 _211_[0]
+       167 I       I0 1 _179_[0]
+       167 I       I1 2 _187_[1]
+       167 O        O 1 _115_[5]
+       168 I       I0 1 _120_[2]
+       168 I       I1 2 _147_[2]
+       168 O        O 1 _187_[1]
+       169 I       I0 1 _213_[0]
+       169 I       I1 2 _222_[1]
+       169 O        O 1 _114_[0]
+       170 I       I0 1 _212_[0]
+       170 I       I1 2 _212_[1]
+       170 I       I2 3 _198_[3]
+       170 I       I3 4 _212_[3]
+       170 O        O 1 _213_[0]
+       171 I       I0 1 _191_[1]
+       171 I       I1 2 _191_[0]
+       171 I       I2 3 \command_bytes[3] [0]
+       171 O        O 1 _212_[0]
+       172 I       I0 1 _182_[3]
+       172 I       I1 2 \command_bytes[3] [4]
+       172 I       I2 3 _161_[0]
+       172 I       I3 4 \command_bytes[1] [0]
+       172 O        O 1 _212_[1]
+       173 I       I0 1 _150_[0]
+       173 I       I1 2 _121_[1]
+       173 I       I2 3 _120_[2]
+       173 O        O 1 _161_[0]
+       174 I       I0 1 _149_[2]
+       174 I       I1 2 _132_[2]
+       174 I       I2 3 _150_[0]
+       174 I       I3 4 _131_[1]
+       174 O        O 1 _182_[3]
+       175 I       I0 1 \u_psram.o_state [0]
+       175 I       I1 2 _133_[0]
+       175 I       I2 3 _189_[2]
+       175 I       I3 4 _181_[1]
+       175 O        O 1 _198_[3]
+       176 I       I0 1 _131_[1]
+       176 I       I1 2 _122_[1]
+       176 O        O 1 _181_[1]
+       177 I       I0 1 _211_[0]
+       177 I       I1 2 _211_[1]
+       177 I       I2 3 _211_[2]
+       177 I       I3 4 _211_[3]
+       177 O        O 1 _212_[3]
+       178 I       I0 1 _150_[1]
+       178 I       I1 2 _145_[0]
+       178 I       I2 3 _120_[2]
+       178 I       I3 4 \command_bytes[2] [4]
+       178 O        O 1 _211_[1]
+       179 I       I0 1 _122_[1]
+       179 I       I1 2 _122_[0]
+       179 I       I2 3 _120_[2]
+       179 I       I3 4 \command_bytes[1] [4]
+       179 O        O 1 _211_[2]
+       180 I       I0 1 _130_[1]
+       180 I       I1 2 _152_[1]
+       180 I       I2 3 _120_[2]
+       180 I       I3 4 \command_bytes[2] [0]
+       180 O        O 1 _211_[3]
+       181 I       I0 1 \command_bytes[5] [4]
+       181 I       I1 2 _187_[1]
+       181 I       I2 3 _179_[0]
+       181 I       I3 4 \command_bytes[4] [4]
+       181 O        O 1 _222_[1]
+       182 I       I0 1 _205_[0]
+       182 I       I1 2 _205_[1]
+       182 I       I2 3 _205_[2]
+       182 I       I3 4 _217_[3]
+       182 O        O 1 _114_[1]
+       183 I       I0 1 _182_[3]
+       183 I       I1 2 \command_bytes[3] [5]
+       183 I       I2 3 _182_[1]
+       183 I       I3 4 \command_bytes[2] [1]
+       183 O        O 1 _205_[0]
+       184 I       I0 1 _180_[0]
+       184 I       I1 2 _151_[0]
+       184 O        O 1 _182_[1]
+       185 I       I0 1 \command_bytes[3] [1]
+       185 I       I1 2 _192_[2]
+       185 I       I2 3 _194_[2]
+       185 I       I3 4 _194_[3]
+       185 O        O 1 _205_[1]
+       186 I       I0 1 _191_[0]
+       186 I       I1 2 _191_[1]
+       186 O        O 1 _192_[2]
+       187 I       I0 1 _123_[2]
+       187 I       I1 2 \command_bytes[1] [5]
+       187 O        O 1 _194_[3]
+       188 I       I0 1 _161_[0]
+       188 I       I1 2 \command_bytes[1] [1]
+       188 O        O 1 _194_[2]
+       189 I       I0 1 \command_bytes[2] [5]
+       189 I       I1 2 _188_[0]
+       189 I       I2 3 _154_[0]
+       189 I       I3 4 _198_[3]
+       189 O        O 1 _205_[2]
+       190 I       I0 1 _145_[0]
+       190 I       I1 2 _150_[1]
+       190 I       I2 3 _120_[2]
+       190 O        O 1 _188_[0]
+       191 I       I0 1 \command_bytes[5] [5]
+       191 I       I1 2 _187_[1]
+       191 I       I2 3 _179_[0]
+       191 I       I3 4 \command_bytes[4] [5]
+       191 O        O 1 _217_[3]
+       192 I       I0 1 _193_[0]
+       192 I       I1 2 _193_[1]
+       192 I       I2 3 _193_[2]
+       192 I       I3 4 _193_[3]
+       192 O        O 1 _114_[2]
+       193 I       I0 1 _182_[1]
+       193 I       I1 2 \command_bytes[2] [2]
+       193 I       I2 3 _192_[2]
+       193 I       I3 4 \command_bytes[3] [2]
+       193 O        O 1 _193_[0]
+       194 I       I0 1 _157_[0]
+       194 I       I1 2 _190_[1]
+       194 I       I2 3 _190_[2]
+       194 O        O 1 _193_[1]
+       195 I       I0 1 \u_psram.o_state [0]
+       195 I       I1 2 _133_[0]
+       195 I       I2 3 _189_[2]
+       195 O        O 1 _190_[1]
+       196 I       I0 1 _161_[0]
+       196 I       I1 2 \command_bytes[1] [2]
+       196 I       I2 3 _123_[2]
+       196 I       I3 4 \command_bytes[1] [6]
+       196 O        O 1 _190_[2]
+       197 I       I0 1 _188_[0]
+       197 I       I1 2 \command_bytes[2] [6]
+       197 I       I2 3 _182_[3]
+       197 I       I3 4 \command_bytes[3] [6]
+       197 O        O 1 _193_[2]
+       198 I       I0 1 \command_bytes[5] [6]
+       198 I       I1 2 _187_[1]
+       198 I       I2 3 _179_[0]
+       198 I       I3 4 \command_bytes[4] [6]
+       198 O        O 1 _193_[3]
+       199 I       I0 1 _208_[0]
+       199 I       I1 2 _208_[1]
+       199 I       I2 3 _208_[2]
+       199 I       I3 4 _208_[3]
+       199 O        O 1 _114_[3]
+       200 I       I0 1 _182_[3]
+       200 I       I1 2 \command_bytes[3] [7]
+       200 I       I2 3 _182_[1]
+       200 I       I3 4 \command_bytes[2] [3]
+       200 O        O 1 _208_[0]
+       201 I       I0 1 \command_bytes[3] [3]
+       201 I       I1 2 _192_[2]
+       201 I       I2 3 _207_[2]
+       201 I       I3 4 _207_[3]
+       201 O        O 1 _208_[1]
+       202 I       I0 1 _123_[2]
+       202 I       I1 2 \command_bytes[1] [7]
+       202 O        O 1 _207_[3]
+       203 I       I0 1 _161_[0]
+       203 I       I1 2 \command_bytes[1] [3]
+       203 O        O 1 _207_[2]
+       204 I       I0 1 _157_[0]
+       204 I       I1 2 _201_[1]
+       204 I       I2 3 _190_[1]
+       204 I       I3 4 _182_[2]
+       204 O        O 1 _208_[2]
+       205 I       I0 1 _188_[0]
+       205 I       I1 2 \command_bytes[2] [7]
+       205 O        O 1 _201_[1]
+       206 I       I0 1 _181_[0]
+       206 I       I1 2 _181_[1]
+       206 O        O 1 _182_[2]
+       207 I       I0 1 \command_bytes[5] [7]
+       207 I       I1 2 _187_[1]
+       207 I       I2 3 _179_[0]
+       207 I       I3 4 \command_bytes[4] [7]
+       207 O        O 1 _208_[3]
+       208 I       I0 1 _213_[0]
+       208 I       I1 2 _213_[1]
+       208 O        O 1 _113_[0]
+       209 I       I0 1 \command_bytes[5] [0]
+       209 I       I1 2 _187_[1]
+       209 I       I2 3 _179_[0]
+       209 I       I3 4 \command_bytes[4] [0]
+       209 O        O 1 _213_[1]
+       210 I       I0 1 _205_[0]
+       210 I       I1 2 _205_[1]
+       210 I       I2 3 _205_[2]
+       210 I       I3 4 _205_[3]
+       210 O        O 1 _113_[1]
+       211 I       I0 1 \command_bytes[5] [1]
+       211 I       I1 2 _187_[1]
+       211 I       I2 3 _179_[0]
+       211 I       I3 4 \command_bytes[4] [1]
+       211 O        O 1 _205_[3]
+       212 I       I0 1 _193_[0]
+       212 I       I1 2 _193_[1]
+       212 I       I2 3 _193_[2]
+       212 I       I3 4 _214_[3]
+       212 O        O 1 _113_[2]
+       213 I       I0 1 \command_bytes[5] [2]
+       213 I       I1 2 _187_[1]
+       213 I       I2 3 _179_[0]
+       213 I       I3 4 \command_bytes[4] [2]
+       213 O        O 1 _214_[3]
+       214 I       I0 1 _208_[0]
+       214 I       I1 2 _208_[1]
+       214 I       I2 3 _208_[2]
+       214 I       I3 4 _215_[3]
+       214 O        O 1 _113_[3]
+       215 I       I0 1 \command_bytes[5] [3]
+       215 I       I1 2 _187_[1]
+       215 I       I2 3 _179_[0]
+       215 I       I3 4 \command_bytes[4] [3]
+       215 O        O 1 _215_[3]
+       216 I       I0 1 buffer_full
+       216 I       I1 2 uart_tx_prev
+       216 I       I2 3 \u_uart.uart_tx 
+       216 O        O 1 _162_[2]
+       217 I       I0 1 \u_uart.tx_state [8]
+       217 I       I1 2 \u_uart.tx_state [4]
+       217 I       I2 3 _167_[1]
+       217 O        O 1 _029_
+       218 I       I0 1 _206_[0]
+       218 I       I1 2 _206_[1]
+       218 O        O 1 _039_
+       219 I       I0 1 _162_[2]
+       219 I       I1 2 in[2]
+       219 I       I2 3 in[0]
+       219 I       I3 4 in[1]
+       219 O        O 1 _206_[0]
+       220 I       I0 1 _162_[2]
+       220 I       I1 2 u_counter[27]
+       220 I       I2 3 u_counter[25]
+       220 I       I3 4 u_counter[26]
+       220 O        O 1 _206_[1]
+       221 I       I0 1 \u_uart.uart_rx 
+       221 I       I1 2 \u_uart.rx_state [0]
+       221 I       I2 3 _135_[3]
+       221 I       I3 4 \u_uart.rx_state [1]
+       221 O        O 1 _011_
+       222 I       I0 1 \u_uart.tx_state [9]
+       222 I       I1 2 \u_uart.tx_state [5]
+       222 I       I2 3 _167_[1]
+       222 O        O 1 _030_
+       223 I       I0 1 \u_uart.rx_state [6]
+       223 I       I1 2 \u_uart.rx_state [1]
+       223 I       I2 3 _135_[3]
+       223 O        O 1 _016_
+       224 I       I0 1 _129_[0]
+       224 I       I1 2 \u_uart.tx_state [0]
+       224 O        O 1 _006_
+       225 I       I0 1 _167_[1]
+       225 I       I1 2 \u_uart.tx_state [10]
+       225 I       I2 3 _129_[0]
+       225 I       I3 4 \u_uart.tx_state [0]
+       225 O        O 1 _021_
+       226 I       I0 1 _153_[0]
+       226 I       I1 2 _120_[2]
+       226 I       I2 3 _120_[1]
+       226 I       I3 4 _183_[3]
+       226 O        O 1 _184_[1]
+       227 I       I0 1 _150_[1]
+       227 I       I1 2 \u_psram.o_state [4]
+       227 I       I2 3 \u_psram.o_state [5]
+       227 I       I3 4 _130_[1]
+       227 O        O 1 _183_[3]
+       228 I       I0 1 \u_uart.rx_state [2]
+       228 I       I1 2 \u_uart.rx_state [0]
+       228 I       I2 3 _135_[3]
+       228 O        O 1 _040_
+       229 I       I0 1 \u_uart.tx_state [7]
+       229 I       I1 2 \u_uart.tx_state [3]
+       229 I       I2 3 _167_[1]
+       229 O        O 1 _028_
+       230 I       I0 1 byte_count[0]
+       230 I       I1 2 byte_count[1]
+       230 I       I2 3 byte_count[2]
+       230 I       I3 4 _165_[3]
+       230 O        O 1 _032_
+       231 I       I0 1 \u_psram.arst_n 
+       231 I       I1 2 psram_state[2]
+       231 I       I2 3 \u_uart.uart_rx_read 
+       231 O        O 1 _165_[3]
+       232 I       I0 1 byte_count[1]
+       232 I       I1 2 byte_count[0]
+       232 I       I2 3 byte_count[2]
+       232 I       I3 4 _165_[3]
+       232 O        O 1 _031_
+       233 I       I0 1 \u_uart.tx_state [6]
+       233 I       I1 2 \u_uart.tx_state [1]
+       233 I       I2 3 _167_[1]
+       233 O        O 1 _027_
+       234 I       I0 1 psram_busy
+       234 I       I1 2 psram_state[3]
+       234 I       I2 3 psram_state[1]
+       234 O        O 1 _009_
+       235 I       I0 1 \u_uart.tx_state [2]
+       235 I       I1 2 _167_[1]
+       235 I       I2 3 _129_[0]
+       235 I       I3 4 \u_uart.tx_state [0]
+       235 O        O 1 _020_
+       236 I       I0 1 byte_count[2]
+       236 I       I1 2 byte_count[1]
+       236 I       I2 3 _165_[3]
+       236 I       I3 4 byte_count[0]
+       236 O        O 1 _035_
+       237 I       I0 1 \u_uart.uart_rx 
+       237 I       I1 2 \u_uart.rx_state [0]
+       237 I       I2 3 _135_[3]
+       237 I       I3 4 \u_uart.rx_state [2]
+       237 O        O 1 _010_
+       238 I       I0 1 \u_uart.uart_rx 
+       238 I       I1 2 psram_state[0]
+       238 I       I2 3 _200_[2]
+       238 O        O 1 _008_
+       239 I       I0 1 _199_[0]
+       239 I       I1 2 psram_state[2]
+       239 O        O 1 _200_[2]
+       240 I       I0 1 byte_count[1]
+       240 I       I1 2 _125_[1]
+       240 I       I2 3 byte_count[0]
+       240 I       I3 4 byte_count[2]
+       240 O        O 1 _199_[0]
+       241 I       I0 1 \u_uart.rx_state [5]
+       241 I       I1 2 \u_uart.rx_state [7]
+       241 I       I2 3 _135_[3]
+       241 O        O 1 _015_
+       242 I       I0 1 byte_count[0]
+       242 I       I1 2 byte_count[2]
+       242 I       I2 3 _165_[3]
+       242 I       I3 4 byte_count[1]
+       242 O        O 1 _034_
+       243 I       I0 1 \u_uart.rx_state [4]
+       243 I       I1 2 \u_uart.rx_state [6]
+       243 I       I2 3 _135_[3]
+       243 O        O 1 _014_
+       244 I       I0 1 \u_uart.rx_state [3]
+       244 I       I1 2 \u_uart.rx_state [8]
+       244 I       I2 3 _135_[3]
+       244 O        O 1 _013_
+       245 I       I0 1 byte_count[2]
+       245 I       I1 2 byte_count[0]
+       245 I       I2 3 _165_[3]
+       245 I       I3 4 byte_count[1]
+       245 O        O 1 _033_
+       246 I       I0 1 \u_uart.rx_state [2]
+       246 I       I1 2 \u_uart.rx_state [9]
+       246 I       I2 3 _135_[3]
+       246 O        O 1 _012_
+       247 I       I0 1 \u_uart.tx_state [5]
+       247 I       I1 2 \u_uart.tx_state [7]
+       247 I       I2 3 _167_[1]
+       247 O        O 1 _026_
+       248 I       I0 1 \u_uart.tx_state [4]
+       248 I       I1 2 \u_uart.tx_state [6]
+       248 I       I2 3 _167_[1]
+       248 O        O 1 _025_
+       249 I       I0 1 psram_state[1]
+       249 I       I1 2 psram_state[2]
+       249 I       I2 3 _200_[2]
+       249 I       I3 4 \u_psram.arst_n 
+       249 O        O 1 _038_
+       250 I       I0 1 \u_uart.tx_state [3]
+       250 I       I1 2 \u_uart.tx_state [8]
+       250 I       I2 3 _167_[1]
+       250 O        O 1 _024_
+       251 I       I0 1 \u_uart.tx_state [2]
+       251 I       I1 2 \u_uart.tx_state [9]
+       251 I       I2 3 _167_[1]
+       251 O        O 1 _023_
+       252 I       I0 1 \u_uart.tx_state [1]
+       252 I       I1 2 \u_uart.tx_state [10]
+       252 I       I2 3 _167_[1]
+       252 O        O 1 _022_
+       253 I       I0 1 \u_uart.rx_state [9]
+       253 I       I1 2 \u_uart.rx_state [5]
+       253 I       I2 3 _135_[3]
+       253 O        O 1 _019_
+       254 I       I0 1 \u_uart.rx_state [8]
+       254 I       I1 2 \u_uart.rx_state [4]
+       254 I       I2 3 _135_[3]
+       254 O        O 1 _018_
+       255 I       I0 1 byte_count[0]
+       255 I       I1 2 byte_count[2]
+       255 I       I2 3 byte_count[1]
+       255 I       I3 4 _165_[3]
+       255 O        O 1 _036_
+       256 I       I0 1 \u_uart.rx_state [7]
+       256 I       I1 2 \u_uart.rx_state [3]
+       256 I       I2 3 _135_[3]
+       256 O        O 1 _017_
+       257 I       I0 1 psram_state[2]
+       257 I       I1 2 \u_uart.uart_rx 
+       257 I       I2 3 \u_uart.uart_rx_read 
+       257 I       I3 4 psram_state[0]
+       257 O        O 1 _037_
+       258 I       I0 1 psram_busy
+       258 I       I1 2 psram_state[3]
+       258 I       I2 3 psram_state[0]
+       258 I       I3 4 \u_uart.uart_rx 
+       258 O        O 1 _007_
+       259 I       I0 1 \u_uart.tx_state [0]
+       259 I       I1 2 _128_[3]
+       259 I       I2 3 _186_[2]
+       259 I       I3 4 _186_[3]
+       259 O        O 1 _042_
+       260 I       I0 1 tick_1us_reg
+       260 I       I1 2 \u_uart.tx_state [10]
+       260 I       I2 3 _169_[2]
+       260 I       I3 4 _167_[1]
+       260 O        O 1 _186_[3]
+       261 I       I0 1 \u_uart.tx_state [4]
+       261 I       I1 2 \u_uart.tx_state [7]
+       261 I       I2 3 _167_[1]
+       261 O        O 1 _186_[2]
+       262 I       I0 1 _131_[1]
+       262 I       I1 2 _121_[1]
+       262 O        O 1 _182_[0]
+       263 I       I0 1 _154_[1]
+       263 I       I1 2 _196_[1]
+       263 I       I2 3 _161_[0]
+       263 I       I3 4 _188_[0]
+       263 O        O 1 _197_[1]
+       264 I       I0 1 _191_[0]
+       264 I       I1 2 _123_[2]
+       264 I       I2 3 _148_[3]
+       264 I       I3 4 _148_[2]
+       264 O        O 1 _196_[1]
+       265 I       I0 1 _182_[0]
+       265 I       I1 2 _195_[1]
+       265 I       I2 3 psram_stb
+       265 I       I3 4 _154_[0]
+       265 O        O 1 _044_
+       266 I       I0 1 _172_[0]
+       266 I       I1 2 _185_[1]
+       266 I       I2 3 _183_[3]
+       266 O        O 1 _195_[1]
+       267 I       I0 1 psram_stb
+       267 I       I1 2 _195_[1]
+       267 I       I2 3 _154_[0]
+       267 O        O 1 _045_
+       268 I       I0 1 _120_[2]
+       268 I       I1 2 _121_[1]
+       268 I       I2 3 _203_[2]
+       268 I       I3 4 \u_psram.arst_n 
+       268 O        O 1 _046_
+       269 I       I0 1 _202_[0]
+       269 I       I1 2 _172_[0]
+       269 O        O 1 _203_[2]
+       270 I       I0 1 \u_psram.short_delay [1]
+       270 I       I1 2 \u_psram.short_delay [3]
+       270 I       I2 3 \u_psram.short_delay [0]
+       270 I       I3 4 \u_psram.short_delay [2]
+       270 O        O 1 _202_[0]
+       271 I       I0 1 psram_stb
+       271 I       I1 2 _154_[0]
+       271 I       I2 3 _203_[2]
+       271 I       I3 4 _204_[3]
+       271 O        O 1 _047_
+       272 I       I0 1 _164_[0]
+       272 I       I1 2 _164_[1]
+       272 I       I2 3 _164_[2]
+       272 I       I3 4 _148_[0]
+       272 O        O 1 _204_[3]
+       273 I       I0 1 \u_psram.long_delay [12]
+       273 I       I1 2 \u_psram.long_delay [13]
+       273 I       I2 3 _163_[2]
+       273 I       I3 4 \u_psram.long_delay [11]
+       273 O        O 1 _164_[1]
+       274 I       I0 1 \u_psram.long_delay [5]
+       274 I       I1 2 \u_psram.long_delay [6]
+       274 I       I2 3 \u_psram.long_delay [7]
+       274 I       I3 4 \u_psram.long_delay [8]
+       274 O        O 1 _163_[2]
+       275 I       I0 1 \u_psram.long_delay [9]
+       275 I       I1 2 \u_psram.long_delay [10]
+       275 I       I2 3 \u_psram.long_delay [14]
+       275 I       I3 4 \u_psram.long_delay [0]
+       275 O        O 1 _164_[2]
+       276 I       I0 1 \u_psram.long_delay [1]
+       276 I       I1 2 \u_psram.long_delay [3]
+       276 I       I2 3 \u_psram.long_delay [2]
+       276 I       I3 4 \u_psram.long_delay [4]
+       276 O        O 1 _164_[0]
+       277 I       I0 1 _131_[1]
+       277 I       I1 2 _130_[1]
+       277 O        O 1 _053_
+       278 I       I0 1 _182_[0]
+       278 I       I1 2 _184_[1]
+       278 I       I2 3 psram_stb
+       278 I       I3 4 _154_[0]
+       278 O        O 1 _048_
+       279 I       I0 1 _185_[1]
+       279 I       I1 2 _184_[1]
+       279 I       I2 3 psram_stb
+       279 I       I3 4 _154_[0]
+       279 O        O 1 _049_
+       280 I       I0 1 _184_[1]
+       280 I       I1 2 _185_[1]
+       280 O        O 1 _054_
+       281 I       I0 1 counter_24_prev
+       281 I       I1 2 buffer_full
+       281 I       I2 3 u_counter[24]
+       281 O        O 1 _004_
+       282 I       I0 1 in[2]
+       282 I       I1 2 in[0]
+       282 I       I2 3 in[1]
+       282 I       I3 4 _162_[2]
+       282 O        O 1 _055_
+       283 I       I0 1 in[0]
+       283 I       I1 2 in[1]
+       283 I       I2 3 _162_[2]
+       283 I       I3 4 in[2]
+       283 O        O 1 _059_
+       284 I       I0 1 in[0]
+       284 I       I1 2 in[2]
+       284 I       I2 3 _162_[2]
+       284 I       I3 4 in[1]
+       284 O        O 1 _061_
+       285 I       I0 1 in[2]
+       285 I       I1 2 _162_[2]
+       285 I       I2 3 in[0]
+       285 I       I3 4 in[1]
+       285 O        O 1 _058_
+       286 I       I0 1 in[2]
+       286 I       I1 2 in[0]
+       286 I       I2 3 _162_[2]
+       286 I       I3 4 in[1]
+       286 O        O 1 _057_
+       287 I       I0 1 in[1]
+       287 I       I1 2 in[2]
+       287 I       I2 3 in[0]
+       287 I       I3 4 _162_[2]
+       287 O        O 1 _060_
+       288 I       I0 1 _199_[0]
+       288 I       I1 2 psram_state[2]
+       288 O        O 1 _005_
+       289 I       I0 1 in[2]
+       289 I       I1 2 in[1]
+       289 I       I2 3 in[0]
+       289 I       I3 4 _162_[2]
+       289 O        O 1 _056_
+       290 I       I0 1 \u_psram.out_enable [4]
+       290 O        O 1 _050_
+       291 I       I0 1 \u_psram.out_enable [7]
+       291 O        O 1 _051_
+       292 I       I0 1 psram_state[1]
+       292 O        O 1 _002_
+       293 I       I0 1 _122_[0]
+       293 I       I1 2 _150_[0]
+       293 I       I2 3 _122_[1]
+       293 I       I3 4 _130_[1]
+       293 O        O 1 _209_[2]
+       294 I       I0 1 _131_[1]
+       294 I       I1 2 _120_[2]
+       294 I       I2 3 _209_[2]
+       294 I       I3 4 _189_[2]
+       294 O        O 1 _210_[0]
+       295 I       I0 1 _210_[0]
+       295 I       I1 2 _210_[1]
+       295 I       I2 3 _151_[1]
+       295 I       I3 4 _210_[3]
+       295 O        O 1 _115_[1]
+       296 I       I0 1 _182_[0]
+       296 I       I1 2 _182_[1]
+       296 I       I2 3 _182_[2]
+       296 I       I3 4 _182_[3]
+       296 O        O 1 _197_[0]
+       297 I       I0 1 _197_[0]
+       297 I       I1 2 _197_[1]
+       297 I       I2 3 psram_stb
+       297 I       I3 4 _154_[0]
+       297 O        O 1 _043_
+       298 I        A 1 1'h1
+       298 I        B 2 byte_count[0]
+       298 I       CI 3 1'h0
+       298 O       CO 1 _088_[1]
+       298 O        S 2 _090_[0]
+       299 I        A 1 1'h0
+       299 I        B 2 byte_count[1]
+       299 I       CI 3 _088_[1]
+       299 O       CO 1 _088_[2]
+       299 O        S 2 _090_[1]
+       300 I        A 1 1'h0
+       300 I        B 2 byte_count[2]
+       300 I       CI 3 _088_[2]
+       300 O       CO 1 _089_[2]
+       300 O        S 2 _090_[2]
+       301 I        A 1 1'h1
+       301 I        B 2 u_counter[0]
+       301 I       CI 3 1'h0
+       301 O       CO 1 _091_[1]
+       301 O        S 2 _093_[0]
+       302 I        A 1 1'h0
+       302 I        B 2 u_counter[10]
+       302 I       CI 3 _091_[10]
+       302 O       CO 1 _091_[11]
+       302 O        S 2 _093_[10]
+       303 I        A 1 1'h0
+       303 I        B 2 u_counter[11]
+       303 I       CI 3 _091_[11]
+       303 O       CO 1 _091_[12]
+       303 O        S 2 _093_[11]
+       304 I        A 1 1'h0
+       304 I        B 2 u_counter[12]
+       304 I       CI 3 _091_[12]
+       304 O       CO 1 _091_[13]
+       304 O        S 2 _093_[12]
+       305 I        A 1 1'h0
+       305 I        B 2 u_counter[13]
+       305 I       CI 3 _091_[13]
+       305 O       CO 1 _091_[14]
+       305 O        S 2 _093_[13]
+       306 I        A 1 1'h0
+       306 I        B 2 u_counter[14]
+       306 I       CI 3 _091_[14]
+       306 O       CO 1 _091_[15]
+       306 O        S 2 _093_[14]
+       307 I        A 1 1'h0
+       307 I        B 2 u_counter[15]
+       307 I       CI 3 _091_[15]
+       307 O       CO 1 _091_[16]
+       307 O        S 2 _093_[15]
+       308 I        A 1 1'h0
+       308 I        B 2 u_counter[16]
+       308 I       CI 3 _091_[16]
+       308 O       CO 1 _091_[17]
+       308 O        S 2 _093_[16]
+       309 I        A 1 1'h0
+       309 I        B 2 u_counter[17]
+       309 I       CI 3 _091_[17]
+       309 O       CO 1 _091_[18]
+       309 O        S 2 _093_[17]
+       310 I        A 1 1'h0
+       310 I        B 2 u_counter[18]
+       310 I       CI 3 _091_[18]
+       310 O       CO 1 _091_[19]
+       310 O        S 2 _093_[18]
+       311 I        A 1 1'h0
+       311 I        B 2 u_counter[19]
+       311 I       CI 3 _091_[19]
+       311 O       CO 1 _091_[20]
+       311 O        S 2 _093_[19]
+       312 I        A 1 1'h0
+       312 I        B 2 u_counter[1]
+       312 I       CI 3 _091_[1]
+       312 O       CO 1 _091_[2]
+       312 O        S 2 _093_[1]
+       313 I        A 1 1'h0
+       313 I        B 2 u_counter[20]
+       313 I       CI 3 _091_[20]
+       313 O       CO 1 _091_[21]
+       313 O        S 2 _093_[20]
+       314 I        A 1 1'h0
+       314 I        B 2 u_counter[21]
+       314 I       CI 3 _091_[21]
+       314 O       CO 1 _091_[22]
+       314 O        S 2 _093_[21]
+       315 I        A 1 1'h0
+       315 I        B 2 u_counter[22]
+       315 I       CI 3 _091_[22]
+       315 O       CO 1 _091_[23]
+       315 O        S 2 _093_[22]
+       316 I        A 1 1'h0
+       316 I        B 2 u_counter[23]
+       316 I       CI 3 _091_[23]
+       316 O       CO 1 _091_[24]
+       316 O        S 2 _093_[23]
+       317 I        A 1 1'h0
+       317 I        B 2 u_counter[24]
+       317 I       CI 3 _091_[24]
+       317 O       CO 1 _091_[25]
+       317 O        S 2 _093_[24]
+       318 I        A 1 1'h0
+       318 I        B 2 u_counter[25]
+       318 I       CI 3 _091_[25]
+       318 O       CO 1 _091_[26]
+       318 O        S 2 _093_[25]
+       319 I        A 1 1'h0
+       319 I        B 2 u_counter[26]
+       319 I       CI 3 _091_[26]
+       319 O       CO 1 _091_[27]
+       319 O        S 2 _093_[26]
+       320 I        A 1 1'h0
+       320 I        B 2 u_counter[27]
+       320 I       CI 3 _091_[27]
+       320 O       CO 1 _092_[27]
+       320 O        S 2 _093_[27]
+       321 I        A 1 1'h0
+       321 I        B 2 u_counter[2]
+       321 I       CI 3 _091_[2]
+       321 O       CO 1 _091_[3]
+       321 O        S 2 _093_[2]
+       322 I        A 1 1'h0
+       322 I        B 2 u_counter[3]
+       322 I       CI 3 _091_[3]
+       322 O       CO 1 _091_[4]
+       322 O        S 2 _093_[3]
+       323 I        A 1 1'h0
+       323 I        B 2 u_counter[4]
+       323 I       CI 3 _091_[4]
+       323 O       CO 1 _091_[5]
+       323 O        S 2 _093_[4]
+       324 I        A 1 1'h0
+       324 I        B 2 u_counter[5]
+       324 I       CI 3 _091_[5]
+       324 O       CO 1 _091_[6]
+       324 O        S 2 _093_[5]
+       325 I        A 1 1'h0
+       325 I        B 2 u_counter[6]
+       325 I       CI 3 _091_[6]
+       325 O       CO 1 _091_[7]
+       325 O        S 2 _093_[6]
+       326 I        A 1 1'h0
+       326 I        B 2 u_counter[7]
+       326 I       CI 3 _091_[7]
+       326 O       CO 1 _091_[8]
+       326 O        S 2 _093_[7]
+       327 I        A 1 1'h0
+       327 I        B 2 u_counter[8]
+       327 I       CI 3 _091_[8]
+       327 O       CO 1 _091_[9]
+       327 O        S 2 _093_[8]
+       328 I        A 1 1'h0
+       328 I        B 2 u_counter[9]
+       328 I       CI 3 _091_[9]
+       328 O       CO 1 _091_[10]
+       328 O        S 2 _093_[9]
+       329 I        A 1 1'h1
+       329 I        B 2 in[0]
+       329 I       CI 3 1'h0
+       329 O       CO 1 _094_[1]
+       329 O        S 2 _096_[0]
+       330 I        A 1 1'h0
+       330 I        B 2 in[1]
+       330 I       CI 3 _094_[1]
+       330 O       CO 1 _094_[2]
+       330 O        S 2 _096_[1]
+       331 I        A 1 1'h0
+       331 I        B 2 in[2]
+       331 I       CI 3 _094_[2]
+       331 O       CO 1 _095_[2]
+       331 O        S 2 _096_[2]
+       332 I        A 1 1'h1
+       332 I        B 2 counter[0]
+       332 I       CI 3 1'h0
+       332 O       CO 1 _097_[1]
+       332 O        S 2 _099_[0]
+       333 I        A 1 1'h0
+       333 I        B 2 counter[1]
+       333 I       CI 3 _097_[1]
+       333 O       CO 1 _097_[2]
+       333 O        S 2 _099_[1]
+       334 I        A 1 1'h0
+       334 I        B 2 counter[2]
+       334 I       CI 3 _097_[2]
+       334 O       CO 1 _097_[3]
+       334 O        S 2 _099_[2]
+       335 I        A 1 1'h0
+       335 I        B 2 counter[3]
+       335 I       CI 3 _097_[3]
+       335 O       CO 1 _097_[4]
+       335 O        S 2 _099_[3]
+       336 I        A 1 1'h0
+       336 I        B 2 counter[4]
+       336 I       CI 3 _097_[4]
+       336 O       CO 1 _097_[5]
+       336 O        S 2 _099_[4]
+       337 I        A 1 1'h0
+       337 I        B 2 counter[5]
+       337 I       CI 3 _097_[5]
+       337 O       CO 1 _098_[5]
+       337 O        S 2 _099_[5]
+       338 I        A 1 1'h1
+       338 I        B 2 \u_psram.short_delay [0]
+       338 I       CI 3 1'h0
+       338 O       CO 1 _100_[1]
+       338 O        S 2 _102_[0]
+       339 I        A 1 1'h0
+       339 I        B 2 \u_psram.short_delay [1]
+       339 I       CI 3 _100_[1]
+       339 O       CO 1 _100_[2]
+       339 O        S 2 _102_[1]
+       340 I        A 1 1'h0
+       340 I        B 2 \u_psram.short_delay [2]
+       340 I       CI 3 _100_[2]
+       340 O       CO 1 _100_[3]
+       340 O        S 2 _102_[2]
+       341 I        A 1 1'h0
+       341 I        B 2 \u_psram.short_delay [3]
+       341 I       CI 3 _100_[3]
+       341 O       CO 1 _101_[3]
+       341 O        S 2 _102_[3]
+       342 I        A 1 1'h1
+       342 I        B 2 \u_psram.long_delay [0]
+       342 I       CI 3 1'h0
+       342 O       CO 1 _103_[1]
+       342 O        S 2 _105_[0]
+       343 I        A 1 1'h0
+       343 I        B 2 \u_psram.long_delay [10]
+       343 I       CI 3 _103_[10]
+       343 O       CO 1 _103_[11]
+       343 O        S 2 _105_[10]
+       344 I        A 1 1'h0
+       344 I        B 2 \u_psram.long_delay [11]
+       344 I       CI 3 _103_[11]
+       344 O       CO 1 _103_[12]
+       344 O        S 2 _105_[11]
+       345 I        A 1 1'h0
+       345 I        B 2 \u_psram.long_delay [12]
+       345 I       CI 3 _103_[12]
+       345 O       CO 1 _103_[13]
+       345 O        S 2 _105_[12]
+       346 I        A 1 1'h0
+       346 I        B 2 \u_psram.long_delay [13]
+       346 I       CI 3 _103_[13]
+       346 O       CO 1 _103_[14]
+       346 O        S 2 _105_[13]
+       347 I        A 1 1'h0
+       347 I        B 2 \u_psram.long_delay [14]
+       347 I       CI 3 _103_[14]
+       347 O       CO 1 _104_[14]
+       347 O        S 2 _105_[14]
+       348 I        A 1 1'h0
+       348 I        B 2 \u_psram.long_delay [1]
+       348 I       CI 3 _103_[1]
+       348 O       CO 1 _103_[2]
+       348 O        S 2 _105_[1]
+       349 I        A 1 1'h0
+       349 I        B 2 \u_psram.long_delay [2]
+       349 I       CI 3 _103_[2]
+       349 O       CO 1 _103_[3]
+       349 O        S 2 _105_[2]
+       350 I        A 1 1'h0
+       350 I        B 2 \u_psram.long_delay [3]
+       350 I       CI 3 _103_[3]
+       350 O       CO 1 _103_[4]
+       350 O        S 2 _105_[3]
+       351 I        A 1 1'h0
+       351 I        B 2 \u_psram.long_delay [4]
+       351 I       CI 3 _103_[4]
+       351 O       CO 1 _103_[5]
+       351 O        S 2 _105_[4]
+       352 I        A 1 1'h0
+       352 I        B 2 \u_psram.long_delay [5]
+       352 I       CI 3 _103_[5]
+       352 O       CO 1 _103_[6]
+       352 O        S 2 _105_[5]
+       353 I        A 1 1'h0
+       353 I        B 2 \u_psram.long_delay [6]
+       353 I       CI 3 _103_[6]
+       353 O       CO 1 _103_[7]
+       353 O        S 2 _105_[6]
+       354 I        A 1 1'h0
+       354 I        B 2 \u_psram.long_delay [7]
+       354 I       CI 3 _103_[7]
+       354 O       CO 1 _103_[8]
+       354 O        S 2 _105_[7]
+       355 I        A 1 1'h0
+       355 I        B 2 \u_psram.long_delay [8]
+       355 I       CI 3 _103_[8]
+       355 O       CO 1 _103_[9]
+       355 O        S 2 _105_[8]
+       356 I        A 1 1'h0
+       356 I        B 2 \u_psram.long_delay [9]
+       356 I       CI 3 _103_[9]
+       356 O       CO 1 _103_[10]
+       356 O        S 2 _105_[9]
+       357 I        A 1 \u_uart.tx_cnt1us [0]
+       357 I        B 2 1'h0
+       357 I       CI 3 1'h1
+       357 O       CO 1 _106_[1]
+       357 O        S 2 _108_[0]
+       358 I        A 1 \u_uart.tx_cnt1us [1]
+       358 I        B 2 1'h1
+       358 I       CI 3 _106_[1]
+       358 O       CO 1 _106_[2]
+       358 O        S 2 _108_[1]
+       359 I        A 1 \u_uart.tx_cnt1us [2]
+       359 I        B 2 1'h1
+       359 I       CI 3 _106_[2]
+       359 O       CO 1 _106_[3]
+       359 O        S 2 _108_[2]
+       360 I        A 1 \u_uart.tx_cnt1us [3]
+       360 I        B 2 1'h1
+       360 I       CI 3 _106_[3]
+       360 O       CO 1 _107_[3]
+       360 O        S 2 _108_[3]
+       361 I        A 1 \u_uart.rx_cnt1us [0]
+       361 I        B 2 1'h0
+       361 I       CI 3 1'h1
+       361 O       CO 1 _109_[1]
+       361 O        S 2 _111_[0]
+       362 I        A 1 \u_uart.rx_cnt1us [1]
+       362 I        B 2 1'h1
+       362 I       CI 3 _109_[1]
+       362 O       CO 1 _109_[2]
+       362 O        S 2 _111_[1]
+       363 I        A 1 \u_uart.rx_cnt1us [2]
+       363 I        B 2 1'h1
+       363 I       CI 3 _109_[2]
+       363 O       CO 1 _109_[3]
+       363 O        S 2 _111_[2]
+       364 I        A 1 \u_uart.rx_cnt1us [3]
+       364 I        B 2 1'h1
+       364 I       CI 3 _109_[3]
+       364 O       CO 1 _110_[3]
+       364 O        S 2 _111_[3]
+       365 I        I 1 _112_
+       365 O        O 1 clk_out
+       366 I      CLK 2 clk_out
+       366 I        D 1 \u_uart.uart_tx 
+       366 I       EN 3 _056_
+       366 I       SR 4 1'h0
+       366 O        Q 1 \buffer[1] 
+       367 I      CLK 2 clk_out
+       367 I        D 1 _160_[0]
+       367 I       EN 3 \u_psram.arst_n 
+       367 I       SR 4 1'h0
+       367 O        Q 1 tick_1us_reg
+       368 I      CLK 2 clk_out
+       368 I        D 1 \u_uart.uart_tx 
+       368 I       EN 3 _055_
+       368 I       SR 4 1'h0
+       368 O        Q 1 \buffer[0] 
+       369 I      CLK 2 clk_out
+       369 I        D 1 _003_
+       369 I       EN 3 _004_
+       369 I       SR 4 1'h0
+       369 O        Q 1 _119_
+       370 I      CLK 2 clk_out
+       370 I        D 1 \u_uart.rx_shift [1]
+       370 I       EN 3 _040_
+       370 I       SR 4 \u_psram.arst_n 
+       370 O        Q 1 \u_uart.rx_shift [0]
+       371 I      CLK 2 clk_out
+       371 I        D 1 \u_uart.rx_shift [2]
+       371 I       EN 3 _040_
+       371 I       SR 4 \u_psram.arst_n 
+       371 O        Q 1 \u_uart.rx_shift [1]
+       372 I      CLK 2 clk_out
+       372 I        D 1 \u_uart.rx_shift [3]
+       372 I       EN 3 _040_
+       372 I       SR 4 \u_psram.arst_n 
+       372 O        Q 1 \u_uart.rx_shift [2]
+       373 I      CLK 2 clk_out
+       373 I        D 1 \u_uart.rx_shift [4]
+       373 I       EN 3 _040_
+       373 I       SR 4 \u_psram.arst_n 
+       373 O        Q 1 \u_uart.rx_shift [3]
+       374 I      CLK 2 clk_out
+       374 I        D 1 \u_uart.rx_shift [5]
+       374 I       EN 3 _040_
+       374 I       SR 4 \u_psram.arst_n 
+       374 O        Q 1 \u_uart.rx_shift [4]
+       375 I      CLK 2 clk_out
+       375 I        D 1 \u_uart.rx_shift [6]
+       375 I       EN 3 _040_
+       375 I       SR 4 \u_psram.arst_n 
+       375 O        Q 1 \u_uart.rx_shift [5]
+       376 I      CLK 2 clk_out
+       376 I        D 1 \u_uart.rx_shift [7]
+       376 I       EN 3 _040_
+       376 I       SR 4 \u_psram.arst_n 
+       376 O        Q 1 \u_uart.rx_shift [6]
+       377 I      CLK 2 clk_out
+       377 I        D 1 \u_uart.uart_rx 
+       377 I       EN 3 _040_
+       377 I       SR 4 \u_psram.arst_n 
+       377 O        Q 1 \u_uart.rx_shift [7]
+       378 I      CLK 2 clk_out
+       378 I        D 1 u_counter[24]
+       378 I       EN 3 1'h1
+       378 I       SR 4 1'h0
+       378 O        Q 1 counter_24_prev
+       379 I      CLK 2 clk_out
+       379 I        D 1 _083_
+       379 I       EN 3 _162_[2]
+       379 I       SR 4 1'h0
+       379 O        Q 1 in[0]
+       380 I      CLK 2 clk_out
+       380 I        D 1 _082_
+       380 I       EN 3 _162_[2]
+       380 I       SR 4 1'h0
+       380 O        Q 1 in[1]
+       381 I      CLK 2 clk_out
+       381 I        D 1 _081_
+       381 I       EN 3 _162_[2]
+       381 I       SR 4 1'h0
+       381 O        Q 1 in[2]
+       382 I      CLK 2 clk_out
+       382 I        D 1 \u_uart.uart_tx 
+       382 I       EN 3 1'h1
+       382 I       SR 4 1'h0
+       382 O        Q 1 uart_tx_prev
+       383 I      CLK 2 clk_out
+       383 I        D 1 _093_[0]
+       383 I       EN 3 1'h1
+       383 I       SR 4 \u_psram.arst_n 
+       383 O        Q 1 u_counter[0]
+       384 I      CLK 2 clk_out
+       384 I        D 1 _093_[1]
+       384 I       EN 3 1'h1
+       384 I       SR 4 \u_psram.arst_n 
+       384 O        Q 1 u_counter[1]
+       385 I      CLK 2 clk_out
+       385 I        D 1 _093_[2]
+       385 I       EN 3 1'h1
+       385 I       SR 4 \u_psram.arst_n 
+       385 O        Q 1 u_counter[2]
+       386 I      CLK 2 clk_out
+       386 I        D 1 _093_[3]
+       386 I       EN 3 1'h1
+       386 I       SR 4 \u_psram.arst_n 
+       386 O        Q 1 u_counter[3]
+       387 I      CLK 2 clk_out
+       387 I        D 1 _093_[4]
+       387 I       EN 3 1'h1
+       387 I       SR 4 \u_psram.arst_n 
+       387 O        Q 1 u_counter[4]
+       388 I      CLK 2 clk_out
+       388 I        D 1 _093_[5]
+       388 I       EN 3 1'h1
+       388 I       SR 4 \u_psram.arst_n 
+       388 O        Q 1 u_counter[5]
+       389 I      CLK 2 clk_out
+       389 I        D 1 _093_[6]
+       389 I       EN 3 1'h1
+       389 I       SR 4 \u_psram.arst_n 
+       389 O        Q 1 u_counter[6]
+       390 I      CLK 2 clk_out
+       390 I        D 1 _093_[7]
+       390 I       EN 3 1'h1
+       390 I       SR 4 \u_psram.arst_n 
+       390 O        Q 1 u_counter[7]
+       391 I      CLK 2 clk_out
+       391 I        D 1 _093_[8]
+       391 I       EN 3 1'h1
+       391 I       SR 4 \u_psram.arst_n 
+       391 O        Q 1 u_counter[8]
+       392 I      CLK 2 clk_out
+       392 I        D 1 _093_[9]
+       392 I       EN 3 1'h1
+       392 I       SR 4 \u_psram.arst_n 
+       392 O        Q 1 u_counter[9]
+       393 I      CLK 2 clk_out
+       393 I        D 1 _093_[10]
+       393 I       EN 3 1'h1
+       393 I       SR 4 \u_psram.arst_n 
+       393 O        Q 1 u_counter[10]
+       394 I      CLK 2 clk_out
+       394 I        D 1 _093_[11]
+       394 I       EN 3 1'h1
+       394 I       SR 4 \u_psram.arst_n 
+       394 O        Q 1 u_counter[11]
+       395 I      CLK 2 clk_out
+       395 I        D 1 _093_[12]
+       395 I       EN 3 1'h1
+       395 I       SR 4 \u_psram.arst_n 
+       395 O        Q 1 u_counter[12]
+       396 I      CLK 2 clk_out
+       396 I        D 1 _093_[13]
+       396 I       EN 3 1'h1
+       396 I       SR 4 \u_psram.arst_n 
+       396 O        Q 1 u_counter[13]
+       397 I      CLK 2 clk_out
+       397 I        D 1 _093_[14]
+       397 I       EN 3 1'h1
+       397 I       SR 4 \u_psram.arst_n 
+       397 O        Q 1 u_counter[14]
+       398 I      CLK 2 clk_out
+       398 I        D 1 _093_[15]
+       398 I       EN 3 1'h1
+       398 I       SR 4 \u_psram.arst_n 
+       398 O        Q 1 u_counter[15]
+       399 I      CLK 2 clk_out
+       399 I        D 1 _093_[16]
+       399 I       EN 3 1'h1
+       399 I       SR 4 \u_psram.arst_n 
+       399 O        Q 1 u_counter[16]
+       400 I      CLK 2 clk_out
+       400 I        D 1 _093_[17]
+       400 I       EN 3 1'h1
+       400 I       SR 4 \u_psram.arst_n 
+       400 O        Q 1 u_counter[17]
+       401 I      CLK 2 clk_out
+       401 I        D 1 _093_[18]
+       401 I       EN 3 1'h1
+       401 I       SR 4 \u_psram.arst_n 
+       401 O        Q 1 u_counter[18]
+       402 I      CLK 2 clk_out
+       402 I        D 1 _093_[19]
+       402 I       EN 3 1'h1
+       402 I       SR 4 \u_psram.arst_n 
+       402 O        Q 1 u_counter[19]
+       403 I      CLK 2 clk_out
+       403 I        D 1 _093_[20]
+       403 I       EN 3 1'h1
+       403 I       SR 4 \u_psram.arst_n 
+       403 O        Q 1 u_counter[20]
+       404 I      CLK 2 clk_out
+       404 I        D 1 _093_[21]
+       404 I       EN 3 1'h1
+       404 I       SR 4 \u_psram.arst_n 
+       404 O        Q 1 u_counter[21]
+       405 I      CLK 2 clk_out
+       405 I        D 1 _093_[22]
+       405 I       EN 3 1'h1
+       405 I       SR 4 \u_psram.arst_n 
+       405 O        Q 1 u_counter[22]
+       406 I      CLK 2 clk_out
+       406 I        D 1 _093_[23]
+       406 I       EN 3 1'h1
+       406 I       SR 4 \u_psram.arst_n 
+       406 O        Q 1 u_counter[23]
+       407 I      CLK 2 clk_out
+       407 I        D 1 _093_[24]
+       407 I       EN 3 1'h1
+       407 I       SR 4 \u_psram.arst_n 
+       407 O        Q 1 u_counter[24]
+       408 I      CLK 2 clk_out
+       408 I        D 1 _093_[25]
+       408 I       EN 3 1'h1
+       408 I       SR 4 \u_psram.arst_n 
+       408 O        Q 1 u_counter[25]
+       409 I      CLK 2 clk_out
+       409 I        D 1 _093_[26]
+       409 I       EN 3 1'h1
+       409 I       SR 4 \u_psram.arst_n 
+       409 O        Q 1 u_counter[26]
+       410 I      CLK 2 clk_out
+       410 I        D 1 _093_[27]
+       410 I       EN 3 1'h1
+       410 I       SR 4 \u_psram.arst_n 
+       410 O        Q 1 u_counter[27]
+       411 I      CLK 2 clk_out
+       411 I        D 1 _084_
+       411 I       EN 3 _129_[1]
+       411 I       SR 4 1'h0
+       411 O        Q 1 uart_buffer[0]
+       412 I      CLK 2 clk_out
+       412 I        D 1 _080_
+       412 I       EN 3 _129_[1]
+       412 I       SR 4 1'h0
+       412 O        Q 1 uart_buffer[1]
+       413 I      CLK 2 clk_out
+       413 I        D 1 _079_
+       413 I       EN 3 _129_[1]
+       413 I       SR 4 1'h0
+       413 O        Q 1 uart_buffer[2]
+       414 I      CLK 2 clk_out
+       414 I        D 1 _078_
+       414 I       EN 3 _129_[1]
+       414 I       SR 4 1'h0
+       414 O        Q 1 uart_buffer[3]
+       415 I      CLK 2 clk_out
+       415 I        D 1 _077_
+       415 I       EN 3 _129_[1]
+       415 I       SR 4 1'h0
+       415 O        Q 1 uart_buffer[4]
+       416 I      CLK 2 clk_out
+       416 I        D 1 _076_
+       416 I       EN 3 _129_[1]
+       416 I       SR 4 1'h0
+       416 O        Q 1 uart_buffer[5]
+       417 I      CLK 2 clk_out
+       417 I        D 1 _075_
+       417 I       EN 3 _129_[1]
+       417 I       SR 4 1'h0
+       417 O        Q 1 uart_buffer[6]
+       418 I      CLK 2 clk_out
+       418 I        D 1 _074_
+       418 I       EN 3 _129_[1]
+       418 I       SR 4 1'h0
+       418 O        Q 1 uart_buffer[7]
+       419 I      CLK 2 clk_out
+       419 I        D 1 _073_
+       419 I       EN 3 _129_[1]
+       419 I       SR 4 1'h0
+       419 O        Q 1 uart_buffer[8]
+       420 I      CLK 2 clk_out
+       420 I        D 1 _072_
+       420 I       EN 3 _129_[1]
+       420 I       SR 4 1'h0
+       420 O        Q 1 uart_buffer[9]
+       421 I      CLK 2 clk_out
+       421 I        D 1 _071_
+       421 I       EN 3 _129_[1]
+       421 I       SR 4 1'h0
+       421 O        Q 1 uart_buffer[10]
+       422 I      CLK 2 clk_out
+       422 I        D 1 _070_
+       422 I       EN 3 _129_[1]
+       422 I       SR 4 1'h0
+       422 O        Q 1 uart_buffer[11]
+       423 I      CLK 2 clk_out
+       423 I        D 1 _069_
+       423 I       EN 3 _129_[1]
+       423 I       SR 4 1'h0
+       423 O        Q 1 uart_buffer[12]
+       424 I      CLK 2 clk_out
+       424 I        D 1 _068_
+       424 I       EN 3 _129_[1]
+       424 I       SR 4 1'h0
+       424 O        Q 1 uart_buffer[13]
+       425 I      CLK 2 clk_out
+       425 I        D 1 _067_
+       425 I       EN 3 _129_[1]
+       425 I       SR 4 1'h0
+       425 O        Q 1 uart_buffer[14]
+       426 I      CLK 2 clk_out
+       426 I        D 1 _066_
+       426 I       EN 3 _129_[1]
+       426 I       SR 4 1'h0
+       426 O        Q 1 uart_buffer[15]
+       427 I      CLK 2 clk_out
+       427 I        D 1 _085_
+       427 I       EN 3 _052_
+       427 I       SR 4 1'h0
+       427 O        Q 1 uart_buffer_state[0]
+       428 I      CLK 2 clk_out
+       428 I        D 1 _065_
+       428 I       EN 3 _052_
+       428 I       SR 4 1'h0
+       428 O        Q 1 uart_buffer_state[1]
+       429 I      CLK 2 clk_out
+       429 I        D 1 _162_[2]
+       429 I       EN 3 _039_
+       429 I       SR 4 1'h0
+       429 O        Q 1 buffer_full
+       430 I      CLK 2 clk_out
+       430 I        D 1 _002_
+       430 I       EN 3 _038_
+       430 I       SR 4 1'h0
+       430 O        Q 1 psram_stb
+       431 I      CLK 2 clk_out
+       431 I        D 1 _086_
+       431 I       EN 3 _046_
+       431 I       SR 4 1'h0
+       431 O        Q 1 \u_psram.short_delay [0]
+       432 I      CLK 2 clk_out
+       432 I        D 1 _064_
+       432 I       EN 3 _046_
+       432 I       SR 4 1'h0
+       432 O        Q 1 \u_psram.short_delay [1]
+       433 I      CLK 2 clk_out
+       433 I        D 1 _063_
+       433 I       EN 3 _046_
+       433 I       SR 4 1'h0
+       433 O        Q 1 \u_psram.short_delay [2]
+       434 I      CLK 2 clk_out
+       434 I        D 1 _062_
+       434 I       EN 3 _046_
+       434 I       SR 4 1'h0
+       434 O        Q 1 \u_psram.short_delay [3]
+       435 I      CLK 2 clk_out
+       435 I        D 1 _000_[0]
+       435 I       EN 3 _037_
+       435 I       SR 4 \u_psram.arst_n 
+       435 O        Q 1 byte_count[0]
+       436 I      CLK 2 clk_out
+       436 I        D 1 _000_[1]
+       436 I       EN 3 _037_
+       436 I       SR 4 \u_psram.arst_n 
+       436 O        Q 1 byte_count[1]
+       437 I      CLK 2 clk_out
+       437 I        D 1 _000_[2]
+       437 I       EN 3 _037_
+       437 I       SR 4 \u_psram.arst_n 
+       437 O        Q 1 byte_count[2]
+       438 I      CLK 2 clk_out
+       438 I        D 1 \u_uart.uart_rx_arr [0]
+       438 I       EN 3 _036_
+       438 I       SR 4 1'h0
+       438 O        Q 1 \command_bytes[0] [0]
+       439 I      CLK 2 clk_out
+       439 I        D 1 \u_uart.uart_rx_arr [1]
+       439 I       EN 3 _036_
+       439 I       SR 4 1'h0
+       439 O        Q 1 \command_bytes[0] [1]
+       440 I      CLK 2 clk_out
+       440 I        D 1 \u_uart.uart_rx_arr [2]
+       440 I       EN 3 _036_
+       440 I       SR 4 1'h0
+       440 O        Q 1 \command_bytes[0] [2]
+       441 I      CLK 2 clk_out
+       441 I        D 1 \u_uart.uart_rx_arr [3]
+       441 I       EN 3 _036_
+       441 I       SR 4 1'h0
+       441 O        Q 1 \command_bytes[0] [3]
+       442 I      CLK 2 clk_out
+       442 I        D 1 \u_uart.uart_rx_arr [4]
+       442 I       EN 3 _036_
+       442 I       SR 4 1'h0
+       442 O        Q 1 \command_bytes[0] [4]
+       443 I      CLK 2 clk_out
+       443 I        D 1 \u_uart.uart_rx_arr [5]
+       443 I       EN 3 _036_
+       443 I       SR 4 1'h0
+       443 O        Q 1 \command_bytes[0] [5]
+       444 I      CLK 2 clk_out
+       444 I        D 1 \u_uart.uart_rx_arr [6]
+       444 I       EN 3 _036_
+       444 I       SR 4 1'h0
+       444 O        Q 1 \command_bytes[0] [6]
+       445 I      CLK 2 clk_out
+       445 I        D 1 \u_uart.uart_rx_arr [7]
+       445 I       EN 3 _036_
+       445 I       SR 4 1'h0
+       445 O        Q 1 \command_bytes[0] [7]
+       446 I      CLK 2 clk_out
+       446 I        D 1 \u_uart.uart_rx_arr [0]
+       446 I       EN 3 _035_
+       446 I       SR 4 1'h0
+       446 O        Q 1 \command_bytes[1] [0]
+       447 I      CLK 2 clk_out
+       447 I        D 1 \u_uart.uart_rx_arr [1]
+       447 I       EN 3 _035_
+       447 I       SR 4 1'h0
+       447 O        Q 1 \command_bytes[1] [1]
+       448 I      CLK 2 clk_out
+       448 I        D 1 \u_uart.uart_rx_arr [2]
+       448 I       EN 3 _035_
+       448 I       SR 4 1'h0
+       448 O        Q 1 \command_bytes[1] [2]
+       449 I      CLK 2 clk_out
+       449 I        D 1 \u_uart.uart_rx_arr [3]
+       449 I       EN 3 _035_
+       449 I       SR 4 1'h0
+       449 O        Q 1 \command_bytes[1] [3]
+       450 I      CLK 2 clk_out
+       450 I        D 1 \u_uart.uart_rx_arr [4]
+       450 I       EN 3 _035_
+       450 I       SR 4 1'h0
+       450 O        Q 1 \command_bytes[1] [4]
+       451 I      CLK 2 clk_out
+       451 I        D 1 \u_uart.uart_rx_arr [5]
+       451 I       EN 3 _035_
+       451 I       SR 4 1'h0
+       451 O        Q 1 \command_bytes[1] [5]
+       452 I      CLK 2 clk_out
+       452 I        D 1 \u_uart.uart_rx_arr [6]
+       452 I       EN 3 _035_
+       452 I       SR 4 1'h0
+       452 O        Q 1 \command_bytes[1] [6]
+       453 I      CLK 2 clk_out
+       453 I        D 1 \u_uart.uart_rx_arr [7]
+       453 I       EN 3 _035_
+       453 I       SR 4 1'h0
+       453 O        Q 1 \command_bytes[1] [7]
+       454 I      CLK 2 clk_out
+       454 I        D 1 \u_uart.uart_rx_arr [0]
+       454 I       EN 3 _034_
+       454 I       SR 4 1'h0
+       454 O        Q 1 \command_bytes[2] [0]
+       455 I      CLK 2 clk_out
+       455 I        D 1 \u_uart.uart_rx_arr [1]
+       455 I       EN 3 _034_
+       455 I       SR 4 1'h0
+       455 O        Q 1 \command_bytes[2] [1]
+       456 I      CLK 2 clk_out
+       456 I        D 1 \u_uart.uart_rx_arr [2]
+       456 I       EN 3 _034_
+       456 I       SR 4 1'h0
+       456 O        Q 1 \command_bytes[2] [2]
+       457 I      CLK 2 clk_out
+       457 I        D 1 \u_uart.uart_rx_arr [3]
+       457 I       EN 3 _034_
+       457 I       SR 4 1'h0
+       457 O        Q 1 \command_bytes[2] [3]
+       458 I      CLK 2 clk_out
+       458 I        D 1 \u_uart.uart_rx_arr [4]
+       458 I       EN 3 _034_
+       458 I       SR 4 1'h0
+       458 O        Q 1 \command_bytes[2] [4]
+       459 I      CLK 2 clk_out
+       459 I        D 1 \u_uart.uart_rx_arr [5]
+       459 I       EN 3 _034_
+       459 I       SR 4 1'h0
+       459 O        Q 1 \command_bytes[2] [5]
+       460 I      CLK 2 clk_out
+       460 I        D 1 \u_uart.uart_rx_arr [6]
+       460 I       EN 3 _034_
+       460 I       SR 4 1'h0
+       460 O        Q 1 \command_bytes[2] [6]
+       461 I      CLK 2 clk_out
+       461 I        D 1 \u_uart.uart_rx_arr [7]
+       461 I       EN 3 _034_
+       461 I       SR 4 1'h0
+       461 O        Q 1 \command_bytes[2] [7]
+       462 I      CLK 2 clk_out
+       462 I        D 1 \u_uart.uart_rx_arr [0]
+       462 I       EN 3 _033_
+       462 I       SR 4 1'h0
+       462 O        Q 1 \command_bytes[3] [0]
+       463 I      CLK 2 clk_out
+       463 I        D 1 \u_uart.uart_rx_arr [1]
+       463 I       EN 3 _033_
+       463 I       SR 4 1'h0
+       463 O        Q 1 \command_bytes[3] [1]
+       464 I      CLK 2 clk_out
+       464 I        D 1 \u_uart.uart_rx_arr [2]
+       464 I       EN 3 _033_
+       464 I       SR 4 1'h0
+       464 O        Q 1 \command_bytes[3] [2]
+       465 I      CLK 2 clk_out
+       465 I        D 1 \u_uart.uart_rx_arr [3]
+       465 I       EN 3 _033_
+       465 I       SR 4 1'h0
+       465 O        Q 1 \command_bytes[3] [3]
+       466 I      CLK 2 clk_out
+       466 I        D 1 \u_uart.uart_rx_arr [4]
+       466 I       EN 3 _033_
+       466 I       SR 4 1'h0
+       466 O        Q 1 \command_bytes[3] [4]
+       467 I      CLK 2 clk_out
+       467 I        D 1 \u_uart.uart_rx_arr [5]
+       467 I       EN 3 _033_
+       467 I       SR 4 1'h0
+       467 O        Q 1 \command_bytes[3] [5]
+       468 I      CLK 2 clk_out
+       468 I        D 1 \u_uart.uart_rx_arr [6]
+       468 I       EN 3 _033_
+       468 I       SR 4 1'h0
+       468 O        Q 1 \command_bytes[3] [6]
+       469 I      CLK 2 clk_out
+       469 I        D 1 \u_uart.uart_rx_arr [7]
+       469 I       EN 3 _033_
+       469 I       SR 4 1'h0
+       469 O        Q 1 \command_bytes[3] [7]
+       470 I      CLK 2 clk_out
+       470 I        D 1 \u_uart.uart_rx_arr [0]
+       470 I       EN 3 _032_
+       470 I       SR 4 1'h0
+       470 O        Q 1 \command_bytes[4] [0]
+       471 I      CLK 2 clk_out
+       471 I        D 1 \u_uart.uart_rx_arr [1]
+       471 I       EN 3 _032_
+       471 I       SR 4 1'h0
+       471 O        Q 1 \command_bytes[4] [1]
+       472 I      CLK 2 clk_out
+       472 I        D 1 \u_uart.uart_rx_arr [2]
+       472 I       EN 3 _032_
+       472 I       SR 4 1'h0
+       472 O        Q 1 \command_bytes[4] [2]
+       473 I      CLK 2 clk_out
+       473 I        D 1 \u_uart.uart_rx_arr [3]
+       473 I       EN 3 _032_
+       473 I       SR 4 1'h0
+       473 O        Q 1 \command_bytes[4] [3]
+       474 I      CLK 2 clk_out
+       474 I        D 1 \u_uart.uart_rx_arr [4]
+       474 I       EN 3 _032_
+       474 I       SR 4 1'h0
+       474 O        Q 1 \command_bytes[4] [4]
+       475 I      CLK 2 clk_out
+       475 I        D 1 \u_uart.uart_rx_arr [5]
+       475 I       EN 3 _032_
+       475 I       SR 4 1'h0
+       475 O        Q 1 \command_bytes[4] [5]
+       476 I      CLK 2 clk_out
+       476 I        D 1 \u_uart.uart_rx_arr [6]
+       476 I       EN 3 _032_
+       476 I       SR 4 1'h0
+       476 O        Q 1 \command_bytes[4] [6]
+       477 I      CLK 2 clk_out
+       477 I        D 1 \u_uart.uart_rx_arr [7]
+       477 I       EN 3 _032_
+       477 I       SR 4 1'h0
+       477 O        Q 1 \command_bytes[4] [7]
+       478 I      CLK 2 clk_out
+       478 I        D 1 _001_[0]
+       478 I       EN 3 1'h1
+       478 I       SR 4 \u_psram.arst_n 
+       478 O        Q 1 counter[0]
+       479 I      CLK 2 clk_out
+       479 I        D 1 _001_[1]
+       479 I       EN 3 1'h1
+       479 I       SR 4 \u_psram.arst_n 
+       479 O        Q 1 counter[1]
+       480 I      CLK 2 clk_out
+       480 I        D 1 _001_[2]
+       480 I       EN 3 1'h1
+       480 I       SR 4 \u_psram.arst_n 
+       480 O        Q 1 counter[2]
+       481 I      CLK 2 clk_out
+       481 I        D 1 _001_[3]
+       481 I       EN 3 1'h1
+       481 I       SR 4 \u_psram.arst_n 
+       481 O        Q 1 counter[3]
+       482 I      CLK 2 clk_out
+       482 I        D 1 _001_[4]
+       482 I       EN 3 1'h1
+       482 I       SR 4 \u_psram.arst_n 
+       482 O        Q 1 counter[4]
+       483 I      CLK 2 clk_out
+       483 I        D 1 _001_[5]
+       483 I       EN 3 1'h1
+       483 I       SR 4 \u_psram.arst_n 
+       483 O        Q 1 counter[5]
+       484 I      CLK 2 clk_out
+       484 I        D 1 \u_uart.uart_rx_arr [0]
+       484 I       EN 3 _031_
+       484 I       SR 4 1'h0
+       484 O        Q 1 \command_bytes[5] [0]
+       485 I      CLK 2 clk_out
+       485 I        D 1 \u_uart.uart_rx_arr [1]
+       485 I       EN 3 _031_
+       485 I       SR 4 1'h0
+       485 O        Q 1 \command_bytes[5] [1]
+       486 I      CLK 2 clk_out
+       486 I        D 1 \u_uart.uart_rx_arr [2]
+       486 I       EN 3 _031_
+       486 I       SR 4 1'h0
+       486 O        Q 1 \command_bytes[5] [2]
+       487 I      CLK 2 clk_out
+       487 I        D 1 \u_uart.uart_rx_arr [3]
+       487 I       EN 3 _031_
+       487 I       SR 4 1'h0
+       487 O        Q 1 \command_bytes[5] [3]
+       488 I      CLK 2 clk_out
+       488 I        D 1 \u_uart.uart_rx_arr [4]
+       488 I       EN 3 _031_
+       488 I       SR 4 1'h0
+       488 O        Q 1 \command_bytes[5] [4]
+       489 I      CLK 2 clk_out
+       489 I        D 1 \u_uart.uart_rx_arr [5]
+       489 I       EN 3 _031_
+       489 I       SR 4 1'h0
+       489 O        Q 1 \command_bytes[5] [5]
+       490 I      CLK 2 clk_out
+       490 I        D 1 \u_uart.uart_rx_arr [6]
+       490 I       EN 3 _031_
+       490 I       SR 4 1'h0
+       490 O        Q 1 \command_bytes[5] [6]
+       491 I      CLK 2 clk_out
+       491 I        D 1 \u_uart.uart_rx_arr [7]
+       491 I       EN 3 _031_
+       491 I       SR 4 1'h0
+       491 O        Q 1 \command_bytes[5] [7]
+       492 I      CLK 2 clk_out
+       492 I        D 1 \u_uart.uart_tx 
+       492 I       EN 3 _061_
+       492 I       SR 4 1'h0
+       492 O        Q 1 \buffer[6] 
+       493 I      CLK 2 clk_out
+       493 I        D 1 \u_uart.uart_tx 
+       493 I       EN 3 _060_
+       493 I       SR 4 1'h0
+       493 O        Q 1 \buffer[5] 
+       494 I      CLK 2 clk_out
+       494 I        D 1 \u_uart.uart_tx 
+       494 I       EN 3 _206_[0]
+       494 I       SR 4 1'h0
+       494 O        Q 1 \buffer[7] 
+       495 I      CLK 2 clk_out
+       495 I        D 1 _010_
+       495 I       EN 3 1'h1
+       495 I       SR 4 \u_psram.arst_n 
+       495 O        Q 1 \u_uart.rx_state [0]
+       496 I      CLK 2 clk_out
+       496 I        D 1 _011_
+       496 I       EN 3 1'h1
+       496 I       SR 4 \u_psram.arst_n 
+       496 O        Q 1 \u_uart.rx_state [1]
+       497 I      CLK 2 clk_out
+       497 I        D 1 _012_
+       497 I       EN 3 1'h1
+       497 I       SR 4 \u_psram.arst_n 
+       497 O        Q 1 \u_uart.rx_state [2]
+       498 I      CLK 2 clk_out
+       498 I        D 1 _013_
+       498 I       EN 3 1'h1
+       498 I       SR 4 \u_psram.arst_n 
+       498 O        Q 1 \u_uart.rx_state [3]
+       499 I      CLK 2 clk_out
+       499 I        D 1 _014_
+       499 I       EN 3 1'h1
+       499 I       SR 4 \u_psram.arst_n 
+       499 O        Q 1 \u_uart.rx_state [4]
+       500 I      CLK 2 clk_out
+       500 I        D 1 _015_
+       500 I       EN 3 1'h1
+       500 I       SR 4 \u_psram.arst_n 
+       500 O        Q 1 \u_uart.rx_state [5]
+       501 I      CLK 2 clk_out
+       501 I        D 1 _016_
+       501 I       EN 3 1'h1
+       501 I       SR 4 \u_psram.arst_n 
+       501 O        Q 1 \u_uart.rx_state [6]
+       502 I      CLK 2 clk_out
+       502 I        D 1 _017_
+       502 I       EN 3 1'h1
+       502 I       SR 4 \u_psram.arst_n 
+       502 O        Q 1 \u_uart.rx_state [7]
+       503 I      CLK 2 clk_out
+       503 I        D 1 _018_
+       503 I       EN 3 1'h1
+       503 I       SR 4 \u_psram.arst_n 
+       503 O        Q 1 \u_uart.rx_state [8]
+       504 I      CLK 2 clk_out
+       504 I        D 1 _019_
+       504 I       EN 3 1'h1
+       504 I       SR 4 \u_psram.arst_n 
+       504 O        Q 1 \u_uart.rx_state [9]
+       505 I      CLK 2 clk_out
+       505 I        D 1 _041_
+       505 I       EN 3 1'h1
+       505 I       SR 4 \u_psram.arst_n 
+       505 O        Q 1 \u_uart.uart_rx_read 
+       506 I      CLK 2 clk_out
+       506 I        D 1 _113_[0]
+       506 I       EN 3 _043_
+       506 I       SR 4 \u_psram.arst_n 
+       506 O        Q 1 \u_psram.data_to_chip [0]
+       507 I      CLK 2 clk_out
+       507 I        D 1 _113_[1]
+       507 I       EN 3 _043_
+       507 I       SR 4 \u_psram.arst_n 
+       507 O        Q 1 \u_psram.data_to_chip [1]
+       508 I      CLK 2 clk_out
+       508 I        D 1 _113_[2]
+       508 I       EN 3 _043_
+       508 I       SR 4 \u_psram.arst_n 
+       508 O        Q 1 \u_psram.data_to_chip [2]
+       509 I      CLK 2 clk_out
+       509 I        D 1 _113_[3]
+       509 I       EN 3 _043_
+       509 I       SR 4 \u_psram.arst_n 
+       509 O        Q 1 \u_psram.data_to_chip [3]
+       510 I      CLK 2 clk_out
+       510 I        D 1 _114_[0]
+       510 I       EN 3 _043_
+       510 I       SR 4 \u_psram.arst_n 
+       510 O        Q 1 \u_psram.data_to_chip [4]
+       511 I      CLK 2 clk_out
+       511 I        D 1 _114_[1]
+       511 I       EN 3 _043_
+       511 I       SR 4 \u_psram.arst_n 
+       511 O        Q 1 \u_psram.data_to_chip [5]
+       512 I      CLK 2 clk_out
+       512 I        D 1 _114_[2]
+       512 I       EN 3 _043_
+       512 I       SR 4 \u_psram.arst_n 
+       512 O        Q 1 \u_psram.data_to_chip [6]
+       513 I      CLK 2 clk_out
+       513 I        D 1 _114_[3]
+       513 I       EN 3 _043_
+       513 I       SR 4 \u_psram.arst_n 
+       513 O        Q 1 \u_psram.data_to_chip [7]
+       514 I      CLK 2 clk_out
+       514 I        D 1 _116_[0]
+       514 I       EN 3 1'h1
+       514 I       SR 4 \u_psram.arst_n 
+       514 O        Q 1 \u_uart.tx_cnt1us [0]
+       515 I      CLK 2 clk_out
+       515 I        D 1 _116_[1]
+       515 I       EN 3 1'h1
+       515 I       SR 4 \u_psram.arst_n 
+       515 O        Q 1 \u_uart.tx_cnt1us [1]
+       516 I      CLK 2 clk_out
+       516 I        D 1 _116_[2]
+       516 I       EN 3 1'h1
+       516 I       SR 4 \u_psram.arst_n 
+       516 O        Q 1 \u_uart.tx_cnt1us [2]
+       517 I      CLK 2 clk_out
+       517 I        D 1 _116_[3]
+       517 I       EN 3 1'h1
+       517 I       SR 4 \u_psram.arst_n 
+       517 O        Q 1 \u_uart.tx_cnt1us [3]
+       518 I      CLK 2 clk_out
+       518 I        D 1 _117_
+       518 I       EN 3 _042_
+       518 I       SR 4 \u_psram.arst_n 
+       518 O        Q 1 \u_uart.uart_tx 
+       519 I      CLK 2 clk_out
+       519 I        D 1 \u_uart.uart_tx_data [0]
+       519 I       EN 3 _006_
+       519 I       SR 4 \u_psram.arst_n 
+       519 O        Q 1 \u_uart.tx_data [0]
+       520 I      CLK 2 clk_out
+       520 I        D 1 \u_uart.uart_tx_data [1]
+       520 I       EN 3 _006_
+       520 I       SR 4 \u_psram.arst_n 
+       520 O        Q 1 \u_uart.tx_data [1]
+       521 I      CLK 2 clk_out
+       521 I        D 1 \u_uart.uart_tx_data [2]
+       521 I       EN 3 _006_
+       521 I       SR 4 \u_psram.arst_n 
+       521 O        Q 1 \u_uart.tx_data [2]
+       522 I      CLK 2 clk_out
+       522 I        D 1 \u_uart.uart_tx_data [3]
+       522 I       EN 3 _006_
+       522 I       SR 4 \u_psram.arst_n 
+       522 O        Q 1 \u_uart.tx_data [3]
+       523 I      CLK 2 clk_out
+       523 I        D 1 \u_uart.uart_tx_data [4]
+       523 I       EN 3 _006_
+       523 I       SR 4 \u_psram.arst_n 
+       523 O        Q 1 \u_uart.tx_data [4]
+       524 I      CLK 2 clk_out
+       524 I        D 1 \u_uart.uart_tx_data [5]
+       524 I       EN 3 _006_
+       524 I       SR 4 \u_psram.arst_n 
+       524 O        Q 1 \u_uart.tx_data [5]
+       525 I      CLK 2 clk_out
+       525 I        D 1 \u_uart.uart_tx_data [6]
+       525 I       EN 3 _006_
+       525 I       SR 4 \u_psram.arst_n 
+       525 O        Q 1 \u_uart.tx_data [6]
+       526 I      CLK 2 clk_out
+       526 I        D 1 \u_uart.uart_tx_data [7]
+       526 I       EN 3 _006_
+       526 I       SR 4 \u_psram.arst_n 
+       526 O        Q 1 \u_uart.tx_data [7]
+       527 I      CLK 2 clk_out
+       527 I        D 1 _118_[0]
+       527 I       EN 3 1'h1
+       527 I       SR 4 \u_psram.arst_n 
+       527 O        Q 1 \u_uart.rx_cnt1us [0]
+       528 I      CLK 2 clk_out
+       528 I        D 1 _118_[1]
+       528 I       EN 3 1'h1
+       528 I       SR 4 \u_psram.arst_n 
+       528 O        Q 1 \u_uart.rx_cnt1us [1]
+       529 I      CLK 2 clk_out
+       529 I        D 1 _118_[2]
+       529 I       EN 3 1'h1
+       529 I       SR 4 \u_psram.arst_n 
+       529 O        Q 1 \u_uart.rx_cnt1us [2]
+       530 I      CLK 2 clk_out
+       530 I        D 1 _118_[3]
+       530 I       EN 3 1'h1
+       530 I       SR 4 \u_psram.arst_n 
+       530 O        Q 1 \u_uart.rx_cnt1us [3]
+       531 I      CLK 2 clk_out
+       531 I        D 1 \u_uart.rx_shift [0]
+       531 I       EN 3 _041_
+       531 I       SR 4 \u_psram.arst_n 
+       531 O        Q 1 \u_uart.uart_rx_arr [0]
+       532 I      CLK 2 clk_out
+       532 I        D 1 \u_uart.rx_shift [1]
+       532 I       EN 3 _041_
+       532 I       SR 4 \u_psram.arst_n 
+       532 O        Q 1 \u_uart.uart_rx_arr [1]
+       533 I      CLK 2 clk_out
+       533 I        D 1 \u_uart.rx_shift [2]
+       533 I       EN 3 _041_
+       533 I       SR 4 \u_psram.arst_n 
+       533 O        Q 1 \u_uart.uart_rx_arr [2]
+       534 I      CLK 2 clk_out
+       534 I        D 1 \u_uart.rx_shift [3]
+       534 I       EN 3 _041_
+       534 I       SR 4 \u_psram.arst_n 
+       534 O        Q 1 \u_uart.uart_rx_arr [3]
+       535 I      CLK 2 clk_out
+       535 I        D 1 \u_uart.rx_shift [4]
+       535 I       EN 3 _041_
+       535 I       SR 4 \u_psram.arst_n 
+       535 O        Q 1 \u_uart.uart_rx_arr [4]
+       536 I      CLK 2 clk_out
+       536 I        D 1 \u_uart.rx_shift [5]
+       536 I       EN 3 _041_
+       536 I       SR 4 \u_psram.arst_n 
+       536 O        Q 1 \u_uart.uart_rx_arr [5]
+       537 I      CLK 2 clk_out
+       537 I        D 1 \u_uart.rx_shift [6]
+       537 I       EN 3 _041_
+       537 I       SR 4 \u_psram.arst_n 
+       537 O        Q 1 \u_uart.uart_rx_arr [6]
+       538 I      CLK 2 clk_out
+       538 I        D 1 \u_uart.rx_shift [7]
+       538 I       EN 3 _041_
+       538 I       SR 4 \u_psram.arst_n 
+       538 O        Q 1 \u_uart.uart_rx_arr [7]
+       539 I      CLK 2 clk_out
+       539 I        D 1 \u_uart.uart_tx 
+       539 I       EN 3 _059_
+       539 I       SR 4 1'h0
+       539 O        Q 1 \buffer[4] 
+       540 I      CLK 2 clk_out
+       540 I        D 1 \u_uart.uart_tx 
+       540 I       EN 3 _058_
+       540 I       SR 4 1'h0
+       540 O        Q 1 \buffer[3] 
+       541 I      CLK 2 clk_out
+       541 I        D 1 _020_
+       541 I       EN 3 1'h1
+       541 I       SR 4 \u_psram.arst_n 
+       541 O        Q 1 \u_uart.tx_state [0]
+       542 I      CLK 2 clk_out
+       542 I        D 1 _022_
+       542 I       EN 3 1'h1
+       542 I       SR 4 \u_psram.arst_n 
+       542 O        Q 1 \u_uart.tx_state [1]
+       543 I      CLK 2 clk_out
+       543 I        D 1 _023_
+       543 I       EN 3 1'h1
+       543 I       SR 4 \u_psram.arst_n 
+       543 O        Q 1 \u_uart.tx_state [2]
+       544 I      CLK 2 clk_out
+       544 I        D 1 _024_
+       544 I       EN 3 1'h1
+       544 I       SR 4 \u_psram.arst_n 
+       544 O        Q 1 \u_uart.tx_state [3]
+       545 I      CLK 2 clk_out
+       545 I        D 1 _025_
+       545 I       EN 3 1'h1
+       545 I       SR 4 \u_psram.arst_n 
+       545 O        Q 1 \u_uart.tx_state [4]
+       546 I      CLK 2 clk_out
+       546 I        D 1 _026_
+       546 I       EN 3 1'h1
+       546 I       SR 4 \u_psram.arst_n 
+       546 O        Q 1 \u_uart.tx_state [5]
+       547 I      CLK 2 clk_out
+       547 I        D 1 _027_
+       547 I       EN 3 1'h1
+       547 I       SR 4 \u_psram.arst_n 
+       547 O        Q 1 \u_uart.tx_state [6]
+       548 I      CLK 2 clk_out
+       548 I        D 1 _028_
+       548 I       EN 3 1'h1
+       548 I       SR 4 \u_psram.arst_n 
+       548 O        Q 1 \u_uart.tx_state [7]
+       549 I      CLK 2 clk_out
+       549 I        D 1 _029_
+       549 I       EN 3 1'h1
+       549 I       SR 4 \u_psram.arst_n 
+       549 O        Q 1 \u_uart.tx_state [8]
+       550 I      CLK 2 clk_out
+       550 I        D 1 _030_
+       550 I       EN 3 1'h1
+       550 I       SR 4 \u_psram.arst_n 
+       550 O        Q 1 \u_uart.tx_state [9]
+       551 I      CLK 2 clk_out
+       551 I        D 1 _021_
+       551 I       EN 3 1'h1
+       551 I       SR 4 \u_psram.arst_n 
+       551 O        Q 1 \u_uart.tx_state [10]
+       552 I      CLK 2 clk_out
+       552 I        D 1 _007_
+       552 I       EN 3 1'h1
+       552 I       SR 4 \u_psram.arst_n 
+       552 O        Q 1 psram_state[0]
+       553 I      CLK 2 clk_out
+       553 I        D 1 _005_
+       553 I       EN 3 1'h1
+       553 I       SR 4 \u_psram.arst_n 
+       553 O        Q 1 psram_state[1]
+       554 I      CLK 2 clk_out
+       554 I        D 1 _008_
+       554 I       EN 3 1'h1
+       554 I       SR 4 \u_psram.arst_n 
+       554 O        Q 1 psram_state[2]
+       555 I      CLK 2 clk_out
+       555 I        D 1 _009_
+       555 I       EN 3 1'h1
+       555 I       SR 4 \u_psram.arst_n 
+       555 O        Q 1 psram_state[3]
+       556 I      CLK 2 clk_out
+       556 I        D 1 \u_uart.uart_tx 
+       556 I       EN 3 _057_
+       556 I       SR 4 1'h0
+       556 O        Q 1 \buffer[2] 
+       557 I      CLK 2 clk_out
+       557 I        D 1 _195_[1]
+       557 I       EN 3 _044_
+       557 I       SR 4 \u_psram.arst_n 
+       557 O        Q 1 \u_psram.out_enable [4]
+       558 I      CLK 2 clk_out
+       558 I        D 1 1'h0
+       558 I       EN 3 _053_
+       558 I       SR 4 \u_psram.arst_n 
+       558 O        Q 1 \u_psram.hold_clk_lo 
+       559 I      CLK 2 clk_out
+       559 I        D 1 _115_[0]
+       559 I       EN 3 _047_
+       559 I       SR 4 \u_psram.arst_n 
+       559 O        Q 1 \u_psram.o_state [0]
+       560 I      CLK 2 clk_out
+       560 I        D 1 _115_[1]
+       560 I       EN 3 _047_
+       560 I       SR 4 \u_psram.arst_n 
+       560 O        Q 1 \u_psram.o_state [1]
+       561 I      CLK 2 clk_out
+       561 I        D 1 _115_[2]
+       561 I       EN 3 _047_
+       561 I       SR 4 \u_psram.arst_n 
+       561 O        Q 1 \u_psram.o_state [2]
+       562 I      CLK 2 clk_out
+       562 I        D 1 _115_[3]
+       562 I       EN 3 _047_
+       562 I       SR 4 \u_psram.arst_n 
+       562 O        Q 1 \u_psram.o_state [3]
+       563 I      CLK 2 clk_out
+       563 I        D 1 _115_[4]
+       563 I       EN 3 _047_
+       563 I       SR 4 \u_psram.arst_n 
+       563 O        Q 1 \u_psram.o_state [4]
+       564 I      CLK 2 clk_out
+       564 I        D 1 _115_[5]
+       564 I       EN 3 _047_
+       564 I       SR 4 \u_psram.arst_n 
+       564 O        Q 1 \u_psram.o_state [5]
+       565 I      CLK 2 clk_out
+       565 I        D 1 _105_[0]
+       565 I       EN 3 _204_[3]
+       565 I       SR 4 \u_psram.arst_n 
+       565 O        Q 1 \u_psram.long_delay [0]
+       566 I      CLK 2 clk_out
+       566 I        D 1 _105_[1]
+       566 I       EN 3 _204_[3]
+       566 I       SR 4 \u_psram.arst_n 
+       566 O        Q 1 \u_psram.long_delay [1]
+       567 I      CLK 2 clk_out
+       567 I        D 1 _105_[2]
+       567 I       EN 3 _204_[3]
+       567 I       SR 4 \u_psram.arst_n 
+       567 O        Q 1 \u_psram.long_delay [2]
+       568 I      CLK 2 clk_out
+       568 I        D 1 _105_[3]
+       568 I       EN 3 _204_[3]
+       568 I       SR 4 \u_psram.arst_n 
+       568 O        Q 1 \u_psram.long_delay [3]
+       569 I      CLK 2 clk_out
+       569 I        D 1 _105_[4]
+       569 I       EN 3 _204_[3]
+       569 I       SR 4 \u_psram.arst_n 
+       569 O        Q 1 \u_psram.long_delay [4]
+       570 I      CLK 2 clk_out
+       570 I        D 1 _105_[5]
+       570 I       EN 3 _204_[3]
+       570 I       SR 4 \u_psram.arst_n 
+       570 O        Q 1 \u_psram.long_delay [5]
+       571 I      CLK 2 clk_out
+       571 I        D 1 _105_[6]
+       571 I       EN 3 _204_[3]
+       571 I       SR 4 \u_psram.arst_n 
+       571 O        Q 1 \u_psram.long_delay [6]
+       572 I      CLK 2 clk_out
+       572 I        D 1 _105_[7]
+       572 I       EN 3 _204_[3]
+       572 I       SR 4 \u_psram.arst_n 
+       572 O        Q 1 \u_psram.long_delay [7]
+       573 I      CLK 2 clk_out
+       573 I        D 1 _105_[8]
+       573 I       EN 3 _204_[3]
+       573 I       SR 4 \u_psram.arst_n 
+       573 O        Q 1 \u_psram.long_delay [8]
+       574 I      CLK 2 clk_out
+       574 I        D 1 _105_[9]
+       574 I       EN 3 _204_[3]
+       574 I       SR 4 \u_psram.arst_n 
+       574 O        Q 1 \u_psram.long_delay [9]
+       575 I      CLK 2 clk_out
+       575 I        D 1 _105_[10]
+       575 I       EN 3 _204_[3]
+       575 I       SR 4 \u_psram.arst_n 
+       575 O        Q 1 \u_psram.long_delay [10]
+       576 I      CLK 2 clk_out
+       576 I        D 1 _105_[11]
+       576 I       EN 3 _204_[3]
+       576 I       SR 4 \u_psram.arst_n 
+       576 O        Q 1 \u_psram.long_delay [11]
+       577 I      CLK 2 clk_out
+       577 I        D 1 _105_[12]
+       577 I       EN 3 _204_[3]
+       577 I       SR 4 \u_psram.arst_n 
+       577 O        Q 1 \u_psram.long_delay [12]
+       578 I      CLK 2 clk_out
+       578 I        D 1 _105_[13]
+       578 I       EN 3 _204_[3]
+       578 I       SR 4 \u_psram.arst_n 
+       578 O        Q 1 \u_psram.long_delay [13]
+       579 I      CLK 2 clk_out
+       579 I        D 1 _105_[14]
+       579 I       EN 3 _204_[3]
+       579 I       SR 4 \u_psram.arst_n 
+       579 O        Q 1 \u_psram.long_delay [14]
+       580 I      CLK 2 clk_out
+       580 I        D 1 _184_[1]
+       580 I       EN 3 _048_
+       580 I       SR 4 \u_psram.arst_n 
+       580 O        Q 1 \u_psram.o_psram_csn 
+       581 I      CLK 2 clk_out
+       581 I        D 1 \u_psram.io_psram_data0 
+       581 I       EN 3 _133_[3]
+       581 I       SR 4 \u_psram.arst_n 
+       581 O        Q 1 psram_rdat[8]
+       582 I      CLK 2 clk_out
+       582 I        D 1 \u_psram.io_psram_data1 
+       582 I       EN 3 _133_[3]
+       582 I       SR 4 \u_psram.arst_n 
+       582 O        Q 1 psram_rdat[9]
+       583 I      CLK 2 clk_out
+       583 I        D 1 \u_psram.io_psram_data2 
+       583 I       EN 3 _133_[3]
+       583 I       SR 4 \u_psram.arst_n 
+       583 O        Q 1 psram_rdat[10]
+       584 I      CLK 2 clk_out
+       584 I        D 1 \u_psram.io_psram_data3 
+       584 I       EN 3 _133_[3]
+       584 I       SR 4 \u_psram.arst_n 
+       584 O        Q 1 psram_rdat[11]
+       585 I      CLK 2 clk_out
+       585 I        D 1 \u_psram.io_psram_data4 
+       585 I       EN 3 _133_[3]
+       585 I       SR 4 \u_psram.arst_n 
+       585 O        Q 1 psram_rdat[12]
+       586 I      CLK 2 clk_out
+       586 I        D 1 \u_psram.io_psram_data5 
+       586 I       EN 3 _133_[3]
+       586 I       SR 4 \u_psram.arst_n 
+       586 O        Q 1 psram_rdat[13]
+       587 I      CLK 2 clk_out
+       587 I        D 1 \u_psram.io_psram_data6 
+       587 I       EN 3 _133_[3]
+       587 I       SR 4 \u_psram.arst_n 
+       587 O        Q 1 psram_rdat[14]
+       588 I      CLK 2 clk_out
+       588 I        D 1 \u_psram.io_psram_data7 
+       588 I       EN 3 _133_[3]
+       588 I       SR 4 \u_psram.arst_n 
+       588 O        Q 1 psram_rdat[15]
+       589 I      CLK 2 clk_out
+       589 I        D 1 _054_
+       589 I       EN 3 _049_
+       589 I       SR 4 \u_psram.arst_n 
+       589 O        Q 1 psram_busy
+       590 I      CLK 2 clk_out
+       590 I        D 1 _195_[1]
+       590 I       EN 3 _045_
+       590 I       SR 4 \u_psram.arst_n 
+       590 O        Q 1 \u_psram.out_enable [7]
+       591 I      CLK 2 clk_out
+       591 I        D 1 \u_psram.io_psram_data0 
+       591 I       EN 3 _210_[1]
+       591 I       SR 4 \u_psram.arst_n 
+       591 O        Q 1 psram_rdat[0]
+       592 I      CLK 2 clk_out
+       592 I        D 1 \u_psram.io_psram_data1 
+       592 I       EN 3 _210_[1]
+       592 I       SR 4 \u_psram.arst_n 
+       592 O        Q 1 psram_rdat[1]
+       593 I      CLK 2 clk_out
+       593 I        D 1 \u_psram.io_psram_data2 
+       593 I       EN 3 _210_[1]
+       593 I       SR 4 \u_psram.arst_n 
+       593 O        Q 1 psram_rdat[2]
+       594 I      CLK 2 clk_out
+       594 I        D 1 \u_psram.io_psram_data3 
+       594 I       EN 3 _210_[1]
+       594 I       SR 4 \u_psram.arst_n 
+       594 O        Q 1 psram_rdat[3]
+       595 I      CLK 2 clk_out
+       595 I        D 1 \u_psram.io_psram_data4 
+       595 I       EN 3 _210_[1]
+       595 I       SR 4 \u_psram.arst_n 
+       595 O        Q 1 psram_rdat[4]
+       596 I      CLK 2 clk_out
+       596 I        D 1 \u_psram.io_psram_data5 
+       596 I       EN 3 _210_[1]
+       596 I       SR 4 \u_psram.arst_n 
+       596 O        Q 1 psram_rdat[5]
+       597 I      CLK 2 clk_out
+       597 I        D 1 \u_psram.io_psram_data6 
+       597 I       EN 3 _210_[1]
+       597 I       SR 4 \u_psram.arst_n 
+       597 O        Q 1 psram_rdat[6]
+       598 I      CLK 2 clk_out
+       598 I        D 1 \u_psram.io_psram_data7 
+       598 I       EN 3 _210_[1]
+       598 I       SR 4 \u_psram.arst_n 
+       598 O        Q 1 psram_rdat[7]
+       599 I      CLK 2 clk_out
+       599 I        D 1 _087_
+       599 I       EN 3 _038_
+       599 I       SR 4 1'h0
+       599 O        Q 1 psram_we
+       600 I       D0 3 \buffer[0] 
+       600 I       D1 4 \buffer[1] 
+       600 I       D2 5 \buffer[2] 
+       600 I       D3 6 \buffer[3] 
+       600 I       S0 1 u_counter[25]
+       600 I       S1 2 u_counter[26]
+       600 O        Y 1 _178_[1]
+       601 I       D0 3 \buffer[4] 
+       601 I       D1 4 \buffer[5] 
+       601 I       D2 5 \buffer[6] 
+       601 I       D3 6 \buffer[7] 
+       601 I       S0 1 u_counter[25]
+       601 I       S1 2 u_counter[26]
+       601 O        Y 1 _178_[0]
+       602 I        I 1 arst_n
+       602 O        Y 1 \u_psram.arst_n 
+       603 I        I 1 clk
+       603 O        Y 1 _112_
+       604 I        A 1 \u_psram.data_to_chip [0]
+       604 I       IS 3 io_psram_data0#_I
+       604 I        T 2 _050_
+       604 O       IO 2 io_psram_data0
+       604 O        Y 1 \u_psram.io_psram_data0 
+       605 I        A 1 \u_psram.data_to_chip [1]
+       605 I       IS 3 io_psram_data1#_I
+       605 I        T 2 _051_
+       605 O       IO 2 io_psram_data1
+       605 O        Y 1 \u_psram.io_psram_data1 
+       606 I        A 1 \u_psram.data_to_chip [2]
+       606 I       IS 3 io_psram_data2#_I
+       606 I        T 2 _051_
+       606 O       IO 2 io_psram_data2
+       606 O        Y 1 \u_psram.io_psram_data2 
+       607 I        A 1 \u_psram.data_to_chip [3]
+       607 I       IS 3 io_psram_data3#_I
+       607 I        T 2 _051_
+       607 O       IO 2 io_psram_data3
+       607 O        Y 1 \u_psram.io_psram_data3 
+       608 I        A 1 \u_psram.data_to_chip [4]
+       608 I       IS 3 io_psram_data4#_I
+       608 I        T 2 _050_
+       608 O       IO 2 io_psram_data4
+       608 O        Y 1 \u_psram.io_psram_data4 
+       609 I        A 1 \u_psram.data_to_chip [5]
+       609 I       IS 3 io_psram_data5#_I
+       609 I        T 2 _051_
+       609 O       IO 2 io_psram_data5
+       609 O        Y 1 \u_psram.io_psram_data5 
+       610 I        A 1 \u_psram.data_to_chip [6]
+       610 I       IS 3 io_psram_data6#_I
+       610 I        T 2 _051_
+       610 O       IO 2 io_psram_data6
+       610 O        Y 1 \u_psram.io_psram_data6 
+       611 I        A 1 \u_psram.data_to_chip [7]
+       611 I       IS 3 io_psram_data7#_I
+       611 I        T 2 _051_
+       611 O       IO 2 io_psram_data7
+       611 O        Y 1 \u_psram.io_psram_data7 
+       612 I        A 1 _119_
+       612 O        O 1 led
+       613 I        A 1 \u_psram.o_psram_csn 
+       613 O        O 1 o_psram_csn
+       614 I        A 1 \u_psram.o_psram_sclk 
+       614 O        O 1 o_psram_sclk
+       615 I        A 1 \u_uart.uart_tx 
+       615 O        O 1 sent
+       616 I        A 1 tick_1us_reg
+       616 O        O 1 tick_1us
+       617 I        I 1 uart_rx
+       617 O        Y 1 \u_uart.uart_rx 
+       618 I        A 1 \u_uart.uart_tx 
+       618 O        O 1 uart_tx
+       619 O   #input 1 arst_n
+       620 O   #input 1 clk
+       621 I  #output 1 io_psram_data0
+       622 O   #input 1 io_psram_data0#_I
+       623 I  #output 1 io_psram_data1
+       624 O   #input 1 io_psram_data1#_I
+       625 I  #output 1 io_psram_data2
+       626 O   #input 1 io_psram_data2#_I
+       627 I  #output 1 io_psram_data3
+       628 O   #input 1 io_psram_data3#_I
+       629 I  #output 1 io_psram_data4
+       630 O   #input 1 io_psram_data4#_I
+       631 I  #output 1 io_psram_data5
+       632 O   #input 1 io_psram_data5#_I
+       633 I  #output 1 io_psram_data6
+       634 O   #input 1 io_psram_data6#_I
+       635 I  #output 1 io_psram_data7
+       636 O   #input 1 io_psram_data7#_I
+       637 I  #output 1 led
+       638 I  #output 1 o_psram_csn
+       639 I  #output 1 o_psram_sclk
+       640 I  #output 1 sent
+       641 I  #output 1 tick_1us
+       642 O   #input 1 uart_rx
+       643 I  #output 1 uart_tx

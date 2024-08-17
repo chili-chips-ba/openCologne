@@ -42,10 +42,10 @@ module top
 (
    input   logic clk,
    input   logic arst_n,
-   output  logic tick_1us, 
+   output  logic tick_02us, 
    input   logic uart_rx,
    output  logic uart_tx,
-   output logic sent,
+   output  logic sent,
    output  logic o_psram_csn,
    output  logic o_psram_sclk,
    inout   logic io_psram_data0,
@@ -65,33 +65,28 @@ module top
    assign sent = uart_tx;
 
    //--------------------------
-   // Generating 1us ticks 
-
-   //**********************
-   // HERE THE ERRORS BEGIN
-   //**********************
-   logic [5:0] counter; //**change this to 5 or 4 bits, stops working although the MSB isn't used for anything,
-   logic tick_1us_reg;
+   // Generating 0.2us ticks 
+   logic counter; 
+   logic tick_02us_reg;
 
    always_ff @(posedge clk_out or negedge arst_n) begin
       if(arst_n == 1'b0) begin
          counter <= '0;
       end
       else begin
-         if(counter == 9) begin
-            tick_1us_reg <= 1'b1;
+         if(counter == 1) begin
+            tick_02us_reg <= 1'b1;
             counter      <= 0;
          end
          else begin
-            tick_1us_reg <= 1'b0;
+            tick_02us_reg <= 1'b0;
             counter <= counter + 1;
          end
       end
    end
-   assign tick_1us = tick_1us_reg;
-   //------------------------------------------------------------
-   // UART instance: 
-   // -potential error: flop necessary for keeping UART in sync
+   assign tick_02us = tick_02us_reg;
+   //---------------------------------------------------------------
+   // UART instance: a precise uart needed (RPi bridge is sensitive)
 
    logic [7:0] uart_tx_data;
    logic uart_tx_write;
@@ -102,7 +97,7 @@ module top
       .arst_n(arst_n),                     //i
       .clk(clk_out),                       //i
 
-      .tick_1us(tick_1us),                 //i
+      .tick_02us(tick_02us),                 //i
 
       .uart_tx_write(uart_tx_write),       //i
       .uart_tx_data(uart_tx_data),         //i
@@ -223,25 +218,9 @@ module top
 
    //----------------------------
    // Write out read data on UART
-
    assign uart_tx_data  = (uart_buffer_state == 2'd2)? uart_buffer[15:8] : uart_buffer[7:0]; // samo emituje uart buffer[15:8]
    assign uart_tx_write = uart_tx_busy == 1'b0 & uart_buffer_state != 2'b0; 
    assign uart_rx_read  = uart_rx_arr.valid;      
-
-
-
-   //------------------------------------------
-   // Generating 163ms ticks on 14 bits counter
-   logic [11:0] counter_10;
-
-   always_ff @(posedge clk_out or negedge arst_n) begin
-      if(arst_n == 1'b0) begin
-         counter_10 <= '0;
-      end
-      else begin
-         counter_10 <= counter_10 + 12'b1;
-      end
-   end
 
    //------------------------------------
    // Driving LED:
