@@ -14,7 +14,7 @@ Then PSRAM controller forwards the command and returns a value if it is a read o
 - `0x12233440708` - write to address 0x223344 data 0x0708
 
 To test out the modules check out build steps and the python script under `4.testing` automatically randomizes the addresses and data to be written and read, then compares the values.
-![drawing](./0.doc/drawing.svg)
+![drawing](./0.doc/drawing.png)
 
 ## Build steps
 To get the design running:
