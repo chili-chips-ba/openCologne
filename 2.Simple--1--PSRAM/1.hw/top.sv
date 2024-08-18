@@ -64,6 +64,10 @@ module top
    assign clk_out = clk;
    assign sent = uart_tx;
 
+   //*************************************
+   // Uncomment when addressing the issue
+   // logic tick_02us;
+
    //--------------------------
    // Generating 0.2us ticks 
    logic counter; 

@@ -10,8 +10,8 @@ import random
 addr = bytearray([4,3,2])
 wdat = bytearray([7,8])
 
-addr = []
-wdat = []
+# addr = []
+# wdat = []
 ready_to_read = 1 # sort of a mutex, cant read until the command is sent
 
 def randomize_data():
@@ -24,7 +24,7 @@ def randomize_data():
 def send_data(ser):
     global addr, wdat, ready_to_read
     while True:
-        randomize_data()
+        # randomize_data()
         to_write = bytearray([1]) + bytearray(addr) + bytearray(wdat)
         to_read =  bytearray([0]) + bytearray(addr)
 
