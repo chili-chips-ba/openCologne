@@ -103,6 +103,7 @@ Pin_in       "uart_rx"         Loc = "IO_SA_A6";
 Pin_out      "uart_tx"         Loc = "IO_SA_B6";
 
 Pin_out      "sent"                Loc = "IO_NB_A1";
+Pin_out      "tick_02us"       Loc = "IO_NB_A2";
 
 
 #PSRAM
