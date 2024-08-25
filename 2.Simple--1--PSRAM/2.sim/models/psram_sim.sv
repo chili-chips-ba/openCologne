@@ -241,33 +241,29 @@ always_ff @(posedge psram_sclk) begin
     end
 end
 
-assign io_psram_data0 = psram_state == READ_DATA_7_4? psram_mem_ary[addr][0] :
-                        psram_state == READ_DATA_3_0? psram_mem_ary[addr+1][0]: 1'bz;
+logic [7:0] data_read;
+logic oe;
 
-assign io_psram_data1 = psram_state == READ_DATA_7_4? psram_mem_ary[addr][1] :
-                        psram_state == READ_DATA_3_0? psram_mem_ary[addr+1][1]: 1'bz;
+assign data_read = (psram_state == READ_DATA_7_4)? psram_mem_ary[addr] :
+                                                   psram_mem_ary[addr+1];
 
-assign io_psram_data2 = psram_state == READ_DATA_7_4? psram_mem_ary[addr][2] :
-                        psram_state == READ_DATA_3_0? psram_mem_ary[addr+1][2]: 1'bz;
+assign oe = (psram_state == READ_DATA_7_4) | (psram_state == READ_DATA_3_0);
 
-assign io_psram_data3 = psram_state == READ_DATA_7_4? psram_mem_ary[addr][3] :
-                        psram_state == READ_DATA_3_0? psram_mem_ary[addr+1][3]: 1'bz;
+assign io_psram_data0 = oe? data_read[0] : 1'bz;
+assign io_psram_data1 = oe? data_read[1] : 1'bz;
+assign io_psram_data2 = oe? data_read[2] : 1'bz;
+assign io_psram_data3 = oe? data_read[3] : 1'bz;
+assign io_psram_data4 = oe? data_read[4] : 1'bz;
+assign io_psram_data5 = oe? data_read[5] : 1'bz;
+assign io_psram_data6 = oe? data_read[6] : 1'bz;
+assign io_psram_data7 = oe? data_read[7] : 1'bz;
 
-assign io_psram_data4 = psram_state == READ_DATA_7_4? psram_mem_ary[addr][4] :
-                        psram_state == READ_DATA_3_0? psram_mem_ary[addr+1][4]: 1'bz;
 
-assign io_psram_data5 = psram_state == READ_DATA_7_4? psram_mem_ary[addr][5] :
-                        psram_state == READ_DATA_3_0? psram_mem_ary[addr+1][5]: 1'bz;
-
-assign io_psram_data6 = psram_state == READ_DATA_7_4? psram_mem_ary[addr][6] :
-                        psram_state == READ_DATA_3_0? psram_mem_ary[addr+1][6]: 1'bz;
-
-assign io_psram_data7 = psram_state == READ_DATA_7_4? psram_mem_ary[addr][7] :
-                        psram_state == READ_DATA_3_0? psram_mem_ary[addr+1][7]: 1'bz;
 endmodule
 /*
 -----------------------------------------------------------------------------
 Version History:
 -----------------------------------------------------------------------------
  2024/8/17 Tarik Ibrahimovic: initial creation
+ 2024/8/25 Tarik Ibrahimovic: code correcting
 */
