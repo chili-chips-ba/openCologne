@@ -6,7 +6,7 @@ Ensure the appropriate initialization files are available in the project directo
 
 Adjust the Makefile to ensure the correct paths to the toolchain are set.
 
-Adjust the constraint file to match the board (OLIMEX or GateMate EVB).
+Adjust the Makefile and constraint file to match the board (OLIMEX or GateMate EVB).
 
 The checkered pattern will be displayed on both the SSD1331 OLED and ST7789 TFT displays. 
 
