@@ -16,5 +16,5 @@ https://www.waveshare.com/1.54inch-e-paper-module.htm?___SID=U
 __4__ this is a 1.3 inch 7 pin ST7789
 https://a.co/d/gW0VyAS
 
-__5__ this is a SPi OLED SSD1331 96 * 64
+__5__ this is a SPI OLED SSD1331 96 * 64
 https://a.co/d/b2fWHYU
