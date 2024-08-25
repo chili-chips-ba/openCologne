@@ -1,40 +1,37 @@
-//======================================================================== 
+//========================================================================
 // openCologne * NLnet-sponsored open-source design ware for GateMate
 //------------------------------------------------------------------------
 //                   Copyright (C) 2024 Chili.CHIPS*ba
-// 
-// Redistribution and use in source and binary forms, with or without 
-// modification, are permitted provided that the following conditions 
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
 // are met:
 //
-// 1. Redistributions of source code must retain the above copyright 
+// 1. Redistributions of source code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //
-// 2. Redistributions in binary form must reproduce the above copyright 
-// notice, this list of conditions and the following disclaimer in the 
+// 2. Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer in the
 // documentation and/or other materials provided with the distribution.
 //
-// 3. Neither the name of the copyright holder nor the names of its 
+// 3. Neither the name of the copyright holder nor the names of its
 // contributors may be used to endorse or promote products derived
 // from this software without specific prior written permission.
 //
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS 
-// IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED 
-// TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-// PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
-// HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+// IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+// TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+// HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //              https://opensource.org/license/bsd-3-clause
 //------------------------------------------------------------------------
-// Description: 
-//========================================================================
-
 
 
 module lcd_video #(
@@ -43,8 +40,8 @@ module lcd_video #(
    parameter c_reset2_us = 500000, // us after 1st reset, 2nd reset pulse (st7789 cold boot)
    parameter c_color_bits = 16, // RGB565
    parameter c_vga_sync = 0,  // 0:free running, 1:sync to hsync/vsync/blank
-   parameter c_x_size = 160,  // pixel X screen size
-   parameter c_y_size = 160,  // pixel Y screen size
+   parameter c_x_size = 240,  // pixel X screen size
+   parameter c_y_size = 240,  // pixel Y screen size
    parameter c_x_bits = $clog2(c_x_size), // 240->8
    parameter c_y_bits = $clog2(c_y_size), // 240->8
    parameter c_clk_phase = 0, // spi_clk phase
@@ -65,11 +62,11 @@ module lcd_video #(
    input  wire clk_spi_ena, // constant 1 or clk enable
    input  wire hsync, vsync, blank, // hsync not used
    input  wire [c_color_bits-1:0] color,
-   
+
    output reg  [c_x_bits-1:0] x,
    output reg  [c_y_bits-1:0] y,
    output reg  next_pixel, // 1 when x/y changes
-   
+
    output wire spi_csn,
    output wire spi_clk,
    output wire spi_mosi,
@@ -81,7 +78,7 @@ module lcd_video #(
    initial begin
       $readmemh(c_init_file, c_oled_init);
    end
-   
+
    // generate 2nd reset pulse for cold boot display start
    localparam reset2at = c_reset2_us*c_clk_spi_mhz;
    localparam resetpulse_bits = $clog2(reset2at);
@@ -93,11 +90,11 @@ module lcd_video #(
          resetpulse_cnt <= resetpulse_cnt - 1;
       reset2nd <= resetpulse_cnt == 0;
    end
-   
+
    reg [c_x_bits-1:0] R_x_in;
    reg [c_y_bits-1:0] R_y_in;
    wire [c_color_bits-1:0] S_color;
-   
+
    reg [c_color_bits-1:0] R_scanline[0:c_x_size-1];
    generate
    if(c_vga_sync)
@@ -119,7 +116,7 @@ module lcd_video #(
       assign S_color = color;
    end  // c_vga_sync
    endgenerate
-   
+
    reg [10:0] index;
    reg [7:0] data = c_nop;
    reg dc = 1;
@@ -132,10 +129,10 @@ module lcd_video #(
    reg [7:0] last_cmd;
    reg resn = 0;
    reg clken = 0;
-   
+
    // The next byte in the initialisation sequence
    wire [7:0] next_byte = c_oled_init[index[10:4]];
-   
+
    // Do the initialisation sequence and then start sending pixels
    always @(posedge clk_spi) begin
       if (reset || reset2nd) begin
@@ -183,39 +180,39 @@ module lcd_video #(
                   arg <= 0;
                end
             end else begin // Send pixels and set x,y and next_pixel
-               if(R_y_in == y || c_vga_sync == 0)
-               begin
-                  dc <= 1;
-                  byte_toggle <= ~byte_toggle;
-                  if(c_color_bits < 12)
-                     data <= S_color[7:0];
-                  else
-                     data <= byte_toggle ? S_color[7:0] : S_color[15:8];
-                     clken <= 1;
-                  if (byte_toggle || c_color_bits < 12) begin
-                     next_pixel <= 1;
-                     if (x == c_x_size-1) begin
-                        x <= 0;
-                        if (y == c_y_size-1)
-                           y <= 0;
-                        else
-                           y <= y + 1;
-                    end else x <= x + 1;
-                  end
-               end // R_y_in != y
+             if(R_y_in == y || c_vga_sync == 0)
+             begin
+               dc <= 1;
+               byte_toggle <= ~byte_toggle;
+               if(c_color_bits < 12)
+                  data <= S_color[7:0];
                else
-                  clken <= 0;
+                  data <= byte_toggle ? S_color[7:0] : S_color[15:8];
+               clken <= 1;
+               if (byte_toggle || c_color_bits < 12) begin
+                  next_pixel <= 1;
+                  if (x == c_x_size-1) begin
+                     x <= 0;
+                     if (y == c_y_size-1)
+                        y <= 0;
+                     else
+                        y <= y + 1;
+                  end else x <= x + 1;
+               end
+             end // R_y_in != y
+             else
+               clken <= 0;
             end
          end else begin // Shift out byte
-           next_pixel <= 0;
-           if (index[0] == 0) data <= { data[6:0], 1'b0 };
+            next_pixel <= 0;
+            if (index[0] == 0) data <= { data[6:0], 1'b0 };
          end
       end else begin // Initialisation done, start sending pixels
-        init <= 0;
-        index[10:4] <= 0;
+         init <= 0;
+         index[10:4] <= 0;
       end
    end
-   
+
    assign spi_resn = resn;             // Reset is High, Low, High for first 3 cycles
    assign spi_csn = ~clken;            // not used for st7789
    assign spi_dc = dc;                 // 0 for commands, 1 for command parameters and data
@@ -231,4 +228,3 @@ Version History:
  2024/5/30 Ahmed Imamović: Initial creation
            Adapted from: https://github.com/emard/ulx3s-misc/tree/master/examples/spi_display
 */
-
