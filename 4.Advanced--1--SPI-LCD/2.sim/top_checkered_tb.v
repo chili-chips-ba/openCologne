@@ -32,95 +32,58 @@
 //
 //              https://opensource.org/license/bsd-3-clause
 //------------------------------------------------------------------------
+// Description:
+//========================================================================
 
-module top_checkered (
-   input  wire clk,
-   input  wire btn,
+`timescale 1 ns / 1 ps
 
-   output wire oled_csn,
-   output wire oled_clk,
-   output wire oled_mosi,
-   output wire oled_dc,
-   output wire oled_resn,
+module top_checkered_tb;
 
-   output wire oled_clk_1,
-   output wire oled_mosi_1,
-   output wire oled_dc_1,
-   output wire oled_resn_1,
+   reg clk;
+   reg btn;
+   wire oled_csn;
+   wire oled_clk;
+   wire oled_mosi;
+   wire oled_dc;
+   wire oled_resn;
+   wire led;
 
-   output wire led
-);
-   wire [6:0] x ;   // for SSD1331 OLED
-   wire [5:0] y ;
-
-   wire [7:0] x_1 ;  // for ST7789
-   wire [7:0] y_1 ;
-   //                  checkered      red   green   blue     red    green  blue
-   wire [15:0] color = x[4] ^ y[4] ? {5'd0, x[6:2], 6'd0} : {y[5:1], 6'd0, 5'd0};  // for SSD1331 OLED
-   //                  checkered      red   green   blue     red    green  blue
-   wire [15:0] color_1 = x_1[4] ^ y_1[4] ? {5'd0, x_1[7:3], 6'd0} : {y_1[7:3], 6'd0, 5'd0}; // for ST7789
-
-   reg [26:0] counter;
-
-   wire clk_pix, clk_pix_90 ,lock;
-
-   pll pll_inst (
-      .clock_in(clk), // 10 MHz
-      .rst_in(~btn),
-      .clock_out(clk_pix),// 25 MHz, 0 deg
-      .clock_out_90(clk_pix_90),
-      .locked(lock)
-   );
-
-   lcd_video #(
-      .c_init_file("ssd1331_linit_xflip_16bit.mem"),
-      .c_init_size(90),
-      .c_x_size(96),
-      .c_y_size(64),
-      .c_x_bits(7),
-      .c_y_bits(6)
-   ) lcd_video_inst (                      //  SSD1331 OLED
-      .clk_spi(clk_pix),
-      .clk_spi_ena(1'b1),
-      .reset(~btn),
-      .x(x),
-      .y(y),
-      .color(color),
-      .spi_clk(oled_clk),
-      .spi_mosi(oled_mosi),
-      .spi_dc(oled_dc),
-      .spi_resn(oled_resn),
-      .spi_csn(oled_csn)
-   );
-
-   lcd_video #(
-      .c_init_file("st7789_linit.mem"),
-      .c_init_size(35),
-      .c_color_bits(16)
-   ) lcd_video_inst_1 (                 //  ST7789
-      .clk_spi(clk_pix_90),
-      .clk_spi_ena(1'b1),
-      .reset(~btn),
-      .x(x_1),
-      .y(y_1),
-      .color(color_1),
-      .spi_clk(oled_clk_1),
-      .spi_mosi(oled_mosi_1),
-      .spi_dc(oled_dc_1),
-      .spi_resn(oled_resn_1)
-   );
-
-   assign led = counter[26];
-
-   always @(posedge clk_pix)
-   begin
-      if (!btn) begin
-         counter <= 0;
-      end else begin
-         counter <= counter + 1'b1;
-      end
+   initial begin
+   `ifdef CCSDF
+      $sdf_annotate("top_checkered_00.sdf", dut);
+   `endif
+      $dumpfile("../2.sim/top_checkered_tb.vcd");
+      $dumpvars(0, top_checkered_tb);
+      clk = 0;
+      btn = 1;
    end
 
+   always clk = #50 ~clk;
+
+   top_checkered dut (
+      .clk(clk),
+      .btn(btn),
+      .oled_csn(oled_csn),
+      .oled_clk(oled_clk),
+      .oled_mosi(oled_mosi),
+      .oled_dc(oled_dc),
+      .oled_resn(oled_resn),
+      .led(led)
+   );
+
+   initial begin
+      clk = 0;
+      btn = 0;
+      #200;
+      btn = 1;
+      #500;
+      $display("c_oled_init contents:");
+      for (int i = 0; i < dut.lcd_video_inst.c_init_size; i = i + 1) begin
+         $display("c_oled_init[%0d] = %h", i, dut.lcd_video_inst.c_oled_init[i]);
+      end
+      #10_000_000;
+      $finish;
+   end
 
 endmodule
 

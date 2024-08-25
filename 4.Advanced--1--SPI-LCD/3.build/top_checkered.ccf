@@ -41,22 +41,6 @@
 ## Gatemate A1-EVB Olimex board hardware pin constraints
 ## #######################################################
 
-
-# Format:
-# <pin-direction> "<pin-name>" Loc = "<pin-location>" | <opt.-constraints>;
-#
-# Additional constraints can be appended using the pipe symbol.
-# Files are read line by line. Text after the hash symbol is ignored.
-#
-# Available pin directions:
-#
-# Pin_in
-#   defines an input pin
-# Pin_out
-#   defines an output pin
-# Pin_inout
-#   defines a bidirectional pin
-#
 # Available pin constraints:
 #
 # SCHMITT_TRIGGER={true,false}
@@ -95,17 +79,45 @@
 # LED, 4 Clocks for PLL
 # #######################################################
 # -------------------------------------------------------
-Pin_in "clk" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0
-Pin_in "btn" Loc = "IO_SB_B7" | PULLUP=true; # FPGA_BUT
 
-Pin_out "oled_csn"   Loc = "IO_EA_A4"; # PMOD1_1
-Pin_out "oled_clk"   Loc = "IO_EA_A5"; # PMOD1_2
-Pin_out "oled_mosi"  Loc = "IO_EA_A6"; # PMOD1_3
-Pin_out "oled_dc"    Loc = "IO_EA_A7"; # PMOD1_4
+# clk same for Olimex and EvalBoard
+Net "clk" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0 , both OLIMEX and CCGM1A1
 
-Pin_out "oled_resn"  Loc = "IO_EA_B4"; # PMOD1_7
-#Pin_out "oled_blk"   Loc = "IO_EA_B5"; # PMOD1_8
-Pin_out "led" Loc = "IO_SB_B6"; # FPGA LED
+#OLIMEX
+
+Net "btn" Loc = "IO_SB_B7" | PULLUP=true; # FPGA_BUT
+Net "led" Loc = "IO_SB_B6"; # FPGA LED
+
+Net "oled_csn"   Loc = "IO_EA_A4"; # PMOD1_1
+Net "oled_clk"   Loc = "IO_EA_A5"; # PMOD1_2
+Net "oled_mosi"  Loc = "IO_EA_A6"; # PMOD1_3
+Net "oled_dc"    Loc = "IO_EA_A7"; # PMOD1_4
+Net "oled_resn"  Loc = "IO_EA_B4"; # PMOD1_7
+
+Net "oled_clk_1"   Loc = "IO_SB_B1"; # SB_B1
+Net "oled_mosi_1"  Loc = "IO_SB_A1"; # SB_A1
+Net "oled_dc_1"    Loc = "IO_SB_B0"; # SB_B0
+Net "oled_resn_1"  Loc = "IO_SB_A0"; # SB_A0
+
+
+
+#CologneChip GateMate CCGM1A1/A2
+
+#Net  "btn"  Loc = "IO_EB_B0"; # SW3
+#Net  "led"  Loc = "IO_EB_B1"; # D1
+
+#Net "oled_csn"   Loc = "IO_NB_A0"; # PMODA_1
+#Net "oled_clk"   Loc = "IO_NB_A1"; # PMODA_2
+#Net "oled_mosi"  Loc = "IO_NB_A2"; # PMODA_3
+#Net "oled_dc"    Loc = "IO_NB_A3"; # PMODA_4
+#Net "oled_resn"  Loc = "IO_NB_B0"; # PMODA_7
+
+
+#Net "oled_clk_1"   Loc = "IO_NB_A5"; # PMODB_2
+#Net "oled_mosi_1"  Loc = "IO_NB_A6"; # PMODB_3
+#Net "oled_dc_1"    Loc = "IO_NB_A7"; # PMODB_4
+#Net "oled_resn_1"  Loc = "IO_NB_B4"; # PMODB_7
+
 ## #######################################################
 ## End of hardware constraints top_checkered.ccf
 ## #######################################################

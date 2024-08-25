@@ -1,0 +1,126 @@
+// init for SSD1331 OLED and lcd_video.v
+// This file must be in the directory from where
+// the verilog compiler is running.
+// The path to this file is not relative to the
+// verilog source that needs to include this file.
+// Use symlink (ln -s orig copy) or copy (cp orig copy).
+// 90 bytes follow:
+// after reset, delay 2^10 us = 1ms before sending commands
+80
+0A
+// NOP
+BC
+00
+// Set display off
+AE
+00
+// Set data format
+// A0 20 normal 8bpp
+// A0 60 normal 16bpp
+// A0 22 X-flip 8bpp
+// A0 62 X-flip 16bpp
+// A0 32 Y-flip 8bpp
+A0
+00
+62
+00
+// Set display start line
+A1
+00
+00
+00
+// Set display offset
+A2
+00
+00
+00
+// Set display mode normal
+A4
+00
+// Set multiplex ratio
+A8
+00
+3F
+00
+// Set master configuration
+AD
+00
+8E
+00
+// Set power save mode
+B0
+00
+00
+00
+// Phase 1/2 period adjustment
+B1
+00
+74
+00
+// Set display clock divider
+B3
+00
+F0
+00
+// Set precharge A
+8A
+00
+64
+00
+// Set precharge B
+8B
+00
+78
+00
+// Set precharge C
+8C
+00
+64
+00
+// Set precharge voltage
+BB
+00
+31
+00
+// Set contrast A
+81
+00
+FF
+00
+// Set contrast B
+82
+00
+FF
+00
+// Set contrast C
+83
+00
+FF
+00
+// Set Vcomh voltage
+BE
+00
+3E
+00
+// Master current control
+87
+00
+06
+00
+// Set column address
+15
+00
+00
+00
+5F
+00
+// Set row address
+75
+00
+00
+00
+3F
+00
+// Set display on
+AF
+00
