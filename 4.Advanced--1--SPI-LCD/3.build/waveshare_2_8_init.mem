@@ -1,6 +1,6 @@
 // Some displays won't initialize for the first time after power up.
 // workaround: 0.5s after 1st reset pulse, 2nd reset pulse.
-//
+// 35 bytes
 // first action is to wait (no command)
 // after reset, delay 2^17 us = 131ms before sending commands
 80 11
