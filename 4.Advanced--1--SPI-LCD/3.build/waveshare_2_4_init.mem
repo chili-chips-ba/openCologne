@@ -1,0 +1,34 @@
+//Initialization for ILI9341 TFT LCD Single Chip Driver for Waveshare 2.4inch LCD Module and 2.2inch SPI Module ILI9341
+ // Delay command: 80 11 means delay for 2^17 milliseconds (~131.072 seconds)
+80 11
+11          // Sleep OUT
+80 11       // Delay for 2^17 milliseconds (~131.072 seconds)
+
+// Initialization Commands:
+
+C0 01 23             //   (Power Control 1) with 1 parameter: 0x23
+C1 01 10             //   (Power Control 2) with 1 parameter: 0x10
+C5 02 3E 28          //   (VCOM Control 1) with 2 parameters: 0x3E, 0x28
+C7 01 86             //   (VCOM Control 2) with 1 parameter: 0x86
+36 01 48             //   (Memory Access Control) with 1 parameter: 0x48
+37 01 00             //   (Vertical Scrolling Start Address) with 1 parameter: 0x00
+3A 01 55             //   (Pixel Format Set) with 1 parameter: 0x55
+B1 02 00 18          //   (Frame Rate Control) with 2 parameters: 0x00, 0x18
+B6 03 08 82 27       //   (Display Function Control) with 3 parameters: 0x08, 0x82, 0x27
+F2 01 00             //   (3Gamma Function Disable) with 1 parameter: 0x00
+26 01 01             //   (Gamma Set) with 1 parameter: 0x01
+E0 0F 0F 31 2B 0C 0E 08 4E F1 37 07 10 03 0E 09 00 //  (Positive Gamma Correction) with 15 parameters
+E1 0F 00 0E 14 03 11 07 31 C1 48 08 0F 0C 31 36 0F //  (Negative Gamma Correction) with 15 parameters
+
+// Column Address Set (CASET):
+2A 04 00 00 00 EF    //  (CASET) with 4 parameters: Start Column [MSB, LSB], End Column [MSB, LSB]
+
+// Page Address Set (RASET):
+2B 04 00 00 01 3F    //  (RASET) with 4 parameters: Start Page [MSB, LSB], End Page [MSB, LSB]
+
+// Display On:
+29 00                //  (Display ON) with no parameters
+
+// Memory Write:
+2C 00                //  (Memory Write) with no parameters
+
