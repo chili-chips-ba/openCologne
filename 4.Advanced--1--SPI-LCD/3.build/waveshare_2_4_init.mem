@@ -1,5 +1,6 @@
 //Initialization for ILI9341 TFT LCD Single Chip Driver for Waveshare 2.4inch LCD Module and 2.2inch SPI Module ILI9341
- // Delay command: 80 11 means delay for 2^17 milliseconds (~131.072 seconds)
+// Delay command: 80 11 means delay for 2^17 milliseconds (~131.072 seconds)
+// 92 bytes
 80 11
 11          // Sleep OUT
 80 11       // Delay for 2^17 milliseconds (~131.072 seconds)
