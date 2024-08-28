@@ -1,7 +1,3 @@
-// ST7789 init lcd_video (display mounted pins down)
-// image normal (no flip)
-// 2+3+4+3+2*6+3*3+2 = 35 bytes
-//
 // Some displays won't initialize for the first time after power up.
 // workaround: 0.5s after 1st reset pulse, 2nd reset pulse.
 //
