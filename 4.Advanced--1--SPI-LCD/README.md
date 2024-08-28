@@ -11,8 +11,10 @@ Adjust the Makefile and constraint file to match the board (OLIMEX or GateMate E
 The checkered pattern will be displayed on both the SSD1331 OLED and ST7789 TFT displays. 
 
 The pictures below show expected results. 
+This example is also supported for Waveshare's 2.4inch LCD Module and 2.8inch Capacitive Touch LCD, as well as 2.2inch MSP2202 SPI Module. 
 
- <img src="https://github.com/user-attachments/assets/0b848695-ef76-469c-b52a-f559f629584c" width="400">
+
+<img src="https://github.com/user-attachments/assets/0b848695-ef76-469c-b52a-f559f629584c" width="400">
 
 
  <img src="https://github.com/user-attachments/assets/0143bf72-9290-487f-890b-e4656e350a45" width="400">
