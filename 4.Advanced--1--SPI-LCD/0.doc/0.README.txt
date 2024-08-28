@@ -18,3 +18,6 @@ https://a.co/d/gW0VyAS
 
 __5__ this is a SPI OLED SSD1331 96 * 64
 https://a.co/d/b2fWHYU
+
+__6__ this is a 2.2inch SPI Module ILI9341 
+http://www.lcdwiki.com/2.2inch_SPI_Module_ILI9341_SKU:MSP2202
