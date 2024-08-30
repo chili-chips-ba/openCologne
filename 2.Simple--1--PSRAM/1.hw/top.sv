@@ -68,8 +68,9 @@ module top
    // Uncomment when addressing the issue
    // logic tick_02us;
 
-   //--------------------------
+   //-----------------------------------------
    // Generating 0.2us ticks 
+   // left flexible for different tick periods
    logic counter; 
    logic tick_02us_reg;
 
@@ -173,7 +174,7 @@ module top
                   byte_count  <= '0;
                end
             end
-            READ_COMMAND: begin                                                              //fill up the command buffer
+            READ_COMMAND: begin                             //fill up the command buffer
                if(uart_rx_arr.valid == 1'b1) begin
                   command_bytes[byte_count] <= uart_rx_arr.data;
                   byte_count  <= byte_count + 3'b1;
@@ -222,7 +223,7 @@ module top
 
    //----------------------------
    // Write out read data on UART
-   assign uart_tx_data  = (uart_buffer_state == 2'd2)? uart_buffer[15:8] : uart_buffer[7:0]; // samo emituje uart buffer[15:8]
+   assign uart_tx_data  = (uart_buffer_state == 2'd2)? uart_buffer[15:8] : uart_buffer[7:0];
    assign uart_tx_write = uart_tx_busy == 1'b0 & uart_buffer_state != 2'b0; 
    assign uart_rx_read  = uart_rx_arr.valid;      
 
