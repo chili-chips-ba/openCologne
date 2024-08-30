@@ -2,6 +2,11 @@
 
 The I2C controller is taken from the [openEye-CamSI](https://github.com/chili-chips-ba/openeye-CamSI) project, with some modifications to fit the WM8960 Audio CODEC.
 
+The I2C has two wires, one transmits the clock signal and the other the data signal. Both the wires need to be connected via a pullup resistor which value needs to be calculated. After calculation, the resistor `R` value should be 1kΩ.
+
+![image](https://github.com/user-attachments/assets/43d528dd-e20f-4ad4-ae62-27448d62b9a0)
+
+
 ## WM860 Audio Codec I2C
 
 ![image](https://github.com/user-attachments/assets/387093c5-4f7c-4f13-b4ed-931a01ec0e1e)
