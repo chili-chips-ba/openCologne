@@ -16,9 +16,9 @@ The photo is taken from the WM8960 official documentation and shows the 2-Wire S
 ## I2C Controller and Top Module Design
 This repository contains a design for an I2C controller, top module, and related components, including both SystemVerilog and Verilog files. 
 The design files are organized into multiple folders: 
-* `1.hw` which contains the RTL codes with the rtlfilelist and constraint files
-* `2.sim` which will be made and will contain the simulation of the I2C module
-* `3.build` which contains useful scripts to generate the rtl.filelist and convert SystemVerilog code to Verilog along with the Makefile
+* `1.hw` has the RTL codes with the rtlfilelist and constraint files
+* `2.sim` has the cocotb simulation files
+* `3.build` contains useful scripts to generate the rtl.filelist and convert SystemVerilog code to Verilog, and the Makefile
 
 The `1.hw` folder contains the following folder structure:
 * `systemverilog/`: Contains SystemVerilog files for the I2C controller (i2c_ctrl.sv), I2C top module (i2c_top.sv), and the general top module (top.sv).
@@ -42,6 +42,11 @@ If you want to convert SystemVerilog files to Verilog (e.g., for Yosys synthesis
 ```
 ./convert_sv2v.sh
 ```
+### Simulate
+To simulate run navigate to the `2.sim` folder and run `make`, after that you can run `gtkwave top_waves.vcd` or `surfer top_waves.vcd` to get the following waveforms:
+
+![image (1)](https://github.com/user-attachments/assets/5c392aa2-a1e8-4c3b-b6af-163694ca50c3)
+
 #### Synthesize, Implement, and Program:
 
 Use the following make commands to synthesize, implement, and program the FPGA:
