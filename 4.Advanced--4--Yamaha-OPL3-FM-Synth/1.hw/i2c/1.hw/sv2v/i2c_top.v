@@ -46,7 +46,7 @@ module i2c_top (
 			end
 		end
 	CC_IOBUF #(
-		.PIN_NAME("IO_NA_B0"),
+		.PIN_NAME("IO_EA_B0"),
 		.V_IO("2.5"),
 		.DRIVE("12"),
 		.SLEW("SLOW"),
@@ -65,7 +65,7 @@ module i2c_top (
 		.T(i2c_sda_di)
 	);
 	CC_IOBUF #(
-		.PIN_NAME("IO_NA_B1"),
+		.PIN_NAME("IO_EA_A0"),
 		.V_IO("2.5"),
 		.DRIVE("12"),
 		.SLEW("SLOW"),

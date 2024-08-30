@@ -9,7 +9,7 @@ module top (
 //--------------------------------
 // Strobe Generator for 100kHz
 //--------------------------------
-   localparam integer  NUM_CLK_FOR_100kHZ = 50;
+   localparam integer  NUM_CLK_FOR_100kHZ = 100;
    typedef    logic[$clog2(NUM_CLK_FOR_100kHZ) - 1 : 0] cnt_100khz_t;
 
    logic        strobe_100kHz;
@@ -35,7 +35,7 @@ module top (
 localparam integer COUNTER_WIDTH = 24;
 logic [COUNTER_WIDTH-1:0] counter;
 
-always_ff @(posedge clk_10MHz) begin
+always_ff @(posedge clk_10MHz or negedge areset_n) begin
    if(areset_n == 1'b0) begin
       counter <= '0;
    end else begin
@@ -58,5 +58,15 @@ assign led = counter[COUNTER_WIDTH-1];
       .i2c_scl(i2c_scl),
       .i2c_sda(i2c_sda)
    );
+
+   //============================//
+  //    For simulation only     //
+  //============================//
+  //`ifdef SIMULATION
+  initial begin
+    $dumpfile("top_waves.vcd");
+    $dumpvars;
+  end
+  //`endif
 
 endmodule: top

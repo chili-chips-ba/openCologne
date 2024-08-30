@@ -45,17 +45,15 @@
 module i2c_top #(
    parameter I2C_SLAVE_ADDR = 7'd16
 )(
-
- //clocks and resets
+   // Clocks and resets
    input  logic  clk,
-   input  logic  strobe_100kHz, // 100kHz strobe synchrnous to 'clk'
-   input  logic  areset_n,      // active-0 asynchronous reset
+   input  logic  strobe_100kHz, // 100kHz strobe synchronous to 'clk'
+   input  logic  areset_n,      // Active-low asynchronous reset
 
- //I/O pads
+   // I/O pads
    inout  wire   i2c_scl,
    inout  wire   i2c_sda
 );
-
 
 //--------------------------------
 // I2C Master
@@ -74,35 +72,32 @@ module i2c_top #(
    logic        i2c_sda_do;
    logic        i2c_sda_di;
 
-   i2c_ctrl u_ctrl (
-      .clk              (clk),            //i
-      .strobe_100kHz    (strobe_100kHz),  //i
-      .areset_n         (areset_n),       //i
+   i2c_ctrl u_i2c_ctrl (
+      .clk              (clk),            // i
+      .strobe_100kHz    (strobe_100kHz),  // i
+      .areset_n         (areset_n),       // i
 
-      .enable           (i2c_enable),     //i
-      .slave_address    (I2C_SLAVE_ADDR), //i[6:0]
-      .register_address (i2c_reg_addr),   //i[15:0]
-      .register_done    (i2c_reg_done),   //o
+      .enable           (i2c_enable),     // i
+      .slave_address    (I2C_SLAVE_ADDR), // i[6:0]
+      .register_address (i2c_reg_addr),   // i[15:0]
+      .register_done    (i2c_reg_done),   // o
 
-      .scl_do           (i2c_scl_do),     //i
-      .scl_di           (i2c_scl_di),     //o
+      .scl_do           (i2c_scl_do),     // i
+      .scl_di           (i2c_scl_di),     // o
 
-      .sda_do           (i2c_sda_do),     //i
-      .sda_di           (i2c_sda_di)      //o
+      .sda_do           (i2c_sda_do),     // i
+      .sda_di           (i2c_sda_di)      // o
    );
-
 
 `ifndef SIM_ONLY
    initial $readmemh("../i2c_init.mem", i2c_data_init);
-
 `else
    string i2c_init_mem_file;
 
    initial begin
       if ($value$plusargs("../i2c_init_mem_file=%s", i2c_init_mem_file)) begin
          $readmemh(i2c_init_mem_file, i2c_data_init);
-      end
-      else begin
+      end else begin
          $readmemh("../i2c_init.mem", i2c_data_init);
       end
    end
@@ -112,59 +107,58 @@ module i2c_top #(
    assign i2c_reg_addr = i2c_data_init[i2c_reg_cnt];
 
    always_ff @(negedge areset_n or posedge clk) begin
-      if (areset_n == 1'b0) begin
-         i2c_reg_cnt    <= '0;
-      end
-      else if ({strobe_100kHz, i2c_enable} == 2'b11) begin
-         if (i2c_reg_done == 1'd1) begin
+      if (!areset_n) begin
+         i2c_reg_cnt <= '0;
+      end else if ({strobe_100kHz, i2c_enable} == 2'b11) begin
+         if (i2c_reg_done) begin
             if (i2c_reg_cnt < 7'd65) begin
-               i2c_reg_cnt <= 7'(i2c_reg_cnt + 7'd1);
+               i2c_reg_cnt <= i2c_reg_cnt + 7'd1;
             end
          end
       end
    end
 
-   CC_IOBUF#(
-      .PIN_NAME("IO_NA_B0"), // IO_<Dir><Bank>_<Pin><Pin#>
-      .V_IO("2.5"),          // "1.2", "1.8" or "2.5" Volt
-      .DRIVE("12"),          // "3", "6", "9" or "12" mA
-      .SLEW("SLOW"),         // "SLOW" or "FAST"
-      .PULLUP(0),            // 0: disable, 1: enable
-      .PULLDOWN(0),          // 0: disable, 1: enable
-      .KEEPER(0),            // 0: disable, 1: enable
-      .SCHMITT_TRIGGER(0),   // 0: disable, 1: enable
-      .DELAY_IBF(4'd0),      // input delay:  0..15
-      .DELAY_OBF(4'd0),      // output delay: 0..15
-      .FF_IBF(1'b0),         // 0: disable, 1: enable
-      .FF_OBF(1'b0),         // 0: disable, 1: enable
-   ) i2c_iobuf_sda(
+   CC_IOBUF #(
+      .PIN_NAME("IO_EA_B0"),  // IO_<Dir><Bank>_<Pin><Pin#>
+      .V_IO("2.5"),           // "1.2", "1.8" or "2.5" Volt
+      .DRIVE("12"),           // "3", "6", "9" or "12" mA
+      .SLEW("SLOW"),          // "SLOW" or "FAST"
+      .PULLUP(0),             // 0: disable, 1: enable
+      .PULLDOWN(0),           // 0: disable, 1: enable
+      .KEEPER(0),             // 0: disable, 1: enable
+      .SCHMITT_TRIGGER(0),    // 0: disable, 1: enable
+      .DELAY_IBF(4'd0),       // input delay:  0..15
+      .DELAY_OBF(4'd0),       // output delay: 0..15
+      .FF_IBF(1'b0),          // 0: disable, 1: enable
+      .FF_OBF(1'b0)           // 0: disable, 1: enable
+   ) i2c_iobuf_sda (
       .IO(i2c_sda),
       .Y(i2c_sda_do),
       .A(1'b0),
       .T(i2c_sda_di)
    );
 
-   CC_IOBUF#(
-      .PIN_NAME("IO_NA_B1"), // IO_<Dir><Bank>_<Pin><Pin#>
-      .V_IO("2.5"),          // "1.2", "1.8" or "2.5" Volt
-      .DRIVE("12"),          // "3", "6", "9" or "12" mA
-      .SLEW("SLOW"),         // "SLOW" or "FAST"
-      .PULLUP(0),            // 0: disable, 1: enable
-      .PULLDOWN(0),          // 0: disable, 1: enable
-      .KEEPER(0),            // 0: disable, 1: enable
-      .SCHMITT_TRIGGER(0),   // 0: disable, 1: enable
-      .DELAY_IBF(4'd0),      // input delay:  0..15
-      .DELAY_OBF(4'd0),      // output delay: 0..15
-      .FF_IBF(1'b0),         // 0: disable, 1: enable
-      .FF_OBF(1'b0),         // 0: disable, 1: enable
-   ) i2c_iobuf_scl(
+   CC_IOBUF #(
+      .PIN_NAME("IO_EA_A0"),  // IO_<Dir><Bank>_<Pin><Pin#>
+      .V_IO("2.5"),           // "1.2", "1.8" or "2.5" Volt
+      .DRIVE("12"),           // "3", "6", "9" or "12" mA
+      .SLEW("SLOW"),          // "SLOW" or "FAST"
+      .PULLUP(0),             // 0: disable, 1: enable
+      .PULLDOWN(0),           // 0: disable, 1: enable
+      .KEEPER(0),             // 0: disable, 1: enable
+      .SCHMITT_TRIGGER(0),    // 0: disable, 1: enable
+      .DELAY_IBF(4'd0),       // input delay:  0..15
+      .DELAY_OBF(4'd0),       // output delay: 0..15
+      .FF_IBF(1'b0),          // 0: disable, 1: enable
+      .FF_OBF(1'b0)           // 0: disable, 1: enable
+   ) i2c_iobuf_scl (
       .IO(i2c_scl),
       .Y(i2c_scl_do),
       .A(1'b0),
       .T(i2c_scl_di)
    );
 
-endmodule: i2c_top
+endmodule : i2c_top
 
 /*
 ------------------------------------------------------------------------------
