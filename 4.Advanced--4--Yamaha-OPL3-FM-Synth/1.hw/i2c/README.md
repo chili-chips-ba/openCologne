@@ -10,7 +10,8 @@ The I2C has two wires, one transmits the clock signal and the other the data sig
 ## WM860 Audio Codec I2C
 
 ![image](https://github.com/user-attachments/assets/387093c5-4f7c-4f13-b4ed-931a01ec0e1e)
-The photo is taken from the WM8960 official documentation and shows the 2-Wire Serial Control Interface needed to set the internal registers of the WM8960 Audio CODEC.
+
+The image is taken from the WM8960 official documentation and shows the 2-Wire Serial Control Interface needed to set the internal registers of the WM8960 Audio CODEC.
 
 
 ## I2C Controller and Top Module Design
