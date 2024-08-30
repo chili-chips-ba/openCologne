@@ -2,5 +2,5 @@ Net "clk_10MHz" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true;
 Net "areset_n" Loc = "IO_SB_B7";
 Net "led" Loc = "IO_SB_B6";
 
-Net "i2c_sda" Loc = "IO_NA_B0" | DRIVE = 12 | SLEW = slow;
-Net "i2c_scl" Loc = "IO_NA_B1" | DRIVE = 12 | SLEW = slow;
+Net "i2c_sda" Loc = "IO_EA_B0" | DRIVE = 12 | SLEW = slow;
+Net "i2c_scl" Loc = "IO_EA_A0" | DRIVE = 12 | SLEW = slow;

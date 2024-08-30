@@ -93,7 +93,7 @@ module i2c_top #(
 // I/O Buffers for I2C Lines
 //--------------------------------
    CC_IOBUF #(
-      .PIN_NAME("IO_NA_B0"), // IO_<Dir><Bank>_<Pin><Pin#>
+      .PIN_NAME("IO_EA_B0"), // IO_<Dir><Bank>_<Pin><Pin#>
       .V_IO("2.5"),          // "1.2", "1.8" or "2.5" Volt
       .DRIVE("12"),          // "3", "6", "9" or "12" mA
       .SLEW("SLOW"),         // "SLOW" or "FAST"
@@ -113,7 +113,7 @@ module i2c_top #(
    );
 
    CC_IOBUF #(
-      .PIN_NAME("IO_NA_B1"), // IO_<Dir><Bank>_<Pin><Pin#>
+      .PIN_NAME("IO_EA_A0"), // IO_<Dir><Bank>_<Pin><Pin#>
       .V_IO("2.5"),          // "1.2", "1.8" or "2.5" Volt
       .DRIVE("12"),          // "3", "6", "9" or "12" mA
       .SLEW("SLOW"),         // "SLOW" or "FAST"

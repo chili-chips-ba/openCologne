@@ -46,8 +46,8 @@ module i2c_ctrl (
    input  wire        areset_n,
 
    input  wire        enable,
-   input  reg [6:0]   slave_address,
-   input  reg [15:0]  register_address,
+   input  wire [6:0]  slave_address,
+   input  wire [15:0]  register_address,
    output reg         register_done,
 
    input  wire        scl_do,

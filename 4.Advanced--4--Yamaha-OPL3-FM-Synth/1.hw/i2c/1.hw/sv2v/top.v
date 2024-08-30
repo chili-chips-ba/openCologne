@@ -38,7 +38,7 @@ module top (
 		else
 			counter <= counter + 1'b1;
 	assign led = counter[COUNTER_WIDTH - 1];
-	i2c_top #(.I2C_SLAVE_ADDR(7'd16)) u_i2c_top(
+	i2c_top #(.I2C_SLAVE_ADDR(7'd52)) u_i2c_top(
 		.clk(clk_10MHz),
 		.strobe_100kHz(strobe_100kHz),
 		.areset_n(areset_n),
