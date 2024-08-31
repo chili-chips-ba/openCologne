@@ -1,14 +1,11 @@
 __0__ Davor's components
 https://github.com/emard/ulx3s/blob/master/doc/MANUAL.md#lcdoled-display
 
-
 __1__ Good size LCD with Touch Panel
 https://www.waveshare.com/2.8inch-capacitive-touch-lcd.htm
 
- 
 __2__ this one is used for RISC-V Linux
 https://www.waveshare.com/product/displays/lcd-oled/lcd-oled-2/2.4inch-lcd-module.htm?___SID=U
-
 
 __3__ this is a low-power e.ink
 https://www.waveshare.com/1.54inch-e-paper-module.htm?___SID=U
@@ -16,7 +13,7 @@ https://www.waveshare.com/1.54inch-e-paper-module.htm?___SID=U
 __4__ this is a 1.3 inch 7 pin ST7789
 https://a.co/d/gW0VyAS
 
-__5__ this is a SPI OLED SSD1331 96 * 64
+__5__ this is a SPI OLED SSD1331 96*64
 https://a.co/d/b2fWHYU
 
 __6__ this is a 2.2inch SPI Module ILI9341 
