@@ -94,14 +94,7 @@ module psram (
 
 	output  logic o_psram_csn,
 	output  logic o_psram_sclk,
-    inout   wire  io_psram_data0,
-    inout   wire  io_psram_data1,
-    inout   wire  io_psram_data2,
-    inout   wire  io_psram_data3,
-    inout   wire  io_psram_data4,
-    inout   wire  io_psram_data5,
-    inout   wire  io_psram_data6,
-    inout   wire  io_psram_data7
+    inout   wire [7:0] io_psram_data
 );
 
 // The main clock (i_clk) here is 100 MHz, which ticks every
@@ -118,14 +111,12 @@ logic [7:0] out_enable;
 logic [7:0] data_to_chip;
 
 assign o_psram_sclk = (hold_clk_lo ? 0 : i_clk);
-assign io_psram_data0 = (out_enable[0] ? data_to_chip[0] : 1'bZ);
-assign io_psram_data1 = (out_enable[1] ? data_to_chip[1] : 1'bZ);
-assign io_psram_data2 = (out_enable[2] ? data_to_chip[2] : 1'bZ);
-assign io_psram_data3 = (out_enable[3] ? data_to_chip[3] : 1'bZ);
-assign io_psram_data4 = (out_enable[4] ? data_to_chip[4] : 1'bZ);
-assign io_psram_data5 = (out_enable[5] ? data_to_chip[5] : 1'bZ);
-assign io_psram_data6 = (out_enable[6] ? data_to_chip[6] : 1'bZ);
-assign io_psram_data7 = (out_enable[7] ? data_to_chip[7] : 1'bZ);
+genvar i;
+generate
+    for (i = 0; i<8 ; i++) begin
+        assign io_psram_data[i] = out_enable[i] ? data_to_chip[i] : 1'bz;
+    end
+endgenerate
 
 always @(negedge arst_n or posedge i_clk) begin
     if (arst_n == 1'b0) begin
@@ -292,27 +283,13 @@ always @(negedge arst_n or posedge i_clk) begin
                 end
 
             READ_DATA_7_4: begin
-                    o_dout[15] <= io_psram_data7;
-                    o_dout[14] <= io_psram_data6;
-                    o_dout[13] <= io_psram_data5;
-                    o_dout[12] <= io_psram_data4;
-                    o_dout[11] <= io_psram_data3;
-                    o_dout[10] <= io_psram_data2;
-                    o_dout[9] <= io_psram_data1;
-                    o_dout[8] <= io_psram_data0;
-                    o_state <= READ_DATA_3_0;
+                    o_dout[15:8] <= io_psram_data;
+                    o_state      <= READ_DATA_3_0;
                 end
 
             READ_DATA_3_0: begin
-                    o_dout[7] <= io_psram_data7;
-                    o_dout[6] <= io_psram_data6;
-                    o_dout[5] <= io_psram_data5;
-                    o_dout[4] <= io_psram_data4;
-                    o_dout[3] <= io_psram_data3;
-                    o_dout[2] <= io_psram_data2;
-                    o_dout[1] <= io_psram_data1;
-                    o_dout[0] <= io_psram_data0;
-                    o_state <= READ_DESELECT;
+                    o_dout[7:0] <= io_psram_data;
+                    o_state     <= READ_DESELECT;
                 end
 
             READ_DESELECT: begin
@@ -392,4 +369,6 @@ endmodule
 Version History:
 ------------------------------------------------------------------------------
  2024/6/7 Tarik Ibrahimovic: Initial Creation
+ 2024/8/25 Tarik Ibrahimovic: code correcting
+
 */
