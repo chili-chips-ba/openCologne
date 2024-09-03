@@ -94,14 +94,14 @@ module psram (
 
 	output  logic o_psram_csn,
 	output  logic o_psram_sclk,
-    inout   logic io_psram_data0,
-    inout   logic io_psram_data1,
-    inout   logic io_psram_data2,
-    inout   logic io_psram_data3,
-    inout   logic io_psram_data4,
-    inout   logic io_psram_data5,
-    inout   logic io_psram_data6,
-    inout   logic io_psram_data7
+    inout   wire  io_psram_data0,
+    inout   wire  io_psram_data1,
+    inout   wire  io_psram_data2,
+    inout   wire  io_psram_data3,
+    inout   wire  io_psram_data4,
+    inout   wire  io_psram_data5,
+    inout   wire  io_psram_data6,
+    inout   wire  io_psram_data7
 );
 
 // The main clock (i_clk) here is 100 MHz, which ticks every

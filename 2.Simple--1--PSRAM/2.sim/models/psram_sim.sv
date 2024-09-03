@@ -36,18 +36,18 @@
 //========================================================================
 
 module psram_sim (
-    input logic psram_csn,
-    input logic psram_sclk,
-    input logic arst_n,
+    input   logic psram_csn,
+    input   logic psram_sclk,
+    input   logic arst_n,
 
-    inout   logic io_psram_data0,
-    inout   logic io_psram_data1,
-    inout   logic io_psram_data2,
-    inout   logic io_psram_data3,
-    inout   logic io_psram_data4,
-    inout   logic io_psram_data5,
-    inout   logic io_psram_data6,
-    inout   logic io_psram_data7
+    inout   wire  io_psram_data0,
+    inout   wire io_psram_data1,
+    inout   wire io_psram_data2,
+    inout   wire io_psram_data3,
+    inout   wire io_psram_data4,
+    inout   wire io_psram_data5,
+    inout   wire io_psram_data6,
+    inout   wire io_psram_data7
 );
 
 
