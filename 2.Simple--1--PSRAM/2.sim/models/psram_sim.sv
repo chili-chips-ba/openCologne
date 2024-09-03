@@ -101,8 +101,8 @@ assign data_to_chip = {io_psram_data7, io_psram_data6, io_psram_data5, io_psram_
     io_psram_data3, io_psram_data2, io_psram_data1, io_psram_data0};
 
 
-always_ff @(posedge psram_sclk) begin 
-    if (arst_n == 1'b0 ) begin
+always_ff @(posedge psram_sclk or negedge arst_n) begin 
+    if (arst_n == 1'b0) begin
         psram_state <= RESET_JUST_NOW;
     end
     else begin

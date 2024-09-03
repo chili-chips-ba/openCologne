@@ -208,9 +208,9 @@ synth_sim.vvp: clean_iverilog
 		-Ttyp \
 		-o $(SIM_SRC)/$@ \
 		$(CELLS_SYNTH) \
-		$(SIM_MODELS) \ 
+		$(SIM_MODELS) \
 		$(BLD_DIR)/net/$(TOP)_synth.v \
-		$(SIM_SRC)/tb.sv 
+		$(SIM_SRC)/tb.sv
 		
 
 # Run make vlog_synth \ make impl  first in 3.build
@@ -221,7 +221,7 @@ impl_sim.vvp: clean_iverilog
 		-gspecify \
 		-Ttyp \
 		-o $(SIM_SRC)/$@ \
-		$(SIM_MODELS) \ 
+		$(SIM_MODELS) \
 		$(BLD_DIR)/$(TOP)_00.v \
 		$(SIM_SRC)/tb.sv \
 		$(CELLS_IMPL)
