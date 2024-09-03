@@ -33,12 +33,17 @@ Change directory to the 2.sim:
 ```
 cd 2.sim
 ```
-Then the following options are avaliable,all run in Verilator:
+Then the following options are avaliable, all run in Verilator:
 - `make`  to run RTL simulation
 - `make all_synth` to run post-synthesis simulation
 - `make all_impl` to run post-PnR simulation
 
-Also provided are `make wave` and `make clean` targets which run the waveform viewer and clean the output files of simulation runs
+iverilog is too supported as a simulator:
+- `make vlog_sim` - RTL sim
+- `make synth_sim`- post-synthesis simulation
+- `make impl_sim`- post-PnR simulation
+
+Also provided are `make wave`, `make wave_iverilog` and `make clean`, `make clean_iverilog` targets which run the waveform viewer and clean the output files of simulation runs.
 
 **Some interesting quirks**:
 - An another `sent` output port is needed for uart_tx to function properly, capacitive load increases and it may be linked with that
