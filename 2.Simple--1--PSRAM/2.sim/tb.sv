@@ -101,7 +101,7 @@ module tb #(
    logic led;
    logic sent;
    
-   wire io_psram_data0, io_psram_data1, io_psram_data2, io_psram_data3, io_psram_data4, io_psram_data5, io_psram_data6 , io_psram_data7;
+   wire [7:0] io_psram_data;
    logic clk_psram,csn;
 //--------------------------------------------------------------
    top dut (
@@ -112,28 +112,14 @@ module tb #(
       .tick_02us(tick_02us),
       .o_psram_csn(csn),
       .o_psram_sclk(clk_psram),
-      .io_psram_data0(io_psram_data0),
-      .io_psram_data1(io_psram_data1),
-      .io_psram_data2(io_psram_data2),
-      .io_psram_data3(io_psram_data3),
-      .io_psram_data4(io_psram_data4),
-      .io_psram_data5(io_psram_data5),
-      .io_psram_data6(io_psram_data6),
-      .io_psram_data7(io_psram_data7), 
+      .io_psram_data(io_psram_data),
       .led(led)
    );
    psram_sim u_psram(
       .psram_csn(csn),
       .psram_sclk(clk_psram),
       .arst_n (arst_n),
-      .io_psram_data0(io_psram_data0),
-      .io_psram_data1(io_psram_data1),
-      .io_psram_data2(io_psram_data2),
-      .io_psram_data3(io_psram_data3),
-      .io_psram_data4(io_psram_data4),
-      .io_psram_data5(io_psram_data5),
-      .io_psram_data6(io_psram_data6),
-      .io_psram_data7(io_psram_data7)
+      .io_psram_data(io_psram_data)
    );
 
 endmodule: tb

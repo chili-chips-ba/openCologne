@@ -45,24 +45,15 @@ module top
    output  logic tick_02us, 
    input   logic uart_rx,
    output  logic uart_tx,
-   output  logic sent,
    output  logic o_psram_csn,
    output  logic o_psram_sclk,
-   inout   logic io_psram_data0,
-   inout   logic io_psram_data1,
-   inout   logic io_psram_data2,
-   inout   logic io_psram_data3,
-   inout   logic io_psram_data4,
-   inout   logic io_psram_data5,
-   inout   logic io_psram_data6,
-   inout   logic io_psram_data7,
+   inout   wire [7:0] io_psram_data,
    output  logic led
 );
  
    logic  clk_out;
 
    assign clk_out = clk;
-   assign sent = uart_tx;
 
    //*************************************
    // Uncomment when addressing the issue
@@ -137,14 +128,7 @@ module top
 
       .o_psram_csn(o_psram_csn),
       .o_psram_sclk(o_psram_sclk),
-      .io_psram_data0(io_psram_data0),
-      .io_psram_data1(io_psram_data1),
-      .io_psram_data2(io_psram_data2),
-      .io_psram_data3(io_psram_data3),
-      .io_psram_data4(io_psram_data4),
-      .io_psram_data5(io_psram_data5),
-      .io_psram_data6(io_psram_data6),
-      .io_psram_data7(io_psram_data7)
+      .io_psram_data(io_psram_data)
    ); 
 
    //----------------------------------------------------------

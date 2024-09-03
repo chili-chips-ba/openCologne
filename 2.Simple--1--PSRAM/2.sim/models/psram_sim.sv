@@ -40,16 +40,8 @@ module psram_sim (
     input   logic psram_sclk,
     input   logic arst_n,
 
-    inout   wire  io_psram_data0,
-    inout   wire io_psram_data1,
-    inout   wire io_psram_data2,
-    inout   wire io_psram_data3,
-    inout   wire io_psram_data4,
-    inout   wire io_psram_data5,
-    inout   wire io_psram_data6,
-    inout   wire io_psram_data7
+    inout   wire [7:0] io_psram_data
 );
-
 
 typedef enum logic [5:0] {
     RESET_JUST_NOW = 0,
@@ -97,8 +89,7 @@ logic [23:0] addr ;
 logic [7:0] psram_mem_ary [2**23:0]; // 2^24 locations of 8 bits;
 
 
-assign data_to_chip = {io_psram_data7, io_psram_data6, io_psram_data5, io_psram_data4, 
-    io_psram_data3, io_psram_data2, io_psram_data1, io_psram_data0};
+assign data_to_chip = io_psram_data;
 
 
 always_ff @(posedge psram_sclk or negedge arst_n) begin 
@@ -249,15 +240,7 @@ assign data_read = (psram_state == READ_DATA_7_4)? psram_mem_ary[addr] :
 
 assign oe = (psram_state == READ_DATA_7_4) | (psram_state == READ_DATA_3_0);
 
-assign io_psram_data0 = oe? data_read[0] : 1'bz;
-assign io_psram_data1 = oe? data_read[1] : 1'bz;
-assign io_psram_data2 = oe? data_read[2] : 1'bz;
-assign io_psram_data3 = oe? data_read[3] : 1'bz;
-assign io_psram_data4 = oe? data_read[4] : 1'bz;
-assign io_psram_data5 = oe? data_read[5] : 1'bz;
-assign io_psram_data6 = oe? data_read[6] : 1'bz;
-assign io_psram_data7 = oe? data_read[7] : 1'bz;
-
+assign io_psram_data = oe? data_read : 8'bz;
 
 endmodule
 /*
