@@ -101,7 +101,7 @@ module tb #(
    logic led;
    logic sent;
    
-   logic io_psram_data0, io_psram_data1, io_psram_data2, io_psram_data3, io_psram_data4, io_psram_data5, io_psram_data6 , io_psram_data7;
+   wire io_psram_data0, io_psram_data1, io_psram_data2, io_psram_data3, io_psram_data4, io_psram_data5, io_psram_data6 , io_psram_data7;
    logic clk_psram,csn;
 //--------------------------------------------------------------
    top dut (
