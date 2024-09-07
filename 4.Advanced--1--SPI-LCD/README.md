@@ -10,11 +10,13 @@ The pictures below show expected results. Also see [this](https://www.linkedin.c
 
 ## 1) GateMate EVB
 simultaneously driving both 1.5" and 0.95" SPI LCD display 
-<img src="https://github.com/user-attachments/assets/0b848695-ef76-469c-b52a-f559f629584c" width="400">
+<img src="https://github.com/user-attachments/assets/f95008b0-0579-4203-8a42-028c8021b3d5" width="400">
+
 
 ## 2) Olimex Board
 simultaneously driving both 1.5" and 0.95" SPI LCD display
-<img src="https://github.com/user-attachments/assets/0143bf72-9290-487f-890b-e4656e350a45" width="400">
+<img src="https://github.com/user-attachments/assets/b7a9971e-d7d6-4a61-9695-492366c72baf" width="400">
+
 
 To reproduce, please note the following tips:
 - Ensure the appropriate initialization files are available in the project directory and placed in the same folder as the Makefile.
@@ -29,4 +31,9 @@ This example is also supported for:
 - Waveshare [2.4inch](https://www.waveshare.com/product/displays/lcd-oled/lcd-oled-2/2.4inch-lcd-module.htm?___SID=U) LCD Module
 - [2.2inch](http://www.lcdwiki.com/2.2inch_SPI_Module_ILI9341_SKU:MSP2202) MSP2202 SPI LCD with ILI9341 Controller
 
-![waveshare-LCDs](https://github.com/user-attachments/assets/23597aab-5b55-43e9-b3d1-77a3f21017cb)
+
+![wavehsatelcds](https://github.com/user-attachments/assets/f4ccde4b-41a3-4033-bf1c-254728c120ac)
+
+<p align="center" width="100%">
+    <img width="33%" src="https://github.com/user-attachments/assets/b99cc244-f015-4799-a511-f20549269634">
+</p>
