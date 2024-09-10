@@ -82,7 +82,7 @@ typedef enum logic [5:0] {
 
 MachineState psram_state;
 
-logic [2:0] short_delay;
+logic [3:0] short_delay;
 logic [7:0] data_to_chip;
 logic [23:0] addr ;
 
@@ -154,6 +154,7 @@ always_ff @(posedge psram_sclk or negedge arst_n) begin
             READ_ADDR_3_0: begin
                 addr [3:0] <= data_to_chip[3:0];
                 psram_state <= READ_WAIT;
+                short_delay <= '0;
             end
             // read wait: done
             READ_WAIT: begin
@@ -249,4 +250,6 @@ Version History:
 -----------------------------------------------------------------------------
  2024/8/17 Tarik Ibrahimovic: initial creation
  2024/8/25 Tarik Ibrahimovic: code correcting
+ 2024/09/10 Tarik Ibrahimovic: bug fix
+
 */
