@@ -88,9 +88,7 @@ module i2c_ctrl (
 								scl_di <= 1'b1;
 								process_cnt <= 2'd1;
 							end
-							2'd1:
-								if (scl_do == 1'b1)
-									process_cnt <= 2'd2;
+							2'd1: process_cnt <= 2'd2;
 							2'd2: begin
 								scl_di <= 1'b0;
 								bit_cnt <= bit_cnt_dec;
@@ -116,9 +114,7 @@ module i2c_ctrl (
 								scl_di <= 1'b1;
 								process_cnt <= 2'd1;
 							end
-							2'd1:
-								if (scl_do == 1'b1)
-									process_cnt <= 2'd2;
+							2'd1: process_cnt <= 2'd2;
 							2'd2: begin
 								scl_di <= 1'b0;
 								if (sda_do == 1'b0)
@@ -144,9 +140,7 @@ module i2c_ctrl (
 								scl_di <= 1'b1;
 								process_cnt <= 2'd1;
 							end
-							2'd1:
-								if (scl_do == 1'b1)
-									process_cnt <= 2'd2;
+							2'd1: process_cnt <= 2'd2;
 							2'd2: begin
 								scl_di <= 1'b0;
 								bit_cnt <= bit_cnt_dec;
@@ -172,9 +166,7 @@ module i2c_ctrl (
 								scl_di <= 1'b1;
 								process_cnt <= 2'd1;
 							end
-							2'd1:
-								if (scl_do == 1'b1)
-									process_cnt <= 2'd2;
+							2'd1: process_cnt <= 2'd2;
 							2'd2: begin
 								scl_di <= 1'b0;
 								bit_cnt <= bit_cnt_dec;
@@ -200,9 +192,7 @@ module i2c_ctrl (
 								scl_di <= 1'b1;
 								process_cnt <= 2'd1;
 							end
-							2'd1:
-								if (scl_do == 1'b1)
-									process_cnt <= 2'd2;
+							2'd1: process_cnt <= 2'd2;
 							2'd2: begin
 								sda_di <= 1'b1;
 								process_cnt <= 2'd3;
@@ -218,9 +208,7 @@ module i2c_ctrl (
 								scl_di <= 1'b1;
 								process_cnt <= 2'd1;
 							end
-							2'd1:
-								if (scl_do == 1'b1)
-									process_cnt <= 2'd2;
+							2'd1: process_cnt <= 2'd2;
 							2'd2: begin
 								sda_di <= 1'b1;
 								process_cnt <= 2'd3;

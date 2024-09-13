@@ -1,0 +1,408 @@
+         1  LUT2  8  AB
+         2  LUT2  4  aB
+         3  LUT3  E0  C/ab\
+         4  LUT2  6  A^B
+         5  LUT2  4  aB
+         6  LUT2  1  ab
+         7  LUT2  4  aB
+         8  LUT2  8  AB
+         9  LUT4  10E8  AC?0:Bd:B^D:d
+        10  LUT4  1008  AB?CD:0:0:cd
+        11  LUT4  02C0  BD?0:C:Ac:0
+        12  LUT4  23A2  AB?cD:1:0:Cd
+        13  LUT4  7E03  BD?c:0:/ac\:/AC\
+        14  LUT4  EA37  AB?d:1:c^D:D
+        15  LUT4  E106  DC?A^B:ab:0:/ab\
+        16  LUT4  1C02  BD?Ac:0:aC:c
+        17  LUT3  3E  BC?A:1:1:0
+        18  LUT4  97E0  AB?D:C^D:C^D:C
+        19  LUT4  D3FF  (BC?1:0:a:1)+d
+        20  LUT2  4  aB
+        21  LUT2  4  aB
+        22  LUT2  9  a^B
+        23  LUT2  9  a^B
+        24  LUT2  4  aB
+        25  LUT2  8  AB
+        26  LUT2  1  ab
+        27  LUT2  4  aB
+        28  LUT3  BC  BC?0:1:1:A
+        29  LUT2  6  A^B
+        30  LUT2  B  /aB\
+        31  LUT2  1  ab
+        32  LUT3  F8  (AB)+C
+        33  LUT3  CA  C?A:B
+        34  LUT3  96  A^B^C
+        35  LUT3  CA  C?A:B
+        36  LUT3  CA  C?A:B
+        37  LUT3  CA  C?A:B
+        38  LUT3  CA  C?A:B
+        39  LUT3  CA  C?A:B
+        40  LUT3  CA  C?A:B
+        41  LUT3  CA  C?A:B
+        42  LUT3  CA  C?A:B
+        43  LUT3  CA  C?A:B
+        44  LUT3  CA  C?A:B
+        45  LUT3  CA  C?A:B
+        46  LUT3  CA  C?A:B
+        47  LUT3  CA  C?A:B
+        48  LUT3  CA  C?A:B
+        49  LUT3  CA  C?A:B
+        50  LUT2  4  aB
+        51  LUT2  E  /ab\
+        52  LUT2  7  /AB\
+        53  LUT3  97  AB?1:c:c:C
+        54  LUT2  4  aB
+        55  LUT3  BD  AB?1:C:c:1
+        56  LUT2  E  /ab\
+        57  LUT2  1  ab
+        58  LUT2  8  AB
+        59  LUT3  3A  c?b:A
+        60  LUT3  E3  BC?1:0:A:1
+        61  LUT3  3A  c?b:A
+        62  LUT2  4  aB
+        63  LUT3  3A  c?b:A
+        64  LUT3  6F  (A^B)+c
+        65  LUT3  3A  c?b:A
+        66  LUT3  1C  BC?0:1:a:0
+        67  LUT3  3A  c?b:A
+        68  LUT3  BE  /(B^c)a\
+        69  LUT3  3A  c?b:A
+        70  LUT3  7C  BC?0:1:1:a
+        71  LUT2  E  /ab\
+        72  LUT3  AC  c?A:B
+        73  LUT3  CA  C?A:B
+        74  LUT3  CA  C?A:B
+        75  LUT3  CA  C?A:B
+        76  LUT3  CA  C?A:B
+        77  LUT3  CA  C?A:B
+        78  LUT3  CA  C?A:B
+        79  LUT3  CA  C?A:B
+        80  LUT3  CA  C?A:B
+        81  LUT3  CA  C?A:B
+        82  LUT3  CA  C?A:B
+        83  LUT3  CA  C?A:B
+        84  LUT3  80  ABC
+        85  LUT3  CA  C?A:B
+        86  LUT3  CA  C?A:B
+        87  LUT3  CA  C?A:B
+        88  LUT3  CA  C?A:B
+        89  LUT3  CA  C?A:B
+        90  LUT3  CA  C?A:B
+        91  LUT2  9  a^B
+        92  LUT2  4  aB
+        93  LUT2  8  AB
+        94  LUT2  4  aB
+        95  LUT3  80  ABC
+        96  LUT3  10  abC
+        97  LUT2  4  aB
+        98  LUT2  4  aB
+        99  LUT2  4  aB
+       100  LUT2  4  aB
+       101  LUT2  4  aB
+       102  LUT2  E  /ab\
+       103  LUT3  10  abC
+       104  LUT4  0001  abcd
+       105  LUT2  4  aB
+       106  LUT2  E  /ab\
+       107  LUT2  E  /ab\
+       108  LUT2  8  AB
+       109  LUT2  E  /ab\
+       110  LUT2  E  /ab\
+       111  LUT2  8  AB
+       112  LUT2  8  AB
+       113  LUT2  8  AB
+       114  LUT2  8  AB
+       115  LUT2  8  AB
+       116  LUT2  8  AB
+       117  LUT2  8  AB
+       118  LUT2  8  AB
+       119  LUT2  8  AB
+       120  LUT3  69  A^B^c
+       121  LUT3  71  AB?1:C:C:0
+       122  LUT4  9669  A^B^c^D
+       123  LUT2  1  ab
+       124  LUT4  8E71  (AB?1:C:C:0)^D
+       125  LUT3  69  A^B^c
+       126  LUT4  8E71  (AB?1:C:C:0)^D
+       127  LUT3  69  A^B^c
+       128  LUT4  8E71  (AB?1:C:C:0)^D
+       129  LUT3  69  A^B^c
+       130  LUT4  8E71  (AB?1:C:C:0)^D
+       131  LUT3  69  A^B^c
+       132  LUT4  8E71  (AB?1:C:C:0)^D
+       133  LUT3  69  A^B^c
+       134  LUT4  8E71  (AB?1:C:C:0)^D
+       135  LUT3  69  A^B^c
+       136  LUT4  8E71  (AB?1:C:C:0)^D
+       137  LUT3  69  A^B^c
+       138  LUT3  69  A^B^c
+       139  LUT3  71  AB?1:C:C:0
+       140  LUT4  9669  A^B^c^D
+       141  LUT2  1  ab
+       142  LUT4  8E71  (AB?1:C:C:0)^D
+       143  LUT3  69  A^B^c
+       144  LUT4  8E71  (AB?1:C:C:0)^D
+       145  LUT3  69  A^B^c
+       146  LUT4  8E71  (AB?1:C:C:0)^D
+       147  LUT3  69  A^B^c
+       148  LUT4  8E71  (AB?1:C:C:0)^D
+       149  LUT3  69  A^B^c
+       150  LUT4  8E71  (AB?1:C:C:0)^D
+       151  LUT3  69  A^B^c
+       152  LUT4  8E71  (AB?1:C:C:0)^D
+       153  LUT3  69  A^B^c
+       154  LUT4  8E71  (AB?1:C:C:0)^D
+       155  LUT3  69  A^B^c
+       156  LUT2  4  aB
+       157  LUT4  4000  aBCD
+       158  LUT2  8  AB
+       159  LUT4  0001  abcd
+       160  LUT4  0001  abcd
+       161  LUT4  0001  abcd
+       162  LUT4  0001  abcd
+       163  LUT4  0001  abcd
+       164  LUT4  3533  DC?b:a:b:b
+       165  LUT4  3533  DC?b:a:b:b
+       166  LUT2  6  A^B
+       167  LUT4  0100  abcD
+       168  LUT3  80  ABC
+       169  LUT2  8  AB
+       170  LUT3  80  ABC
+       171  LUT3  10  abC
+       172  LUT2  8  AB
+       173  LUT4  6996  A^B^c^d
+       174  LUT3  14  (B^C)a
+       175  LUT3  4B  (aB)^c
+       176  LUT3  69  A^B^c
+       177  LUT4  7117  AB?1:c^D:c^D:0
+       178  LUT3  71  AB?1:C:C:0
+       179  LUT3  71  AB?1:C:C:0
+       180  LUT3  69  A^B^c
+       181  LUT4  5CFF  (c?a:B)+d
+       182  LUT4  E11E  (ab)^c^D
+       183  LUT3  53  C?b:a
+       184  LUT3  2B  AB?c:1:0:c
+       185  LUT3  96  A^B^C
+       186  LUT3  69  A^B^c
+       187  LUT3  E8  AB?0:C:C:1
+       188  LUT3  69  A^B^c
+       189  LUT4  5CFF  (c?a:B)+d
+       190  LUT3  35  c?b:a
+       191  LUT3  96  A^B^C
+       192  LUT3  17  AB?1:c:c:0
+       193  LUT3  71  AB?1:C:C:0
+       194  LUT3  2B  AB?c:1:0:c
+       195  LUT3  69  A^B^c
+       196  LUT3  E8  AB?0:C:C:1
+       197  LUT3  69  A^B^c
+       198  LUT4  35FF  (c?b:a)+d
+       199  LUT3  35  c?b:a
+       200  LUT3  96  A^B^C
+       201  LUT3  17  AB?1:c:c:0
+       202  LUT3  71  AB?1:C:C:0
+       203  LUT3  2B  AB?c:1:0:c
+       204  LUT3  69  A^B^c
+       205  LUT3  E8  AB?0:C:C:1
+       206  LUT3  69  A^B^c
+       207  LUT4  35FF  (c?b:a)+d
+       208  LUT3  35  c?b:a
+       209  LUT3  96  A^B^C
+       210  LUT3  17  AB?1:c:c:0
+       211  LUT3  71  AB?1:C:C:0
+       212  LUT3  2B  AB?c:1:0:c
+       213  LUT3  69  A^B^c
+       214  LUT3  E8  AB?0:C:C:1
+       215  LUT3  69  A^B^c
+       216  LUT4  35FF  (c?b:a)+d
+       217  LUT3  35  c?b:a
+       218  LUT3  96  A^B^C
+       219  LUT3  17  AB?1:c:c:0
+       220  LUT3  71  AB?1:C:C:0
+       221  LUT3  2B  AB?c:1:0:c
+       222  LUT3  69  A^B^c
+       223  LUT3  E8  AB?0:C:C:1
+       224  LUT3  69  A^B^c
+       225  LUT4  35FF  (c?b:a)+d
+       226  LUT3  35  c?b:a
+       227  LUT3  96  A^B^C
+       228  LUT3  17  AB?1:c:c:0
+       229  LUT3  71  AB?1:C:C:0
+       230  LUT3  2B  AB?c:1:0:c
+       231  LUT3  69  A^B^c
+       232  LUT3  E8  AB?0:C:C:1
+       233  LUT3  69  A^B^c
+       234  LUT4  3AFF  (c?b:A)+d
+       235  LUT2  1  ab
+       236  LUT3  96  A^B^C
+       237  LUT3  17  AB?1:c:c:0
+       238  LUT3  71  AB?1:C:C:0
+       239  LUT3  2B  AB?c:1:0:c
+       240  LUT2  6  A^B
+       241  LUT4  718E  (AB?1:C:C:0)^d
+       242  LUT3  96  A^B^C
+       243  LUT3  17  AB?1:c:c:0
+       244  LUT3  71  AB?1:C:C:0
+       245  LUT3  07  c/AB\
+       246  LUT4  1403  BC?d:aD:aD:0
+       247  LUT2  6  A^B
+       248  LUT4  718E  (AB?1:C:C:0)^d
+       249  LUT3  96  A^B^C
+       250  LUT3  17  AB?1:c:c:0
+       251  LUT3  69  A^B^c
+       252  LUT3  96  A^B^C
+       253  LUT3  96  A^B^C
+       254  LUT3  96  A^B^C
+       255  LUT3  96  A^B^C
+       256  LUT3  96  A^B^C
+       257  LUT3  96  A^B^C
+       258  LUT3  96  A^B^C
+       259  LUT3  96  A^B^C
+       260  LUT3  69  A^B^c
+       261  LUT3  07  c/AB\
+       262  LUT4  1403  BC?d:aD:aD:0
+       263  LUT4  8E71  (AB?1:C:C:0)^D
+       264  LUT4  6996  A^B^c^d
+       265  LUT3  17  AB?1:c:c:0
+       266  LUT3  14  (B^C)a
+       267  LUT4  1711  AB?1:cD:cD:0
+       268  LUT2  9  a^B
+       269  LUT3  2B  AB?c:1:0:c
+       270  LUT3  69  A^B^c
+       271  LUT3  14  (B^C)a
+       272  LUT3  2B  AB?c:1:0:c
+       273  LUT2  9  a^B
+       274  LUT3  2B  AB?c:1:0:c
+       275  LUT3  69  A^B^c
+       276  LUT3  14  (B^C)a
+       277  LUT3  2B  AB?c:1:0:c
+       278  LUT2  9  a^B
+       279  LUT3  2B  AB?c:1:0:c
+       280  LUT3  69  A^B^c
+       281  LUT3  14  (B^C)a
+       282  LUT3  2B  AB?c:1:0:c
+       283  LUT2  9  a^B
+       284  LUT3  2B  AB?c:1:0:c
+       285  LUT3  69  A^B^c
+       286  LUT3  14  (B^C)a
+       287  LUT2  9  a^B
+       288  LUT3  2B  AB?c:1:0:c
+       289  LUT3  69  A^B^c
+       290  LUT3  69  A^B^c
+       291  LUT3  69  A^B^c
+       292  LUT3  69  A^B^c
+       293  LUT3  69  A^B^c
+       294  LUT3  14  (B^C)a
+       295  LUT3  71  AB?1:C:C:0
+       296  LUT4  0BB0  /aB\(D^C)
+       297  LUT3  2C  BC?0:1:A:0
+       298  LUT3  2C  BC?0:1:A:0
+       299  LUT3  2C  BC?0:1:A:0
+       300  LUT3  71  AB?1:C:C:0
+       301  LUT2  4  aB
+       302  LUT4  0001  abcd
+       303  LUT3  69  A^B^c
+       304  LUT3  9F  (a^B)+c
+       305  LUT4  69FF  (A^B^c)+d
+       306  LUT4  FF8E  (AB?0:c:c:1)+D
+       307  LUT4  FF8E  (AB?0:c:c:1)+D
+       308  LUT4  FF8E  (AB?0:c:c:1)+D
+       309  LUT4  FF8E  (AB?0:c:c:1)+D
+       310  LUT4  FF8E  (AB?0:c:c:1)+D
+       311  LUT4  FF8E  (AB?0:c:c:1)+D
+       312  LUT4  FF8E  (AB?0:c:c:1)+D
+       313  LUT3  69  A^B^c
+       314  LUT4  B44B  (aB)^c^D
+       315  LUT3  87  (AB)^c
+       316  LUT3  87  (AB)^c
+       317  LUT3  87  (AB)^c
+       318  LUT2  B  /aB\
+       319  LUT3  96  A^B^C
+       320  LUT3  14  (B^C)a
+       321  LUT3  71  AB?1:C:C:0
+       322  LUT4  0BB0  /aB\(D^C)
+       323  LUT3  2C  BC?0:1:A:0
+       324  LUT3  2C  BC?0:1:A:0
+       325  LUT3  2C  BC?0:1:A:0
+       326  LUT3  71  AB?1:C:C:0
+       327  LUT2  4  aB
+       328  LUT4  0001  abcd
+       329  LUT3  69  A^B^c
+       330  LUT3  9F  (a^B)+c
+       331  LUT4  69FF  (A^B^c)+d
+       332  LUT4  FF8E  (AB?0:c:c:1)+D
+       333  LUT4  FF8E  (AB?0:c:c:1)+D
+       334  LUT4  FF8E  (AB?0:c:c:1)+D
+       335  LUT4  FF8E  (AB?0:c:c:1)+D
+       336  LUT4  FF8E  (AB?0:c:c:1)+D
+       337  LUT4  FF8E  (AB?0:c:c:1)+D
+       338  LUT4  FF8E  (AB?0:c:c:1)+D
+       339  LUT3  69  A^B^c
+       340  LUT4  B44B  (aB)^c^D
+       341  LUT3  87  (AB)^c
+       342  LUT3  87  (AB)^c
+       343  LUT3  87  (AB)^c
+       344  LUT2  B  /aB\
+       345  LUT3  96  A^B^C
+       346  LUT1   1  a       deleted
+       347  LUT1   1  a       deleted
+       348  LUT1   1  a       deleted
+       349  LUT1   1  a       deleted
+       350  LUT1   1  a       deleted
+       351  LUT1   1  a       deleted
+       352  LUT1   1  a       deleted
+       353  LUT1   1  a       deleted
+       354  LUT1   1  a       deleted
+       355  LUT1   1  a       deleted
+       356  LUT1   1  a       deleted
+       357  LUT1   1  a       deleted
+       358  LUT1   1  a       deleted
+       359  LUT1   1  a       deleted
+       360  LUT1   1  a       deleted
+       361  LUT1   1  a       deleted
+       362  LUT1   1  a       deleted
+       363  LUT1   1  a       deleted
+       364  LUT1   1  a       deleted
+       365  LUT1   1  a       deleted
+       366  LUT1   1  a       deleted
+       367  LUT1   1  a       deleted
+       368  LUT1   1  a       deleted
+       369  LUT1   1  a       deleted
+       370  LUT1   1  a       deleted
+       371  LUT1   1  a       deleted
+       372  LUT1   1  a       deleted
+       373  LUT1   1  a       deleted
+       374  LUT1   1  a       deleted
+       375  LUT1   1  a       deleted
+       376  LUT1   1  a       deleted
+       377  LUT1   1  a       deleted
+       378  LUT1   1  a       deleted
+       379  LUT1   1  a       deleted
+       380  LUT1   1  a       deleted
+       381  LUT1   1  a       deleted
+       382  LUT1   1  a       deleted
+       383  LUT1   1  a       deleted
+       384  LUT1   1  a       deleted
+       385  LUT1   1  a       deleted
+       386  LUT1   1  a       deleted
+       387  LUT1   1  a       deleted
+       388  LUT1   1  a       deleted
+       389  LUT1   1  a       deleted
+       390  LUT1   1  a       deleted
+       391  LUT1   1  a       deleted
+       392  LUT1   1  a       deleted
+       393  LUT1   1  a       deleted
+       394  LUT1   1  a       deleted
+       395  LUT1   1  a       deleted
+       396  LUT1   1  a       deleted
+       397  LUT1   1  a       deleted
+       398  LUT1   1  a       deleted
+       399  LUT1   1  a       deleted
+       400  LUT1   1  a       deleted
+       401  LUT1   1  a       deleted
+       402  LUT1   1  a       deleted
+       403  LUT1   1  a       deleted
+       404  LUT1   1  a       deleted
+       405  LUT1   1  a       deleted
+       406  LUT1   1  a       deleted
+       407  LUT1   1  a       deleted
+       408  LUT1   1  a       deleted

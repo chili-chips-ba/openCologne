@@ -1,0 +1,24 @@
+0001   2 abc
+0007   4 c/AB\
+000D   9 c/Ab\
+000E   1 c/ab\
+0010   5 abC
+0035  19 c?b:a
+0040   9 aBC
+004F   1 (aB)+c
+0053   1 C?b:a
+005C   1 c?a:B
+0060   2 C(A^B)
+0070   2 C/AB\
+0080  12 ABC
+0090   3 C(a^B)
+009F   1 (a^B)+c
+00AC   2 c?A:B
+00B0   2 C/aB\
+00C5   4 C?a:B
+00CA   5 C?A:B
+00D0   2 C/Ab\
+00E0   2 C/ab\
+00F4   1 (aB)+C
+00F8   2 (AB)+C
+ Gesamt:   92 DS4:     0

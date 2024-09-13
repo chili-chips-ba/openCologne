@@ -147,9 +147,12 @@ module i2c_ctrl (
                   end
                   2'd1: begin
                      //check for clock stretching
+                     /*
                      if (scl_do == 1'b1) begin
                         process_cnt <= 2'd2;
                      end
+                     */
+                     process_cnt <= 2'd2;
                   end
                   2'd2: begin
                      scl_di      <= 1'b0;
@@ -182,13 +185,15 @@ module i2c_ctrl (
                   end
                   2'd1: begin
                      //check for clock stretching
+                     /*
                      if (scl_do == 1'b1) begin
                         process_cnt <= 2'd2;
                      end
+                     */
+                     process_cnt <= 2'd2;
                   end
                   2'd2: begin
                      scl_di <= 1'b0;
-
                      if (sda_do == 1'b0) begin
                         acknowledge_bit <= 1'b1;
                      end
@@ -217,9 +222,12 @@ module i2c_ctrl (
                   end
                   2'd1: begin
                      //check for clock stretching
+                     /*
                      if (scl_do == 1'b1) begin
                         process_cnt <= 2'd2;
                      end
+                     */
+                     process_cnt <= 2'd2;
                   end
                   2'd2: begin
                      scl_di      <= 1'b0;
@@ -251,9 +259,12 @@ module i2c_ctrl (
                   end
                   2'd1: begin
                      //check for clock stretching
+                     /*
                      if (scl_do == 1'b1) begin
                         process_cnt <= 2'd2;
                      end
+                     */
+                     process_cnt <= 2'd2;
                   end
                   2'd2: begin
                      scl_di      <= 1'b0;
@@ -284,9 +295,12 @@ module i2c_ctrl (
                   end
                   2'd1: begin
                      //check for clock stretching
+                     /*
                      if (scl_do == 1'b1) begin
                         process_cnt <= 2'd2;
                      end
+                     */
+                     process_cnt <= 2'd2;
                   end
                   2'd2: begin
                      sda_di        <= 1'b1;
@@ -308,9 +322,12 @@ module i2c_ctrl (
                   end
                   2'd1: begin
                      //check for clock stretching
+                     /*
                      if (scl_do == 1'b1) begin
                         process_cnt <= 2'd2;
                      end
+                     */
+                     process_cnt <= 2'd2;
                   end
                   2'd2: begin
                      sda_di      <= 1'b1;

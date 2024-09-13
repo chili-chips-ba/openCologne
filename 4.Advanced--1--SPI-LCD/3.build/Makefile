@@ -36,7 +36,8 @@ YOSYSGHDL = /usr/local/bin/yosys$(EXE)
 #YOSYS = $(TOOL_ROOT)/yosys/yosys For newer version of YOSYS
 PR = $(CC_TOOL)/bin/p_r/p_r$(EXE)
 #OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE) # Path to OFL needs to be latest version of OFL or you will get errors when programming the board
-OFL = $(TOOL_ROOT)/openFPGALoader/build/openFPGALoader$(EXE)
+#OFL = $(TOOL_ROOT)/openFPGALoader/build/openFPGALoader$(EXE)
+OFL = openFPGALoader
 
 # Simulation Tools and Flags
 GTKW = gtkwave
