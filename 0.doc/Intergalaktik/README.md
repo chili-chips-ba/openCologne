@@ -10,7 +10,7 @@ In this project, we are using the DIYMORE-5102 board. Unfortunately, a dedicated
 
 ## I2S Mic Board
 
-The I2S Mic Extension Board can be found on [ulx3s-extensions](https://github.com/goran-mahovlic/ulx3s-extensions/tree/master/I2S_MIC). All of the KiCAD files are available to view. The [schematic](https://github.com/chili-chips-ba/openCologne/blob/main/0.doc/Intergalaktik/i2c_mic_schematic.pdf) and [microphone chip](https://github.com/chili-chips-ba/openCologne/blob/main/0.doc/Intergalaktik/i2s_mic_datasheet.PDF) are placed in the documentation folder. 
+The I2S Mic Extension Board can be found on [ulx3s-extensions](https://github.com/goran-mahovlic/ulx3s-extensions/tree/master/I2S_MIC). All of the KiCAD files are available to view. The [schematic](https://github.com/chili-chips-ba/openCologne/blob/main/0.doc/Intergalaktik/i2s_mic_schematic.pdf) and [microphone chip](https://github.com/chili-chips-ba/openCologne/blob/main/0.doc/Intergalaktik/i2s_mic_datasheet.PDF) are placed in the documentation folder. 
 
 Below are shown the front and back of the I2C Mic Board from KiCad 3D view. 
 
