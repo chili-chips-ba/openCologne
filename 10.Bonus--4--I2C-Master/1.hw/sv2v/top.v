@@ -10,11 +10,11 @@ module top (
 	output wire led;
 	inout wire i2c_scl;
 	inout wire i2c_sda;
-	localparam integer NUM_CLK_FOR_100kHZ = 50;
+	localparam integer NUM_CLK_FOR_100kHZ = 100;
 	reg strobe_100kHz;
-	reg [5:0] cnt_100kHz;
-	function automatic [5:0] sv2v_cast_0E791;
-		input reg [5:0] inp;
+	reg [6:0] cnt_100kHz;
+	function automatic [6:0] sv2v_cast_0E791;
+		input reg [6:0] inp;
 		sv2v_cast_0E791 = inp;
 	endfunction
 	always @(posedge clk_10MHz or negedge areset_n)
@@ -32,7 +32,7 @@ module top (
 		end
 	localparam integer COUNTER_WIDTH = 24;
 	reg [COUNTER_WIDTH - 1:0] counter;
-	always @(posedge clk_10MHz)
+	always @(posedge clk_10MHz or negedge areset_n)
 		if (areset_n == 1'b0)
 			counter <= 1'sb0;
 		else
@@ -45,4 +45,8 @@ module top (
 		.i2c_scl(i2c_scl),
 		.i2c_sda(i2c_sda)
 	);
+	initial begin
+		$dumpfile("top_waves.vcd");
+		$dumpvars;
+	end
 endmodule

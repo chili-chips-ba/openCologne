@@ -1,0 +1,4552 @@
+(DELAYFILE
+  (SDFVERSION "3.0")
+  (DESIGN "top_00")
+  (DATE "2024-08-31 21:45:56")
+  (VENDOR "Cologne Chip")
+  (PROGRAM "Cologne Chip SDF Writer")
+  (VERSION "3.0")
+  (DIVIDER /)
+  (VOLTAGE 1.14)
+  (TIMESCALE 1 ps)
+//  TIMING MODE: WORST SPEED
+ // CLKIN    Pos: x0y0
+  (CELL (CELLTYPE "CLKIN")
+    (INSTANCE _a1)
+      (DELAY
+        (ABSOLUTE
+          (IOPATH CLK0 PCLK0 (1619:1623:1627)(1515:1521:1528))
+    )))
+ // C_AND////D    Pos: x30y120
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a2_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (918:1056:1197)(940:1073:1208))
+          (PORT IN2 (570:652:735)(590:667:744))
+          (PORT IN3 (581:670:761)(571:646:723))
+          (PORT IN4 (1144:1278:1416)(1166:1290:1419))
+          (PORT IN5 (940:1072:1207)(964:1088:1217))
+          (PORT IN6 (769:855:943)(756:834:915))
+          (PORT IN7 (549:635:722)(537:610:685))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:530:580))  // in 1 out 1
+          (IOPATH IN2 OUT (514:562:610)(510:561:613))  // in 2 out 1
+          (IOPATH IN3 OUT (446:477:508)(448:494:540))  // in 3 out 1
+          (IOPATH IN4 OUT (469:507:545)(486:532:578))  // in 4 out 1
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a2_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (987:1091:1196)(993:1082:1174))
+          (PORT SR (2050:2240:2433)(2154:2332:2512))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/D//AND/D    Pos: x29y122
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a4_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (569:641:715)(570:632:696))
+          (PORT IN8 (731:826:922)(759:848:940))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (355:367:381)(328:373:420))  // in 5 out 1
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a4_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (919:1032:1148)(909:1003:1098))
+          (PORT SR (2479:2706:2936)(2622:2836:3052))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a4_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (887:996:1108)(871:962:1055))
+          (PORT IN4 (555:627:700)(559:621:685))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (456:514:574)(451:518:585))  // in 2 out 2
+          (IOPATH IN4 OUT (412:471:532)(427:484:542))  // in 4 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a4_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (919:1032:1148)(909:1003:1098))
+          (PORT SR (2479:2706:2936)(2622:2836:3052))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/D//AND/D    Pos: x30y123
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a5_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (553:640:729)(544:622:702))
+          (PORT IN8 (917:1035:1155)(966:1083:1202))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (355:367:381)(328:373:420))  // in 5 out 1
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a5_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (789:858:929)(798:858:920))
+          (PORT SR (2304:2507:2713)(2431:2618:2807))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a5_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1105:1241:1378)(1136:1266:1400))
+          (PORT IN4 (728:823:919)(757:846:937))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (456:514:574)(451:518:585))  // in 2 out 2
+          (IOPATH IN4 OUT (412:471:532)(427:484:542))  // in 4 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a5_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (789:858:929)(798:858:920))
+          (PORT SR (2304:2507:2713)(2431:2618:2807))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/D//AND/D    Pos: x31y117
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a8_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (990:1110:1232)(1036:1154:1275))
+          (PORT IN8 (1044:1177:1312)(1042:1163:1287))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (355:367:381)(328:373:420))  // in 5 out 1
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a8_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (904:982:1062)(923:993:1065))
+          (PORT SR (1826:1988:2152)(1918:2065:2214))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a8_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1280:1465:1652)(1338:1520:1704))
+          (PORT IN4 (1225:1381:1539)(1243:1391:1543))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (428:486:545)(421:487:554))  // in 1 out 2
+          (IOPATH IN4 OUT (412:471:532)(427:484:542))  // in 4 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a8_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (904:982:1062)(923:993:1065))
+          (PORT SR (1826:1988:2152)(1918:2065:2214))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///AND/D    Pos: x32y126
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a9_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1265:1421:1581)(1306:1457:1613))
+          (PORT IN4 (1297:1439:1585)(1310:1433:1559))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (428:486:545)(421:487:554))  // in 1 out 2
+          (IOPATH IN4 OUT (412:471:532)(427:484:542))  // in 4 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a9_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (798:883:970)(789:862:935))
+          (PORT SR (2334:2536:2741)(2467:2654:2844))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/DST///    Pos: x43y122
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a10_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (409:467:527)(390:439:488))
+          (PORT IN8 (2048:2317:2592)(2135:2395:2661))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (355:367:381)(328:373:420))  // in 5 out 1
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_DST")
+    (INSTANCE _a10_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1449:1578:1709)(1454:1566:1681))
+          (PORT EN (1648:1834:2024)(1684:1861:2043))
+          (PORT SR (2430:2656:2889)(2537:2749:2968))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND////    Pos: x36y116
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a12_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1039:1192:1348)(1061:1207:1357))
+          (PORT IN8 (1391:1554:1721)(1415:1568:1725))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_MX4a////    Pos: x38y116
+  (CELL (CELLTYPE "C_MX4a")
+    (INSTANCE _a13_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1691:1893:2099)(1736:1932:2132))
+          (PORT IN3 (922:1030:1139)(925:1019:1116))
+          (PORT IN5 (597:683:770)(594:674:755))
+          (PORT IN8 (588:672:758)(587:666:747))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (487:497:508)(428:437:446))  // in 2 out 1
+          (IOPATH IN3 OUT (503:514:525)(423:432:442))  // in 3 out 1
+          (IOPATH IN5 OUT (456:489:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN8 OUT (413:452:491)(426:463:501))  // in 8 out 1
+    )))
+ // C_///AND/    Pos: x36y112
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a14_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1119:1259:1400)(1160:1283:1411))
+          (PORT IN3 (592:676:762)(585:661:739))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+    )))
+ // C_ORAND/DST///    Pos: x42y114
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a15_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1029:1161:1297)(1028:1147:1270))
+          (PORT IN3 (607:681:756)(599:659:720))
+          (PORT IN5 (1198:1330:1467)(1207:1327:1449))
+          (PORT IN7 (743:857:973)(736:831:929))
+          (PORT IN8 (901:1024:1150)(922:1040:1162))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (391:429:468)(385:434:485))  // in 2 out 1
+          (IOPATH IN3 OUT (323:344:366)(323:367:412))  // in 3 out 1
+          (IOPATH IN5 OUT (355:367:381)(328:373:420))  // in 5 out 1
+          (IOPATH IN7 OUT (272:298:325)(266:305:346))  // in 7 out 1
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_DST")
+    (INSTANCE _a15_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (929:1003:1078)(942:1006:1071))
+          (PORT EN (764:853:944)(755:828:903))
+          (PORT SR (2191:2394:2603)(2273:2459:2652))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_MX2b////    Pos: x42y117
+  (CELL (CELLTYPE "C_MX2b")
+    (INSTANCE _a16_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (702:806:912)(715:811:910))
+          (PORT IN5 (1082:1227:1376)(1146:1286:1429))
+          (PORT IN6 (1060:1213:1368)(1097:1233:1371))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+    )))
+ // C_MX4a////    Pos: x37y116
+  (CELL (CELLTYPE "C_MX4a")
+    (INSTANCE _a19_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (862:988:1116)(888:1007:1127))
+          (PORT IN5 (388:443:500)(382:429:478))
+          (PORT IN8 (378:437:497)(370:422:475))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (487:497:508)(428:437:446))  // in 2 out 1
+          (IOPATH IN5 OUT (456:489:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN8 OUT (413:452:491)(426:463:501))  // in 8 out 1
+    )))
+ // C_AND////    Pos: x33y115
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a20_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (817:928:1042)(832:939:1048))
+          (PORT IN6 (1006:1138:1272)(990:1107:1227))
+          (PORT IN7 (1365:1558:1753)(1372:1538:1707))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+    )))
+ // C_AND////D    Pos: x40y116
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a21_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1425:1603:1785)(1451:1621:1795))
+          (PORT IN5 (1064:1195:1329)(1077:1198:1323))
+          (PORT IN6 (1039:1168:1302)(1034:1141:1252))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (469:507:545)(486:532:578))  // in 4 out 1
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a21_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1012:1092:1174)(1029:1099:1169))
+          (PORT EN (1297:1470:1648)(1288:1437:1589))
+          (PORT SR (2588:2842:3101)(2702:2943:3192))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_MX4a////D    Pos: x36y113
+  (CELL (CELLTYPE "C_MX4a")
+    (INSTANCE _a22_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (913:1023:1135)(941:1041:1143))
+          (PORT IN5 (729:836:944)(740:836:935))
+          (PORT IN8 (716:824:933)(722:817:916))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (487:497:508)(428:437:446))  // in 2 out 1
+          (IOPATH IN5 OUT (456:489:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN8 OUT (413:452:491)(426:463:501))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a22_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1014:1088:1164)(1030:1095:1163))
+          (PORT EN (1650:1862:2080)(1732:1938:2149))
+          (PORT SR (2020:2201:2387)(2133:2303:2479))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///ORAND/D    Pos: x41y118
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a23_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (724:820:918)(730:817:906))
+          (PORT IN2 (1325:1465:1609)(1347:1473:1602))
+          (PORT IN3 (1113:1250:1390)(1160:1287:1418))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (428:486:545)(421:487:554))  // in 1 out 2
+          (IOPATH IN2 OUT (456:514:574)(451:518:585))  // in 2 out 2
+          (IOPATH IN3 OUT (389:442:497)(389:446:504))  // in 3 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a23_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1344:1469:1597)(1394:1508:1626))
+          (PORT EN (764:860:958)(754:843:933))
+          (PORT SR (2233:2434:2639)(2382:2576:2774))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_ORAND/D///    Pos: x35y120
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a24_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1806:2047:2290)(1872:2117:2366))
+          (PORT IN7 (1094:1251:1410)(1137:1291:1446))
+          (PORT IN8 (1976:2197:2423)(2088:2306:2531))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (355:367:381)(328:373:420))  // in 5 out 1
+          (IOPATH IN7 OUT (272:298:325)(266:305:346))  // in 7 out 1
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a24_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1241:1365:1489)(1292:1407:1525))
+          (PORT EN (1662:1845:2034)(1722:1900:2082))
+          (PORT SR (1892:2049:2210)(1989:2132:2279))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND////    Pos: x40y113
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a26_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1109:1258:1411)(1138:1273:1412))
+          (PORT IN6 (930:1056:1183)(964:1082:1204))
+          (PORT IN7 (1178:1299:1423)(1194:1302:1413))
+          (PORT IN8 (1568:1742:1922)(1632:1798:1970))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_AND////    Pos: x40y121
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a27_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1251:1418:1586)(1297:1465:1635))
+          (PORT IN8 (1616:1816:2024)(1661:1848:2040))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_AND/D///    Pos: x37y117
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a28_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1089:1244:1402)(1135:1287:1443))
+          (PORT IN6 (553:632:713)(570:647:725))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (355:367:381)(328:373:420))  // in 5 out 1
+          (IOPATH IN6 OUT (353:380:408)(345:394:445))  // in 6 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a28_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1064:1173:1284)(1065:1155:1246))
+          (PORT EN (1346:1508:1673)(1412:1574:1740))
+          (PORT SR (2442:2674:2914)(2570:2789:3014))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///OR/D    Pos: x38y118
+  (CELL (CELLTYPE "C_OR")
+    (INSTANCE _a29_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1182:1340:1502)(1175:1314:1456))
+          (PORT IN3 (942:1065:1191)(983:1097:1215))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (456:514:574)(451:518:585))  // in 2 out 2
+          (IOPATH IN3 OUT (389:442:497)(389:446:504))  // in 3 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a29_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (953:1025:1100)(966:1032:1099))
+          (PORT EN (1534:1720:1909)(1620:1809:2002))
+          (PORT SR (2256:2463:2677)(2371:2562:2758))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/D///    Pos: x44y119
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a31_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1004:1132:1263)(1014:1132:1253))
+          (PORT IN7 (1593:1819:2049)(1667:1883:2106))
+          (PORT IN8 (1534:1747:1963)(1564:1762:1963))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (355:367:381)(328:373:420))  // in 5 out 1
+          (IOPATH IN7 OUT (272:298:325)(266:305:346))  // in 7 out 1
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a31_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1087:1192:1300)(1100:1191:1283))
+          (PORT EN (1669:1875:2084)(1769:1970:2177))
+          (PORT SR (2579:2830:3087)(2714:2954:3201))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/D//AND/D    Pos: x37y118
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a32_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1283:1433:1588)(1307:1451:1598))
+          (PORT IN7 (1093:1241:1392)(1148:1293:1443))
+          (PORT IN8 (590:659:730)(603:663:726))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (355:367:381)(328:373:420))  // in 5 out 1
+          (IOPATH IN7 OUT (272:298:325)(266:305:346))  // in 7 out 1
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a32_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1056:1159:1264)(1057:1143:1230))
+          (PORT EN (776:861:949)(785:861:940))
+          (PORT SR (2266:2470:2680)(2392:2587:2788))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a32_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1466:1640:1819)(1508:1679:1854))
+          (PORT IN2 (363:418:474)(335:377:421))
+          (PORT IN3 (906:1030:1156)(941:1058:1179))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (428:486:545)(421:487:554))  // in 1 out 2
+          (IOPATH IN2 OUT (456:514:574)(451:518:585))  // in 2 out 2
+          (IOPATH IN3 OUT (389:442:497)(389:446:504))  // in 3 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a32_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1056:1159:1264)(1057:1143:1230))
+          (PORT EN (776:861:949)(785:861:940))
+          (PORT SR (2266:2470:2680)(2392:2587:2788))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///ORAND/D    Pos: x36y118
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a33_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (747:847:951)(763:853:943))
+          (PORT IN2 (552:634:717)(549:623:697))
+          (PORT IN3 (532:617:703)(521:598:676))
+          (PORT IN4 (1066:1192:1322)(1073:1179:1289))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (428:486:545)(421:487:554))  // in 1 out 2
+          (IOPATH IN2 OUT (456:514:574)(451:518:585))  // in 2 out 2
+          (IOPATH IN3 OUT (389:442:497)(389:446:504))  // in 3 out 2
+          (IOPATH IN4 OUT (412:471:532)(427:484:542))  // in 4 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a33_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1499:1628:1761)(1512:1628:1746))
+          (PORT EN (953:1062:1174)(977:1079:1186))
+          (PORT SR (2504:2738:2977)(2638:2869:3104))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND////    Pos: x36y122
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a35_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1019:1143:1270)(1054:1178:1304))
+          (PORT IN6 (376:430:484)(350:393:437))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+    )))
+ // C_XOR////    Pos: x36y120
+  (CELL (CELLTYPE "C_XOR")
+    (INSTANCE _a36_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1515:1722:1932)(1606:1806:2009))
+          (PORT IN6 (877:1004:1135)(908:1021:1135))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+    )))
+ // C_///AND/    Pos: x35y118
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a37_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (2683:2991:3306)(2816:3094:3379))
+          (PORT IN4 (376:438:500)(372:426:482))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_///ORAND/    Pos: x35y119
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a38_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1368:1542:1722)(1383:1550:1718))
+          (PORT IN3 (769:876:983)(769:866:966))
+          (PORT IN4 (396:454:513)(371:417:464))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_AND////    Pos: x42y120
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a39_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (739:847:957)(740:840:943))
+          (PORT IN7 (576:665:755)(566:639:714))
+          (PORT IN8 (536:620:707)(507:576:646))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_///ORAND/    Pos: x40y118
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a40_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1636:1821:2009)(1706:1874:2046))
+          (PORT IN3 (1992:2186:2383)(2072:2247:2427))
+          (PORT IN4 (918:1049:1183)(963:1088:1215))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_AND////    Pos: x34y123
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a42_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (784:896:1008)(790:895:1000))
+          (PORT IN6 (381:444:507)(364:411:458))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+    )))
+ // C_ORAND////    Pos: x36y119
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a43_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (843:954:1068)(826:915:1007))
+          (PORT IN3 (966:1088:1215)(975:1095:1217))
+          (PORT IN7 (1074:1199:1327)(1073:1181:1290))
+          (PORT IN8 (738:845:953)(753:859:967))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:561:613))  // in 2 out 1
+          (IOPATH IN3 OUT (446:477:508)(448:494:540))  // in 3 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_AND///AND/    Pos: x38y121
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a44_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1269:1418:1572)(1306:1456:1607))
+          (PORT IN6 (763:850:938)(766:849:934))
+          (PORT IN8 (386:445:505)(373:425:478))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a44_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1070:1194:1323)(1085:1206:1328))
+          (PORT IN2 (604:677:752)(600:661:725))
+          (PORT IN3 (1250:1400:1554)(1260:1406:1555))
+          (PORT IN4 (576:659:743)(584:664:746))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_///AND/    Pos: x35y121
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a45_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1014:1139:1267)(1046:1169:1294))
+          (PORT IN2 (392:456:520)(379:435:492))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+    )))
+ // C_///AND/    Pos: x39y118
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a46_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1757:1956:2160)(1789:1975:2164))
+          (PORT IN4 (556:633:712)(539:607:677))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_MX4b////    Pos: x38y123
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a47_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1199:1367:1538)(1221:1382:1548))
+          (PORT IN4 (834:927:1022)(863:952:1042))
+          (PORT IN7 (581:666:754)(561:635:710))
+          (PORT IN8 (822:927:1035)(797:884:974))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_ORAND////    Pos: x35y119
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a48_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (1557:1755:1960)(1595:1790:1986))
+          (PORT IN7 (778:896:1016)(772:874:976))
+          (PORT IN8 (583:665:748)(583:658:734))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_ORAND////    Pos: x38y117
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a49_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (742:848:957)(760:858:960))
+          (PORT IN3 (1111:1246:1385)(1136:1266:1400))
+          (PORT IN4 (732:832:933)(747:835:926))
+          (PORT IN7 (539:624:711)(520:587:656))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:530:580))  // in 1 out 1
+          (IOPATH IN3 OUT (446:477:508)(448:494:540))  // in 3 out 1
+          (IOPATH IN4 OUT (469:507:545)(486:532:578))  // in 4 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+    )))
+ // C_///ORAND/    Pos: x31y122
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a51_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1890:2099:2313)(1957:2168:2384))
+          (PORT IN3 (1380:1530:1684)(1413:1543:1679))
+          (PORT IN4 (1180:1341:1503)(1174:1308:1443))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_MX2b////    Pos: x37y119
+  (CELL (CELLTYPE "C_MX2b")
+    (INSTANCE _a52_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (898:1022:1150)(930:1043:1159))
+          (PORT IN6 (408:471:536)(399:457:517))
+          (PORT IN8 (1571:1766:1965)(1591:1775:1962))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_///AND/    Pos: x36y120
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a53_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1313:1494:1678)(1383:1554:1728))
+          (PORT IN2 (1071:1222:1377)(1123:1264:1406))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+    )))
+ // C_ORAND////    Pos: x40y120
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a54_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (980:1103:1229)(1004:1122:1242))
+          (PORT IN3 (939:1063:1188)(948:1067:1187))
+          (PORT IN7 (1730:1958:2189)(1808:2025:2244))
+          (PORT IN8 (741:844:951)(766:867:970))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:530:580))  // in 1 out 1
+          (IOPATH IN3 OUT (446:477:508)(448:494:540))  // in 3 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_AND////    Pos: x35y121
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a55_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (1142:1282:1423)(1156:1289:1425))
+          (PORT IN7 (1493:1704:1919)(1552:1746:1940))
+          (PORT IN8 (406:464:524)(392:441:492))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_///ORAND/    Pos: x32y123
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a56_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1418:1619:1825)(1444:1634:1831))
+          (PORT IN3 (927:1063:1202)(951:1073:1198))
+          (PORT IN4 (1008:1145:1283)(986:1094:1203))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_ORAND////    Pos: x33y117
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a57_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1296:1436:1579)(1299:1429:1561))
+          (PORT IN7 (1222:1376:1533)(1262:1402:1544))
+          (PORT IN8 (1589:1787:1989)(1626:1824:2026))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_ORAND////    Pos: x39y118
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a58_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (742:848:957)(762:860:961))
+          (PORT IN7 (1246:1397:1551)(1308:1449:1593))
+          (PORT IN8 (1084:1227:1373)(1117:1258:1402))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_ORAND////    Pos: x42y119
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a59_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (729:833:940)(735:831:928))
+          (PORT IN3 (1563:1767:1974)(1566:1748:1934))
+          (PORT IN4 (526:606:687)(503:570:638))
+          (PORT IN7 (1017:1153:1293)(1001:1121:1243))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:561:613))  // in 2 out 1
+          (IOPATH IN3 OUT (446:477:508)(448:494:540))  // in 3 out 1
+          (IOPATH IN4 OUT (469:507:545)(486:532:578))  // in 4 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+    )))
+ // C_///AND/    Pos: x39y114
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a60_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (858:973:1089)(829:920:1013))
+          (PORT IN3 (781:890:1000)(801:901:1004))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+    )))
+ // C_///AND/D    Pos: x40y121
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a61_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (739:842:946)(765:863:964))
+          (PORT IN4 (779:872:968)(808:897:988))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (389:442:497)(389:446:504))  // in 3 out 2
+          (IOPATH IN4 OUT (412:471:532)(427:484:542))  // in 4 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a61_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (946:1019:1093)(952:1015:1081))
+          (PORT EN (1157:1308:1461)(1157:1290:1426))
+          (PORT SR (2100:2279:2463)(2219:2388:2561))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/D///    Pos: x41y112
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a62_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1085:1209:1338)(1126:1244:1364))
+          (PORT IN6 (1336:1501:1669)(1356:1502:1651))
+          (PORT IN7 (597:678:759)(574:641:710))
+          (PORT IN8 (1564:1734:1910)(1626:1788:1954))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (355:367:381)(328:373:420))  // in 5 out 1
+          (IOPATH IN6 OUT (353:380:408)(345:394:445))  // in 6 out 1
+          (IOPATH IN7 OUT (272:298:325)(266:305:346))  // in 7 out 1
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a62_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (971:1045:1119)(976:1038:1102))
+          (PORT EN (1599:1770:1941)(1647:1800:1957))
+          (PORT SR (2346:2572:2804)(2439:2650:2869))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_ORAND////    Pos: x43y119
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a63_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1448:1648:1851)(1456:1627:1800))
+          (PORT IN2 (2011:2245:2485)(2099:2332:2570))
+          (PORT IN3 (1304:1440:1582)(1312:1442:1576))
+          (PORT IN4 (1383:1568:1755)(1454:1635:1819))
+          (PORT IN6 (1533:1707:1884)(1589:1757:1928))
+          (PORT IN7 (1412:1593:1777)(1423:1586:1752))
+          (PORT IN8 (386:446:508)(356:404:453))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:530:580))  // in 1 out 1
+          (IOPATH IN2 OUT (514:562:610)(510:561:613))  // in 2 out 1
+          (IOPATH IN3 OUT (446:477:508)(448:494:540))  // in 3 out 1
+          (IOPATH IN4 OUT (469:507:545)(486:532:578))  // in 4 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_MX4a////    Pos: x37y113
+  (CELL (CELLTYPE "C_MX4a")
+    (INSTANCE _a65_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (751:860:971)(765:864:965))
+          (PORT IN4 (817:930:1046)(827:933:1039))
+          (PORT IN6 (932:1052:1175)(958:1064:1172))
+          (PORT IN8 (552:637:724)(543:613:685))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (499:509:520)(430:439:449))  // in 1 out 1
+          (IOPATH IN4 OUT (484:494:505)(415:424:433))  // in 4 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN8 OUT (413:452:491)(426:463:501))  // in 8 out 1
+    )))
+ // C_AND///AND/    Pos: x43y121
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a66_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1034:1180:1327)(1051:1188:1327))
+          (PORT IN8 (1583:1747:1916)(1649:1810:1977))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a66_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1220:1392:1566)(1247:1410:1575))
+          (PORT IN4 (1209:1353:1499)(1268:1398:1531))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_AND////    Pos: x41y118
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a67_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1018:1164:1313)(1027:1159:1295))
+          (PORT IN6 (564:642:722)(549:614:681))
+          (PORT IN7 (934:1045:1157)(927:1024:1123))
+          (PORT IN8 (1996:2246:2502)(2061:2306:2557))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x35y114
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a70_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1950:2163:2383)(2027:2235:2451))
+          (PORT IN4 (893:1020:1151)(935:1068:1204))
+          (PORT IN5 (997:1129:1263)(1009:1124:1242))
+          (PORT IN6 (680:785:892)(680:771:864))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+    )))
+ // C_AND/D///    Pos: x30y115
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a71_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (1233:1397:1565)(1226:1369:1516))
+          (PORT IN7 (1830:2052:2277)(1937:2157:2380))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (353:380:408)(345:394:445))  // in 6 out 1
+          (IOPATH IN7 OUT (272:298:325)(266:305:346))  // in 7 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a71_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (921:990:1062)(929:989:1051))
+          (PORT EN (909:1036:1166)(912:1032:1155))
+          (PORT SR (1984:2170:2359)(2091:2265:2440))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_ORAND/DST///    Pos: x42y121
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a72_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (589:671:755)(582:660:740))
+          (PORT IN2 (1227:1391:1560)(1247:1395:1547))
+          (PORT IN3 (380:440:501)(359:405:453))
+          (PORT IN4 (1054:1183:1313)(1064:1177:1293))
+          (PORT IN5 (591:674:760)(586:663:741))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (363:400:439)(356:403:452))  // in 1 out 1
+          (IOPATH IN2 OUT (391:429:468)(385:434:485))  // in 2 out 1
+          (IOPATH IN3 OUT (323:344:366)(323:367:412))  // in 3 out 1
+          (IOPATH IN4 OUT (346:374:403)(361:405:450))  // in 4 out 1
+          (IOPATH IN5 OUT (355:367:381)(328:373:420))  // in 5 out 1
+    )))
+  (CELL (CELLTYPE "C_DST")
+    (INSTANCE _a72_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1227:1354:1481)(1264:1379:1496))
+          (PORT SR (2245:2447:2655)(2333:2517:2708))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///AND/D    Pos: x40y115
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a74_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1317:1491:1668)(1372:1531:1695))
+          (PORT IN2 (2259:2530:2809)(2333:2586:2846))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (428:486:545)(421:487:554))  // in 1 out 2
+          (IOPATH IN2 OUT (456:514:574)(451:518:585))  // in 2 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a74_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1149:1252:1358)(1167:1255:1345))
+          (PORT SR (2579:2833:3092)(2700:2942:3191))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_MX4b////    Pos: x35y122
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a75_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (586:667:750)(594:672:751))
+          (PORT IN3 (1257:1431:1609)(1313:1477:1647))
+          (PORT IN5 (1249:1398:1550)(1256:1386:1521))
+          (PORT IN7 (1562:1764:1971)(1638:1820:2005))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN3 OUT (446:489:532)(448:494:540))  // in 3 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+    )))
+ // C_AND/D///    Pos: x30y118
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a77_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1446:1633:1822)(1478:1670:1866))
+          (PORT IN7 (1226:1395:1568)(1279:1446:1618))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (355:367:381)(328:373:420))  // in 5 out 1
+          (IOPATH IN7 OUT (272:298:325)(266:305:346))  // in 7 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a77_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (953:1025:1100)(966:1032:1099))
+          (PORT SR (2171:2384:2603)(2279:2474:2673))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///ORAND/D    Pos: x41y119
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a78_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (950:1079:1209)(974:1086:1202))
+          (PORT IN3 (1060:1210:1362)(1090:1223:1359))
+          (PORT IN4 (1252:1398:1547)(1302:1431:1563))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (428:486:545)(421:487:554))  // in 1 out 2
+          (IOPATH IN3 OUT (389:442:497)(389:446:504))  // in 3 out 2
+          (IOPATH IN4 OUT (412:471:532)(427:484:542))  // in 4 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a78_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (900:974:1049)(898:961:1025))
+          (PORT SR (2248:2447:2650)(2391:2584:2781))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///ORAND/    Pos: x36y117
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a79_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1663:1863:2068)(1722:1923:2127))
+          (PORT IN3 (1468:1640:1817)(1465:1617:1772))
+          (PORT IN4 (1254:1419:1587)(1260:1405:1554))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_ORAND////    Pos: x31y121
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a80_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1490:1688:1890)(1512:1688:1870))
+          (PORT IN2 (1221:1375:1533)(1268:1410:1555))
+          (PORT IN3 (1314:1478:1646)(1307:1448:1592))
+          (PORT IN4 (1281:1426:1575)(1348:1486:1626))
+          (PORT IN5 (1431:1601:1775)(1466:1625:1786))
+          (PORT IN6 (395:452:509)(386:437:488))
+          (PORT IN7 (1620:1814:2014)(1677:1863:2052))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:530:580))  // in 1 out 1
+          (IOPATH IN2 OUT (514:562:610)(510:561:613))  // in 2 out 1
+          (IOPATH IN3 OUT (446:477:508)(448:494:540))  // in 3 out 1
+          (IOPATH IN4 OUT (469:507:545)(486:532:578))  // in 4 out 1
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+    )))
+ // C_ORAND////    Pos: x37y114
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a81_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1031:1181:1335)(1061:1192:1326))
+          (PORT IN3 (564:647:732)(566:643:721))
+          (PORT IN4 (1041:1163:1288)(1064:1175:1288))
+          (PORT IN6 (1244:1415:1591)(1298:1458:1621))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:561:613))  // in 2 out 1
+          (IOPATH IN3 OUT (446:477:508)(448:494:540))  // in 3 out 1
+          (IOPATH IN4 OUT (469:507:545)(486:532:578))  // in 4 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+    )))
+ // C_MX4b////    Pos: x40y112
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a83_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1167:1310:1456)(1225:1361:1501))
+          (PORT IN4 (1582:1770:1963)(1613:1786:1965))
+          (PORT IN5 (961:1102:1245)(967:1090:1215))
+          (PORT IN6 (1253:1396:1542)(1254:1373:1497))
+          (PORT IN8 (581:665:750)(574:649:725))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_///AND/    Pos: x38y112
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a84_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1694:1867:2045)(1723:1880:2043))
+          (PORT IN2 (1661:1864:2069)(1715:1900:2091))
+          (PORT IN3 (996:1119:1244)(1014:1133:1254))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+    )))
+ // C_MX4b////    Pos: x33y112
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a85_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1574:1736:1905)(1609:1762:1921))
+          (PORT IN4 (1350:1520:1693)(1383:1535:1690))
+          (PORT IN6 (970:1099:1230)(995:1122:1251))
+          (PORT IN7 (597:675:754)(573:638:705))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+    )))
+ // C_MX4b////    Pos: x31y115
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a88_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1482:1668:1858)(1527:1707:1889))
+          (PORT IN4 (777:878:981)(786:879:974))
+          (PORT IN5 (1127:1281:1437)(1104:1224:1348))
+          (PORT IN8 (1143:1281:1422)(1150:1267:1387))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_AND////    Pos: x31y123
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a89_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (1095:1253:1414)(1111:1259:1410))
+          (PORT IN7 (915:1044:1178)(935:1056:1180))
+          (PORT IN8 (625:711:799)(632:717:803))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x32y114
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a90_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1620:1817:2016)(1692:1870:2054))
+          (PORT IN4 (1193:1358:1528)(1228:1381:1538))
+          (PORT IN7 (1239:1377:1519)(1245:1374:1507))
+          (PORT IN8 (729:845:964)(720:818:917))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX2b////    Pos: x31y120
+  (CELL (CELLTYPE "C_MX2b")
+    (INSTANCE _a91_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1089:1213:1340)(1103:1210:1318))
+          (PORT IN7 (760:877:996)(758:860:966))
+          (PORT IN8 (573:656:740)(578:654:732))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_///AND/    Pos: x32y117
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a92_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (762:866:972)(771:869:967))
+          (PORT IN2 (1438:1625:1817)(1459:1630:1805))
+          (PORT IN3 (1272:1420:1569)(1332:1469:1608))
+          (PORT IN4 (960:1077:1195)(1010:1125:1241))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_///ORAND/    Pos: x37y117
+  (CELL (CELLTYPE "C_ORAND")
+    (INSTANCE _a93_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1034:1170:1310)(1016:1134:1254))
+          (PORT IN3 (2438:2711:2992)(2555:2814:3077))
+          (PORT IN4 (376:430:485)(357:400:444))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_MX4b////    Pos: x39y124
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a94_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1978:2194:2414)(2054:2263:2477))
+          (PORT IN3 (611:684:760)(617:683:751))
+          (PORT IN5 (1314:1485:1660)(1342:1494:1651))
+          (PORT IN8 (2119:2349:2585)(2227:2439:2654))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN3 OUT (446:489:532)(448:494:540))  // in 3 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x37y124
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a102_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (563:647:732)(549:619:689))
+          (PORT IN4 (744:842:940)(762:857:953))
+          (PORT IN5 (1140:1287:1438)(1186:1321:1460))
+          (PORT IN8 (755:851:948)(773:865:960))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x36y124
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a103_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1064:1206:1351)(1123:1259:1398))
+          (PORT IN4 (723:827:933)(721:811:903))
+          (PORT IN5 (1720:1942:2169)(1795:2020:2250))
+          (PORT IN8 (719:826:934)(714:806:900))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_ANDXOR////    Pos: x35y118
+  (CELL (CELLTYPE "C_ANDXOR")
+    (INSTANCE _a104_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1329:1500:1675)(1409:1577:1750))
+          (PORT IN6 (1302:1470:1640)(1327:1489:1654))
+          (PORT IN8 (1069:1216:1366)(1078:1214:1352))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_MX4a////    Pos: x32y116
+  (CELL (CELLTYPE "C_MX4a")
+    (INSTANCE _a105_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (760:870:981)(780:879:981))
+          (PORT IN5 (1718:1911:2109)(1752:1930:2114))
+          (PORT IN8 (1487:1662:1843)(1500:1659:1825))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (499:509:520)(430:439:449))  // in 1 out 1
+          (IOPATH IN5 OUT (456:489:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN8 OUT (413:452:491)(426:463:501))  // in 8 out 1
+    )))
+ // C_MX2b////    Pos: x38y124
+  (CELL (CELLTYPE "C_MX2b")
+    (INSTANCE _a106_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (902:1028:1155)(906:1021:1139))
+          (PORT IN6 (1274:1435:1600)(1322:1484:1646))
+          (PORT IN8 (1420:1615:1813)(1446:1627:1811))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4a////    Pos: x40y117
+  (CELL (CELLTYPE "C_MX4a")
+    (INSTANCE _a107_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (1156:1294:1434)(1154:1270:1389))
+          (PORT IN5 (573:656:740)(552:621:692))
+          (PORT IN8 (573:655:739)(555:624:695))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (503:514:525)(423:432:442))  // in 3 out 1
+          (IOPATH IN5 OUT (456:489:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN8 OUT (413:452:491)(426:463:501))  // in 8 out 1
+    )))
+ // C_AND////    Pos: x42y118
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a108_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1851:2083:2321)(1928:2144:2366))
+          (PORT IN3 (729:833:938)(769:874:982))
+          (PORT IN4 (1347:1501:1659)(1377:1519:1664))
+          (PORT IN5 (1392:1549:1710)(1408:1548:1691))
+          (PORT IN8 (1314:1483:1658)(1405:1576:1751))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:530:580))  // in 1 out 1
+          (IOPATH IN3 OUT (446:477:508)(448:494:540))  // in 3 out 1
+          (IOPATH IN4 OUT (469:507:545)(486:532:578))  // in 4 out 1
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_ADDF2///ADDF2/    Pos: x32y119
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a110_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (729:833:938)(733:830:929))
+          (PORT IN8 (775:879:984)(801:905:1010))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (488:521:555)(482:526:571))  // in 6 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+          (IOPATH CINY1 OUT (457:484:511)(405:460:515))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a110_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1172:1295:1422)(1179:1289:1403))
+          (PORT IN6 (729:833:938)(733:830:929))
+          (PORT IN8 (775:879:984)(801:905:1010))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (499:542:586)(516:557:598))  // in 4 out 2
+          (IOPATH IN4 COUTY1 (407:493:579)(431:511:591))  // in 4 out 4
+          (IOPATH IN6 COUTY1 (435:498:562)(428:503:578))  // in 6 out 4
+          (IOPATH IN8 COUTY1 (399:449:499)(411:460:509))  // in 8 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2///ADDF2/    Pos: x32y120
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a112_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (964:1100:1238)(1008:1144:1282))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (473:506:540)(464:501:538))  // in 5 out 1
+          (IOPATH CINY1 OUT (457:484:511)(405:460:515))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a112_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (816:919:1022)(831:927:1026))
+          (PORT IN5 (964:1100:1238)(1008:1144:1282))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (499:542:586)(516:557:598))  // in 4 out 2
+          (IOPATH IN4 COUTY1 (407:493:579)(431:511:591))  // in 4 out 4
+          (IOPATH IN5 COUTY1 (421:484:547)(410:477:544))  // in 5 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2///ADDF2/    Pos: x32y121
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a114_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (1270:1427:1588)(1286:1437:1592))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (488:521:555)(482:526:571))  // in 6 out 1
+          (IOPATH CINY1 OUT (457:484:511)(405:460:515))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a114_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1224:1379:1539)(1245:1388:1534))
+          (PORT IN6 (1270:1427:1588)(1286:1437:1592))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (499:542:586)(516:557:598))  // in 4 out 2
+          (IOPATH IN4 COUTY1 (407:493:579)(431:511:591))  // in 4 out 4
+          (IOPATH IN6 COUTY1 (435:498:562)(428:503:578))  // in 6 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2///ADDF2/    Pos: x29y119
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a117_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (753:860:970)(754:850:950))
+          (PORT IN8 (1238:1390:1546)(1276:1422:1572))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (473:506:540)(464:501:538))  // in 5 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+          (IOPATH CINY1 OUT (457:484:511)(405:460:515))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a117_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (761:875:991)(762:863:967))
+          (PORT IN5 (753:860:970)(754:850:950))
+          (PORT IN8 (1238:1390:1546)(1276:1422:1572))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (476:512:548)(478:518:558))  // in 3 out 2
+          (IOPATH IN3 COUTY1 (384:462:541)(393:472:551))  // in 3 out 4
+          (IOPATH IN5 COUTY1 (421:484:547)(410:477:544))  // in 5 out 4
+          (IOPATH IN8 COUTY1 (399:449:499)(411:460:509))  // in 8 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2///ADDF2/    Pos: x29y120
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a119_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN7 (710:818:927)(718:816:916))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN7 OUT (394:430:467)(392:430:468))  // in 7 out 1
+          (IOPATH CINY1 OUT (457:484:511)(405:460:515))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a119_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (562:646:731)(556:628:702))
+          (PORT IN7 (710:818:927)(718:816:916))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (555:592:629)(551:594:637))  // in 2 out 2
+          (IOPATH IN2 COUTY1 (444:533:622)(466:548:630))  // in 2 out 4
+          (IOPATH IN7 COUTY1 (390:432:475)(389:432:476))  // in 7 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2///ADDF2/    Pos: x29y121
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a121_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1326:1504:1688)(1396:1575:1757))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (473:506:540)(464:501:538))  // in 5 out 1
+          (IOPATH CINY1 OUT (457:484:511)(405:460:515))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a121_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1254:1411:1572)(1287:1437:1591))
+          (PORT IN5 (1326:1504:1688)(1396:1575:1757))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (499:542:586)(516:557:598))  // in 4 out 2
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+    )))
+ // C_ADDF2/D//ADDF2/    Pos: x34y115
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a125_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN7 (361:416:472)(336:379:423))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN7 OUT (271:297:325)(267:303:340))  // in 7 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a125_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (928:1000:1073)(940:1002:1065))
+          (PORT SR (2044:2225:2410)(2161:2332:2506))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a125_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (894:1019:1146)(925:1043:1163))
+          (PORT IN7 (361:416:472)(336:379:423))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (476:512:548)(478:518:558))  // in 3 out 2
+          (IOPATH IN3 COUTY1 (384:462:541)(393:472:551))  // in 3 out 4
+          (IOPATH IN7 COUTY1 (390:432:475)(389:432:476))  // in 7 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2/D//ADDF2/    Pos: x34y116
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a127_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN8 (1229:1387:1548)(1239:1384:1535))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a127_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1509:1634:1763)(1529:1640:1752))
+          (PORT SR (2852:3134:3421)(3015:3300:3589))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a127_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1062:1213:1370)(1108:1251:1399))
+          (PORT IN8 (1229:1387:1548)(1239:1384:1535))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (539:569:599)(522:561:601))  // in 1 out 2
+          (IOPATH IN1 COUTY1 (436:514:593)(436:515:594))  // in 1 out 4
+          (IOPATH IN8 COUTY1 (399:449:499)(411:460:509))  // in 8 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2/D//ADDF2/    Pos: x34y117
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a129_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN7 (394:456:518)(386:442:499))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN7 OUT (271:297:325)(267:303:340))  // in 7 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a129_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1274:1398:1525)(1326:1440:1556))
+          (PORT SR (2192:2404:2621)(2311:2507:2707))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a129_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (380:435:490)(371:419:467))
+          (PORT IN7 (394:456:518)(386:442:499))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (555:592:629)(551:594:637))  // in 2 out 2
+          (IOPATH IN2 COUTY1 (444:533:622)(466:548:630))  // in 2 out 4
+          (IOPATH IN7 COUTY1 (390:432:475)(389:432:476))  // in 7 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2/D//ADDF2/    Pos: x34y118
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a131_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN8 (971:1100:1231)(997:1114:1233))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a131_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (935:1013:1093)(953:1021:1092))
+          (PORT SR (2221:2436:2655)(2339:2539:2742))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a131_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (1072:1201:1335)(1079:1196:1316))
+          (PORT IN8 (971:1100:1231)(997:1114:1233))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (476:512:548)(478:518:558))  // in 3 out 2
+          (IOPATH IN3 COUTY1 (384:462:541)(393:472:551))  // in 3 out 4
+          (IOPATH IN8 COUTY1 (399:449:499)(411:460:509))  // in 8 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2/D//ADDF2/    Pos: x34y119
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a133_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN7 (1644:1844:2050)(1710:1893:2080))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN7 OUT (271:297:325)(267:303:340))  // in 7 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a133_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1512:1639:1769)(1533:1643:1756))
+          (PORT SR (2072:2253:2438)(2180:2349:2523))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a133_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (723:829:937)(724:820:917))
+          (PORT IN7 (1644:1844:2050)(1710:1893:2080))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (539:569:599)(522:561:601))  // in 1 out 2
+          (IOPATH IN1 COUTY1 (436:514:593)(436:515:594))  // in 1 out 4
+          (IOPATH IN7 COUTY1 (390:432:475)(389:432:476))  // in 7 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2/D//ADDF2/    Pos: x34y110
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a134_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (563:643:725)(545:613:681))
+          (PORT IN8 (1599:1805:2018)(1669:1877:2088))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (350:373:398)(339:374:410))  // in 5 out 1
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a134_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1000:1078:1158)(1022:1090:1161))
+          (PORT SR (2155:2370:2589)(2269:2469:2672))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a134_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (568:645:724)(553:619:686))
+          (PORT IN5 (563:643:725)(545:613:681))
+          (PORT IN8 (1599:1805:2018)(1669:1877:2088))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (539:569:599)(522:561:601))  // in 1 out 2
+          (IOPATH IN1 COUTY1 (436:514:593)(436:515:594))  // in 1 out 4
+          (IOPATH IN5 COUTY1 (421:484:547)(410:477:544))  // in 5 out 4
+          (IOPATH IN8 COUTY1 (399:449:499)(411:460:509))  // in 8 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2/D//ADDF2/    Pos: x34y120
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a136_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN8 (1629:1830:2032)(1689:1880:2077))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a136_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1522:1650:1782)(1541:1653:1767))
+          (PORT SR (2100:2284:2474)(2211:2385:2563))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a136_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (560:645:730)(540:612:685))
+          (PORT IN8 (1629:1830:2032)(1689:1880:2077))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (476:512:548)(478:518:558))  // in 3 out 2
+          (IOPATH IN3 COUTY1 (384:462:541)(393:472:551))  // in 3 out 4
+          (IOPATH IN8 COUTY1 (399:449:499)(411:460:509))  // in 8 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF/D///    Pos: x34y121
+  (CELL (CELLTYPE "C_ADDF")
+    (INSTANCE _a138_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (380:440:501)(359:405:453))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (323:354:386)(323:366:411))  // in 3 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a138_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1228:1355:1482)(1265:1379:1496))
+          (PORT SR (2213:2417:2628)(2330:2519:2713))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_ADDF2/D//ADDF2/    Pos: x34y111
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a140_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN7 (360:413:468)(334:377:420))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN7 OUT (271:297:325)(267:303:340))  // in 7 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a140_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (989:1064:1141)(1012:1078:1147))
+          (PORT SR (2007:2188:2373)(2111:2279:2453))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a140_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (1062:1200:1342)(1079:1211:1345))
+          (PORT IN7 (360:413:468)(334:377:420))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (476:512:548)(478:518:558))  // in 3 out 2
+          (IOPATH IN3 COUTY1 (384:462:541)(393:472:551))  // in 3 out 4
+          (IOPATH IN7 COUTY1 (390:432:475)(389:432:476))  // in 7 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2/D//ADDF2/    Pos: x34y112
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a142_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN8 (1251:1415:1583)(1267:1421:1578))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a142_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1497:1625:1755)(1510:1621:1734))
+          (PORT SR (2035:2219:2409)(2142:2315:2493))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a142_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (1540:1743:1950)(1608:1799:1992))
+          (PORT IN8 (1251:1415:1583)(1267:1421:1578))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (476:512:548)(478:518:558))  // in 3 out 2
+          (IOPATH IN3 COUTY1 (384:462:541)(393:472:551))  // in 3 out 4
+          (IOPATH IN8 COUTY1 (399:449:499)(411:460:509))  // in 8 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2/D//ADDF2/    Pos: x34y113
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a144_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN7 (380:435:491)(370:418:466))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN7 OUT (271:297:325)(267:303:340))  // in 7 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a144_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1098:1204:1310)(1106:1191:1276))
+          (PORT SR (2148:2352:2563)(2261:2449:2643))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a144_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (1139:1269:1401)(1156:1274:1396))
+          (PORT IN7 (380:435:491)(370:418:466))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (476:512:548)(478:518:558))  // in 3 out 2
+          (IOPATH IN3 COUTY1 (384:462:541)(393:472:551))  // in 3 out 4
+          (IOPATH IN7 COUTY1 (390:432:475)(389:432:476))  // in 7 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2/D//ADDF2/    Pos: x34y114
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a146_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN8 (1672:1888:2111)(1759:1981:2209))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a146_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (929:1003:1078)(942:1006:1071))
+          (PORT SR (2169:2374:2584)(2278:2468:2663))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a146_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1237:1415:1597)(1302:1470:1642))
+          (PORT IN8 (1672:1888:2111)(1759:1981:2209))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (539:569:599)(522:561:601))  // in 1 out 2
+          (IOPATH IN1 COUTY1 (436:514:593)(436:515:594))  // in 1 out 4
+          (IOPATH IN8 COUTY1 (399:449:499)(411:460:509))  // in 8 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2/D//ADDF2/    Pos: x33y122
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a148_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (386:442:498)(356:398:441))
+          (PORT IN8 (1738:1955:2179)(1807:2023:2245))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (365:388:413)(357:399:443))  // in 6 out 1
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a148_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (929:1040:1153)(914:1004:1096))
+          (PORT EN (957:1094:1233)(949:1077:1206))
+          (PORT SR (2174:2380:2591)(2311:2508:2709))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a148_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1278:1456:1639)(1337:1504:1675))
+          (PORT IN6 (386:442:498)(356:398:441))
+          (PORT IN8 (1738:1955:2179)(1807:2023:2245))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (499:542:586)(516:557:598))  // in 4 out 2
+          (IOPATH IN4 COUTY1 (407:493:579)(431:511:591))  // in 4 out 4
+          (IOPATH IN6 COUTY1 (435:498:562)(428:503:578))  // in 6 out 4
+          (IOPATH IN8 COUTY1 (399:449:499)(411:460:509))  // in 8 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2/D//ADDF2/    Pos: x33y123
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a150_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1231:1389:1550)(1262:1412:1565))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (350:373:398)(339:374:410))  // in 5 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a150_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (808:879:952)(807:870:936))
+          (PORT EN (602:679:757)(585:652:720))
+          (PORT SR (2198:2408:2622)(2330:2530:2732))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a150_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1069:1190:1315)(1054:1155:1259))
+          (PORT IN5 (1231:1389:1550)(1262:1412:1565))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (499:542:586)(516:557:598))  // in 4 out 2
+          (IOPATH IN4 COUTY1 (407:493:579)(431:511:591))  // in 4 out 4
+          (IOPATH IN5 COUTY1 (421:484:547)(410:477:544))  // in 5 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF2/D//ADDF2/    Pos: x33y124
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a152_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (428:487:548)(409:460:512))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (365:388:413)(357:399:443))  // in 6 out 1
+          (IOPATH CINY1 OUT (271:292:313)(219:268:317))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a152_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (796:867:941)(797:859:923))
+          (PORT EN (773:865:959)(774:864:954))
+          (PORT SR (2352:2592:2837)(2486:2706:2931))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a152_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (896:1012:1130)(891:1001:1113))
+          (PORT IN6 (428:487:548)(409:460:512))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (499:542:586)(516:557:598))  // in 4 out 2
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+    )))
+ // C_ADDF2///ADDF2/    Pos: x41y115
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a155_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (931:1053:1175)(970:1083:1200))
+          (PORT IN7 (964:1088:1215)(996:1110:1227))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (488:521:555)(482:526:571))  // in 6 out 1
+          (IOPATH IN7 OUT (394:430:467)(392:430:468))  // in 7 out 1
+          (IOPATH CINY1 OUT (457:484:511)(405:460:515))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a155_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (891:1014:1139)(930:1045:1163))
+          (PORT IN6 (931:1053:1175)(970:1083:1200))
+          (PORT IN7 (964:1088:1215)(996:1110:1227))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (555:592:629)(551:594:637))  // in 2 out 2
+          (IOPATH IN2 COUTY1 (444:533:622)(466:548:630))  // in 2 out 4
+          (IOPATH IN6 COUTY1 (435:498:562)(428:503:578))  // in 6 out 4
+          (IOPATH IN7 COUTY1 (390:432:475)(389:432:476))  // in 7 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF////    Pos: x41y116
+  (CELL (CELLTYPE "C_ADDF")
+    (INSTANCE _a157_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1197:1375:1556)(1223:1387:1552))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (469:507:545)(486:532:578))  // in 4 out 1
+          (IOPATH CINY1 OUT (457:484:511)(405:460:515))  // in 13 out 1
+    )))
+ // C_ADDF2///ADDF2/    Pos: x38y114
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a159_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (1108:1233:1361)(1123:1236:1351))
+          (PORT IN7 (1272:1446:1624)(1319:1481:1647))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (488:521:555)(482:526:571))  // in 6 out 1
+          (IOPATH IN7 OUT (394:430:467)(392:430:468))  // in 7 out 1
+          (IOPATH CINY1 OUT (457:484:511)(405:460:515))  // in 13 out 1
+    )))
+  (CELL (CELLTYPE "C_ADDF2")
+    (INSTANCE _a159_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (740:848:959)(756:854:955))
+          (PORT IN6 (1108:1233:1361)(1123:1236:1351))
+          (PORT IN7 (1272:1446:1624)(1319:1481:1647))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (555:592:629)(551:594:637))  // in 2 out 2
+          (IOPATH IN2 COUTY1 (444:533:622)(466:548:630))  // in 2 out 4
+          (IOPATH IN6 COUTY1 (435:498:562)(428:503:578))  // in 6 out 4
+          (IOPATH IN7 COUTY1 (390:432:475)(389:432:476))  // in 7 out 4
+          (IOPATH CINY1 OUT (413:417:421)(375:383:392))  // in 13 out 2
+          (IOPATH CINY1 COUTY1 (67:68:69)(78:82:86))  // in 13 out 4
+    )))
+ // C_ADDF////    Pos: x38y115
+  (CELL (CELLTYPE "C_ADDF")
+    (INSTANCE _a161_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (2599:2886:3179)(2696:2971:3252))
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (469:507:545)(486:532:578))  // in 4 out 1
+          (IOPATH CINY1 OUT (457:484:511)(405:460:515))  // in 13 out 1
+    )))
+ // GLBOUT    Pos: x0y0
+  (CELL (CELLTYPE "GLBOUT")
+    (INSTANCE _a163)
+      (DELAY
+        (ABSOLUTE
+          (IOPATH CLK0_BYP GLB0 (2436:2435:2435)(2395:2394:2393))
+    )))
+ // C_AND/D//AND/D    Pos: x29y109
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a165_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN8 (652:745:839)(637:715:794))
+        // delay pathes of CPE part
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a165_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1200:1297:1397)(1231:1324:1418))
+          (PORT SR (2349:2565:2785)(2439:2636:2835))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a165_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1198:1355:1514)(1221:1369:1521))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (428:486:545)(421:487:554))  // in 1 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a165_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1200:1297:1397)(1231:1324:1418))
+          (PORT SR (2349:2565:2785)(2439:2636:2835))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///AND/D    Pos: x32y109
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a167_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (903:1029:1158)(921:1035:1149))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (389:442:497)(389:446:504))  // in 3 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a167_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1080:1156:1232)(1093:1160:1228))
+          (PORT SR (2352:2580:2813)(2484:2705:2932))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/D///    Pos: x32y109
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a169_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN8 (542:623:706)(536:607:679))
+        // delay pathes of CPE part
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a169_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1080:1156:1232)(1093:1160:1228))
+          (PORT SR (2352:2580:2813)(2484:2705:2932))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///AND/D    Pos: x32y111
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a171_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (1328:1492:1658)(1360:1509:1661))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (389:442:497)(389:446:504))  // in 3 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a171_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1182:1285:1391)(1200:1287:1374))
+          (PORT SR (2503:2755:3015)(2642:2885:3136))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/D///    Pos: x33y113
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a173_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN8 (1294:1456:1620)(1342:1497:1655))
+        // delay pathes of CPE part
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a173_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1549:1676:1807)(1566:1676:1789))
+          (PORT SR (2350:2580:2815)(2470:2687:2910))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///AND/D    Pos: x30y113
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a175_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (757:870:985)(754:858:963))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (389:442:497)(389:446:504))  // in 3 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a175_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1099:1197:1297)(1106:1188:1274))
+          (PORT SR (2118:2337:2560)(2216:2410:2609))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///AND/D    Pos: x33y115
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a177_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1534:1741:1952)(1610:1819:2032))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (412:471:532)(427:484:542))  // in 4 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a177_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (967:1041:1117)(978:1042:1108))
+          (PORT SR (3023:3329:3640)(3197:3508:3824))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/D///    Pos: x33y118
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a179_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN7 (399:457:516)(369:413:458))
+        // delay pathes of CPE part
+          (IOPATH IN7 OUT (272:298:325)(266:305:346))  // in 7 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a179_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1052:1158:1265)(1050:1133:1219))
+          (PORT SR (2237:2441:2649)(2356:2551:2751))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///AND/D    Pos: x30y117
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a181_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (980:1098:1219)(980:1087:1196))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (412:471:532)(427:484:542))  // in 4 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a181_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1087:1184:1284)(1101:1184:1268))
+          (PORT SR (2164:2377:2593)(2269:2462:2658))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/D///    Pos: x35y117
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a183_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN7 (1131:1277:1425)(1184:1327:1473))
+        // delay pathes of CPE part
+          (IOPATH IN7 OUT (272:298:325)(266:305:346))  // in 7 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a183_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1298:1421:1546)(1349:1464:1581))
+          (PORT SR (2676:2934:3197)(2825:3083:3345))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/D///    Pos: x30y119
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a185_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN8 (611:690:772)(603:673:745))
+        // delay pathes of CPE part
+          (IOPATH IN8 OUT (290:319:349)(287:329:373))  // in 8 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a185_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (925:1000:1076)(942:1007:1073))
+          (PORT SR (2001:2186:2375)(2103:2275:2451))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///AND/D    Pos: x31y123
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a214_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1289:1450:1615)(1303:1459:1618))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (428:486:545)(421:487:554))  // in 1 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a214_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (750:838:927)(744:819:897))
+          (PORT EN (1652:1851:2054)(1690:1886:2087))
+          (PORT SR (2009:2202:2398)(2095:2264:2437))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/D//AND/D    Pos: x38y120
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a218_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1403:1605:1813)(1421:1609:1798))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (355:367:381)(328:373:420))  // in 5 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a218_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1452:1578:1709)(1456:1565:1676))
+          (PORT EN (1415:1577:1743)(1472:1627:1785))
+          (PORT SR (2135:2319:2507)(2246:2420:2597))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a218_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1054:1218:1384)(1074:1213:1356))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (456:514:574)(451:518:585))  // in 2 out 2
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a218_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (1452:1578:1709)(1456:1565:1676))
+          (PORT EN (1415:1577:1743)(1472:1627:1785))
+          (PORT SR (2135:2319:2507)(2246:2420:2597))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_AND/D///    Pos: x30y124
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a220_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (798:909:1023)(812:920:1029))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (353:380:408)(345:394:445))  // in 6 out 1
+    )))
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a220_2)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (766:848:932)(761:830:900))
+          (PORT EN (749:849:951)(761:861:963))
+          (PORT SR (2331:2535:2741)(2460:2648:2839))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (491:505:519)(561:578:594))  // in 9 out 1
+          (IOPATH SR OUT (401:406:411)(436:448:460))  // in 11 out 1
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_MX4b////    Pos: x35y112
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a222_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1246:1409:1573)(1286:1428:1576))
+          (PORT IN4 (613:696:781)(618:696:776))
+          (PORT IN5 (1103:1252:1402)(1115:1247:1382))
+          (PORT IN6 (944:1073:1203)(933:1043:1155))
+          (PORT IN7 (742:856:972)(738:831:925))
+          (PORT IN8 (1047:1202:1360)(1018:1140:1263))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x35y115
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a223_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1104:1231:1361)(1100:1206:1316))
+          (PORT IN4 (949:1096:1245)(975:1114:1255))
+          (PORT IN5 (560:653:748)(559:633:709))
+          (PORT IN6 (1069:1219:1371)(1088:1232:1377))
+          (PORT IN7 (1546:1718:1895)(1576:1736:1900))
+          (PORT IN8 (1207:1334:1465)(1221:1333:1448))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x42y116
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a224_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (868:999:1133)(873:994:1118))
+          (PORT IN4 (1057:1193:1331)(1094:1230:1369))
+          (PORT IN5 (1295:1474:1655)(1358:1527:1697))
+          (PORT IN6 (1808:2019:2235)(1861:2059:2257))
+          (PORT IN7 (1592:1802:2014)(1651:1833:2019))
+          (PORT IN8 (868:1001:1137)(896:1019:1143))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x32y115
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a225_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1276:1431:1589)(1270:1399:1533))
+          (PORT IN4 (1181:1348:1518)(1210:1364:1521))
+          (PORT IN5 (598:682:768)(605:682:762))
+          (PORT IN6 (1297:1485:1676)(1308:1477:1650))
+          (PORT IN7 (1558:1756:1957)(1595:1775:1960))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+    )))
+ // C_MX4b////    Pos: x37y115
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a226_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (846:963:1081)(849:958:1069))
+          (PORT IN3 (1650:1835:2024)(1670:1850:2031))
+          (PORT IN5 (784:893:1002)(809:914:1021))
+          (PORT IN6 (843:961:1081)(860:972:1086))
+          (PORT IN7 (683:757:833)(683:748:814))
+          (PORT IN8 (1091:1239:1391)(1101:1246:1393))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN3 OUT (446:489:532)(448:494:540))  // in 3 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x39y121
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a227_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1061:1199:1338)(1052:1170:1292))
+          (PORT IN4 (763:869:979)(767:864:963))
+          (PORT IN5 (878:1004:1131)(876:992:1112))
+          (PORT IN6 (1046:1191:1340)(1054:1192:1333))
+          (PORT IN7 (789:894:1001)(820:925:1030))
+          (PORT IN8 (574:647:721)(563:624:686))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x39y116
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a228_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (755:851:950)(769:857:947))
+          (PORT IN4 (1282:1438:1596)(1310:1461:1617))
+          (PORT IN5 (1421:1580:1744)(1418:1564:1713))
+          (PORT IN6 (373:429:486)(356:399:444))
+          (PORT IN7 (1107:1251:1396)(1147:1282:1421))
+          (PORT IN8 (849:950:1053)(877:973:1069))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x40y123
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a229_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1039:1177:1317)(1036:1153:1273))
+          (PORT IN4 (933:1057:1182)(962:1084:1208))
+          (PORT IN5 (1131:1272:1416)(1171:1316:1465))
+          (PORT IN6 (1256:1422:1591)(1264:1411:1560))
+          (PORT IN7 (959:1096:1236)(949:1068:1189))
+          (PORT IN8 (572:648:726)(573:637:704))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x38y122
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a230_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (584:661:738)(571:633:698))
+          (PORT IN4 (1294:1464:1637)(1354:1521:1692))
+          (PORT IN5 (1260:1438:1618)(1320:1484:1654))
+          (PORT IN6 (938:1057:1179)(972:1093:1216))
+          (PORT IN7 (1399:1573:1750)(1394:1558:1723))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+    )))
+ // C_MX4b////    Pos: x44y121
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a231_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1218:1374:1533)(1231:1374:1520))
+          (PORT IN4 (549:627:706)(540:607:677))
+          (PORT IN5 (554:642:731)(525:594:666))
+          (PORT IN6 (1582:1790:2003)(1580:1763:1951))
+          (PORT IN7 (1458:1654:1854)(1485:1673:1865))
+          (PORT IN8 (966:1077:1189)(980:1080:1183))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x43y114
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a232_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (949:1052:1159)(946:1040:1135))
+          (PORT IN4 (518:598:678)(490:552:617))
+          (PORT IN6 (757:856:959)(764:852:943))
+          (PORT IN7 (588:671:755)(569:634:701))
+          (PORT IN8 (1770:1979:2192)(1818:2016:2221))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x36y123
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a233_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (736:844:954)(736:833:930))
+          (PORT IN4 (915:1037:1159)(949:1071:1194))
+          (PORT IN5 (903:1015:1131)(895:999:1104))
+          (PORT IN6 (707:819:934)(715:815:917))
+          (PORT IN7 (550:624:700)(539:600:663))
+          (PORT IN8 (375:430:485)(373:420:469))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x36y121
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a234_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1262:1438:1617)(1326:1499:1674))
+          (PORT IN4 (776:889:1003)(779:881:987))
+          (PORT IN5 (394:451:510)(383:433:484))
+          (PORT IN7 (1003:1140:1282)(999:1117:1237))
+          (PORT IN8 (1496:1691:1889)(1520:1694:1871))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x28y119
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a235_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1173:1299:1428)(1187:1295:1406))
+          (PORT IN4 (1294:1460:1631)(1311:1469:1631))
+          (PORT IN5 (1289:1456:1626)(1296:1445:1599))
+          (PORT IN7 (1068:1208:1352)(1040:1158:1280))
+          (PORT IN8 (1516:1711:1909)(1541:1725:1911))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x38y119
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a236_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1118:1259:1401)(1183:1314:1450))
+          (PORT IN4 (390:448:508)(391:442:494))
+          (PORT IN6 (1410:1575:1747)(1435:1584:1738))
+          (PORT IN7 (1183:1351:1522)(1207:1357:1509))
+          (PORT IN8 (1573:1758:1946)(1597:1773:1952))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x36y125
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a237_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (575:656:738)(585:662:740))
+          (PORT IN4 (1379:1532:1688)(1414:1552:1692))
+          (PORT IN5 (1158:1319:1480)(1206:1365:1526))
+          (PORT IN6 (420:481:542)(410:459:510))
+          (PORT IN7 (735:839:946)(752:852:953))
+          (PORT IN8 (904:1027:1153)(900:1009:1122))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x34y124
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a238_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1449:1632:1820)(1503:1678:1854))
+          (PORT IN4 (1199:1375:1554)(1236:1404:1577))
+          (PORT IN5 (1470:1645:1823)(1532:1712:1895))
+          (PORT IN6 (394:457:522)(372:421:472))
+          (PORT IN7 (394:449:504)(366:411:457))
+          (PORT IN8 (756:856:956)(778:873:969))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x34y125
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a239_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1489:1660:1834)(1555:1720:1888))
+          (PORT IN4 (1022:1173:1327)(1044:1183:1325))
+          (PORT IN5 (1069:1207:1348)(1080:1203:1329))
+          (PORT IN7 (859:979:1102)(871:984:1100))
+          (PORT IN8 (411:475:540)(380:426:474))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x34y127
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a240_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (546:627:708)(542:610:680))
+          (PORT IN4 (1438:1585:1737)(1460:1590:1724))
+          (PORT IN5 (1275:1414:1554)(1308:1441:1581))
+          (PORT IN6 (409:468:527)(392:441:492))
+          (PORT IN7 (1022:1172:1325)(1033:1165:1303))
+          (PORT IN8 (1373:1547:1725)(1380:1538:1700))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x38y125
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a241_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (742:849:958)(749:846:944))
+          (PORT IN4 (576:651:726)(580:648:717))
+          (PORT IN5 (1346:1490:1636)(1406:1551:1700))
+          (PORT IN6 (384:441:500)(357:399:443))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+    )))
+ // C_MX4b////    Pos: x36y127
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a242_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (746:850:956)(779:882:985))
+          (PORT IN4 (1197:1344:1497)(1251:1391:1536))
+          (PORT IN5 (1018:1149:1282)(1013:1129:1248))
+          (PORT IN6 (911:1033:1158)(952:1069:1186))
+          (PORT IN7 (1235:1404:1576)(1288:1455:1627))
+          (PORT IN8 (1126:1252:1380)(1155:1269:1389))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // C_MX4b////    Pos: x40y125
+  (CELL (CELLTYPE "C_MX4b")
+    (INSTANCE _a243_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (806:907:1008)(819:909:1001))
+          (PORT IN4 (1116:1260:1406)(1161:1300:1440))
+          (PORT IN5 (586:677:770)(568:649:730))
+          (PORT IN6 (1373:1563:1758)(1417:1603:1794))
+          (PORT IN8 (1781:1982:2190)(1844:2040:2243))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (486:533:581)(481:536:591))  // in 1 out 1
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+          (IOPATH IN8 OUT (561:572:583)(468:479:490))  // in 8 out 1
+    )))
+ // IBF    Pos: x0y99
+  (CELL (CELLTYPE "CPE_IBF")
+// internal delay pathes
+    (INSTANCE _a244)
+      (DELAY
+        (ABSOLUTE
+          (IOPATH I Y (863:864:866)(877:878:880))
+    )))
+ // IBF    Pos: x0y101
+  (CELL (CELLTYPE "CPE_IBF")
+// internal delay pathes
+    (INSTANCE _a245)
+      (DELAY
+        (ABSOLUTE
+          (IOPATH I Y (863:864:866)(877:878:880))
+    )))
+ // OBF    Pos: x0y95
+  (CELL (CELLTYPE "CPE_OBF")
+    (INSTANCE _a246)
+      (DELAY
+        (ABSOLUTE
+          (PORT A (512:514:517)(526:536:547))
+// internal delay pathes
+          (IOPATH A O (1000:1000:1000)(1000:1000:1000))
+    )))
+ // IOBF    Pos: x57y129
+  (CELL (CELLTYPE "CPE_IOBF")
+    (INSTANCE _a247)
+      (DELAY
+        (ABSOLUTE
+          (PORT A (512:514:517)(526:536:547))
+          (PORT EN (228:229:230)(217:226:235))
+// internal delay pathes
+          (IOPATH A O (1000:1000:1000)(1000:1000:1000))
+          (IOPATH EN O (1000:1000:1000)(1000:1000:1000))
+    )))
+ // IOBF    Pos: x59y129
+  (CELL (CELLTYPE "CPE_IOBF")
+    (INSTANCE _a248)
+      (DELAY
+        (ABSOLUTE
+          (PORT A (512:514:517)(526:536:547))
+          (PORT EN (228:229:230)(217:226:235))
+// internal delay pathes
+          (IOPATH O Y (863:864:866)(877:878:880))
+          (IOPATH A O (1000:1000:1000)(1000:1000:1000))
+          (IOPATH EN O (1000:1000:1000)(1000:1000:1000))
+    )))
+ // C_AND///AND/    Pos: x43y120
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a249_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1573:1768:1966)(1590:1769:1952))
+          (PORT IN6 (1123:1250:1379)(1146:1265:1386))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+    )))
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a249_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (980:1104:1233)(1022:1139:1260))
+          (PORT IN4 (1489:1658:1833)(1551:1718:1889))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_///AND/D    Pos: x38y111
+  (CELL (CELLTYPE "C_D")
+    (INSTANCE _a250_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT CLK (990:1065:1141)(1010:1075:1141))
+          (PORT EN (1758:1949:2145)(1840:2025:2214))
+          (PORT SR (2023:2202:2385)(2128:2294:2466))
+        // delay pathes of CPE part
+          (IOPATH CLK OUT (479:493:507)(552:568:584))  // in 9 out 2
+          (IOPATH SR OUT (389:394:399)(427:438:450))  // in 11 out 2
+    ))
+     (TIMINGCHECK 
+        (PERIOD (posedge CLK) (400:400:400))
+        (WIDTH (negedge CLK) (200:200:200))
+        (WIDTH (posedge CLK) (200:200:200))
+        (WIDTH (negedge SR) (200:200:200))
+        (WIDTH (posedge SR) (200:200:200))
+        (SETUPHOLD (posedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge D_IN)  (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (posedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (SETUPHOLD (negedge EN) (posedge CLK) (100:100:100) (100:100:100))
+        (RECREM (posedge SR) (posedge CLK) (200:200:200) (200:200:200))
+     )
+  )
+ // C_///AND/    Pos: x40y114
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a252_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (796:912:1028)(808:909:1011))
+          (PORT IN3 (1428:1611:1798)(1493:1674:1859))
+          (PORT IN4 (388:445:504)(366:413:460))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_AND////    Pos: x37y120
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a253_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1378:1571:1770)(1434:1619:1809))
+          (PORT IN6 (1220:1385:1553)(1231:1375:1523))
+          (PORT IN7 (1075:1242:1413)(1090:1237:1387))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+    )))
+ // C_AND////    Pos: x37y112
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a254_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (861:998:1136)(872:989:1108))
+          (PORT IN7 (1133:1271:1411)(1164:1293:1425))
+          (PORT IN8 (596:671:747)(602:667:733))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_AND////    Pos: x36y118
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a256_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1310:1462:1619)(1334:1481:1632))
+          (PORT IN7 (1615:1807:2005)(1659:1831:2007))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+    )))
+ // C_///AND/    Pos: x29y123
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a258_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1472:1661:1853)(1497:1681:1869))
+          (PORT IN2 (1660:1865:2074)(1740:1938:2140))
+          (PORT IN4 (789:898:1008)(779:873:968))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_///OR/    Pos: x34y122
+  (CELL (CELLTYPE "C_OR")
+    (INSTANCE _a259_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (397:458:519)(390:443:496))
+          (PORT IN3 (735:840:948)(742:842:945))
+          (PORT IN4 (952:1086:1222)(997:1120:1246))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_///AND/    Pos: x33y117
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a262_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (574:657:740)(569:646:723))
+          (PORT IN3 (1366:1542:1722)(1365:1517:1674))
+          (PORT IN4 (728:832:939)(741:835:930))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_///AND/    Pos: x35y120
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a266_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1117:1269:1425)(1160:1299:1443))
+          (PORT IN4 (581:670:760)(565:640:718))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_Route1////    Pos: x32y122
+  (CELL (CELLTYPE "C_Route1")
+    (INSTANCE _a272_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT CINY1 (0:0:0)(0:0:0))
+        // delay pathes of CPE part
+          (IOPATH CINY1 OUT (593:637:682)(572:624:678))  // in 13 out 1
+    )))
+ // C_AND////    Pos: x29y115
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a273_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (1236:1402:1569)(1225:1367:1515))
+          (PORT IN8 (1218:1378:1542)(1218:1359:1504))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_MX2b////    Pos: x41y122
+  (CELL (CELLTYPE "C_MX2b")
+    (INSTANCE _a275_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1360:1529:1701)(1393:1549:1707))
+          (PORT IN5 (1125:1262:1402)(1169:1296:1426))
+          (PORT IN7 (1402:1562:1727)(1441:1597:1757))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+    )))
+ // C_AND////    Pos: x42y113
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a276_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1139:1281:1427)(1186:1318:1452))
+          (PORT IN7 (1052:1206:1363)(1064:1210:1359))
+          (PORT IN8 (1513:1673:1837)(1575:1720:1867))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_MX2b////    Pos: x40y111
+  (CELL (CELLTYPE "C_MX2b")
+    (INSTANCE _a277_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1488:1640:1798)(1494:1630:1770))
+          (PORT IN5 (1272:1421:1576)(1328:1474:1622))
+          (PORT IN6 (1797:1995:2196)(1862:2045:2231))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (514:562:610)(510:566:622))  // in 2 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN6 OUT (552:563:574)(477:488:499))  // in 6 out 1
+    )))
+ // C_MX2b////    Pos: x28y113
+  (CELL (CELLTYPE "C_MX2b")
+    (INSTANCE _a278_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (930:1048:1166)(970:1084:1201))
+          (PORT IN5 (1232:1389:1550)(1288:1432:1580))
+          (PORT IN7 (2151:2431:2717)(2255:2541:2832))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (469:518:568)(485:532:580))  // in 4 out 1
+          (IOPATH IN5 OUT (559:572:585)(477:489:501))  // in 5 out 1
+          (IOPATH IN7 OUT (568:578:589)(470:481:492))  // in 7 out 1
+    )))
+ // C_AND////    Pos: x36y112
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a280_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN7 (1666:1876:2090)(1747:1954:2165))
+          (PORT IN8 (1719:1906:2100)(1752:1921:2095))
+        // delay pathes of CPE part
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_AND////    Pos: x41y121
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a282_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (582:670:759)(586:668:752))
+          (PORT IN6 (742:833:926)(746:827:911))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (478:500:523)(453:500:548))  // in 5 out 1
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+    )))
+ // C_AND////    Pos: x31y114
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a283_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (1361:1516:1673)(1426:1564:1705))
+          (PORT IN8 (1294:1471:1650)(1366:1542:1722))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_AND///AND/    Pos: x36y114
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a284_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (1692:1891:2094)(1723:1921:2120))
+          (PORT IN7 (1080:1210:1343)(1080:1195:1311))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+    )))
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a284_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (790:887:986)(817:906:997))
+          (PORT IN4 (1235:1409:1586)(1228:1380:1536))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_AND////    Pos: x39y117
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a286_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN7 (583:665:749)(574:646:718))
+          (PORT IN8 (412:472:533)(394:445:498))
+        // delay pathes of CPE part
+          (IOPATH IN7 OUT (395:431:467)(391:432:474))  // in 7 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_///AND/    Pos: x41y113
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a288_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (563:662:763)(538:613:689))
+          (PORT IN4 (1657:1855:2057)(1727:1919:2116))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_AND////    Pos: x31y125
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a289_1)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (1105:1246:1390)(1164:1307:1452))
+          (PORT IN8 (1453:1644:1838)(1517:1692:1870))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (476:513:550)(470:521:573))  // in 6 out 1
+          (IOPATH IN8 OUT (413:452:491)(412:456:501))  // in 8 out 1
+    )))
+ // C_///AND/    Pos: x35y123
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a290_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (575:656:738)(577:655:735))
+          (PORT IN4 (1136:1294:1454)(1202:1352:1506))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_///AND/    Pos: x31y119
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a292_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (582:675:770)(572:649:727))
+          (PORT IN4 (1165:1293:1424)(1178:1291:1409))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_///AND/    Pos: x42y113
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a294_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1404:1564:1729)(1422:1561:1704))
+          (PORT IN4 (1283:1426:1571)(1336:1469:1606))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+ // C_///AND/    Pos: x35y111
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a295_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1670:1859:2054)(1763:1951:2142))
+          (PORT IN3 (1440:1612:1789)(1524:1688:1856))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (513:556:599)(508:558:609))  // in 1 out 2
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+    )))
+ // C_///AND/    Pos: x1y95
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a296_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (2819:3090:3367)(2923:3175:3433))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (474:512:551)(476:517:559))  // in 3 out 2
+    )))
+  (CELL (CELLTYPE "C_CPlines")
+    (INSTANCE _a296_6)
+      (DELAY
+        (ABSOLUTE
+          (IOPATH OUT2 RAM_O2 (173:179:186)(144:147:150))  // in 27 out 10
+    )))
+ // C_///AND/    Pos: x58y128
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a298_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1569:1751:1938)(1666:1841:2018))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (541:584:628)(538:589:640))  // in 2 out 2
+    )))
+  (CELL (CELLTYPE "C_CPlines")
+    (INSTANCE _a298_6)
+      (DELAY
+        (ABSOLUTE
+          (IOPATH OUT2 RAM_O2 (173:179:186)(144:147:150))  // in 27 out 10
+    )))
+ // C_///AND/    Pos: x60y128
+  (CELL (CELLTYPE "C_AND")
+    (INSTANCE _a300_4)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1757:1949:2145)(1825:2006:2187))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (497:541:586)(514:555:597))  // in 4 out 2
+    )))
+  (CELL (CELLTYPE "C_CPlines")
+    (INSTANCE _a300_6)
+      (DELAY
+        (ABSOLUTE
+          (IOPATH OUT2 RAM_O2 (173:179:186)(144:147:150))  // in 27 out 10
+    )))
+ // C_////Bridge    Pos: x33y118
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a301_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1112:1249:1388)(1186:1325:1465))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x32y118
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a302_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1102:1245:1391)(1149:1288:1428))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (366:386:407)(362:379:396))  // in 2 out 2
+    )))
+ // C_////Bridge    Pos: x37y115
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a303_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (391:450:510)(380:430:482))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x39y115
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a304_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (570:649:729)(564:635:707))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (349:370:392)(348:365:382))  // in 6 out 2
+    )))
+ // C_////Bridge    Pos: x39y117
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a305_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (1064:1208:1355)(1073:1211:1351))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (387:407:427)(389:405:422))  // in 3 out 2
+    )))
+ // C_////Bridge    Pos: x31y120
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a306_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (1255:1432:1612)(1239:1390:1546))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (387:407:427)(389:405:422))  // in 3 out 2
+    )))
+ // C_////Bridge    Pos: x40y119
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a307_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (734:841:950)(717:807:898))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (349:370:392)(348:365:382))  // in 6 out 2
+    )))
+ // C_////Bridge    Pos: x44y111
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a308_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1843:2061:2282)(1937:2151:2373))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (379:399:419)(381:396:412))  // in 1 out 2
+    )))
+ // C_////Bridge    Pos: x32y112
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a309_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1646:1870:2099)(1706:1928:2157))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (379:399:419)(381:396:412))  // in 1 out 2
+    )))
+ // C_////Bridge    Pos: x43y117
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a310_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (775:870:968)(800:891:984))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x33y120
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a311_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1310:1488:1669)(1370:1538:1711))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x43y115
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a312_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1258:1421:1587)(1310:1462:1618))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (366:386:407)(362:379:396))  // in 2 out 2
+    )))
+ // C_////Bridge    Pos: x33y121
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a313_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1153:1290:1429)(1165:1294:1424))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x39y126
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a314_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1667:1878:2093)(1753:1963:2176))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x37y123
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a315_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (902:1017:1137)(918:1034:1151))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x35y128
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a316_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1381:1555:1733)(1376:1528:1685))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x42y117
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a317_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1505:1731:1963)(1553:1769:1990))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x39y120
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a318_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN8 (917:1034:1153)(911:1021:1135))
+        // delay pathes of CPE part
+          (IOPATH IN8 OUT (360:381:402)(358:375:393))  // in 8 out 2
+    )))
+ // C_////Bridge    Pos: x41y125
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a319_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (1113:1272:1433)(1153:1300:1448))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (387:407:427)(389:405:422))  // in 3 out 2
+    )))
+ // C_////Bridge    Pos: x36y122
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a320_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (944:1068:1194)(964:1082:1203))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (387:407:427)(389:405:422))  // in 3 out 2
+    )))
+ // C_////Bridge    Pos: x37y119
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a321_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (585:670:756)(573:645:720))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (387:407:427)(389:405:422))  // in 3 out 2
+    )))
+ // C_////Bridge    Pos: x31y115
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a322_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN7 (1411:1590:1773)(1406:1558:1714))
+        // delay pathes of CPE part
+          (IOPATH IN7 OUT (374:394:415)(378:394:411))  // in 7 out 2
+    )))
+ // C_////Bridge    Pos: x36y126
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a323_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1102:1226:1352)(1135:1257:1382))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (365:386:407)(368:384:400))  // in 5 out 2
+    )))
+ // C_////Bridge    Pos: x37y122
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a324_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN8 (1337:1478:1621)(1361:1486:1614))
+        // delay pathes of CPE part
+          (IOPATH IN8 OUT (360:381:402)(358:375:393))  // in 8 out 2
+    )))
+ // C_////Bridge    Pos: x46y113
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a325_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN6 (789:889:992)(788:872:958))
+        // delay pathes of CPE part
+          (IOPATH IN6 OUT (349:370:392)(348:365:382))  // in 6 out 2
+    )))
+ // C_////Bridge    Pos: x30y111
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a326_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1765:1997:2233)(1855:2097:2341))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (379:399:419)(381:396:412))  // in 1 out 2
+    )))
+ // C_////Bridge    Pos: x46y120
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a327_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (925:1058:1195)(956:1084:1214))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (379:399:419)(381:396:412))  // in 1 out 2
+    )))
+ // C_////Bridge    Pos: x40y117
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a328_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (396:452:508)(378:425:474))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (366:386:407)(362:379:396))  // in 2 out 2
+    )))
+ // C_////Bridge    Pos: x29y115
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a329_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (722:802:882)(727:796:866))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (387:407:427)(389:405:422))  // in 3 out 2
+    )))
+ // C_////Bridge    Pos: x41y114
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a330_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN3 (1249:1397:1552)(1276:1425:1577))
+        // delay pathes of CPE part
+          (IOPATH IN3 OUT (387:407:427)(389:405:422))  // in 3 out 2
+    )))
+ // C_////Bridge    Pos: x35y117
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a331_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (631:714:798)(636:708:782))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x42y112
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a332_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (916:1049:1184)(929:1052:1177))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (379:399:419)(381:396:412))  // in 1 out 2
+    )))
+ // C_////Bridge    Pos: x39y112
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a333_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (407:461:517)(386:433:481))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x36y123
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a334_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1119:1267:1417)(1162:1311:1463))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (366:386:407)(362:379:396))  // in 2 out 2
+    )))
+ // C_////Bridge    Pos: x32y122
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a335_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (880:991:1105)(863:958:1055))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (379:399:419)(381:396:412))  // in 1 out 2
+    )))
+ // C_////Bridge    Pos: x42y120
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a336_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN5 (1736:1959:2187)(1777:1990:2207))
+        // delay pathes of CPE part
+          (IOPATH IN5 OUT (365:386:407)(368:384:400))  // in 5 out 2
+    )))
+ // C_////Bridge    Pos: x46y122
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a337_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1393:1585:1781)(1434:1618:1807))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (366:386:407)(362:379:396))  // in 2 out 2
+    )))
+ // C_////Bridge    Pos: x45y114
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a338_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (927:1064:1204)(924:1040:1159))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x35y116
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a339_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN8 (939:1055:1174)(980:1094:1211))
+        // delay pathes of CPE part
+          (IOPATH IN8 OUT (360:381:402)(358:375:393))  // in 8 out 2
+    )))
+ // C_////Bridge    Pos: x37y126
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a340_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (1570:1755:1943)(1642:1821:2004))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (379:399:419)(381:396:412))  // in 1 out 2
+    )))
+ // C_////Bridge    Pos: x40y123
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a341_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (712:786:863)(700:764:828))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (379:399:419)(381:396:412))  // in 1 out 2
+    )))
+ // C_////Bridge    Pos: x30y118
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a342_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN1 (757:874:994)(761:865:970))
+        // delay pathes of CPE part
+          (IOPATH IN1 OUT (379:399:419)(381:396:412))  // in 1 out 2
+    )))
+ // C_////Bridge    Pos: x31y118
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a343_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1163:1299:1440)(1190:1313:1441))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x42y115
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a344_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (1004:1147:1291)(979:1093:1209))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x37y120
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a345_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (404:461:520)(394:444:496))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x36y119
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a346_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN4 (571:651:734)(572:648:727))
+        // delay pathes of CPE part
+          (IOPATH IN4 OUT (373:393:413)(369:387:405))  // in 4 out 2
+    )))
+ // C_////Bridge    Pos: x36y111
+  (CELL (CELLTYPE "C_Bridge")
+    (INSTANCE _a347_5)
+      (DELAY
+        (ABSOLUTE
+          (PORT IN2 (1182:1325:1470)(1208:1340:1477))
+        // delay pathes of CPE part
+          (IOPATH IN2 OUT (366:386:407)(362:379:396))  // in 2 out 2
+    )))
+)
+// 
+// 
+// Min/Max-Timing
+//          248/1      1  min:  514  max:  536  skew:   22
+//          296/10      1  min:  100  max:  100
+//          297/10      1  min:  100  max:  100
+//          298/10      1  min:  100  max:  100
+//          299/10      1  min:  100  max:  100
+//          300/10      1  min:  100  max:  100

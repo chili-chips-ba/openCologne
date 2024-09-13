@@ -49,32 +49,34 @@ BLD_DIR  = $(CURDIR)
 HW_SRC  := $(BLD_DIR)/../1.hw
 SIM_SRC  := $(BLD_DIR)/../2.sim
 
-BLD_PATH = /usr/local/bin
+TOOL_ROOT = /home/user/FPGA/tools
 
 #========================================================================================
 # GateMate CologneChip Tools
 #========================================================================================
 #YOSYS = $(CC_TOOL)/bin/yosys/yosys$(EXE)
-YOSYS = /usr/local/bin/yosys$(EXE)
 PNR   = $(CC_TOOL)/bin/p_r/p_r$(EXE)
-
 #DONT_USE--| This OFL line does not work for me. If you have the same problem, update OFL to the newest 
 #DONT_USE--| version, next paragraph. Also see: https://github.com/chili-chips-ba/openCologne/issues/7
 #DONT_USE--| OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE) 
 
 # Uncomment to use newer/other version of Yosys synthesizer
 # See: https://github.com/chili-chips-ba/openCologne/issues/13
-# YOSYS = $(BLD_PATH)/yosys/yosys
-OFL = $(BLD_PATH)/openFPGALoader$(EXE) 
+YOSYS = yosys
+YOSYS_QUIET = -q
+OFL = openFPGALoader$(EXE) 
 
 #========================================================================================
 # Miscellaneous Tools
 #========================================================================================
 # Clock Domain Crossing Tool
-CDC_DIR = $(TOOL_ROOT)/Bedrock/build-tools
-JSON_OUTPUT := $(BLD_DIR)/cdc_check
-SCRIPT_FILE := $(CDC_DIR)/cdc_snitch_proc.ys
-PYTHON_SCRIPT := $(CDC_DIR)/cdc_snitch.py
+# See https://github.com/BerkeleyLab/Bedrock/blob/master/build-tools/cdc_snitch.md
+CDC_TOOLDIR = $(TOOL_ROOT)/Bedrock/build-tools
+CDC_SNITCH_PROC := $(CDC_TOOLDIR)/cdc_snitch_proc.ys
+CDC_SNITCH := $(CDC_TOOLDIR)/cdc_snitch.py
+
+# Python
+PYTHON = python3
 
 #========================================================================================
 # Plugins
@@ -153,6 +155,20 @@ PYTHON_SCRIPT := $(CDC_DIR)/cdc_snitch.py
 # Best way to install is to use the binary releases: https://github.com/chipsalliance/verible?tab=readme-ov-file#installation
 # Dont forget to add them to your /usr/local/bin or /opt directories and source them
 # Check if the commands work directly from the terminal  
+
+#========================================================================================
+# Clock Domain Checking
+#========================================================================================
+
+# Clock Domain Checking is done by using the tool from Bedrock: https://github.com/BerkeleyLab/Bedrock/blob/master/build-tools/cdc_snitch.md
+# In the documentation it says that is is compatible with yosys 0.23, I tried it out with yosys 0.4 and it works fine
+# For more information see: https://github.com/BerkeleyLab/Bedrock/blob/master/build-tools/cdc_snitch.md
+#                           https://github.com/YosysHQ/yosys/discussions/3956
+#                           https://github.com/YosysHQ/yosys/issues/4493#issuecomment-2246025920
+# How to use:
+# Go to your TOOL_ROOT(if you haven't exported it yet, export it)
+# git clone https://github.com/BerkeleyLab/Bedrock.git
+# That's it!
 
 #========================================================================================
 # Simulation Tools and Flags
@@ -240,13 +256,14 @@ RM = rm -rf
 #-------------------------------
 # Clock Domain Crossing targets
 #-------------------------------
-cdc_ys: $(VLOG_SRC)
-	$(YOSYS) -p 'read_verilog -sv $(VLOG_SRC); script $(SCRIPT_FILE); write_json $(JSON_OUTPUT).json'
+blink_cdc.json: $(VLOG_SRC)
+	$(YOSYS) $(YOSYS_QUIET) -p 'read_verilog $(VLOG_SRC); script $(CDC_SNITCH_PROC); write_json $@'
 
-cdc_python: $(PYTHON_SCRIPT) $(JSON_OUTPUT).json
-	python3 $^ -o $(JSON_OUTPUT).txt
-	
-cdc: cdc_ys cdc_python
+blink_cdc.txt: $(CDC_SNITCH) opl3_cdc.json
+	$(PYTHON) $^ -o $@
+
+cdc: blink_cdc.txt
+.PHONY:cdc
 
 
 #-------------------------------
@@ -308,6 +325,7 @@ synth_vhdl: $(VHDL_SRC)
 	@echo "=============================================="
 
 synth: synth_vlog
+.PHONY:synth
 
 #-------------------------------
 # PNR
@@ -364,6 +382,7 @@ spi-flash:
 # All
 #-------------------------------
 all: synth impl jtag
+.PHONY:all
 
 #========================================================================================
 # Verilog Simulation Targets
@@ -425,6 +444,7 @@ wave_surfer:
 	@echo "=============================================="
 
 wave: wave_gtkwave
+.PHONY:wave
 #========================================================================================
 # Housekeeping
 #========================================================================================
@@ -460,7 +480,7 @@ clean:
 	@echo "=============================================="
 	@echo "Cleanup complete."
 	@echo "=============================================="
-
+.PHONY:clean
 #=============================================================
 # End-of-File
 #=============================================================

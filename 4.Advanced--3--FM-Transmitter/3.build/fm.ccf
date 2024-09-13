@@ -1,0 +1,4 @@
+Net "clk_10mhz" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0
+Net "btn" Loc = "IO_SB_B7"; # FPGA_BUT
+Net "led" Loc = "IO_SB_B6"; # FPGA LED
+Net "ant_433mhz" Loc = "IO_NA_A0";

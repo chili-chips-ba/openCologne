@@ -390,7 +390,7 @@ synth_sv:
 	$(MAKE) synth_vlog
 
 # Default synthesis target
-synth: synth_sv2v
+synth: synth_vlog
 
 #-------------------------------
 # PNR
@@ -447,7 +447,7 @@ spi-flash:
 #-------------------------------
 # All
 #-------------------------------
-all: lint cdc synth impl jtag
+all: synth impl jtag
 
 #========================================================================================
 # Verilog Simulation Targets

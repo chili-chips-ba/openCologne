@@ -20,7 +20,7 @@ module i2c_top (
 	wire i2c_scl_di;
 	wire i2c_sda_do;
 	wire i2c_sda_di;
-	i2c_ctrl u_ctrl(
+	i2c_ctrl u_i2c_ctrl(
 		.clk(clk),
 		.strobe_100kHz(strobe_100kHz),
 		.areset_n(areset_n),
@@ -37,10 +37,10 @@ module i2c_top (
 	assign i2c_enable = i2c_reg_cnt < 7'd65;
 	assign i2c_reg_addr = i2c_data_init[i2c_reg_cnt];
 	always @(negedge areset_n or posedge clk)
-		if (areset_n == 1'b0)
+		if (!areset_n)
 			i2c_reg_cnt <= 1'sb0;
 		else if ({strobe_100kHz, i2c_enable} == 2'b11) begin
-			if (i2c_reg_done == 1'd1) begin
+			if (i2c_reg_done) begin
 				if (i2c_reg_cnt < 7'd65)
 					i2c_reg_cnt <= i2c_reg_cnt + 7'd1;
 			end

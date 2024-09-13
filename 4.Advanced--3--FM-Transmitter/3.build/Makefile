@@ -13,9 +13,11 @@ EXE =
 
 # Toolchain Directories and Executable Commands
 CC_TOOL_DIR = $(CC_TOOL)
-YOSYS = $(CC_TOOL)/bin/yosys/yosys$(EXE)
+#YOSYS = $(CC_TOOL)/bin/yosys/yosys$(EXE)
+YOSYS = yosys
 PR = $(CC_TOOL)/bin/p_r/p_r$(EXE)
-OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE)
+#OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE)
+OFL = openFPGALoader
 
 # Simulation Tools and Flags
 GTKW = gtkwave
@@ -32,13 +34,24 @@ CELLS_SYNTH = $(CC_TOOL)/bin/yosys/share/gatemate/cells_sim.v
 CELLS_IMPL = $(CC_TOOL)/bin/p_r/cpelib.v
 
 # Project Configuration
-TOP = blink# Define TOP MODULE here
+TOP = fm# Define TOP MODULE here
 CONSTR = $(TOP).ccf
 PRFLAGS += -ccf $(TOP).ccf -cCP
 
 # Synthesize Sources
 VLOG_SRC = $(shell find ./$(SRC)/ -type f \( -iname \*.v -o -iname \*.sv \))
 VHDL_SRC = $(shell find ./$(SRC)/ -type f \( -iname \*.vhd -o -iname \*.vhdl \))
+
+
+TOP_VHDL_MODULE = fmgen_test
+VHDL_FILES = $(SRC)/vhdl/fmgen_test.vhd \
+             $(SRC)/vhdl/fmgen.vhd \
+	     $(SRC)/vhdl/rds.vhd \
+	     $(SRC)/vhdl/lowpass.vhd \
+	    
+TOP_MODULE=top_fm
+TOP_MODULE_FILE=$(SRC)/verilog/top_fm.v
+VERILOG_FILES = $(TOP_MODULE_FILE)
 
 ## misc tools
 RM = rm -rf
@@ -51,13 +64,17 @@ synth_vlog: $(VLOG_SRC)
 	@test -d net || mkdir net
 	$(YOSYS) -ql log/synth.log -p 'read -sv $^; synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
 
-synth_vhdl: $(VHDL_SRC)
+synth_vhdl: $(VHDL_FILES) $(VERILOG_FILES) $(VHDL_FILES)
 	@test -d log || mkdir log
 	@test -d net || mkdir net
-	$(YOSYS) -ql log/synth.log -p 'ghdl --warn-no-binding -C --ieee=synopsys $^ -e $(TOP); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
+	$(YOSYS) -m ghdl -ql log/synth.log \
+	-p "ghdl --warn-no-binding -C --ieee=synopsys --std=08 -fexplicit -frelaxed-rules $(VHDL_FILES) -e $(TOP_VHDL_MODULE)" \
+	-p "read_verilog -sv $(VERILOG_FILES)" \
+	-p "hierarchy -top ${TOP_MODULE}" \
+	-p "synth_gatemate -top $(TOP_MODULE) -nomx8 -vlog net/$(TOP)_synth.v"
 
 impl:
-	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf blink.ccf -cCP > log/$@.log
+	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf $(TOP).ccf -cCP > log/$@.log
 
 jtag:
 	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag $(TOP)_00.cfg

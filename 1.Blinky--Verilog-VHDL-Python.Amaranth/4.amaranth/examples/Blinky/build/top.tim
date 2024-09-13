@@ -1,0 +1,226 @@
+Info: Using uarch 'gowin' for device 'GW1NR-LV9QN88PC6/I5'
+
+Info: Reading constraints...
+Info: Create constant nets...
+Info: Modify LUTs...
+Info: Pack IOBs...
+Info: Pack diff IOBs...
+Info: Pack IO logic...
+Info: Pack DESER16 logic...
+Info: Pack GSR...
+Info: Pack wide LUTs...
+Info: Packed MUX2_LUT8:0, MUX2_LU7:1, MUX2_LUT6:2, MUX2_LUT5:1
+Info: Pack ALUs...
+Info: Pack PLL...
+Info: Pack RAMs...
+Info: Pack BSRAMs...
+Info: Pack DSP...
+Info: Pack INV...
+Info: Pack buffered nets...
+Info: Checksum: 0xd84d72c2
+
+Info: Device utilisation:
+Info: 	                 VCC:       1/      1   100%
+Info: 	                 IOB:       1/    274     0%
+Info: 	                LUT4:      24/   8640     0%
+Info: 	              OSER16:       0/     80     0%
+Info: 	              IDES16:       0/     80     0%
+Info: 	            IOLOGICI:       0/    276     0%
+Info: 	            IOLOGICO:       0/    276     0%
+Info: 	           MUX2_LUT5:       9/   4320     0%
+Info: 	           MUX2_LUT6:       4/   2160     0%
+Info: 	           MUX2_LUT7:       1/   1080     0%
+Info: 	           MUX2_LUT8:       0/   1080     0%
+Info: 	                 ALU:      22/   6480     0%
+Info: 	                 GND:       1/      1   100%
+Info: 	                 DFF:      24/   6480     0%
+Info: 	           RAM16SDP4:       0/    270     0%
+Info: 	                 GSR:       1/      1   100%
+Info: 	                 OSC:       0/      1     0%
+Info: 	                rPLL:       0/      2     0%
+
+Info: Placed 0 cells based on constraints.
+Info: Creating initial analytic placement for 38 cells, random placement wirelen = 1879.
+Info:     at initial placer iter 0, wirelen = 99
+Info:     at initial placer iter 1, wirelen = 98
+Info:     at initial placer iter 2, wirelen = 94
+Info:     at initial placer iter 3, wirelen = 96
+Info: Running main analytical placer, max placement attempts per cell = 10000.
+Info:     at iteration #1, type ALU: wirelen solved = 96, spread = 96, legal = 182; time = 0.00s
+Info:     at iteration #1, type GSR: wirelen solved = 182, spread = 182, legal = 196; time = 0.00s
+Info:     at iteration #1, type GND: wirelen solved = 196, spread = 196, legal = 210; time = 0.00s
+Info:     at iteration #1, type LUT4: wirelen solved = 210, spread = 224, legal = 224; time = 0.00s
+Info:     at iteration #1, type MUX2_LUT6: wirelen solved = 233, spread = 233, legal = 235; time = 0.00s
+Info:     at iteration #1, type MUX2_LUT5: wirelen solved = 236, spread = 236, legal = 240; time = 0.00s
+Info:     at iteration #1, type DFF: wirelen solved = 216, spread = 223, legal = 227; time = 0.00s
+Info:     at iteration #1, type MUX2_LUT7: wirelen solved = 225, spread = 225, legal = 233; time = 0.00s
+Info:     at iteration #1, type VCC: wirelen solved = 233, spread = 233, legal = 233; time = 0.00s
+Info:     at iteration #1, type ALL: wirelen solved = 82, spread = 132, legal = 268; time = 0.01s
+Info:     at iteration #2, type ALU: wirelen solved = 192, spread = 192, legal = 337; time = 0.00s
+Info:     at iteration #2, type GSR: wirelen solved = 337, spread = 337, legal = 337; time = 0.00s
+Info:     at iteration #2, type GND: wirelen solved = 326, spread = 326, legal = 337; time = 0.00s
+Info:     at iteration #2, type LUT4: wirelen solved = 330, spread = 330, legal = 335; time = 0.00s
+Info:     at iteration #2, type MUX2_LUT6: wirelen solved = 333, spread = 333, legal = 335; time = 0.00s
+Info:     at iteration #2, type MUX2_LUT5: wirelen solved = 335, spread = 335, legal = 338; time = 0.00s
+Info:     at iteration #2, type DFF: wirelen solved = 259, spread = 259, legal = 264; time = 0.00s
+Info:     at iteration #2, type MUX2_LUT7: wirelen solved = 260, spread = 260, legal = 262; time = 0.00s
+Info:     at iteration #2, type VCC: wirelen solved = 262, spread = 262, legal = 262; time = 0.00s
+Info:     at iteration #2, type ALL: wirelen solved = 94, spread = 149, legal = 224; time = 0.00s
+Info:     at iteration #3, type ALU: wirelen solved = 199, spread = 199, legal = 339; time = 0.00s
+Info:     at iteration #3, type GSR: wirelen solved = 339, spread = 339, legal = 339; time = 0.00s
+Info:     at iteration #3, type GND: wirelen solved = 329, spread = 329, legal = 339; time = 0.00s
+Info:     at iteration #3, type LUT4: wirelen solved = 338, spread = 339, legal = 340; time = 0.00s
+Info:     at iteration #3, type MUX2_LUT6: wirelen solved = 328, spread = 328, legal = 334; time = 0.00s
+Info:     at iteration #3, type MUX2_LUT5: wirelen solved = 325, spread = 325, legal = 326; time = 0.00s
+Info:     at iteration #3, type DFF: wirelen solved = 241, spread = 241, legal = 239; time = 0.00s
+Info:     at iteration #3, type MUX2_LUT7: wirelen solved = 224, spread = 224, legal = 235; time = 0.00s
+Info:     at iteration #3, type VCC: wirelen solved = 235, spread = 235, legal = 235; time = 0.00s
+Info:     at iteration #3, type ALL: wirelen solved = 104, spread = 154, legal = 188; time = 0.00s
+Info:     at iteration #4, type ALU: wirelen solved = 202, spread = 202, legal = 188; time = 0.00s
+Info:     at iteration #4, type GSR: wirelen solved = 188, spread = 188, legal = 188; time = 0.00s
+Info:     at iteration #4, type GND: wirelen solved = 178, spread = 178, legal = 188; time = 0.00s
+Info:     at iteration #4, type LUT4: wirelen solved = 181, spread = 181, legal = 182; time = 0.00s
+Info:     at iteration #4, type MUX2_LUT6: wirelen solved = 167, spread = 171, legal = 185; time = 0.00s
+Info:     at iteration #4, type MUX2_LUT5: wirelen solved = 175, spread = 175, legal = 178; time = 0.00s
+Info:     at iteration #4, type DFF: wirelen solved = 173, spread = 173, legal = 178; time = 0.00s
+Info:     at iteration #4, type MUX2_LUT7: wirelen solved = 177, spread = 177, legal = 178; time = 0.00s
+Info:     at iteration #4, type VCC: wirelen solved = 178, spread = 178, legal = 178; time = 0.00s
+Info:     at iteration #4, type ALL: wirelen solved = 100, spread = 127, legal = 236; time = 0.00s
+Info:     at iteration #5, type ALU: wirelen solved = 212, spread = 212, legal = 236; time = 0.00s
+Info:     at iteration #5, type GSR: wirelen solved = 236, spread = 236, legal = 236; time = 0.00s
+Info:     at iteration #5, type GND: wirelen solved = 228, spread = 228, legal = 236; time = 0.00s
+Info:     at iteration #5, type LUT4: wirelen solved = 236, spread = 236, legal = 237; time = 0.00s
+Info:     at iteration #5, type MUX2_LUT6: wirelen solved = 227, spread = 231, legal = 237; time = 0.00s
+Info:     at iteration #5, type MUX2_LUT5: wirelen solved = 231, spread = 231, legal = 231; time = 0.00s
+Info:     at iteration #5, type DFF: wirelen solved = 184, spread = 184, legal = 191; time = 0.00s
+Info:     at iteration #5, type MUX2_LUT7: wirelen solved = 192, spread = 192, legal = 191; time = 0.00s
+Info:     at iteration #5, type VCC: wirelen solved = 191, spread = 191, legal = 191; time = 0.00s
+Info:     at iteration #5, type ALL: wirelen solved = 123, spread = 132, legal = 243; time = 0.00s
+Info:     at iteration #6, type ALU: wirelen solved = 214, spread = 214, legal = 243; time = 0.00s
+Info:     at iteration #6, type GSR: wirelen solved = 243, spread = 243, legal = 243; time = 0.00s
+Info:     at iteration #6, type GND: wirelen solved = 242, spread = 242, legal = 243; time = 0.00s
+Info:     at iteration #6, type LUT4: wirelen solved = 241, spread = 241, legal = 243; time = 0.00s
+Info:     at iteration #6, type MUX2_LUT6: wirelen solved = 237, spread = 237, legal = 242; time = 0.00s
+Info:     at iteration #6, type MUX2_LUT5: wirelen solved = 241, spread = 241, legal = 240; time = 0.00s
+Info:     at iteration #6, type DFF: wirelen solved = 194, spread = 197, legal = 208; time = 0.00s
+Info:     at iteration #6, type MUX2_LUT7: wirelen solved = 205, spread = 205, legal = 206; time = 0.00s
+Info:     at iteration #6, type VCC: wirelen solved = 206, spread = 206, legal = 206; time = 0.00s
+Info:     at iteration #6, type ALL: wirelen solved = 128, spread = 144, legal = 247; time = 0.00s
+Info:     at iteration #7, type ALU: wirelen solved = 227, spread = 227, legal = 247; time = 0.00s
+Info:     at iteration #7, type GSR: wirelen solved = 247, spread = 247, legal = 247; time = 0.00s
+Info:     at iteration #7, type GND: wirelen solved = 246, spread = 246, legal = 247; time = 0.00s
+Info:     at iteration #7, type LUT4: wirelen solved = 244, spread = 244, legal = 242; time = 0.00s
+Info:     at iteration #7, type MUX2_LUT6: wirelen solved = 234, spread = 234, legal = 242; time = 0.00s
+Info:     at iteration #7, type MUX2_LUT5: wirelen solved = 245, spread = 245, legal = 245; time = 0.00s
+Info:     at iteration #7, type DFF: wirelen solved = 213, spread = 213, legal = 206; time = 0.00s
+Info:     at iteration #7, type MUX2_LUT7: wirelen solved = 202, spread = 202, legal = 206; time = 0.00s
+Info:     at iteration #7, type VCC: wirelen solved = 206, spread = 206, legal = 206; time = 0.00s
+Info:     at iteration #7, type ALL: wirelen solved = 115, spread = 154, legal = 175; time = 0.00s
+Info:     at iteration #8, type ALU: wirelen solved = 191, spread = 191, legal = 175; time = 0.00s
+Info:     at iteration #8, type GSR: wirelen solved = 175, spread = 175, legal = 175; time = 0.00s
+Info:     at iteration #8, type GND: wirelen solved = 174, spread = 174, legal = 175; time = 0.00s
+Info:     at iteration #8, type LUT4: wirelen solved = 166, spread = 166, legal = 170; time = 0.00s
+Info:     at iteration #8, type MUX2_LUT6: wirelen solved = 160, spread = 160, legal = 167; time = 0.00s
+Info:     at iteration #8, type MUX2_LUT5: wirelen solved = 167, spread = 167, legal = 167; time = 0.00s
+Info:     at iteration #8, type DFF: wirelen solved = 151, spread = 152, legal = 161; time = 0.00s
+Info:     at iteration #8, type MUX2_LUT7: wirelen solved = 160, spread = 160, legal = 161; time = 0.00s
+Info:     at iteration #8, type VCC: wirelen solved = 161, spread = 161, legal = 161; time = 0.00s
+Info:     at iteration #8, type ALL: wirelen solved = 110, spread = 148, legal = 165; time = 0.00s
+Info:     at iteration #9, type ALU: wirelen solved = 192, spread = 192, legal = 165; time = 0.00s
+Info:     at iteration #9, type GSR: wirelen solved = 165, spread = 165, legal = 165; time = 0.00s
+Info:     at iteration #9, type GND: wirelen solved = 164, spread = 164, legal = 165; time = 0.00s
+Info:     at iteration #9, type LUT4: wirelen solved = 158, spread = 156, legal = 156; time = 0.00s
+Info:     at iteration #9, type MUX2_LUT6: wirelen solved = 153, spread = 153, legal = 156; time = 0.00s
+Info:     at iteration #9, type MUX2_LUT5: wirelen solved = 156, spread = 156, legal = 156; time = 0.00s
+Info:     at iteration #9, type DFF: wirelen solved = 155, spread = 161, legal = 161; time = 0.00s
+Info:     at iteration #9, type MUX2_LUT7: wirelen solved = 159, spread = 159, legal = 161; time = 0.00s
+Info:     at iteration #9, type VCC: wirelen solved = 161, spread = 161, legal = 161; time = 0.00s
+Info:     at iteration #9, type ALL: wirelen solved = 112, spread = 147, legal = 219; time = 0.00s
+Info:     at iteration #10, type ALU: wirelen solved = 201, spread = 201, legal = 219; time = 0.00s
+Info:     at iteration #10, type GSR: wirelen solved = 219, spread = 219, legal = 219; time = 0.00s
+Info:     at iteration #10, type GND: wirelen solved = 218, spread = 218, legal = 219; time = 0.00s
+Info:     at iteration #10, type LUT4: wirelen solved = 223, spread = 223, legal = 222; time = 0.00s
+Info:     at iteration #10, type MUX2_LUT6: wirelen solved = 219, spread = 219, legal = 236; time = 0.00s
+Info:     at iteration #10, type MUX2_LUT5: wirelen solved = 236, spread = 236, legal = 236; time = 0.00s
+Info:     at iteration #10, type DFF: wirelen solved = 213, spread = 213, legal = 217; time = 0.00s
+Info:     at iteration #10, type MUX2_LUT7: wirelen solved = 214, spread = 214, legal = 217; time = 0.00s
+Info:     at iteration #10, type VCC: wirelen solved = 217, spread = 217, legal = 217; time = 0.00s
+Info:     at iteration #10, type ALL: wirelen solved = 114, spread = 129, legal = 145; time = 0.00s
+Info:     at iteration #11, type ALU: wirelen solved = 145, spread = 145, legal = 145; time = 0.00s
+Info:     at iteration #11, type GSR: wirelen solved = 145, spread = 145, legal = 145; time = 0.00s
+Info:     at iteration #11, type GND: wirelen solved = 145, spread = 145, legal = 145; time = 0.00s
+Info:     at iteration #11, type LUT4: wirelen solved = 145, spread = 145, legal = 151; time = 0.00s
+Info:     at iteration #11, type MUX2_LUT6: wirelen solved = 135, spread = 135, legal = 151; time = 0.00s
+Info:     at iteration #11, type MUX2_LUT5: wirelen solved = 151, spread = 151, legal = 151; time = 0.00s
+Info:     at iteration #11, type DFF: wirelen solved = 168, spread = 168, legal = 167; time = 0.00s
+Info:     at iteration #11, type MUX2_LUT7: wirelen solved = 167, spread = 167, legal = 167; time = 0.00s
+Info:     at iteration #11, type VCC: wirelen solved = 167, spread = 167, legal = 167; time = 0.00s
+Info:     at iteration #11, type ALL: wirelen solved = 118, spread = 157, legal = 220; time = 0.00s
+Info:     at iteration #12, type ALU: wirelen solved = 205, spread = 205, legal = 220; time = 0.00s
+Info:     at iteration #12, type GSR: wirelen solved = 220, spread = 220, legal = 220; time = 0.00s
+Info:     at iteration #12, type GND: wirelen solved = 220, spread = 220, legal = 220; time = 0.00s
+Info:     at iteration #12, type LUT4: wirelen solved = 221, spread = 221, legal = 223; time = 0.00s
+Info:     at iteration #12, type MUX2_LUT6: wirelen solved = 216, spread = 216, legal = 223; time = 0.00s
+Info:     at iteration #12, type MUX2_LUT5: wirelen solved = 223, spread = 223, legal = 223; time = 0.00s
+Info:     at iteration #12, type DFF: wirelen solved = 173, spread = 173, legal = 186; time = 0.00s
+Info:     at iteration #12, type MUX2_LUT7: wirelen solved = 187, spread = 187, legal = 186; time = 0.00s
+Info:     at iteration #12, type VCC: wirelen solved = 186, spread = 186, legal = 186; time = 0.00s
+Info:     at iteration #12, type ALL: wirelen solved = 136, spread = 167, legal = 224; time = 0.00s
+Info:     at iteration #13, type ALU: wirelen solved = 222, spread = 222, legal = 224; time = 0.00s
+Info:     at iteration #13, type GSR: wirelen solved = 224, spread = 224, legal = 224; time = 0.00s
+Info:     at iteration #13, type GND: wirelen solved = 224, spread = 224, legal = 224; time = 0.00s
+Info:     at iteration #13, type LUT4: wirelen solved = 222, spread = 222, legal = 218; time = 0.00s
+Info:     at iteration #13, type MUX2_LUT6: wirelen solved = 204, spread = 204, legal = 218; time = 0.00s
+Info:     at iteration #13, type MUX2_LUT5: wirelen solved = 213, spread = 213, legal = 213; time = 0.00s
+Info:     at iteration #13, type DFF: wirelen solved = 198, spread = 202, legal = 216; time = 0.00s
+Info:     at iteration #13, type MUX2_LUT7: wirelen solved = 207, spread = 207, legal = 227; time = 0.00s
+Info:     at iteration #13, type VCC: wirelen solved = 227, spread = 227, legal = 227; time = 0.00s
+Info:     at iteration #13, type ALL: wirelen solved = 131, spread = 192, legal = 303; time = 0.00s
+Info:     at iteration #14, type ALU: wirelen solved = 223, spread = 223, legal = 349; time = 0.00s
+Info:     at iteration #14, type GSR: wirelen solved = 349, spread = 349, legal = 349; time = 0.00s
+Info:     at iteration #14, type GND: wirelen solved = 349, spread = 349, legal = 349; time = 0.00s
+Info:     at iteration #14, type LUT4: wirelen solved = 330, spread = 330, legal = 331; time = 0.00s
+Info:     at iteration #14, type MUX2_LUT6: wirelen solved = 328, spread = 328, legal = 331; time = 0.00s
+Info:     at iteration #14, type MUX2_LUT5: wirelen solved = 325, spread = 325, legal = 323; time = 0.00s
+Info:     at iteration #14, type DFF: wirelen solved = 279, spread = 279, legal = 281; time = 0.00s
+Info:     at iteration #14, type MUX2_LUT7: wirelen solved = 279, spread = 279, legal = 281; time = 0.00s
+Info:     at iteration #14, type VCC: wirelen solved = 281, spread = 281, legal = 281; time = 0.00s
+Info:     at iteration #14, type ALL: wirelen solved = 140, spread = 181, legal = 252; time = 0.00s
+Info:     at iteration #15, type ALU: wirelen solved = 230, spread = 230, legal = 252; time = 0.00s
+Info:     at iteration #15, type GSR: wirelen solved = 252, spread = 252, legal = 252; time = 0.00s
+Info:     at iteration #15, type GND: wirelen solved = 252, spread = 252, legal = 252; time = 0.00s
+Info:     at iteration #15, type LUT4: wirelen solved = 228, spread = 228, legal = 229; time = 0.00s
+Info:     at iteration #15, type MUX2_LUT6: wirelen solved = 218, spread = 222, legal = 223; time = 0.00s
+Info:     at iteration #15, type MUX2_LUT5: wirelen solved = 215, spread = 215, legal = 215; time = 0.00s
+Info:     at iteration #15, type DFF: wirelen solved = 185, spread = 186, legal = 191; time = 0.00s
+Info:     at iteration #15, type MUX2_LUT7: wirelen solved = 190, spread = 190, legal = 196; time = 0.00s
+Info:     at iteration #15, type VCC: wirelen solved = 196, spread = 196, legal = 196; time = 0.00s
+Info:     at iteration #15, type ALL: wirelen solved = 129, spread = 165, legal = 236; time = 0.00s
+Info: HeAP Placer Time: 0.24s
+Info:   of which solving equations: 0.10s
+Info:   of which spreading cells: 0.04s
+Info:   of which strict legalisation: 0.02s
+
+Info: Running simulated annealing placer for refinement.
+Info:   at iteration #1: temp = 0.000000, timing cost = 0, wirelen = 145
+Info:   at iteration #2: temp = 0.000000, timing cost = 0, wirelen = 145 
+Info: SA placement time 0.00s
+
+Info: No Fmax available; no interior timing paths found in design.
+Info: Checksum: 0xd229bc40
+Info: Routing globals...
+Info:     routed net 'clk' using global resources only.
+
+Info: Routing..
+Info: Setting up routing queue.
+Info: Routing 225 arcs.
+Info:            |   (re-)routed arcs  |   delta    | remaining|       time spent     |
+Info:    IterCnt |  w/ripup   wo/ripup |  w/r  wo/r |      arcs| batch(sec) total(sec)|
+Info:        235 |        5        181 |    5   181 |         0|       1.97       1.97|
+Info: Routing complete.
+Info: Router1 time 1.97s
+Info: Checksum: 0x97213a0b
+
+Info: No Fmax available; no interior timing paths found in design.
+
+Info: Program finished normally.
