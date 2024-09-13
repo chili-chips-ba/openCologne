@@ -9,14 +9,19 @@ The checkered pattern is concurrently displayed on both:
 The pictures below show expected results. Also see [this](https://www.linkedin.com/posts/chili-chips_gatemate-spi-lcd-activity-7233383297500733441-F4PM?utm_source=share&utm_medium=member_desktop").
 
 ## 1) GateMate EVB
-simultaneously driving both 1.5" and 0.95" SPI LCD display 
-<img src="https://github.com/user-attachments/assets/f95008b0-0579-4203-8a42-028c8021b3d5" width="400">
+simultaneously driving both 1.5" and 0.95" SPI LCD displays
 
+
+<p align="center" width="100%">
+    <img width="33%" src="https://github.com/user-attachments/assets/f95008b0-0579-4203-8a42-028c8021b3d5">
+</p>
 
 ## 2) Olimex Board
-simultaneously driving both 1.5" and 0.95" SPI LCD display
-<img src="https://github.com/user-attachments/assets/b7a9971e-d7d6-4a61-9695-492366c72baf" width="400">
+simultaneously driving both 1.5" and 0.95" SPI LCD displays
 
+<p align="center" width="100%">
+    <img width="33%" src="https://github.com/user-attachments/assets/b7a9971e-d7d6-4a61-9695-492366c72baf">
+</p>
 
 To reproduce, please note the following tips:
 - Ensure the appropriate initialization files are available in the project directory and placed in the same folder as the Makefile.
@@ -32,7 +37,9 @@ This example is also supported for:
 - [2.2inch](http://www.lcdwiki.com/2.2inch_SPI_Module_ILI9341_SKU:MSP2202) MSP2202 SPI LCD with ILI9341 Controller
 
 
-![wavehsatelcds](https://github.com/user-attachments/assets/f4ccde4b-41a3-4033-bf1c-254728c120ac)
+<p align="center" width="100%">
+    <img width="90%" src="https://github.com/user-attachments/assets/f4ccde4b-41a3-4033-bf1c-254728c120ac">
+</p>
 
 <p align="center" width="100%">
     <img width="33%" src="https://github.com/user-attachments/assets/b99cc244-f015-4799-a511-f20549269634">
