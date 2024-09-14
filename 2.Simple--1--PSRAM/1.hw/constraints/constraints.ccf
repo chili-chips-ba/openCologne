@@ -109,14 +109,14 @@ Pin_out      "tick_02us"       Loc = "IO_NB_A2";
 #PSRAM
 Pin_out     "o_psram_csn"       Loc = "IO_WC_A4"; # PSRAM CSn
 Pin_out     "o_psram_sclk"      Loc = "IO_WC_B4"; # PSRAM SCLK
-Pin_inout   "io_psram_data0"    Loc = "IO_WC_A5"; # PSRAM DATA0
-Pin_inout   "io_psram_data1"    Loc = "IO_WC_B5"; # PSRAM DATA1
-Pin_inout   "io_psram_data2"    Loc = "IO_WC_A6"; # PSRAM DATA2
-Pin_inout   "io_psram_data3"    Loc = "IO_WC_B6"; # PSRAM DATA3
-Pin_inout   "io_psram_data4"    Loc = "IO_WC_A7"; # PSRAM DATA4
-Pin_inout   "io_psram_data5"    Loc = "IO_WC_B7"; # PSRAM DATA5
-Pin_inout   "io_psram_data6"    Loc = "IO_WC_A8"; # PSRAM DATA6
-Pin_inout   "io_psram_data7"    Loc = "IO_WC_B8"; # PSRAM DATA7
+Pin_inout   "io_psram_data[0]"    Loc = "IO_WC_A5"; # PSRAM DATA0
+Pin_inout   "io_psram_data[1]"    Loc = "IO_WC_B5"; # PSRAM DATA1
+Pin_inout   "io_psram_data[2]"    Loc = "IO_WC_A6"; # PSRAM DATA2
+Pin_inout   "io_psram_data[3]"    Loc = "IO_WC_B6"; # PSRAM DATA3
+Pin_inout   "io_psram_data[4]"    Loc = "IO_WC_A7"; # PSRAM DATA4
+Pin_inout   "io_psram_data[5]"    Loc = "IO_WC_B7"; # PSRAM DATA5
+Pin_inout   "io_psram_data[6]"    Loc = "IO_WC_A8"; # PSRAM DATA6
+Pin_inout   "io_psram_data[7]"    Loc = "IO_WC_B8"; # PSRAM DATA7
 
 
 ## #######################################################
