@@ -1,0 +1,40 @@
+#! /usr/local/bin/vvp
+:ivl_version "13.0 (devel)" "(s20221226-347-g58dcf39db)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/usr/local/lib/ivl/system.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/local/lib/ivl/v2005_math.vpi";
+:vpi_module "/usr/local/lib/ivl/va_math.vpi";
+:vpi_module "/usr/local/lib/ivl/v2009.vpi";
+S_0x5f3b0a69fa10 .scope package, "$unit" "$unit" 2 1;
+ .timescale -9 -12;
+S_0x5f3b0a69fba0 .scope module, "top" "top" 3 1;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 1 "clk";
+    .port_info 1 /OUTPUT 1 "LRCK";
+    .port_info 2 /OUTPUT 1 "DIN";
+    .port_info 3 /OUTPUT 1 "BCK";
+o0x7d6adcc22138 .functor BUFZ 16, C4<zzzzzzzzzzzzzzzz>; HiZ drive
+L_0x5f3b0a6d2580 .functor BUFZ 16, o0x7d6adcc22138, C4<0000000000000000>, C4<0000000000000000>, C4<0000000000000000>;
+L_0x5f3b0a6d2670 .functor BUFZ 16, o0x7d6adcc22138, C4<0000000000000000>, C4<0000000000000000>, C4<0000000000000000>;
+o0x7d6adcc22018 .functor BUFZ 1, C4<z>; HiZ drive
+v0x5f3b0a69fd30_0 .net "BCK", 0 0, o0x7d6adcc22018;  0 drivers
+o0x7d6adcc22048 .functor BUFZ 1, C4<z>; HiZ drive
+v0x5f3b0a6c1eb0_0 .net "DIN", 0 0, o0x7d6adcc22048;  0 drivers
+o0x7d6adcc22078 .functor BUFZ 1, C4<z>; HiZ drive
+v0x5f3b0a6c1f70_0 .net "LRCK", 0 0, o0x7d6adcc22078;  0 drivers
+o0x7d6adcc220a8 .functor BUFZ 1, C4<z>; HiZ drive
+v0x5f3b0a6c2010_0 .net "clk", 0 0, o0x7d6adcc220a8;  0 drivers
+v0x5f3b0a6c20d0_0 .net "left_out", 15 0, L_0x5f3b0a6d2580;  1 drivers
+L_0x7d6adca97018 .functor BUFT 1, C4<0000000000000001010111011000011001111100001111101100111000101010>, C4<0>, C4<0>, C4<0>;
+v0x5f3b0a6c2200_0 .net "nco_phase_increment", 63 0, L_0x7d6adca97018;  1 drivers
+v0x5f3b0a6c22e0_0 .net "nco_sinewave", 15 0, o0x7d6adcc22138;  0 drivers
+v0x5f3b0a6c23c0_0 .net "right_out", 15 0, L_0x5f3b0a6d2670;  1 drivers
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "-";
+    "/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/4.dac/2.sim/../1.hw/top.v";
