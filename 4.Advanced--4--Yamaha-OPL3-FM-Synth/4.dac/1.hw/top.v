@@ -1,5 +1,6 @@
 module top (
     input wire  clk, // 48 MHz
+    input wire  arst,
     output      LRCK,
     output      DIN,
     output      BCK
@@ -12,31 +13,40 @@ module top (
   wire [15:0] nco_sinewave;
   reg  [63:0] nco_phase_increment;
   assign      nco_phase_increment = 64'd384307168202282; // 1kHz for 48Mhz input
-/*
+
   sinewave_generator #(
       .DATA_WIDTH (16),
       .LUT_DEPTH  (8),
       .PHASE_WIDTH(64)
   ) sine_gen_inst (
       .clk            (clk),
-      .arst           (1'b0),
+      .arst           (arst),
       .sample_clk_ce  (1'b1),
       .phase_increment(nco_phase_increment),
       .sinewave       (nco_sinewave)
   );
-*/
+
   assign left_out            = nco_sinewave;
   assign right_out           = nco_sinewave;
 
-/*
   // PCM5102 DAC instance
   PCM5102 dac (
       .clk  (clk),
+      .arst (arst),
       .left (left_out),
       .right(right_out),
       .din  (DIN),
       .bck  (BCK),
       .lrck (LRCK)
   );
-*/
+
+  //============================//
+  //    For simulation only     //
+  //============================//
+  //`ifdef SIMULATION
+  initial begin
+    $dumpfile("dac_waves.vcd");
+    $dumpvars;
+  end
+  //`endif
 endmodule

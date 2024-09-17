@@ -1,4 +1,3 @@
-
 module sinewave_generator #(
     parameter DATA_WIDTH  = 16,
               LUT_DEPTH   = 8,
@@ -31,10 +30,10 @@ module sinewave_generator #(
   //=============================//
   //       For sim only          //
   //=============================//
-  //`ifdef SIMULATION
+  `ifdef SIMULATION
   initial begin
     $dumpfile("sinewave_waves.vcd");
     $dumpvars(0, sinewave_generator);
   end
-  //`endif
+  `endif
 endmodule
