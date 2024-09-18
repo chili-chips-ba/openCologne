@@ -2,45 +2,72 @@
 # Makefile for GateMate FPGA Projects
 # Copyright (C) 2024 Chili.CHIPS*ba
 #=============================================================
-
-# Toolchain download and setup instructions:
-# Download toolchain from: https://www.colognechip.com/programmable-logic/gatemate/gatemate-download/
+#=============================================================
+# Toolchain download and setup instructions
+#=============================================================
+# Download toolchain from: 
+# https://www.colognechip.com/programmable-logic/gatemate/gatemate-download/
+# There are two options: toolchain for linux and toolchain for windows
 # Extract archive and set CC_TOOL environment variable:
-# export CC_TOOL=/path/to/cc-toolchain-linux
-
+# 1.
+# Easiest way to do it is by running the following command: 
+#     $ echo 'export CC_TOOL="/path/to/cc-toolchain-linux"' >> ~/.bashrc
+# After that you either need to restart your terminal or source it with:
+#     $ source ~/.bashrc
+# (NOTE: By doing it this way you don't need to export the path everytime you open a new terminal)
+#
+# 2.
+# Running the following command in terminal:
+#     $ export CC_TOOL="/path/to/cc-toolchain-linux"
+# NOTE: Everytime you open a new terminal you need to export the command if you do it this way
+#
+#=============================================================
 # Set EXE for platform-specific executable extensions, if necessary
+export CC_TOOL=/home/harun/cc-toolchain-linux/cc-toolchain-linux
 EXE =
-
+# Set TOOL_ROOT for your path to your tools such like(yosys, synlig, sv2v, openFPGALoader)
+TOOL_ROOT = /home/user/FPGA/tools/
 # Toolchain Directories and Executable Commands
 CC_TOOL_DIR = $(CC_TOOL)
 YOSYS = $(CC_TOOL)/bin/yosys/yosys$(EXE)
+#YOSYS = $(TOOL_ROOT)/yosys/yosys For newer version of YOSYS
 PR = $(CC_TOOL)/bin/p_r/p_r$(EXE)
-OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE)
-
+#OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE) # Path to OFL needs to be latest version of OFL or you will get errors when programming the board
+#OFL = $(TOOL_ROOT)/build/openFPGALoader$(EXE) 
+OFL = /usr/local/bin/openFPGALoader$(EXE)
+# SYNLIG SystemVerilog Plugin
+SYNLIG = $(TOOL_ROOT)/synlig
+PLUGIN_PATH := $(SYNLIG)/build/release/systemverilog-plugin/systemverilog.so
+# Simulation Tools and Flags
+GTKW = gtkwave
+IVL = iverilog
+VVP = vvp
+IVLFLAGS = -Winfloop -g2012 -gspecify -Ttyp
 # Source Directory
 SRC = ../1.hw
-
+SIM = ../2.sim
+# Simulation Libraries
+CELLS_SYNTH = $(CC_TOOL)/bin/yosys/share/gatemate/cells_sim.v
+CELLS_IMPL = $(CC_TOOL)/bin/p_r/cpelib.v
 # Project Configuration
-TOP = top# Define TOP MODULE here
-CONSTR = GateMateA1-EVB.ccf
-
+# Define TOP MODULE here
+TOP = top
+CONSTR = $(TOP).ccf
+PRFLAGS += -ccf $(TOP).ccf -cCP
 # Synthesize Sources
 VLOG_SRC = $(shell find ./$(SRC)/ -type f \( -iname \*.v -o -iname \*.sv \))
-
+VHDL_SRC = $(shell find ./$(SRC)/ -type f \( -iname \*.vhd -o -iname \*.vhdl \))
 ## misc tools
 RM = rm -rf
-
 ## toolchain targets
 synth: synth_vlog
-
 synth_vlog: $(VLOG_SRC)
 	@test -d log || mkdir log
 	@test -d net || mkdir net
 	$(YOSYS) -ql log/synth.log -p 'read -sv $^; synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
-
+    
 impl:
-	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf GateMateA1-EVB.ccf -cCP > log/$@.log
-
+	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -tm 1 -ccf $(TOP).ccf -cCP > log/$@.log
 all: synth impl
 
 clean:
@@ -69,7 +96,8 @@ clean:
 	$(RM) $(SIM)/*.gtkw
 	test ! -d log || rmdir log
 	test ! -d net || rmdir net
+
+
 #=============================================================
 # End-of-File
 #=============================================================
-
