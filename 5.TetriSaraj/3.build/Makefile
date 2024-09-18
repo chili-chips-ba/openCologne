@@ -23,7 +23,7 @@
 #
 #=============================================================
 # Set EXE for platform-specific executable extensions, if necessary
-export CC_TOOL=/home/harun/cc-toolchain-linux/cc-toolchain-linux
+export CC_TOOL=
 EXE =
 # Set TOOL_ROOT for your path to your tools such like(yosys, synlig, sv2v, openFPGALoader)
 TOOL_ROOT = /home/user/FPGA/tools/
