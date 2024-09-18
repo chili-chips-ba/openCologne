@@ -4,6 +4,6 @@ It is best to use [DUAL PMOD PANEL](https://hr.mouser.com/ProductDetail/1BitSqua
 
 
 
-https://github.com/user-attachments/assets/7de8cd9c-b3db-4678-a4b8-3e09c4845cbd
 
+![460127368_8124690437639711_859785094676978335_n-ezgif com-resize](https://github.com/user-attachments/assets/b4e4109c-ecd3-4ddb-8a8c-a9a2bb70d6a9)
 
