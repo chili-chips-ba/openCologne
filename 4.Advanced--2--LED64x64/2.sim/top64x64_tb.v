@@ -33,62 +33,64 @@
 //              https://opensource.org/license/bsd-3-clause
 //------------------------------------------------------------------------
 
-`timescale 1 ns / 1 ps
+`timescale 1ns/1ps
 
-module top_checkered_tb;
+module top64x64_tb;
 
+   // Inputs
    reg clk;
    reg btn;
-   wire oled_csn;
-   wire oled_clk;
-   wire oled_mosi;
-   wire oled_dc;
-   wire oled_resn;
+
+   // Outputs
    wire led;
+   wire [27:0] gp, gn;
+
 
    initial begin
    `ifdef CCSDF
-      $sdf_annotate("top_checkered_00.sdf", dut);
+      $sdf_annotate("top64x64_00.sdf", dut);
    `endif
-      $dumpfile("../2.sim/top_checkered_tb.vcd");
-      $dumpvars(0, top_checkered_tb);
+      $dumpfile("../2.sim/top64x64_tb.vcd");
+      $dumpvars(0, top64x64_tb);
       clk = 0;
       btn = 1;
    end
-
-   always clk = #50 ~clk;
-
-   top_checkered dut (
+   // Instantiate the top64x64 module
+   top64x64 dut (
       .clk(clk),
       .btn(btn),
-      .oled_csn(oled_csn),
-      .oled_clk(oled_clk),
-      .oled_mosi(oled_mosi),
-      .oled_dc(oled_dc),
-      .oled_resn(oled_resn),
-      .led(led)
+      .led(led),
+      .gp(gp),
+      .gn(gn)
    );
+
 
    initial begin
       clk = 0;
+      forever #20 clk = ~clk;  // 25 MHz
+   end
+
+   // Test sequence
+   initial begin
+      // Initial state
       btn = 0;
-      #200;
+      #50;
+
+
       btn = 1;
-      #500;
-      $display("c_oled_init contents:");
-      for (int i = 0; i < dut.lcd_video_inst.c_init_size; i = i + 1) begin
-         $display("c_oled_init[%0d] = %h", i, dut.lcd_video_inst.c_oled_init[i]);
-      end
-      #10_000_000;
+      #100;
+
+
+
+      #50000;
+
+
       $finish;
    end
 
-endmodule
 
-/*
-------------------------------------------------------------------------------
-Version History:
-------------------------------------------------------------------------------
- 2024/5/30 Ahmed Imamović: Initial creation
-           Adapted from: https://github.com/emard/ulx3s-misc/tree/master/examples/spi_display
-*/
+   initial begin
+      $monitor("Time = %0t | LED = %b | GP = %b | GN = %b", $time, led, gp, gn);
+   end
+
+endmodule
