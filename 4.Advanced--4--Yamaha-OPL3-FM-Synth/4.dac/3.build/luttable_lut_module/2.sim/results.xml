@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1726654690" />
+    <testcase name="sinewave_generator_test" classname="sinewave_generator_tb" file="/home/user/openCologne/4.Advanced--4--Yamaha-OPL3-FM-Synth/4.dac/3.build/luttable_lut_module/2.sim/sinewave_generator_tb.py" lineno="8" time="0.05075955390930176" sim_time_ns="2512.501" ratio_time="49498.09063510271" />
+  </testsuite>
+</testsuites>
