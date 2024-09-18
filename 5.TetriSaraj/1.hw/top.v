@@ -17,15 +17,19 @@
  *
  */
 
+`timescale 1ns / 1ps
+
 module top (
-    input 	clk,		// 100MHz on Basys 3
+    input wire 	clk_10mhz,		// 100MHz on Basys 3
 	
 	input 	btnC,		// btnCenter on Basys 3
 	input	btnU,		// btnUp on Basys 3
 	input 	btnD,		// btnDown on Basys 3
 	input 	btnL,		// btnLeft on Basys 3
 	input	btnR,		// btnRight on Basys 3
-	
+	    
+	 output wire led_olimex,     // LED output
+
     output 	tx,
     input  	rx,
 
@@ -103,8 +107,33 @@ module top (
     reg [7:0] reset_cnt = 0;
     wire resetn = &reset_cnt;
 
+	wire clk_50mhz, locked;
+
+	pll pll_inst (
+		 .clock_in  (clk_10mhz), // 10 MHz external input clock
+		 .rst_in    (~reset_n),
+		 .clock_out (clk_50mhz), // 50 MHz, 0 deg output clock
+		 .locked    (locked)
+	);
+	 
+	wire rst_s = ~locked;
+
+	//--- Clock divider by 2
+	reg  r_25MHz;
+
+	always @(posedge clk_50mhz or posedge rst_s) begin
+		 if (rst_s == 1'b1)
+			  r_25MHz <= 1'b0;
+		 else
+			  r_25MHz <= ~r_25MHz;
+	end
+	
+	//--- Attempt to use CC_BUFG for the divided clock signal
+	wire clk;
+	CC_BUFG pll_bufg (.I(r_25MHz), .O(clk));
+	
 	reg sw_dl1, sw_dl2;
-    always @(posedge clk_bufg) 
+    always @(posedge clk) 
 	begin
 		sw_dl1 <= sw[15];
 		sw_dl2 <= sw_dl1;
@@ -115,15 +144,7 @@ module top (
 		end
     end	
 
-    ///////////////////////////////////
-    // Button filter signal
-    ///////////////////////////////////	
-	wire clk_bufg;
-	BUFG bufg (
-		.I(clk),
-		.O(clk_bufg)
-	);
-	
+	/*
 	wire btnC_out;
 	debounce debBtnC (
 		.clk	(clk), 
@@ -157,7 +178,7 @@ module top (
 		.clk	(clk), 
 		.in		(btnU), 
 		.out	(btnU_out)
-	);
+	);*/
 
     ///////////////////////////////////
     // Peripheral Bus
@@ -194,6 +215,7 @@ module top (
 	assign iomem_ready = gpio_en ? gpio_iomem_ready : ( video_en ? vga_iomem_ready : 1'b0);		
 	assign iomem_rdata = gpio_en ? gpio_iomem_rdata : 32'h00000000;	
 	
+
 	always @(posedge clk) 
 	begin
 		if (!resetn) begin
@@ -210,6 +232,9 @@ module top (
 			end
 		end
 	end
+	
+		    assign led_olimex = ~gpio[0]; 
+
 	
 	wire tx_uc, rx_uc, tx_prog, rx_prog;
 	
@@ -243,7 +268,7 @@ module top (
 	
     // VGA Controller
     vga_controller vga(
-		.clk_100MHz(clk), 
+		.clk(clk), 
 		.reset(!resetn), 		
 		.hsync(hsync), 
 		.vsync(vsync),
@@ -283,7 +308,7 @@ module top (
     // output
     assign rgb = rgb_reg;
 	
-	
+	/*
     // UART RX module
     uart_rx uart_rx_115200 (
         .rx(rx_prog),
@@ -303,15 +328,16 @@ module top (
         .tx(tx_prog),
         .tx_busy(tx_busy)
     );
+	 */
     
     // Seven segment driver
-    seven_segment_ctrl display (
-        .clk(clk_bufg),
-        .reset(!resetn),
-        .number(display_data),
-        .anodes(anodes),
-        .cathodes(cathodes)
-    );
+    // seven_segment_ctrl display (
+    //     .clk(clk_bufg),
+    //     .reset(!resetn),
+    //     .number(display_data),
+    //     .anodes(anodes),
+    //     .cathodes(cathodes)
+    // );
 
 	wire I_write = (command==C_REGISTER_WR);
 	wire I_read  = (command==C_REGISTER_RD);
@@ -337,19 +363,19 @@ module top (
     end
 	
     // Divided clock for UART @ 115200 baud
-	always @(posedge clk_bufg) 
-	begin		
-		if(sw[15]) begin
-			counter <= counter + 1;
-			if(counter == 5'd27) begin 
-				counter <= 0;
-				clk_uart <= ~clk_uart;
-			end
-		end else begin
-			counter 	<= 0;
-			clk_uart	<= 0;			
-		end		
-	end
+	// always @(posedge clk_bufg) 
+	// begin		
+	// 	if(sw[15]) begin
+	// 		counter <= counter + 1;
+	// 		if(counter == 5'd27) begin 
+	// 			counter <= 0;
+	// 			clk_uart <= ~clk_uart;
+	// 		end
+	// 	end else begin
+	// 		counter 	<= 0;
+	// 		clk_uart	<= 0;			
+	// 	end		
+	// end
 
 	always @(posedge clk_uart)
 	begin
