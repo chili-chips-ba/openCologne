@@ -9,7 +9,7 @@ module vga_ram (
     output reg [11:0] rdata
 );
 	//parameter MEM_INIT_FILE = "vid_ram.mem";
-	(* ram_style = "distributed" *) reg [11:0] ram [0:4095];   //  memory for 16 character with dimension 16x16 pixels @ 12bpp
+	(* ram_style = "block" *) reg [11:0] ram [0:4095];   //  memory for 16 character with dimension 16x16 pixels @ 12bpp // bio distribuirani
 	
 	//initial
 	//if (MEM_INIT_FILE != "")
