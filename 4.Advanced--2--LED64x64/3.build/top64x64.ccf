@@ -1,0 +1,65 @@
+#======================================================================== 
+# openCologne * NLnet-sponsored open-source design ware for GateMate
+#------------------------------------------------------------------------
+#                   Copyright (C) 2024 Chili.CHIPS*ba
+# 
+# Redistribution and use in source and binary forms, with or without 
+# modification, are permitted provided that the following conditions 
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright 
+# notice, this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright 
+# notice, this list of conditions and the following disclaimer in the 
+# documentation and/or other materials provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its 
+# contributors may be used to endorse or promote products derived
+# from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS 
+# IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED 
+# TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
+# PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+#              https://opensource.org/license/bsd-3-clause
+#------------------------------------------------------------------------
+
+Net "clk" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0
+
+Net "btn" Loc = "IO_EB_B0"; # SW3
+Net "led" Loc = "IO_EB_B1"; # D1
+
+#PMOD A
+
+Net "gp[21]" Loc = "IO_NB_B3"; # X1
+Net "gn[21]" Loc = "IO_NB_A3"; # X0
+Net "gp[22]" Loc = "IO_NB_B2"; # B1
+Net "gn[22]" Loc = "IO_NB_A2"; # B0
+Net "gp[23]" Loc = "IO_NB_B1"; # G1
+Net "gn[23]" Loc = "IO_NB_A1"; # G0
+Net "gp[24]" Loc = "IO_NB_B0"; # R1
+Net "gn[24]" Loc = "IO_NB_A0"; # R0
+
+#PMOD B
+
+Net "gp[14]" Loc = "IO_NB_B7"; #A4
+Net "gn[14]" Loc = "IO_NB_A7"; #A3
+Net "gp[15]" Loc = "IO_NB_B6"; #CK
+Net "gn[15]" Loc = "IO_NB_A6"; #A2
+Net "gp[16]" Loc = "IO_NB_B5"; #LA
+Net "gn[16]" Loc = "IO_NB_A5"; #A1
+Net "gp[17]" Loc = "IO_NB_B4"; #BA
+Net "gn[17]" Loc = "IO_NB_A4"; #A0
+
+## #######################################################
+## End of hardware constraints lcd_video.ccf
+## #######################################################

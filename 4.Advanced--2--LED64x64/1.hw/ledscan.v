@@ -32,8 +32,6 @@
 //
 //              https://opensource.org/license/bsd-3-clause
 //------------------------------------------------------------------------
-// Description: 
-//========================================================================
 
 module ledscan #(
    parameter C_bpc = 8,         // bits per RGB channel
@@ -126,6 +124,6 @@ endmodule
 ------------------------------------------------------------------------------
 Version History:
 ------------------------------------------------------------------------------
- 2024/5/30 Ahmed Imamović: Initial creation
+ 2024/5/30 aimamovic6: Initial creation
 		   Adapted from: https://github.com/emard/ulx3s-misc/tree/master/examples/led64x64
 */

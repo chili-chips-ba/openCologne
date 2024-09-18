@@ -2,26 +2,51 @@
 # Makefile for GateMate FPGA Projects
 # Copyright (C) 2024 Chili.CHIPS*ba
 #=============================================================
-
-# Toolchain download and setup instructions:
-# Download toolchain from: https://www.colognechip.com/programmable-logic/gatemate/gatemate-download/
+#=============================================================
+# Toolchain download and setup instructions
+#=============================================================
+# Download toolchain from:
+# https://www.colognechip.com/programmable-logic/gatemate/gatemate-download/
+# There are two options: toolchain for linux and toolchain for windows
 # Extract archive and set CC_TOOL environment variable:
-# export CC_TOOL=/path/to/cc-toolchain-linux
-
+# 1.
+# Easiest way to do it is by running the following command:
+#     $ echo 'export CC_TOOL="/path/to/cc-toolchain-linux"' >> ~/.bashrc
+# After that you either need to restart your terminal or source it with:
+#     $ source ~/.bashrc
+# (NOTE: By doing it this way you don't need to export the path everytime you open a new terminal)
+#
+# 2.
+# Running the following command in terminal:
+#     $ export CC_TOOL="/path/to/cc-toolchain-linux"
+# NOTE: Everytime you open a new terminal you need to export the command if you do it this way
+#
+#=============================================================
 # Set EXE for platform-specific executable extensions, if necessary
 EXE =
+
+# Set TOOL_ROOT for your path to your tools such like(yosys, synlig, sv2v, openFPGALoader)
+# TOOL_ROOT = /home/user/FPGA/tools/
+TOOL_ROOT = /home/ahmed/Desktop/tools/
 
 # Toolchain Directories and Executable Commands
 CC_TOOL_DIR = $(CC_TOOL)
 YOSYS = $(CC_TOOL)/bin/yosys/yosys$(EXE)
+YOSYSGHDL = /usr/local/bin/yosys$(EXE)
+#YOSYS = $(TOOL_ROOT)/yosys/yosys For newer version of YOSYS
 PR = $(CC_TOOL)/bin/p_r/p_r$(EXE)
-OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE)
+#OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE) # Path to OFL needs to be latest version of OFL or you will get errors when programming the board
+OFL = $(TOOL_ROOT)/openFPGALoader/build/openFPGALoader$(EXE)
+
+# SYNLIG SystemVerilog Plugin
+SYNLIG = $(TOOL_ROOT)/synlig
+PLUGIN_PATH := $(SYNLIG)/build/release/systemverilog-plugin/systemverilog.so
 
 # Simulation Tools and Flags
 GTKW = gtkwave
 IVL = iverilog
 VVP = vvp
-IVLFLAGS = -Winfloop -g2012 -gspecify -Ttyp
+IVLFLAGS = -g2012 -gspecify -Ttyp
 
 # Source Directory
 SRC = ../1.hw
@@ -32,7 +57,8 @@ CELLS_SYNTH = $(CC_TOOL)/bin/yosys/share/gatemate/cells_sim.v
 CELLS_IMPL = $(CC_TOOL)/bin/p_r/cpelib.v
 
 # Project Configuration
-TOP = top8x8# Define TOP MODULE here
+# Define TOP MODULE here
+TOP = top64x64
 CONSTR = $(TOP).ccf
 PRFLAGS += -ccf $(TOP).ccf -cCP
 
@@ -44,6 +70,7 @@ VHDL_SRC = $(shell find ./$(SRC)/ -type f \( -iname \*.vhd -o -iname \*.vhdl \))
 RM = rm -rf
 
 ## toolchain targets
+## $(OFL) $(OFLFLAGS) -b gatemate_evb_jtag --cable dirtyJtag --bitstream $(TOP)_00.cfg
 synth: synth_vlog
 
 synth_vlog: $(VLOG_SRC)
@@ -54,13 +81,15 @@ synth_vlog: $(VLOG_SRC)
 synth_vhdl: $(VHDL_SRC)
 	@test -d log || mkdir log
 	@test -d net || mkdir net
-	$(YOSYS) -ql log/synth.log -p 'ghdl --warn-no-binding -C --ieee=synopsys $^ -e $(TOP); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
+	$(YOSYSGHDL) -m ghdl -ql log/synth.log -p 'ghdl --warn-no-binding -C --ieee=synopsys $^ -e $(TOP); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
 
 impl:
 	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf $(TOP).ccf -cCP > log/$@.log
 
 jtag:
-	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag $(TOP)_00.cfg
+
+	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag --bitstream $(TOP)_00.cfg
+	#$(OFL) $(OFLFLAGS) -b olimex_gatemateevb --cable dirtyJtag --bitstream $(TOP)_00.cfg
 
 jtag-flash:
 	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag -f --verify $(TOP)_00.cfg
@@ -75,22 +104,17 @@ all: synth impl jtag
 
 ## verilog simulation targets
 vlog_sim.vvp:
-	$(IVL) $(IVLFLAGS) -o $(SIM)/$@ $(VLOG_SRC) $(SIM)/$(TOP)_tb.v
-
+	$(IVL) $(IVLFLAGS) -o $(SIM)/$@ $(VLOG_SRC) $(SIM)/$(TOP)_tb.v $(CELLS_IMPL) $(CELLS_SYNTH)
 synth_sim.vvp:
-	$(IVL) $(IVLFLAGS) -o $(SIM)/$@ net/$(TOP)_synth.v $(SIM)/$(TOP)_tb.v $(CELLS_SYNTH)
-
+	$(IVL) $(IVLFLAGS) -o $(SIM)/$@ net/$(TOP)_synth.v $(SIM)/$(TOP)_tb.v $(CELLS_SYNTH) $(CELLS_IMPL)
 impl_sim.vvp:
 	$(IVL) $(IVLFLAGS) -o $(SIM)/$@ $(TOP)_00.v $(SIM)/$(TOP)_tb.v $(CELLS_IMPL)
-
 .PHONY: %sim %sim.vvp
 %sim: %sim.vvp
 	$(VVP) -N $(SIM)/$< -fst
 	@$(RM) $(SIM)/$^
-
 wave:
 	$(GTKW) $(SIM)/$(TOP)_tb.vcd $(SIM)/config.gtkw
-
 clean:
 	$(RM) log/*.log
 	$(RM) net/*_synth.v
