@@ -32,46 +32,31 @@
 //
 //              https://opensource.org/license/bsd-3-clause
 //------------------------------------------------------------------------
-// Description: 
-//========================================================================
 
 
-module top
+module top64x64
 (
    input clk,
    input btn,
    output led,
    output [27:0] gp, gn
-    //output wifi_gpio0
+
 );
    //  0: PMOD straight male header to flat cable
    // 90: PMOD 90-deg female header
+   // For GM EVB works:
    parameter PMOD_J1 = 0;
    parameter PMOD_J2 = 90;
 
-   // prevent ESP32 firmware from taking control of the board
-   // (we don't want it write its "passthru" bitstream)
-   //assign wifi_gpio0 = 1'b1;
+   wire pixclk ,lock;
 
-
-   wire clk270, clk180, clk90, clk_25mhz, usr_ref_out;
-   wire usr_pll_lock_stdy, usr_pll_lock;
-   
-   CC_PLL #(
-   	  .REF_CLK("10.0"),    // reference input in MHz
-   	  .OUT_CLK("25.0"),   // pll output frequency in MHz
-   	  .PERF_MD("ECONOMY"), // LOWPOWER, ECONOMY, SPEED
-   	  .LOW_JITTER(1),      // 0: disable, 1: enable low jitter mode
-   	  .CI_FILTER_CONST(2), // optional CI filter constant
-   	  .CP_FILTER_CONST(4)  // optional CP filter constant
-   )   pll_inst (
-   	  .CLK_REF(clk), .CLK_FEEDBACK(1'b0), .USR_CLK_REF(1'b0),
-   	  .USR_LOCKED_STDY_RST(1'b0), .USR_PLL_LOCKED_STDY(usr_pll_lock_stdy), .USR_PLL_LOCKED(usr_pll_lock),
-   	  .CLK270(clk270), .CLK180(clk180), .CLK90(clk90), .CLK0(clk_25mhz), .CLK_REF_OUT(usr_ref_out)
+   pll pll_inst (
+      .clock_in(clk), // 10 MHz
+      .rst_in(~btn),
+      .clock_out(pixclk),// 25 MHz, 0 deg
+      .locked(lock)
    );
-   
-   wire pixclk;
-   assign pixclk = clk_25mhz;
+
 
    // simple animation counter
    parameter anim_bits = 26;
@@ -81,10 +66,6 @@ module top
       ANIM <= ANIM + 1;
    end
 
-   // simple combinatorial logic which also creates some picture
-   // assign RGB0 = ADDRX[2:0] == 7 ? 3'b010 : 3'b100; // 3'bBGR
-   // assign RGB0 = ADDRX[2:0] == ADDRY[2:0] + ANIM[26:24] ? 3'b010 : 3'b100; // 3'bBGR
-   // assign RGB1 = ADDRX[2:0] == ANIM[26:24] ? 3'b011 : 3'b100; // 3'bBGR
 
    // test picture generator
    wire [7:0] CounterX, CounterY;
@@ -111,14 +92,10 @@ module top
 
    wire [2:0] RGB0, RGB1;
 
-   // for 3bpp mode
-   // assign RGB0 = {blue[7], green[7], red[7]};
-   // assign RGB1 = {blue1[7], green1[7], red1[7]};
-
    wire [6:0] ADDRX;
    wire [4:0] ADDRY;
    wire BLANK, LATCH;
-   ledscan 	
+   ledscan
    ledscan_inst
    (
       .clk(pixclk),
@@ -136,14 +113,14 @@ module top
       .blank(BLANK)
    );
    
-   reg [22:0] blinky;
+   reg [26:0] blinky;
    always @(posedge pixclk)
    begin
       blinky <= blinky + 1;
    end
-   assign led[7] = blinky[22];
+   assign led = blinky[26];
 
-   // output pins mapping to ULX3S board    
+   // output pins mapping
    wire [27:0] ogp, ogn;
    assign ogp[14] = ADDRY[4];
    assign ogn[14] = ADDRY[3];
@@ -164,7 +141,7 @@ module top
 
    generate
       if(PMOD_J1 == 90)
-      // if ULX3S has 90-deg female header (holes):
+      // 90-deg female header (holes):
       // PMOD is connected directly to header (align 3.3V/GND)
       // directly connect P and N
       begin : J1_90deg
@@ -178,7 +155,7 @@ module top
 
    generate
       if(PMOD_J1 == 0)
-      // if ULX3S has straight male header (pins):
+      // straight male header (pins):
       // PMOD is connected with flat cable (align 3.3V/GND)
       // swap P and N
       begin : J1_flat_cable
@@ -192,7 +169,7 @@ module top
 
    generate
       if(PMOD_J2 == 90)
-      // if ULX3S has 90-deg female header (holes):
+      // 90-deg female header (holes):
       // PMOD is connected directly to header (align 3.3V/GND)
       // directly connect P and N
       begin : J2_90deg
@@ -206,7 +183,7 @@ module top
 
    generate
       if(PMOD_J2 == 0)
-      // if ULX3S has straight male header (pins):
+      // straight male header (pins):
       // PMOD is connected with flat cable (align 3.3V/GND)
       // swap P and N
       begin : J2_flat_cable
@@ -217,14 +194,14 @@ module top
         assign gn[24:21] = ogp[24:21];
       end
    endgenerate
-   
+
 endmodule
 
 /*
 ------------------------------------------------------------------------------
 Version History:
 ------------------------------------------------------------------------------
- 2024/5/30 Ahmed Imamović: Initial creation
+ 2024/5/30 aimamovic6: Initial creation
 		   Adapted from: https://github.com/emard/ulx3s-misc/tree/master/examples/led64x64
 */
 
