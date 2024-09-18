@@ -25,7 +25,7 @@
 
 `ifndef PICORV32_REGS
 `ifdef PICORV32_V
-`error "picosoc.v must be read before picorv32.v!"
+//`error "picosoc.v must be read before picorv32.v!"
 `endif
 
 `define PICORV32_REGS picosoc_regs
@@ -235,7 +235,7 @@ module picosoc_regs (
 	output [31:0] rdata1,
 	output [31:0] rdata2
 );
-	(* ram_style = "distributed" *) reg [31:0] regs [0:31];
+	(* ram_style = "block" *) reg [31:0] regs [0:31]; // distribuirani bio
 
 	always @(posedge clk)
 		if (wen) regs[waddr[4:0]] <= wdata;
