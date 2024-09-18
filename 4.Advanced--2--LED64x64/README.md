@@ -5,5 +5,8 @@ It is best to use [DUAL PMOD PANEL](https://hr.mouser.com/ProductDetail/1BitSqua
 
 
 
-![460127368_8124690437639711_859785094676978335_n-ezgif com-resize](https://github.com/user-attachments/assets/b4e4109c-ecd3-4ddb-8a8c-a9a2bb70d6a9)
 
+
+<p align="center" width="100%">
+    <img width="80%" src="https://github.com/user-attachments/assets/b4e4109c-ecd3-4ddb-8a8c-a9a2bb70d6a9">
+</p>
