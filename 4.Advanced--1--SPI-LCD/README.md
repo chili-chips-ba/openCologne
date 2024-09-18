@@ -42,5 +42,5 @@ This example is also supported for:
 </p>
 
 <p align="center" width="100%">
-    <img width="33%" src="https://github.com/user-attachments/assets/b99cc244-f015-4799-a511-f20549269634">
+    <img width="50%" src="https://github.com/user-attachments/assets/fd0694ce-29a6-4ff8-83af-c1e2f2d771cd">
 </p>
