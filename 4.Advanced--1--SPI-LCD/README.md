@@ -44,3 +44,5 @@ This example is also supported for:
 <p align="center" width="100%">
     <img width="50%" src="https://github.com/user-attachments/assets/fd0694ce-29a6-4ff8-83af-c1e2f2d771cd">
 </p>
+
+Also posted on [LinkedIn](https://www.linkedin.com/posts/chili-chips_gatemate-spi-lcd-activity-7233383297500733441-F4PM?utm_source=share&utm_medium=member_desktop) ...
