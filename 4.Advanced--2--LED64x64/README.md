@@ -12,5 +12,5 @@ We recommend using [DUAL PMOD PANEL](https://hr.mouser.com/ProductDetail/1BitSqu
 Think of this as a mere building block for making larger panels, such as these 😃 
 > <img width="513" alt="Sarajevo-light-panels" src="https://github.com/user-attachments/assets/33bc7420-3fe7-450c-9960-e32ef68df5af">
 
-
+Also posted on [LinkedIn](https://www.linkedin.com/posts/ahmed-imamovic_etfpga-fpga-rtl-activity-7242253055411331073-E36f?utm_source=share&utm_medium=member_desktop)...
 
