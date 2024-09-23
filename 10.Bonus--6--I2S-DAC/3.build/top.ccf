@@ -105,7 +105,7 @@
 #========================================================================
 
 #Net "fpga_led"  Loc = "IO_SB_B6"; # FPGA LED
-Net "arst"       Loc = "IO_SB_B7";
+Net "arst_n"       Loc = "IO_SB_B7";
 Net "clk"        Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0
 
 #========================================================================

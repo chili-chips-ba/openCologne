@@ -4,7 +4,7 @@ module top #(
   parameter LUT_DEPTH   = 8
 )(
     input  wire       clk,   // 10 MHz input clock
-    input  wire       arst,
+    input  wire       arst_n,
     input  wire       uart_rx_serial,
     output wire [7:0] led,
     output wire       lrck,  // Left-right clock
@@ -76,7 +76,7 @@ module top #(
       .PHASE_WIDTH(PHASE_WIDTH)
   ) sine_gen_inst (
       .clk            (clk_strobe),
-      .arst           (arst),
+      .arst           (!arst_n),
       .sample_clk_ce  (1'b1),
       .phase_increment(phase_increment),
       .sinewave       (left_out)
@@ -89,7 +89,7 @@ module top #(
     .DAC_WIDTH(DAC_WIDTH)
   ) dac (
       .clk  (clk0),
-      .arst (arst),
+      .arst (!arst_n),
       .left (left_out),
       .right(right_out),
       .din  (din),
