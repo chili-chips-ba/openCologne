@@ -36,13 +36,40 @@ Pinout:
 * FMT - Audio format select (I2S: Low / Left justified: High)
 * XST - Soft mute control (Mute: Low / Unmute: High)
 
-The PCM5102 supports common audio sample rates like 8kHz, 44.1kHz, 192kHz, and even up to 384kHz with a ±4% tolerance. The audio interface uses a 3-wire serial connection (LRCK, BCK, and DIN), 
-with BCK acting as the bit clock and LRCK as the left/right word clock.
+The PCM5102 supports common audio sample rates like 8kHz, 44.1kHz, 192kHz, and even up to 384kHz with a ±4% tolerance. The audio interface uses a 3-wire serial connection (LRCK, BCK, and DIN),  with BCK acting as the bit clock and LRCK as the left/right word clock.
 
 ![image](https://github.com/user-attachments/assets/d742eb6a-b2b0-41bd-8068-da662d458fb5)
 
-The chosen I2S Audio format is given below, from the [datasheet](https://github.com/chili-chips-ba/openCologne/blob/main/10.Bonus--6--I2S-DAC/0.doc/pcm5102.Audio-DAC.pdf). The figure shows three possible audio data word lengths:16 bits, 24 bits and 32 bits. The one chosen in this project is **16 bits**.
+The chosen I2S Audio format is given below, from the [datasheet](https://github.com/chili-chips-ba/openCologne/blob/main/10.Bonus--6--I2S-DAC/0.doc/pcm5102.Audio-DAC.pdf). The figure shows three possible audio data word lengths:16 bits, 24 bits and 32 bits. BCK also has different options depending on the chosen audio data word lengths.
+
 ![image](https://github.com/user-attachments/assets/0c154799-707e-4304-88e3-fff8fb95125a)
+
+The chosen audio data word length in this project is **16 bits**. and the BCK rate is **32*fs**.
+
+## Wiring the Module
+
+In this setup, a PMOD extension is used because it operates at 3.3V. You can alternatively use the UEXT connector on the Olimex board. 
+The pin mapping is defined in the top.ccf constraint file. Follow this configuration for proper pin assignment:
+
+```
+PCM5102                                  PMOD
+____________                          ___________
+|    -----  |--- VCC             BCK  | 1     7 | 
+|    |      |--- 3.3V            DIN  | 2     8 |
+|    |      |--- GND             LCK  | 3     9 |
+|    |      |--- FLT                  | 4    10 |
+|    \      |--- DMP             GND -| 5    11 | --- GND
+|    / 10k  |--- SCL(to GND)     3.3V-| 6    12 | --- 3.3V
+|    \      |--- BCK                  ___________
+|    |      |--- DIN
+|    |      |--- LCK
+|    |----- |--- XMT
+____________
+```
+Connect the VCC PCM5102 pin to the PMOD 3.3V, and PCM5102 GND to PMOD GND to power up the Audio DAC Board.
+To configure the PCM5102 Audio DAC for internal system clock generation, connect the `SCL` pin to `GND`.
+Additionally, it is recommended to use a ~10kΩ resistor between the `XMT` pin and `VCC` to enable soft mute control.
+
 
 ## How to run the project
 
@@ -54,25 +81,17 @@ You can generate the filelist by running the following command from the `3.build
 ```
 This script adjusts the file paths based on your environment, making it easier to manage your Verilog files.
 
-To configure the PCM5102 Audio DAC for internal system clock generation, connect the `SCL` pin to `GND`.
-Additionally, it is recommended to use a ~10kΩ resistor between the `XMT` pin and `VCC` to enable soft mute control.
-
 Next, navigate to the `3.build` directory and run the following command to build the project:
 ```
 make all
 ```
 This command will handle the synthesis, place & route, and programming of the board.
-
-If you don't want to run everything like this step by step, in `3.build` there is a `run.sh` script that runs everything for you, along with opening the terminal,
-you just need to install Putty.
+However, if you'd prefer not to manually run each step, there's a run.sh script located in `3.build` that automates everything for you, 
+including opening the terminal. To use this script, ensure you have [Putty](https://www.putty.org/) installed.
 
 ```
 ./run.sh
 ```
-
-This will execute the entire process step by step. 
-However, if you'd prefer not to manually run each step, there's a run.sh script located in `3.build` that automates everything for you, 
-including opening the terminal. To use this script, ensure you have [Putty](https://www.putty.org/) installed.
 
 To generate different audio signals:
 
@@ -80,20 +99,6 @@ To generate different audio signals:
 * Press `m` to increase the frequency by 1kHz.
 * Press `n` to decrease the frequency by 1kHz.
 
-### Wiring the Module
+## Hear for yourself
 
-In this setup, a PMOD extension is used because it operates at 3.3V. You can alternatively use the UEXT connector on the Olimex board. 
-The pin mapping is defined in the top.ccf constraint file. Follow this configuration for proper pin assignment:
-
-```
-      ___________
- bck  | 1     7 | 
- din  | 2     8 |
- lrck | 3     9 |
-      | 4    10 |
- GND -| 5    11 | --- GND
- 3.3V-| 6    12 | --- 3.3V
-      ___________
-
-
-```
+https://github.com/user-attachments/assets/8ec09afd-e533-45d7-bbcd-e40dc5503acd
