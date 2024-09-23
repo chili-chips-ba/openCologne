@@ -1,0 +1,169 @@
+#======================================================================== 
+# openCologne * NLnet-sponsored open-source design ware for GateMate
+#------------------------------------------------------------------------
+#                   Copyright (C) 2024 Chili.CHIPS*ba
+# 
+# Redistribution and use in source and binary forms, with or without 
+# modification, are permitted provided that the following conditions 
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright 
+# notice, this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright 
+# notice, this list of conditions and the following disclaimer in the 
+# documentation and/or other materials provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its 
+# contributors may be used to endorse or promote products derived
+# from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS 
+# IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED 
+# TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
+# PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+#              https://opensource.org/license/bsd-3-clause
+#------------------------------------------------------------------------
+# Description: 
+# Gatemate E1 evaluation board hardware pin constraints
+# file: GateMateA1-EVB.ccf
+## file: GateMateA1-EVB.ccf
+##
+## Gatemate A1-EVB Olimex board hardware pin constraints
+## #######################################################
+# Format:
+# <pin-direction> "<pin-name>" Loc = "<pin-location>" | <opt.-constraints>;
+# Net "<pin-name>" Loc = "<pin-location>" | <opt.-constraints>;
+#
+# Additional constraints can be appended using the pipe symbol.
+# Files are read line by line. Text after the hash symbol is ignored.
+#
+# Available pin directions:
+#
+# Pin_in
+#   defines an input pin
+# Pin_out
+#   defines an output pin
+# Pin_inout
+#   defines a bidirectional pin
+#
+# Available pin constraints:
+#
+# SCHMITT_TRIGGER={true,false}
+#   enables or disables schmitt trigger (hysteresis) option
+# PULLUP={true,false}
+#   enables or disables I/O pullup resistor of nominal 50kOhm
+# PULLDOWN={true,false}
+#   enables or disables I/O pulldown resistor of nominal 50kOhm
+# KEEPER={true,false}
+#   enables or disables I/O keeper option
+# SLEW={slow,fast}
+#   sets slew rate to slow or fast
+# DRIVE={3,6,9,12}
+#   sets output drive strength to 3mA..12mA
+# DELAY_OBF={0..15}
+#   adds an additional delay of n * nominal 50ps to output signal
+# DELAY_IBF={0..15}
+#   adds an additional delay of n * nominal 50ps to input signal
+# FF_IBF={true,false}
+#   enables or disables placing of FF in input buffer, if possible
+# FF_OBF={true,false}
+#   enables or disables placing of FF in output buffer, if possible
+# LVDS_BOOST={true,false}
+#   enables increased LVDS output current of 6.4mA (default: 3.2mA)
+# LVDS_TERM={true,false}
+#   enables on-chip LVDS termination resistor of nominal 100Ohm, in output mode only
+#
+# Global IO constraints can be set with the default_GPIO statement. It can be
+# overwritten by individual settings for specific GPIOs, e.g.:
+#   default_GPIO | DRIVE=3; # sets all output strengths to 3mA, unless overwritten
+#========================================================================
+# GPIO Configuration - Free Bank Selectable Voltage
+# Bank Selectable VDD 1.2V/1.8V/2.5V/User PWR_Supply
+#========================================================================
+
+# Depending on how you turn the Olimex Board, the orientation of the pins is flipped
+# If you turn the board so that you can read the Olimex logo and the VGA Port is to the left then the upper row is GND, NA_B..
+# And the lower row is VDD_NA, NA_A... from left to right
+#
+# If you turn the board so that the VGA Port is pointing up, then the VDD_NA, NA_A pins are to the left, like on the picture of the extension below
+# This is the case for the Bank_NA1, Bank_NB1 and Bank_EB1
+
+
+#========================================================================
+# Generaly used IO Pins
+#========================================================================
+# LED, 4 Clocks for PLL
+#========================================================================
+
+#Net "fpga_led"  Loc = "IO_SB_B6"; # FPGA LED
+Net "arst"       Loc = "IO_SB_B7";
+Net "clk"        Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0
+
+#========================================================================
+# UART Interface
+#========================================================================
+# There is a mistake on the schematic, these need to be flipped as below
+#========================================================================
+Net "uart_rx_serial" Loc = "IO_SA_A6"; # GPIO12
+#Net "DBG_UART_TX" Loc = "IO_SA_B6"; # GPIO13
+
+
+# ======================================================#
+#                Simple IO Pins                         #
+# ======================================================#
+
+Net "led[0]" Loc = "IO_WC_B3";
+Net "led[1]" Loc = "IO_WC_A3";
+Net "led[2]" Loc = "IO_WC_B2";
+Net "led[3]" Loc = "IO_WC_A2";
+Net "led[4]" Loc = "IO_WC_B1";
+Net "led[5]" Loc = "IO_WC_A1";
+Net "led[6]" Loc = "IO_WC_B0";
+Net "led[7]" Loc = "IO_WC_A0";
+
+#Net "btn[0]" Loc = "IO_EA_A8";
+#Net "btn[1]" Loc = "IO_EA_B8";
+#Net "btn[2]" Loc = "IO_WB_A8";
+#Net "btn[3]" Loc = "IO_WB_B8";
+
+#========================================================================
+# PMOD
+#========================================================================
+                                                 #      ___________
+Net "bck"      Loc = "IO_EA_A4";                # bck  | 1     7 |  clk_check 
+Net "clk_check"Loc = "IO_EA_B4";                # din  | 2     8 |
+Net "din"      Loc = "IO_EA_A5";                # lrck | 3     9 |
+#Net "PMOD_8"   Loc = "IO_EA_B5";                #      | 4    10 |
+Net "lrck"     Loc = "IO_EA_A6";                # GND -| 5    11 | --- GND
+#Net "PMOD_9"   Loc = "IO_EA_B6";                # 3-3V-| 6    12 | --- 3.3V
+#Net "PMOD_4"   Loc = "IO_EA_A7";                #      ___________
+#Net "PMOD_10"  Loc = "IO_EA_B7";
+
+
+#========================================================================
+# UEXT
+#========================================================================
+                                               #            _______________
+#Net "bck"        Loc = "IO_EA_A0";             # 3.3V ----- | 1 --   -- 2 | ----- GND
+#Net "UEXT_RXD"  Loc = "IO_EA_B0";             # bck ------ | 3 --   -- 4 | -UEXT_RXD
+#Net "din"        Loc = "IO_EA_A1";             # din ------ | 5 --   -- 6 | -UEXT_SDA
+#Net "UEXT_SDA"  Loc = "IO_EA_B1";             # lrck ------| 7 --   -- 8 | -UEXT_MOSI
+#Net "lrck"       Loc = "IO_EA_A2";             # UEXT_SCK - | 9 --   --10 | -UEXT_CS
+#Net "UEXT_MOSI" Loc = "IO_EA_B2";             #            _______________
+#Net "UEXT_SCK"  Loc = "IO_EA_A3";            
+#Net "UEXT_CS"   Loc = "IO_EA_B3";
+
+
+
+#========================================================================
+# End of hardware constraints GateMateA1-EVB.ccf
+#========================================================================
