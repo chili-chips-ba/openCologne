@@ -1,0 +1,17 @@
+Net "clk" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0
+
+# GPIO Bank NB (Pmod Header A)
+NET   "bck"  Loc = "IO_NB_A0";
+NET   "din"  Loc = "IO_NB_A1";
+NET   "lrck" Loc = "IO_NB_A2";
+
+# GPIO Bank EB (1.2V..2.5V)
+NET   "arst"      Loc = "IO_EB_B0"; # Push Button SW3
+#NET   "led[0]"   Loc = "IO_EB_B1"; # LED D1
+#NET   "led[1]"   Loc = "IO_EB_B2"; # LED D2
+#NET   "led[2]"   Loc = "IO_EB_B3"; # LED D3
+#NET   "led[3]"   Loc = "IO_EB_B4"; # LED D4
+#NET   "led[4]"   Loc = "IO_EB_B5"; # LED D5
+#NET   "led[5]"   Loc = "IO_EB_B6"; # LED D6
+#NET   "led[6]"   Loc = "IO_EB_B7"; # LED D7
+#NET   "led[7]"   Loc = "IO_EB_B8"; # LED D8
