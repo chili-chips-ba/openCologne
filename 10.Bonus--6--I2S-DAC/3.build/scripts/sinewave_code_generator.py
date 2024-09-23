@@ -4,7 +4,7 @@ import math
 
 def generate_unsigned_table(lut_depth, data_width):
     table_entries = 1 << lut_depth
-    max_value = (1 << data_width) - 1
+    max_value = (1 << data_width) - 1  # Maximum unsigned value for the given data width
 
     sine_data = np.zeros(table_entries, dtype=np.int64)
 
@@ -24,12 +24,12 @@ module sinewave_table #(
     parameter LUT_DEPTH  = {lut_depth},
     parameter DATA_WIDTH = {data_width}
 )(
-    input  logic        [LUT_DEPTH-1 :0] address, // {lut_depth}-bit address signal for {table_entries} values
-    output logic [DATA_WIDTH-1:0] value           // {data_width}-bit output signal
+    input  wire [LUT_DEPTH-1:0]  address, // {lut_depth}-bit address signal for {table_entries} values
+    output reg  [DATA_WIDTH-1:0] value    // {data_width}-bit unsigned output signal
 );
 
     always @(*) begin
-        unique case (address)
+        case (address)
 """
     for i, value in enumerate(sine_data):
         verilog_code += f"            {lut_depth}'d{i}: value = {data_width}'h{value:X};\n"
@@ -52,15 +52,15 @@ module sinewave_generator #(
               LUT_DEPTH   = {lut_depth},
               PHASE_WIDTH = {phase_width}
 ) (
-    input  logic                          clk,
-    input  logic                          arst,
-    input  logic                          sample_clk_ce,
-    input  logic signed [PHASE_WIDTH-1:0] phase_increment,
-    output logic [DATA_WIDTH -1:0] sinewave,
-    output logic [DATA_WIDTH -1:0] cosinewave
+    input  wire                          clk,
+    input  wire                          arst,
+    input  wire                          sample_clk_ce,
+    input  wire [PHASE_WIDTH-1:0]        phase_increment,
+    output wire [DATA_WIDTH-1:0]         sinewave,
+    output wire [DATA_WIDTH-1:0]         cosinewave
 );
 
-  logic [PHASE_WIDTH-1:0] phase_accumulator;
+  reg [PHASE_WIDTH-1:0] phase_accumulator;
 
   sinewave_table #(
     .DATA_WIDTH(DATA_WIDTH),
@@ -80,9 +80,9 @@ module sinewave_generator #(
 
   always @(posedge clk or posedge arst) begin
     if (arst == 1'b1)
-      phase_accumulator <= '0;
+      phase_accumulator <= 0;
     else if (sample_clk_ce == 1'b1)
-      phase_accumulator <= PHASE_WIDTH'(phase_accumulator + phase_increment);
+      phase_accumulator <= phase_accumulator + phase_increment;
   end
 
   //=============================//
@@ -94,8 +94,6 @@ module sinewave_generator #(
     $dumpvars(0, sinewave_generator);
   end
   //`endif
-
-
 endmodule
 """
     with open(filename, "w") as f:
@@ -108,8 +106,8 @@ if __name__ == "__main__":
     parser.add_argument("--lut_depth", "-ld", type=int, default=8, help="Number of address bits for the LUT (default: 8)")
     parser.add_argument("--data_width", "-dw", type=int, default=7, help="Number of output bits for the sine wave (default: 7)")
     parser.add_argument("--phase_width", "-pw", type=int, default=64, help="Number of bits for the phase accumulator (default: 64)")
-    parser.add_argument("--lut_filename", "-lf", type=str, default="sinewave_table.sv", help="Output filename for the LUT module (default: sinewave_table.sv)")
-    parser.add_argument("--generator_filename", "-gf", type=str, default="sinewave_generator.sv", help="Output filename for the sinewave generator module (default: sinewave_generator.sv)")
+    parser.add_argument("--lut_filename", "-lf", type=str, default="sinewave_table.v", help="Output filename for the LUT module (default: sinewave_table.v)")
+    parser.add_argument("--generator_filename", "-gf", type=str, default="sinewave_generator.v", help="Output filename for the sinewave generator module (default: sinewave_generator.v)")
 
     args = parser.parse_args()
 

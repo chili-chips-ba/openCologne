@@ -9,42 +9,24 @@ module top #(
     output wire [7:0] led,
     output wire       lrck,  // Left-right clock
     output wire       din,   // Data input to DAC
-    output wire       bck,    // Bit clock for DAC
-    output wire       clk_check
+    output wire       bck    // Bit clock for DAC
 );
 
   // NCO configuration (adjustable phase increment)
   //localparam PHASE_INCREMENT = 64'd196765270119568550; // Pre-calculated value for NCO
 
-  reg [PHASE_WIDTH-1:0] phase_increment;
+  reg  [PHASE_WIDTH-1:0] phase_increment;
   // Outputs from NCO for left and right channels
-  wire [DAC_WIDTH-1:0] left_out;
-  wire [DAC_WIDTH-1:0] right_out;
+  wire [DAC_WIDTH-1:0]   left_out;
+  wire [DAC_WIDTH-1:0]   right_out;
 
   // Clock strobe signal used by the sinewave generator, generated from an external clock divider
-  wire                 clk_strobe;
-
+  wire                   clk_strobe;
+  wire                   arst;
+  assign                 arst = !arst_n;
   // ------------- UART Signals --------------- //
-  wire               uart_rx_data_valid;
-  wire         [7:0] uart_rx_byte;
-  /*
-  //Note: This is Lattice PLL Block
-  //===========================//
-  //            PLL            //
-  //===========================//
-  wire [3:0] clocks;
-  ecp5pll#(
-      .in_hz(25000000),
-    .out0_hz(48000000),                 .out0_tol_hz(2400000), // 5% Tolerance
-    .out1_hz(50000000), .out1_deg( 90), .out1_tol_hz(0),
-    .out2_hz(60000000), .out2_deg(180), .out2_tol_hz(0),
-    .out3_hz( 6000000), .out3_deg(300), .out3_tol_hz(0)
-  ) ecp5pll_inst
-  (
-    .clk_i(clk),
-    .clk_o(clocks)
-  );
-  */
+  wire                   uart_rx_data_valid;
+  wire         [7:0]     uart_rx_byte;
 
   //Note: This is GM PLL Block
   //===========================//
@@ -65,7 +47,6 @@ module top #(
     .USR_LOCKED_STDY_RST(1'b0), .USR_PLL_LOCKED_STDY(usr_pll_lock_stdy), .USR_PLL_LOCKED(usr_pll_lock),
     .CLK270(clk270), .CLK180(clk180), .CLK90(clk90), .CLK0(clk0), .CLK_REF_OUT(usr_ref_out)
    );
-   assign clk_check = clk0;
 
   //===========================//
   //           NCO             //
@@ -76,7 +57,7 @@ module top #(
       .PHASE_WIDTH(PHASE_WIDTH)
   ) sine_gen_inst (
       .clk            (clk_strobe),
-      .arst           (!arst_n),
+      .arst           (arst),
       .sample_clk_ce  (1'b1),
       .phase_increment(phase_increment),
       .sinewave       (left_out)
@@ -89,7 +70,7 @@ module top #(
     .DAC_WIDTH(DAC_WIDTH)
   ) dac (
       .clk  (clk0),
-      .arst (!arst_n),
+      .arst (arst),
       .left (left_out),
       .right(right_out),
       .din  (din),
@@ -108,10 +89,10 @@ module top #(
   uart_rx #(
       .CLKS_PER_BIT(417) // 48MHz/115200 --> ~417
   ) uart_rx_inst (
-      .osc_clk    (clk0),
-      .i_Rx_Serial(uart_rx_serial),
-      .o_Rx_DV    (uart_rx_data_valid),
-      .o_Rx_Byte  (uart_rx_byte)
+      .osc_clk  (clk0),
+      .rx_serial(uart_rx_serial),
+      .rx_dv    (uart_rx_data_valid),
+      .rx_byte  (uart_rx_byte)
   );
 
   always @(posedge clk0) begin
