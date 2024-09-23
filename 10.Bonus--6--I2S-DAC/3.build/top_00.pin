@@ -1,0 +1,21 @@
+# Pinfile for Design top_00
+# 2024-09-23 19:15:12
+# Bounding Box for compact mode is (x79y29) - (x93y66)   box size: 570
+
+SizeX = 160 | SizeY = 128;
+
+Pin_out             "bck"   Loc =   "IO_EA_A4"   Die_Loc = "GPIO_N1_A[4]";  #  preplaced by CCF file
+Pin_out             "din"   Loc =   "IO_EA_A5"   Die_Loc = "GPIO_N1_A[5]";  #  preplaced by CCF file
+Pin_out            "lrck"   Loc =   "IO_EA_A6"   Die_Loc = "GPIO_N1_A[6]";  #  preplaced by CCF file
+Pin_out       "clk_check"   Loc =   "IO_EA_B4"   Die_Loc = "GPIO_N1_B[4]";  #  preplaced by CCF file
+Pin_in    "uart_rx_serial"   Loc =   "IO_SA_A6"   Die_Loc = "GPIO_W1_A[6]";  #  preplaced by CCF file
+Pin_in              "clk"   Loc =   "IO_SB_A8"   Die_Loc = "GPIO_W2_A[8]";  #  preplaced by CCF file
+Pin_in           "arst_n"   Loc =   "IO_SB_B7"   Die_Loc = "GPIO_W2_B[7]";  #  preplaced by CCF file
+Pin_out          "led[7]"   Loc =   "IO_WC_A0"   Die_Loc = "GPIO_S2_A[0]";  #  preplaced by CCF file
+Pin_out          "led[5]"   Loc =   "IO_WC_A1"   Die_Loc = "GPIO_S2_A[1]";  #  preplaced by CCF file
+Pin_out          "led[3]"   Loc =   "IO_WC_A2"   Die_Loc = "GPIO_S2_A[2]";  #  preplaced by CCF file
+Pin_out          "led[1]"   Loc =   "IO_WC_A3"   Die_Loc = "GPIO_S2_A[3]";  #  preplaced by CCF file
+Pin_out          "led[6]"   Loc =   "IO_WC_B0"   Die_Loc = "GPIO_S2_B[0]";  #  preplaced by CCF file
+Pin_out          "led[4]"   Loc =   "IO_WC_B1"   Die_Loc = "GPIO_S2_B[1]";  #  preplaced by CCF file
+Pin_out          "led[2]"   Loc =   "IO_WC_B2"   Die_Loc = "GPIO_S2_B[2]";  #  preplaced by CCF file
+Pin_out          "led[0]"   Loc =   "IO_WC_B3"   Die_Loc = "GPIO_S2_B[3]";  #  preplaced by CCF file

@@ -1,0 +1,20 @@
+0001   3 abcd
+0007   7 cd/AB\
+007F   1 ((/AB\)+c)d
+0100   1 abcD
+0777 103 /AB\(d+c)
+1000   8 abCD
+100F   1 DC?1:0:0:ab
+35FF   1 (c?b:a)+d
+4000   2 aBCD
+8000  13 ABCD
+8F00   1 ((AB)+c)D
+8FFF   7 (AB)+c+d
+9FFF   1 (a^B)+c+d
+ACCC   3 DC?B:B:B:A
+B0BB   1 /aB\(d+C)
+CACC   3 DC?B:A:B:B
+D000   1 CD/Ab\
+EFFF   2 /ab\+c+d
+F8FF   9 (AB)+C+d
+ Gesamt:  168 DS4:     4
