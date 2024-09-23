@@ -40,7 +40,7 @@ The PCM5102 supports common audio sample rates like 8kHz, 44.1kHz, 192kHz, and e
 with BCK acting as the bit clock and LRCK as the left/right word clock.
 
 ![image](https://github.com/user-attachments/assets/d742eb6a-b2b0-41bd-8068-da662d458fb5)
-The chosen I2S Audio format is given below, from the [datasheet](https://github.com/chili-chips-ba/openCologne/blob/main/10.Bonus--6--I2S-DAC/0.doc/pcm5102.Audio-DAC.pdf).
+The chosen I2S Audio format is given below, from the [datasheet](https://github.com/chili-chips-ba/openCologne/blob/main/10.Bonus--6--I2S-DAC/0.doc/pcm5102.Audio-DAC.pdf). The figure shows three possible audio data word lengths:16 bits, 24 bits and 32 bits. The one chosen in this project is **16 bits**.
 ![image](https://github.com/user-attachments/assets/0c154799-707e-4304-88e3-fff8fb95125a)
 
 ## How to run the project
