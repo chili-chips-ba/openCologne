@@ -1,42 +1,20 @@
 #=============================================================
-# Makefile for GateMate FPGA Projects
 # Copyright (C) 2024 Chili.CHIPS*ba
 #=============================================================
 
-
-#=============================================================
-# Toolchain download and setup instructions
-#=============================================================
-# Download toolchain from: 
-# https://www.colognechip.com/programmable-logic/gatemate/gatemate-download/
-# There are two options: toolchain for linux and toolchain for windows
-# Extract archive and set CC_TOOL environment variable:
-# 1.
-# Easiest way to do it is by running the following command: 
-#     $ echo 'export CC_TOOL="/path/to/cc-toolchain-linux"' >> ~/.bashrc
-# After that you either need to restart your terminal or source it with:
-#     $ source ~/.bashrc
-# (NOTE: By doing it this way you don't need to export the path everytime you open a new terminal)
-#
-# 2.
-# Running the following command in terminal:
-#     $ export CC_TOOL="/path/to/cc-toolchain-linux"
-# NOTE: Everytime you open a new terminal you need to export the command if you do it this way
-#
-#=============================================================
-
-
-# Set EXE for platform-specific executable extensions, if necessary
-EXE =
+BLD_DIR := $(CURDIR)
+HW_SRC  := $(BLD_DIR)/../1.hw
+HW_BLD  := $(BLD_DIR)/hw_build.TCL
+SIM_SRC = ../2.sim
 
 # Toolchain Directories and Executable Commands
 CC_TOOL_DIR = $(CC_TOOL)
-YOSYS = $(CC_TOOL)/bin/yosys/yosys$(EXE)
-PR = $(CC_TOOL)/bin/p_r/p_r$(EXE)
+TOOL_ROOT = /home/tibrahimovic/0.git-repo/
 
-#OFL = $(CC_TOOL)/bin/openFPGALoader/openFPGALoader$(EXE) # Path to OFL needs to be latest version of OFL or you will get errors when programming the board
-## EDIT THIS SO IT IS the path to your installation of openFPGALoader!!! ##
-OFL = /home/user/FPGA/tools/openFPGALoader/build/openFPGALoader$(EXE) 
+#PLUGIN_PATH := $(SYNLIG)/build/release/systemverilog-plugin/systemverilog.so
+YOSYS = $(TOOL_ROOT)/yosys/yosys
+PR = $(CC_TOOL)/bin/p_r/p_r
+OFL = $(TOOL_ROOT)/openFPGALoader/build/openFPGALoader
 
 # Simulation Tools and Flags
 GTKW = gtkwave
@@ -44,79 +22,77 @@ IVL = iverilog
 VVP = vvp
 IVLFLAGS = -Winfloop -g2012 -gspecify -Ttyp
 
-# Source Directory
-SRC = ../1.hw
-SIM = ../2.sim
-
 # Simulation Libraries
 CELLS_SYNTH = $(CC_TOOL)/bin/yosys/share/gatemate/cells_sim.v
 CELLS_IMPL = $(CC_TOOL)/bin/p_r/cpelib.v
 
 # Project Configuration
-TOP = blink# Define TOP MODULE here
-CONSTR = $(TOP).ccf
-PRFLAGS += -ccf $(TOP).ccf -cCP
+TOP = top
+CONSTR = $(HW_SRC)/constraints/constraints.ccf
+PRFLAGS = -cCP --verbose
 
 # Synthesize Sources
-VLOG_SRC = $(shell find ./$(SRC)/ -type f \( -iname \*.v -o -iname \*.sv \))
-VHDL_SRC = $(shell find ./$(SRC)/ -type f \( -iname \*.vhd -o -iname \*.vhdl \))
+TOP_FILELIST = $(shell perl -ne 's/\$$\{HW_SRC\}\///g ; print unless /^\s*\#/' ${HW_SRC}/rtl.filelist)
+VERILOG_SOURCES += $(TOP_FILELIST:%=$(HW_SRC)/%)
+SIM_MODELS = $(SIM_SRC)/models/psram_sim.sv
+
+V_SRC    =  ./*v
 
 ## misc tools
 RM = rm -rf
 
-## toolchain targets
-synth: synth_vlog
+#------------------------
+# Execute the entire build flow: First SW, then HW
+.PHONY: hw_all
 
-synth_vlog: $(VLOG_SRC)
+#=============================================================
+# HW Build
+#-------------------------------------------------------------
+#=============================================================
+
+#------------------------
+hw_all: hw_clean clean convert synth_vlog impl jtag
+
+# Remove all output files created from HW build process
+hw_clean:
+	rm -rf $(HW_BLD)
+
+convert:
+	sv2v --write=./ $(VERILOG_SOURCES)
+# Synthesis 
+#synth_vlog: $(VERILOG_SOURCES)
+#	@test -d log || mkdir log
+#	@test -d net || mkdir net
+#	$(YOSYS) -ql log/synth.log -p 'plugin -i $(PLUGIN_PATH); read_systemverilog $(VERILOG_SOURCES); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
+synth_vlog: $(VERILOG_SOURCES)
 	@test -d log || mkdir log
 	@test -d net || mkdir net
-	$(YOSYS) -ql log/synth.log -p 'read -sv $^; synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
-
-synth_vhdl: $(VHDL_SRC)
-	@test -d log || mkdir log
-	@test -d net || mkdir net
-	$(YOSYS) -ql log/synth.log -p 'ghdl --warn-no-binding -C --ieee=synopsys $^ -e $(TOP); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
-
+	$(YOSYS) -ql log/synth.log -p 'read_verilog -sv $(V_SRC); synth_gatemate -top $(TOP) -nomx8 -vlog net/$(TOP)_synth.v'
+# Place and Route
 impl:
-	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf $(TOP).ccf -cCP > log/$@.log
-
+	$(PR) -i net/$(TOP)_synth.v -o $(TOP) -ccf $(CONSTR) $(PRFLAGS) > log/$@.log
+# Jtag programming
 jtag:
-	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag --cable dirtyJtag --bitstream $(TOP)_00.cfg
+	sudo $(OFL) $(OFLFLAGS) -b gatemate_evb_jtag --cable dirtyJtag --bitstream $(TOP)_00.cfg.bit
 
-jtag-flash:
-	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag -f --verify $(TOP)_00.cfg
 
-spi:
-	$(OFL) $(OFLFLAGS) -b gatemate_evb_spi -m $(TOP)_00.cfg
+#----------------------------
+# Other types of programming
+#----------------------------
+#jtag-flash:
+#	$(OFL) $(OFLFLAGS) -b gatemate_evb_jtag -f --verify $(TOP)_00.cfg
 
-spi-flash:
-	$(OFL) $(OFLFLAGS) -b gatemate_evb_spi -f --verify $(TOP)_00.cfg
+#spi:
+#	$(OFL) $(OFLFLAGS) -b gatemate_evb_spi -m $(TOP)_00.cfg
 
-all: synth impl jtag
-
-## verilog simulation targets
-vlog_sim.vvp:
-	$(IVL) $(IVLFLAGS) -o $(SIM)/$@ $(VLOG_SRC) $(SIM)/$(TOP)_tb.v
-
-synth_sim.vvp:
-	$(IVL) $(IVLFLAGS) -o $(SIM)/$@ net/$(TOP)_synth.v $(SIM)/$(TOP)_tb.v $(CELLS_SYNTH)
-
-impl_sim.vvp:
-	$(IVL) $(IVLFLAGS) -o $(SIM)/$@ $(TOP)_00.v $(SIM)/$(TOP)_tb.v $(CELLS_IMPL)
-
-.PHONY: %sim %sim.vvp
-%sim: %sim.vvp
-	$(VVP) -N $(SIM)/$< -fst
-	@$(RM) $(SIM)/$^
-
-wave:
-	$(GTKW) $(SIM)/$(TOP)_tb.vcd $(SIM)/config.gtkw
-
+#spi-flash:
+#	$(OFL) $(OFLFLAGS) -b gatemate_evb_spi -f --verify $(TOP)_00.cfg
 clean:
 	$(RM) log/*.log
 	$(RM) net/*_synth.v
 	$(RM) *.history
 	$(RM) *.txt
+	$(RM) ./*.v
 	$(RM) *.refwire
 	$(RM) *.refparam
 	$(RM) *.refcomp
@@ -133,12 +109,14 @@ clean:
 	$(RM) *.pin
 	$(RM) *.cfg*
 	$(RM) *.cdf
-	$(RM) $(SIM)/*.vcd
-	$(RM) $(SIM)/*.vvp
-	$(RM) $(SIM)/*.gtkw
+	$(RM) $(SIM_SRC)/*.vcd
+	$(RM) $(SIM_SRC)/*.vvp
+	$(RM) $(SIM_SRC)/*.gtkw
+	$(RM) $(HW_SRC)/*.v
+
 	test ! -d log || rmdir log
 	test ! -d net || rmdir net
+
 #=============================================================
 # End-of-File
 #=============================================================
-

@@ -32,65 +32,179 @@
 //
 //              https://opensource.org/license/bsd-3-clause
 //------------------------------------------------------------------------
-// Description: <your text goes here>
+// Description: Onewire test module: - UART for communication
 //========================================================================
 
-// <modify as needed>
-
+/* verilator lint_off PINMISSING */
+`timescale 1ns/1ps
 module top 
-   import top_pkg::*;
+   import csr_pkg::*;
 (
-   input logic   areset,   // external active-1 asynchronous reset
-   input logic   clk_ext,  // external 100MHz clock source
+   input   logic clk_10,
+   input   logic arst_n,
+   output  logic led,
 
-  //I2C_Master to Camera
-   inout  wire   i2c_sda,
-   inout  wire   i2c_scl,
-   
-  //MIPI DPHY from/to Camera
-   input  diff_t      cam_dphy_clk,
-   input  lane_diff_t cam_dphy_dat
+   input   logic uart_rx,
+   output  logic uart_tx,
+
+   output logic  uartvalid,
+   inout   logic onewire
 );
+   //-----------------------------------
+   // Generating 0.2us ticks 
+   // customizable to other tick periods
+   logic cnt; 
+   logic tick_02us_reg;
+   logic tick_02us;
 
-//--------------------------------
-// Clock and reset gen
-//--------------------------------
-   logic reset, i2c_reset;
-   logic clk_100, clk_200, clk_1hz, strobe_400kHz;
+   always_ff @(posedge clk_10 or negedge arst_n) begin
+      if(arst_n == 1'b0) begin
+         cnt <= '0;
+      end
+      else begin
+         if(cnt == 1) begin
+            tick_02us_reg <= 1'b1;
+            cnt      <= 0;
+         end
+         else begin
+            tick_02us_reg <= 1'b0;
+            cnt <= cnt + 1;
+         end
+      end
+   end
+   assign tick_02us = tick_02us_reg;
+   //---------------------------------------------------------------
+   // UART instance: a precise uart needed (RPi bridge is sensitive)
 
-   clkrst_gen u_clkrst_gen (
-      .reset_ext     (areset),        //i
-      .clk_ext       (clk_ext),       //i
-                                       
-      .clk_100       (clk_100),       //o: 100MHz 
-      .clk_200       (clk_200),       //o: 200MHz 
-      .clk_1hz       (clk_1hz),       //o: 1Hz
-      .strobe_400kHz (strobe_400kHz), //o: pulse1 at 400kHz
+   logic [7:0] uart_tx_data;
+   logic uart_tx_write;
+   logic uart_rx_read, uart_tx_busy, uart_rx_flop; 
+   uart_rx_t uart_rx_arr;
 
-      .reset         (reset),         //o
-      .cam_en        (cam_en),        //o
-      .i2c_reset     (i2c_reset)      //o
+   uart u_uart(
+      .arst_n       (arst_n),         //i
+      .clk          (clk_10),        //i
+
+      .tick_02us    (tick_02us),      //i
+
+      .uart_tx_write(uart_tx_write),  //i
+      .uart_tx_data (uart_tx_data),   //i
+      .uart_rx_read (uart_rx_read),   //i
+      .uart_rx      (uart_rx),        //i
+
+      .uart_tx_busy (uart_tx_busy),   //o
+      .uart_tx      (uart_tx),        //o
+
+      .uart_rx_arr  (uart_rx_arr)     //o (uart_rx_t)
+   );  
+
+
+   logic tick_10ms;
+   logic [17:0] counter;
+   always_ff @(posedge clk_10) begin 
+      if(arst_n == 1'b0) begin
+         counter <= '0;
+      end
+      else begin
+         if(counter == 18'd100000) begin
+            counter <= '0;
+         end
+         else begin
+            counter <= counter + 18'd1;
+         end
+      end
+   end
+   assign tick_10ms = (counter == 18'd100000);
+   //----------------------------------
+   // 1-Wire instance
+   // 1 byte input and output data
+   // If 
+   logic [7:0] onewire_wdat, onewire_rdat;
+   logic onewire_we, onewire_read;
+   logic onewire_rdy, onewire_vld;
+
+   onewire_master u_onewire_master (
+      .clk          (clk_10),        //i
+      .arst_n       (arst_n),        //i
+      .onewire      (onewire),       //io
+
+      .bits_to_rw   (4'h8),          //i 
+
+      .onewire_wdat (onewire_wdat),  //i
+      .onewire_rdat (onewire_rdat),  //o
+      .we           (onewire_we),    //i
+
+      .rdy          (onewire_rdy),   //o
+      .vld          (onewire_vld),   //i
+      .read         (onewire_read)   //o
    );
 
-//--------------------------------
-// I2C Master
-//--------------------------------
-   i2c_top u_i2c  (
-     //clocks and resets
-      .clk           (clk_100),       //i
-      .strobe_400kHz (strobe_400kHz), //i
-      .reset         (i2c_reset),     //i
+   //----------------------------
+   // Write out read data on UART
+   assign uart_tx_data  = onewire_rdat; 
+   assign uart_tx_write = onewire_read; // change 1-wire rdy 
+   assign uart_rx_read  = 1'b0;      
+   // debug signal
+   assign uartvalid = uart_rx_arr.valid;
 
-     //I2C_Master to Camera
-      .i2c_scl       (i2c_scl),       //io 
-      .i2c_sda       (i2c_sda)        //io 
-   );
+
+   always_comb begin 
+      onewire_we   = 1'b1;                      // set for sim 
+      onewire_vld  = tick_10ms & uart_rx_arr.valid; // ignoring rdy 
+      onewire_wdat = 8'd65;                     // ascii A      
+   end
+
+   //------------------------------------
+   // Driving LED:
+   // Store rx/tx in a buffer then output
+   logic [27:0] u_counter; 
+
+   always_ff @(posedge clk_10 or negedge arst_n) begin
+      if(arst_n == 1'b0) begin
+         u_counter <= '0;
+      end
+      else begin
+         u_counter <= u_counter + 28'b1;
+      end
+   end
+
+   //-------------
+   // Buffer fill
+   logic buffer [7:0];
+   logic buffer_full;
+
+   logic [2:0] in;
+   logic uart_tx_prev;
+
+   always_ff @(posedge clk_10) begin
+      if(buffer_full == 1'b0 & uart_tx_prev != uart_tx) begin
+         buffer [in] <= uart_tx ;
+         in          <= in + 3'b1;
+         if(in == '1) begin
+            buffer_full <= 1'b1;
+            in <= 3'b0;
+         end
+      end
+      else if(u_counter[27:25] == '1) begin
+         buffer_full <= 1'b0;
+      end
+      uart_tx_prev <= uart_tx;
+   end
+   //--------------
+   // Buffer empty
+   logic counter_24_prev;
+
+   always_ff @(posedge clk_10) begin
+      if(u_counter[24] == 1'b1 & counter_24_prev == 1'b0 & buffer_full == 1'b1) begin
+         led <= buffer [u_counter[27:25]];   
+      end
+      counter_24_prev <= u_counter[24];
+   end
 
 endmodule: top
-
 /*
 ------------------------------------------------------------------------------
 Version History:
 ------------------------------------------------------------------------------
- 2024/5/10 <your-name>: Initial creation
+ 2024/9/22 Tarik Ibrahimovic: Initial Creation
 */
