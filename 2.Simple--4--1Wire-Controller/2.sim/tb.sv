@@ -57,6 +57,7 @@ module tb #(
          end
 
          begin: reset
+            uart_rx= 1'b1;
             arst_n = 1'b0;
             #1000ns
             arst_n = 1'b1;  
@@ -115,5 +116,5 @@ endmodule: tb
 ------------------------------------------------------------------------------
 Version History:
 ------------------------------------------------------------------------------
- 2024/06/12 TarikI: initial creation    
+ 2024/09/24 TarikI: initial creation    
 */

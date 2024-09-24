@@ -47,7 +47,6 @@ module top
    input   logic uart_rx,
    output  logic uart_tx,
 
-   output logic  uartvalid,
    inout   logic onewire
 );
    //-----------------------------------
@@ -60,6 +59,7 @@ module top
    always_ff @(posedge clk_10 or negedge arst_n) begin
       if(arst_n == 1'b0) begin
          cnt <= '0;
+         tick_02us_reg    <= 1'b0;
       end
       else begin
          if(cnt == 1) begin
@@ -145,8 +145,6 @@ module top
    assign uart_tx_write = onewire_read; // change 1-wire rdy 
    assign uart_rx_read  = 1'b0;      
    // debug signal
-   assign uartvalid = uart_rx_arr.valid;
-
 
    always_comb begin 
       onewire_we   = 1'b1;                      // set for sim 
