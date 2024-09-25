@@ -11,6 +11,9 @@ ${HW_SRC}/csr_if.sv
 ${HW_SRC}/uart.WITHOUT-FIFO.sv
 ${HW_SRC}/onewire_master.sv
 
+#---Used for testing
+${HW_SRC}/../2.sim/models/onewire_slave_model.sv
+
 #---TOP
 ${HW_SRC}/top.sv
 

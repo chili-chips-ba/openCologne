@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.117 (w)1999-2023 BSI
-[*] Tue Sep 24 10:06:21 2024
+[*] Wed Sep 25 20:21:19 2024
 [*]
 [dumpfile] "/home/tibrahimovic/projects/2.Simple--4--1Wire-Controller/2.sim/tb.vcd"
-[dumpfile_mtime] "Tue Sep 24 10:06:18 2024"
-[dumpfile_size] 931574
+[dumpfile_mtime] "Wed Sep 25 20:21:15 2024"
+[dumpfile_size] 405696
 [savefile] "/home/tibrahimovic/projects/2.Simple--4--1Wire-Controller/.gtkwaverc"
 [timestart] 0
 [size] 1908 1107
-[pos] 883661 884409
-*-19.087988 398000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 949133 949881
+*-30.885597 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb.
 [treeopen] tb.u_dut.
 [sst_width] 455
@@ -18,31 +18,10 @@
 [sst_vpaned_height] 572
 @28
 tb.onewire
-tb.u_owr_slv.arst_n
 @200
 -master signals
-@22
-tb.u_owr_slv.slave_state[3:0]
-tb.u_owr_slv.shift[7:0]
 @28
-tb.u_owr_slv.num_bits[2:0]
 tb.uart_rx
-tb.u_owr_slv.pls
-tb.u_dut.uartvalid
-@800023
-tb.u_dut.\u_uart.rx_state[9:0]
-@29
-(0)tb.u_dut.\u_uart.rx_state[9:0]
-(1)tb.u_dut.\u_uart.rx_state[9:0]
-(2)tb.u_dut.\u_uart.rx_state[9:0]
-(3)tb.u_dut.\u_uart.rx_state[9:0]
-(4)tb.u_dut.\u_uart.rx_state[9:0]
-(5)tb.u_dut.\u_uart.rx_state[9:0]
-(6)tb.u_dut.\u_uart.rx_state[9:0]
-(7)tb.u_dut.\u_uart.rx_state[9:0]
-(8)tb.u_dut.\u_uart.rx_state[9:0]
-(9)tb.u_dut.\u_uart.rx_state[9:0]
-@1001201
--group_end
+tb.u_dut.uart_tx
 [pattern_trace] 1
 [pattern_trace] 0

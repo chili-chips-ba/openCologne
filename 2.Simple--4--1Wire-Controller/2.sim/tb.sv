@@ -57,8 +57,10 @@ module tb #(
          end
 
          begin: reset
-            uart_rx= 1'b1;
-            arst_n = 1'b0;
+
+            uart_rx = 1'b1;
+            
+            arst_n  = 1'b0;
             #1000ns
             arst_n = 1'b1;  
             #5000ns
@@ -81,7 +83,6 @@ module tb #(
 
 //-----------------------------
 // dut and onewire slave model
-// put instead top
    // onewire_master dut (
    //    .clk    (clk_10),                //i
    //    .arst_n    (arst_n),                //i
@@ -100,14 +101,11 @@ module tb #(
       .led    (led),
       .uart_rx(uart_rx),
       .uart_tx(uart_tx),
-      .onewire(onewire)
+      .onewire_mst(onewire),
+      .onewire_slv(onewire)
    );
 
-   onewire_slave_model u_owr_slv (
-      .clk    (clk_10),
-      .arst_n (arst_n),
-      .onewire(onewire)
-   );
+
    
 
 endmodule: tb
@@ -116,5 +114,5 @@ endmodule: tb
 ------------------------------------------------------------------------------
 Version History:
 ------------------------------------------------------------------------------
- 2024/09/24 TarikI: initial creation    
+ 2024/06/12 TarikI: initial creation    
 */

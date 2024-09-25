@@ -200,7 +200,8 @@ module onewire_master #(
    logic [3:0] bits_rw_cur, bits_rw;
    logic [7:0] data_to_write, data_read;
 
-   assign onewire = owr_oe? 1'b0 : 1'bz; // line pulled down or z
+   assign onewire      = owr_oe? 1'b0 : 1'bz; // line pulled down or z
+   assign onewire_rdat = data_read;
 
    always_ff @(posedge clk) begin : _state_machine
       if(arst_n == 1'b0) begin

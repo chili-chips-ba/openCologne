@@ -97,13 +97,15 @@
 # -------------------------------------------------------
 
 Pin_in "clk_10" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0
-Pin_in "arst_n" Loc = "IO_SB_B7" | PULLUP=true; # FPGA_BUT
+Pin_in "arst_n" Loc = "IO_SB_B7"  | PULLUP=true; # FPGA_BUT
 Pin_out "led" Loc = "IO_SB_B6"; # FPGA LED
 
 Pin_in       "uart_rx"         Loc = "IO_SA_A6";
 Pin_out      "uart_tx"         Loc = "IO_SA_B6";
 
-Pin_inout    "onewire"          Loc = "IO_NB_A1";
+Pin_inout    "onewire_mst"          Loc = "IO_NB_A1";
+Pin_inout    "onewire_slv"          Loc = "IO_NB_A2";
+
 #Pin_out      "sent"            Loc = "IO_NB_A1";
 #Pin_out      "tick_02us"       Loc = "IO_NB_A2";
 

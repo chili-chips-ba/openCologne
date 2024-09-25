@@ -4,18 +4,44 @@
 
 Due to the CologneChips GateMate having a scarce number of GPIO pins, here is provided and tested a 1-Wire controller, plug-and-play into a ready-valid SoC bus. 
 ## The Design
-The used 1-Wire controller is based on the jeras' [implementation](https://github.com/jeras/sockit_owm), supporting single slave configuration, doing it barebones, as opposed to a full 1-Wire slave bus with custom 64-bit ROM codes. This simplification is justified by the intended use case of this 1-Wire controller, usually interfacing with a single sensor. 
-<!-- 
-The testing platform is 2 FPGAs, one being a 1-Wire master device, the other slave. Both have UART TXs integrated in them and send a hard-coded message or read to one another. The messages are then read on the respective UARTs as sent or received. -->
+Provided 1-Wire master controller is based on the jeras' [implementation](https://github.com/jeras/sockit_owm), supporting single slave configuration, doing it barebones, as opposed to a full 1-Wire slave bus with custom 64-bit ROM codes. This simplification is justified by the intended use case of this 1-Wire controller: usually interfacing with a single sensor. 
 
-<!-- The master device (CCGM1A1) sends if nothing is pressed and receives if the button is pressed.  -->
+The testing platform is a single FPGA, hosting both the 1-Wire master device and the 1-Wire slave device. Slave and master module are wrapped together in a top module which includes an UART. Top module purpose is solely testing and demonstrating the operations of the 1-Wire Master and Slave modules on Cologne Chips GateMate FPGA. 
+
+To test both sending and receiving functionality in master and slave modules the top module is set to be modified slightly:
+1. Testing Master sending:
+```
+   onewire_slave_model #(
+      .WRITE_E(0)         // 0-reading  1-writing
+      ...
+```
+```
+   assign uart_tx_data  = slv_written_data;// writing to the 1-Wire slave
+   assign uart_tx_write = slv_wrote;
+   ...
+   onewire_we   = 1'b1;                    // 0-reading  1-writing
+```
+2. Testing Master receving:
+```
+   onewire_slave_model #(
+      .WRITE_E(1)         // 0-reading  1-writing
+   ...
+```
+```
+   assign uart_tx_data  = onewire_rdat;   // reading from the 1-Wire slave
+   assign uart_tx_write = onewire_read;
+   ...
+   onewire_we   = 1'b0;                    // 0-reading  1-writing
+```
 ## Build steps
-To get the design synthesized and run PnR:
+To get the design synthesized, run PnR and upload the design:
 ```
 cd 3.build
 make hw_all
 ```
-
+As onewire is in an open-drain pull up configuration, external pull up voltage and resistance to the io pins is required. In this example IO_NB pin header (see 1.hw/constraints/constraints.ccf for more details) is used to tie the `onewire_mst` and `onewire_slv` pins together with a 2.5 [V] pullup voltage and a 2.2k resistor.
+![Alt text](0.doc/owr.jpg)
+After that, by observing the serial port on baud rate 115200 you should see that the character 'A' is being sent or received repeatedly.
 ## Simulation steps
 Change directory to the 2.sim:
 ```
