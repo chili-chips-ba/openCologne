@@ -48,7 +48,7 @@ clean:
 # Read verilog sources from 1.hw/rtl.filelist
 TOP_FILELIST = $(shell perl -ne 's/\$$\{HW_SRC\}\///g ; print unless /^\s*\#/' ${HW_SRC}/rtl.filelist)
 VERILOG_SOURCES += $(TOP_FILELIST:%=$(HW_SRC)/%)
-SIM_MODELS = ${SIM_SRC}/models/onewire_slave_model.sv
+SIM_MODELS = 
 
 
 compile: 

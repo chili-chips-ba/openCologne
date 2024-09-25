@@ -32,7 +32,9 @@
 //
 //              https://opensource.org/license/bsd-3-clause
 //------------------------------------------------------------------------
-// Description: Onewire test module: - UART for communication
+// Description: 1-Wire test module: - UART for communication
+// 1-Wire Slave and Master modules are connected externally together
+// emulating both on the same chip and testing the functionality 
 //========================================================================
 
 /* verilator lint_off PINMISSING */
@@ -47,7 +49,8 @@ module top
    input   logic uart_rx,
    output  logic uart_tx,
 
-   inout   logic onewire
+   inout  wire  onewire_mst,
+   inout  wire  onewire_slv
 );
    //-----------------------------------
    // Generating 0.2us ticks 
@@ -58,8 +61,8 @@ module top
 
    always_ff @(posedge clk_10 or negedge arst_n) begin
       if(arst_n == 1'b0) begin
-         cnt <= '0;
-         tick_02us_reg    <= 1'b0;
+         cnt            <= '0;
+         tick_02us_reg  <= '0;
       end
       else begin
          if(cnt == 1) begin
@@ -118,15 +121,14 @@ module top
    //----------------------------------
    // 1-Wire instance
    // 1 byte input and output data
-   // If 
-   logic [7:0] onewire_wdat, onewire_rdat;
-   logic onewire_we, onewire_read;
+   logic [7:0] onewire_wdat, onewire_rdat, slv_written_data;
+   logic onewire_we, onewire_read, slv_wrote;
    logic onewire_rdy, onewire_vld;
 
    onewire_master u_onewire_master (
       .clk          (clk_10),        //i
       .arst_n       (arst_n),        //i
-      .onewire      (onewire),       //io
+      .onewire      (onewire_mst),       //io
 
       .bits_to_rw   (4'h8),          //i 
 
@@ -139,22 +141,36 @@ module top
       .read         (onewire_read)   //o
    );
 
+   onewire_slave_model #(
+      .WRITE_E(0)         // 0-reading  1-writing
+   )
+   u_owr_slv (
+      .clk    (clk_10),
+      .arst_n (arst_n),
+      .written_data(slv_written_data),
+      .wrote  (slv_wrote),
+      .onewire(onewire_slv)
+   );
+
    //----------------------------
    // Write out read data on UART
-   assign uart_tx_data  = onewire_rdat; 
-   assign uart_tx_write = onewire_read; // change 1-wire rdy 
+   assign uart_tx_data  = onewire_rdat;   // reading from the 1-Wire slave
+   assign uart_tx_write = onewire_read;  
+
+   // assign uart_tx_data  = slv_written_data;// writing to the 1-Wire slave
+   // assign uart_tx_write = slv_wrote;
+
    assign uart_rx_read  = 1'b0;      
    // debug signal
-
    always_comb begin 
-      onewire_we   = 1'b1;                      // set for sim 
-      onewire_vld  = tick_10ms & uart_rx_arr.valid; // ignoring rdy 
-      onewire_wdat = 8'd65;                     // ascii A      
+      onewire_we   = 1'b0;      // 0-reading  1-writing
+      onewire_vld  = tick_10ms; // read/write every 10ms 
+      onewire_wdat = 8'd65;     // ascii A character to be written
    end
 
    //------------------------------------
    // Driving LED:
-   // Store rx/tx in a buffer then output
+   // Store onewire mst/slv in a buffer then output
    logic [27:0] u_counter; 
 
    always_ff @(posedge clk_10 or negedge arst_n) begin
@@ -172,11 +188,11 @@ module top
    logic buffer_full;
 
    logic [2:0] in;
-   logic uart_tx_prev;
+   logic onewire_slv_prev;
 
    always_ff @(posedge clk_10) begin
-      if(buffer_full == 1'b0 & uart_tx_prev != uart_tx) begin
-         buffer [in] <= uart_tx ;
+      if(buffer_full == 1'b0 & onewire_slv_prev != onewire_slv) begin
+         buffer [in] <= onewire_slv ;
          in          <= in + 3'b1;
          if(in == '1) begin
             buffer_full <= 1'b1;
@@ -186,7 +202,7 @@ module top
       else if(u_counter[27:25] == '1) begin
          buffer_full <= 1'b0;
       end
-      uart_tx_prev <= uart_tx;
+      onewire_slv_prev <= onewire_slv;
    end
    //--------------
    // Buffer empty
@@ -205,4 +221,5 @@ endmodule: top
 Version History:
 ------------------------------------------------------------------------------
  2024/9/22 Tarik Ibrahimovic: Initial Creation
+ 2024/9/22 Tarik Ibrahimovic: First edit
 */

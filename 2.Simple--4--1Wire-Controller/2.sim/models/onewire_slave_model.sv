@@ -42,6 +42,7 @@
 // RW agreement must be known in advance
 module onewire_slave_model #(
    // enable implementation of optional functionality
+   parameter WRITE_E = 0,
    parameter OVD_E = 0,
    // time slot (min=15.0, typ=30.0, max=60.0)
    parameter TS = 30.0,
@@ -69,9 +70,11 @@ module onewire_slave_model #(
    parameter CDR_N = 50-1,  // normal mode - description how to set
    parameter CDR_O = 10-1   // overdrive mode
 )(
-   input logic clk,
-   input logic arst_n,
-   inout wire  onewire
+   input  logic  clk,
+   input  logic  arst_n,
+   output logic [7:0] written_data,
+   output logic wrote,
+   inout  wire  onewire
 );
 
    localparam CDW = $clog2(CDR_N);
@@ -92,7 +95,7 @@ module onewire_slave_model #(
 //--------------------------------
 // clock divider - pls is tick_Xus
 //--------------------------------
-   always_ff @(posedge clk, posedge arst_n) begin
+   always_ff @(posedge clk) begin
       if (arst_n == 1'b0) begin
          div <= 'd0;
       end
@@ -116,7 +119,7 @@ module onewire_slave_model #(
    logic [7:0] bits_send;
    logic [2:0] num_bits, total_bits;
    initial begin
-      bits_send  = 8'b0101_0101;
+      bits_send  = 8'd65; //Ascii a
       total_bits = 3'd7;
    end
 
@@ -176,9 +179,9 @@ module onewire_slave_model #(
                read_bit <= onewire;
                if({onewire, read_bit} == 2'b01) begin // when line goes low comm starts
                   //go to r/w
-                  //slave_state <= WRITE;
-                  slave_state <= WRITE;
-                  cnt         <= t_bit;
+                  if(WRITE_E) slave_state <= WRITE;
+                  else        slave_state <= READ;
+                  cnt                     <= t_bit;
                end
             end
          end
@@ -220,6 +223,10 @@ module onewire_slave_model #(
          default: slave_state <= IDLE;
       endcase
    end
+
+   assign written_data = shift;
+   assign wrote   = (num_bits == 'd7);
+
 endmodule
 /*
 ------------------------------------------------------------------------------
