@@ -6,6 +6,12 @@ Due to the CologneChips GateMate having a scarce number of GPIO pins, here is pr
 ## The Design
 Provided 1-Wire master controller is based on the jeras' [implementation](https://github.com/jeras/sockit_owm), supporting single slave configuration, doing it barebones, as opposed to a full 1-Wire slave bus with custom 64-bit ROM codes. This simplification is justified by the intended use case of this 1-Wire controller: usually interfacing with a single sensor. 
 
+Key features and parameters that the design offers:
+
+1. Standard 1-Wire communication speed of 16.3 kbit/s (OVD_E =0)
+2. Overdrive 1-Wire communication speed of 125 kbit/s (OVD_E = 1)
+3. Clock divider precision (`BTP_N` and `BTP_O` - optimizing logic size with the price of precision)
+
 The testing platform is a single FPGA, hosting both the 1-Wire master device and the 1-Wire slave device. Slave and master module are wrapped together in a top module which includes an UART. Top module purpose is solely testing and demonstrating the operations of the 1-Wire Master and Slave modules on Cologne Chips GateMate FPGA. 
 
 To test both sending and receiving functionality in master and slave modules the top module is set to be modified slightly. Set up in the figure below represents the full test suite functionality. 
