@@ -8,7 +8,11 @@ Provided 1-Wire master controller is based on the jeras' [implementation](https:
 
 The testing platform is a single FPGA, hosting both the 1-Wire master device and the 1-Wire slave device. Slave and master module are wrapped together in a top module which includes an UART. Top module purpose is solely testing and demonstrating the operations of the 1-Wire Master and Slave modules on Cologne Chips GateMate FPGA. 
 
-To test both sending and receiving functionality in master and slave modules the top module is set to be modified slightly:
+To test both sending and receiving functionality in master and slave modules the top module is set to be modified slightly. Set up in the figure below represents the full test suite functionality. 
+
+![](0.doc/test_1wr.png)
+
+Below are instructions on pre-build modifications in order to test both 1-Wire master controller sending and receiving functions. In essence, you change what the UART sends to the PC (either "`master_rdat`" or "`slave_rdat`")
 1. Testing Master sending:
 ```
    onewire_slave_model #(
@@ -39,9 +43,10 @@ To get the design synthesized, run PnR and upload the design:
 cd 3.build
 make hw_all
 ```
-As onewire is in an open-drain pull up configuration, external pull up voltage and resistance to the io pins is required. In this example IO_NB pin header (see 1.hw/constraints/constraints.ccf for more details) is used to tie the `onewire_mst` and `onewire_slv` pins together with a 2.5 [V] pullup voltage and a 2.2k resistor.
+As onewire is in an open-drain pull up configuration, external pull up voltage and resistance to the io pins is required. In this example IO_NB pin header (see 1.hw/constraints/constraints.ccf for more details) is used to tie the `onewire_mst` and `onewire_slv` pins together with a 2.5 [V] pullup voltage and a 2.2k resistor, as in the system schematic shown above. 
+
 ![Alt text](0.doc/owr.jpg)
-After that, by observing the serial port on baud rate 115200 you should see that the character 'A' is being sent or received repeatedly.
+After that, by observing the serial port on baud rate 115200 you should see that the character 'A' is being received repeatedly.
 ## Simulation steps
 Change directory to the 2.sim:
 ```
