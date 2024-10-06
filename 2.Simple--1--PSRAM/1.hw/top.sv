@@ -42,12 +42,17 @@ module top
 (
    input   logic clk,
    input   logic arst_n,
+   
    output  logic tick_02us, 
+   output  logic sent,
+
    input   logic uart_rx,
    output  logic uart_tx,
+   
    output  logic o_psram_csn,
    output  logic o_psram_sclk,
    inout   wire [7:0] io_psram_data,
+   
    output  logic led
 );
  
@@ -58,7 +63,7 @@ module top
    //*************************************
    // Uncomment when addressing the issue
    // logic tick_02us;
-
+   assign sent = uart_tx;
    //-----------------------------------------
    // Generating 0.2us ticks 
    // left flexible for different tick periods
