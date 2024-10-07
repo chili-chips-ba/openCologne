@@ -50,7 +50,7 @@ You can get a simple waveform of recieving `0X1C` data or `A` from the keyboard.
 
 
 ## References: 
-[PS/2 Protocol Overview](https://www.burtonsys.com/ps2_chapweske.html)
+[PS/2 Protocol Overview](https://www.burtonsys.com/ps2_chapweske.htm)
 
 [PS/2 Port - Wikipedia](https://en.wikipedia.org/wiki/PS/2_port)      
 
