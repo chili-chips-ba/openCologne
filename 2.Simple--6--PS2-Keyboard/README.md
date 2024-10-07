@@ -8,8 +8,6 @@ The physical PS/2 port is one of two styles of connectors:  The 5-pin DIN or the
 
 ![image](https://github.com/user-attachments/assets/54bec155-1d92-43a3-8a58-050d2185002c)
 
-![image](https://github.com/user-attachments/assets/2510ad4e-008b-4e0c-894d-8a75a6630710)
-
 ## Communication Protocol
 
 The PS/2 mouse and keyboard implement a bidirectional synchronous serial protocol. The bus is "idle" when both lines
@@ -52,7 +50,8 @@ You can get a simple waveform of recieving `0X1C` data or `A` from the keyboard.
 
 
 ## References: 
-[PS/2 Protocol Overview](https://www.burtonsys.com/ps2_chapweske.htm)
+[PS/2 Protocol Overview](https://www.burtonsys.com/ps2_chapweske.html)
+
 [PS/2 Port - Wikipedia](https://en.wikipedia.org/wiki/PS/2_port)      
 
 
