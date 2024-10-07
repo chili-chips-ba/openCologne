@@ -1,5 +1,3 @@
-
-https://github.com/user-attachments/assets/93aa694d-f911-4529-a7d3-852135765438
 # PS/2 Keyboard
 
 The PS/2 port DIN connector used for connecting keyboards and mice to a PC compatible computer system. Its name comes from the IBM Personal System/2 series of personal computers, with which it was introduced in 1987. Here we have a PS/2 keyboard. The project was adapted from the [ulx3s-misc](https://github.com/emard/ulx3s-misc/tree/master/examples/ps2/kbd) repository of examples to work on CologneChip FPGAs.
