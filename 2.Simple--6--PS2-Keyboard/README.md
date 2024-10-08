@@ -49,7 +49,9 @@ You can get a simple waveform of recieving `0X1C` data or `A` from the keyboard.
 ## See for yourself
 
 
-https://github.com/user-attachments/assets/8793b17a-0ebd-458d-84ea-3083810b564d
+
+https://github.com/user-attachments/assets/506b244b-9b80-48b7-84ce-819b440699d6
+
 
 
 
