@@ -1,63 +1,56 @@
 # PS/2 Keyboard
 
-The PS/2 port DIN connector used for connecting keyboards and mice to a PC compatible computer system. Its name comes from the IBM Personal System/2 series of personal computers, with which it was introduced in 1987. Here we have a PS/2 keyboard. The project was adapted from the [ulx3s-misc](https://github.com/emard/ulx3s-misc/tree/master/examples/ps2/kbd) repository of examples to work on CologneChip FPGAs.
+The PS/2 port is a DIN connector used for connecting keyboards and mice peripherals to hosts. Its name comes from the IBM Personal System/2 series of personal computers, which introduced this connector in 1987. This example is about connecting PS/2 keyboard to an FPGA host. 
+
+The project was adapted from the [ulx3s-misc](https://github.com/emard/ulx3s-misc/tree/master/examples/ps2/kbd) repo, and ported to work for CologneChip GateMate FPGA on Olimex board.
 
 ## The Physical Interface
 
-The physical PS/2 port is one of two styles of connectors:  The 5-pin DIN or the 6-pin mini-DIN.  Both connectors are completely (electrically) similar; the only practical difference between the two is the arrangement of pins.  This means the two types of connectors can easily be changed with simple hard-wired adaptors. If you have a USB keyboard you can buy a USB to PS/2 adapter or [make one yourself](https://www.instructables.com/USB-to-PS2-convertor/).
+The physical PS/2 port is one of two styles of connectors:  The 5-pin DIN or the 6-pin mini-DIN. Both connectors are electrically identical; the only difference is the connecor size, shape and arrangement of pins. 
+> ![image](https://github.com/user-attachments/assets/54bec155-1d92-43a3-8a58-050d2185002c)
 
-![image](https://github.com/user-attachments/assets/54bec155-1d92-43a3-8a58-050d2185002c)
+This means that these two types of connectors can easily be changed with simple hard-wired adaptors. 
+
+Moreover, even a modern USB keyboard can easily be connected to a PS/2 host. For that, you can buy a USB-to-PS/2 passive adapter or [make one yourself](https://www.instructables.com/USB-to-PS2-convertor). Given how hard it is to find a PS/2 keyboard these days, we are for this example using a USB keyboard with a passive adapter.
 
 ## Communication Protocol
 
-The PS/2 mouse and keyboard implement a bidirectional synchronous serial protocol. The bus is "idle" when both lines
-are high (open-collector). This is the only state where the keyboard/mouse is allowed begin transmitting data. The host
-has ultimate control over the bus and may inhibit communication at any time by pulling the Clock line low.
-The device always generates the clock signal. If the host wants to send data, it must first inhibit communication from the
-device by pulling Clock low. The host then pulls Data low and releases Clock. This is the "Request-to-Send" state and
-signals the device to start generating clock pulses.
+The PS/2 mouse and keyboard implement a bidirectional synchronous serial protocol. The bus is open-collector and "Idle" when both lines are high. The keyboard/mouse peripheral may start transmitting data only from "Idle" state. The host has the ultimate control over the bus and, by pulling the Clock line low, it may inhibit communication at any time.
+
+The peripheral Device always generates the Clock signal. If the Host wants to send data, it must first interrupt the device by pulling the Clock line low. The Host then pulls the Data line low and releases the Clock. This is the _"Request-to-Send"_ signal from Host to Device to start generating clock pulses.
 
 Summary: Bus States
-* Data = high, Clock = high: Idle state.
-* Data = high, Clock = low: Communication Inhibited.
-* Data = low, Clock = high: Host Request-to-Send
+* {Data, Clock} = 11 : **Idle**
+* {Data, Clock} = 10 : **Inhibit**
+* {Data, Clock} = 01 : **Host Request-to-Send**
 
-All data is transmitted one byte at a time and each byte is sent in a frame consisting of 11 bits. These bits are:
+All data is transmitted one byte at a time, and each byte is sent in a frame consisting of eleven bits, modeled after UART, but now synchronous. They are:
+* 1 **Start** bit. Always 0.
+* 8 **Data** bits, the Least Significant Bit (LSB) goes first.
+* 1 **Parity** bit (odd parity is used).
+* 1 **Stop** bit. Always 1.
 
-* 1 start bit. This is always 0.
-* 8 data bits, least significant bit first.
-* 1 parity bit (odd parity).
-* 1 stop bit. This is always 1.
+The Parity bit is 1 if there is an even number of 1's in the Data bits and 0 if there is an odd number of 1's in the Data bits. In other words, the number of 1's in Data bits plus the Parity bit must always add up to an odd number (hence odd parity). This is used for error detection. 
 
-The parity bit is set if there is an even number of 1's in the data bits and reset (0) if there is an odd number of 1's in the
-data bits. The number of 1's in the data bits plus the parity bit always add up to an odd number (odd parity.) This is used
-for error detection. The keyboard must check this bit and if incorrect it should respond as if it had received an
-invalid command. Data sent from the device to the host is read on the falling edge of the clock signal; data sent from the host to the device is
-read on the rising edge. The clock frequency must be in the range 10 - 16.7 kHz.
+The keyboard must check Parity bit. If incorrect, it should respond as if it had received an
+invalid command. Data sent from the Device to the Host is read on the falling edge of the clock signal; Data sent from the Host to the Device is read on the rising edge. The clock frequency must be in the range 10-to-16.7kHz.
 
-![image](https://github.com/user-attachments/assets/4808ad5c-2116-4ad3-b57b-0d3a6bcd649b)
+> ![image](https://github.com/user-attachments/assets/4808ad5c-2116-4ad3-b57b-0d3a6bcd649b)
+
 ## Simulation
 Running the simulation in `2.sim/cocotb` with:
 ```
 make
 ```
-You can get a simple waveform of recieving `0X1C` data or `A` from the keyboard. The data is `00011100` in binary it is transmitted LSB first. Also the parity bit is 0 because there are uneven number of 1s in the data.
+You can get a simple waveform of recieving `0X1C` data or ASCII `A` from the keyboard. The Data bits are `0001_1100` in binary, and transmitted the LSB first. The Parity bit is 0, as the Data already contains odd number of 1s.
 
 ![ps2_sim](https://github.com/user-attachments/assets/819dba78-73c2-4501-bfc8-fd9616a7b24f)
 
-
 ## See for yourself
-
-
 
 https://github.com/user-attachments/assets/506b244b-9b80-48b7-84ce-819b440699d6
 
-
-
-
 ## References: 
-[PS/2 Protocol Overview](https://www.burtonsys.com/ps2_chapweske.htm)
-
-[PS/2 Port - Wikipedia](https://en.wikipedia.org/wiki/PS/2_port)      
-
+- [PS/2 Protocol Overview](https://www.burtonsys.com/ps2_chapweske.htm)
+- [PS/2 Port - Wikipedia](https://en.wikipedia.org/wiki/PS/2_port)      
 
