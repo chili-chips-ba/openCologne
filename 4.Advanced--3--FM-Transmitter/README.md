@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The _FM Transmitter_ example is a simple, purely digitally-generated 105MHz which is then frequency-modulated with a 1kHz beep signal. It can be picked up, demodulated and heard on a standard FM Radio Reciever, where it sounds like Morse-code. It is however much more than Morse that merely turns the carrier on and off. 
+The _FM Transmitter_ example is a simple, purely digitally-generated 105MHz carrier which is then frequency-modulated with a cca 1kHz beep signal. It can be picked up, demodulated and heard on a standard FM Radio Reciever, where it sounds like Morse-code. It is however much more than Morse that merely turns the carrier on and off. 
 
 The best way to test it is by using an old-school analog AM/FM "transistor" radio from the seventies. Should you not have one of those oldies, you can load one of the many "FM Receiver" apps to your new millennium cell phone, where headphones then serve as an antenna, and touch-screen tune to this frequency.
 
