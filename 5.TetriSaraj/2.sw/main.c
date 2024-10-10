@@ -32,13 +32,13 @@
 #define reg_video_char	((volatile uint32_t*)0x05100000)
 #define reg_video_map	((volatile uint32_t*)0x05200000)
 
-#define BUTTON_UP 0x01
-#define BUTTON_RIGHT 0x02
-#define BUTTON_LEFT 0x04
-#define BUTTON_DOWN 0x08
-#define BUTTON_CENTER 0x10
+#define BUTTON_UP 0x01     // 0000 0001
+#define BUTTON_RIGHT 0x02  // 0000 0010
+#define BUTTON_LEFT 0x04   // 0000 0100
+#define BUTTON_DOWN 0x08   // 0000 1000
+#define BUTTON_CENTER 0x10 // 0001 0000
 
-#define DELAY   10000
+#define DELAY   2500 // bilo 10000
 
 #define 	fieldWidth		40
 #define		fieldHeight	30
@@ -869,13 +869,13 @@ void main()
 	
 	CharactersInit();
 	DisplayProjectName();
-	_delay(15000);
+	_delay(3000); // 15000
 
 	DisplayCompanyName(); 
-	_delay(15000);
+	_delay(3000);
 	
 	DisplayGameName();
-	_delay(15000);
+	_delay(3000);
 	
 	FieldInitialization();
 	
@@ -884,7 +884,7 @@ void main()
 	DisplayHeart(5,9,3);
 	DisplayHeart(15,9,3);
 	DisplayHeart(25,9,3);
-	_delay(20000);
+	_delay(4000); // 20000
 	
     // Game Logic
     uint16_t pieceIndex = 0;
@@ -924,7 +924,7 @@ void main()
 			numLives=numLives-1;
 			DisplayGameOverScreen(numLives);
 			
-			_delay(18000);
+			_delay(4000); // 18000
 			
 			for (uint8_t y = 0; y < fieldHeight; y++) 
 			{

@@ -43,19 +43,6 @@ module vga_controller(
     parameter VR = 2;               // vertical retrace length in pixels  
     parameter VMAX = VD+VF+VB+VR-1; // max value of vertical counter = 524   
     
-    // *** Generate 25MHz from 100MHz *********************************************************
-	/*reg  [1:0] r_25MHz;
-	wire w_25MHz;
-	
-	always @(posedge clk or posedge reset)
-		if(reset)
-		  r_25MHz <= 0;
-		else
-		  r_25MHz <= r_25MHz + 1;
-	
-	assign w_25MHz = (r_25MHz == 0) ? 1 : 0; // assert tick 1/4 of the time*/
-    // ****************************************************************************************
-    
     // Counter Registers, two each for buffering to avoid glitches
     reg [9:0] h_count_reg, h_count_next;
     reg [9:0] v_count_reg, v_count_next;
@@ -64,41 +51,76 @@ module vga_controller(
     reg v_sync_reg, h_sync_reg;
     wire v_sync_next, h_sync_next;
     
-    // Register Control
-    always @(posedge clk or posedge reset)
-        if(reset) begin
+    always @(posedge clk or posedge reset) 
+        if (reset) begin
             v_count_reg <= 0;
             h_count_reg <= 0;
             v_sync_reg  <= 1'b0;
             h_sync_reg  <= 1'b0;
+        end else begin
+            // Logika za horizontalni brojač
+            if (h_count_reg == HMAX) begin
+                h_count_reg <= 0;
+                // Logika za vertikalni brojač
+                if (v_count_reg == VMAX) 
+                    v_count_reg <= 0;
+                else 
+                    v_count_reg <= v_count_reg + 1;
+            end else begin
+                h_count_reg <= h_count_reg + 1;
+            end
+            
+            // Ažuriranje sinhronizacije
+            v_sync_reg <= v_sync_next;
+            h_sync_reg <= h_sync_next;
         end
-        else begin
-            v_count_reg <= v_count_next;
-            h_count_reg <= h_count_next;
-            v_sync_reg  <= v_sync_next;
-            h_sync_reg  <= h_sync_next;
-        end
+
+    // reg r_25MHz;
+	// wire w_25MHz;
+	
+	// always @(posedge clk or posedge reset)
+	// 	if(reset)
+	// 	  r_25MHz <= 0;
+	// 	else
+	// 	  r_25MHz <= r_25MHz + 1;
+	
+	// assign w_25MHz = (r_25MHz == 0) ? 1 : 0; // assert tick 1/2 of the time
+
+    // // Register Control
+    // always @(posedge clk or posedge reset)
+    //     if(reset) begin
+    //         v_count_reg <= 0;
+    //         h_count_reg <= 0;
+    //         v_sync_reg  <= 1'b0;
+    //         h_sync_reg  <= 1'b0;
+    //     end
+    //     else begin
+    //         v_count_reg <= v_count_next;
+    //         h_count_reg <= h_count_next;
+    //         v_sync_reg  <= v_sync_next;
+    //         h_sync_reg  <= h_sync_next;
+    //     end
          
-    //Logic for horizontal counter
-    always @(posedge clk or posedge reset)      // pixel tick
-        if(reset)
-            h_count_next = 0;
-        else
-            if(h_count_reg == HMAX)                 // end of horizontal scan
-                h_count_next = 0;
-            else
-                h_count_next = h_count_reg + 1;         
+    // //Logic for horizontal counter
+    // always @(posedge w_25MHz or posedge reset)      // pixel tick
+    //     if(reset)
+    //         h_count_next = 0;
+    //     else
+    //         if(h_count_reg == HMAX)                 // end of horizontal scan
+    //             h_count_next = 0;
+    //         else
+    //             h_count_next = h_count_reg + 1;         
   
-    // Logic for vertical counter
-    always @(posedge clk or posedge reset)
-        if(reset)
-            v_count_next = 0;
-        else
-            if(h_count_reg == HMAX)                 // end of horizontal scan
-                if((v_count_reg == VMAX))           // end of vertical scan
-                    v_count_next = 0;
-                else
-                    v_count_next = v_count_reg + 1;
+    // // Logic for vertical counter
+    // always @(posedge w_25MHz or posedge reset)
+    //     if(reset)
+    //         v_count_next = 0;
+    //     else
+    //         if(h_count_reg == HMAX)                 // end of horizontal scan
+    //             if((v_count_reg == VMAX))           // end of vertical scan
+    //                 v_count_next = 0;
+    //             else
+    //                 v_count_next = v_count_reg + 1;
         
     // h_sync_next asserted within the horizontal retrace area
     assign h_sync_next = (h_count_reg >= (HD+HB) && h_count_reg <= (HD+HB+HR-1));
