@@ -84,48 +84,54 @@ void GetButtonStates() {
 }
 
 /* 
- * brief   displays openXC7 Demo on the screen
+ * brief   displays GATEMATE Demo on the screen
  * return  void
  */
 void DisplayProjectName() 
 {
-	uint8_t nameY = 3;
-	for (uint8_t y = 0; y < 30; y++)
-	{ 
-		for (uint8_t x = 0; x < 40; x++) // Board Boundary
-		{
-			reg_video_map[y * 40 + x] = 9; // Background color
+    uint8_t nameY = 3;
+    for (uint8_t y = 0; y < 30; y++)
+    { 
+        for (uint8_t x = 0; x < 40; x++) // Board Boundary
+        {
+            reg_video_map[y * 40 + x] = 9; // Background color
+            
+            //G
+            if ((y == nameY && (x >= 3 && x <= 5)) || (y == nameY + 4 && (x >= 3 && x <= 5)) || (x == 3 && (y >= nameY && y <= nameY + 4)) || (x == 5 && (y >= nameY + 2 && y <= nameY + 4)))
+                reg_video_map[y * 40 + x] = 0;
+            
+			//a
+            if((x == 7 || x == 9) && (y >= nameY + 1 && y <= nameY + 4) || (x == 8 && y == nameY + 2) || (x == 8 && y == nameY))
+				reg_video_map[y * 40 + x] = 0;
 			
-			//o
-			if (((y == nameY || y == nameY + 4) && (x >= 6 && x <= 8)) || ((x == 6 || x == 8) && (y >= nameY && y <= nameY + 4)))			
-				reg_video_map[y * 40 + x] = 1;
+            //t
+            if ((y == nameY && (x >= 11 && x <= 13)) || (x == 12 && (y >= nameY && y <= nameY + 4)))
+                reg_video_map[y * 40 + x] = 0;
+            
+            //e
+            if (((y == nameY || y == nameY + 4) && (x >= 15 && x <= 17)) || (y == nameY + 2 && x == 16) || (x == 15 && (y >= nameY && y <= nameY + 4)))
+                reg_video_map[y * 40 + x] = 0;
+            
+            //M
+            if ((y == nameY && (x == 20 || x == 21 || x == 23 || x == 24)) || (x == 20 && (y >= nameY && y <= nameY + 4)) || (x == 24 && (y >= nameY && y <= nameY + 4)) || (x == 22 && y == nameY + 1))
+                reg_video_map[y * 40 + x] = 2;
+			
+			//a
+            if((x == 26 || x == 28) && (y >= nameY + 1 && y <= nameY + 4) || (x == 27 && y == nameY + 2) || (x == 27 && y == nameY))
+				reg_video_map[y * 40 + x] = 2;
+            
+            //t
+            if ((y == nameY && (x >= 30 && x <= 32)) || (x == 31 && (y >= nameY && y <= nameY + 4)))
+                reg_video_map[y * 40 + x] = 2;
+            
+            //e
+            if (((y == nameY || y == nameY + 4) && (x >= 34 && x <= 36)) || (y == nameY + 2 && x == 35) || (x == 34 && (y >= nameY && y <= nameY + 4)))
+                reg_video_map[y * 40 + x] = 2;
+        }
+    }
+} 
 
-			//p
-			if (((y == nameY || y == nameY + 2) && (x >= 10 && x <= 12)) || (x == 10 && (y >= nameY && y <= nameY + 4)) || (x == 12 && (y >= nameY && y <= nameY + 2)))
-				reg_video_map[y * 40 + x] = 1;
-			
-			//e
-			if (((y == nameY || y == nameY + 2 || y == nameY + 4) && (x >= 14 && x <= 16)) || (x == 14 && (y >= nameY && y <= nameY + 4)))
-				reg_video_map[y * 40 + x] = 1;
-			
-			//n
-			if (((y == nameY) && (x >= 18 && x <= 20)) || ((x == 18 || x == 20) && (y >= nameY && y <= nameY + 4)))			
-				reg_video_map[y * 40 + x] = 1;
-			
-			//x
-			if ((((x == 22 || x == 24) && (y >= nameY && y <= nameY + 4)) && (y != nameY + 2)) || (x == 23 && y == nameY + 2))
-				reg_video_map[y * 40 + x] = 2;
-			
-			//c
-			if (((y == nameY || y == nameY + 4) && (x >= 26 && x <= 28)) || (x == 26 && (y >= nameY && y <= nameY + 4)))			
-				reg_video_map[y * 40 + x] = 2;
-			
-			//7
-			if ((y == nameY && (x >= 30 && x <= 32)) || (x == 31 && (y >= nameY + 2 && y <= nameY + 4)) || (x == 32 && y == nameY + 1))
-				reg_video_map[y * 40 + x] = 2;
-		}
-	}
-}
+
 /* 
  * brief   displays CHILI CHIPS on the screen
  * return  void
@@ -224,15 +230,12 @@ void DisplayGameName()
 		for (uint8_t x = 0; x < 40; x++) // Board Boundary
 		{
 			//T
-			if(y == nameY && (x>=3 && x<=5))
+			if(y == nameY && (x>=2 && x<=4) || (x == 3 && (y >= nameY && y <= nameY + 4)))
 				reg_video_map[y * 40 + x] = 2;
-			if(x == 4 && (y >= nameY && y <= nameY + 4))
-				reg_video_map[y * 40 + x] = 2;
-			 //E
-			if(x == 7 && (y >= nameY && y <= nameY + 4))
-				reg_video_map[y * 40 + x] = 2;
-			if(x == 8 && (y == nameY || y == nameY + 2 || y == nameY + 4))
-				reg_video_map[y * 40 + x] = 2;
+			//e
+            if (((y == nameY || y == nameY + 4) && (x >= 6 && x <= 8)) || (y == nameY + 2 && x == 7) || (x == 6 && (y >= nameY && y <= nameY + 4)))
+                reg_video_map[y * 40 + x] = 2;
+			
 			 //T
 			if(y == nameY && (x >= 10 && x <= 12))
 				reg_video_map[y * 40 + x] = 2;
