@@ -17,7 +17,7 @@ wire usr_pll_lock;
 wire pll_clk_nobuf;
 CC_PLL #(
     .REF_CLK("10.0"),    // reference input in MHz
-    .OUT_CLK("50.0"),    // pll output frequency in MHz
+    .OUT_CLK("25.0"),    // pll output frequency in MHz
     .LOCK_REQ(0),        // 1: Lock status required before PLL output enable
                          // 0: PLL output before lock
     .PERF_MD("SPEED"), // LOWPOWER, ECONOMY, SPEED
@@ -33,9 +33,9 @@ CC_PLL #(
      */
     .USR_LOCKED_STDY_RST(1'b0), .USR_PLL_LOCKED_STDY(),
     .USR_PLL_LOCKED(usr_pll_lock),
-    .CLK270(clk270), .CLK180(clk180), .CLK90(clk90), .CLK0(clock_out), .CLK_REF_OUT(usr_ref_out)
+    .CLK270(clk270), .CLK180(clk180), .CLK90(clk90), .CLK0(pll_clk_nobuf), .CLK_REF_OUT(usr_ref_out)
 );
-//CC_BUFG pll_bufg (.I(pll_clk_nobuf), .O(clock_out));
+CC_BUFG pll_bufg (.I(pll_clk_nobuf), .O(clock_out));
 
 // reset is synced the clock
 reg locked_s1;

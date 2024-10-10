@@ -90,23 +90,45 @@
 # LED, 4 Clocks for PLL
 # #######################################################
 # -------------------------------------------------------
-Pin_in "clk_10mhz" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0
-Pin_in "rst" Loc = "IO_SB_B7" | PULLUP=true; # FPGA_BUT
+Net "clk_10mhz" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0 , both OLIMEX and CCGM1A1
+#Net "btn" Loc = "IO_SB_B7" | PULLUP=true; # FPGA_BUT
 Pin_out "led_olimex" Loc = "IO_SB_B6"; # FPGA LED
+
+#Pin_in "clk_10mhz" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0
+#Pin_in "rst" Loc = "IO_SB_B7" | PULLUP=true; # FPGA_BUT
+#Pin_out "led_olimex" Loc = "IO_SB_B6"; # FPGA LED
 Pin_out "hsync" Loc = "IO_WB_A1";
 Pin_out "vsync" Loc = "IO_WB_B1";
-Pin_out "rgb[0]" Loc = "IO_WB_A4";
-Pin_out "rgb[1]" Loc = "IO_WB_B4";
-Pin_out "rgb[2]" Loc = "IO_WB_A5";
-Pin_out "rgb[3]" Loc = "IO_WB_B5";
-Pin_out "rgb[4]" Loc = "IO_WB_A6";
-Pin_out "rgb[5]" Loc = "IO_WB_B6";
-Pin_out "rgb[6]" Loc = "IO_WB_A7";
-Pin_out "rgb[7]" Loc = "IO_WB_B7";
-Pin_out "rgb[8]" Loc = "IO_WB_A2";
-Pin_out "rgb[9]" Loc = "IO_WB_B2";
-Pin_out "rgb[10]" Loc = "IO_WB_A3";
-Pin_out "rgb[11]" Loc = "IO_WB_B3";
+#Pin_out "rgb[0]" Loc = "IO_WB_A4";
+#Pin_out "rgb[1]" Loc = "IO_WB_B4";
+#Pin_out "rgb[2]" Loc = "IO_WB_A5";
+#Pin_out "rgb[3]" Loc = "IO_WB_B5";
+#Pin_out "rgb[4]" Loc = "IO_WB_A6";
+#Pin_out "rgb[5]" Loc = "IO_WB_B6";
+#Pin_out "rgb[6]" Loc = "IO_WB_A7";
+#Pin_out "rgb[7]" Loc = "IO_WB_B7";
+#Pin_out "rgb[8]" Loc = "IO_WB_A2";
+#Pin_out "rgb[9]" Loc = "IO_WB_B2";
+#Pin_out "rgb[10]" Loc = "IO_WB_A3";
+#Pin_out "rgb[11]" Loc = "IO_WB_B3";
+
+#J1
+Pin_out "rgb[8]" Loc = "IO_WB_B3";
+Pin_out "rgb[9]" Loc = "IO_WB_A3";
+Pin_out "rgb[10]" Loc = "IO_WB_B2";
+Pin_out "rgb[11]" Loc = "IO_WB_A2";
+
+Pin_out "rgb[4]" Loc = "IO_WB_B5";
+Pin_out "rgb[5]" Loc = "IO_WB_A5";
+Pin_out "rgb[6]" Loc = "IO_WB_B4";
+Pin_out "rgb[7]" Loc = "IO_WB_A4";
+
+#J2
+Pin_out "rgb[0]"  Loc = "IO_WB_B7";
+Pin_out "rgb[1]"  Loc = "IO_WB_A7";
+Pin_out "rgb[2]"  Loc = "IO_WB_B6";
+Pin_out "rgb[3]"  Loc = "IO_WB_A6";
+
 ## #######################################################
 ## End of hardware constraints blink.ccf
 ## #######################################################
