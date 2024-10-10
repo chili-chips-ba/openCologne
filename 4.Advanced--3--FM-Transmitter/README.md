@@ -2,9 +2,15 @@
 
 ## Introduction
 
-The FM Transmitter in this example is a simple beep generator that can be picked up at FM frequencies with a valid FM Radio Reciever. The best way to test this out is with an oldschool FM radio reciever and on the chance that you don't have one you can use your phone with headphones that act as an antenna to tune the FM Radio to the Transmitters frequency.
+The _FM Transmitter_ example is a simple, purely digitally-generated 105MHz which is then frequency-modulated with a 1kHz beep signal. It can be picked up, demodulated and heard on a standard FM Radio Reciever, where it sounds like Morse-code. It is however much more than Morse that merely turns the carrier on and off. 
 
-The used VHDL and Verilog modules are:
+The best way to test it is by using an old-school analog AM/FM "transistor" radio from the seventies. Should you not have one of those oldies, you can load one of the many "FM Receiver" apps to your new millennium cell phone, where headphones then serve as an antenna, and touch-screen tune to this frequency.
+
+This example is ported to GateMate FPGA and Olimex board from [ulx3s-misc](https://github.com/emard/ulx3s-misc/tree/master/examples/fm). We would like to use this occasion to point the interested read to the complementary digital receiver design known as [flearadio](https://github.com/emard/flearadio).
+
+## Design structure
+
+This is a mixed-language design, written in a combination of VHDL and Verilog RTL. It consists of the following modules:
 * top_fm.v
 * fmgen_test.vhd
 * fmgen.vhd
@@ -12,12 +18,12 @@ The used VHDL and Verilog modules are:
 * lowpass.vhd
 * message_ps.mem
 
-## Working principle
+> ![FMDiagram drawio](https://github.com/user-attachments/assets/ad2e45c9-fc60-4333-9a17-b5690751e252)
 
-![FMDiagram drawio](https://github.com/user-attachments/assets/ad2e45c9-fc60-4333-9a17-b5690751e252)
+## Theory of Operation
 
+The `top_fm.v` module is the general top module which uses the CologneChips 10MHz clock to generate two clocks: 40MHz and 240MHz. The 40MHz clock is used to drive the beep generator and the RDS processing. The 240MHz clock is used for driving the FM modulator, especially for the high-frequency signal generation needed for FM.
 
-The `top_fm.v` module is the general top module which uses the CologneChips 10MHz clock to generate two clocks: 40MHz and 240MHz. The 40MHz clock is used to drive the beep generator and the RDS processing.The 240MHz clock is used for driving the FM modulator, especially for the high-frequency signal generation needed for FM.
 This beep serves as the PCM input to the FM modulator. When the button is not pressed btn, the beep signal is fed into the modulator, simulating an audio input for transmission.
 
 `message_ps.mem` is a memory block that stores the RDS message data. This memory holds the message data that will be transmitted as part of the RDS signal. 
@@ -28,17 +34,16 @@ The FM Modulator in `fmgen.vhd` modulates the audio signal and the RDS subcarrie
 
 The modulated FM signal, which contains both the audio (beep) and the RDS metadata, is transmitted via the antenna. 
 
-## Build the project
+## Build flow
 
 To build and program the project go to `3.build` folder and run 
 ```
 make all
 ```
 
-You will need an antenna at the dedicated pin in the constraint file, it can be any pin you want and the antenna can be a piece of wire or a jumper wire. And also ofcourse you will need a FM reciever to test out your FM Transmitter.
+You will need an antenna at the dedicated pin in the constraint file. It can be any pin you want and the antenna can be a piece of loose wire, or even a jumper wire. And, of course, you will need a FM receiver to test your FM Transmitter.
 
 ## Hear for yourself
-
 
 https://github.com/user-attachments/assets/c4a085f5-0a9a-490d-ac08-d8010da4e512
 
