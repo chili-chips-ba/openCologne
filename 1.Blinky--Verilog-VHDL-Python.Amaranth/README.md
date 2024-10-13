@@ -1,10 +1,7 @@
-# openCologne
-## * WORK IN PROGRESS * UNDER CONSTRUCTION *
-> WHILE THIS NOTICE IS PRESENT, DON'T EXPECT DESIGN, SIM, OR ANY OTHER FILE IN HERE 2BE DOIN' WHAT IT'S SAYIN'
-
 # Project Setup and Usage
 
 This tutorial is intended for Linux OS.
+
 ## Toolchain Setup
 1. Download the correct toolchain for the GateMate FPGA Board from one of the following links:
 * [Windows Toolchain](https://colognechip.com/downloads/cc-toolchain-win.zip)
