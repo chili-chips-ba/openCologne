@@ -1,4 +1,5 @@
-# openCologne - UART Test for Olimex GateMate Board
+# UART Test
+
 This example demonstrates a UART test for the Olimex GateMate board.
 
 ### Instructions
