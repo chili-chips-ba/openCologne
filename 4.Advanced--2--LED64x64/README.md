@@ -1,4 +1,5 @@
-# 4.Advanced--2--LED64x64   
+# LED64x64 Example
+
 This example runs `24bpp` animated video on a 64x64 LED panel. 
 
 With the whooping `11.8kHz refresh rate`, it's flicker-free. We also run the panel at the `minumum possible blanking time`, thus yielding the `max possible intensity`. This is 100% RTL design -- Microcontrollers and embedded approach would have hard time meeting these specs.
@@ -14,3 +15,4 @@ Think of this as a mere building block for making larger panels, such as these ð
 
 Also posted on [LinkedIn](https://www.linkedin.com/posts/ahmed-imamovic_etfpga-fpga-rtl-activity-7242253055411331073-E36f?utm_source=share&utm_medium=member_desktop)...
 
+#### End of Document
