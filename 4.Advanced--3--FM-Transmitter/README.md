@@ -49,4 +49,7 @@ You will need to attache an antenna to the designated pin in the constraint file
 
 https://github.com/user-attachments/assets/c4a085f5-0a9a-490d-ac08-d8010da4e512
 
+Also mentioned on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7250920739208323073?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7250920739208323073%2C7250944136688640000%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287250944136688640000%2Curn%3Ali%3Aactivity%3A7250920739208323073%29)
+
+#### End of Document
 
