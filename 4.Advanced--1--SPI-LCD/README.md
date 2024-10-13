@@ -1,4 +1,4 @@
-# 4.Advanced--1--SPI-LCD
+# SPI-LCD Example
 
 The *top_checkered* module is designed to drive two different displays simultaneously, producing a checkered pattern on both screens. This module interfaces with the displays using _Serial Peripheral Interconnect_ (SPI) communication protocol, through which it controls all necessary signals for proper display initialization and operation.
 
@@ -46,3 +46,5 @@ This example is also supported for:
 </p>
 
 Also posted on [LinkedIn](https://www.linkedin.com/posts/chili-chips_gatemate-spi-lcd-activity-7233383297500733441-F4PM?utm_source=share&utm_medium=member_desktop) ...
+
+#### End  of Document
