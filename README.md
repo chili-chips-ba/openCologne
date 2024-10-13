@@ -1,18 +1,21 @@
+<p align="center">
+   <img src="https://github.com/chili-chips-ba/openCologne/blob/main/0.doc/openCologne.logo.small.png">
+</p>
+
 There is currently one and only one FPGA vendor in Europe -- CologneChip. Their GateMate device has a somewhat unique feature set for the 20K class, most notably the high-speed SerDes. It is also one of the rare families designed around 2-input [LUT trees and muxes](https://github.com/chili-chips-ba/openCologne/issues/28#issue-2442939220), vs. the mainstream microRAM-based LUTs with 4, 5 or 6 address inputs. 
 
-Given recent appearances of affordable boards, GateMate challenge at the moment is to get hold of, and grow roots in the open hardware dev community. We view it as an opportunity, and are firmly set to help it achieve that goal. 
+Given recent appearances of affordable boards, GateMate challenge at the moment is to get hold of, and grow roots in the open hardware dev community... which is also an opportunity. We are firmly set to help GateMate achieve this goal. 
 
 How? By pursuing a three-pronged approach:
 
- 1) Design the third flavor of the popular open hardware ULX3S->ULX4M sequel ->>> The **ULX5M**! While LatticeSemi FPGA will on this new board be replaced with GateMate, it will otherwise come in the same popular Raspberry Pi Compute Module 4 (CM4) form-factor. That makes it plug-and-play compatible with a vast asssortment of baseboards, so opening the first and only EU FPGA to a commendable set of existing peripherals and apps.
+1) Design the third flavor of the popular open hardware ULX3S->ULX4M sequel ->>> The **ULX5M**! While LatticeSemi FPGA will on this new board be replaced with GateMate, it will otherwise come in the same popular Raspberry Pi Compute Module 4 (CM4) form-factor. That makes it plug-and-play compatible with a vast asssortment of baseboards, so opening the first and only EU FPGA to a commendable set of existing peripherals and apps.
 
- 2) Create and validate a portfolio of **well-documented examples** that put GateMate resources to good use. Be it by tapping into SystemVerilog or VHDL RTL, HLS design methodologies, demonstrating pure hardware FSM implementations, or HW/SW co-design, utilizing SOC techniques, or possibly even reaching into Amaranth and LiteX build frameworks... the goal is to expand GateMate audience, faciliate silicon adoption, and ultimately have it gain a foothold in the market.
+2) Create and validate a portfolio of **well-documented examples** that put GateMate resources to good use. Be it by tapping into SystemVerilog or VHDL RTL, HLS design methodologies, demonstrating pure hardware FSM implementations, or HW/SW co-design, utilizing SOC techniques, or possibly even reaching into Amaranth and LiteX build frameworks... the goal is to expand GateMate audience, faciliate silicon adoption, and ultimately have it gain a foothold in the market.
 
-  3) Engage with [CologneChip](https://www.colognechip.com/programmable-logic/gatemate">CologneChip) developers to resolve [issues](https://github.com/chili-chips-ba/openCologne/issues) identified in this course.
-     
-![open-cologne](https://github.com/chili-chips-ba/openCologne/assets/67533663/917a1eb9-7c9f-43a9-a9bc-72b73aaac05b)
+3) Engage with [CologneChip](https://www.colognechip.com/programmable-logic/gatemate">CologneChip) developers to resolve [issues](https://github.com/chili-chips-ba/openCologne/issues) identified in this course.
 
-We have organized this work into 3 game levels with 9 play milestones:
+
+The work is then organized into 3 game levels with 9 play milestones:
 
 ## *Level I – Warm Up*
 
@@ -26,34 +29,34 @@ We have organized this work into 3 game levels with 9 play milestones:
 
 **Play 4** - Port to GateMate a couple of advanced ULX3S examples. Now without restrictions related to support of PCB development, we are choosing these examples for their purely FPGA value. We may also modify them, write mutations and variants, looking to find a better fit for GateMate internal architecture, or letting our creativity a free hand to play and experiment.
 
-**Play 5** - Adapt [TetriSaraj](https://github.com/chili-chips-ba/openXC7-TetriSaraj) HW/SW project to GateMate. This is a serious SOC. On the hardware side, it includes a RISC-V microkontroller, Instruction, and Data RAM, Frame Buffer with Video Subsystem, and high-speed I/O for VGA. On the software side, it’s a bare-metal, "free-standing" C that implements the logic of a Tetrisoid gate.
+**Play 5** - Adapt [TetriSaraj](https://github.com/chili-chips-ba/openXC7-TetriSaraj) HW/SW project to GateMate. This is a serious SOC. Its hardware includes a RISC-V microkontroller, Instruction, and Data RAM, Frame Buffer with Video Subsystem, and high-speed I/O for VGA. On the software side, this is a bare-metal, "free-standing" C that implements the logic of a Tetrisoid gate.
 
-**Play 6** - Design and manufacture ULX5M board.
+**Play 6** - Design and manufacture the ULX5M board.
 
 ## *Level III - Candy Cane*
 
 **Play 7** - Develop an advanced example for CologneChip SerDes and its high-speed PLL.
 
-**Play 8** - Stress test the FPGA device and tools, such as to assess silicon Fmax and realistic utilization, injecting routing congestion and pushing the clock distribution network to its limits. 
+**Play 8** - Stress-test the FPGA device and tools, such as to assess silicon Fmax and realistic utilization, injecting routing congestion and pushing the clock distribution network to its limits. 
 
 **Play 9** - Port the barebones of [BetrustedSOC](https://github.com/betrusted-io/betrusted-soc) to GateMate, namely its VexRiscv CPU and UART.
 
 This is a stepping stone for our next CologneChip project, perhaps using one of their yet to be released 40K or 80K devices. 
 
-For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 device), with 80% utilization (as of October 2022), implemented using proprietary Vivado 2019.2 toolchain, and also enjoying a 5K LUT4 Lattice UP5 FPGA on the side, for housekeeping tasks. The full BetrustedSOC would indeed be a very fun thing to eventually put into GateMate!
+For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 device), with 80% utilization (as of October 2022), implemented using proprietary Vivado 2019.2 toolchain, also enjoying a 5K LUT4 Lattice UP5 FPGA on the side for housekeeping tasks. The full BetrustedSOC would indeed be fun to eventually port to GateMate!
 
 ## Project Completion Matrix
 
-[x] Level I, Play 1 - DONE, includes bonus examples
+**[x] Level I, Play 1 - DONE**, includes bonus examples
 
-[x] Level I, Play 2 - DONE, includes bonus examples
+**[x] Level I, Play 2 - DONE**, includes bonus examples
 
 [ ] Level I, Play 3 - WIP
 
 ---
-[x] Level II, Play 4 - DONE, includes bonus examples
+**[x] Level II, Play 4 - DONE**, includes bonus examples
 
-[x] Level II, Play 5 - DONE, includes bonus audio player for any soundtrack, in addition to the original video-only game
+**[x] Level II, Play 5 - DONE**, includes bonus audio player for any soundtrack, in addition to the original video game
 
 [ ] Level II, Play 6
 
@@ -66,14 +69,15 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
 
 ---
 [ ] Bonus#1, Play 10, WIP
-> We fell in love with what we were doing and, as hackers at heart, could not resist the temptation to keep designing for GateMate. Hence this additional output that was not originally planned for.
+
+We fell in love with what we were doing and, as hackers at heart, could not resist the temptation to keep designing for GateMate. Hence this additional output that was not originally planned for.
 
 ---
 Please go into individual examples for additional detail, documenation and specific instructions.
 
 
 ## Bonus#2, based on direct CologneChip input
-- Tool comps wrt Gowin, Lattice i Xilinx design flows:
+- Comps with Gowin, Lattice i Xilinx design flows:
     - overall execution speed
     - ease of use
     - straighforwardness (or not) of the work flow
@@ -81,7 +85,7 @@ Please go into individual examples for additional detail, documenation and speci
     - bugs and idiosyncrasies
     - ideas for enhancement and automation of the development process
 
-- Silicon comps wrt comparable Gowin, Lattice i Xilinx parts
+- Comps with comparable Gowin, Lattice i Xilinx silicon
     - size: LUTs and FFs
     - Fmax
     - utilization metrics
@@ -89,7 +93,7 @@ Please go into individual examples for additional detail, documenation and speci
 - Misc.
     - help preparing demos and marketing material for trade shows
   
-While we'll do our best to fulfill this special, direct CologneChip request, yet better is to plan for a follow up project based on CologneChips needs that will undoubtly emerge and refine through our ongoing work.
+While we're doing our best to fulfill this special, direct CologneChip request, it is better to plan for a follow up project based on CologneChips needs that will undoubtly emerge and refine through our ongoing work.
 
 ## Beinvolved
 We welcome everyone interested to contribute. Please reach out to fpga@chili-chips.com, or join our <a href="https://discord.gg/F5UPDFFdsH">GateMate Discord Channel</a>. 
