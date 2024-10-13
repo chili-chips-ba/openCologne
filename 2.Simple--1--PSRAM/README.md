@@ -11,7 +11,9 @@ The PSRAM Controller then forwards the command and returns a value if it is a re
 - `0x0223344`     - read from address 0x223344
 - `0x12233440708` - write to address 0x223344 data 0x0708
 
-> ![drawing](./0.doc/drawing.png)
+<p align="center">
+  <img src="0.doc/drawing.png">
+</p>
 
 ## Sim steps
 Change directory to the 2.sim:
@@ -48,4 +50,4 @@ python3 pyauto.py
 - Second `sent` output port is needed for the _uart_tx_ to function properly. The corresponding capacitive load increase might be what is helping GateMate deliver
 - On-board RPi USB-UART bridge is senisitive to timing precision. We therefore must use settings with no more than 0.2us timing error
 
-### End of Document
+#### End of Document
