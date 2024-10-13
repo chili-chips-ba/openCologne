@@ -1,6 +1,6 @@
-# I2C
+# I2C Master
 
-The I2C controller is taken from the [openEye-CamSI](https://github.com/chili-chips-ba/openeye-CamSI) project, with some modifications to fit the WM8960 Audio CODEC.
+The I2C Master (aka "Controller") is taken from the [openEye-CamSI](https://github.com/chili-chips-ba/openeye-CamSI) project, with some modifications to fit the WM8960 Audio CODEC.
 
 The I2C has two wires, one transmits the clock signal and the other the data signal. Both the wires need to be connected via a pullup resistor which value needs to be calculated. After calculation, the resistor `R` value should be 1kΩ.
 
@@ -62,3 +62,5 @@ make jtag
 The SystemVerilog files use typedef, which is not yet fully supported in Yosys. If using Yosys, convert these files to Verilog using the sv2v tool.
 
 Ensure that your rtl.filelist accurately reflects the files you intend to use in your design.
+
+#### End of Document

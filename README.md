@@ -48,27 +48,52 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
 ## Project Completion Matrix
 
 - [x] Level I, Play 1 - **DONE, includes bonus examples**
+>- [x] 1.Blinky--ILA-Test
+>- [x] 1.Blinky--Verilog-VHDL-Python.Amaranth
 
-- [x] Level I, Play 2 - **DONE, includes bonus examples**
+- [x] Level I, Play 2 - **DONE, with bonus examples**
+>- [x] 2.Simple--1--PSRAM
+>- [ ] 2.Simple--2--QSPI-Flash, WIP
+>- [ ] 2.Simple--3--Ethernet, WIP
+>- [x] 2.Simple--4--1Wire-Controller
+>- [x] 2.Simple--5--UART-Test
+>- [x] 2.Simple--6--PS2-Keyboard
+>- [x] 2.Simple--7--Audio-4-bit-DAC
 
 - [ ] Level I, Play 3 - WIP
+> - [ ] **PCB repo**: Design additional PMOD extensions, WIP
 
 ---
-- [x] Level II, Play 4 - **DONE, includes bonus examples**
+- [x] Level II, Play 4 - **DONE**, a very complex bonus example is in the works
+>- [x] 4.Advanced--1--SPI-LCD
+>- [x] 4.Advanced--2--LED64x64
+>- [x] 4.Advanced--3--FM-Transmitter
+>- [ ] 4.Advanced--4--Yamaha-OPL3-FM-Synth, WIP
 
-- [x] Level II, Play 5 - **DONE**, now also includes bonus audio player for any soundtrack, in addition to the original video-only game
+- [x] Level II, Play 5 - **DONE**, now also includes **bonus audio player** for any soundtrack, in addition to the original video-only game
+> - [x] 5.TetriSaraj
 
 - [ ] Level II, Play 6
+>- [ ] **PCB repo**: Design and manufacture the ULX5M board
 
 ---
 - [ ] Level III, Play 7
+> - [ ] 7.SerDes
 
-- [ ] Level III, Play 8, WIP
+- [ ] Level III, Play 8
+> - [ ] 8.StressTest, WIP
 
 - [ ] Level III, Play 9
+> - [ ] 9.BetrustedSOC
 
 ---
-- [ ] Bonus#1, Play 10, a number of extra examples is already checked-in. More are in the works
+- [ ] Bonus#1, Play 10, even more examples
+> - [ ] 10.Bonus--1--Amaranth-7Segment, WIP
+> - [ ] 10.Bonus--2--Amaranth-Rotary-Encoder, WIP
+> - [ ] 10.Bonus--3--Amaranth-eduRISC5
+> - [x] 10.Bonus--4--I2C-Master
+> - [ ] 10.Bonus--5--eduSOC, WIP
+> - [x] 10.Bonus--6--I2S-DAC
 
 We fell in love with what we were doing and, as makers at heart, could not resist the temptation to keep designing for GateMate. Hence this additional output that was not originally planned for, nor commissioned by NLnet.
 
