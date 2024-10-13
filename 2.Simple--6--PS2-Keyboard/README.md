@@ -7,7 +7,10 @@ The project was adapted from the [ulx3s-misc](https://github.com/emard/ulx3s-mis
 ## The Physical Interface
 
 The physical PS/2 port is one of two styles of connectors:  The 5-pin DIN or the 6-pin mini-DIN. Both connectors are electrically identical; the only difference is the connecor size, shape and arrangement of pins. 
-> ![image](https://github.com/user-attachments/assets/54bec155-1d92-43a3-8a58-050d2185002c)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/54bec155-1d92-43a3-8a58-050d2185002c">
+</p>
 
 This means that these two types of connectors can easily be changed with simple hard-wired adaptors. 
 
@@ -35,7 +38,9 @@ The Parity bit is 1 if there is an even number of 1's in the Data bits and 0 if 
 The keyboard must check Parity bit. If incorrect, it should respond as if it had received an
 invalid command. Data sent from the Device to the Host is read on the falling edge of the clock signal; Data sent from the Host to the Device is read on the rising edge. The clock frequency must be in the range 10-to-16.7kHz.
 
-> ![image](https://github.com/user-attachments/assets/4808ad5c-2116-4ad3-b57b-0d3a6bcd649b)
+<p align="center">
+   <img src="https://github.com/user-attachments/assets/4808ad5c-2116-4ad3-b57b-0d3a6bcd649b">
+</p>
 
 ## Simulation
 Running the simulation in `2.sim/cocotb` with:
@@ -44,7 +49,9 @@ make
 ```
 You can get a simple waveform of recieving `0X1C` data or ASCII `A` from the keyboard. The Data bits are `0001_1100` in binary, and transmitted the LSB first. The Parity bit is 0, as the Data already contains odd number of 1s.
 
-![ps2_sim](https://github.com/user-attachments/assets/819dba78-73c2-4501-bfc8-fd9616a7b24f)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/819dba78-73c2-4501-bfc8-fd9616a7b24f">
+</p>
 
 ## See for yourself
 
@@ -54,3 +61,4 @@ https://github.com/user-attachments/assets/506b244b-9b80-48b7-84ce-819b440699d6
 - [PS/2 Protocol Overview](https://www.burtonsys.com/ps2_chapweske.htm)
 - [PS/2 Port - Wikipedia](https://en.wikipedia.org/wiki/PS/2_port)      
 
+#### End of Document
