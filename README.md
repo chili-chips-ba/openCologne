@@ -47,28 +47,28 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
 
 ## Project Completion Matrix
 
-**[x] Level I, Play 1 - DONE**, includes bonus examples
+- [x] Level I, Play 1 - **DONE, includes bonus examples**
 
-**[x] Level I, Play 2 - DONE**, includes bonus examples
+- [x] Level I, Play 2 - **DONE, includes bonus examples**
 
-[ ] Level I, Play 3 - WIP
-
----
-**[x] Level II, Play 4 - DONE**, includes bonus examples
-
-**[x] Level II, Play 5 - DONE**, now also includes bonus audio player for any soundtrack, in addition to the original video-only game
-
-[ ] Level II, Play 6
+- [ ] Level I, Play 3 - WIP
 
 ---
-[ ] Level III, Play 7
+- [x] Level II, Play 4 - **DONE, includes bonus examples**
 
-[ ] Level III, Play 8, WIP
+- [x] Level II, Play 5 - **DONE**, now also includes bonus audio player for any soundtrack, in addition to the original video-only game
 
-[ ] Level III, Play 9
+- [ ] Level II, Play 6
 
 ---
-[ ] Bonus#1, Play 10, a number of extra examples is already checked-in. More are in the works
+- [ ] Level III, Play 7
+
+- [ ] Level III, Play 8, WIP
+
+- [ ] Level III, Play 9
+
+---
+- [ ] Bonus#1, Play 10, a number of extra examples is already checked-in. More are in the works
 
 We fell in love with what we were doing and, as makers at heart, could not resist the temptation to keep designing for GateMate. Hence this additional output that was not originally planned for, nor commissioned by NLnet.
 
