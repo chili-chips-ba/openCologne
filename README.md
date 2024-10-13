@@ -15,7 +15,7 @@ How? By pursuing a three-pronged approach:
 3) Engage with [CologneChip](https://www.colognechip.com/programmable-logic/gatemate">CologneChip) developers to resolve [issues](https://github.com/chili-chips-ba/openCologne/issues) identified in this course.
 
 
-The work is then organized into 3 game levels with 9 play milestones:
+The practical execution of this strategy is organized into 3 game levels with 9 play milestones.
 
 ## *Level I – Warm Up*
 
@@ -27,7 +27,7 @@ The work is then organized into 3 game levels with 9 play milestones:
 
 ## *Level II - Bread and Butter*
 
-**Play 4** - Port to GateMate a couple of advanced ULX3S examples. Now without restrictions related to support of PCB development, we are choosing these examples for their purely FPGA value. We may also modify them, write mutations and variants, looking to find a better fit for GateMate internal architecture, or letting our creativity a free hand to play and experiment.
+**Play 4** - Port to GateMate a couple of advanced ULX3S examples. Now without restrictions related to PCB development support, we are choosing these examples for their purely FPGA value. We may also modify them, write mutations and variants, looking to find a better fit for GateMate internal architecture, or letting creativity a free hand to play and experiment.
 
 **Play 5** - Adapt [TetriSaraj](https://github.com/chili-chips-ba/openXC7-TetriSaraj) HW/SW project to GateMate. This is a serious SOC. Its hardware includes a RISC-V microkontroller, Instruction, and Data RAM, Frame Buffer with Video Subsystem, and high-speed I/O for VGA. On the software side, this is a bare-metal, "free-standing" C that implements the logic of a Tetrisoid gate.
 
@@ -56,7 +56,7 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
 ---
 **[x] Level II, Play 4 - DONE**, includes bonus examples
 
-**[x] Level II, Play 5 - DONE**, includes bonus audio player for any soundtrack, in addition to the original video game
+**[x] Level II, Play 5 - DONE**, now also includes bonus audio player for any soundtrack, in addition to the original video-only game
 
 [ ] Level II, Play 6
 
@@ -68,16 +68,16 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
 [ ] Level III, Play 9
 
 ---
-[ ] Bonus#1, Play 10, WIP
+[ ] Bonus#1, Play 10, a number of extra examples is already checked-in. More are in the works
 
-We fell in love with what we were doing and, as hackers at heart, could not resist the temptation to keep designing for GateMate. Hence this additional output that was not originally planned for.
+We fell in love with what we were doing and, as makers at heart, could not resist the temptation to keep designing for GateMate. Hence this additional output that was not originally planned for, nor commissioned by NLnet.
 
 ---
-Please go into individual examples for additional detail, documenation and specific instructions.
+Please click on the folder with individual examples for additional detail, documenation and specific instructions.
 
 
-## Bonus#2, based on direct CologneChip input
-- Comps with Gowin, Lattice i Xilinx design flows:
+## Bonus#2 (from CologneChip direct input and needs)
+- Comps with Gowin, Lattice and Xilinx design flows:
     - overall execution speed
     - ease of use
     - straighforwardness (or not) of the work flow
@@ -85,25 +85,27 @@ Please go into individual examples for additional detail, documenation and speci
     - bugs and idiosyncrasies
     - ideas for enhancement and automation of the development process
 
-- Comps with comparable Gowin, Lattice i Xilinx silicon
+- Comps with comparable Gowin, Lattice and Xilinx silicon
     - size: LUTs and FFs
     - Fmax
     - utilization metrics
 
 - Misc.
-    - help preparing demos and marketing material for trade shows
+    - help prepare demos and marketing material for trade shows
   
-While we're doing our best to fulfill this special, direct CologneChip request, it is better to plan for a follow up project based on CologneChips needs that will undoubtly emerge and refine through our ongoing work.
+While doing our best to fulfill these special requests that are outside of NLnet framework, we'd better plan for a follow up project for other CologneChip needs that will undoubtly emerge in the course of ongoing work.
 
 ## Beinvolved
 We welcome everyone interested to contribute. Please reach out to fpga@chili-chips.com, or join our <a href="https://discord.gg/F5UPDFFdsH">GateMate Discord Channel</a>. 
 
-### Acknowledgements
+## Acknowledgements
 We are grateful to:
-  - **NLnet Foundation's** sponsorship for this opportunity to put our minds on GateMate, the unique and EU-first FPGA device for the makers at heart.
-  - **[Intergalaktik doo](https://intergalaktik.eu)** for their unreserved sharing of the first-hand insights into open-source community vibe, participation on the project, as well as full openess to our wish to play a part in the ULX* unabated evolution.
-   
-> ![logo_nlnet](https://github.com/chili-chips-ba/openeye/assets/67533663/18e7db5c-8c52-406b-a58e-8860caa327c2)
-> <img width="115" alt="NGI-Entrust-Logo" src="https://github.com/chili-chips-ba/openeye-CamSI/assets/67533663/013684f5-d530-42ab-807d-b4afd34c1522">
+  - **NLnet Foundation's** sponsorship for this opportunity to put our hand and brains on GateMate.
+  - **[Intergalaktik doo](https://intergalaktik.eu)** for their unreserved sharing of the first-hand insights into open-source community vibe, participation on the project, and openess to our wish to play a part in the ULX* unabated evolution.
 
-### End of Document
+<p align="center">
+    <img src="https://github.com/chili-chips-ba/openeye/assets/67533663/18e7db5c-8c52-406b-a58e-8860caa327c2">
+    <img width="115" alt="NGI-Entrust-Logo" src="https://github.com/chili-chips-ba/openeye-CamSI/assets/67533663/013684f5-d530-42ab-807d-b4afd34c1522">
+</p>
+
+#### End of Document
