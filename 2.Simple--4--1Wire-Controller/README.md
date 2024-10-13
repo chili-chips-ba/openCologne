@@ -15,7 +15,9 @@ The testing platform is a single FPGA, hosting both 1-Wire Master and 1-Wire Sla
 
 Figure below represents the full test setup. 
 
->![](0.doc/test_1wr.png)
+<p align="center">
+   <img src="0.doc/test_1wr.png">
+</p>
 
 ## Test Scenarios
 
@@ -77,6 +79,8 @@ make hw_all
 
 As OneWire is an open-drain bus, an external pull-up resistor must be added to the IO pins. We are using IO_NB pin header (see _1.hw/constraints/constraints.ccf_ for more details) for this example. There, please connect `onewire_mst` and `onewire_slv` pins together, and also add a 2.2K pullup resistor to 2.5V supply. Then observe the serial port (8-bit Data, no Parity, 1-bit Stop, Baud rate 115200), where character 'A' should be received repeatedly.
 
->![Alt text](0.doc/one-wire.jpg)
+<p align="center">
+   <img src="0.doc/one-wire.jpg">
+</p>
 
-### End of Document
+#### End of Document
