@@ -118,17 +118,17 @@ Please click on the folder with individual examples for additional detail, docum
 - Misc.
     - help prepare demos and marketing material for trade shows
   
-While doing our best to fulfill these special requests that are outside of NLnet task list, we'd better plan for a follow up project for other CologneChip needs that are emerging in the course of this work.
+While doing our best to fulfill these special requests that are outside the NLnet task list, we'd better plan for a follow up project for other CologneChip needs that are emerging through this work.
 
-For example, we've already established that TetriSaraj (PicoSOC with PicoRV32) can on GateMate barely run at `31MHz` in its high Voltage setting `-om 3, -tm 3`, see this [issue](https://github.com/chili-chips-ba/openCologne/issues/35#issue-2529092332). On the other hand, the lowest speed-grade Artix7 (xc7a35tcpg236-1) had no problem with `100MHz+`. Moreover, this is even not an apples-to-apples comparison since, to make GateMate go over 25MHz (which is the absolute minimum for our VGA video sub-system), we had to strip the PicoSOC down to barebones, i.e. take out its features that were not critical for TetriSaraj. Without that, the original GateMate Fmax for the 100% identical RTL was on the order of `16MHz`.
+For example, we've already established that TetriSaraj (PicoSOC with PicoRV32) can on GateMate barely run at `31MHz` in its high Voltage setting `-om 3, -tm 3`, see this [issue](https://github.com/chili-chips-ba/openCologne/issues/35#issue-2529092332). On the other hand, the lowest speed-grade Artix7 (xc7a35tcpg236-1) had no problem with `100MHz+`. Moreover, this is not even an apples-to-apples comparison since, to make GateMate go over 25MHz (which is the absolute minimum for our VGA video sub-system), we had to strip the PicoSOC down to barebones, i.e. take out its features that were not critical for TetriSaraj. Without that, the original GateMate Fmax for the 100% identical RTL was on the order of `16MHz`.
 
-Similarly, we found that GateMate [timing reporting](https://github.com/chili-chips-ba/openCologne/issues/35#issue-2529092332) was sub-standard, its [constraints-driven](https://github.com/chili-chips-ba/openCologne/issues/38) property questionable, [SystemVerilog](https://github.com/chili-chips-ba/openCologne/issues/3) support not built-in, [simulation](https://github.com/chili-chips-ba/openCologne/issues/14) lacking. 
+Similarly, we found that GateMate [timing reporting](https://github.com/chili-chips-ba/openCologne/issues/35#issue-2529092332) was sub-standard, its [constraints-driven](https://github.com/chili-chips-ba/openCologne/issues/38) property questionable, [SystemVerilog](https://github.com/chili-chips-ba/openCologne/issues/3) support not built-in, simulation [models](https://github.com/chili-chips-ba/openCologne/issues/14) and [Verilator](https://github.com/chili-chips-ba/openCologne/issues/8) compatibility lacking. 
 
 Most importantly, the **GateMate proprietary P_R tool has repeatedly proved to be erroneous and unreliable**, see issues https://github.com/chili-chips-ba/openCologne/issues/30 and https://github.com/chili-chips-ba/openCologne/issues/25. For the complete account, please review all discussions and issues we've raised, both open and closed.
 
 The good news is that, just as our project is uncovering issues, so is CologneChip addressing them... to slowly, step by step, turn GateMate tools and silicon into an FPGA platform that's actually useable in the real-life designs. 
 
-We are proud to have also initiated GateMate enablement in opensource Amaranth and PipelineC dev frameworks.
+We are proud to have initiated GateMate enablement in opensource **Amaranth** and **PipelineC** dev frameworks. This project has also introduced GateMate to **Source Code Linting** for not only syntax and semantics, but also **CDC**, a topic that is admittedly insufficiently covered by opensource in general.
 
 ## Beinvolved
 We welcome everyone interested to contribute. Please reach out to fpga@chili-chips.com, or join our <a href="https://discord.gg/F5UPDFFdsH">GateMate Discord Channel</a>. 
