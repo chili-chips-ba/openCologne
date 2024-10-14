@@ -113,7 +113,7 @@ Please click on the folder with individual examples for additional detail, docum
 - Comps with Gowin, Lattice and Xilinx silicon in the 20K LUT category
     - Fmax
     - utilization metrics
-    - practically achievable design sizes in LUTs and FFs, i.e. the overall efficiency of GateMate architecure
+    - practically achievable design sizes in LUTs and FFs, i.e. the overall efficiency of GateMate architecture
 
 - Misc.
     - help prepare demos and marketing material for trade shows
