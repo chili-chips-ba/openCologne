@@ -126,7 +126,7 @@ Most importantly, the **GateMate proprietary P_R tool has repeatedly proved to b
 
 The good news is that, just as our project is uncovering issues, so is CologneChip addressing them... to slowly, step by step, turn GateMate tools and silicon into an FPGA platform that's actually useable in the real-life designs. 
 
-We are proud to have initiated GateMate enablement in opensource **Amaranth** and **PipelineC** dev frameworks. This project has also introduced GateMate to **Source Code Linting** for not only syntax and semantics, but also **CDC**, a topic that is admittedly insufficiently covered by opensource in general.
+We are proud to have initiated GateMate enablement in opensource [Amaranth](https://github.com/amaranth-lang/amaranth) and [PipelineC](https://github.com/JulianKemmerer/PipelineC) dev frameworks. This project has also introduced GateMate to [Source Code Linting](https://github.com/chipsalliance/verible) for not only style, format, syntax and semantics, but also the [CDC](https://github.com/chili-chips-ba/openCologne/issues/29), a topic that is admittedly insufficiently covered by opensource in general.
 
 ## Beinvolved
 We welcome everyone interested to contribute. Please reach out to fpga@chili-chips.com, or join our <a href="https://discord.gg/F5UPDFFdsH">GateMate Discord Channel</a>. 
