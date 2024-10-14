@@ -28,7 +28,7 @@ The `top_fm.v` module instantiates other blocks and uses GateMate PLL to generat
 
 The 40MHz clock drives the beep generator and Radio Data System [(RDS)](https://en.wikipedia.org/wiki/Radio_Data_System) processing. The 240MHz clock drives the FM modulator, especially for the high-frequency signal generation needed for FM.
 
-This beep serves as the PCM input to the FM modulator. When the button is not pressed, the beep signal is fed into the modulator, simulating audio input for transmission over `two sound channels` (i.e. we have stereo broadcast).
+This beep serves as the PCM input to the FM modulator. When the button is not pressed, the beep signal is fed into the modulator, simulating audio input for transmission over `two analog sound channels` (i.e. we have stereo broadcast).
 
 `message_ps.mem` is a memory block that stores the RDS message data. This memory holds the message data that will be transmitted as part of the cca `1.2kbps digital data transmission channel`. 
 
