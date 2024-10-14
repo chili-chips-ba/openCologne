@@ -22,11 +22,17 @@
 module top (
    input wire clk_10mhz,      // 10MHz clock
 
-   output wire led_olimex,     // LED output
+   //output wire led_olimex,     // LED output
 
    output tx,
    input  rx,
 
+   input  btnC,
+   input  btnU,
+   input  btnD,
+   input  btnL,
+   input  btnR,
+   
    input  [15:0] sw,
    output [15:0] led,
    output [7:0] cathodes,
@@ -105,8 +111,38 @@ module top (
       end else begin
          reset_cnt <= reset_cnt + !resetn;
       end
-    end  
-
+    end 
+   
+   wire btnC_out;
+    debounce debBtnC (
+        .clk    (clk),
+        .in     (btnC),
+        .out    (btnC_out)
+    );
+    wire btnL_out;
+    debounce debBtnL (
+        .clk    (clk),
+        .in     (btnL),
+        .out    (btnL_out)
+    );
+    wire btnR_out;
+    debounce debBtnR (
+        .clk    (clk),
+        .in     (btnR),
+        .out    (btnR_out)
+    );
+    wire btnD_out;
+    debounce debBtnD (
+        .clk    (clk),
+        .in     (btnD),
+        .out    (btnD_out)
+    );
+    wire btnU_out;
+    debounce debBtnU (
+        .clk    (clk),
+        .in     (btnU),
+        .out    (btnU_out)
+    );
     ///////////////////////////////////
     // Peripheral Bus
     ///////////////////////////////////   
@@ -115,7 +151,7 @@ module top (
    wire [ 3:0] iomem_wstrb;
    wire [31:0] iomem_addr;
    wire [31:0] iomem_wdata;
-   wire  [31:0] iomem_rdata;
+   wire [31:0] iomem_rdata;
 
    reg  [31:0] gpio;
    wire [4:0]  debug_pins_char_gen;
@@ -124,9 +160,10 @@ module top (
    wire     vga_iomem_ready;
    
 
-   //wire[4:0] buttons;
-   //assign buttons = { btnC_out, btnD_out, btnL_out, btnR_out, btnU_out};
-      
+   wire[4:0] buttons;
+   assign buttons = { btnC_out, btnD_out, btnL_out, btnR_out, btnU_out};
+
+   
     // enable signals for each of the peripherals
     wire gpio_en    = (iomem_addr[31:24] == 8'h03); /* GPIO mapped to 0x03xx_xxxx */
     wire video_en   = (iomem_addr[31:24] == 8'h05); /* Video device mapped to 0x05xx_xxxx */
@@ -151,7 +188,7 @@ module top (
          gpio_iomem_ready <= 0;
          if (iomem_valid && !iomem_ready && gpio_en) begin
             gpio_iomem_ready <= 1;
-            gpio_iomem_rdata <= {8'h00, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0,1'b0, gpio[15:0]};
+            gpio_iomem_rdata <= {8'h00, 1'b0, 1'b0, 1'b0, buttons[4:0], gpio[15:0]};
             if (iomem_wstrb[0]) gpio[7:0] <= iomem_wdata[7:0];
             if (iomem_wstrb[1]) gpio[15:8] <= iomem_wdata[15:8];
             if (iomem_wstrb[2]) gpio[23:16] <= iomem_wdata[23:16];
@@ -159,9 +196,6 @@ module top (
          end
       end
    end
-   
-   assign led_olimex = ~gpio[0]; 
-
    
    wire tx_uc, rx_uc, tx_prog, rx_prog;
    
@@ -277,7 +311,5 @@ module top (
             r_CNT_CLK_HZ <= r_CNT_CLK_HZ + 1;            
     end                                         
     //------------------------------------------------------------------------------    
-   
-   //assign jb = {sw[15], progmem_wen, ram_wen, (state == T_STATES_DATA3) && (ram_data == 32'h00000093 || ram_data == 32'h00000213), (state == T_STATES_DATA3) && (ram_addr == 0 || ram_addr == 2), hsync, vsync, clk_uart};
-   
+      
 endmodule
