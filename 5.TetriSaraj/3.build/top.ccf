@@ -66,5 +66,5 @@ Net "btnL" Loc = "IO_WB_A8";
 Net "btnR" Loc = "IO_WB_B8";
 
 ## #######################################################
-## End of hardware constraints blink.ccf
+## End of hardware constraints top.ccf
 ## #######################################################
