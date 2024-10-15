@@ -17,13 +17,15 @@ Besides the GateMateA1-EVB and SimpleIO Extension Board plugged into it, a user 
 
 The complete hardware setup and the loading screen:
 
-![unnamed (3)](https://github.com/user-attachments/assets/c8b193f5-dc1a-4fff-9414-4fc607299d28)
+![unnamed-min](https://github.com/user-attachments/assets/62c2cd11-c261-4846-bbc2-cd59c46a0b8e)
 
 TetriSaraj gameplay:
 
 ![unnamed (4)](https://github.com/user-attachments/assets/b3558a6a-6a9b-4704-ad9c-fcdc21c5b5f6)
 
 ![unnamed (2)](https://github.com/user-attachments/assets/8e191741-83f5-4792-80df-5bba1fc767ef)
+
+![1b](https://github.com/user-attachments/assets/cb28b561-fd35-4a46-918c-065b71d953db)
 
 ![unnamed (1)](https://github.com/user-attachments/assets/8e982547-ae1c-4c15-9c74-409e79cbc810)
 
