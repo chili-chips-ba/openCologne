@@ -29,6 +29,9 @@ TetriSaraj gameplay:
 
 ![unnamed (1)](https://github.com/user-attachments/assets/8e982547-ae1c-4c15-9c74-409e79cbc810)
 
+## Demonstration Video
+
+https://github.com/user-attachments/assets/12611cf4-5f7c-42ba-97fa-0026c773a5dd
 
 ## Local reproduction
 
