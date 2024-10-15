@@ -21,6 +21,8 @@ The complete hardware setup and the loading screen:
 
 TetriSaraj gameplay:
 
+![unnamed (4)](https://github.com/user-attachments/assets/b3558a6a-6a9b-4704-ad9c-fcdc21c5b5f6)
+
 ![unnamed (2)](https://github.com/user-attachments/assets/8e191741-83f5-4792-80df-5bba1fc767ef)
 
 ![unnamed (1)](https://github.com/user-attachments/assets/8e982547-ae1c-4c15-9c74-409e79cbc810)
