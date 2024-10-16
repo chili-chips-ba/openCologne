@@ -67,7 +67,7 @@ To synthesize and run the design locally, one must install the _CologneChip tool
 
 ## Our next play shall be audible
 
-Stay tuned for the addition of stereo soundrack to TeriSaraj game play...
+Stay tuned for the arrival of stereo soundtrack to TetriSaraj play...
 
 ## References
 > 1) Also available on [Xilinx Artix7](https://github.com/chili-chips-ba/openXC7-TetriSaraj) and [Gowin LittleBee](https://github.com/chili-chips-ba/openXC7-TetriSaraj/tree/main/99.more-boards/0.tang-nano-9k), thanks to [SymbioticEDA](https://www.symbioticeda.com) support
