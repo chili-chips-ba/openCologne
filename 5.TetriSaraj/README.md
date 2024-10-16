@@ -57,7 +57,7 @@ Sorry, it's _"Game Over"_ when you lose your last heart.
 
 ![unnamed (1)](https://github.com/user-attachments/assets/8e982547-ae1c-4c15-9c74-409e79cbc810)
 
-## Demonstration Video
+## Demo stream
 
 https://github.com/user-attachments/assets/12611cf4-5f7c-42ba-97fa-0026c773a5dd
 
@@ -65,7 +65,7 @@ https://github.com/user-attachments/assets/12611cf4-5f7c-42ba-97fa-0026c773a5dd
 
 To synthesize and run the design locally, one must install the _CologneChip toolchain_ and adapt the _Makefile_. The whole process is explained in `3.build/Makefile`.
 
-## Our next step shall be audible
+## Our next play shall be audible
 
 Stay tuned for the addition of stereo soundrack to TeriSaraj game play...
 
