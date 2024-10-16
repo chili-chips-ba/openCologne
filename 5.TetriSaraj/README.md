@@ -19,7 +19,7 @@ For the complete design detail (game logic, system block diagram, memory mapping
 
 Other than the expected changes related to constraints, pinouts, makefile etc., the operating clock frequency emerged as the main (and indeed unexpected) difference between these two designs.
 
-The original TetriSaraj ran on Artix-7 at `100MHz` w/o problems, even when built with openXC7 PNR, as opposed to Xilinx-proprietary Vivado. That was however far from possible on GateMate FPGA, where the `Fmax for the original design was 16MHz`, and for a reduced/optimized design barely reached 31 MHz, even at the highest VCORE setting. 
+The original TetriSaraj ran on Artix-7 at `100MHz` w/o problems, even when built with openXC7 PNR, as opposed to Xilinx-proprietary Vivado. That was however far from possible on GateMate FPGA, where the `Fmax for the original design was 16MHz`, and for a reduced/optimized version barely reached 31 MHz, even at the highest VDD_CORE setting. 
 
 With VGA sub-system needing at least 25MHz, we decided to scale down the clock of the entire (already reduced) system to the `25MHz`. This then caused multiple timing issues in the video generation section (such as within _vga_controller.v_ and _top.v_), calling for significant timing-driven adaptations, in some instances even an overhaul. 
 
@@ -43,7 +43,7 @@ Our progam starts with a small, but full-custom Splash 😄:
 
 ![unnamed-min](https://github.com/user-attachments/assets/62c2cd11-c261-4846-bbc2-cd59c46a0b8e)
 
-And you start with three lives, that is three hearts:
+But, you start with three lives, that is three hearts:
 
 ![unnamed (4)](https://github.com/user-attachments/assets/b3558a6a-6a9b-4704-ad9c-fcdc21c5b5f6)
 
