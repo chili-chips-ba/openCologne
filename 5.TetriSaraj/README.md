@@ -69,4 +69,15 @@ To synthesize and run the design locally, one must install the _CologneChip tool
 
 Stay tuned for the addition of stereo soundrack to TeriSaraj game play...
 
+## References
+> 1) Also available on Xilinx Artix7 and Gowin Semiconductor Corp LittleBee, thanks to [SymbioticEDA](https://www.symbioticeda.com) support
+> 2) Postings and mentions:
+> - [Oct.15, 2024](https://www.linkedin.com/posts/chili-chips_tetrisaraj-gatemate-opensource-activity-7252167674741301249-gOgI?utm_source=share&utm_medium=member_desktop)
+> - [Oct.11, 2024](https://www.linkedin.com/feed/update/urn:li:activity:7250565052359921665?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7250565052359921665%2C7250724417754836992%29&replyUrn=urn%3Ali%3Acomment%3A%28activity%3A7250565052359921665%2C7251814253668544513%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287250724417754836992%2Curn%3Ali%3Aactivity%3A7250565052359921665%29&dashReplyUrn=urn%3Ali%3Afsd_comment%3A%287251814253668544513%2Curn%3Ali%3Aactivity%3A7250565052359921665%29)
+> - [Oct.1, 2024](https://www.linkedin.com/feed/update/urn:li:ugcPost:7246625338787602434?commentUrn=urn%3Ali%3Acomment%3A%28ugcPost%3A7246625338787602434%2C7247337428045209600%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287247337428045209600%2Curn%3Ali%3AugcPost%3A7246625338787602434%29)
+> - [SarajevoMakerFaire 2024](https://sarajevo.makerfaire.com/maker/entry/143)
+> - [May 2023](https://www.linkedin.com/posts/chili-chips_fpga-education-riscv-activity-7076630631165689858-wgK_?utm_source=share&utm_medium=member_desktop)
+> - [April 2023](https://www.linkedin.com/posts/chili-chips_fpga-foss-yosys-activity-7069758169639505920-LRyG?utm_source=share&utm_medium=member_desktop)
+> - and more...
+     
 #### End of Document
