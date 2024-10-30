@@ -1,14 +1,26 @@
 # HW/SW co-sim with VProc VIP
+by Simon Southwell
+<p align="center">
+<img src="0.doc/wyvernSemi.png">
+</p>
+
 
 ## First things first
 - [Vproc Intro](https://drive.google.com/file/d/1V81Q9Ue9HjQIpum2KXUp8eKwzed-kwfm)
 - [VProc Manual](https://github.com/wyvernSemi/vproc/blob/master/doc/VProc.pdf)
 
+
 ## Native Mode
+<img src="0.doc/vproc_tb_native.png">
+
 
 ## ISS Mode
+<img src="0.doc/vproc_tb_iss.png">
+
 
 ## Testbench structure
+<img src="vid_ctlr_tb_vproc.png">
+
 
 ## Misc Tidbits
 Node is simply memory mapped in _display.v_ for cross referencing. When using the C API or when creating a new C++ API object, the node number must be used to connect to a given VProc instantiation which might, accidently, be the wrong one. This simply give a means, if desired, to check that the API object is connected to the expected node for safety and avoiding unexpected behaviour. It does not have to be there for VProc to work.
@@ -20,5 +32,6 @@ The delta cycle process can't be a clock in order to access more than 32 bits  t
 - [LI-2024-01](https://www.linkedin.com/pulse/vproc-virtual-processor-vip-simon-southwell-pjmpe)
 - [LI-2024-10](https://www.linkedin.com/posts/simon-southwell-7684482_riscv-iss-embeddedsoftware-activity-7256311551178027008-1nlZ?utm_source=share&utm_medium=member_desktop)
 - [VGASIM](https://github.com/wyvernSemi/vgasim)
+
 
 #### End of Document
