@@ -59,7 +59,7 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
 >- [x] 2.Simple--7--Audio-4-bit-DAC
 
 - [ ] Level I, Play 3 - WIP
-> - [ ] **PCB repo**: Design additional PMOD extensions, WIP
+> - [ ] **PCB repo**: Design additional [extensions](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMate), WIP
 
 ---
 - [x] Level II, Play 4 - **DONE**, a very complex bonus example is in the works
@@ -140,5 +140,12 @@ We are grateful to:
     <img src="https://github.com/chili-chips-ba/openeye/assets/67533663/18e7db5c-8c52-406b-a58e-8860caa327c2">
     <img width="115" alt="NGI-Entrust-Logo" src="https://github.com/chili-chips-ba/openeye-CamSI/assets/67533663/013684f5-d530-42ab-807d-b4afd34c1522">
 </p>
+
+## Public Postings
+- [IO cards](https://www.linkedin.com/posts/goran-mahovlic_fpga-opensource-openhardware-activity-7272630456599138304-nB8K?utm_source=share&utm_medium=member_desktop)
+- [TetriSaraj](https://www.linkedin.com/posts/chili-chips_tetrisaraj-gatemate-opensource-activity-7252167674741301249-gOgI?utm_source=share&utm_medium=member_desktop)
+- [LED 64x64](https://www.linkedin.com/posts/ahmed-imamovic_etfpga-fpga-rtl-activity-7242253055411331073-E36f?utm_source=share&utm_medium=member_desktop)
+- [LCD](https://www.linkedin.com/posts/chili-chips_gatemate-spi-lcd-activity-7233383297500733441-F4PM?utm_source=share&utm_medium=member_desktop)
+
 
 #### End of Document
