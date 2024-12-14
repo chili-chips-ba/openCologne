@@ -128,6 +128,13 @@ Most importantly, the `GateMate proprietary P_R tool has repeatedly proved to be
 
 We are proud to have initiated GateMate enablement in opensource [Amaranth](https://github.com/amaranth-lang/amaranth) and [PipelineC](https://github.com/JulianKemmerer/PipelineC) dev frameworks. This project has also introduced GateMate to [Source Code Linting](https://github.com/chipsalliance/verible) for not only style, format, syntax and semantics, but also the [CDC](https://github.com/chili-chips-ba/openCologne/issues/29), a topic that is admittedly insufficiently covered by opensource chip design movement in general.
 
+## A peek into our PCB track
+<p align="center">
+  <img src="0.doc/Intergalaktik/IO-boards.jpg">
+</p>
+   
+[Click](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMate) for more...
+
 ## Beinvolved
 We welcome everyone interested to contribute. Please reach out to fpga@chili-chips.com, or join our <a href="https://discord.gg/F5UPDFFdsH">GateMate Discord Channel</a>. 
 
@@ -143,6 +150,7 @@ We are grateful to:
 
 ## Public Postings
 - [IO cards](https://www.linkedin.com/posts/goran-mahovlic_fpga-opensource-openhardware-activity-7272630456599138304-nB8K?utm_source=share&utm_medium=member_desktop)
+- [IO cards2](https://www.linkedin.com/posts/goran-mahovlic_fpga-opensource-openhardware-activity-7273353028055769089-qn1x?utm_source=share&utm_medium=member_desktop)
 - [TetriSaraj](https://www.linkedin.com/posts/chili-chips_tetrisaraj-gatemate-opensource-activity-7252167674741301249-gOgI?utm_source=share&utm_medium=member_desktop)
 - [LED 64x64](https://www.linkedin.com/posts/ahmed-imamovic_etfpga-fpga-rtl-activity-7242253055411331073-E36f?utm_source=share&utm_medium=member_desktop)
 - [LCD](https://www.linkedin.com/posts/chili-chips_gatemate-spi-lcd-activity-7233383297500733441-F4PM?utm_source=share&utm_medium=member_desktop)
