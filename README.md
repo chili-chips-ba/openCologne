@@ -130,7 +130,7 @@ We are proud to have initiated GateMate enablement in opensource [Amaranth](http
 
 ## A peek into our PCB track
 <p align="center">
-  <img src="0.doc/Intergalaktik/IO-boards.jpg">
+  <img width=500 src="0.doc/Intergalaktik/IO-boards.jpg">
 </p>
    
 [Click](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMate) for more...
