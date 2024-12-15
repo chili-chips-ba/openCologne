@@ -33,7 +33,7 @@ The game needs 5 buttons:
 
 The complete setup is shown below:
 
-![image](https://github.com/user-attachments/assets/ae35220d-a01d-4727-a8b0-39b207c47629)
+<img width=400 src="https://github.com/user-attachments/assets/ae35220d-a01d-4727-a8b0-39b207c47629">
 
 In addition to the _GateMateA1-EVB_ with _SimpleIO Extension Board_ plugged into it, you also need a monitor with VGA port connected to it.
 
@@ -41,21 +41,21 @@ In addition to the _GateMateA1-EVB_ with _SimpleIO Extension Board_ plugged into
 
 Our progam starts with a small, but full-custom Splash 😄:
 
-![unnamed-min](https://github.com/user-attachments/assets/62c2cd11-c261-4846-bbc2-cd59c46a0b8e)
+<img width=400 src="https://github.com/user-attachments/assets/62c2cd11-c261-4846-bbc2-cd59c46a0b8e">
 
 But, you start with three lives, that is three hearts:
 
-![unnamed (4)](https://github.com/user-attachments/assets/b3558a6a-6a9b-4704-ad9c-fcdc21c5b5f6)
+<img width=400 src="https://github.com/user-attachments/assets/b3558a6a-6a9b-4704-ad9c-fcdc21c5b5f6">
 
 As you're playin', you can earn more hearts, or lose them. The more you earn, the harder we make it for you to play and win.
 
-![unnamed (2)](https://github.com/user-attachments/assets/8e191741-83f5-4792-80df-5bba1fc767ef)
+<img width=400 src="https://github.com/user-attachments/assets/8e191741-83f5-4792-80df-5bba1fc767ef">
 
 Sorry, it's _"Game Over"_ when you lose your last heart.
 
-![1b](https://github.com/user-attachments/assets/cb28b561-fd35-4a46-918c-065b71d953db)
+<img width=400 src="https://github.com/user-attachments/assets/cb28b561-fd35-4a46-918c-065b71d953db">
 
-![unnamed (1)](https://github.com/user-attachments/assets/8e982547-ae1c-4c15-9c74-409e79cbc810)
+<img width=400 src="https://github.com/user-attachments/assets/8e982547-ae1c-4c15-9c74-409e79cbc810">
 
 ## Demo stream
 
@@ -70,8 +70,10 @@ To synthesize and run the design locally, one must install the _CologneChip tool
 Stay tuned for the arrival of stereo soundtrack to TetriSaraj play...
 
 ## References
-> 1) Also available on [Xilinx Artix7](https://github.com/chili-chips-ba/openXC7-TetriSaraj) and [Gowin LittleBee](https://github.com/chili-chips-ba/openXC7-TetriSaraj/tree/main/99.more-boards/0.tang-nano-9k), thanks to [SymbioticEDA](https://www.symbioticeda.com) support
-> 2) Postings and mentions:
+1) Also available on [Xilinx Artix7](https://github.com/chili-chips-ba/openXC7-TetriSaraj) and [Gowin LittleBee](https://github.com/chili-chips-ba/openXC7-TetriSaraj/tree/main/99.more-boards/0.tang-nano-9k), thanks to [SymbioticEDA](https://www.symbioticeda.com) support
+
+2) Postings and mentions:
+> - [Dec.15, 2024](https://www.linkedin.com/feed/update/urn:li:activity:7273353028055769089?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7273353028055769089%2C7274166171325607936%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287274166171325607936%2Curn%3Ali%3Aactivity%3A7273353028055769089%29)
 > - [Oct.15, 2024](https://www.linkedin.com/posts/chili-chips_tetrisaraj-gatemate-opensource-activity-7252167674741301249-gOgI?utm_source=share&utm_medium=member_desktop)
 > - [Oct.11, 2024](https://www.linkedin.com/feed/update/urn:li:activity:7250565052359921665?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7250565052359921665%2C7250724417754836992%29&replyUrn=urn%3Ali%3Acomment%3A%28activity%3A7250565052359921665%2C7251814253668544513%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287250724417754836992%2Curn%3Ali%3Aactivity%3A7250565052359921665%29&dashReplyUrn=urn%3Ali%3Afsd_comment%3A%287251814253668544513%2Curn%3Ali%3Aactivity%3A7250565052359921665%29)
 > - [Oct.1, 2024](https://www.linkedin.com/feed/update/urn:li:ugcPost:7246625338787602434?commentUrn=urn%3Ali%3Acomment%3A%28ugcPost%3A7246625338787602434%2C7247337428045209600%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287247337428045209600%2Curn%3Ali%3AugcPost%3A7246625338787602434%29)
@@ -79,5 +81,7 @@ Stay tuned for the arrival of stereo soundtrack to TetriSaraj play...
 > - [May 2023](https://www.linkedin.com/posts/chili-chips_fpga-education-riscv-activity-7076630631165689858-wgK_?utm_source=share&utm_medium=member_desktop)
 > - [April 2023](https://www.linkedin.com/posts/chili-chips_fpga-foss-yosys-activity-7069758169639505920-LRyG?utm_source=share&utm_medium=member_desktop)
 > - and more...
-     
+
+<img width=500 src="0.doc/TetriSaraj-joyIO.png">
+
 #### End of Document
