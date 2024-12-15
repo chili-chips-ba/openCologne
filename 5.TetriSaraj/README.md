@@ -35,7 +35,11 @@ The complete setup is shown below:
 
 <img width=400 src="https://github.com/user-attachments/assets/ae35220d-a01d-4727-a8b0-39b207c47629">
 
-In addition to the _GateMateA1-EVB_ with _SimpleIO Extension Board_ plugged into it, you also need a monitor with VGA port connected to it.
+In addition to the _GateMateA1-EVB_, you will also need:
+- _SimpleIO Extension Board_ or, yet better, joyIO
+- monitor with VGA port connected to it.
+  
+<img width=400 src="https://github.com/chili-chips-ba/openCologne/blob/main/0.doc/Intergalaktik/joyIO.png">
 
 ## The Gameplay
 
@@ -47,13 +51,16 @@ But, you start with three lives, that is three hearts:
 
 <img width=400 src="https://github.com/user-attachments/assets/b3558a6a-6a9b-4704-ad9c-fcdc21c5b5f6">
 
-As you're playin', you can earn more hearts, or lose them. The more you earn, the harder we make it for you to play and win.
+As you're playin', you can earn more hearts, or lose them. 
+The more you earn, the harder we make it for you to play and win.
 
 <img width=400 src="https://github.com/user-attachments/assets/8e191741-83f5-4792-80df-5bba1fc767ef">
 
 Sorry, it's _"Game Over"_ when you lose your last heart.
 
 <img width=400 src="https://github.com/user-attachments/assets/cb28b561-fd35-4a46-918c-065b71d953db">
+
+Time to try again...
 
 <img width=400 src="https://github.com/user-attachments/assets/8e982547-ae1c-4c15-9c74-409e79cbc810">
 
