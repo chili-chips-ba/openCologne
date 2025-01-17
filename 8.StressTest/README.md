@@ -5,6 +5,11 @@
 Assess Fmax and realistic utilization, injecting routing congestion and pushing the clock distribution network to its limits.
 
 References:
+>- https://github.com/mirekez/pnr_tests
+   
+        - this is a generic Verilog generator
+        - by playing with parameters different part of design can be converted to RAM/SRL/DSP blocks
+        - also generates XDC to randomly assign pins, this is auxiliary functionality tied to Xilinx and dialects for other vendors can be done
 
 >- https://www.linkedin.com/posts/gsteiert_wearealtera-activity-7240773845098323970-Bvlj?utm_source=share&utm_medium=member_desktop
 >- https://github.com/chipsalliance/VeeRwolf/tree/veerwolves
