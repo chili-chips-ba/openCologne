@@ -5,9 +5,43 @@
 This is a popular metric, determining FPGA's logic capacity, routing algortihm and architectural ability to use all of the FPGA. We were able to achieve 54 cores on the following utilization numbers: on 22.93 MHz. PnR log avaliable under `fusesoc_libraries/corescore/pnr51.log`
 
 ## Build steps
-### Prerequisites
+Put Yosys and GateMate p_r in PATH, and make sure you have FuseSoC installed:
+```
+pip install fusesoc
+```
+Navigate to 1.corescore_cc
+```
+cd 8.StressTest/1.corescore_cc/
+```
+Build FuseSoC target cc_gatemate
+```
+fusesoc run --target=cc_gatemate corescore
+```
+### **Here we run into some issues**
+The workaround regarding the YOSYS issue is to manually edit the `./build/corescore_0/cc_gatemate-gatemate/corescore_0_synth.v` removing all `initial` blocks from the synthesis netlist. After doing that, you have to manually run the PnR by navigating to `./build/corescore_0/cc_gatemate-gatemate` and running 
+```
+make corescore_0_00_cfg.bit
+```
+### **Back on track**
 
+At this point your design should've successfully generated a bitstream. Uploading the bitstreamto your board: 
+- go back to `8.StressTest/1.corescore_cc/` and run
+```
+- make program
+```
+Listen to serial port at 57600 baud rate 8b no parity, 1 stop bit, your output should be something like this:
+
+> Hint: open 3 terminals, one for FuseSoC, second for manually running the make command, and the third for serial communcation.
+
+If for any reason you want to change the number of cores instantated, simply go to `fusesoc_libraries/corescore/corescore.core`, under targets find `cc_gatemate`, and change the following line to a desired number of cores
+```
+generate: [corescorecore: {count: 54}]
+```
+
+**RTL functional simulation**:
+If for any reason you need debugging, there's a `sim` target provided, requiring Verilator. Waveform visualisation is left to the user.
 ## Results and analysis
+These tests have been verified on the real system.
 ```
 Utilization Report
 
@@ -24,18 +58,7 @@ Utilization Report
      OBF                   1
      TOBF                  0
      IOBF                  0
-   LVDS pairs              0 /     72  (  0.0 %)
-     IBF                   0
-     OBF                   0
-     TOBF                  0
-     IOBF                  0
 
- GPIO Registers            0 /    288  (  0.0 %)
- -----------------------------------------------
-   FF_IBF                  0
-   FF_OBF                  0
-   IDDR                    0
-   ODDR                    0
 
  Block RAMs             26.0 /     32  ( 81.3 %)
  -----------------------------------------------
@@ -49,9 +72,7 @@ Utilization Report
 ```
 
 Considering that only 34% of sequential logic is utilized, but all Cologne Programmable Elements (CPEs) are fully utilized, it can be concluded that nearly all combinatorial elements are consumed. This positions the 20.5k CPE CologneChip GateMate FPGA alongside other FPGAs with similar capacities. 
-- de0_nano	61 [22k LUT4]
-- cyc1000	60 [25k LUT4]
-- colorlight_5a75b	55 [24.3k LUT4]
+
 
 Notably, the GateMate's architecture, with 20.5k CPEs, effectively provides 41k LUT4 equivalents, as each CPE comprises an 8-input LUT-tree, which can be configured as two 4-input L2T4 primitives. Due to the reduced number of configuration bits required by this architecture, we can compute the normalized metric of **configuration bits per core** (the lower, the better). Throughput is computed by this formula: `core_count/technology`
 
