@@ -86,4 +86,4 @@ Notably, the GateMate's architecture, with 20.5k CPEs, effectively provides 41k 
 | LFE5U-25F-6BG256C | 61        | 7069                        | 24.3k      | 2.77             | LP 40nm    | 72.37                |
 | EP4CE10F17I7N     | 54        | 5770                        | 22k        | 1.07             | 60nm       | 17.83                |
 
-This indicates that the CCGM1A1 has a lower effective logic density per area unit, as measured by configuration bits per core.
+This indicates that the CCGM1A1 has a lower effective logic density per area unit, as measured by configuration bits per core. Conversely, CCGM1A1 shines in throughput per dollar, holding strong against the competition.

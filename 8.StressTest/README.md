@@ -16,7 +16,7 @@ The most notable feature of the CCGM1A1 is its LUT-tree logic element for combin
 
 There's a trade-off here between using an L2T4 and a LUT4:
 - **Less area consumed:** A single L2T4 requires only 12 configuration bits compared to 16 for a LUT4.
-- **Reduced combinatorial versatility:** An L2T4 can implement **4,096** different 4-input logic functions, whereas a LUT4 can implement **65,536**.
+- **Reduced combinatorial versatility:** An L2T4 can implement **4,096** different 4-input logic functions, whereas a LUT4 can implement **65,536** (these results are obtained using basic combinatorics).
 
 ![Lut-tree](0.doc/LUT_CPE.png)
 
