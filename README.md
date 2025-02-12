@@ -138,6 +138,11 @@ We are proud to have initiated GateMate enablement in opensource [Amaranth](http
 ## Beinvolved
 We welcome everyone interested to contribute. Please reach out to fpga@chili-chips.com, or join our <a href="https://discord.gg/F5UPDFFdsH">GateMate Discord Channel</a>. 
 
+## Additional References
+- https://github.com/PythonLinks/awesome-gatemate
+- https://github.com/YosysHQ/prjpeppercorn
+- https://colognechip.com/wp-content/uploads/Novel-GateMate-FPGA-Architecture-FPL2021.pdf
+  
 ## Acknowledgements
 We are grateful to:
   - **NLnet Foundation's** sponsorship for this opportunity to put our hand and brains on GateMate.
