@@ -27,9 +27,12 @@ make corescore_0_00_cfg.bit
 At this point your design should've successfully generated a bitstream. Uploading the bitstreamto your board: 
 - go back to `8.StressTest/1.corescore_cc/` and run
 ```
-- make program
+make program
 ```
-Listen to serial port at 57600 baud rate 8b no parity, 1 stop bit, your output should be something like this:
+Listen to serial port at **57600 baud rate 8b no parity, 1 stop bit**, your output should be something like this:
+```
+core xx says hello
+```
 
 > Hint: open 3 terminals, one for FuseSoC, second for manually running the make command, and the third for serial communcation.
 
