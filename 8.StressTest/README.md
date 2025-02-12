@@ -44,7 +44,7 @@ Due to this structure, there's also a more strict and constricted routing, parti
 Laid out hints to a potential cripple in the FPGA's ability to implement all logic. Luckily, for common operations such as addition, multiplication, basic logic functions and multiplexing this choice holds fine. Now, this makes a 20480 CPE CCGM1A1 have a total of 40960 L2T4 ("LUT4" replacements), making it a kind of a **quasi-41k LUT4** FPGA. Overall effect on logic capacity is assessed in the benchmark tests.
 
 
-Mitigating these limits an L2T5 primitive is formed. With the cost of using up the whole CPE, this primitive covers up all the impossible combinations for L2T4, having 4096*16=65536 logic function combinations, a full LUT4! Without a L2T5, some of the logic functions would have to be spread over more CPEs.
+Mitigating these limits an L2T5 primitive is formed. With the cost of using up the whole CPE, this primitive covers up all the impossible combinations for L2T4, having 4096*16=65536 logic function combinations, **a full LUT4**! Without a L2T5, some of the logic functions would have to be spread over more CPEs.
 
 ![l2t5](0.doc/L2T5.png)
 
