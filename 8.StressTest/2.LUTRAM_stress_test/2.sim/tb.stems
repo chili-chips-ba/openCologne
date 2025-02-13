@@ -1,0 +1,38 @@
+++ module tb file  lines 0 - 0
+++ begin clock_gen file  line 0
+++ comp clock_gen:G0 type clock_gen:G0 parent tb
+++ module clock_gen:G0 file  lines 0 - 0
+++ begin run_sim file  line 0
+++ comp run_sim:G1 type run_sim:G1 parent clock_gen:G0
+++ module run_sim:G1 file  lines 0 - 0
+++ endbegin clock_gen
+++ begin seq file  line 0
+++ comp seq:G2 type seq:G2 parent clock_gen:G0
+++ module seq:G2 file  lines 0 - 0
+++ endbegin run_sim
+++ endbegin seq
+++ comp dut type top__L2 parent tb
+++ module top__L2 file  lines 0 - 0
+++ begin _decode file  line 0
+++ comp _decode:G3 type _decode:G3 parent top__L2
+++ module _decode:G3 file  lines 0 - 0
+++ endbegin _decode
+++ begin genblk1[0] file  line 0
+++ comp genblk1[0]:G4 type genblk1[0]:G4 parent top__L2
+++ module genblk1[0]:G4 file  lines 0 - 0
+++ comp u_lut type lutram_16x10 parent genblk1[0]:G4
+++ endbegin genblk1[0]
+++ begin genblk1[1] file  line 0
+++ comp genblk1[1]:G5 type genblk1[1]:G5 parent top__L2
+++ module genblk1[1]:G5 file  lines 0 - 0
+++ comp u_lut type lutram_16x10 parent genblk1[1]:G5
+++ endbegin genblk1[1]
+++ module lutram_16x10 file  lines 0 - 0
+++ begin _read_block file  line 0
+++ comp _read_block:G6 type _read_block:G6 parent lutram_16x10
+++ module _read_block:G6 file  lines 0 - 0
+++ endbegin _read_block
+++ begin _write_block file  line 0
+++ comp _write_block:G7 type _write_block:G7 parent lutram_16x10
+++ module _write_block:G7 file  lines 0 - 0
+++ endbegin _write_block

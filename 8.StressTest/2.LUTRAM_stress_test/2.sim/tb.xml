@@ -1,0 +1,373 @@
+<?xml version="1.0" ?>
+<!-- DESCRIPTION: Verilator output: XML representation of netlist -->
+<verilator_xml>
+  <files>
+    <file id="d" filename="/home/tibrahimovic/0.git-repo/verilator/include/verilated_std.sv" language="1800-2023"/>
+    <file id="e" filename="/mnt/d/repos/LUTRAM_Stress_Test/2.sim/../1.hw/lutram_16x10.sv" language="1800-2023"/>
+    <file id="c" filename="/mnt/d/repos/LUTRAM_Stress_Test/2.sim/../1.hw/rtl.filelist" language="1800-2023"/>
+    <file id="f" filename="/mnt/d/repos/LUTRAM_Stress_Test/2.sim/../1.hw/top.sv" language="1800-2023"/>
+    <file id="a" filename="&lt;built-in&gt;" language="1800-2023"/>
+    <file id="b" filename="&lt;command-line&gt;" language="1800-2023"/>
+    <file id="g" filename="tb.sv" language="1800-2023"/>
+  </files>
+  <module_files>
+    <file id="g" filename="tb.sv" language="1800-2023"/>
+    <file id="f" filename="/mnt/d/repos/LUTRAM_Stress_Test/2.sim/../1.hw/top.sv" language="1800-2023"/>
+    <file id="e" filename="/mnt/d/repos/LUTRAM_Stress_Test/2.sim/../1.hw/lutram_16x10.sv" language="1800-2023"/>
+  </module_files>
+  <cells>
+    <cell loc="g,20,8,20,10" name="tb" submodname="tb" hier="tb">
+      <cell loc="g,98,4,98,7" name="dut" submodname="top__L2" hier="tb.dut">
+        <cell loc="f,54,20,54,25" name="u_lut" submodname="lutram_16x10" hier="tb.dut.genblk1__BRA__0__KET__.u_lut"/>
+        <cell loc="f,54,20,54,25" name="u_lut" submodname="lutram_16x10" hier="tb.dut.genblk1__BRA__1__KET__.u_lut"/>
+      </cell>
+    </cell>
+  </cells>
+  <netlist>
+    <module loc="g,20,8,20,10" name="tb" origName="tb" topModule="1">
+      <var loc="g,21,18,21,28" name="RUN_SIM_US" dtype_id="1" vartype="int" origName="RUN_SIM_US" param="true">
+        <const loc="g,21,31,21,38" name="32&apos;sh2710" dtype_id="2"/>
+      </var>
+      <var loc="g,26,16,26,30" name="HALF_PERIOD_PS" dtype_id="2" vartype="logic" origName="HALF_PERIOD_PS" localparam="true">
+        <const loc="g,26,33,26,39" name="32&apos;shc350" dtype_id="2"/>
+      </var>
+      <var loc="g,27,16,27,22" name="clk_10" dtype_id="3" vartype="logic" origName="clk_10"/>
+      <var loc="g,29,16,29,20" name="addr" dtype_id="4" vartype="logic" origName="addr"/>
+      <var loc="g,30,16,30,20" name="wdat" dtype_id="5" vartype="logic" origName="wdat"/>
+      <var loc="g,31,10,31,12" name="we" dtype_id="3" vartype="logic" origName="we"/>
+      <var loc="g,32,16,32,20" name="rdat" dtype_id="5" vartype="logic" origName="rdat"/>
+      <initial loc="g,34,4,34,11">
+        <begin loc="g,34,12,34,17">
+          <assign loc="g,35,15,35,16" dtype_id="3">
+            <const loc="g,35,17,35,21" name="1&apos;h0" dtype_id="3"/>
+            <varref loc="g,35,7,35,13" name="clk_10" dtype_id="3"/>
+          </assign>
+          <dumpctl loc="g,37,7,37,16">
+            <const loc="g,37,17,37,34" name="120&apos;h2e2e2f322e73696d2f74622e766364" dtype_id="6"/>
+          </dumpctl>
+          <dumpctl loc="g,38,3,38,12">
+            <const loc="g,38,13,38,14" name="32&apos;sh0" dtype_id="2"/>
+          </dumpctl>
+          <fork loc="g,40,7,40,11">
+            <while loc="g,41,10,41,17">
+              <begin>
+              </begin>
+              <begin>
+                <const loc="g,41,10,41,17" name="1&apos;h1" dtype_id="3"/>
+              </begin>
+              <begin>
+                <begin loc="g,41,25,41,34" name="clock_gen">
+                  <delay loc="g,42,13,42,14">
+                    <const loc="g,42,30,42,31" name="50000.0" dtype_id="7"/>
+                    <assign loc="g,42,44,42,45" dtype_id="3">
+                      <not loc="g,42,46,42,47" dtype_id="3">
+                        <varref loc="g,42,47,42,53" name="clk_10" dtype_id="3"/>
+                      </not>
+                      <varref loc="g,42,37,42,43" name="clk_10" dtype_id="3"/>
+                    </assign>
+                  </delay>
+                </begin>
+              </begin>
+            </while>
+            <begin loc="g,45,17,45,24" name="run_sim">
+              <delay loc="g,46,13,46,14">
+                <const loc="g,46,26,46,27" name="10000000000.0" dtype_id="7"/>
+              </delay>
+              <finish loc="g,47,13,47,20"/>
+            </begin>
+            <begin loc="g,50,17,50,20" name="seq">
+              <delay loc="g,52,13,52,14">
+                <const loc="g,52,14,52,19" name="200000.0" dtype_id="7"/>
+                <assign loc="g,53,18,53,19" dtype_id="4">
+                  <const loc="g,53,20,53,24" name="5&apos;h0" dtype_id="4"/>
+                  <varref loc="g,53,13,53,17" name="addr" dtype_id="4"/>
+                </assign>
+              </delay>
+              <assign loc="g,54,18,54,19" dtype_id="3">
+                <const loc="g,54,20,54,21" name="1&apos;h1" dtype_id="3"/>
+                <varref loc="g,54,13,54,15" name="we" dtype_id="3"/>
+              </assign>
+              <assign loc="g,55,18,55,19" dtype_id="5">
+                <const loc="g,55,20,55,27" name="10&apos;hbc" dtype_id="5"/>
+                <varref loc="g,55,13,55,17" name="wdat" dtype_id="5"/>
+              </assign>
+              <delay loc="g,56,13,56,14">
+                <const loc="g,56,14,56,19" name="200000.0" dtype_id="7"/>
+                <assign loc="g,58,16,58,17" dtype_id="3">
+                  <const loc="g,58,18,58,19" name="1&apos;h0" dtype_id="3"/>
+                  <varref loc="g,58,13,58,15" name="we" dtype_id="3"/>
+                </assign>
+              </delay>
+              <delay loc="g,60,13,60,14">
+                <const loc="g,60,14,60,17" name="1000000.0" dtype_id="7"/>
+                <delay loc="g,62,13,62,14">
+                  <const loc="g,62,14,62,19" name="200000.0" dtype_id="7"/>
+                  <assign loc="g,63,18,63,19" dtype_id="4">
+                    <const loc="g,63,20,63,28" name="5&apos;hf" dtype_id="4"/>
+                    <varref loc="g,63,13,63,17" name="addr" dtype_id="4"/>
+                  </assign>
+                </delay>
+              </delay>
+              <assign loc="g,64,18,64,19" dtype_id="3">
+                <const loc="g,64,20,64,21" name="1&apos;h1" dtype_id="3"/>
+                <varref loc="g,64,13,64,15" name="we" dtype_id="3"/>
+              </assign>
+              <assign loc="g,65,18,65,19" dtype_id="5">
+                <const loc="g,65,20,65,27" name="10&apos;h1bc" dtype_id="5"/>
+                <varref loc="g,65,13,65,17" name="wdat" dtype_id="5"/>
+              </assign>
+              <delay loc="g,66,13,66,14">
+                <const loc="g,66,14,66,19" name="200000.0" dtype_id="7"/>
+                <assign loc="g,68,16,68,17" dtype_id="3">
+                  <const loc="g,68,18,68,19" name="1&apos;h0" dtype_id="3"/>
+                  <varref loc="g,68,13,68,15" name="we" dtype_id="3"/>
+                </assign>
+              </delay>
+              <delay loc="g,71,13,71,14">
+                <const loc="g,71,14,71,19" name="200000.0" dtype_id="7"/>
+                <assign loc="g,72,18,72,19" dtype_id="4">
+                  <const loc="g,72,20,72,28" name="5&apos;h1f" dtype_id="4"/>
+                  <varref loc="g,72,13,72,17" name="addr" dtype_id="4"/>
+                </assign>
+              </delay>
+              <assign loc="g,73,18,73,19" dtype_id="3">
+                <const loc="g,73,20,73,21" name="1&apos;h1" dtype_id="3"/>
+                <varref loc="g,73,13,73,15" name="we" dtype_id="3"/>
+              </assign>
+              <assign loc="g,74,18,74,19" dtype_id="5">
+                <const loc="g,74,20,74,27" name="10&apos;h2bc" dtype_id="5"/>
+                <varref loc="g,74,13,74,17" name="wdat" dtype_id="5"/>
+              </assign>
+              <delay loc="g,75,13,75,14">
+                <const loc="g,75,14,75,19" name="200000.0" dtype_id="7"/>
+                <assign loc="g,77,16,77,17" dtype_id="3">
+                  <const loc="g,77,18,77,19" name="1&apos;h0" dtype_id="3"/>
+                  <varref loc="g,77,13,77,15" name="we" dtype_id="3"/>
+                </assign>
+              </delay>
+              <delay loc="g,81,13,81,14">
+                <const loc="g,81,14,81,19" name="200000.0" dtype_id="7"/>
+                <assign loc="g,82,18,82,19" dtype_id="4">
+                  <const loc="g,82,20,82,28" name="5&apos;h10" dtype_id="4"/>
+                  <varref loc="g,82,13,82,17" name="addr" dtype_id="4"/>
+                </assign>
+              </delay>
+              <assign loc="g,83,18,83,19" dtype_id="3">
+                <const loc="g,83,20,83,21" name="1&apos;h1" dtype_id="3"/>
+                <varref loc="g,83,13,83,15" name="we" dtype_id="3"/>
+              </assign>
+              <assign loc="g,84,18,84,19" dtype_id="5">
+                <const loc="g,84,20,84,27" name="10&apos;h3bc" dtype_id="5"/>
+                <varref loc="g,84,13,84,17" name="wdat" dtype_id="5"/>
+              </assign>
+              <delay loc="g,85,13,85,14">
+                <const loc="g,85,14,85,19" name="200000.0" dtype_id="7"/>
+                <assign loc="g,87,16,87,17" dtype_id="3">
+                  <const loc="g,87,18,87,19" name="1&apos;h0" dtype_id="3"/>
+                  <varref loc="g,87,13,87,15" name="we" dtype_id="3"/>
+                </assign>
+              </delay>
+            </begin>
+          </fork>
+        </begin>
+      </initial>
+      <instance loc="g,98,4,98,7" name="dut" defName="top__L2" origName="dut">
+        <port loc="g,99,8,99,11" name="clk" direction="in" portIndex="1">
+          <varref loc="g,99,12,99,18" name="clk_10" dtype_id="3"/>
+        </port>
+        <port loc="g,100,8,100,12" name="addr" direction="in" portIndex="2">
+          <varref loc="g,100,13,100,17" name="addr" dtype_id="4"/>
+        </port>
+        <port loc="g,101,8,101,12" name="wdat" direction="in" portIndex="3">
+          <varref loc="g,101,13,101,17" name="wdat" dtype_id="5"/>
+        </port>
+        <port loc="g,102,8,102,10" name="we" direction="in" portIndex="4">
+          <varref loc="g,102,11,102,13" name="we" dtype_id="3"/>
+        </port>
+        <port loc="g,103,8,103,12" name="rdat" direction="out" portIndex="5">
+          <varref loc="g,103,13,103,17" name="rdat" dtype_id="5"/>
+        </port>
+      </instance>
+    </module>
+    <module loc="f,20,8,20,11" name="top__L2" origName="top">
+      <var loc="f,22,14,22,25" name="LUTRAM16X10" dtype_id="2" vartype="logic" origName="LUTRAM16X10" param="true">
+        <const loc="g,96,20,96,21" name="32&apos;sh2" dtype_id="2"/>
+      </var>
+      <var loc="f,25,18,25,21" name="clk" dtype_id="3" dir="input" pinIndex="1" vartype="logic" origName="clk"/>
+      <var loc="f,27,49,27,53" name="addr" dtype_id="4" dir="input" pinIndex="2" vartype="logic" origName="addr"/>
+      <var loc="f,28,16,28,18" name="we" dtype_id="3" dir="input" pinIndex="3" vartype="logic" origName="we"/>
+      <var loc="f,29,22,29,26" name="wdat" dtype_id="5" dir="input" pinIndex="4" vartype="logic" origName="wdat"/>
+      <var loc="f,30,23,30,27" name="rdat" dtype_id="5" dir="output" pinIndex="5" vartype="logic" origName="rdat"/>
+      <var loc="f,32,12,32,21" name="ADDR_BITS" dtype_id="2" vartype="logic" origName="ADDR_BITS" localparam="true">
+        <const loc="f,32,48,32,49" name="32&apos;h4" dtype_id="2"/>
+      </var>
+      <var loc="f,34,13,34,21" name="read_all" dtype_id="8" vartype="" origName="read_all"/>
+      <var loc="f,37,25,37,31" name="we_dec" dtype_id="9" vartype="logic" origName="we_dec"/>
+      <always loc="f,39,1,39,12">
+        <begin loc="f,39,21,39,28" name="_decode">
+          <assign loc="f,40,11,40,12" dtype_id="9">
+            <const loc="f,40,13,40,15" name="2&apos;h0" dtype_id="9"/>
+            <varref loc="f,40,4,40,10" name="we_dec" dtype_id="9"/>
+          </assign>
+          <begin loc="f,41,24,41,29">
+            <assign loc="f,42,34,42,35" dtype_id="3">
+              <varref loc="f,42,43,42,45" name="we" dtype_id="3"/>
+              <sel loc="f,42,14,42,15" dtype_id="3">
+                <varref loc="f,42,7,42,13" name="we_dec" dtype_id="9"/>
+                <sel loc="f,42,19,42,20" dtype_id="3">
+                  <varref loc="f,42,15,42,19" name="addr" dtype_id="4"/>
+                  <const loc="f,42,30,42,31" name="3&apos;h4" dtype_id="10"/>
+                  <const loc="f,42,20,42,29" name="32&apos;h1" dtype_id="11"/>
+                </sel>
+                <const loc="f,42,14,42,15" name="32&apos;h1" dtype_id="11"/>
+              </sel>
+            </assign>
+            <assign loc="f,43,12,43,13" dtype_id="5">
+              <arraysel loc="f,43,23,43,24" dtype_id="5">
+                <varref loc="f,43,14,43,22" name="read_all" dtype_id="8"/>
+                <sel loc="f,43,28,43,29" dtype_id="3">
+                  <varref loc="f,43,24,43,28" name="addr" dtype_id="4"/>
+                  <const loc="f,43,39,43,40" name="3&apos;h4" dtype_id="10"/>
+                  <const loc="f,43,29,43,38" name="32&apos;h1" dtype_id="11"/>
+                </sel>
+              </arraysel>
+              <varref loc="f,43,7,43,11" name="rdat" dtype_id="5"/>
+            </assign>
+          </begin>
+        </begin>
+      </always>
+      <var loc="f,51,8,51,9" name="i" dtype_id="12" vartype="integer" origName="i"/>
+      <begin loc="f,53,4,53,7" name="genblk1"/>
+      <begin loc="f,54,20,54,25" name="genblk1[0]">
+        <instance loc="f,54,20,54,25" name="u_lut" defName="lutram_16x10" origName="u_lut">
+          <port loc="f,55,11,55,14" name="clk" direction="in" portIndex="1">
+            <varref loc="f,55,15,55,18" name="clk" dtype_id="3"/>
+          </port>
+          <port loc="f,56,11,56,15" name="addr" direction="in" portIndex="2">
+            <sel loc="f,56,20,56,21" dtype_id="13">
+              <varref loc="f,56,16,56,20" name="addr" dtype_id="4"/>
+              <const loc="f,56,23,56,24" name="3&apos;h0" dtype_id="10"/>
+              <const loc="f,56,21,56,22" name="32&apos;h4" dtype_id="11"/>
+            </sel>
+          </port>
+          <port loc="f,57,11,57,15" name="rdat" direction="out" portIndex="3">
+            <arraysel loc="f,57,24,57,25" dtype_id="5">
+              <varref loc="f,57,16,57,24" name="read_all" dtype_id="8"/>
+              <const loc="f,53,4,53,7" name="1&apos;h0" dtype_id="14"/>
+            </arraysel>
+          </port>
+          <port loc="f,58,11,58,15" name="wdat" direction="in" portIndex="4">
+            <varref loc="f,58,16,58,20" name="wdat" dtype_id="5"/>
+          </port>
+          <port loc="f,59,11,59,13" name="we" direction="in" portIndex="5">
+            <sel loc="f,59,20,59,21" dtype_id="3">
+              <varref loc="f,59,14,59,20" name="we_dec" dtype_id="9"/>
+              <const loc="f,53,4,53,7" name="1&apos;h0" dtype_id="14"/>
+              <const loc="f,59,20,59,21" name="32&apos;h1" dtype_id="11"/>
+            </sel>
+          </port>
+        </instance>
+      </begin>
+      <begin loc="f,54,20,54,25" name="genblk1[1]">
+        <instance loc="f,54,20,54,25" name="u_lut" defName="lutram_16x10" origName="u_lut">
+          <port loc="f,55,11,55,14" name="clk" direction="in" portIndex="1">
+            <varref loc="f,55,15,55,18" name="clk" dtype_id="3"/>
+          </port>
+          <port loc="f,56,11,56,15" name="addr" direction="in" portIndex="2">
+            <sel loc="f,56,20,56,21" dtype_id="13">
+              <varref loc="f,56,16,56,20" name="addr" dtype_id="4"/>
+              <const loc="f,56,23,56,24" name="3&apos;h0" dtype_id="10"/>
+              <const loc="f,56,21,56,22" name="32&apos;h4" dtype_id="11"/>
+            </sel>
+          </port>
+          <port loc="f,57,11,57,15" name="rdat" direction="out" portIndex="3">
+            <arraysel loc="f,57,24,57,25" dtype_id="5">
+              <varref loc="f,57,16,57,24" name="read_all" dtype_id="8"/>
+              <const loc="f,53,4,53,7" name="1&apos;h1" dtype_id="14"/>
+            </arraysel>
+          </port>
+          <port loc="f,58,11,58,15" name="wdat" direction="in" portIndex="4">
+            <varref loc="f,58,16,58,20" name="wdat" dtype_id="5"/>
+          </port>
+          <port loc="f,59,11,59,13" name="we" direction="in" portIndex="5">
+            <sel loc="f,59,20,59,21" dtype_id="3">
+              <varref loc="f,59,14,59,20" name="we_dec" dtype_id="9"/>
+              <const loc="f,53,4,53,7" name="1&apos;h1" dtype_id="14"/>
+              <const loc="f,59,20,59,21" name="32&apos;h1" dtype_id="11"/>
+            </sel>
+          </port>
+        </instance>
+      </begin>
+    </module>
+    <module loc="e,18,8,18,20" name="lutram_16x10" origName="lutram_16x10">
+      <var loc="e,19,17,19,20" name="clk" dtype_id="3" dir="input" pinIndex="1" vartype="logic" origName="clk"/>
+      <var loc="e,20,23,20,27" name="wdat" dtype_id="5" dir="input" pinIndex="2" vartype="logic" origName="wdat"/>
+      <var loc="e,21,23,21,27" name="addr" dtype_id="13" dir="input" pinIndex="3" vartype="logic" origName="addr"/>
+      <var loc="e,22,17,22,19" name="we" dtype_id="3" dir="input" pinIndex="4" vartype="logic" origName="we"/>
+      <var loc="e,23,24,23,28" name="rdat" dtype_id="5" dir="output" pinIndex="5" vartype="logic" origName="rdat"/>
+      <var loc="e,26,13,26,21" name="dist_mem" dtype_id="15" vartype="" origName="dist_mem"/>
+      <always loc="e,28,1,28,12">
+        <begin loc="e,28,21,28,32" name="_read_block">
+          <assign loc="e,29,10,29,11" dtype_id="5">
+            <arraysel loc="e,29,20,29,21" dtype_id="5">
+              <varref loc="e,29,12,29,20" name="dist_mem" dtype_id="15"/>
+              <varref loc="e,29,21,29,25" name="addr" dtype_id="13"/>
+            </arraysel>
+            <varref loc="e,29,5,29,9" name="rdat" dtype_id="5"/>
+          </assign>
+        </begin>
+      </always>
+      <always loc="e,32,1,32,10">
+        <sentree loc="e,32,11,32,12">
+          <senitem loc="e,32,13,32,20" edgeType="POS">
+            <varref loc="e,32,21,32,24" name="clk" dtype_id="3"/>
+          </senitem>
+        </sentree>
+        <begin loc="e,32,34,32,46" name="_write_block">
+          <if loc="e,33,5,33,7">
+            <varref loc="e,33,8,33,10" name="we" dtype_id="3"/>
+            <begin>
+              <begin loc="e,33,20,33,25">
+                <assigndly loc="e,34,24,34,26" dtype_id="5">
+                  <varref loc="e,34,27,34,31" name="wdat" dtype_id="5"/>
+                  <arraysel loc="e,34,17,34,18" dtype_id="5">
+                    <varref loc="e,34,9,34,17" name="dist_mem" dtype_id="15"/>
+                    <varref loc="e,34,18,34,22" name="addr" dtype_id="13"/>
+                  </arraysel>
+                </assigndly>
+              </begin>
+            </begin>
+          </if>
+        </begin>
+      </always>
+    </module>
+    <typetable loc="a,0,0,0,0">
+      <voiddtype loc="d,45,18,45,27" id="16"/>
+      <basicdtype loc="g,37,17,37,34" id="6" name="logic" left="119" right="0"/>
+      <basicdtype loc="g,42,32,42,35" id="7" name="real" signed="true"/>
+      <basicdtype loc="g,21,14,21,17" id="1" name="int" left="31" right="0" signed="true"/>
+      <basicdtype loc="f,32,43,32,44" id="11" name="logic" left="31" right="0"/>
+      <basicdtype loc="f,51,8,51,9" id="12" name="integer" left="31" right="0" signed="true"/>
+      <unpackarraydtype loc="e,26,22,26,23" id="15" sub_dtype_id="5">
+        <range loc="e,26,22,26,23">
+          <const loc="e,26,23,26,25" name="32&apos;h0" dtype_id="11"/>
+          <const loc="e,26,23,26,25" name="32&apos;hf" dtype_id="11"/>
+        </range>
+      </unpackarraydtype>
+      <basicdtype loc="e,29,20,29,21" id="13" name="logic" left="3" right="0"/>
+      <unpackarraydtype loc="f,34,22,34,23" id="8" sub_dtype_id="5">
+        <range loc="f,34,22,34,23">
+          <const loc="f,34,23,34,34" name="32&apos;h0" dtype_id="11"/>
+          <const loc="f,34,23,34,34" name="32&apos;h1" dtype_id="11"/>
+        </range>
+      </unpackarraydtype>
+      <basicdtype loc="f,37,1,37,6" id="9" name="logic" left="1" right="0"/>
+      <basicdtype loc="f,42,19,42,20" id="10" name="logic" left="2" right="0" signed="true"/>
+      <basicdtype loc="f,57,24,57,25" id="14" name="logic" signed="true"/>
+      <basicdtype loc="g,27,4,27,9" id="3" name="logic"/>
+      <basicdtype loc="g,29,4,29,9" id="4" name="logic" left="4" right="0"/>
+      <basicdtype loc="g,30,4,30,9" id="5" name="logic" left="9" right="0"/>
+      <basicdtype loc="g,21,31,21,38" id="2" name="logic" left="31" right="0" signed="true"/>
+    </typetable>
+  </netlist>
+</verilator_xml>
