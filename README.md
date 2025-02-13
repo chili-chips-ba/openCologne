@@ -10,7 +10,7 @@ How? By pursuing a three-pronged approach:
 
 2) Create and validate a portfolio of **well-documented examples** that put GateMate resources to good use. Be it by tapping into SystemVerilog or VHDL RTL, HLS design methodologies, demonstrating pure hardware FSM implementations, or HW/SW co-design, utilizing SOC techniques, or possibly even reaching into Amaranth and LiteX build frameworks... the goal is to expand GateMate audience, faciliate silicon adoption, and ultimately have it gain a foothold in the market.
 
-3) Engage with [CologneChip](https://www.colognechip.com/programmable-logic/gatemate">CologneChip) developers to resolve [issues](https://github.com/chili-chips-ba/openCologne/issues) identified in this course.
+3) Engage with [CologneChip](https://www.colognechip.com/programmable-logic/gatemate) staff to resolve [issues](https://github.com/chili-chips-ba/openCologne/issues) identified in this course.
 
 
 The practical execution of this strategy is organized into 3 game levels with 9 play milestones.
