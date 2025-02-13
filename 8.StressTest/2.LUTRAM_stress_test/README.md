@@ -1,6 +1,7 @@
 # LUTRAM_Stress_Test - FPGA's distributed memory capacity 
 ## * WORK IN PROGRESS * UNDER CONSTRUCTION *
 > WHILE THIS NOTICE IS PRESENT, DON'T EXPECT DESIGN, SIM, OR ANY OTHER FILE IN HERE 2BE DOIN' WHAT IT'S SAYIN'
+
 An interesting twist on the CCGM1A1 is that there are no distributed memory primitives provided. This is due to multiple reasons, one being the required added complexity for decoding logic since LUT trees are used in place of classic LUTs. Instead, GateMate emulates distributed memory with flip-flops and a few muxes. Hereby we present a test for FPGAs distributed RAM capacity, expecting to examine GateMates lack of integrated LUTRAM. 
 
 The primary motivation for examining this benchmark arises when evaluating the **portability** of other designs, as various porting attempts are likely. If the FPGA struggles to emulate a substantial amount of distributed RAM, switching to Block RAM necessitates **retiming** the entire design, which is an inconvenience.
