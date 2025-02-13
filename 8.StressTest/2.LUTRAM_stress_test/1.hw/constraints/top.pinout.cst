@@ -1,0 +1,128 @@
+#=======================================
+# Physical Constraints file / Pinout
+#=======================================
+
+#---------------------------------------
+# Clocks
+#---------------------------------------
+IO_LOC  "clk"         4;
+IO_PORT "clk"         IO_TYPE=LVCMOS33;
+
+
+
+IO_LOC  "rdat[0]" 15;
+IO_PORT "rdat[0]" IO_TYPE=LVCMOS33 DRIVE=8;
+
+IO_LOC  "rdat[1]" 16;
+IO_PORT "rdat[1]" IO_TYPE=LVCMOS33 DRIVE=8;
+
+IO_LOC  "rdat[2]" 17;
+IO_PORT "rdat[2]" IO_TYPE=LVCMOS33 DRIVE=8;
+
+IO_LOC  "rdat[3]" 18;
+IO_PORT "rdat[3]" IO_TYPE=LVCMOS33 DRIVE=8;
+
+IO_LOC  "rdat[4]" 19;
+IO_PORT "rdat[4]" IO_TYPE=LVCMOS33 DRIVE=8;
+  
+IO_LOC  "rdat[5]" 20;
+IO_PORT "rdat[5]" IO_TYPE=LVCMOS33 DRIVE=8;
+
+IO_LOC  "rdat[6]" 31;
+IO_PORT "rdat[6]" IO_TYPE=LVCMOS33 DRIVE=8;
+
+IO_LOC  "rdat[7]" 30;
+IO_PORT "rdat[7]" IO_TYPE=LVCMOS33 DRIVE=8;
+
+IO_LOC  "rdat[8]" 29;
+IO_PORT "rdat[8]" IO_TYPE=LVCMOS33 DRIVE=8;
+
+IO_LOC  "rdat[9]" 26;
+IO_PORT "rdat[9]" IO_TYPE=LVCMOS33 DRIVE=8;
+
+IO_LOC  "addr[0]" 25;
+IO_PORT "addr[0]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "addr[1]" 28;
+IO_PORT "addr[1]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "addr[2]" 27;
+IO_PORT "addr[2]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "addr[3]" 75;
+IO_PORT "addr[3]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "addr[4]" 74;
+IO_PORT "addr[4]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "addr[5]" 73;
+IO_PORT "addr[5]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "addr[6]" 86;
+IO_PORT "addr[6]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "addr[7]" 49;
+IO_PORT "addr[7]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "addr[8]" 76;
+IO_PORT "addr[8]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "we" 48;
+IO_PORT "we" IO_TYPE=LVCMOS33;
+
+IO_LOC  "wdat[0]" 51;
+IO_PORT "wdat[0]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "wdat[1]" 63;
+IO_PORT "wdat[1]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "wdat[2]" 33;
+IO_PORT "wdat[2]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "wdat[3]" 41;
+IO_PORT "wdat[3]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "wdat[4]" 42;
+IO_PORT "wdat[4]" IO_TYPE=LVCMOS33;
+  
+IO_LOC  "wdat[5]" 80;
+IO_PORT "wdat[5]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "wdat[6]" 34;
+IO_PORT "wdat[6]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "wdat[7]" 53;
+IO_PORT "wdat[7]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "wdat[8]" 77;
+IO_PORT "wdat[8]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "wdat[9]" 85;
+IO_PORT "wdat[9]" IO_TYPE=LVCMOS33;
+
+
+
+
+
+#---------------------------------------
+# DAC1/2 (MAX5180)
+#---------------------------------------
+
+//IO_LOC  "wdat[9]"      51;
+
+//IO_PORT "we"          IO_TYPE=LVCMOS33;
+//IO_PORT "wdat[5]"      IO_TYPE=LVCMOS33;
+//                            
+//IO_PORT "addr[0]"      IO_TYPE=LVCMOS33;
+//IO_PORT "addr[1]"      IO_TYPE=LVCMOS33;
+//IO_PORT "addr[2]"      IO_TYPE=LVCMOS33;
+//IO_PORT "addr[3]"      IO_TYPE=LVCMOS33;
+//IO_PORT "addr[4]"      IO_TYPE=LVCMOS33;
+//IO_PORT "addr[5]"      IO_TYPE=LVCMOS33;
+//IO_PORT "addr[6]"      IO_TYPE=LVCMOS33;
+
+//IO_PORT "wdat[9]"      IO_TYPE=LVCMOS33;
+
+
+
+#___End-of-File

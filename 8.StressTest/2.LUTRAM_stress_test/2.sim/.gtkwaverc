@@ -1,0 +1,39 @@
+[*]
+[*] GTKWave Analyzer v3.3.117 (w)1999-2023 BSI
+[*] Tue Aug 20 16:06:15 2024
+[*]
+[dumpfile] "/mnt/d/repos/LUTRAM_Stress_Test/2.sim/output/wave.fst"
+[dumpfile_mtime] "Tue Aug 20 16:06:05 2024"
+[dumpfile_size] 2493
+[savefile] "/mnt/d/repos/LUTRAM_Stress_Test/2.sim/.gtkwaverc"
+[timestart] 0
+[size] 1908 1107
+[pos] 355918 368356
+*-19.406277 1657700 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.tb.
+[treeopen] TOP.tb.dut.
+[treeopen] TOP.tb.dut.genblk1[0].
+[treeopen] TOP.tb.dut.genblk1[1].
+[sst_width] 276
+[signals_width] 249
+[sst_expanded] 1
+[sst_vpaned_height] 346
+@200
+-
+-uart
+-psram_controller
+@28
+TOP.tb.clk_10
+@22
+TOP.tb.addr[4:0]
+@28
+TOP.tb.we
+@22
+TOP.tb.rdat[9:0]
+TOP.tb.wdat[9:0]
+TOP.tb.dut.genblk1[0].u_lut.dist_mem[0][9:0]
+@23
+TOP.tb.dut.genblk1[0].u_lut.dist_mem[15][9:0]
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,9 @@
+0001   2 abcd
+0100   8 abcD
+03FE   1 BD?/ac\:1:c:0
+0777  40 /AB\(d+c)
+1000  11 abCD
+4000  17 aBCD
+8000   2 ABCD
+8FFF  10 (AB)+c+d
+ Gesamt:   91 DS4:     1

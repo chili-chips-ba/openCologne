@@ -1,0 +1,3 @@
+0040   6 aBC
+0080   4 ABC
+ Gesamt:   10 DS4:     0

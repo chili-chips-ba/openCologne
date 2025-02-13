@@ -64,6 +64,7 @@ To unveil the real potential of the CologneChip GateMate A1 FPGA, we ran several
 
 - [Corescore](https://corescore.store) — A popular FPGA benchmark that fits as many [Serv](https://github.com/olofk/serv) cores as possible.
 - [LUTRAM_Stress_test](https://github.com/tarik-ibrahimovic/LUTRAM_Stress_Test) — Evaluates the capacity of the emulated distributed asynchronous read RAM, a suspected weak spot.
+- [LUTRAM_adjusted_stress_test](https://github.com/tarik-ibrahimovic/LUTRAM_Stress_Test) — a workaround for occuring issues, digging for most credible results
 - [VeerWolves](https://www.linkedin.com/posts/gsteiert_wearealtera-activity-7240773845098323970-Bvlj?utm_source=share&utm_medium=member_desktop) — Similar in concept to Corescore, but with the added challenge of an expanding SOC.
 - [fpga_torture](https://github.com/stnolting/fpga_torture) — A combined power and utilization stress test.
 
