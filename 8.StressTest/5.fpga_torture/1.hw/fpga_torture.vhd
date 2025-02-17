@@ -45,7 +45,7 @@ use ieee.std_logic_1164.all;
 
 entity fpga_torture is
   generic (
-    NUM_CELLS : positive :=28675  -- number of LUT3+FF elements
+    NUM_CELLS : positive :=28655  -- number of LUT3+FF elements
   );
   port (
     clk_i  : in  std_ulogic; -- clock input
@@ -55,6 +55,30 @@ entity fpga_torture is
 end fpga_torture;
 
 architecture fpga_torture_rtl of fpga_torture is
+
+  component CC_PLL is
+    generic (
+      REF_CLK         : string;  -- reference input in MHz
+      OUT_CLK         : string;  -- pll output frequency in MHz
+      PERF_MD         : string;  -- LOWPOWER, ECONOMY, SPEED
+      LOW_JITTER      : integer; -- 0: disable, 1: enable low jitter mode
+      CI_FILTER_CONST : integer; -- optional CI filter constant
+      CP_FILTER_CONST : integer  -- optional CP filter constant
+    );
+    port (
+      CLK_REF             : in  std_logic;
+      USR_CLK_REF         : in  std_logic;
+      CLK_FEEDBACK        : in  std_logic;
+      USR_LOCKED_STDY_RST : in  std_logic;
+      USR_PLL_LOCKED_STDY : out std_logic;
+      USR_PLL_LOCKED      : out std_logic;
+      CLK0                : out std_logic;
+      CLK90               : out std_logic;
+      CLK180              : out std_logic;
+      CLK270              : out std_logic;
+      CLK_REF_OUT         : out std_logic
+    );
+  end component;
 
   -- combining function - mapped to a single LUT3 --
   function combine_f(a, b, c : std_ulogic) return std_ulogic is
@@ -67,8 +91,31 @@ architecture fpga_torture_rtl of fpga_torture is
   -- local signals --
   signal toggle_gen : std_ulogic := '0'; -- toggle generator to start chain
   signal chain      : std_ulogic_vector(NUM_CELLS-1 downto 0) := (others => '0'); -- initialize by bitstream
+  signal clk0       : std_logic; -- 0° phase  
 
 begin
+  pll_inst: CC_PLL
+  generic map (
+    REF_CLK=>"10.0",--referenceclkinMHz
+    OUT_CLK=>"50.0",--outputclkinMHz
+    PERF_MD=>"SPEED",--LOWPOWER,ECONOMY,SPEED(optional,global settingofPlace&Routecanbeusedinstead)
+    LOW_JITTER=>1,--0:disable,1:enablelowjittermode
+    CI_FILTER_CONST=>2,--optionalCIfilterconstant
+    CP_FILTER_CONST=>4--optionalCPfilterconstant
+  )
+  port map (
+    CLK_REF            =>clk_i,
+    USR_CLK_REF        =>'0',
+    CLK_FEEDBACK       =>'0',
+    USR_LOCKED_STDY_RST=>'0',
+    USR_PLL_LOCKED_STDY=>open,
+    USR_PLL_LOCKED     =>open,
+    CLK0               =>clk0,
+    CLK90              =>open,
+    CLK180             =>open,
+    CLK270             =>open,
+    CLK_REF_OUT        =>open
+  );
 
   -- Intro and Sanity Check -----------------------------------------------------------------
   -- -------------------------------------------------------------------------------------------
@@ -78,12 +125,12 @@ begin
 
   -- Toggle Chain (single element = LUT3 + FF) ----------------------------------------------
   -- -------------------------------------------------------------------------------------------
-  torture_chain: process(clk_i, rstn_i)
+  torture_chain: process(clk0, rstn_i)
   begin
     if (rstn_i = '0') then
       toggle_gen <= '0';
       chain      <= (others => '0');
-    elsif rising_edge(clk_i) then
+    elsif rising_edge(clk0) then
       toggle_gen <= not toggle_gen;
       for i in 0 to NUM_CELLS-1 loop
         case i is
@@ -99,5 +146,7 @@ begin
 
   -- dummy output --
   out_o <= chain(chain'left); -- to prevent synthesis from removing the whole design
+
+
 
 end fpga_torture_rtl;
