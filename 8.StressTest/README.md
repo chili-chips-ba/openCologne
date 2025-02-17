@@ -48,9 +48,6 @@ Mitigating these limits an L2T5 primitive is formed. With the cost of using up t
 
 ![l2t5](0.doc/L2T5.png)
 
-
-
-
 Furthermore, combining the two independent L2T4 blocks with one more LUT2, we get an 8-input LUT tree, for a total number of 12+12+4=28 configuration bits bringing the possibility of implementing 4096<sup>2</sup> logic functions. It's no good for real, 8-input independent variable logic functions, considering the cons of not being able to realize non-decomposable functions, which amplify in this case.
 
 This feature is still experimental, as the synthesis and PnR tools are not yet suited to accomodate this primitive, as discussed [here](https://github.com/chili-chips-ba/openCologne/issues/28).
@@ -64,31 +61,13 @@ To unveil the real potential of the CologneChip GateMate A1 FPGA, we ran several
 
 - [Corescore](https://corescore.store) — A popular FPGA benchmark that fits as many [Serv](https://github.com/olofk/serv) cores as possible.
 - [LUTRAM_Stress_test](https://github.com/tarik-ibrahimovic/LUTRAM_Stress_Test) — Evaluates the capacity of the emulated distributed asynchronous read RAM, a suspected weak spot.
-- [LUTRAM_adjusted_stress_test](https://github.com/tarik-ibrahimovic/LUTRAM_Stress_Test) — a workaround for occuring issues, digging for most credible results
-- [VeerWolves](https://www.linkedin.com/posts/gsteiert_wearealtera-activity-7240773845098323970-Bvlj?utm_source=share&utm_medium=member_desktop) — Similar in concept to Corescore, but with the added challenge of an expanding SOC.
+- [LUTRAM_adjusted_stress_test](https://github.com/tarik-ibrahimovic/LUTRAM_Stress_Test) — A workaround for occuring issues, digging for most credible results
+- [VeerWolves](https://github.com/chipsalliance/VeeRwolf/tree/veerwolves) — Similar in concept to Corescore, but with the added challenge of an expanding SOC. Also see [this LI post](https://www.linkedin.com/posts/gsteiert_wearealtera-activity-7240773845098323970-Bvlj?utm_source=share&utm_medium=member_desktop))
 - [fpga_torture](https://github.com/stnolting/fpga_torture) — A combined power and utilization stress test.
 
+## Additional Tests:
+- https://github.com/mirekez/pnr_tests (this is a generic Verilog generator. By playing with parameters, different parts of design can be converted to RAM/SRL/DSP blocks. It also generates XDC to randomly assign pins, which is an auxiliary functionality tied to Xilinx. Dialects for other vendors can also be created).
+- https://aignacio.com/posts/hdls/mpsoc_riscv - How to fit 100x RISC-V cores into an FPGA, using a NOC
+- https://gitlab.com/x653/spaceinvaders-fpga - While this is not a targeted stress test, it is still an interesting real-life design to try if time allows:
 
-
-
-
-
-
-
-
-
-## References:
->- https://github.com/mirekez/pnr_tests
-   
-        - this is a generic Verilog generator
-        - by playing with parameters different part of design can be converted to RAM/SRL/DSP blocks
-        - also generates XDC to randomly assign pins, this is auxiliary functionality tied to Xilinx and dialects for other vendors can be done
-
->- https://www.linkedin.com/posts/gsteiert_wearealtera-activity-7240773845098323970-Bvlj?utm_source=share&utm_medium=member_desktop
->- https://github.com/chipsalliance/VeeRwolf/tree/veerwolves
->- https://aignacio.com/posts/hdls/mpsoc_riscv
->- https://github.com/stnolting/fpga_torture
->- https://corescore.store
->- https://gitlab.com/x653/spaceinvaders-fpga
-
-**<h3>  End of Document </h3>**
+### End of Document
