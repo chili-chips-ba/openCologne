@@ -1,0 +1,4 @@
+v 4
+file / "/home/tibrahimovic/projects/fpga_torture/3.build/../1.hw/fpga_torture.vhd" "1e6c19b00cb2de2984f01efdb8c4b70f0e6e2437" "20250217005843.605":
+  entity fpga_torture at 43( 4142) + 0 on 11;
+  architecture fpga_torture_rtl of fpga_torture at 57( 4497) + 0 on 12;

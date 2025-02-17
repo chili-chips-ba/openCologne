@@ -1,0 +1,10 @@
+# fpga_torture_ - FPGA Stress-Testing
+
+## * WORK IN PROGRESS * UNDER CONSTRUCTION * KNOWN ISSUES!!!!!!!
+> WHILE THIS NOTICE IS PRESENT, DON'T EXPECT DESIGN, SIM, OR ANY OTHER FILE IN HERE 2BE DOIN' WHAT IT'S SAYIN'
+
+## Build steps
+```
+cd 3.build
+make hw_all
+```
