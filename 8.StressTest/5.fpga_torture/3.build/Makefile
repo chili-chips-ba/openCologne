@@ -25,7 +25,7 @@ CELLS_IMPL = $(CC_TOOL)/bin/p_r/cpelib.v
 # Project Configuration
 TOP=fpga_torture
 CONSTR = $(HW_SRC)/constraints/constraints.ccf
-PRFLAGS = -cCP --verbose
+PRFLAGS = -cCP --verbose +crf
 
 # Synthesize Sources
 TOP_FILELIST = $(shell perl -ne 's/\$$\{HW_SRC\}\///g ; print unless /^\s*\#/' ${HW_SRC}/rtl.filelist)
