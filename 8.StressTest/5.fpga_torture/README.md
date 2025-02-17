@@ -16,6 +16,10 @@ Utilization Report
      Flip-flops        28656
      Latches               0
 ```
+
+### Physical testing
+![figure](0.doc/flir_20250217T23325411.jpg)
+
 28655 elements
 ## Build steps
 This test is written in VHDL as it is ported from the fpga_torture repository, therefore `ghdl` is a prerequisite. Yosys loads in the ghdl module when synthesizing, which is a crucial step and issues may arise if yosys is unable to find the ghdl plugin module. 
