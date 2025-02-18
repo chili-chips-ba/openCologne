@@ -69,7 +69,10 @@ To unveil the real potential of the CologneChip GateMate A1 FPGA, we ran several
 Testing so far has uncovered 2 important hypoteses:
 1. Lut-trees are not as potent as traditional LUTs, and the area-potency tradeoff is on the limit of paying off, especially when you count in the missing features of Lut-trees. 
 2. Short, local routing is handled really well (**up to 97.8% utilization**), but global routing is least to say a challenge
+3. The number of DFFs seems to be oversized for this number of logic elements
 
+
+Points 1. and 2. are clear from the first 5 tests. Fine-grained locally contained RTL structures achieved high utilization, without any routing issues. On the other hand the coarse, when dealing with globally distributed structures like LUTRAM, CCGM1A1 struggled with routing. This may be due to a lack of global routing resources, or defficiencies in the PnR tools. The CPEs consisting of two L2T4 make this a quasi-41k LUT4 device, but the logic capacity is in reality around 20k LUT4s, using popular FPGA vendors (Intel, Lattice, Gowin) as reference. In conclusion, logic defficiency of LUT-trees degrades the device logic capacity, for most applications, providing a logic capacity of 20k LUT4s, at 53% more configuration bits. 
 
 
 ## Additional Tests:
