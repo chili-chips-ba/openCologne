@@ -154,6 +154,7 @@ We are grateful to:
 </p>
 
 ## Public Postings
+- [CologneChip News](https://colognechip.com/news/new-extensions-for-the-olimex-gatemate-fpga-board)
 - [IO cards](https://www.linkedin.com/posts/goran-mahovlic_fpga-opensource-openhardware-activity-7272630456599138304-nB8K?utm_source=share&utm_medium=member_desktop)
 - [IO cards2](https://www.linkedin.com/posts/goran-mahovlic_fpga-opensource-openhardware-activity-7273353028055769089-qn1x?utm_source=share&utm_medium=member_desktop)
 - [TetriSaraj](https://www.linkedin.com/posts/chili-chips_tetrisaraj-gatemate-opensource-activity-7252167674741301249-gOgI?utm_source=share&utm_medium=member_desktop)
