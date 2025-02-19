@@ -40,12 +40,12 @@ Considering that only 34% of sequential logic is utilized, but all Cologne Progr
 
 Notably, the GateMate's architecture, with 20.5k CPEs, effectively provides 41k LUT4 equivalents, as each CPE comprises an 8-input LUT-tree, which can be configured as two 4-input L2T4 primitives. Due to the reduced number of configuration bits required by this architecture, we can compute the normalized metric of **configuration bits per core** (the lower, the better). Throughput is computed by this formula: `core_count/technology`
 
-| FPGA Model         | Core Count | Configuration Bits per Core | LUT4 Count | Cores per Dollar | Technology | Throughput per Dollar |
-|--------------------|-----------|-----------------------------|------------|------------------|------------|----------------------|
-| 10CL025YU256C8G   | 60        | 6666                        | 25k        | 2.158            | LP 20nm    | 108                  |
-| CCGM1A1-BGA324    | 55        | 9102                        | 41k        | 2.347            | LP 28nm    | 83.85                |
-| LFE5U-25F-6BG256C | 61        | 7069                        | 24.3k      | 2.77             | LP 40nm    | 72.37                |
-| EP4CE10F17I7N     | 54        | 5770                        | 22k        | 1.07             | 60nm       | 17.83                |
+| FPGA Model         | Core Count | Configuration Bits per Core | LUT4 Count | Technology | Throughput |
+|--------------------|-----------|-----------------------------|------------|------------|-------------|
+| 10CL025YU256C8G   | 60        | 6666                        | 25k          | LP 20nm    | 3        |
+| CCGM1A1-BGA324    | 55        | 9102                        | 41k        | LP 28nm    |    1.964     |
+| LFE5U-25F-6BG256C | 61        | 7069                        | 24.3k      | LP 40nm    | 1.525        |
+| EP4CE10F17I7N     | 54        | 5770                        | 22k       | 60nm       | 0.9        |
 
 This indicates that the CCGM1A1 has a lower effective logic density per area unit, as measured by configuration bits per core. Conversely, CCGM1A1 shines in throughput per dollar, holding strong against the competition.
 
