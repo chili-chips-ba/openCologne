@@ -79,5 +79,7 @@ Points 1. and 2. are clear from the first 5 tests. Fine-grained locally containe
 
 ## References:
 - [Michael Gude talk on GateMate architecture](https://underline.io/lecture/34046-novel-architecture-for-european-fpga)
+- [Why GateMate?!](https://pythonlinks.info/presentations/vectors/WhyGateMate.pdf)
+  
 
 ### End of Document
