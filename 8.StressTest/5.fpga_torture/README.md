@@ -19,9 +19,11 @@ The large LSFR chain expresses a **short, local** routing challenge since the si
 ## Results and analysis
 Successful instantiation of 28655 elements at 96.1% utilization is a noteworthy result. A surfacing trend is that the tools and the architecture perform well in short, local routing tasks. This may be a reflection of just the tools capabilities, which is to be verified, but the overall anaysis is laid out [here](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest).
 
-As far as the logic capacity goes, **28655 elements** were instantiated at **96.1%** CPE utilization, but the registers remain at 70%. This clearly points that once again we ran out of logic capacity and pushed the CPEs to the limit as in [1.corescore](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest/1.corescore_cc).  
+As far as the logic capacity goes, **28655 elements** were instantiated at **96.1%** CPE utilization, but the registers remain at 70%. This clearly points that once again we ran out of logic capacity and pushed the CPEs to the limit as in [1.corescore](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest/1.corescore_cc). Looking at the logic capacity, we hit the ceiling really fast, once again limited by the number of CPEs. All in all, the number of DFFs seems to be oversized for this number of logic elements, since for even the mostly-sequential circuits we're limited by the logic. 
 
-Looking at the logic capacity, we hit the ceiling really fast, once again limited by the number of CPEs. All in all, the number of DFFs seems to be oversized for this number of logic elements, since for even the mostly-sequential circuits we're limited by the logic. 
+Another important observation which came as a result of this test is the **Fmax** assessment. The design's critical path consists of only one LUT3, and that lead to a **137 MHz** Fmax. This is the most optimistic case for assesing Fmax, therefore we obtained the absolute maximum frequency that could be run on CCGM1A1. For comparison 
+
+
 
 ```
 Utilization Report
