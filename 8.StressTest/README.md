@@ -69,7 +69,10 @@ Testing so far has uncovered 2 important hypoteses:
   2. Short, local routing is handled really well (**up to 97.8% utilization**), but global routing is least to say a challenge
   3. The number of DFFs seems to be oversized for this number of logic elements
 
-Points 1. and 2. are clear from the first 5 tests. Fine-grained locally contained RTL structures achieved high utilization, without any routing issues. On the other hand the coarse, when dealing with globally distributed structures like LUTRAM, CCGM1A1 struggled with routing. This may be due to a lack of global routing resources, or defficiencies in the PnR tools. The CPEs consisting of two L2T4 make this a quasi-41k LUT4 device, but the logic capacity is in reality around 20k LUT4s, using popular FPGA vendors (Intel, Lattice, Gowin) as reference. In conclusion, logic defficiency of LUT-trees degrades the device logic capacity, for most applications, providing a logic capacity of 20k LUT4s, at 53% more configuration bits. 
+Points 1. and 2. are clear from the first 5 tests. Fine-grained locally contained RTL structures achieved high utilization, without any routing issues. On the other hand, when dealing with the coarse, globally distributed structures like LUTRAM, CCGM1A1 struggled with routing. This may be due to a lack of global routing resources, or defficiencies in the PnR tools. 
+
+The CPEs consisting of two L2T4 make this a quasi-41k LUT4 device, but the logic capacity is in reality around 24k LUT4s, using popular FPGA vendors (Intel, Lattice, Gowin) as reference. In conclusion, logic defficiency of LUT-trees degrades the device logic capacity, for most applications, providing a logic capacity of 24k LUT4s, at 28% more configuration bits. The most prominent features of the CCGM1A1 are its abundant DFFs relative to its equivalent logic capacity and the generous amount of BRAM provided. Important to have in mind is the **absolute maximum frequency of CCGM1A1 of 137 MHz** obtained [here](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest/5.fpga_torture).
+
 
 
 ## Additional Tests:
