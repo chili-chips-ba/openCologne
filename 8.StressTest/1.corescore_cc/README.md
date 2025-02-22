@@ -83,7 +83,7 @@ core xx says hello
 
 If for any reason you want to change the number of cores instantated, simply go to `fusesoc_libraries/corescore/corescore.core`, under targets find `cc_gatemate`, and change the following line to a desired number of cores
 ```
-generate: [corescorecore: {count: 54}]
+generate: [corescorecore: {count: 55}]
 ```
 **RTL functional simulation**:
 If for any reason you need debugging, there's a `sim` target provided, requiring Verilator. Waveform visualisation is left to the user.
