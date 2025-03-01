@@ -23,14 +23,14 @@ As far as the logic capacity goes, **28655 elements** were instantiated at **96.
 
 Overall, the number of DFFs appears to be oversized relative to the available logic elements, as even in predominantly sequential circuits, performance is constrained by the logic rather than flip-flops. For contrast, Gowin GW1NR-9C (C6/I5, 55nm, 9k LUT4 FPGA) can achieve only 6475 elements instantiated, limited by the number of it's DFFs. Based on this metric, GateMate's effective capacity is equivalent to a 28.6k LUT4 and DFF device.
 
-Another important observation from this test is the Fmax assessment. The design's critical path consists of only a single LUT3, making for a most optimistic scenario for assessing Fmax. Here we encounter two distinct cases of results, comparing CCGM1A1 (28nm LP process node) to Gowins GW1NR-9C (55nm LP process node):
+Another important observation from this test is the Fmax assessment. The design's critical path consists of only a single LUT3, making for a most optimistic scenario for assessing Fmax. Here we encounter two distinct cases of results: the best and the worst, comparing CCGM1A1 (28nm LP process node) to Gowins GW1NR-9C (55nm LP process node):
 
-| PnR Option             | CC GateMate Fmax (MHz) | Gowin GW1NR-9C Fmax (MHz) |
+| PnR Option             | CCGM1A1 (28nm LP) Fmax (MHz) | GW1NR-9C (55nm LP) Fmax (MHz) |
 |------------------------|------------------------|---------------------------|
 | `-tm 1` (Timing)       | 280                    | 170                       |
 | `-tm 3` (Routability)  | 137                    | 121                       |
 
-A big increase when prioritizing timing for CCGM1A1, referenced in this [issue](https://github.com/chili-chips-ba/openCologne/issues/62).
+CCGM1A1 as expected beats the older 55nm GW1NR-9C, reaching a substantial 280 MHz. But more interesting is the big increase when prioritizing timing for CCGM1A1, referenced in this [issue](https://github.com/chili-chips-ba/openCologne/issues/62).
 
 
 ```
