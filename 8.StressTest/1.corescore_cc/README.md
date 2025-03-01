@@ -2,7 +2,7 @@
 ## * WORK IN PROGRESS * UNDER CONSTRUCTION *
 > WHILE THIS NOTICE IS PRESENT, DON'T EXPECT DESIGN, SIM, OR ANY OTHER FILE IN HERE 2BE DOIN' WHAT IT'S SAYIN'
 
-This is a popular metric, determining FPGA's logic capacity, routing algortihm and architectural ability to use all of the FPGA. We were able to achieve 54 cores on the following utilization numbers: on 22.93 MHz. PnR log avaliable under `fusesoc_libraries/corescore/pnr51.log`
+This is a popular metric, determining FPGA's logic capacity, routing algortihm and architectural ability to use all of the FPGA. We were able to achieve 54 cores with Fmax of 22.93 MHz, when using `-tm 3` PnR "worst" timing setting. PnR log avaliable under `fusesoc_libraries/corescore/pnr51.log`
 
 ## Results and analysis
 These tests have been verified on the real system.
@@ -62,26 +62,18 @@ Build FuseSoC target cc_gatemate
 ```
 fusesoc run --target=cc_gatemate corescore
 ```
-### **Here we run into some issues**
-The workaround regarding the YOSYS issue is to manually edit the `./build/corescore_0/cc_gatemate-gatemate/corescore_0_synth.v` removing all `initial` blocks from the synthesis netlist. After doing that, you have to manually run the PnR by navigating to `./build/corescore_0/cc_gatemate-gatemate` and running 
-```
-make corescore_0_00_cfg.bit
-```
-### **Back on track**
 
-At this point your design should've successfully generated a bitstream. Uploading the bitstreamto your board: 
-- go back to `8.StressTest/1.corescore_cc/` and run
+At this point your design should've successfully generated a bitstream. Uploading the bitstream to your board:
 ```
+cd 8.StressTest/1.corescore_cc/
 make program
 ```
-Listen to serial port at **57600 baud rate 8b no parity, 1 stop bit**, your output should be something like this:
+Listen to serial port at **57600 baud rate 8b no parity, 1 stop bit**, your output should be something like this, with xx ranging from `00` to `number_of_cores-1`:
 ```
 core xx says hello
 ```
 
-> Hint: open 3 terminals, one for FuseSoC, second for manually running the make command, and the third for serial communcation.
-
-If for any reason you want to change the number of cores instantated, simply go to `fusesoc_libraries/corescore/corescore.core`, under targets find `cc_gatemate`, and change the following line to a desired number of cores
+If for any reason you want to change the number of cores instantated, simply go to `fusesoc_libraries/corescore/corescore.core`, under targets find `cc_gatemate`, and change the count in the following line to a desired number of cores
 ```
 generate: [corescorecore: {count: 55}]
 ```
