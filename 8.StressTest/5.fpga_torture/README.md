@@ -23,7 +23,14 @@ As far as the logic capacity goes, **28655 elements** were instantiated at **96.
 
 Overall, the number of DFFs appears to be oversized relative to the available logic elements, as even in predominantly sequential circuits, performance is constrained by the logic rather than flip-flops. For contrast, Gowin GW1NR-9C (C6/I5, 55nm, 9k LUT4 FPGA) can achieve only 6475 elements instantiated, limited by the number of it's DFFs. Based on this metric, GateMate's effective capacity is equivalent to a 28.6k LUT4 and DFF device.
 
-Another important observation from this test is the Fmax assessment. The design's critical path consists of only a single LUT3, resulting in an Fmax of 137 MHz. This represents the most optimistic scenario for evaluating Fmax, meaning we obtained the absolute maximum frequency achievable on the CCGM1A1. For comparison, a Gowin GW1NR-9C achieves an Fmax of 121 MHz. Given that Gowin's 55nm process is significantly older than GateMate's 28nm technology, the achieved Fmax appears to be underperforming.
+Another important observation from this test is the Fmax assessment. The design's critical path consists of only a single LUT3, making for a most optimistic scenario for assessing Fmax. Here we encounter two distinct cases of results, comparing CCGM1A1 (28nm LP process node) to Gowins GW1NR-9C (55nm LP process node):
+
+| PnR Option             | CC GateMate Fmax (MHz) | Gowin GW1NR-9C Fmax (MHz) |
+|------------------------|------------------------|---------------------------|
+| `-tm 1` (Timing)       | 280                    | 170                       |
+| `-tm 3` (Routability)  | 137                    | 121                       |
+
+A big increase when prioritizing timing for CCGM1A1, referenced in this [issue](https://github.com/chili-chips-ba/openCologne/issues/62).
 
 
 ```
@@ -36,10 +43,7 @@ Utilization Report
      Latches               0
 ```
 
-### Physical testing
-There's a PLL running the clock for all of the DFFs at 120 MHz in this design, and the power distribution to the PLL is seemingly getting too hot. Maximum temperature observed was 70 degrees C (even though only 55,5 is shown in the image). Luckily, even at 1.1 V core voltage, at 96.1% utilization and 120 MHz clock the FPGA isn't getting significantly warmer than the room temperature.
-
-![figure](0.doc/flir_20250217T23325411.jpg)
+Physical testing revealed that the FPGAs temperature was in the allowed range.
 
 ## Build steps
 This test is written in VHDL as it is ported from the fpga_torture repository, therefore `ghdl` is a prerequisite. Yosys loads in the ghdl module when synthesizing, which is a crucial step and issues may arise if yosys is unable to find the ghdl plugin module. 
