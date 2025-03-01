@@ -23,9 +23,3 @@ targets:
       verilator:
         mode : lint-only
     toplevel : serving
-
-provider:
-  name    : github
-  user    : olofk
-  repo    : serv
-  version : 1.0.2
