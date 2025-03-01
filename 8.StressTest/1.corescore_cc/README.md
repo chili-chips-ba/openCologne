@@ -2,7 +2,7 @@
 ## * WORK IN PROGRESS * UNDER CONSTRUCTION *
 > WHILE THIS NOTICE IS PRESENT, DON'T EXPECT DESIGN, SIM, OR ANY OTHER FILE IN HERE 2BE DOIN' WHAT IT'S SAYIN'
 
-This is a popular metric, determining FPGA's logic capacity, routing algortihm and architectural ability to use all of the FPGA. We were able to achieve 54 cores with Fmax of 22.93 MHz, when using `-tm 3` PnR "worst" timing setting. PnR log avaliable under `fusesoc_libraries/corescore/pnr51.log`
+This is a popular metric, determining FPGA's logic capacity, routing algortihm and architectural ability to use all of the FPGA. We were able to achieve **54** cores with Fmax of **22.93 MHz**, when using `-tm 3` PnR "worst" timing setting. PnR log avaliable under `fusesoc_libraries/corescore/pnr51.log`
 
 ## Results and analysis
 These tests have been verified on the real system.
