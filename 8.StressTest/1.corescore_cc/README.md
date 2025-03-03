@@ -5,6 +5,16 @@
 This is a popular metric, determining FPGA's logic capacity, routing algortihm and architectural ability to use all of the FPGA. We were able to achieve **54** cores with Fmax of **22.93 MHz**, when using `-tm 3` PnR "worst" timing setting. PnR log avaliable under `fusesoc_libraries/corescore/pnr51.log`
 
 ## Results and analysis
+### Tools disclosure
+Obviously, comparing results obtained pushing the test sources through open-source yosys and propriatary softwares isn't an apples to apples comparison. In an attempt to minimize this gap, and find the real potential of the GateMate's architecture we conducted a reference yosys benchmark to the "golden standard" propriatary syntehsis tool (Gowin). Later, all results can potentially be adjusted to account for the defficiencies in tools. We didn't test the PnR tools since there are no alternatives for them usually. 
+Through testing on a single data point of 10 Serv cores, the following data was obtained, comparing propriatary Gowin syntehsis with open-source yosys synthesis.
+| **Resource** | **Yosys**                     | **Proprietary**                   |
+|--------------|-------------------------------|-----------------------------------|
+| **LUT**      | 1784 / 20736     | 1603 / 20736         |
+| **Register** | 1451 / 15750     | 1229 / 15750         |
+| **Block RAM**| 5 / 46           | 5 / 46              |
+
+### Test results
 These tests have been verified on the real system.
 ```
 Utilization Report
