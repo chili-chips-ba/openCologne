@@ -11,6 +11,7 @@ Design a high-speed serial, memory-mapped Chip-to-Chip (C2C) Interconnect. The g
 - LiteX [IC Link](https://github.com/enjoy-digital/liteiclink)
 - [Transputer](http://www.bitsavers.org/components/inmos/transputer/C011_Link_Adaptor.pdf)-like?
 - CologneChip [SerDes example design](https://github.com/pu-cc/gm_serdes_lb) and latest [datasheet](https://colognechip.com/docs/ds1001-gatemate1-datasheet-latest.pdf)
+- [MesaBusProtocol](https://github.com/blackmesalabs/MesaBusProtocol)
 - Timing-aware/better PNR for this high-speed design:
     - [Project Peppercorn](https://github.com/YosysHQ/prjpeppercorn)
     - [nextpnr for GateMate](https://github.com/YosysHQ/nextpnr/tree/gatemate)
