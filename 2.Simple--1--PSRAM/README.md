@@ -50,4 +50,8 @@ python3 pyauto.py
 - Second `sent` output port is needed for the _uart_tx_ to function properly. The corresponding capacitive load increase might be what is helping GateMate deliver
 - On-board RPi USB-UART bridge is senisitive to timing precision. We therefore must use settings with no more than 0.2us timing error
 
+## Additional References:
+- https://github.com/blackmesalabs/hyperram
+  
+
 #### End of Document
