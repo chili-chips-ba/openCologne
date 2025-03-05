@@ -20,7 +20,7 @@ with open(input_file, "r") as f:
 
 # Ensure the structure exists
 if "targets" in data and "gowin_yosys" in data["targets"]:
-    for count in range(50, 51):
+    for count in range(1, 50):
         data["targets"]["gowin_yosys"]["generate"] = [{"corescorecore": {"count": count}}]
         
         # Save modifications back to the same file
@@ -40,30 +40,30 @@ if "targets" in data and "gowin_yosys" in data["targets"]:
         else:
             print(f"Warning: {source_log} not found, skipping copy.")
         
-        # Copy corecore-corecorecore_0 folder
-        source_folder = "./build/corescore_0/gowin_yosys-yosys/src/corescore-corescorecore_0"
-        destination_folder = os.path.join(gowin_src_dir, "corescore-corescorecore_0")
-        if os.path.exists(source_folder):
-            if os.path.exists(destination_folder):
-                shutil.rmtree(destination_folder)
-            shutil.copytree(source_folder, destination_folder)
-            print(f"Copied {source_folder} to {destination_folder}")
-        else:
-            print(f"Warning: {source_folder} not found, skipping copy.")
+        # # Copy corecore-corecorecore_0 folder
+        # source_folder = "./build/corescore_0/gowin_yosys-yosys/src/corescore-corescorecore_0"
+        # destination_folder = os.path.join(gowin_src_dir, "corescore-corescorecore_0")
+        # if os.path.exists(source_folder):
+        #     if os.path.exists(destination_folder):
+        #         shutil.rmtree(destination_folder)
+        #     shutil.copytree(source_folder, destination_folder)
+        #     print(f"Copied {source_folder} to {destination_folder}")
+        # else:
+        #     print(f"Warning: {source_folder} not found, skipping copy.")
         
-        # Run Gowin script
-        os.chdir("gowin")
-        subprocess.run(["gw_sh", "gowin.tcl"], check=True)
-        os.chdir("..")
+        # # Run Gowin script
+        # os.chdir("gowin")
+        # subprocess.run(["gw_sh", "gowin.tcl"], check=True)
+        # os.chdir("..")
         
-        # Copy Gowin synthesis report
-        source_rpt = "./gowin/gowin_corescore/impl/gwsynthesis/gowin_corescore_syn.rpt.html"
-        destination_rpt = os.path.join(gowin_rpt_dir, f"gowin_corescore_syn_rpt_{count}.html")
-        if os.path.exists(source_rpt):
-            shutil.copy(source_rpt, destination_rpt)
-            print(f"Copied {source_rpt} to {destination_rpt}")
-        else:
-            print(f"Warning: {source_rpt} not found, skipping copy.")
+        # # Copy Gowin synthesis report
+        # source_rpt = "./gowin/gowin_corescore/impl/gwsynthesis/gowin_corescore_syn.rpt.html"
+        # destination_rpt = os.path.join(gowin_rpt_dir, f"gowin_corescore_syn_rpt_{count}.html")
+        # if os.path.exists(source_rpt):
+        #     shutil.copy(source_rpt, destination_rpt)
+        #     print(f"Copied {source_rpt} to {destination_rpt}")
+        # else:
+        #     print(f"Warning: {source_rpt} not found, skipping copy.")
 else:
     print("Error: Required target structure not found in YAML file.")
 

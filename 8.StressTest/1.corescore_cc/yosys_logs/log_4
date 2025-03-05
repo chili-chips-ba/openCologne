@@ -13,68 +13,68 @@
 [TCL: yosys -import] Command name collision: found pre-existing command `read' -> skip.
 [TCL: yosys -import] Command name collision: found pre-existing command `trace' -> skip.
 
-1. Executing Verilog-2005 frontend: src/serv_1.0.2/rtl/serv_shift.v
-Parsing Verilog input from `src/serv_1.0.2/rtl/serv_shift.v' to AST representation.
+1. Executing Verilog-2005 frontend: src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v
+Parsing Verilog input from `src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v' to AST representation.
 Storing AST representation for module `$abstract\serv_shift'.
 Successfully finished Verilog frontend.
 
-2. Executing Verilog-2005 frontend: src/serv_1.0.2/rtl/serv_bufreg.v
-Parsing Verilog input from `src/serv_1.0.2/rtl/serv_bufreg.v' to AST representation.
+2. Executing Verilog-2005 frontend: src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v
+Parsing Verilog input from `src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v' to AST representation.
 Storing AST representation for module `$abstract\serv_bufreg'.
 Successfully finished Verilog frontend.
 
-3. Executing Verilog-2005 frontend: src/serv_1.0.2/rtl/serv_alu.v
-Parsing Verilog input from `src/serv_1.0.2/rtl/serv_alu.v' to AST representation.
+3. Executing Verilog-2005 frontend: src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v
+Parsing Verilog input from `src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v' to AST representation.
 Storing AST representation for module `$abstract\serv_alu'.
 Successfully finished Verilog frontend.
 
-4. Executing Verilog-2005 frontend: src/serv_1.0.2/rtl/serv_csr.v
-Parsing Verilog input from `src/serv_1.0.2/rtl/serv_csr.v' to AST representation.
+4. Executing Verilog-2005 frontend: src/serv_1.0.2/serv_1.0.2/rtl/serv_csr.v
+Parsing Verilog input from `src/serv_1.0.2/serv_1.0.2/rtl/serv_csr.v' to AST representation.
 Storing AST representation for module `$abstract\serv_csr'.
 Successfully finished Verilog frontend.
 
-5. Executing Verilog-2005 frontend: src/serv_1.0.2/rtl/serv_ctrl.v
-Parsing Verilog input from `src/serv_1.0.2/rtl/serv_ctrl.v' to AST representation.
+5. Executing Verilog-2005 frontend: src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v
+Parsing Verilog input from `src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v' to AST representation.
 Storing AST representation for module `$abstract\serv_ctrl'.
 Successfully finished Verilog frontend.
 
-6. Executing Verilog-2005 frontend: src/serv_1.0.2/rtl/serv_decode.v
-Parsing Verilog input from `src/serv_1.0.2/rtl/serv_decode.v' to AST representation.
+6. Executing Verilog-2005 frontend: src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v
+Parsing Verilog input from `src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v' to AST representation.
 Storing AST representation for module `$abstract\serv_decode'.
 Successfully finished Verilog frontend.
 
-7. Executing Verilog-2005 frontend: src/serv_1.0.2/rtl/serv_mem_if.v
-Parsing Verilog input from `src/serv_1.0.2/rtl/serv_mem_if.v' to AST representation.
+7. Executing Verilog-2005 frontend: src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v
+Parsing Verilog input from `src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v' to AST representation.
 Storing AST representation for module `$abstract\serv_mem_if'.
 Successfully finished Verilog frontend.
 
-8. Executing Verilog-2005 frontend: src/serv_1.0.2/rtl/serv_rf_if.v
-Parsing Verilog input from `src/serv_1.0.2/rtl/serv_rf_if.v' to AST representation.
+8. Executing Verilog-2005 frontend: src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_if.v
+Parsing Verilog input from `src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_if.v' to AST representation.
 Storing AST representation for module `$abstract\serv_rf_if'.
 Successfully finished Verilog frontend.
 
-9. Executing Verilog-2005 frontend: src/serv_1.0.2/rtl/serv_rf_ram_if.v
-Parsing Verilog input from `src/serv_1.0.2/rtl/serv_rf_ram_if.v' to AST representation.
+9. Executing Verilog-2005 frontend: src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v
+Parsing Verilog input from `src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v' to AST representation.
 Storing AST representation for module `$abstract\serv_rf_ram_if'.
 Successfully finished Verilog frontend.
 
-10. Executing Verilog-2005 frontend: src/serv_1.0.2/rtl/serv_rf_ram.v
-Parsing Verilog input from `src/serv_1.0.2/rtl/serv_rf_ram.v' to AST representation.
+10. Executing Verilog-2005 frontend: src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram.v
+Parsing Verilog input from `src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram.v' to AST representation.
 Storing AST representation for module `$abstract\serv_rf_ram'.
 Successfully finished Verilog frontend.
 
-11. Executing Verilog-2005 frontend: src/serv_1.0.2/rtl/serv_state.v
-Parsing Verilog input from `src/serv_1.0.2/rtl/serv_state.v' to AST representation.
+11. Executing Verilog-2005 frontend: src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v
+Parsing Verilog input from `src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v' to AST representation.
 Storing AST representation for module `$abstract\serv_state'.
 Successfully finished Verilog frontend.
 
-12. Executing Verilog-2005 frontend: src/serv_1.0.2/rtl/serv_top.v
-Parsing Verilog input from `src/serv_1.0.2/rtl/serv_top.v' to AST representation.
+12. Executing Verilog-2005 frontend: src/serv_1.0.2/serv_1.0.2/rtl/serv_top.v
+Parsing Verilog input from `src/serv_1.0.2/serv_1.0.2/rtl/serv_top.v' to AST representation.
 Storing AST representation for module `$abstract\serv_top'.
 Successfully finished Verilog frontend.
 
-13. Executing Verilog-2005 frontend: src/serv_1.0.2/rtl/serv_rf_top.v
-Parsing Verilog input from `src/serv_1.0.2/rtl/serv_rf_top.v' to AST representation.
+13. Executing Verilog-2005 frontend: src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_top.v
+Parsing Verilog input from `src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_top.v' to AST representation.
 Storing AST representation for module `$abstract\serv_rf_top'.
 Successfully finished Verilog frontend.
 
@@ -823,7 +823,7 @@ Marked 1 switch rules as full_case in process $proc$/usr/local/bin/../share/yosy
 Marked 1 switch rules as full_case in process $proc$/usr/local/bin/../share/yosys/gowin/cells_sim.v:250$192 in module DFFR.
 Marked 1 switch rules as full_case in process $proc$/usr/local/bin/../share/yosys/gowin/cells_sim.v:231$190 in module DFFSE.
 Marked 1 switch rules as full_case in process $proc$/usr/local/bin/../share/yosys/gowin/cells_sim.v:211$188 in module DFFS.
-Marked 1 switch rules as full_case in process $proc$src/serv_1.0.2/rtl/serv_ctrl.v:71$692 in module $paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.
+Marked 1 switch rules as full_case in process $proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:71$692 in module $paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.
 Marked 1 switch rules as full_case in process $proc$src/serving_1.0.2/serving/serving_ram.v:71$599 in module $paramod$8816468be330918baff437714bf1bfb0ee411954\serving_ram.
 Marked 1 switch rules as full_case in process $proc$src/serving_1.0.2/serving/serving_ram.v:71$567 in module $paramod$695536bf7e64eac63687045115fd1cb71315cdca\serving_ram.
 Marked 1 switch rules as full_case in process $proc$src/serving_1.0.2/serving/serving_ram.v:71$535 in module $paramod$eb5afe7743decc89c16fd0958ba0167c77b7da1c\serving_ram.
@@ -1073,18 +1073,18 @@ Creating decoders for process `\DFFE.$proc$/usr/local/bin/../share/yosys/gowin/c
      1/1: $0\Q[0:0]
 Creating decoders for process `\DFF.$proc$/usr/local/bin/../share/yosys/gowin/cells_sim.v:0$185'.
 Creating decoders for process `\DFF.$proc$/usr/local/bin/../share/yosys/gowin/cells_sim.v:179$184'.
-Creating decoders for process `\serv_shift.$proc$src/serv_1.0.2/rtl/serv_shift.v:18$891'.
+Creating decoders for process `\serv_shift.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:18$891'.
      1/2: $0\cnt[5:0]
      2/2: $0\signbit[0:0]
-Creating decoders for process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:149$887'.
-Creating decoders for process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:90$877'.
+Creating decoders for process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:149$887'.
+Creating decoders for process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:90$877'.
      1/6: $0\o_cnt[2:0]
      2/6: $0\stage_two_pending[0:0]
      3/6: $0\o_cnt_r[3:0]
      4/6: $0\o_ctrl_jump[0:0]
      5/6: $0\o_cnt_en[0:0]
      6/6: $0\o_init[0:0]
-Creating decoders for process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating decoders for process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
      1/16: $0\imm11_7[4:0]
      2/16: $0\imm24_20[4:0]
      3/16: $0\imm30_25[5:0]
@@ -1101,18 +1101,18 @@ Creating decoders for process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode
     14/16: $0\o_rf_rs2_addr[4:0]
     15/16: $0\o_rf_rs1_addr[4:0]
     16/16: $0\o_rf_rd_addr[4:0]
-Creating decoders for process `\serv_bufreg.$proc$src/serv_1.0.2/rtl/serv_bufreg.v:26$704'.
+Creating decoders for process `\serv_bufreg.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:26$704'.
      1/3: $0\o_lsb[1:0] [1]
      2/3: $0\o_lsb[1:0] [0]
      3/3: $0\data[31:0]
-Creating decoders for process `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
+Creating decoders for process `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
      1/2: $0\en_pc_r[0:0]
      2/2: $0\o_ibus_adr[31:0]
-Creating decoders for process `\serv_alu.$proc$src/serv_1.0.2/rtl/serv_alu.v:89$673'.
+Creating decoders for process `\serv_alu.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:89$673'.
      1/3: $0\shamt_msb[0:0]
      2/3: $0\shamt[4:0]
      3/3: $0\result_lt_r[0:0]
-Creating decoders for process `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_mem_if.v:47$644'.
+Creating decoders for process `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:47$644'.
      1/2: $0\dat[31:0]
      2/2: $0\signbit[0:0]
 Creating decoders for process `$paramod$8816468be330918baff437714bf1bfb0ee411954\serving_ram.$proc$src/serving_1.0.2/serving/serving_ram.v:0$608'.
@@ -1155,16 +1155,16 @@ Creating decoders for process `$paramod$b5dfc6750142ce72487821be1cc9408055af45a7
      2/4: $0\wb_rdt[23:0] [15:8]
      3/4: $0\wb_rdt[23:0] [7:0]
      4/4: $0\bsel[1:0]
-Creating decoders for process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:131$465'.
+Creating decoders for process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:131$465'.
      1/1: $0\rdata1[6:0]
-Creating decoders for process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:77$464'.
-Creating decoders for process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:55$462'.
-Creating decoders for process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
+Creating decoders for process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:77$464'.
+Creating decoders for process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:55$462'.
+Creating decoders for process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
      1/4: $0\rdata0[7:0]
      2/4: $0\rgnt[0:0]
      3/4: $0\rreq_r[0:0]
      4/4: $0\rcnt[4:0]
-Creating decoders for process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
+Creating decoders for process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
      1/2: $0\wgo[0:0]
      2/2: $0\wcnt[4:0]
 Creating decoders for process `$paramod$1bd5668296a23b4c53db93e178ea60b344bc88c5\arbiter.$proc$src/verilog-axis_0-r3/rtl/arbiter.v:77$436'.
@@ -1219,7 +1219,7 @@ No latch inferred for signal `$paramod$504bff624862ca961337dc9190bff43bb7e6d1c9\
 No latch inferred for signal `$paramod$504bff624862ca961337dc9190bff43bb7e6d1c9\axis_arb_mux.\m_axis_tid_int' from process `$paramod$504bff624862ca961337dc9190bff43bb7e6d1c9\axis_arb_mux.$proc$src/verilog-axis_0-r3/rtl/axis_arb_mux.v:139$381'.
 No latch inferred for signal `$paramod$504bff624862ca961337dc9190bff43bb7e6d1c9\axis_arb_mux.\m_axis_tdest_int' from process `$paramod$504bff624862ca961337dc9190bff43bb7e6d1c9\axis_arb_mux.$proc$src/verilog-axis_0-r3/rtl/axis_arb_mux.v:139$381'.
 No latch inferred for signal `$paramod$504bff624862ca961337dc9190bff43bb7e6d1c9\axis_arb_mux.\m_axis_tuser_int' from process `$paramod$504bff624862ca961337dc9190bff43bb7e6d1c9\axis_arb_mux.$proc$src/verilog-axis_0-r3/rtl/axis_arb_mux.v:139$381'.
-No latch inferred for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_pending_irq' from process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:149$887'.
+No latch inferred for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_pending_irq' from process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:149$887'.
 No latch inferred for signal `$paramod$1bd5668296a23b4c53db93e178ea60b344bc88c5\arbiter.\grant_next' from process `$paramod$1bd5668296a23b4c53db93e178ea60b344bc88c5\arbiter.$proc$src/verilog-axis_0-r3/rtl/arbiter.v:94$419'.
 No latch inferred for signal `$paramod$1bd5668296a23b4c53db93e178ea60b344bc88c5\arbiter.\grant_valid_next' from process `$paramod$1bd5668296a23b4c53db93e178ea60b344bc88c5\arbiter.$proc$src/verilog-axis_0-r3/rtl/arbiter.v:94$419'.
 No latch inferred for signal `$paramod$1bd5668296a23b4c53db93e178ea60b344bc88c5\arbiter.\grant_encoded_next' from process `$paramod$1bd5668296a23b4c53db93e178ea60b344bc88c5\arbiter.$proc$src/verilog-axis_0-r3/rtl/arbiter.v:94$419'.
@@ -1352,91 +1352,91 @@ Creating register for signal `\DFFE.\Q' using process `\DFFE.$proc$/usr/local/bi
   created $dff cell `$procdff$1603' with positive edge clock.
 Creating register for signal `\DFF.\Q' using process `\DFF.$proc$/usr/local/bin/../share/yosys/gowin/cells_sim.v:179$184'.
   created $dff cell `$procdff$1604' with positive edge clock.
-Creating register for signal `\serv_shift.\cnt' using process `\serv_shift.$proc$src/serv_1.0.2/rtl/serv_shift.v:18$891'.
+Creating register for signal `\serv_shift.\cnt' using process `\serv_shift.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:18$891'.
   created $dff cell `$procdff$1605' with positive edge clock.
-Creating register for signal `\serv_shift.\wrapped' using process `\serv_shift.$proc$src/serv_1.0.2/rtl/serv_shift.v:18$891'.
+Creating register for signal `\serv_shift.\wrapped' using process `\serv_shift.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:18$891'.
   created $dff cell `$procdff$1606' with positive edge clock.
-Creating register for signal `\serv_shift.\signbit' using process `\serv_shift.$proc$src/serv_1.0.2/rtl/serv_shift.v:18$891'.
+Creating register for signal `\serv_shift.\signbit' using process `\serv_shift.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:18$891'.
   created $dff cell `$procdff$1607' with positive edge clock.
-Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_init' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:90$877'.
+Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_init' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:90$877'.
   created $dff cell `$procdff$1608' with positive edge clock.
-Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_cnt_en' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:90$877'.
+Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_cnt_en' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:90$877'.
   created $dff cell `$procdff$1609' with positive edge clock.
-Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_cnt_done' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:90$877'.
+Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_cnt_done' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:90$877'.
   created $dff cell `$procdff$1610' with positive edge clock.
-Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_ctrl_jump' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:90$877'.
+Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_ctrl_jump' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:90$877'.
   created $dff cell `$procdff$1611' with positive edge clock.
-Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\stage_two_req' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:90$877'.
+Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\stage_two_req' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:90$877'.
   created $dff cell `$procdff$1612' with positive edge clock.
-Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_cnt' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:90$877'.
+Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_cnt' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:90$877'.
   created $dff cell `$procdff$1613' with positive edge clock.
-Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_cnt_r' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:90$877'.
+Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\o_cnt_r' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:90$877'.
   created $dff cell `$procdff$1614' with positive edge clock.
-Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\stage_two_pending' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:90$877'.
+Creating register for signal `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.\stage_two_pending' using process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:90$877'.
   created $dff cell `$procdff$1615' with positive edge clock.
-Creating register for signal `\serv_decode.\o_rf_rd_addr' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\o_rf_rd_addr' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1616' with positive edge clock.
-Creating register for signal `\serv_decode.\o_rf_rs1_addr' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\o_rf_rs1_addr' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1617' with positive edge clock.
-Creating register for signal `\serv_decode.\o_rf_rs2_addr' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\o_rf_rs2_addr' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1618' with positive edge clock.
-Creating register for signal `\serv_decode.\signbit' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\signbit' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1619' with positive edge clock.
-Creating register for signal `\serv_decode.\opcode' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\opcode' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1620' with positive edge clock.
-Creating register for signal `\serv_decode.\funct3' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\funct3' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1621' with positive edge clock.
-Creating register for signal `\serv_decode.\op20' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\op20' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1622' with positive edge clock.
-Creating register for signal `\serv_decode.\op21' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\op21' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1623' with positive edge clock.
-Creating register for signal `\serv_decode.\op22' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\op22' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1624' with positive edge clock.
-Creating register for signal `\serv_decode.\op26' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\op26' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1625' with positive edge clock.
-Creating register for signal `\serv_decode.\imm30' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\imm30' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1626' with positive edge clock.
-Creating register for signal `\serv_decode.\imm19_12_20' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\imm19_12_20' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1627' with positive edge clock.
-Creating register for signal `\serv_decode.\imm7' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\imm7' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1628' with positive edge clock.
-Creating register for signal `\serv_decode.\imm30_25' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\imm30_25' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1629' with positive edge clock.
-Creating register for signal `\serv_decode.\imm24_20' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\imm24_20' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1630' with positive edge clock.
-Creating register for signal `\serv_decode.\imm11_7' using process `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Creating register for signal `\serv_decode.\imm11_7' using process `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
   created $dff cell `$procdff$1631' with positive edge clock.
-Creating register for signal `\serv_bufreg.\data' using process `\serv_bufreg.$proc$src/serv_1.0.2/rtl/serv_bufreg.v:26$704'.
+Creating register for signal `\serv_bufreg.\data' using process `\serv_bufreg.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:26$704'.
   created $dff cell `$procdff$1632' with positive edge clock.
-Creating register for signal `\serv_bufreg.\o_lsb' using process `\serv_bufreg.$proc$src/serv_1.0.2/rtl/serv_bufreg.v:26$704'.
+Creating register for signal `\serv_bufreg.\o_lsb' using process `\serv_bufreg.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:26$704'.
   created $dff cell `$procdff$1633' with positive edge clock.
-Creating register for signal `\serv_bufreg.\c_r' using process `\serv_bufreg.$proc$src/serv_1.0.2/rtl/serv_bufreg.v:26$704'.
+Creating register for signal `\serv_bufreg.\c_r' using process `\serv_bufreg.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:26$704'.
   created $dff cell `$procdff$1634' with positive edge clock.
-Creating register for signal `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.\o_ibus_adr' using process `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
+Creating register for signal `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.\o_ibus_adr' using process `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
   created $dff cell `$procdff$1635' with positive edge clock.
-Creating register for signal `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.\en_pc_r' using process `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
+Creating register for signal `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.\en_pc_r' using process `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
   created $dff cell `$procdff$1636' with positive edge clock.
-Creating register for signal `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.\pc_plus_4_cy_r' using process `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
+Creating register for signal `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.\pc_plus_4_cy_r' using process `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
   created $dff cell `$procdff$1637' with positive edge clock.
-Creating register for signal `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.\pc_plus_offset_cy_r' using process `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
+Creating register for signal `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.\pc_plus_offset_cy_r' using process `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
   created $dff cell `$procdff$1638' with positive edge clock.
-Creating register for signal `\serv_alu.\result_lt_r' using process `\serv_alu.$proc$src/serv_1.0.2/rtl/serv_alu.v:89$673'.
+Creating register for signal `\serv_alu.\result_lt_r' using process `\serv_alu.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:89$673'.
   created $dff cell `$procdff$1639' with positive edge clock.
-Creating register for signal `\serv_alu.\shamt' using process `\serv_alu.$proc$src/serv_1.0.2/rtl/serv_alu.v:89$673'.
+Creating register for signal `\serv_alu.\shamt' using process `\serv_alu.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:89$673'.
   created $dff cell `$procdff$1640' with positive edge clock.
-Creating register for signal `\serv_alu.\shamt_msb' using process `\serv_alu.$proc$src/serv_1.0.2/rtl/serv_alu.v:89$673'.
+Creating register for signal `\serv_alu.\shamt_msb' using process `\serv_alu.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:89$673'.
   created $dff cell `$procdff$1641' with positive edge clock.
-Creating register for signal `\serv_alu.\add_cy_r' using process `\serv_alu.$proc$src/serv_1.0.2/rtl/serv_alu.v:89$673'.
+Creating register for signal `\serv_alu.\add_cy_r' using process `\serv_alu.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:89$673'.
   created $dff cell `$procdff$1642' with positive edge clock.
-Creating register for signal `\serv_alu.\b_inv_plus_1_cy_r' using process `\serv_alu.$proc$src/serv_1.0.2/rtl/serv_alu.v:89$673'.
+Creating register for signal `\serv_alu.\b_inv_plus_1_cy_r' using process `\serv_alu.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:89$673'.
   created $dff cell `$procdff$1643' with positive edge clock.
-Creating register for signal `\serv_alu.\lt_r' using process `\serv_alu.$proc$src/serv_1.0.2/rtl/serv_alu.v:89$673'.
+Creating register for signal `\serv_alu.\lt_r' using process `\serv_alu.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:89$673'.
   created $dff cell `$procdff$1644' with positive edge clock.
-Creating register for signal `\serv_alu.\eq_r' using process `\serv_alu.$proc$src/serv_1.0.2/rtl/serv_alu.v:89$673'.
+Creating register for signal `\serv_alu.\eq_r' using process `\serv_alu.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:89$673'.
   created $dff cell `$procdff$1645' with positive edge clock.
-Creating register for signal `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.\signbit' using process `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_mem_if.v:47$644'.
+Creating register for signal `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.\signbit' using process `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:47$644'.
   created $dff cell `$procdff$1646' with positive edge clock.
-Creating register for signal `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.\dat' using process `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_mem_if.v:47$644'.
+Creating register for signal `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.\dat' using process `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:47$644'.
   created $dff cell `$procdff$1647' with positive edge clock.
 Creating register for signal `$paramod$8816468be330918baff437714bf1bfb0ee411954\serving_ram.\rdata' using process `$paramod$8816468be330918baff437714bf1bfb0ee411954\serving_ram.$proc$src/serving_1.0.2/serving/serving_ram.v:71$599'.
   created $dff cell `$procdff$1648' with positive edge clock.
@@ -1502,33 +1502,33 @@ Creating register for signal `$paramod$b5dfc6750142ce72487821be1cc9408055af45a7\
   created $dff cell `$procdff$1678' with positive edge clock.
 Creating register for signal `$paramod$b5dfc6750142ce72487821be1cc9408055af45a7\serving_ram.\wb_rdt' using process `$paramod$b5dfc6750142ce72487821be1cc9408055af45a7\serving_ram.$proc$src/serving_1.0.2/serving/serving_ram.v:60$480'.
   created $dff cell `$procdff$1679' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\rdata1' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:131$465'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\rdata1' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:131$465'.
   created $dff cell `$procdff$1680' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wdata0_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:77$464'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wdata0_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:77$464'.
   created $dff cell `$procdff$1681' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\genblk1.wtrig0_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:55$462'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\genblk1.wtrig0_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:55$462'.
   created $dff cell `$procdff$1682' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\rdata0' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\rdata0' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
   created $dff cell `$procdff$1683' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\rgnt' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\rgnt' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
   created $dff cell `$procdff$1684' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\rcnt' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\rcnt' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
   created $dff cell `$procdff$1685' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\rtrig1' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\rtrig1' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
   created $dff cell `$procdff$1686' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\rreq_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\rreq_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
   created $dff cell `$procdff$1687' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wcnt' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wcnt' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
   created $dff cell `$procdff$1688' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wgo' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wgo' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
   created $dff cell `$procdff$1689' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wdata1_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wdata1_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
   created $dff cell `$procdff$1690' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wen0_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wen0_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
   created $dff cell `$procdff$1691' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wen1_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wen1_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
   created $dff cell `$procdff$1692' with positive edge clock.
-Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wreq_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
+Creating register for signal `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.\wreq_r' using process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
   created $dff cell `$procdff$1693' with positive edge clock.
 Creating register for signal `$paramod$1bd5668296a23b4c53db93e178ea60b344bc88c5\arbiter.\grant_reg' using process `$paramod$1bd5668296a23b4c53db93e178ea60b344bc88c5\arbiter.$proc$src/verilog-axis_0-r3/rtl/arbiter.v:139$432'.
   created $dff cell `$procdff$1694' with positive edge clock.
@@ -1631,21 +1631,21 @@ Found and cleaned up 1 empty switch in `\DFFE.$proc$/usr/local/bin/../share/yosy
 Removing empty process `DFFE.$proc$/usr/local/bin/../share/yosys/gowin/cells_sim.v:194$186'.
 Removing empty process `DFF.$proc$/usr/local/bin/../share/yosys/gowin/cells_sim.v:0$185'.
 Removing empty process `DFF.$proc$/usr/local/bin/../share/yosys/gowin/cells_sim.v:179$184'.
-Found and cleaned up 1 empty switch in `\serv_shift.$proc$src/serv_1.0.2/rtl/serv_shift.v:18$891'.
-Removing empty process `serv_shift.$proc$src/serv_1.0.2/rtl/serv_shift.v:18$891'.
-Removing empty process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:149$887'.
-Found and cleaned up 8 empty switches in `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:90$877'.
-Removing empty process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_state.v:90$877'.
-Found and cleaned up 3 empty switches in `\serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
-Removing empty process `serv_decode.$proc$src/serv_1.0.2/rtl/serv_decode.v:194$817'.
-Found and cleaned up 3 empty switches in `\serv_bufreg.$proc$src/serv_1.0.2/rtl/serv_bufreg.v:26$704'.
-Removing empty process `serv_bufreg.$proc$src/serv_1.0.2/rtl/serv_bufreg.v:26$704'.
-Found and cleaned up 3 empty switches in `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
-Removing empty process `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
-Found and cleaned up 2 empty switches in `\serv_alu.$proc$src/serv_1.0.2/rtl/serv_alu.v:89$673'.
-Removing empty process `serv_alu.$proc$src/serv_1.0.2/rtl/serv_alu.v:89$673'.
-Found and cleaned up 3 empty switches in `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_mem_if.v:47$644'.
-Removing empty process `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/rtl/serv_mem_if.v:47$644'.
+Found and cleaned up 1 empty switch in `\serv_shift.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:18$891'.
+Removing empty process `serv_shift.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:18$891'.
+Removing empty process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:149$887'.
+Found and cleaned up 8 empty switches in `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:90$877'.
+Removing empty process `$paramod\serv_state\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:90$877'.
+Found and cleaned up 3 empty switches in `\serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Removing empty process `serv_decode.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:194$817'.
+Found and cleaned up 3 empty switches in `\serv_bufreg.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:26$704'.
+Removing empty process `serv_bufreg.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:26$704'.
+Found and cleaned up 3 empty switches in `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
+Removing empty process `$paramod$7d9436b402d2aec87f008b99edbf5e7d764672bc\serv_ctrl.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:71$692'.
+Found and cleaned up 2 empty switches in `\serv_alu.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:89$673'.
+Removing empty process `serv_alu.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:89$673'.
+Found and cleaned up 3 empty switches in `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:47$644'.
+Removing empty process `$paramod\serv_mem_if\WITH_CSR=s32'00000000000000000000000000000000.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:47$644'.
 Removing empty process `$paramod$8816468be330918baff437714bf1bfb0ee411954\serving_ram.$proc$src/serving_1.0.2/serving/serving_ram.v:0$608'.
 Found and cleaned up 1 empty switch in `$paramod$8816468be330918baff437714bf1bfb0ee411954\serving_ram.$proc$src/serving_1.0.2/serving/serving_ram.v:71$599'.
 Removing empty process `$paramod$8816468be330918baff437714bf1bfb0ee411954\serving_ram.$proc$src/serving_1.0.2/serving/serving_ram.v:71$599'.
@@ -1666,14 +1666,14 @@ Found and cleaned up 1 empty switch in `$paramod$b5dfc6750142ce72487821be1cc9408
 Removing empty process `$paramod$b5dfc6750142ce72487821be1cc9408055af45a7\serving_ram.$proc$src/serving_1.0.2/serving/serving_ram.v:71$487'.
 Found and cleaned up 4 empty switches in `$paramod$b5dfc6750142ce72487821be1cc9408055af45a7\serving_ram.$proc$src/serving_1.0.2/serving/serving_ram.v:60$480'.
 Removing empty process `$paramod$b5dfc6750142ce72487821be1cc9408055af45a7\serving_ram.$proc$src/serving_1.0.2/serving/serving_ram.v:60$480'.
-Found and cleaned up 1 empty switch in `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:131$465'.
-Removing empty process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:131$465'.
-Removing empty process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:77$464'.
-Removing empty process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:55$462'.
-Found and cleaned up 3 empty switches in `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
-Removing empty process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
-Found and cleaned up 4 empty switches in `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
-Removing empty process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
+Found and cleaned up 1 empty switch in `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:131$465'.
+Removing empty process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:131$465'.
+Removing empty process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:77$464'.
+Removing empty process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:55$462'.
+Found and cleaned up 3 empty switches in `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
+Removing empty process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:140$460'.
+Found and cleaned up 4 empty switches in `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
+Removing empty process `$paramod$82ebe4b6c77be244332cc65898942ed47f7416cf\serv_rf_ram_if.$proc$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:82$453'.
 Removing empty process `$paramod$1bd5668296a23b4c53db93e178ea60b344bc88c5\arbiter.$proc$src/verilog-axis_0-r3/rtl/arbiter.v:77$436'.
 Removing empty process `$paramod$1bd5668296a23b4c53db93e178ea60b344bc88c5\arbiter.$proc$src/verilog-axis_0-r3/rtl/arbiter.v:56$435'.
 Removing empty process `$paramod$1bd5668296a23b4c53db93e178ea60b344bc88c5\arbiter.$proc$src/verilog-axis_0-r3/rtl/arbiter.v:55$434'.
@@ -2209,9 +2209,9 @@ Adding SRST signal on $flatten\corescorecore.\core_3.\w2s.$procdff$1698 ($dff) f
 Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$procdff$1689 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$procmux$1287_Y, Q = \corescorecore.core_3.serving.rf_ram_if.wgo, rval = 1'0).
 Adding EN signal on $auto$ff.cc:266:slice$1790 ($sdff) from module corescore_gowin_yosys (D = 1'1, Q = \corescorecore.core_3.serving.rf_ram_if.wgo).
 Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$procdff$1688 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$procmux$1291_Y, Q = \corescorecore.core_3.serving.rf_ram_if.wcnt, rval = 5'00000).
-Adding EN signal on $auto$ff.cc:266:slice$1792 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455_Y, Q = \corescorecore.core_3.serving.rf_ram_if.wcnt).
+Adding EN signal on $auto$ff.cc:266:slice$1792 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455_Y, Q = \corescorecore.core_3.serving.rf_ram_if.wcnt).
 Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$procdff$1687 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_3.serving.cpu.ctrl.i_ibus_ack, Q = \corescorecore.core_3.serving.rf_ram_if.rreq_r, rval = 1'0).
-Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$procdff$1685 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461_Y, Q = \corescorecore.core_3.serving.rf_ram_if.rcnt, rval = 5'00000).
+Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$procdff$1685 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461_Y, Q = \corescorecore.core_3.serving.rf_ram_if.rcnt, rval = 5'00000).
 Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$procdff$1684 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_3.serving.rf_ram_if.rreq_r, Q = \corescorecore.core_3.serving.rf_ram_if.rgnt, rval = 1'0).
 Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$procdff$1683 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_3.serving.ram.rdata [7], Q = \corescorecore.core_3.serving.rf_ram_if.rdata0 [7], rval = 1'0).
 Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$procdff$1680 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_3.serving.ram.rdata [7], Q = \corescorecore.core_3.serving.rf_ram_if.rdata1 [6], rval = 1'0).
@@ -2223,9 +2223,9 @@ Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\cpu.\state.$procd
 Adding EN signal on $auto$ff.cc:266:slice$1805 ($sdff) from module corescore_gowin_yosys (D = \corescorecore.core_3.serving.cpu.state.o_init, Q = \corescorecore.core_3.serving.cpu.state.stage_two_pending).
 Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\cpu.\state.$procdff$1614 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\cpu.\state.$procmux$1117_Y, Q = \corescorecore.core_3.serving.cpu.state.o_cnt_r, rval = 4'0001).
 Adding EN signal on $auto$ff.cc:266:slice$1807 ($sdff) from module corescore_gowin_yosys (D = { \corescorecore.core_3.serving.cpu.state.o_cnt_r [2:0] \corescorecore.core_3.serving.cpu.state.o_cnt_r [3] }, Q = \corescorecore.core_3.serving.cpu.state.o_cnt_r).
-Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\cpu.\state.$procdff$1613 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886_Y, Q = \corescorecore.core_3.serving.cpu.state.o_cnt, rval = 3'000).
+Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\cpu.\state.$procdff$1613 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886_Y, Q = \corescorecore.core_3.serving.cpu.state.o_cnt, rval = 3'000).
 Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\cpu.\state.$procdff$1611 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\cpu.\state.$procmux$1121_Y, Q = \corescorecore.core_3.serving.cpu.state.o_ctrl_jump, rval = 1'0).
-Adding EN signal on $auto$ff.cc:266:slice$1810 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\cpu.\state.$and$src/serv_1.0.2/rtl/serv_state.v:92$878_Y, Q = \corescorecore.core_3.serving.cpu.state.o_ctrl_jump).
+Adding EN signal on $auto$ff.cc:266:slice$1810 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\cpu.\state.$and$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:92$878_Y, Q = \corescorecore.core_3.serving.cpu.state.o_ctrl_jump).
 Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\cpu.\state.$procdff$1609 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\cpu.\state.$procmux$1125_Y, Q = \corescorecore.core_3.serving.cpu.state.o_cnt_en, rval = 1'0).
 Adding EN signal on $auto$ff.cc:266:slice$1812 ($sdff) from module corescore_gowin_yosys (D = 1'1, Q = \corescorecore.core_3.serving.cpu.state.o_cnt_en).
 Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\cpu.\state.$procdff$1608 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\cpu.\state.$procmux$1129_Y, Q = \corescorecore.core_3.serving.cpu.state.o_init, rval = 1'0).
@@ -2249,9 +2249,9 @@ Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$procdf
 Adding EN signal on $auto$ff.cc:266:slice$1847 ($sdff) from module corescore_gowin_yosys (D = { \corescorecore.core_3.serving.cpu.ctrl.new_pc \corescorecore.core_3.serving.cpu.ctrl.o_ibus_adr [31:1] }, Q = \corescorecore.core_3.serving.cpu.ctrl.o_ibus_adr).
 Adding EN signal on $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$procdff$1633 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_3.serving.cpu.bufreg.q, Q = \corescorecore.core_3.serving.cpu.bufreg.o_lsb [1]).
 Adding EN signal on $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$procdff$1633 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_3.serving.cpu.bufreg.q, Q = \corescorecore.core_3.serving.cpu.bufreg.o_lsb [0]).
-Adding EN signal on $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$procdff$1632 ($dff) from module corescore_gowin_yosys (D = { $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$ternary$src/serv_1.0.2/rtl/serv_bufreg.v:31$708_Y \corescorecore.core_3.serving.cpu.bufreg.data [31:1] }, Q = \corescorecore.core_3.serving.cpu.bufreg.data).
-Adding EN signal on $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$procdff$1607 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$and$src/serv_1.0.2/rtl/serv_shift.v:22$893_Y, Q = \corescorecore.core_3.serving.cpu.alu.shift.signbit).
-Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$procdff$1605 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892_Y, Q = \corescorecore.core_3.serving.cpu.alu.shift.cnt, rval = 6'000000).
+Adding EN signal on $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$procdff$1632 ($dff) from module corescore_gowin_yosys (D = { $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$ternary$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:31$708_Y \corescorecore.core_3.serving.cpu.bufreg.data [31:1] }, Q = \corescorecore.core_3.serving.cpu.bufreg.data).
+Adding EN signal on $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$procdff$1607 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$and$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:22$893_Y, Q = \corescorecore.core_3.serving.cpu.alu.shift.signbit).
+Adding SRST signal on $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$procdff$1605 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892_Y, Q = \corescorecore.core_3.serving.cpu.alu.shift.cnt, rval = 6'000000).
 Adding EN signal on $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$procdff$1641 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_3.serving.cpu.alu.b_inv_plus_1_cy, Q = \corescorecore.core_3.serving.cpu.alu.shamt_msb).
 Adding EN signal on $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$procdff$1640 ($dff) from module corescore_gowin_yosys (D = { \corescorecore.core_3.serving.cpu.alu.shamt_ser \corescorecore.core_3.serving.cpu.alu.shamt [4:1] }, Q = \corescorecore.core_3.serving.cpu.alu.shamt).
 Adding EN signal on $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$procdff$1639 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_3.serving.cpu.alu.result_lt, Q = \corescorecore.core_3.serving.cpu.alu.result_lt_r).
@@ -2259,9 +2259,9 @@ Adding SRST signal on $flatten\corescorecore.\core_2.\w2s.$procdff$1698 ($dff) f
 Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$procdff$1689 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$procmux$1287_Y, Q = \corescorecore.core_2.serving.rf_ram_if.wgo, rval = 1'0).
 Adding EN signal on $auto$ff.cc:266:slice$1858 ($sdff) from module corescore_gowin_yosys (D = 1'1, Q = \corescorecore.core_2.serving.rf_ram_if.wgo).
 Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$procdff$1688 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$procmux$1291_Y, Q = \corescorecore.core_2.serving.rf_ram_if.wcnt, rval = 5'00000).
-Adding EN signal on $auto$ff.cc:266:slice$1860 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455_Y, Q = \corescorecore.core_2.serving.rf_ram_if.wcnt).
+Adding EN signal on $auto$ff.cc:266:slice$1860 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455_Y, Q = \corescorecore.core_2.serving.rf_ram_if.wcnt).
 Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$procdff$1687 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_2.serving.cpu.ctrl.i_ibus_ack, Q = \corescorecore.core_2.serving.rf_ram_if.rreq_r, rval = 1'0).
-Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$procdff$1685 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461_Y, Q = \corescorecore.core_2.serving.rf_ram_if.rcnt, rval = 5'00000).
+Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$procdff$1685 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461_Y, Q = \corescorecore.core_2.serving.rf_ram_if.rcnt, rval = 5'00000).
 Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$procdff$1684 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_2.serving.rf_ram_if.rreq_r, Q = \corescorecore.core_2.serving.rf_ram_if.rgnt, rval = 1'0).
 Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$procdff$1683 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_2.serving.ram.rdata [7], Q = \corescorecore.core_2.serving.rf_ram_if.rdata0 [7], rval = 1'0).
 Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$procdff$1680 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_2.serving.ram.rdata [7], Q = \corescorecore.core_2.serving.rf_ram_if.rdata1 [6], rval = 1'0).
@@ -2273,9 +2273,9 @@ Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\cpu.\state.$procd
 Adding EN signal on $auto$ff.cc:266:slice$1873 ($sdff) from module corescore_gowin_yosys (D = \corescorecore.core_2.serving.cpu.state.o_init, Q = \corescorecore.core_2.serving.cpu.state.stage_two_pending).
 Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\cpu.\state.$procdff$1614 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\cpu.\state.$procmux$1117_Y, Q = \corescorecore.core_2.serving.cpu.state.o_cnt_r, rval = 4'0001).
 Adding EN signal on $auto$ff.cc:266:slice$1875 ($sdff) from module corescore_gowin_yosys (D = { \corescorecore.core_2.serving.cpu.state.o_cnt_r [2:0] \corescorecore.core_2.serving.cpu.state.o_cnt_r [3] }, Q = \corescorecore.core_2.serving.cpu.state.o_cnt_r).
-Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\cpu.\state.$procdff$1613 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886_Y, Q = \corescorecore.core_2.serving.cpu.state.o_cnt, rval = 3'000).
+Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\cpu.\state.$procdff$1613 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886_Y, Q = \corescorecore.core_2.serving.cpu.state.o_cnt, rval = 3'000).
 Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\cpu.\state.$procdff$1611 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\cpu.\state.$procmux$1121_Y, Q = \corescorecore.core_2.serving.cpu.state.o_ctrl_jump, rval = 1'0).
-Adding EN signal on $auto$ff.cc:266:slice$1878 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\cpu.\state.$and$src/serv_1.0.2/rtl/serv_state.v:92$878_Y, Q = \corescorecore.core_2.serving.cpu.state.o_ctrl_jump).
+Adding EN signal on $auto$ff.cc:266:slice$1878 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\cpu.\state.$and$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:92$878_Y, Q = \corescorecore.core_2.serving.cpu.state.o_ctrl_jump).
 Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\cpu.\state.$procdff$1609 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\cpu.\state.$procmux$1125_Y, Q = \corescorecore.core_2.serving.cpu.state.o_cnt_en, rval = 1'0).
 Adding EN signal on $auto$ff.cc:266:slice$1880 ($sdff) from module corescore_gowin_yosys (D = 1'1, Q = \corescorecore.core_2.serving.cpu.state.o_cnt_en).
 Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\cpu.\state.$procdff$1608 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\cpu.\state.$procmux$1129_Y, Q = \corescorecore.core_2.serving.cpu.state.o_init, rval = 1'0).
@@ -2299,9 +2299,9 @@ Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$procdf
 Adding EN signal on $auto$ff.cc:266:slice$1915 ($sdff) from module corescore_gowin_yosys (D = { \corescorecore.core_2.serving.cpu.ctrl.new_pc \corescorecore.core_2.serving.cpu.ctrl.o_ibus_adr [31:1] }, Q = \corescorecore.core_2.serving.cpu.ctrl.o_ibus_adr).
 Adding EN signal on $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$procdff$1633 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_2.serving.cpu.bufreg.q, Q = \corescorecore.core_2.serving.cpu.bufreg.o_lsb [1]).
 Adding EN signal on $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$procdff$1633 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_2.serving.cpu.bufreg.q, Q = \corescorecore.core_2.serving.cpu.bufreg.o_lsb [0]).
-Adding EN signal on $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$procdff$1632 ($dff) from module corescore_gowin_yosys (D = { $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$ternary$src/serv_1.0.2/rtl/serv_bufreg.v:31$708_Y \corescorecore.core_2.serving.cpu.bufreg.data [31:1] }, Q = \corescorecore.core_2.serving.cpu.bufreg.data).
-Adding EN signal on $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$procdff$1607 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$and$src/serv_1.0.2/rtl/serv_shift.v:22$893_Y, Q = \corescorecore.core_2.serving.cpu.alu.shift.signbit).
-Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$procdff$1605 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892_Y, Q = \corescorecore.core_2.serving.cpu.alu.shift.cnt, rval = 6'000000).
+Adding EN signal on $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$procdff$1632 ($dff) from module corescore_gowin_yosys (D = { $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$ternary$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:31$708_Y \corescorecore.core_2.serving.cpu.bufreg.data [31:1] }, Q = \corescorecore.core_2.serving.cpu.bufreg.data).
+Adding EN signal on $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$procdff$1607 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$and$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:22$893_Y, Q = \corescorecore.core_2.serving.cpu.alu.shift.signbit).
+Adding SRST signal on $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$procdff$1605 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892_Y, Q = \corescorecore.core_2.serving.cpu.alu.shift.cnt, rval = 6'000000).
 Adding EN signal on $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$procdff$1641 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_2.serving.cpu.alu.b_inv_plus_1_cy, Q = \corescorecore.core_2.serving.cpu.alu.shamt_msb).
 Adding EN signal on $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$procdff$1640 ($dff) from module corescore_gowin_yosys (D = { \corescorecore.core_2.serving.cpu.alu.shamt_ser \corescorecore.core_2.serving.cpu.alu.shamt [4:1] }, Q = \corescorecore.core_2.serving.cpu.alu.shamt).
 Adding EN signal on $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$procdff$1639 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_2.serving.cpu.alu.result_lt, Q = \corescorecore.core_2.serving.cpu.alu.result_lt_r).
@@ -2309,9 +2309,9 @@ Adding SRST signal on $flatten\corescorecore.\core_1.\w2s.$procdff$1698 ($dff) f
 Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$procdff$1689 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$procmux$1287_Y, Q = \corescorecore.core_1.serving.rf_ram_if.wgo, rval = 1'0).
 Adding EN signal on $auto$ff.cc:266:slice$1926 ($sdff) from module corescore_gowin_yosys (D = 1'1, Q = \corescorecore.core_1.serving.rf_ram_if.wgo).
 Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$procdff$1688 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$procmux$1291_Y, Q = \corescorecore.core_1.serving.rf_ram_if.wcnt, rval = 5'00000).
-Adding EN signal on $auto$ff.cc:266:slice$1928 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455_Y, Q = \corescorecore.core_1.serving.rf_ram_if.wcnt).
+Adding EN signal on $auto$ff.cc:266:slice$1928 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455_Y, Q = \corescorecore.core_1.serving.rf_ram_if.wcnt).
 Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$procdff$1687 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_1.serving.cpu.ctrl.i_ibus_ack, Q = \corescorecore.core_1.serving.rf_ram_if.rreq_r, rval = 1'0).
-Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$procdff$1685 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461_Y, Q = \corescorecore.core_1.serving.rf_ram_if.rcnt, rval = 5'00000).
+Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$procdff$1685 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461_Y, Q = \corescorecore.core_1.serving.rf_ram_if.rcnt, rval = 5'00000).
 Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$procdff$1684 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_1.serving.rf_ram_if.rreq_r, Q = \corescorecore.core_1.serving.rf_ram_if.rgnt, rval = 1'0).
 Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$procdff$1683 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_1.serving.ram.rdata [7], Q = \corescorecore.core_1.serving.rf_ram_if.rdata0 [7], rval = 1'0).
 Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$procdff$1680 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_1.serving.ram.rdata [7], Q = \corescorecore.core_1.serving.rf_ram_if.rdata1 [6], rval = 1'0).
@@ -2323,9 +2323,9 @@ Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\cpu.\state.$procd
 Adding EN signal on $auto$ff.cc:266:slice$1941 ($sdff) from module corescore_gowin_yosys (D = \corescorecore.core_1.serving.cpu.state.o_init, Q = \corescorecore.core_1.serving.cpu.state.stage_two_pending).
 Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\cpu.\state.$procdff$1614 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\cpu.\state.$procmux$1117_Y, Q = \corescorecore.core_1.serving.cpu.state.o_cnt_r, rval = 4'0001).
 Adding EN signal on $auto$ff.cc:266:slice$1943 ($sdff) from module corescore_gowin_yosys (D = { \corescorecore.core_1.serving.cpu.state.o_cnt_r [2:0] \corescorecore.core_1.serving.cpu.state.o_cnt_r [3] }, Q = \corescorecore.core_1.serving.cpu.state.o_cnt_r).
-Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\cpu.\state.$procdff$1613 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886_Y, Q = \corescorecore.core_1.serving.cpu.state.o_cnt, rval = 3'000).
+Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\cpu.\state.$procdff$1613 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886_Y, Q = \corescorecore.core_1.serving.cpu.state.o_cnt, rval = 3'000).
 Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\cpu.\state.$procdff$1611 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\cpu.\state.$procmux$1121_Y, Q = \corescorecore.core_1.serving.cpu.state.o_ctrl_jump, rval = 1'0).
-Adding EN signal on $auto$ff.cc:266:slice$1946 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\cpu.\state.$and$src/serv_1.0.2/rtl/serv_state.v:92$878_Y, Q = \corescorecore.core_1.serving.cpu.state.o_ctrl_jump).
+Adding EN signal on $auto$ff.cc:266:slice$1946 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\cpu.\state.$and$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:92$878_Y, Q = \corescorecore.core_1.serving.cpu.state.o_ctrl_jump).
 Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\cpu.\state.$procdff$1609 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\cpu.\state.$procmux$1125_Y, Q = \corescorecore.core_1.serving.cpu.state.o_cnt_en, rval = 1'0).
 Adding EN signal on $auto$ff.cc:266:slice$1948 ($sdff) from module corescore_gowin_yosys (D = 1'1, Q = \corescorecore.core_1.serving.cpu.state.o_cnt_en).
 Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\cpu.\state.$procdff$1608 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\cpu.\state.$procmux$1129_Y, Q = \corescorecore.core_1.serving.cpu.state.o_init, rval = 1'0).
@@ -2349,9 +2349,9 @@ Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$procdf
 Adding EN signal on $auto$ff.cc:266:slice$1983 ($sdff) from module corescore_gowin_yosys (D = { \corescorecore.core_1.serving.cpu.ctrl.new_pc \corescorecore.core_1.serving.cpu.ctrl.o_ibus_adr [31:1] }, Q = \corescorecore.core_1.serving.cpu.ctrl.o_ibus_adr).
 Adding EN signal on $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$procdff$1633 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_1.serving.cpu.bufreg.q, Q = \corescorecore.core_1.serving.cpu.bufreg.o_lsb [1]).
 Adding EN signal on $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$procdff$1633 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_1.serving.cpu.bufreg.q, Q = \corescorecore.core_1.serving.cpu.bufreg.o_lsb [0]).
-Adding EN signal on $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$procdff$1632 ($dff) from module corescore_gowin_yosys (D = { $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$ternary$src/serv_1.0.2/rtl/serv_bufreg.v:31$708_Y \corescorecore.core_1.serving.cpu.bufreg.data [31:1] }, Q = \corescorecore.core_1.serving.cpu.bufreg.data).
-Adding EN signal on $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$procdff$1607 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$and$src/serv_1.0.2/rtl/serv_shift.v:22$893_Y, Q = \corescorecore.core_1.serving.cpu.alu.shift.signbit).
-Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$procdff$1605 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892_Y, Q = \corescorecore.core_1.serving.cpu.alu.shift.cnt, rval = 6'000000).
+Adding EN signal on $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$procdff$1632 ($dff) from module corescore_gowin_yosys (D = { $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$ternary$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:31$708_Y \corescorecore.core_1.serving.cpu.bufreg.data [31:1] }, Q = \corescorecore.core_1.serving.cpu.bufreg.data).
+Adding EN signal on $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$procdff$1607 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$and$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:22$893_Y, Q = \corescorecore.core_1.serving.cpu.alu.shift.signbit).
+Adding SRST signal on $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$procdff$1605 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892_Y, Q = \corescorecore.core_1.serving.cpu.alu.shift.cnt, rval = 6'000000).
 Adding EN signal on $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$procdff$1641 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_1.serving.cpu.alu.b_inv_plus_1_cy, Q = \corescorecore.core_1.serving.cpu.alu.shamt_msb).
 Adding EN signal on $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$procdff$1640 ($dff) from module corescore_gowin_yosys (D = { \corescorecore.core_1.serving.cpu.alu.shamt_ser \corescorecore.core_1.serving.cpu.alu.shamt [4:1] }, Q = \corescorecore.core_1.serving.cpu.alu.shamt).
 Adding EN signal on $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$procdff$1639 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_1.serving.cpu.alu.result_lt, Q = \corescorecore.core_1.serving.cpu.alu.result_lt_r).
@@ -2359,9 +2359,9 @@ Adding SRST signal on $flatten\corescorecore.\core_0.\w2s.$procdff$1698 ($dff) f
 Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$procdff$1689 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$procmux$1287_Y, Q = \corescorecore.core_0.serving.rf_ram_if.wgo, rval = 1'0).
 Adding EN signal on $auto$ff.cc:266:slice$1994 ($sdff) from module corescore_gowin_yosys (D = 1'1, Q = \corescorecore.core_0.serving.rf_ram_if.wgo).
 Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$procdff$1688 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$procmux$1291_Y, Q = \corescorecore.core_0.serving.rf_ram_if.wcnt, rval = 5'00000).
-Adding EN signal on $auto$ff.cc:266:slice$1996 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455_Y, Q = \corescorecore.core_0.serving.rf_ram_if.wcnt).
+Adding EN signal on $auto$ff.cc:266:slice$1996 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455_Y, Q = \corescorecore.core_0.serving.rf_ram_if.wcnt).
 Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$procdff$1687 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_0.serving.cpu.ctrl.i_ibus_ack, Q = \corescorecore.core_0.serving.rf_ram_if.rreq_r, rval = 1'0).
-Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$procdff$1685 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461_Y, Q = \corescorecore.core_0.serving.rf_ram_if.rcnt, rval = 5'00000).
+Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$procdff$1685 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461_Y, Q = \corescorecore.core_0.serving.rf_ram_if.rcnt, rval = 5'00000).
 Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$procdff$1684 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_0.serving.rf_ram_if.rreq_r, Q = \corescorecore.core_0.serving.rf_ram_if.rgnt, rval = 1'0).
 Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$procdff$1683 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_0.serving.ram.rdata [7], Q = \corescorecore.core_0.serving.rf_ram_if.rdata0 [7], rval = 1'0).
 Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$procdff$1680 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_0.serving.ram.rdata [7], Q = \corescorecore.core_0.serving.rf_ram_if.rdata1 [6], rval = 1'0).
@@ -2373,9 +2373,9 @@ Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\cpu.\state.$procd
 Adding EN signal on $auto$ff.cc:266:slice$2009 ($sdff) from module corescore_gowin_yosys (D = \corescorecore.core_0.serving.cpu.state.o_init, Q = \corescorecore.core_0.serving.cpu.state.stage_two_pending).
 Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\cpu.\state.$procdff$1614 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\cpu.\state.$procmux$1117_Y, Q = \corescorecore.core_0.serving.cpu.state.o_cnt_r, rval = 4'0001).
 Adding EN signal on $auto$ff.cc:266:slice$2011 ($sdff) from module corescore_gowin_yosys (D = { \corescorecore.core_0.serving.cpu.state.o_cnt_r [2:0] \corescorecore.core_0.serving.cpu.state.o_cnt_r [3] }, Q = \corescorecore.core_0.serving.cpu.state.o_cnt_r).
-Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\cpu.\state.$procdff$1613 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886_Y, Q = \corescorecore.core_0.serving.cpu.state.o_cnt, rval = 3'000).
+Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\cpu.\state.$procdff$1613 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886_Y, Q = \corescorecore.core_0.serving.cpu.state.o_cnt, rval = 3'000).
 Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\cpu.\state.$procdff$1611 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\cpu.\state.$procmux$1121_Y, Q = \corescorecore.core_0.serving.cpu.state.o_ctrl_jump, rval = 1'0).
-Adding EN signal on $auto$ff.cc:266:slice$2014 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\cpu.\state.$and$src/serv_1.0.2/rtl/serv_state.v:92$878_Y, Q = \corescorecore.core_0.serving.cpu.state.o_ctrl_jump).
+Adding EN signal on $auto$ff.cc:266:slice$2014 ($sdff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\cpu.\state.$and$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:92$878_Y, Q = \corescorecore.core_0.serving.cpu.state.o_ctrl_jump).
 Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\cpu.\state.$procdff$1609 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\cpu.\state.$procmux$1125_Y, Q = \corescorecore.core_0.serving.cpu.state.o_cnt_en, rval = 1'0).
 Adding EN signal on $auto$ff.cc:266:slice$2016 ($sdff) from module corescore_gowin_yosys (D = 1'1, Q = \corescorecore.core_0.serving.cpu.state.o_cnt_en).
 Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\cpu.\state.$procdff$1608 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\cpu.\state.$procmux$1129_Y, Q = \corescorecore.core_0.serving.cpu.state.o_init, rval = 1'0).
@@ -2399,9 +2399,9 @@ Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$procdf
 Adding EN signal on $auto$ff.cc:266:slice$2051 ($sdff) from module corescore_gowin_yosys (D = { \corescorecore.core_0.serving.cpu.ctrl.new_pc \corescorecore.core_0.serving.cpu.ctrl.o_ibus_adr [31:1] }, Q = \corescorecore.core_0.serving.cpu.ctrl.o_ibus_adr).
 Adding EN signal on $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$procdff$1633 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_0.serving.cpu.bufreg.q, Q = \corescorecore.core_0.serving.cpu.bufreg.o_lsb [1]).
 Adding EN signal on $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$procdff$1633 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_0.serving.cpu.bufreg.q, Q = \corescorecore.core_0.serving.cpu.bufreg.o_lsb [0]).
-Adding EN signal on $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$procdff$1632 ($dff) from module corescore_gowin_yosys (D = { $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$ternary$src/serv_1.0.2/rtl/serv_bufreg.v:31$708_Y \corescorecore.core_0.serving.cpu.bufreg.data [31:1] }, Q = \corescorecore.core_0.serving.cpu.bufreg.data).
-Adding EN signal on $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$procdff$1607 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$and$src/serv_1.0.2/rtl/serv_shift.v:22$893_Y, Q = \corescorecore.core_0.serving.cpu.alu.shift.signbit).
-Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$procdff$1605 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892_Y, Q = \corescorecore.core_0.serving.cpu.alu.shift.cnt, rval = 6'000000).
+Adding EN signal on $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$procdff$1632 ($dff) from module corescore_gowin_yosys (D = { $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$ternary$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:31$708_Y \corescorecore.core_0.serving.cpu.bufreg.data [31:1] }, Q = \corescorecore.core_0.serving.cpu.bufreg.data).
+Adding EN signal on $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$procdff$1607 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$and$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:22$893_Y, Q = \corescorecore.core_0.serving.cpu.alu.shift.signbit).
+Adding SRST signal on $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$procdff$1605 ($dff) from module corescore_gowin_yosys (D = $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892_Y, Q = \corescorecore.core_0.serving.cpu.alu.shift.cnt, rval = 6'000000).
 Adding EN signal on $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$procdff$1641 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_0.serving.cpu.alu.b_inv_plus_1_cy, Q = \corescorecore.core_0.serving.cpu.alu.shamt_msb).
 Adding EN signal on $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$procdff$1640 ($dff) from module corescore_gowin_yosys (D = { \corescorecore.core_0.serving.cpu.alu.shamt_ser \corescorecore.core_0.serving.cpu.alu.shamt [4:1] }, Q = \corescorecore.core_0.serving.cpu.alu.shamt).
 Adding EN signal on $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$procdff$1639 ($dff) from module corescore_gowin_yosys (D = \corescorecore.core_0.serving.cpu.alu.result_lt, Q = \corescorecore.core_0.serving.cpu.alu.result_lt_r).
@@ -2504,20 +2504,20 @@ Removed top 29 bits (of 32) from port Y of cell corescore_gowin_yosys.$flatten\c
 Removed top 30 bits (of 32) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\axis_mux.\arb_inst.\priority_encoder_masked.$shl$src/verilog-axis_0-r3/rtl/priority_encoder.v:98$511 ($shl).
 Removed top 28 bits (of 32) from port Y of cell corescore_gowin_yosys.$flatten\corescorecore.\axis_mux.\arb_inst.\priority_encoder_masked.$shl$src/verilog-axis_0-r3/rtl/priority_encoder.v:98$511 ($shl).
 Removed top 1 bits (of 8) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.$not$src/serving_1.0.2/serving/serving.v:80$409 ($not).
-Removed top 1 bits (of 3) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
-Removed top 1 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
-Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
-Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\state.$eq$src/serv_1.0.2/rtl/serv_state.v:63$842 ($eq).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\decode.$eq$src/serv_1.0.2/rtl/serv_decode.v:192$813 ($eq).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\decode.$eq$src/serv_1.0.2/rtl/serv_decode.v:191$812 ($eq).
-Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
-Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
-Removed top 5 bits (of 6) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\mem_if.$eq$src/serv_1.0.2/rtl/serv_mem_if.v:33$618 ($eq).
-Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
-Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\rf_ram_if.$eq$src/serv_1.0.2/rtl/serv_rf_ram_if.v:126$459 ($eq).
-Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
+Removed top 1 bits (of 3) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
+Removed top 1 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
+Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
+Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\state.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:63$842 ($eq).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\decode.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:192$813 ($eq).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\decode.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:191$812 ($eq).
+Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
+Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
+Removed top 5 bits (of 6) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\cpu.\mem_if.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:33$618 ($eq).
+Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
+Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\rf_ram_if.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:126$459 ($eq).
+Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
 Removed top 1 bits (of 7) from mux cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\rf_ram_if.$procmux$1277 ($mux).
 Removed top 1 bits (of 8) from mux cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\rf_ram_if.$procmux$1279 ($mux).
 Removed top 26 bits (of 32) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\ram.$shiftx$src/serving_1.0.2/serving/serving_ram.v:0$477 ($shiftx).
@@ -2526,20 +2526,20 @@ Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\cor
 Removed top 24 bits (of 32) from mux cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.\arbiter.$ternary$src/serving_1.0.2/serving/serving_arbiter.v:50$507 ($mux).
 Removed top 1 bits (of 8) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_3.\serving.$not$src/serving_1.0.2/serving/serving.v:81$410 ($not).
 Removed top 1 bits (of 8) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.$not$src/serving_1.0.2/serving/serving.v:80$437 ($not).
-Removed top 1 bits (of 3) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
-Removed top 1 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
-Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
-Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\state.$eq$src/serv_1.0.2/rtl/serv_state.v:63$842 ($eq).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\decode.$eq$src/serv_1.0.2/rtl/serv_decode.v:192$813 ($eq).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\decode.$eq$src/serv_1.0.2/rtl/serv_decode.v:191$812 ($eq).
-Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
-Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
-Removed top 5 bits (of 6) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\mem_if.$eq$src/serv_1.0.2/rtl/serv_mem_if.v:33$618 ($eq).
-Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
-Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\rf_ram_if.$eq$src/serv_1.0.2/rtl/serv_rf_ram_if.v:126$459 ($eq).
-Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
+Removed top 1 bits (of 3) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
+Removed top 1 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
+Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
+Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\state.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:63$842 ($eq).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\decode.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:192$813 ($eq).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\decode.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:191$812 ($eq).
+Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
+Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
+Removed top 5 bits (of 6) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\cpu.\mem_if.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:33$618 ($eq).
+Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
+Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\rf_ram_if.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:126$459 ($eq).
+Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
 Removed top 1 bits (of 7) from mux cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\rf_ram_if.$procmux$1277 ($mux).
 Removed top 1 bits (of 8) from mux cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\rf_ram_if.$procmux$1279 ($mux).
 Removed top 26 bits (of 32) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\ram.$shiftx$src/serving_1.0.2/serving/serving_ram.v:0$525 ($shiftx).
@@ -2548,20 +2548,20 @@ Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\cor
 Removed top 24 bits (of 32) from mux cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.\arbiter.$ternary$src/serving_1.0.2/serving/serving_arbiter.v:50$507 ($mux).
 Removed top 1 bits (of 8) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_2.\serving.$not$src/serving_1.0.2/serving/serving.v:81$438 ($not).
 Removed top 1 bits (of 8) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.$not$src/serving_1.0.2/serving/serving.v:80$439 ($not).
-Removed top 1 bits (of 3) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
-Removed top 1 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
-Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
-Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\state.$eq$src/serv_1.0.2/rtl/serv_state.v:63$842 ($eq).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\decode.$eq$src/serv_1.0.2/rtl/serv_decode.v:192$813 ($eq).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\decode.$eq$src/serv_1.0.2/rtl/serv_decode.v:191$812 ($eq).
-Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
-Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
-Removed top 5 bits (of 6) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\mem_if.$eq$src/serv_1.0.2/rtl/serv_mem_if.v:33$618 ($eq).
-Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
-Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\rf_ram_if.$eq$src/serv_1.0.2/rtl/serv_rf_ram_if.v:126$459 ($eq).
-Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
+Removed top 1 bits (of 3) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
+Removed top 1 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
+Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
+Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\state.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:63$842 ($eq).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\decode.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:192$813 ($eq).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\decode.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:191$812 ($eq).
+Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
+Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
+Removed top 5 bits (of 6) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\cpu.\mem_if.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:33$618 ($eq).
+Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
+Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\rf_ram_if.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:126$459 ($eq).
+Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
 Removed top 1 bits (of 7) from mux cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\rf_ram_if.$procmux$1277 ($mux).
 Removed top 1 bits (of 8) from mux cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\rf_ram_if.$procmux$1279 ($mux).
 Removed top 26 bits (of 32) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\ram.$shiftx$src/serving_1.0.2/serving/serving_ram.v:0$557 ($shiftx).
@@ -2570,20 +2570,20 @@ Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\cor
 Removed top 24 bits (of 32) from mux cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.\arbiter.$ternary$src/serving_1.0.2/serving/serving_arbiter.v:50$507 ($mux).
 Removed top 1 bits (of 8) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_1.\serving.$not$src/serving_1.0.2/serving/serving.v:81$440 ($not).
 Removed top 1 bits (of 8) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.$not$src/serving_1.0.2/serving/serving.v:80$441 ($not).
-Removed top 1 bits (of 3) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
-Removed top 1 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
-Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
-Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\state.$eq$src/serv_1.0.2/rtl/serv_state.v:63$842 ($eq).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\decode.$eq$src/serv_1.0.2/rtl/serv_decode.v:192$813 ($eq).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\decode.$eq$src/serv_1.0.2/rtl/serv_decode.v:191$812 ($eq).
-Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
-Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
-Removed top 5 bits (of 6) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
-Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\mem_if.$eq$src/serv_1.0.2/rtl/serv_mem_if.v:33$618 ($eq).
-Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
-Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\rf_ram_if.$eq$src/serv_1.0.2/rtl/serv_rf_ram_if.v:126$459 ($eq).
-Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
+Removed top 1 bits (of 3) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
+Removed top 1 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
+Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
+Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\state.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:63$842 ($eq).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\decode.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:192$813 ($eq).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\decode.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v:191$812 ($eq).
+Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
+Removed top 1 bits (of 2) from port A of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
+Removed top 5 bits (of 6) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
+Removed top 1 bits (of 2) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\cpu.\mem_if.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:33$618 ($eq).
+Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
+Removed top 2 bits (of 3) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\rf_ram_if.$eq$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:126$459 ($eq).
+Removed top 4 bits (of 5) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
 Removed top 1 bits (of 7) from mux cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\rf_ram_if.$procmux$1277 ($mux).
 Removed top 1 bits (of 8) from mux cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\rf_ram_if.$procmux$1279 ($mux).
 Removed top 26 bits (of 32) from port B of cell corescore_gowin_yosys.$flatten\corescorecore.\core_0.\serving.\ram.$shiftx$src/serving_1.0.2/serving/serving_ram.v:0$589 ($shiftx).
@@ -2620,185 +2620,185 @@ Removed 0 unused cells and 15 unused wires.
 Extracting $alu and $macc cells in module corescore_gowin_yosys:
   creating $macc model for $flatten\corescorecore.\axis_mux.\arb_inst.$add$src/verilog-axis_0-r3/rtl/arbiter.v:123$428 ($add).
   creating $macc model for $flatten\corescorecore.\axis_mux.\arb_inst.$add$src/verilog-axis_0-r3/rtl/arbiter.v:132$430 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$652 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$679 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$687 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$652 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$679 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$687 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
   creating $macc model for $flatten\corescorecore.\core_0.\serving.\ram.$add$src/serving_1.0.2/serving/serving_ram.v:61$593 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
-  creating $macc model for $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$652 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$679 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$687 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
+  creating $macc model for $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$652 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$679 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$687 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
   creating $macc model for $flatten\corescorecore.\core_1.\serving.\ram.$add$src/serving_1.0.2/serving/serving_ram.v:61$561 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
-  creating $macc model for $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$652 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$679 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$687 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
+  creating $macc model for $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$652 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$679 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$687 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
   creating $macc model for $flatten\corescorecore.\core_2.\serving.\ram.$add$src/serving_1.0.2/serving/serving_ram.v:61$529 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
-  creating $macc model for $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$652 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$679 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$687 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
+  creating $macc model for $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$652 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$655 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$679 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$687 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886 ($add).
   creating $macc model for $flatten\corescorecore.\core_3.\serving.\ram.$add$src/serving_1.0.2/serving/serving_ram.v:61$481 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
-  creating $macc model for $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461 ($add).
+  creating $macc model for $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455 ($add).
   creating $macc model for $flatten\emitter.$sub$src/corescore_0/rtl/emitter_uart.v:37$348 ($sub).
-  merging $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$687 into $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688.
-  merging $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$679 into $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680.
-  merging $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 into $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703.
-  merging $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$655 into $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656.
-  merging $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$652 into $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653.
-  merging $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$687 into $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688.
-  merging $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$679 into $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680.
-  merging $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 into $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703.
-  merging $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$655 into $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656.
-  merging $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$652 into $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653.
-  merging $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$687 into $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688.
-  merging $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$679 into $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680.
-  merging $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 into $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703.
-  merging $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$655 into $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656.
-  merging $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$652 into $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653.
-  merging $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$687 into $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688.
-  merging $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$679 into $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680.
-  merging $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$702 into $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703.
-  merging $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$655 into $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656.
-  merging $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$652 into $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653.
-  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886.
-  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610.
-  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688.
-  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653.
-  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680.
-  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656.
-  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703.
-  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892.
-  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892.
-  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656.
-  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455.
-  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653.
-  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703.
-  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455.
-  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461.
+  merging $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$687 into $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688.
+  merging $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$679 into $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680.
+  merging $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 into $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703.
+  merging $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$655 into $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656.
+  merging $macc model for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$652 into $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653.
+  merging $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$687 into $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688.
+  merging $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$679 into $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680.
+  merging $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 into $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703.
+  merging $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$655 into $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656.
+  merging $macc model for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$652 into $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653.
+  merging $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$687 into $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688.
+  merging $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$679 into $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680.
+  merging $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 into $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703.
+  merging $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$655 into $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656.
+  merging $macc model for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$652 into $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653.
+  merging $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$687 into $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688.
+  merging $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$679 into $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680.
+  merging $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$702 into $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703.
+  merging $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$655 into $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656.
+  merging $macc model for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$652 into $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653.
+  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886.
+  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610.
+  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688.
+  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653.
+  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680.
+  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656.
+  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703.
+  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892.
+  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892.
+  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656.
+  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455.
+  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653.
+  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703.
+  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455.
+  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461.
   creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\ram.$add$src/serving_1.0.2/serving/serving_ram.v:61$561.
-  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886.
-  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610.
-  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688.
-  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461.
-  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680.
-  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680.
-  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703.
+  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886.
+  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610.
+  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688.
+  creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461.
+  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680.
+  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680.
+  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703.
   creating $alu model for $macc $flatten\corescorecore.\core_2.\serving.\ram.$add$src/serving_1.0.2/serving/serving_ram.v:61$529.
-  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892.
-  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656.
-  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688.
-  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653.
-  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610.
-  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455.
-  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461.
+  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892.
+  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656.
+  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688.
+  creating $alu model for $macc $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653.
+  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610.
+  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455.
+  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461.
   creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\ram.$add$src/serving_1.0.2/serving/serving_ram.v:61$593.
-  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886.
-  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610.
-  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688.
-  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886.
-  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680.
+  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886.
+  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610.
+  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688.
+  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886.
+  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680.
   creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\ram.$add$src/serving_1.0.2/serving/serving_ram.v:61$481.
-  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703.
-  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461.
-  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892.
-  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656.
-  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455.
-  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653.
+  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703.
+  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461.
+  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892.
+  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656.
+  creating $alu model for $macc $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455.
+  creating $alu model for $macc $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653.
   creating $alu model for $macc $flatten\emitter.$sub$src/corescore_0/rtl/emitter_uart.v:37$348.
   creating $alu model for $macc $flatten\corescorecore.\axis_mux.\arb_inst.$add$src/verilog-axis_0-r3/rtl/arbiter.v:132$430.
   creating $alu model for $macc $flatten\corescorecore.\axis_mux.\arb_inst.$add$src/verilog-axis_0-r3/rtl/arbiter.v:123$428.
   creating $alu cell for $flatten\corescorecore.\axis_mux.\arb_inst.$add$src/verilog-axis_0-r3/rtl/arbiter.v:123$428: $auto$alumacc.cc:495:replace_alu$2107
   creating $alu cell for $flatten\corescorecore.\axis_mux.\arb_inst.$add$src/verilog-axis_0-r3/rtl/arbiter.v:132$430: $auto$alumacc.cc:495:replace_alu$2110
   creating $alu cell for $flatten\emitter.$sub$src/corescore_0/rtl/emitter_uart.v:37$348: $auto$alumacc.cc:495:replace_alu$2113
-  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653: $auto$alumacc.cc:495:replace_alu$2116
-  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455: $auto$alumacc.cc:495:replace_alu$2119
-  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656: $auto$alumacc.cc:495:replace_alu$2122
-  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892: $auto$alumacc.cc:495:replace_alu$2125
-  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461: $auto$alumacc.cc:495:replace_alu$2128
-  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703: $auto$alumacc.cc:495:replace_alu$2131
+  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653: $auto$alumacc.cc:495:replace_alu$2116
+  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455: $auto$alumacc.cc:495:replace_alu$2119
+  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656: $auto$alumacc.cc:495:replace_alu$2122
+  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892: $auto$alumacc.cc:495:replace_alu$2125
+  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461: $auto$alumacc.cc:495:replace_alu$2128
+  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703: $auto$alumacc.cc:495:replace_alu$2131
   creating $alu cell for $flatten\corescorecore.\core_3.\serving.\ram.$add$src/serving_1.0.2/serving/serving_ram.v:61$481: $auto$alumacc.cc:495:replace_alu$2134
-  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680: $auto$alumacc.cc:495:replace_alu$2137
-  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886: $auto$alumacc.cc:495:replace_alu$2140
-  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688: $auto$alumacc.cc:495:replace_alu$2143
-  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610: $auto$alumacc.cc:495:replace_alu$2146
-  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886: $auto$alumacc.cc:495:replace_alu$2149
+  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680: $auto$alumacc.cc:495:replace_alu$2137
+  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886: $auto$alumacc.cc:495:replace_alu$2140
+  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688: $auto$alumacc.cc:495:replace_alu$2143
+  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610: $auto$alumacc.cc:495:replace_alu$2146
+  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886: $auto$alumacc.cc:495:replace_alu$2149
   creating $alu cell for $flatten\corescorecore.\core_0.\serving.\ram.$add$src/serving_1.0.2/serving/serving_ram.v:61$593: $auto$alumacc.cc:495:replace_alu$2152
-  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461: $auto$alumacc.cc:495:replace_alu$2155
-  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455: $auto$alumacc.cc:495:replace_alu$2158
-  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610: $auto$alumacc.cc:495:replace_alu$2161
-  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653: $auto$alumacc.cc:495:replace_alu$2164
-  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688: $auto$alumacc.cc:495:replace_alu$2167
-  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656: $auto$alumacc.cc:495:replace_alu$2170
-  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892: $auto$alumacc.cc:495:replace_alu$2173
+  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461: $auto$alumacc.cc:495:replace_alu$2155
+  creating $alu cell for $flatten\corescorecore.\core_0.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455: $auto$alumacc.cc:495:replace_alu$2158
+  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610: $auto$alumacc.cc:495:replace_alu$2161
+  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653: $auto$alumacc.cc:495:replace_alu$2164
+  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688: $auto$alumacc.cc:495:replace_alu$2167
+  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656: $auto$alumacc.cc:495:replace_alu$2170
+  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892: $auto$alumacc.cc:495:replace_alu$2173
   creating $alu cell for $flatten\corescorecore.\core_2.\serving.\ram.$add$src/serving_1.0.2/serving/serving_ram.v:61$529: $auto$alumacc.cc:495:replace_alu$2176
-  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703: $auto$alumacc.cc:495:replace_alu$2179
-  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680: $auto$alumacc.cc:495:replace_alu$2182
-  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680: $auto$alumacc.cc:495:replace_alu$2185
-  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461: $auto$alumacc.cc:495:replace_alu$2188
-  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688: $auto$alumacc.cc:495:replace_alu$2191
-  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610: $auto$alumacc.cc:495:replace_alu$2194
-  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886: $auto$alumacc.cc:495:replace_alu$2197
+  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703: $auto$alumacc.cc:495:replace_alu$2179
+  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680: $auto$alumacc.cc:495:replace_alu$2182
+  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680: $auto$alumacc.cc:495:replace_alu$2185
+  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461: $auto$alumacc.cc:495:replace_alu$2188
+  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688: $auto$alumacc.cc:495:replace_alu$2191
+  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610: $auto$alumacc.cc:495:replace_alu$2194
+  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886: $auto$alumacc.cc:495:replace_alu$2197
   creating $alu cell for $flatten\corescorecore.\core_1.\serving.\ram.$add$src/serving_1.0.2/serving/serving_ram.v:61$561: $auto$alumacc.cc:495:replace_alu$2200
-  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461: $auto$alumacc.cc:495:replace_alu$2203
-  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455: $auto$alumacc.cc:495:replace_alu$2206
-  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703: $auto$alumacc.cc:495:replace_alu$2209
-  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653: $auto$alumacc.cc:495:replace_alu$2212
-  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455: $auto$alumacc.cc:495:replace_alu$2215
-  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656: $auto$alumacc.cc:495:replace_alu$2218
-  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892: $auto$alumacc.cc:495:replace_alu$2221
-  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/rtl/serv_shift.v:19$892: $auto$alumacc.cc:495:replace_alu$2224
-  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/rtl/serv_bufreg.v:24$703: $auto$alumacc.cc:495:replace_alu$2227
-  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:64$656: $auto$alumacc.cc:495:replace_alu$2230
-  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:53$680: $auto$alumacc.cc:495:replace_alu$2233
-  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/rtl/serv_alu.v:63$653: $auto$alumacc.cc:495:replace_alu$2236
-  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/rtl/serv_ctrl.v:65$688: $auto$alumacc.cc:495:replace_alu$2239
-  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/rtl/serv_mem_if.v:24$610: $auto$alumacc.cc:495:replace_alu$2242
-  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\state.$add$src/serv_1.0.2/rtl/serv_state.v:114$886: $auto$alumacc.cc:495:replace_alu$2245
+  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:142$461: $auto$alumacc.cc:495:replace_alu$2203
+  creating $alu cell for $flatten\corescorecore.\core_1.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455: $auto$alumacc.cc:495:replace_alu$2206
+  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703: $auto$alumacc.cc:495:replace_alu$2209
+  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653: $auto$alumacc.cc:495:replace_alu$2212
+  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\rf_ram_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v:90$455: $auto$alumacc.cc:495:replace_alu$2215
+  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656: $auto$alumacc.cc:495:replace_alu$2218
+  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892: $auto$alumacc.cc:495:replace_alu$2221
+  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.\shift.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v:19$892: $auto$alumacc.cc:495:replace_alu$2224
+  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\bufreg.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v:24$703: $auto$alumacc.cc:495:replace_alu$2227
+  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:64$656: $auto$alumacc.cc:495:replace_alu$2230
+  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:53$680: $auto$alumacc.cc:495:replace_alu$2233
+  creating $alu cell for $flatten\corescorecore.\core_3.\serving.\cpu.\alu.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v:63$653: $auto$alumacc.cc:495:replace_alu$2236
+  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\ctrl.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v:65$688: $auto$alumacc.cc:495:replace_alu$2239
+  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\mem_if.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v:24$610: $auto$alumacc.cc:495:replace_alu$2242
+  creating $alu cell for $flatten\corescorecore.\core_2.\serving.\cpu.\state.$add$src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v:114$886: $auto$alumacc.cc:495:replace_alu$2245
   created 47 $alu and 0 $macc cells.
 
 28.9.12. Executing SHARE pass (SAT-based resource sharing).
@@ -3553,7 +3553,7 @@ ABC: LUT = 1097 : 2=133 12.1 %  3=403 36.7 %  4=346 31.5 %  5=163 14.9 %  6=29 2
 ABC: Warning: AIG with boxes has internal fanout in 0 complex flops and 210 carries.
 ABC: + &write -n <abc-temp-dir>/output.aig 
 ABC: + time 
-ABC: elapse: 0.24 seconds, total: 0.24 seconds
+ABC: elapse: 0.26 seconds, total: 0.26 seconds
 
 28.24.17.6. Executing AIGER frontend.
 <suppressed ~7206 debug messages>
@@ -4819,6 +4819,6 @@ Found and reported 0 problems.
 29. Executing BLIF backend.
 
 Warnings: 3 unique messages, 3 total
-End of script. Logfile hash: e274e64373, CPU: user 2.18s system 0.04s, MEM: 137.58 MB peak
+End of script. Logfile hash: af498d7b9f, CPU: user 2.53s system 0.04s, MEM: 136.74 MB peak
 Yosys 0.50+56 (git sha1 176131b50, g++ 11.4.0-1ubuntu1~22.04 -fPIC -O3)
 Time spent: 17% 30x opt_clean (0 sec), 16% 8x techmap (0 sec), ...

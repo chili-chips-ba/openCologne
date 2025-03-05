@@ -28,46 +28,46 @@ hooks: {}
 files:
 - file_type: verilogSource
   is_include_file: true
-  name: src/serv_1.0.2/rtl/serv_params.vh
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_params.vh
   core: ::serv:1.0.2
 - file_type: verilogSource
-  name: src/serv_1.0.2/rtl/serv_shift.v
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_shift.v
   core: ::serv:1.0.2
 - file_type: verilogSource
-  name: src/serv_1.0.2/rtl/serv_bufreg.v
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_bufreg.v
   core: ::serv:1.0.2
 - file_type: verilogSource
-  name: src/serv_1.0.2/rtl/serv_alu.v
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_alu.v
   core: ::serv:1.0.2
 - file_type: verilogSource
-  name: src/serv_1.0.2/rtl/serv_csr.v
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_csr.v
   core: ::serv:1.0.2
 - file_type: verilogSource
-  name: src/serv_1.0.2/rtl/serv_ctrl.v
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_ctrl.v
   core: ::serv:1.0.2
 - file_type: verilogSource
-  name: src/serv_1.0.2/rtl/serv_decode.v
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_decode.v
   core: ::serv:1.0.2
 - file_type: verilogSource
-  name: src/serv_1.0.2/rtl/serv_mem_if.v
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_mem_if.v
   core: ::serv:1.0.2
 - file_type: verilogSource
-  name: src/serv_1.0.2/rtl/serv_rf_if.v
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_if.v
   core: ::serv:1.0.2
 - file_type: verilogSource
-  name: src/serv_1.0.2/rtl/serv_rf_ram_if.v
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram_if.v
   core: ::serv:1.0.2
 - file_type: verilogSource
-  name: src/serv_1.0.2/rtl/serv_rf_ram.v
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_ram.v
   core: ::serv:1.0.2
 - file_type: verilogSource
-  name: src/serv_1.0.2/rtl/serv_state.v
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_state.v
   core: ::serv:1.0.2
 - file_type: verilogSource
-  name: src/serv_1.0.2/rtl/serv_top.v
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_top.v
   core: ::serv:1.0.2
 - file_type: verilogSource
-  name: src/serv_1.0.2/rtl/serv_rf_top.v
+  name: src/serv_1.0.2/serv_1.0.2/rtl/serv_rf_top.v
   core: ::serv:1.0.2
 - file_type: verilogSource
   name: src/verilog-axis_0-r3/rtl/arbiter.v
@@ -257,8 +257,5 @@ files:
   core: ::corescore-corescorecore:0
 - file_type: user
   name: core_48.hex
-  core: ::corescore-corescorecore:0
-- file_type: user
-  name: core_49.hex
   core: ::corescore-corescorecore:0
 vpi: []

@@ -152,9 +152,6 @@ filesets:
     - core_48.hex:
         file_type: user
         copyto: core_48.hex
-    - core_49.hex:
-        file_type: user
-        copyto: core_49.hex
     file_type: ''
     logical_name: ''
 parameters: {}
