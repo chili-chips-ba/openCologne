@@ -1,0 +1,11 @@
+#---------------------------------------
+# Clocks
+#---------------------------------------
+IO_LOC  "i_clk"         4;
+IO_PORT "i_clk"         IO_TYPE=LVCMOS33;
+
+IO_LOC  "i_rstn"   88;
+IO_PORT "i_rstn"   IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
+
+IO_LOC  "o_uart_tx"   69;
+IO_PORT "o_uart_tx"   IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
