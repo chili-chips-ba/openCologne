@@ -1,0 +1,36 @@
+<?xml version="1" encoding="UTF-8"?>
+<!DOCTYPE gowin-fpga-project>
+<Project>
+    <Template>FPGA</Template>
+    <Version>5</Version>
+    <Device name="GW2AR-18C" pn="GW2AR-LV18QN88C8/I7">gw2ar18c-000</Device>
+    <FileList>
+        <File path="src/corescore-corescorecore_0/corescorecore.v" type="file.verilog" enable="1"/>
+        <File path="src/corescore_0/rtl/base.v" type="file.verilog" enable="1"/>
+        <File path="src/corescore_0/rtl/corescore_gowin_yosys.v" type="file.verilog" enable="1"/>
+        <File path="src/corescore_0/rtl/emitter_uart.v" type="file.verilog" enable="1"/>
+        <File path="src/corescore_0/rtl/gw2a18_clk_gen.v" type="file.verilog" enable="1"/>
+        <File path="src/corescore_0/rtl/wb2axis.v" type="file.verilog" enable="1"/>
+        <File path="src/serv_1.0.2/rtl/serv_alu.v" type="file.verilog" enable="1"/>
+        <File path="src/serv_1.0.2/rtl/serv_bufreg.v" type="file.verilog" enable="1"/>
+        <File path="src/serv_1.0.2/rtl/serv_csr.v" type="file.verilog" enable="1"/>
+        <File path="src/serv_1.0.2/rtl/serv_ctrl.v" type="file.verilog" enable="1"/>
+        <File path="src/serv_1.0.2/rtl/serv_decode.v" type="file.verilog" enable="1"/>
+        <File path="src/serv_1.0.2/rtl/serv_mem_if.v" type="file.verilog" enable="1"/>
+        <File path="src/serv_1.0.2/rtl/serv_rf_if.v" type="file.verilog" enable="1"/>
+        <File path="src/serv_1.0.2/rtl/serv_rf_ram.v" type="file.verilog" enable="1"/>
+        <File path="src/serv_1.0.2/rtl/serv_rf_ram_if.v" type="file.verilog" enable="1"/>
+        <File path="src/serv_1.0.2/rtl/serv_rf_top.v" type="file.verilog" enable="1"/>
+        <File path="src/serv_1.0.2/rtl/serv_shift.v" type="file.verilog" enable="1"/>
+        <File path="src/serv_1.0.2/rtl/serv_state.v" type="file.verilog" enable="1"/>
+        <File path="src/serv_1.0.2/rtl/serv_top.v" type="file.verilog" enable="1"/>
+        <File path="src/serving_1.0.2/serving/serving.v" type="file.verilog" enable="1"/>
+        <File path="src/serving_1.0.2/serving/serving_arbiter.v" type="file.verilog" enable="1"/>
+        <File path="src/serving_1.0.2/serving/serving_mux.v" type="file.verilog" enable="1"/>
+        <File path="src/serving_1.0.2/serving/serving_ram.v" type="file.verilog" enable="1"/>
+        <File path="src/verilog-axis_0-r3/rtl/arbiter.v" type="file.verilog" enable="1"/>
+        <File path="src/verilog-axis_0-r3/rtl/axis_arb_mux.v" type="file.verilog" enable="1"/>
+        <File path="src/verilog-axis_0-r3/rtl/axis_async_fifo.v" type="file.verilog" enable="1"/>
+        <File path="src/verilog-axis_0-r3/rtl/priority_encoder.v" type="file.verilog" enable="1"/>
+    </FileList>
+</Project>

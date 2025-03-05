@@ -75,7 +75,7 @@ module serving_ram
 
    initial
      if(|memfile) begin
-	//$display("Preloading %m from %s", memfile);
+	$display("Preloading %m from %s", memfile);
 	$readmemh(memfile, mem);
      end
 
