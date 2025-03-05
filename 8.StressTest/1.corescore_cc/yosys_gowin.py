@@ -20,7 +20,7 @@ with open(input_file, "r") as f:
 
 # Ensure the structure exists
 if "targets" in data and "gowin_yosys" in data["targets"]:
-    for count in range(51, 60):
+    for count in range(50, 51):
         data["targets"]["gowin_yosys"]["generate"] = [{"corescorecore": {"count": count}}]
         
         # Save modifications back to the same file

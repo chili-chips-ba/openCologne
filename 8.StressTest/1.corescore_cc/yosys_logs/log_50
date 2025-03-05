@@ -14513,13 +14513,13 @@ ABC: Warning: AIG with boxes has internal fanout in 0 complex flops and 2560 car
 ABC: + &if -W 500 -v 
 ABC: K = 8. Memory (bytes): Truth =    0. Cut =   68. Obj =  152. Set =  708. CutMin = no
 ABC: Node =   60842.  Ch =  6543.  Total mem =   26.53 MB. Peak cut mem =    1.79 MB.
-ABC: P:  Del = 18251.00.  Ar =   90877.0.  Edge =    73897.  Cut =   742624.  T =     0.11 sec
-ABC: P:  Del = 17319.00.  Ar =   93224.0.  Edge =    74960.  Cut =   739276.  T =     0.11 sec
-ABC: P:  Del = 17319.00.  Ar =   20020.0.  Edge =    53789.  Cut =  1282698.  T =     0.17 sec
-ABC: F:  Del = 17311.00.  Ar =   17033.0.  Edge =    51393.  Cut =  1243820.  T =     0.17 sec
-ABC: A:  Del = 17311.00.  Ar =   16545.0.  Edge =    47398.  Cut =  1238689.  T =     0.24 sec
-ABC: A:  Del = 17311.00.  Ar =   16461.0.  Edge =    47300.  Cut =  1249728.  T =     0.24 sec
-ABC: Total time =     1.04 sec
+ABC: P:  Del = 18251.00.  Ar =   90877.0.  Edge =    73897.  Cut =   742624.  T =     0.12 sec
+ABC: P:  Del = 17319.00.  Ar =   93224.0.  Edge =    74960.  Cut =   739276.  T =     0.12 sec
+ABC: P:  Del = 17319.00.  Ar =   20020.0.  Edge =    53789.  Cut =  1282698.  T =     0.18 sec
+ABC: F:  Del = 17311.00.  Ar =   17033.0.  Edge =    51393.  Cut =  1243820.  T =     0.18 sec
+ABC: A:  Del = 17311.00.  Ar =   16545.0.  Edge =    47398.  Cut =  1238689.  T =     0.26 sec
+ABC: A:  Del = 17311.00.  Ar =   16461.0.  Edge =    47300.  Cut =  1249728.  T =     0.25 sec
+ABC: Total time =     1.11 sec
 ABC: + &write -n <abc-temp-dir>/output.aig 
 ABC: + &mfs 
 ABC: + &ps -l 
@@ -14530,7 +14530,7 @@ ABC: LUT = 13015 : 2=1258 9.7 %  3=4570 35.1 %  4=5365 41.2 %  5=1651 12.7 %  6=
 ABC: Warning: AIG with boxes has internal fanout in 0 complex flops and 2560 carries.
 ABC: + &write -n <abc-temp-dir>/output.aig 
 ABC: + time 
-ABC: elapse: 4.13 seconds, total: 4.13 seconds
+ABC: elapse: 4.50 seconds, total: 4.50 seconds
 
 28.24.17.6. Executing AIGER frontend.
 <suppressed ~86355 debug messages>
@@ -19471,6 +19471,6 @@ Found and reported 0 problems.
 29. Executing BLIF backend.
 
 Warnings: 3 unique messages, 3 total
-End of script. Logfile hash: 5addb7644a, CPU: user 38.26s system 0.18s, MEM: 649.24 MB peak
+End of script. Logfile hash: 040b7a4741, CPU: user 45.43s system 0.17s, MEM: 649.04 MB peak
 Yosys 0.50+56 (git sha1 176131b50, g++ 11.4.0-1ubuntu1~22.04 -fPIC -O3)
-Time spent: 20% 31x opt_clean (8 sec), 12% 1x memory_libmap (5 sec), ...
+Time spent: 19% 31x opt_clean (9 sec), 13% 1x memory_libmap (6 sec), ...
