@@ -1,0 +1,17 @@
+files_root: /home/tarik/0.git-repo/openCologne/8.StressTest/4.veerwolves
+gapi: '1.0'
+parameters:
+  args:
+  - -unset=assert_on
+  - -set=reset_vec=0x80000000
+  - -set=fpga_optimize=1
+  - -set=ret_stack_size=2
+  - -set=btb_size=32
+  - -set=bht_size=128
+  - -set=dccm_size=16
+  - -set=dccm_num_banks=2
+  - -set=iccm_enable=0
+  - -set=icache_enable=0
+  - -set=dccm_enable=0
+  - -set=pic_total_int=8
+vlnv: ::veerwolf-veer_el2_pack_config:0.7.5

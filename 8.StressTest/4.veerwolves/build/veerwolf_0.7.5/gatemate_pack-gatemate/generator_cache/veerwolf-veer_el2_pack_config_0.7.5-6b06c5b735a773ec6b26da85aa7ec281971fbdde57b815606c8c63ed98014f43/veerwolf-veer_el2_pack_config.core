@@ -1,0 +1,24 @@
+CAPI=2:
+name: ::veerwolf-veer_el2_pack_config:0.7.5
+filesets:
+  rtl:
+    files:
+    - common_defines.vh:
+        copyto: config/common_defines.vh
+        file_type: systemVerilogSource
+    - el2_pdef.vh:
+        copyto: config/el2_pdef.vh
+        file_type: systemVerilogSource
+    - el2_param.vh:
+        is_include_file: true
+        file_type: systemVerilogSource
+    - pic_map_auto.h:
+        is_include_file: true
+        file_type: systemVerilogSource
+    file_type: ''
+    logical_name: ''
+parameters: {}
+targets:
+  default:
+    filesets:
+    - rtl

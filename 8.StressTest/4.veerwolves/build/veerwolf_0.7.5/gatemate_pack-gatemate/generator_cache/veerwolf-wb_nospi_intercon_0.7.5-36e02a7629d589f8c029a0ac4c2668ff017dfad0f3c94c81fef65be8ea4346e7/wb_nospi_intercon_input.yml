@@ -1,0 +1,20 @@
+files_root: /home/tarik/0.git-repo/openCologne/8.StressTest/4.veerwolves
+gapi: '1.0'
+parameters:
+  masters:
+    io:
+      slaves:
+      - rom
+      - sys
+      - uart
+  slaves:
+    rom:
+      offset: 0
+      size: 4096
+    sys:
+      offset: 4096
+      size: 64
+    uart:
+      offset: 8192
+      size: 4096
+vlnv: ::veerwolf-wb_nospi_intercon:0.7.5
