@@ -32,5 +32,6 @@
         <File path="src/verilog-axis_0-r3/rtl/axis_arb_mux.v" type="file.verilog" enable="1"/>
         <File path="src/verilog-axis_0-r3/rtl/axis_async_fifo.v" type="file.verilog" enable="1"/>
         <File path="src/verilog-axis_0-r3/rtl/priority_encoder.v" type="file.verilog" enable="1"/>
+        <File path="src/constraints.cst" type="file.cst" enable="1"/>
     </FileList>
 </Project>

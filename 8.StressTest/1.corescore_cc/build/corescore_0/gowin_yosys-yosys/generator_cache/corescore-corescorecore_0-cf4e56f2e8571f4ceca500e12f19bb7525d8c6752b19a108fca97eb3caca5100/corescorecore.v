@@ -9,10 +9,10 @@ module corescorecore
     output wire       o_tvalid,
     input  wire       i_tready);
 
-wire [399:0] tdata;
-wire  [49:0] tlast;
-wire  [49:0] tvalid;
-wire  [49:0] tready;
+wire [407:0] tdata;
+wire  [50:0] tlast;
+wire  [50:0] tvalid;
+wire  [50:0] tready;
 
 base
   #(.memfile ("core_0.hex"),
@@ -564,8 +564,19 @@ base
     .o_tvalid (tvalid[49]),
     .i_tready (tready[49]));
 
+base
+  #(.memfile ("core_50.hex"),
+    .memsize (256))
+ core_50
+   (.i_clk    (i_clk),
+    .i_rst    (i_rst),
+    .o_tdata  (tdata[407:400]),
+    .o_tlast  (tlast[50]),
+    .o_tvalid (tvalid[50]),
+    .i_tready (tready[50]));
+
 axis_arb_mux
-  #(.S_COUNT      (50),
+  #(.S_COUNT      (51),
     .DATA_WIDTH   (8),
     .KEEP_ENABLE  (0),
     .KEEP_WIDTH   (1),
@@ -581,13 +592,13 @@ axis_arb_mux
    (.clk           (i_clk),
     .rst           (i_rst),
     .s_axis_tdata  (tdata),
-    .s_axis_tkeep  (50'd0),
+    .s_axis_tkeep  (51'd0),
     .s_axis_tvalid (tvalid),
     .s_axis_tready (tready),
     .s_axis_tlast  (tlast),
-    .s_axis_tid    (400'd0),
-    .s_axis_tdest  (400'd0),
-    .s_axis_tuser  (50'd0),
+    .s_axis_tid    (408'd0),
+    .s_axis_tdest  (408'd0),
+    .s_axis_tuser  (51'd0),
     .m_axis_tdata  (o_tdata),
     .m_axis_tkeep  (),
     .m_axis_tvalid (o_tvalid),

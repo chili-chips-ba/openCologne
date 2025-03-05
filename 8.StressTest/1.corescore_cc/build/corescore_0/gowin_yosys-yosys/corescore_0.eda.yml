@@ -261,4 +261,7 @@ files:
 - file_type: user
   name: core_49.hex
   core: ::corescore-corescorecore:0
+- file_type: user
+  name: core_50.hex
+  core: ::corescore-corescorecore:0
 vpi: []
