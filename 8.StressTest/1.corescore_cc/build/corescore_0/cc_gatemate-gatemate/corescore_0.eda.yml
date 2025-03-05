@@ -1,0 +1,138 @@
+version: 0.2.1
+name: corescore_0
+toplevel: corescore_gatemate
+dependencies:
+  ::serv:1.0.2: []
+  ::verilog-axis:0-r3: []
+  ::serving:1.0.2:
+  - ::serv:1.0.2
+  ::corescore:0:
+  - ::serv:1.0.2
+  - ::serving:1.0.2
+  - ::verilog-axis:0-r3
+  - ::corescore-corescorecore:0
+  ::corescore-corescorecore:0: []
+parameters:
+  RISCV_FORMAL:
+    datatype: bool
+    paramtype: vlogdefine
+  SERV_CLEAR_RAM:
+    datatype: bool
+    paramtype: vlogdefine
+tool_options:
+  gatemate:
+    device: CCGM1A1
+    yosys_synth_options:
+    - -nomx8
+    p_r_options:
+    - -cCP
+    - --verbose
+    - -tm 1
+filters: []
+flow_options: {}
+hooks: {}
+files:
+- file_type: verilogSource
+  is_include_file: true
+  name: src/serv_1.0.2/rtl/serv_params.vh
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/serv_1.0.2/rtl/serv_shift.v
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/serv_1.0.2/rtl/serv_bufreg.v
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/serv_1.0.2/rtl/serv_alu.v
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/serv_1.0.2/rtl/serv_csr.v
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/serv_1.0.2/rtl/serv_ctrl.v
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/serv_1.0.2/rtl/serv_decode.v
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/serv_1.0.2/rtl/serv_mem_if.v
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/serv_1.0.2/rtl/serv_rf_if.v
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/serv_1.0.2/rtl/serv_rf_ram_if.v
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/serv_1.0.2/rtl/serv_rf_ram.v
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/serv_1.0.2/rtl/serv_state.v
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/serv_1.0.2/rtl/serv_top.v
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/serv_1.0.2/rtl/serv_rf_top.v
+  core: ::serv:1.0.2
+- file_type: verilogSource
+  name: src/verilog-axis_0-r3/rtl/arbiter.v
+  core: ::verilog-axis:0-r3
+- file_type: verilogSource
+  name: src/verilog-axis_0-r3/rtl/priority_encoder.v
+  core: ::verilog-axis:0-r3
+- file_type: verilogSource
+  name: src/verilog-axis_0-r3/rtl/axis_arb_mux.v
+  core: ::verilog-axis:0-r3
+- file_type: verilogSource
+  name: src/verilog-axis_0-r3/rtl/axis_async_fifo.v
+  core: ::verilog-axis:0-r3
+- file_type: verilogSource
+  name: src/serving_1.0.2/serving/serving_arbiter.v
+  core: ::serving:1.0.2
+- file_type: verilogSource
+  name: src/serving_1.0.2/serving/serving_mux.v
+  core: ::serving:1.0.2
+- file_type: verilogSource
+  name: src/serving_1.0.2/serving/serving_ram.v
+  core: ::serving:1.0.2
+- file_type: verilogSource
+  name: src/serving_1.0.2/serving/serving.v
+  core: ::serving:1.0.2
+- file_type: verilogSource
+  name: src/corescore_0/rtl/wb2axis.v
+  core: ::corescore:0
+- file_type: verilogSource
+  name: src/corescore_0/rtl/base.v
+  core: ::corescore:0
+- file_type: verilogSource
+  name: src/corescore_0/rtl/emitter_uart.v
+  core: ::corescore:0
+- file_type: CCF
+  name: src/corescore_0/data/cc_gatemate.ccf
+  core: ::corescore:0
+- file_type: verilogSource
+  name: src/corescore_0/rtl/cc_gatemate_clock_gen.v
+  core: ::corescore:0
+- file_type: verilogSource
+  name: src/corescore_0/rtl/corescore_gatemate.v
+  core: ::corescore:0
+- file_type: verilogSource
+  name: src/corescore-corescorecore_0/corescorecore.v
+  core: ::corescore-corescorecore:0
+- file_type: user
+  name: core_0.hex
+  core: ::corescore-corescorecore:0
+- file_type: user
+  name: core_1.hex
+  core: ::corescore-corescorecore:0
+- file_type: user
+  name: core_2.hex
+  core: ::corescore-corescorecore:0
+- file_type: user
+  name: core_3.hex
+  core: ::corescore-corescorecore:0
+- file_type: user
+  name: core_4.hex
+  core: ::corescore-corescorecore:0
+vpi: []

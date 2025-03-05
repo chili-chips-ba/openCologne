@@ -1,0 +1,29 @@
+CAPI=2:
+name: ::corescore-corescorecore:0
+filesets:
+  rtl:
+    files:
+    - corescorecore.v:
+        file_type: verilogSource
+    - core_0.hex:
+        file_type: user
+        copyto: core_0.hex
+    - core_1.hex:
+        file_type: user
+        copyto: core_1.hex
+    - core_2.hex:
+        file_type: user
+        copyto: core_2.hex
+    - core_3.hex:
+        file_type: user
+        copyto: core_3.hex
+    - core_4.hex:
+        file_type: user
+        copyto: core_4.hex
+    file_type: ''
+    logical_name: ''
+parameters: {}
+targets:
+  default:
+    filesets:
+    - rtl
