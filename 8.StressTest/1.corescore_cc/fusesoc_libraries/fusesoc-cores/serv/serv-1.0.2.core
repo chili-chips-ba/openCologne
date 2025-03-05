@@ -5,20 +5,20 @@ name : ::serv:1.0.2
 filesets:
   core:
     files:
-      - rtl/serv_params.vh : {is_include_file : true}
-      - rtl/serv_shift.v
-      - rtl/serv_bufreg.v
-      - rtl/serv_alu.v
-      - rtl/serv_csr.v
-      - rtl/serv_ctrl.v
-      - rtl/serv_decode.v
-      - rtl/serv_mem_if.v
-      - rtl/serv_rf_if.v
-      - rtl/serv_rf_ram_if.v
-      - rtl/serv_rf_ram.v
-      - rtl/serv_state.v
-      - rtl/serv_top.v
-      - rtl/serv_rf_top.v
+      - serv_1.0.2/rtl/serv_params.vh : {is_include_file : true}
+      - serv_1.0.2/rtl/serv_shift.v
+      - serv_1.0.2/rtl/serv_bufreg.v
+      - serv_1.0.2/rtl/serv_alu.v
+      - serv_1.0.2/rtl/serv_csr.v
+      - serv_1.0.2/rtl/serv_ctrl.v
+      - serv_1.0.2/rtl/serv_decode.v
+      - serv_1.0.2/rtl/serv_mem_if.v
+      - serv_1.0.2/rtl/serv_rf_if.v
+      - serv_1.0.2/rtl/serv_rf_ram_if.v
+      - serv_1.0.2/rtl/serv_rf_ram.v
+      - serv_1.0.2/rtl/serv_state.v
+      - serv_1.0.2/rtl/serv_top.v
+      - serv_1.0.2/rtl/serv_rf_top.v
     file_type : verilogSource
 
 targets:
@@ -44,8 +44,3 @@ parameters:
     datatype  : bool
     paramtype : vlogdefine
 
-provider:
-  name    : github
-  user    : olofk
-  repo    : serv
-  version : 1.0.2

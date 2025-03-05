@@ -17,7 +17,7 @@ module serv_bufreg
 
    wire 	      c, q;
    reg 		      c_r;
-   reg [31:0] 	      data;
+   (* ram_style = "distributed" *) reg [31:0] 	      data; 
 
    wire 	      clr_lsb = i_cnt0 & i_clr_lsb;
 

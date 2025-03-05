@@ -1,0 +1,5 @@
+files_root: /home/tarik/0.git-repo/openCologne/8.StressTest/1.corescore_cc/fusesoc_libraries/corescore
+gapi: '1.0'
+parameters:
+  count: 49
+vlnv: ::corescore-corescorecore:0

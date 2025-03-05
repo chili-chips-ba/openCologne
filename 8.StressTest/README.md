@@ -8,7 +8,7 @@ The GateMate routing network is mostly standard, island-based, though still with
 
 The primary motivation for this work is to get a first hand feel for how GateMate fares in both typical and extreme workloads, and contrast it the FPGAs in the same nominal capacity tier. The goal is to understand its useability, efficiency, power outlay, as well as the overall pros and cons in comparison to its peers. 
 
-### LUT-tree Logic
+### LUT-tree Logic - L2T4
 
 The unique feature of the CCGM1A1 is its LUT-tree logic element for combinatorial logic. Rather than using full LUTs, the design splits them into a tree structure, as illustrated in the figure below. CPE (Cologne Programmable Element) consists of two L2T4 LUT trees instead of standard LUT4, LUT5 or LUT6 building blocks.
 
@@ -40,16 +40,65 @@ Due to this structure, there's also a more strict and constricted routing, parti
 
 Laid out hints to a potential cripple in the FPGA's ability to implement all logic. Luckily, for common operations such as addition, multiplication, basic logic functions and multiplexing this choice holds fine. Now, this makes a 20480 CPE CCGM1A1 have a total of 40960 L2T4 ("LUT4" replacements), making it a kind of a **quasi-41k LUT4** FPGA. Overall effect on logic capacity is assessed in the benchmark tests.
 
+### L2T5 - an improvement
 
-Mitigating these limits an L2T5 primitive is formed. With the cost of using up the whole CPE, this primitive covers up all the impossible combinations for L2T4, having 4096*16=65536 logic function combinations, **a full LUT4**! Without a L2T5, some of the logic functions would have to be spread over more CPEs.
+Alleviating the imposed limits of L2T4 an L2T5 primitive is formed. With the cost of using up the whole CPE, L2T5 makes up for some of the logic functions that would instead have to occupy more CPEs. But, be careful, this is not a 1 to 1 replacement with a LUT4, let's take a deeper look into it.
 
   ![l2t5](0.doc/L2T5.png)
+
+###  **Inputs**: 5 (A, B, C, D + one reused input).
+### **Key Improvements**
+1. **Shannon Decomposition**:
+   - Splits functions using a variable (e.g., decompose on `D`):  
+     `F = (¬D ∧ F_{D=0}) ∨ (D ∧ F_{D=1})`.
+   - Sub-functions:
+     - `F_{D=0} = (A ∧ B) ∨ (A ∧ C)` (requires 3-input interaction).
+     - `F_{D=1} = (A ∧ B) ∨ C` (pairwise operations).
+2. **Dynamic Merging**:
+   - Final LUT2 merges sub-functions using all 16 two-input operations (AND, OR, XOR, etc.).
+3. **Configuration Scale**:  
+   Total configurations: \(4096 x 64 = 262144\) (**64× increase** over L2T4).
+
+### **Achievable Functions**
+- **4-input XOR**: `A ⊕ B ⊕ C ⊕ D` (via decomposition and XOR merging).
+- **Complex cascades**: `(A ∨ B) ∧ (C ∨ D)` with variable selection.
+
+### **Still Unachievable**
+- **3-input core logic**:  
+  - `F(A, B, C, D) = (A ∧ B) ∨ (C ∧ D) ∨ (A ∧ C)` (requires simultaneous `A, B, C` interaction).
+  - `MAJ(A, B, C, D)` (4-input majority).
+
+---
+
+### **1. Detailed Comparison**
+| **Feature**            | **L2T4**                                  | **L2T5**                                   |
+|-------------------------|-------------------------------------------|--------------------------------------------|
+| **Topology**            | Fixed pairwise processing                 | Adds variable-driven decomposition         |
+| **Configurations**      | 4,096                                     | 262,144 (**64× increase**)                 |
+| **Function Coverage**   | ~6% of 4-input functions                  | ~20% of 4-input functions                  |
+| **Example Achievable**  | `(A ∧ B) ∨ (C ∧ D)`                      | `A ⊕ B ⊕ C ⊕ D`                           |
+| **Example Unachievable**| `(A ∧ B) ∨ (C ∧ D) ∨ (A ∧ C)`            | `MAJ(A, B, C, D)`                         |
+
+---
+
+### **2. Why Universality Fails**
+### **Core Limitation**
+- **L2T4’s Pairwise Bottleneck**:  
+  Cannot compute sub-functions requiring **3-input interactions** (e.g., `F_{D=0} = (A ∧ B) ∨ (A ∧ C)`).
+- **Hierarchical Constraint**:  
+  Final LUT2 in L2T5 merges only two signals (original output + decomposition variable), missing 3-input dependencies.
+
+
+
+
+
+## 8-input logic -- experimental
 
 Furthermore, combining the two independent L2T4 blocks with one more LUT2, we get an 8-input LUT tree, for a total number of 12+12+4=28 configuration bits bringing the possibility of implementing 4096<sup>2</sup> logic functions. It's no good for real, 8-input independent variable logic functions, considering the cons of not being able to realize non-decomposable functions, which amplify in this case.
 
 This feature is still experimental, as the synthesis and PnR tools are not yet suited to accomodate this primitive, as discussed [here](https://github.com/chili-chips-ba/openCologne/issues/28).
 
-### Routing Network Architecture
+## Routing Network Architecture
 
 The FPGA features a standard island-style network architecture, consisting of big and small switch boxes that implement 6 and 2 unidirectional ports, respectively, on each of its NWSE sides. In addition to these Manhattan-style interconnects, diagonal connections are provided to allow signals to traverse several rows and columns more quickly—a useful feature for control logic. It is also worth mentioning that the CPE's input and output muxes supplement this routing network.
 

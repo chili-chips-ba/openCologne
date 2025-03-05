@@ -109,7 +109,7 @@ targets:
     - yosys_gowin
     generate:
     - corescorecore:
-        count: 50
+        count: 49
     tools:
       yosys:
         arch: gowin
