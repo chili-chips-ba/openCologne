@@ -1,0 +1,14 @@
+CAPI=2:
+name: ::veerwolf-wolfpack:0.7.5
+filesets:
+  rtl:
+    files:
+    - veerwolf_pack.v:
+        file_type: verilogSource
+    file_type: ''
+    logical_name: ''
+parameters: {}
+targets:
+  default:
+    filesets:
+    - rtl

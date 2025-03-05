@@ -28,6 +28,7 @@ def convert_sv2v(input_file="svtov.sv"):
             "-Isrc/veerwolf-intercon_0.7.5/", 
             "-Isrc/veerwolf-wb_nospi_intercon_0.7.5/", 
             "-Isrc/uart16550_1.5.5-r1/rtl/verilog/",
+            "--top=veerwolf_pack_cc",
             input_file
         ]
         subprocess.run(cmd, check=True)

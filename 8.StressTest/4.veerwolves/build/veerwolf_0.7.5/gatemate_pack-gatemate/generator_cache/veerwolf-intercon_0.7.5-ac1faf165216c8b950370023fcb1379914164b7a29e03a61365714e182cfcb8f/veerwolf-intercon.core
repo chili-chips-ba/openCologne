@@ -1,0 +1,14 @@
+CAPI=2:
+filesets:
+  rtl:
+    files:
+    - axi_intercon.v:
+        file_type: systemVerilogSource
+    - axi_intercon.vh:
+        file_type: verilogSource
+        is_include_file: true
+name: ::veerwolf-intercon:0.7.5
+targets:
+  default:
+    filesets:
+    - rtl

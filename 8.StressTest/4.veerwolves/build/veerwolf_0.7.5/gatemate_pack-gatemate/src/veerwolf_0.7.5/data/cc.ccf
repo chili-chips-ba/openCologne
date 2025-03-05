@@ -1,0 +1,39 @@
+Pin_in       "clk" Loc = "IO_SB_A8"  | SCHMITT_TRIGGER=true; # CLK0
+Pin_in       "rst_n" Loc = "IO_SB_B7" | PULLUP=true; # FPGA_BUT
+
+Pin_in       "i_uart_rx"         Loc = "IO_SA_A6";
+Pin_out      "o_uart_tx"         Loc = "IO_SA_B6";
+
+Pin_in       "i_sw[0]"        Loc = "IO_EA_A0";
+Pin_in       "i_sw[1]"        Loc = "IO_EA_B0";
+Pin_in       "i_sw[2]"        Loc = "IO_EA_A1";
+Pin_in       "i_sw[3]"        Loc = "IO_EA_B1";
+Pin_in       "i_sw[4]"        Loc = "IO_EA_A2";
+Pin_in       "i_sw[5]"        Loc = "IO_EA_B2";
+Pin_in       "i_sw[6]"        Loc = "IO_EA_A3";
+Pin_in       "i_sw[7]"        Loc = "IO_EA_B3";
+Pin_in       "i_sw[8]"        Loc = "IO_EA_A4";
+Pin_in       "i_sw[9]"        Loc = "IO_EA_B4";
+Pin_in       "i_sw[10]"        Loc = "IO_EA_A5";
+Pin_in       "i_sw[11]"        Loc = "IO_EA_B5";
+Pin_in       "i_sw[12]"        Loc = "IO_EA_A6";
+Pin_in       "i_sw[13]"        Loc = "IO_EA_B6";
+Pin_in       "i_sw[14]"        Loc = "IO_EA_A7";
+Pin_in       "i_sw[15]"        Loc = "IO_EA_B7";
+
+Pin_out       "o_led[0]"        Loc = "IO_EB_A0";
+Pin_out       "o_led[1]"        Loc = "IO_EB_B0";
+Pin_out       "o_led[2]"        Loc = "IO_EB_A1";
+Pin_out       "o_led[3]"        Loc = "IO_EB_B1";
+Pin_out       "o_led[4]"        Loc = "IO_EB_A2";
+Pin_out       "o_led[5]"        Loc = "IO_EB_B2";
+Pin_out       "o_led[6]"        Loc = "IO_EB_A3";
+Pin_out       "o_led[7]"        Loc = "IO_EB_B3";
+Pin_out       "o_led[8]"        Loc = "IO_EB_A4";
+Pin_out       "o_led[9]"        Loc = "IO_EB_B4";
+Pin_out       "o_led[10]"        Loc = "IO_EB_A5";
+Pin_out       "o_led[11]"        Loc = "IO_EB_B5";
+Pin_out       "o_led[12]"        Loc = "IO_EB_A6";
+Pin_out       "o_led[13]"        Loc = "IO_EB_B6";
+Pin_out       "o_led[14]"        Loc = "IO_EB_A7";
+Pin_out       "o_led[15]"        Loc = "IO_EB_B7";

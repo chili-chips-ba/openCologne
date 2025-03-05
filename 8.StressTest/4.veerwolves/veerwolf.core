@@ -212,7 +212,7 @@ targets:
       - pack_bootrom
       - nospi_core
       - cc_pack_files
-    generate : [wolfpack: {count: 10}, intercon, veer_el2_pack_config, version, wb_nospi_intercon]
+    generate : [wolfpack: {count: 1}, intercon, veer_el2_pack_config, wb_nospi_intercon]
     parameters : [bootrom_file, "cpu_type=EL2"]
     hooks:
       pre_build : [sv2vpre]
