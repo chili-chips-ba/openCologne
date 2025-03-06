@@ -46,7 +46,6 @@ tool_options:
     yosys_synth_options:
     - -nomx8
     p_r_options:
-    - -ccf
     - -cCP
     - --verbose
 filters: []
@@ -81,130 +80,130 @@ files:
   name: src/cdc_utils_0.1-r1/rtl/verilog/cc561.v
   core: ::cdc_utils:0.1-r1
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/include/el2_def.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/include/el2_def.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lib/el2_lib.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lib/el2_lib.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lib/beh_lib.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lib/beh_lib.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/el2_mem.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/el2_mem.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/el2_pic_ctrl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/el2_pic_ctrl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/el2_dma_ctrl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/el2_dma_ctrl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_aln_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_aln_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_compress_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_compress_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_ifc_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_ifc_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_bp_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_bp_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_ic_mem.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_ic_mem.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_mem_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_mem_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_iccm_mem.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu_iccm_mem.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/ifu/el2_ifu.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/dec/el2_dec_decode_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/dec/el2_dec_decode_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/dec/el2_dec_gpr_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/dec/el2_dec_gpr_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/dec/el2_dec_ib_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/dec/el2_dec_ib_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/dec/el2_dec_tlu_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/dec/el2_dec_tlu_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/dec/el2_dec_trigger.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/dec/el2_dec_trigger.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/dec/el2_dec.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/dec/el2_dec.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/exu/el2_exu_alu_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/exu/el2_exu_alu_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/exu/el2_exu_mul_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/exu/el2_exu_mul_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/exu/el2_exu_div_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/exu/el2_exu_div_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/exu/el2_exu.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/exu/el2_exu.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_bus_buffer.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_bus_buffer.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_clkdomain.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_clkdomain.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_addrcheck.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_addrcheck.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_lsc_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_lsc_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_stbuf.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_stbuf.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_bus_intf.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_bus_intf.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_ecc.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_ecc.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_dccm_mem.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_dccm_mem.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_dccm_ctl.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_dccm_ctl.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_trigger.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lsu/el2_lsu_trigger.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/dbg/el2_dbg.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/dbg/el2_dbg.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/dmi/dmi_wrapper.v
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/dmi/dmi_wrapper.v
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/dmi/dmi_jtag_to_core_sync.v
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/dmi/dmi_jtag_to_core_sync.v
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/dmi/rvjtag_tap.v
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/dmi/rvjtag_tap.v
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/lib/mem_lib.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/lib/mem_lib.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/el2_veer.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/el2_veer.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
-  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/design/el2_veer_wrapper.sv
+  name: src/chipsalliance.org_cores_VeeR_EL2_1.4/chipsalliance.org_cores_VeeR_EL2_1.4/design/el2_veer_wrapper.sv
   core: chipsalliance.org:cores:VeeR_EL2:1.4
 - file_type: systemVerilogSource
   is_include_file: true

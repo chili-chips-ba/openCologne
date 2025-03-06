@@ -20,7 +20,6 @@ FuseSoC is again the framework for generating an arbitrary number of cores. Add 
 ```
 cd 4.veerwolves
 fusesoc library add veerwolf ./
-fusesoc library add fusesoc-cores ./fusesoc_libraries/fusesoc-cores
 ```
 Generating the bitstream for CologneChip is done by running:
 ```
@@ -29,4 +28,44 @@ fusesoc run --target=gatemate_pack veerwolf
 
 
 ## Results and analysis
-Due to known issues with the current implementation, no results have been obtained to date.
+```
+CPE Component Statistics:
+          OR      3202         8%
+         AND     17296        45%
+         XOR      1553         4%
+       ANDOR         1         0%
+       ORAND      5170        13%
+       ICOMP       260         0%
+        MX2a      3873        10%
+        MX4a      2764         7%
+      ANDXOR       146         0%
+        ADDF       182         0%
+       ADDF2      2458         6%
+       ADDFx         7         0%
+      ADDF2x        42         0%
+        MULT       684         1%
+      MULTFa        13         0%
+      MULTFb        11         0%
+      Route1        53         0%
+              --------
+Sum of COMB:     37715
+
+           D      8879        95%
+         DST        32         0%
+       C_0_1       268         2%
+      RAM_I1        70         0%
+      RAM_I2        59         0%
+              --------
+Sum of SEQ:       9308
+
+Sum of all:      47023
+
+
+Number of CPEs on layer    1 / 2:   8828 / 8444
+Number of CPEs using layer 1 + 2:  16356
+Number of needed CPEs        / available CPEs:     25184 / 20480
+Number of needed IO-Pins     / available IO-Pins:     36 / 144
+ChipSize:     X: 160  Y: 128
+
+FPGA too small for circuit!
+```

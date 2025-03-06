@@ -37,5 +37,8 @@ always @(posedge o_clk_pll) begin
    end
 end
 
+assign o_clk_core = o_clk_pll;
+assign o_rst_core = rst_reg2;
+
 
 endmodule
