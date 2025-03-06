@@ -1,0 +1,4 @@
+files_root: /home/tarik/0.git-repo/openCologne/8.StressTest/4.veerwolves
+gapi: '1.0'
+parameters: {}
+vlnv: ::veerwolf-version:0.7.5

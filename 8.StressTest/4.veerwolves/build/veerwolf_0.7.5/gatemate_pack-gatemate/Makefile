@@ -9,4 +9,4 @@ veerwolf_0.7.5_synth.v: edalize_yosys_template.tcl
 	$(EDALIZE_LAUNCHER) yosys -l yosys.log -p 'tcl edalize_yosys_template.tcl'
 
 veerwolf_0.7.5_00.cfg.bit: veerwolf_0.7.5_synth.v
-	$(EDALIZE_LAUNCHER) $(P_R) -A 1 -i veerwolf_0.7.5_synth.v -o veerwolf_0.7.5 -lib ccag -ccf -cCP --verbose -ccf src/veerwolf_0.7.5/data/cc.ccf > p_r.log
+	$(EDALIZE_LAUNCHER) $(P_R) -A 1 -i veerwolf_0.7.5_synth.v -o veerwolf_0.7.5 -lib ccag -cCP --verbose -ccf src/veerwolf_0.7.5/data/cc.ccf > p_r.log

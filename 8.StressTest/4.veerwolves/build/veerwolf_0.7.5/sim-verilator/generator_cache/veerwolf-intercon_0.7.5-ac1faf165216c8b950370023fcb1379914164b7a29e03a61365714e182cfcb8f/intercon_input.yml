@@ -1,0 +1,19 @@
+files_root: /home/tarik/0.git-repo/openCologne/8.StressTest/4.veerwolves
+gapi: '1.0'
+parameters:
+  masters:
+    ifu:
+      id_width: 3
+      read_only: true
+    lsu:
+      id_width: 4
+    sb:
+      id_width: 1
+  slaves:
+    io:
+      offset: 2147483648
+      size: 16384
+    ram:
+      offset: 0
+      size: 134217728
+vlnv: ::veerwolf-intercon:0.7.5
