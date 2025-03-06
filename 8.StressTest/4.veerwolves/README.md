@@ -69,3 +69,9 @@ ChipSize:     X: 160  Y: 128
 
 FPGA too small for circuit!
 ```
+
+Comparable Gowin Arora GW2AR-18C device doesn't fare any better in this test: 
+```
+ERROR (RP0006) : The number(28340(26008 LUTs, 2284 ALUs, 0 ROM16s, 8 SSRAMs)) of logic in the design exceeds the resource limit(20736) of current device
+GowinSynthesis finish
+```
