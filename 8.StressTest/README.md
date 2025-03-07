@@ -132,6 +132,8 @@ The CPEs consisting of two L2T4 make this a quasi-41k LUT4 device, but the logic
 ## References:
 - [Michael Gude talk on GateMate architecture](https://underline.io/lecture/34046-novel-architecture-for-european-fpga)
 - [Why GateMate?!](https://pythonlinks.info/presentations/vectors/WhyGateMate.pdf)
-  
+- [Project Peppercorn - GateMate bitstream documentation](https://github.com/YosysHQ/prjpeppercorn)
+- [nextpnr-gatemate](https://github.com/YosysHQ/nextpnr/tree/gatemate)
 
+  
 ### End of Document
