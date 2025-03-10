@@ -20,10 +20,15 @@ This project implements a full graphical game with user interaction, utilizing a
 
 It is evident that the **CCGM1A1 (GateMate)** consumes significantly more logic resources than a conventional LUT4-based FPGA like **Gowin GW2AR-18C**. When considering the number of **configuration bits required**—**65k vs 30k**—this difference becomes even more pronounced, indicating that the actual silicon area occupied by the design on GateMate is more than twice as large. However, the number of registers used remains nearly the same on both platforms.
 
+Big win for CCGM1A1 when it comes to BRAM, since it fully supports true Dual-Port RAM (as opposed to Gowin Arora which does only in some cases of configuration), crucial for a lot of designs, especially those implementing DMA. Here, we're looking at double the RAM usage (in bits) for Gowin in absolute numbers.
+
 | Resource           | CCGM1A1                                 | GW2AR-18CQN88P C8/I7                        |
 |--------------------|-----------------------------------------|---------------------------------------------|
-| Logic / CPEs       | 2339 / 20480 (11.4%)                    | 1913 (1863 LUT, 50 ALU) / 20736 (10%)       |
-| Registers          | 355 / 40960 (0.9%)                      | 324 / 15750 (3%)                            |
-| └─ Flip-flops      | 355                                     | 324                                         |
-| Block RAM (BRAM)   | 4 / 32 (12.5%)                          | 8 / 46 (18%)                                |
+| Logic / CPEs       | 2339 / 20480 (11.4%)                    | 1876 / 20736 (9%)       |
+| Registers          | 355 / 40960 (0.9%)                      | 338 / 15750 (3%)                            |
+| Block RAM (BRAM)   | 4 / 32 (12.5%)                          | 16 / 46 (35%)                                |
+
+### The takeaway is: GateMate excels in highly pipelined (lots of DFFs), memory intensive (lots of BRAM) applications
+Disclamer: This is from an architectural point of view, tools may stand in the way of utilizing these gains in certain situations. Anyway, lots of pipelining might help routing also.
+
 
