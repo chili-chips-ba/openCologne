@@ -1,0 +1,19 @@
+<?xml version="1" encoding="UTF-8"?>
+<!DOCTYPE gowin-fpga-project>
+<Project>
+    <Template>FPGA</Template>
+    <Version>5</Version>
+    <Device name="GW2AR-18C" pn="GW2AR-LV18QN88C8/I7">gw2ar18c-000</Device>
+    <FileList>
+        <File path="src/alu.v" type="file.verilog" enable="1"/>
+        <File path="src/gowin_rpll/gowin_rpll.v" type="file.verilog" enable="1"/>
+        <File path="src/i8080.v" type="file.verilog" enable="1"/>
+        <File path="src/mem.v" type="file.verilog" enable="1"/>
+        <File path="src/pll.v" type="file.verilog" enable="1"/>
+        <File path="src/ps2.v" type="file.verilog" enable="1"/>
+        <File path="src/shifter.v" type="file.verilog" enable="1"/>
+        <File path="src/soc.v" type="file.verilog" enable="1"/>
+        <File path="src/top.v" type="file.verilog" enable="1"/>
+        <File path="src/vga.v" type="file.verilog" enable="1"/>
+    </FileList>
+</Project>
