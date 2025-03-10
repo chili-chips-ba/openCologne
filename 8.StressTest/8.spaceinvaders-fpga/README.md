@@ -1,3 +1,4 @@
+# Space Invaders GateMate
 ## Design Overview
 
 The **Space Invaders** design—adapted from [this repository](https://gitlab.com/x653/spaceinvaders-fpga)—has been ported to the **Gowin GW2AR-18C (20k LUT4)** FPGA. The primary goal is to compare resource utilization and maximum operating frequency (Fmax) between GateMate and Gowin FPGAs when implementing the same design. In essence, the study addresses: **How many logic resources are required by GateMate versus Gowin FPGAs for the same design?**
