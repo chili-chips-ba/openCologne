@@ -5,7 +5,7 @@ module halfBandSecond (
     input wire signed [20:0] filter_in,
     output signed [19:0] filter_out,
     output ce_out
-);
+)  /* synthesis syn_dspstyle = "logic" */;
 
 	reg signed [19:0] coeffs [0:5]; // Register array for coefficients
 

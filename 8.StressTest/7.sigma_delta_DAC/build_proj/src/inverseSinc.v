@@ -5,7 +5,7 @@ module inverseSinc (
     input wire signed [19:0] filter_in,
     output signed [17:0] filter_out,
     output ce_out
-);
+)  /* synthesis syn_dspstyle = "logic" */;
 
 	reg signed [15:0] coeffs [0:5]; // Register array for coefficients
 
@@ -121,7 +121,7 @@ module inverseSinc (
 						counter_nxt = counter_reg + 6'b000_001;
 
 						if (counter_reg > 0 && counter_reg < 6'd7) begin
-							 product_nxt = coeffs[counter_reg - 1] * delay_pipeline[counter_reg - 1];
+							 product_nxt = coeffs[counter_reg - 1] * delay_pipeline[counter_reg - 1]; // do it with LUTs
 							 product_cast_nxt = $signed({{3{product_nxt[35]}}, product_nxt});
 							 acc_nxt1 = acc_reg1 + product_cast_nxt;
 						end
@@ -129,7 +129,7 @@ module inverseSinc (
 							 output_typeconvert_nxt = (acc_reg1[32:0] + {acc_reg1[15], {14{~acc_reg1[15]}}}) >>> 15;
 						end
 						else if (counter_reg > 6'd16 && counter_reg < 6'd23) begin
-							 product_nxt = coeffs[22 - counter_reg] * delay_pipeline[counter_reg - 17];
+							 product_nxt = coeffs[22 - counter_reg] * delay_pipeline[counter_reg - 17]; //do it with LUTS
 							 product_cast_nxt = $signed({{3{product_nxt[35]}}, product_nxt});
 							 acc_nxt2 = acc_reg2 + product_cast_nxt;
 						end
