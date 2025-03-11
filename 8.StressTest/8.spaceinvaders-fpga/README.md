@@ -20,7 +20,6 @@ The **Space Invaders** design—adapted from [this repository](https://gitlab.co
 This project embodies a **real-world use case** via a heterogeneous SoC architecture, as opposed to synthetic benchmarks like [corescore_cc](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest/1.corescore_cc), [LUTRAM_Stress_Test](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest/2.LUTRAM_stress_test), and [fpga_torture](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest/5.fpga_torture).
 
 ## FPGA Resource Utilization Comparison
-
 | **Resource**         | **CCGM1A1 (GateMate)**            | **GW2AR-18CQN88P C8/I7 (Gowin)**           |
 |----------------------|-----------------------------------|------------------------------------------|
 | **Logic / CPEs**     | 2339 / 20480 (11.4%)              | 1876 / 20736 (9%)                        |
