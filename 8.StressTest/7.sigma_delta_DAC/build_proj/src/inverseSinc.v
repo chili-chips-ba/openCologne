@@ -5,7 +5,7 @@ module inverseSinc (
     input wire signed [19:0] filter_in,
     output signed [17:0] filter_out,
     output ce_out
-)  /* synthesis syn_dspstyle = "logic" */;
+) ;
 
 	reg signed [15:0] coeffs [0:5]; // Register array for coefficients
 
