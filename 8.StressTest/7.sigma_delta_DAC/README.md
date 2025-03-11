@@ -32,6 +32,7 @@ Contrary to expectations, the CCGM1A1 uses 33% more logic resources than the Gow
 | **Logic (LUT / CPEs)**   | 2306(1127 LUT, 1179 ALU) | 3528 (CPEs)     | 	4828(1945 LUT, 2883 ALU) |
 | **Registers (Flip-Flops)**     | 2230                   | 2238       | 2230 |
 |**DSP HM (MULT36x36)**       | 3                       | N/A             | 0 |
+|    **DSP HM MULTALU36X18**|1 | N/A|0|
 
 LUT-trees score a clear win over traditional LUTs in math functionality. Unfortunately, putting things into perspective we need to account for the number of configuration bits needed to implement this circuitry as a metric of used up area on chip. The LUT-tree structure of a CPE takes up 28 configuration bits, while a single LUT4 takes up 16 configuration bits. Doing some basic math, this ends up to be `3528*28 = 98784` configuration bits for CCGM1A1, and `4828*16=77248` configuration bits for GW2AR-18C. 
 
