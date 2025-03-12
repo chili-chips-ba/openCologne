@@ -43,6 +43,6 @@ Gowin (produced in a rather old 55nm SRAM process) wins the speed race hands-dow
 
 ## Conclusion
 
-GateMate is particularly well-suited for the highly pipelined designs, extensive use of DFFs, and for the memory-intensive applications. It comes with superior BRAM component with true dual-port I/O. While it boasts even more advantages on paper, GateMate shows limitions in the real-world applications. Some of them may come from design tools*. Conversely, the Gowin legacy _Arora_ architecture (i.e not their latest _Arora V_ family) offers higher Fmax and more efficient use of logic resources for the same input RTL.
-
-_(*) This analysis does not try to distinguish between architectural and tools-related limitations._
+GateMate is particularly well-suited for the highly pipelined designs, extensive use of DFFs, and for the memory-intensive applications. It comes with superior BRAM component with true dual-port I/O. While it boasts even more advantages on paper, GateMate shows limitions in the real-world applications. Some of them may come from design tools. This analysis does not try to distinguish between architectural and tools-related advantages and limitations. That are all considered essential elements of the complete package.
+ 
+Conversely, the Gowin legacy _Arora_ architecture (i.e. not their latest _Arora V_ family), for the same RTL delivers much higher Fmax and more efficient use of logic resources, but lower BRAM efficiency.
