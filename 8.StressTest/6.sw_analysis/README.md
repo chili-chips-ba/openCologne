@@ -8,11 +8,11 @@ Along with benchmark designs we've dedicated this folder to theoretical analysis
 ## LUT tree logic capacity
 LUT trees are missing some logic functionality of the traditional LUTs and here we assess the difference by the means of brute-force. The provided `lut_logic.py` python program  counts the number of feasible distinict logic functions by each LUT4, L2T4 and L2T5. Although there are more possible combinations of configurations in LUT tree topologies, there seem to be a lot of truth table copies in the end. Here are the numbers:
 
-|                           | LUT4   | L2T5 | L2T4 |
-|--------------------------------------|--------|------|------|
-| # of distinct 4-input logic functions | 65,536 | 912  | 520  |
+|  Structure(n-input logic functions)                         | LUT4 (4-input) | L2T5 (4-input) | L2T4 (4-input) | 8-input LUT tree (8-input) |
+|---------------------------|----------------|----------------|----------------|----------------------------|
+| # of distinct logic functions | 65536/65536         | 912/65536            | 520/65536            | 671848/2<sup>256</sup>       |
 
-Interestingly, LUT trees of 8 inputs also resulted in 671848 distinct functions of 8 inputs.
+Interestingly, LUT trees of 8 inputs resulted in 671848 distinct functions of 8 inputs, which is just a fraction of 2<sup>256</sup> possible 8 input logic functions.
 ### Reproduction steps
 8-input LUT tree is analyzed using cuda, running on a GPU since it requires 2<sup>256</sup>  computation operations. You might want to commment out l2t8() line since even with GPU acceleration, requires almost an hout to compute.
 ```
