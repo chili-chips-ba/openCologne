@@ -75,8 +75,8 @@ Alleviating the imposed limits of L2T4 an L2T5 primitive is formed. With the cos
 | **Feature**            | **L2T4**                                  | **L2T5**                                   |
 |-------------------------|-------------------------------------------|--------------------------------------------|
 | **Topology**            | Fixed pairwise processing                 | Adds decomposition         |
-| **Configurations**      | 4096                                     | 65536 (**64× increase**)                 |
-| **Function Coverage**   | 520/65536 of 4-input functions           | 912/65536 of 4-input functions                  |
+| **Configurations**      | 4096                                     | 65536            |
+| **Function Coverage**   | **520/65536** of 4-input functions           | **912/65536** of 4-input functions                  |
 | **Example Achievable**  | `(A ∧ B) ∨ (C ∧ D)`                      | `A ⊕ B ⊕ C ⊕ D`                           |
 | **Example Unachievable**| `(A ∧ B) ∨ (C ∧ D) ∨ (A ∧ C)`            | `MAJ(A, B, C, D)`                         |
 
@@ -95,7 +95,7 @@ Alleviating the imposed limits of L2T4 an L2T5 primitive is formed. With the cos
 
 ## 8-input logic -- experimental
 
-Furthermore, combining the two independent L2T4 blocks with one more LUT2, we get an 8-input LUT tree, for a total number of 12+12+4=28 configuration bits bringing the possibility of implementing 4096<sup>2</sup> logic functions. It's no good for real, 8-input independent variable logic functions, considering the cons of not being able to realize non-decomposable functions, which amplify in this case.
+Furthermore, combining the two independent L2T4 blocks with one more LUT2, we get an 8-input LUT tree. Our [analysis](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest/6.sw_analysis) yielded **671848/2<sup>256<sup>** distinct functions of 8-inputs feasible to implement in this structure. We see that it's no good for real, 8-input independent variable logic functions, considering the cons of not being able to realize non-decomposable functions, which amplify in this case.
 
 This feature is still experimental, as the synthesis and PnR tools are not yet suited to accomodate this primitive, as discussed [here](https://github.com/chili-chips-ba/openCologne/issues/28).
 

@@ -11,11 +11,21 @@ LUT trees are missing some logic functionality of the traditional LUTs and here 
 |                           | LUT4   | L2T5 | L2T4 |
 |--------------------------------------|--------|------|------|
 | # of distinct 4-input logic functions | 65,536 | 912  | 520  |
+
+Interestingly, LUT trees of 8 inputs also resulted in 671848 distinct functions of 8 inputs.
 ### Reproduction steps
+8-input LUT tree is analyzed using cuda, running on a GPU since it requires 2<sup>256</sup>  computation operations. You might want to commment out l2t8() line since even with GPU acceleration, requires almost an hout to compute.
 ```
 python3 lut_logic.py
 ```
-
+The output should look something like this:
+```
+Number of distinct 4-input logic functions that can be implemented in:
+LUT4: 65536 (runtime: 0.22s)
+L2T4: 912 (runtime: 0.42s)
+L2T5: 520 (runtime: 0.02s)
+L2T8: 671848 (runtime: 53m 40.23s) //8-input functions actually
+```
 ## Routing network architecture assessment
 
 This part relies on network theory and provided documentation from CologneChip to derive some theoretical limits of the routing architecture, ruling out the routing tool's ability when evaluating the quality of the architecture.

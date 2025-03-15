@@ -53,9 +53,9 @@ def l2t4():
 
     return len(unique_functions)
 
+
 import torch
 from itertools import product
-import numpy as np
 
 # Check for GPU availability
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -63,13 +63,13 @@ print(f"Using device: {device}")
 
 # Precompute all input combinations (8 inputs)
 input_combinations = list(product([0, 1], repeat=8))
-inputs_tensor = torch.tensor(input_combinations, dtype=torch.long, device=device)  # Changed to long
+inputs_tensor = torch.tensor(input_combinations, dtype=torch.long, device=device)
 
 # Split inputs into individual bits
 a, b, c, d, e, f, g, h = (inputs_tensor[:, i] for i in range(8))
 
 # Precompute LUT output cache (16 LUTs × 4 input combinations)
-lut_cache = torch.zeros((16, 2, 2), dtype=torch.long, device=device)  # Changed to long
+lut_cache = torch.zeros((16, 2, 2), dtype=torch.long, device=device)
 for lut in range(16):
     for x in range(2):
         for y in range(2):
@@ -82,7 +82,7 @@ total_configs = 16**7
 num_batches = (total_configs + BATCH_SIZE - 1) // BATCH_SIZE
 
 def process_batch(batch):
-    configs = torch.tensor(batch, dtype=torch.long, device=device)  # Changed to long
+    configs = torch.tensor(batch, dtype=torch.long, device=device)
     batch_size = configs.size(0)
     
     # Expand dimensions for broadcasting
@@ -99,14 +99,10 @@ def process_batch(batch):
     l2_out2 = lut_cache[configs[:, 5], l1_out3, l1_out4]
     
     # Final layer processing
-    final_out = lut_cache[configs[:, 6], l2_out1, l2_out2]
+    final_out = lut_cache[configs[:, 6], l2_out1, l2_out2]  # [batch_size, 256]
     
-    # Generate truth tables
-    input_idx = (a << 3 | b << 2 | c << 1 | d).unsqueeze(0)
-    truth_tables = torch.zeros((batch_size, 16), dtype=torch.long, device=device)
-    truth_tables.scatter_(1, input_idx.expand(batch_size, -1), final_out)
-    
-    return truth_tables.cpu().numpy()
+    # Convert to numpy and create tuples
+    return final_out.cpu().numpy()
 
 def l2t8_gpu():
     unique_functions = set()
@@ -116,16 +112,16 @@ def l2t8_gpu():
         #print(f"Processing batch {batch_idx+1}/{num_batches}")
         batch = [next(config_generator) for _ in range(BATCH_SIZE)]
         
-        try:
-            batch_results = process_batch(batch)
-            for tt in batch_results:
-                unique_functions.add(tuple(tt.flatten().tolist()))
-        except Exception as e:
-            print(f"Error in batch {batch_idx+1}: {str(e)}")
+        batch_results = process_batch(batch)
+        for row in batch_results:
+            # Convert to tuple of 256 bits
+            unique_functions.add(tuple(row.astype(int).tolist()))
         
         torch.cuda.empty_cache()
     
     return len(unique_functions)
+
+
 
 
 def lut4():
