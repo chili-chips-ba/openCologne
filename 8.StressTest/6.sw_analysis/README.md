@@ -14,7 +14,7 @@ LUT trees are missing some logic functionality of the traditional LUTs and here 
 
 Interestingly, LUT trees of 8 inputs resulted in 671848 distinct functions of 8 inputs, which is just a fraction of 2<sup>256</sup> possible 8 input logic functions.
 ### Reproduction steps
-8-input LUT tree is analyzed using cuda, running on a GPU since it requires 2<sup>256</sup>  computation operations. You might want to commment out l2t8() line since even with GPU acceleration, requires almost an hout to compute.
+8-input LUT tree is analyzed using cuda, running on a GPU since it requires 2<sup>256</sup>  computation operations. You might want to commment out `l2t8()` call since even with GPU acceleration (15 TFLOPs, 1024 batch size), requires almost an hout to compute.
 ```
 python3 lut_logic.py
 ```
