@@ -1,8 +1,6 @@
 # Cologne Chip AG - GateMate(TM) FPGA
 # Pin database file for CCGM1A1 (last change on 2024-04-16) written on 2024-05-13 by Papilio Ver. 2.0
 
-#THE REQUIRED FORMAT
-#pin,bank,site,tile,pin_function
 
 Pin;Name;2nd function;Signal group;GPIO bank;"I/O mode";"Input characteristic";"Output characteristic";"Reset category";"State during reset";"State after reset";"Description"
 A1;GND;1st;Ground;;;;;"0";;;"Ground"
