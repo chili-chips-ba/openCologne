@@ -8,13 +8,15 @@ The GateMate routing network is mostly standard, island-based, though still with
 
 The primary motivation for this work is to get a first hand feel for how GateMate fares in both typical and extreme workloads, and contrast it the FPGAs in the same nominal capacity tier. The goal is to understand its useability, efficiency, power outlay, as well as the overall pros and cons in comparison to its peers. 
 
+**[This](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest/6.sw_analysis) folder is dedicated to testing the architecture by modelling and simulation. There you can find steps to reproduce the figures and results in this readme.**
+
 ### LUT-tree Logic - L2T4
 
 The unique feature of the CCGM1A1 is its LUT-tree logic element for combinatorial logic. Rather than using full LUTs, the design splits them into a tree structure, as illustrated in the figure below. CPE (Cologne Programmable Element) consists of two L2T4 LUT trees instead of standard LUT4, LUT5 or LUT6 building blocks.
 
 There's a trade-off here between using an L2T4 and a LUT4:
 - **Less area consumed:** A single L2T4 requires only 12 configuration bits compared to 16 for a LUT4.
-- **Reduced combinatorial versatility:** An L2T4 can implement **4,096** different 4-input logic functions, whereas a LUT4 can implement **65,536** (these results are obtained using basic combinatorics).
+- **Reduced combinatorial versatility:** An L2T4 can implement **520** (find out how [here](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest/6.sw_analysis)) different 4-input logic functions, whereas a LUT4 can implement **65,536** (these results are obtained using basic combinatorics).
 
     ![Lut-tree](0.doc/LUT_CPE.png)
 
@@ -54,10 +56,9 @@ Alleviating the imposed limits of L2T4 an L2T5 primitive is formed. With the cos
    - Sub-functions:
      - `F_{D=0} = (A ∧ B) ∨ (A ∧ C)` (requires 3-input interaction).
      - `F_{D=1} = (A ∧ B) ∨ C` (pairwise operations).
-2. **Dynamic Merging**:
+2. **Merging**:
    - Final LUT2 merges sub-functions using all 16 two-input operations (AND, OR, XOR, etc.).
-3. **Configuration Scale**:  
-   Total configurations: \(4096 x 64 = 262144\) (**64× increase** over L2T4).
+
 
 ### **Achievable Functions**
 - **4-input XOR**: `A ⊕ B ⊕ C ⊕ D` (via decomposition and XOR merging).
@@ -73,7 +74,7 @@ Alleviating the imposed limits of L2T4 an L2T5 primitive is formed. With the cos
 ### **1. Detailed Comparison**
 | **Feature**            | **L2T4**                                  | **L2T5**                                   |
 |-------------------------|-------------------------------------------|--------------------------------------------|
-| **Topology**            | Fixed pairwise processing                 | Adds variable-driven decomposition         |
+| **Topology**            | Fixed pairwise processing                 | Adds decomposition         |
 | **Configurations**      | 4,096                                     | 262,144 (**64× increase**)                 |
 | **Function Coverage**   | ~6% of 4-input functions                  | ~20% of 4-input functions                  |
 | **Example Achievable**  | `(A ∧ B) ∨ (C ∧ D)`                      | `A ⊕ B ⊕ C ⊕ D`                           |
