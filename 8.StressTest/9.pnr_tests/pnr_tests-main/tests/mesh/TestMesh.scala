@@ -13,7 +13,6 @@ import scala.io.Source
 import scala.collection.mutable.Queue
 
 import PnrTests.NodeFabric
-import PnrTests.XDCGen
 import PnrTests.CCFGen
 
 class Config {
@@ -85,7 +84,7 @@ FAMILY  = colognechip
 PART    = $part
 BOARD   = GateMateA1-EVB
 PROJECT = $project
-CHIPDB  = ../../GateMateA1-EVB.ccf
+CHIPDB  = /home/nikola/ChiliChips/openCologne/pnr_tests-novi/colognechip/CCGM1A1/gatemate-ccgm1a1-pinlist.csv
 TOP_VERILOG=$$(PROJECT).sv
 #SYNTH_OPTS = -nodsp
 include ../../config.mk
@@ -94,7 +93,10 @@ include ../../config.mk
 
     val cfg: Config = new Config;
 
-//    ChiselStage.emitFIRRTLDialect(new TestMesh(k, l, m, i))
+//    Added due to trouble finding the correct directory
+val partpath = "/home/nikola/ChiliChips/openCologne/pnr_tests-novi/colognechip/CCGM1A1/gatemate-ccgm1a1-pinlist.csv"
+
+
     ChiselStage.emitSystemVerilog(new CCFGen(() => new TestMeshIO(64), outdir, project, part, partpath))
     ChiselStage.emitSystemVerilogFile(new TestMesh(cfg, k, x, y, m, i), Array("--target-dir", outdir), firtoolOpts=Array("--lowering-options=disallowLocalVariables,disallowPackedArrays"))
 
