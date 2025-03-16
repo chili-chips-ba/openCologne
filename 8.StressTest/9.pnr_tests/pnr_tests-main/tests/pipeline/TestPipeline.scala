@@ -13,7 +13,6 @@ import scala.io.Source
 import scala.collection.mutable.Queue
 
 import PnrTests.NodeFabric
-import PnrTests.XDCGen
 import PnrTests.CCFGen
 
 
