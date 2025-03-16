@@ -14,6 +14,7 @@ import scala.collection.mutable.Queue
 
 import PnrTests.NodeFabric
 import PnrTests.XDCGen
+import PnrTests.CCFGen
 
 class Config {
   val startWidth = 64
@@ -90,7 +91,7 @@ include ../../openXC7.mk
     val cfg: Config= new Config;
 
 //    ChiselStage.emitFIRRTLDialect(new TestStar(k, l, m, i))
-    ChiselStage.emitSystemVerilog(new XDCGen(() => new TestStarIO(64), outdir, project, part, partpath))
+    ChiselStage.emitSystemVerilog(new CCFGen(() => new TestStarIO(64), outdir, project, part, partpath))
     ChiselStage.emitSystemVerilogFile(new TestStar(cfg, k, x, y, m, i), Array("--target-dir", outdir), firtoolOpts=Array("--lowering-options=disallowLocalVariables,disallowPackedArrays"))
 
     val stdoutFile = new File(s"$outdir/stdout.log")
