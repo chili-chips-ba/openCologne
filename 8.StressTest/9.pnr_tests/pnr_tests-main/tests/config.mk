@@ -10,10 +10,6 @@ TOP_MODULE ?= ${TOP}
 TOP_VERILOG ?= ${TOP}.v
 CCF ?= ${PROJECT}.ccf  # GateMate uses .ccf constraints file
 
-#.PHONY: print-ccf
-#print-ccf:
-#	@echo "CCF file path: $(realpath ${CCF})"
-
 
 
 BIT_TO_BIN_SCRIPT ?= /home/nikola/ChiliChips/openCologne/pnr_tests-novi/tests
@@ -22,13 +18,6 @@ BIT_TO_BIN_SCRIPT ?= /home/nikola/ChiliChips/openCologne/pnr_tests-novi/tests
 PNR_DEBUG ?= # --verbose --debug
 BOARD ?= CCGM1A1
 JTAG_LINK ?= --board ${BOARD}
-
-#.PHONY: all
-#all: ${PROJECT}.bin
-
-#.PHONY: program
-#program: ${PROJECT}.bin
-#	openFPGALoader ${JTAG_LINK} --bitstream $<
 
 # Synthesis: Convert Verilog to JSON
 ${PROJECT}.json: ${TOP_VERILOG} ${ADDITIONAL_SOURCES}
