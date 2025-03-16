@@ -14,6 +14,7 @@ import scala.collection.mutable.Queue
 
 import PnrTests.NodeFabric
 import PnrTests.XDCGen
+import PnrTests.CCFGen
 
 class Config {
   val startWidth = 32
@@ -94,7 +95,7 @@ include ../../config.mk
     val cfg: Config = new Config;
 
 //    ChiselStage.emitFIRRTLDialect(new TestMesh(k, l, m, i))
-    ChiselStage.emitSystemVerilog(new XDCGen(() => new TestMeshIO(64), outdir, project, part, partpath))
+    ChiselStage.emitSystemVerilog(new CCFGen(() => new TestMeshIO(64), outdir, project, part, partpath))
     ChiselStage.emitSystemVerilogFile(new TestMesh(cfg, k, x, y, m, i), Array("--target-dir", outdir), firtoolOpts=Array("--lowering-options=disallowLocalVariables,disallowPackedArrays"))
 
     val stdoutFile = new File(s"$outdir/stdout.log")

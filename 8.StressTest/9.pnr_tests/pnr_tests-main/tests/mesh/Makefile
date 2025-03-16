@@ -16,10 +16,12 @@ SCALA_SOURCES= \
 ../../common/AttributeAnnotation.scala \
 ../Crossbar.scala \
 ../NodeFabric.scala \
-../XDCGen.scala
+../CCFGen.scala
 
 TestMesh:
 	mkdir -p ../../chipdb &> /dev/null
-	scala-cli $(SCALA_SOURCES) TestMesh.scala $< -- $(PROJECT) $(PART) $(PRJXRAY_DB_DIR)/$(FAMILY)/$(PART)/$(xc7a100tcsg324-2) 3 4 4 64 500
+	scala-cli $(SCALA_SOURCES) TestMesh.scala $< -- $(PROJECT) $(PART) $(PRJXRAY_DB_DIR)/$(FAMILY)/$(PART) 3 4 4 64 500
+	
+	#/$(CCGM1A1) 
 
 include ../config.mk
