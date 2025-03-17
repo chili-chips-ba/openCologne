@@ -50,7 +50,7 @@ def l2t4():
             input_idx = (a << 3) | (b << 2) | (c << 1) | d
             truth_table |= out3 << (15 - input_idx)
         unique_functions.add(truth_table)
-
+    print(unique_functions)
     return len(unique_functions)
 
 
@@ -160,10 +160,10 @@ if __name__ == '__main__':
    l2t5_time = format_time(time.time() - start)
 
    start = time.time()
-   l2t8_result = l2t8_gpu()  # Note: This calls l2t4() for L2T5 as per original code
+#    l2t8_result = l2t8_gpu()  # Note: This calls l2t4() for L2T5 as per original code
    l2t8_time = format_time(time.time() - start)
 
    print(f"LUT4: {lut4_result} (runtime: {lut4_time})")
    print(f"L2T4: {l2t4_result} (runtime: {l2t4_time})")
    print(f"L2T5: {l2t5_result} (runtime: {l2t5_time})")
-   print(f"L2T8: {l2t8_result} (runtime: {l2t8_time})")
+#    print(f"L2T8: {l2t8_result} (runtime: {l2t8_time})")
