@@ -1,3 +1,14 @@
+error id: file://<WORKSPACE>/8.StressTest/9.pnr_tests/pnr_tests-main/tests/pipeline/TestPipeline.scala:83
+file://<WORKSPACE>/8.StressTest/9.pnr_tests/pnr_tests-main/tests/pipeline/TestPipeline.scala
+empty definition using pc, found symbol in pc: 
+semanticdb not found
+|empty definition using fallback
+non-local guesses:
+	 -
+
+Document text:
+
+```scala
 //> using scala "2.13.12"
 //> using dep "org.chipsalliance::chisel:6.7.0"
 //> using plugin "org.chipsalliance:::chisel-plugin:6.7.0"
@@ -77,22 +88,18 @@ object Main extends App {
     val writerMakefile = new BufferedWriter(new FileWriter(fileMakefile))
 
     writerMakefile.write(s"""
-FAMILY  = colognechip
+FAMILY  = artix7
 PART    = $part
-BOARD   = GateMateA1-EVB
+BOARD   = arty
 PROJECT = $project
-CHIPDB  = /home/nikola/ChiliChips/openCologne/pnr_tests-novi/colognechip/CCGM1A1/gatemate-ccgm1a1-pinlist.csv
+CHIPDB  = ../../../chipdb/$${ARTIX7_CHIPDB}
 TOP_VERILOG=$$(PROJECT).sv
 #SYNTH_OPTS = -nodsp
-include ../../config.mk
+include ../../openXC7.mk
 """)
     writerMakefile.close()
 
     val cfg: Config = new Config ;
-    
-    
-//    Added due to trouble finding the correct directory
-val partpath = "/home/nikola/ChiliChips/openCologne/pnr_tests-novi/colognechip/CCGM1A1/gatemate-ccgm1a1-pinlist.csv"
 
 //    ChiselStage.emitFIRRTLDialect(new TestPipeline(k, l, m, i))
     ChiselStage.emitSystemVerilog(new CCFGen(() => new TestPipelineIO(64), outdir, project, part, partpath))
@@ -144,3 +151,9 @@ val partpath = "/home/nikola/ChiliChips/openCologne/pnr_tests-novi/colognechip/C
     }
   }
 }
+
+```
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: 
