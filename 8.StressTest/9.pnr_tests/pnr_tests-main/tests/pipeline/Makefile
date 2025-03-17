@@ -1,7 +1,8 @@
-FAMILY  = artix7
-PART    = xc7a100tcsg324-2
+FAMILY  = colognechip
+PART    = CCGM1A1
+#xc7a100tcsg324-2
 #xc7a200tffg1156
-BOARD   = arty
+BOARD   = GateMateA1-EVB
 PROJECT = TestPipeline
 
 SCALA_SOURCES= \
@@ -13,11 +14,12 @@ SCALA_SOURCES= \
 ../../decode/NodeMap.scala \
 ../../memory/NodeMemory.scala \
 ../../common/AttributeAnnotation.scala \
+../Crossbar.scala \
 ../NodeFabric.scala \
-../XDCGen.scala
+../CCFGen.scala
 
 TestPipeline:
-	mkdir -p ../../chipdb
-	scala-cli $(SCALA_SOURCES) TestPipeline.scala $< -- $(PROJECT) $(PART) $(PRJXRAY_DB_DIR)/$(FAMILY)/$(PART)/$(xc7a100tcsg324-2) 5 8 128 500
+	mkdir -p ../../chipdb &> /dev/null
+	scala-cli $(SCALA_SOURCES) TestPipeline.scala $< -- $(PROJECT) $(PART) $(PRJXRAY_DB_DIR)/$(FAMILY)/$(PART) 5 8 128 500
 
-include ../openXC7.mk
+include ../config.mk
