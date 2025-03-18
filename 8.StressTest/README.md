@@ -99,6 +99,8 @@ Furthermore, combining the two independent L2T4 blocks with one more LUT2, we ge
 
 This feature is still experimental, as the synthesis and PnR tools are not yet suited to accomodate this primitive, as discussed [here](https://github.com/chili-chips-ba/openCologne/issues/28).
 
+## Multiplexing
+The LUT trees enable 4-input multiplexing in a single CPE, something that is useful in many designs as CPUs, SOCs. A classic LUT4 can do only 2-input multiplexing, and in that sense multiplexing density per configuration bits is grater in the case of CPEs.
 ## Routing Network Architecture
 
 The FPGA features a standard island-style network architecture, consisting of big and small switch boxes that implement 6 and 2 unidirectional ports, respectively, on each of its NWSE sides. In addition to these Manhattan-style interconnects, diagonal connections are provided to allow signals to traverse several rows and columns more quickly—a useful feature for control logic. It is also worth mentioning that the CPE's input and output muxes supplement this routing network.
