@@ -13,7 +13,6 @@ import scala.io.Source
 import scala.collection.mutable.Queue
 
 import PnrTests.NodeFabric
-import PnrTests.XDCGen
 import PnrTests.CCFGen
 
 class Config {
@@ -77,18 +76,22 @@ object Main extends App {
     val writerMakefile = new BufferedWriter(new FileWriter(fileMakefile))
 
     writerMakefile.write(s"""
-FAMILY  = artix7
+FAMILY  = colognechip
 PART    = $part
-BOARD   = arty
+BOARD   = GateMateA1-EVB
 PROJECT = $project
-CHIPDB  = ../../../chipdb/$${ARTIX7_CHIPDB}
+CHIPDB  = /home/nikola/ChiliChips/openCologne/pnr_tests-novi/colognechip/CCGM1A1/gatemate-ccgm1a1-pinlist.csv
 TOP_VERILOG=$$(PROJECT).sv
 #SYNTH_OPTS = -nodsp
-include ../../openXC7.mk
+include ../../config.mk
 """)
     writerMakefile.close()
 
     val cfg: Config= new Config;
+    
+    //    Added due to trouble finding the correct directory
+val partpath = "/home/nikola/ChiliChips/openCologne/pnr_tests-novi/colognechip/CCGM1A1/gatemate-ccgm1a1-pinlist.csv"
+
 
 //    ChiselStage.emitFIRRTLDialect(new TestStar(k, l, m, i))
     ChiselStage.emitSystemVerilog(new CCFGen(() => new TestStarIO(64), outdir, project, part, partpath))
