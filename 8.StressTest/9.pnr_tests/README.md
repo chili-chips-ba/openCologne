@@ -20,17 +20,18 @@ We have ported these tests to run for the CologneChip CCGM1A1. The resaults that
 | Number of cells:              | 8195     | 781          | 55996   |
 | $scopeinfo                    | 52       | 18           | 503     |
 | CC_ADDF                       | 3124     | 190          | 18756   |
-| CC_BRAM_20K                   | 9        | 5            | 1       |
-| CC_BUFG                       | 1        | 1            | 14140   |
-| CC_DFF                        | 1385     | 171          | 68      |
-| CC_IBUF                       | 36       | 171          | 166     |
-| CC_LUT1                       | 18       | 36           | 3519    |
-| CC_LUT2                       | 640      | 50           | 8825    |
-| CC_LUT3                       | 1650     | 109          | 7268    |
-| CC_LUT4                       | 1210     | 159          | 59      |
+| CC_BRAM_20K                   | 9        | 5            | /       |
+| CC_BUFG                       | 1        | 1            | 1       |
+| CC_DFF                        | 1385     | 171          | 14140   |
+| CC_IBUF                       | 36       | 171          | 68      |
+| CC_LUT1                       | 18       | 36           | 166     |
+| CC_LUT2                       | 640      | 50           | 3519    |
+| CC_LUT3                       | 1650     | 109          | 8825    |
+| CC_LUT4                       | 1210     | 159          | 7268    |
 | CC_MX4                        | 30       | 1            | 2597    |
 | CC_MX8                        | 6        | /            | 28      |
 | CC_OBUF                       | 34       | 34           | 66      |
+| CC_MULT                       | /        | /            | 59      |
 
 
 
