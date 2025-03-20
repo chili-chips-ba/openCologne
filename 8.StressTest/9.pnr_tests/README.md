@@ -5,7 +5,7 @@ These tests were originaly written by Mike Reznikov and they can be found on the
 There are three different topologies implemented in pnr_tests, with the flexibility to add more. Each topology is composed of Nodes, where each Node implements a combinational logic function and currently contains no registers. An array of data is collected from random inputs, passed through the entire pipeline, and routed to random output pins. Additionally, a small random subset of data bits is designated as control signals and connected to both the logic function control inputs and flow control pins. Each Node randomly implements functions like MUX/DEMUX, QUEUE, MATH (MUL/DIV), ENCODER/DECODER, and possibly more.
 
 ## Pipeline
-The simplest topology is a PIPELIN, a linear sequence of Nodes. Currently, registers between Nodes are inserted randomly, often resulting in very long chains. A small patch was added to enforce register insertion between Nodes, helping to shorten these chains.
+The simplest topology is a PIPELINE, a linear sequence of Nodes. Currently, registers between Nodes are inserted randomly, often resulting in very long chains. A small patch was added to enforce register insertion between Nodes, helping to shorten these chains.
 
 ## Mesh
 The MESH topology consists of an X×Y two-dimensional array of Nodes. Signals are broadcast to all rows simultaneously. Neighboring row pairs randomly exchange portions of their data between corresponding Nodes, resulting in multiple diagonal data paths across the mesh.
