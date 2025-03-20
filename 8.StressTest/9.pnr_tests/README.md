@@ -13,7 +13,7 @@ The MESH topology consists of an X×Y two-dimensional array of Nodes. Signals ar
 ## Star
 The last topology, referred to as STAR, closely resembles the PIPELINE structure but differs in that control signals from the first Node are distributed to all other Nodes. This results in random high fanout during data processing. Integrating multiple topologies within a single design is beneficial and not difficult to implement.
 
-## Test resaults
+## Test results
 
 We have ported these tests to run for the CologneChip CCGM1A1. The resaults that we got by running these tests can be found in the table below:
 
