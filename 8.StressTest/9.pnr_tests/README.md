@@ -2,7 +2,7 @@
 
 These tests were originaly written by Mike Reznikov and they can be found on the link: https://github.com/mirekez/pnr_tests
 
-There are three different topologies implemented in pnr_tests, with the flexibility to add more. Each topology is composed of Nodes, where each Node implements a combinational logic function and currently contains no registers. An array of data is collected from random inputs, passed through the entire pipeline, and routed to random output pins. Additionally, a small random subset of data bits is designated as control signals and connected to both the logic function control inputs and flow control pins.
+There are three different topologies implemented in pnr_tests, with the flexibility to add more. Each topology is composed of Nodes, where each Node implements a combinational logic function and currently contains no registers. An array of data is collected from random inputs, passed through the entire pipeline, and routed to random output pins. Additionally, a small random subset of data bits is designated as control signals and connected to both the logic function control inputs and flow control pins. Each Node randomly implements functions like MUX/DEMUX, QUEUE, MATH (MUL/DIV), ENCODER/DECODER, and possibly more.
 
 ## Pipeline
 The simplest topology is a PIPELIN, a linear sequence of Nodes. Currently, registers between Nodes are inserted randomly, often resulting in very long chains. A small patch was added to enforce register insertion between Nodes, helping to shorten these chains.
@@ -13,7 +13,7 @@ The MESH topology consists of an X×Y two-dimensional array of Nodes. Signals ar
 ## Star
 The last topology, referred to as STAR, closely resembles the PIPELINE structure but differs in that control signals from the first Node are distributed to all other Nodes. This results in random high fanout during data processing. Integrating multiple topologies within a single design is beneficial and not difficult to implement.
 
-Each Node randomly implements functions like MUX/DEMUX, QUEUE, MATH (MUL/DIV), ENCODER/DECODER, and possibly more.
+## Test resaults
 
 We have ported these tests to run for the CologneChip CCGM1A1. The resaults that we got by running these tests can be found in the table below:
 
