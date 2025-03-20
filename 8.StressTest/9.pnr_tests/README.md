@@ -23,15 +23,15 @@ We have ported these tests to run for the CologneChip CCGM1A1. The resaults that
 | CC_BRAM_20K                   | 9        | 5            | /       |
 | CC_BUFG                       | 1        | 1            | 1       |
 | CC_DFF                        | 1385     | 171          | 14140   |
-| CC_IBUF                       | 36       | 171          | 68      |
-| CC_LUT1                       | 18       | 36           | 166     |
+| CC_IBUF                       | 36       | 36           | 68      |
+| CC_LUT1                       | 18       | /            | 166     |
 | CC_LUT2                       | 640      | 50           | 3519    |
 | CC_LUT3                       | 1650     | 109          | 8825    |
 | CC_LUT4                       | 1210     | 159          | 7268    |
-| CC_MX4                        | 30       | 1            | 2597    |
+| CC_MX4                        | 30       | 7            | 2597    |
 | CC_MX8                        | 6        | /            | 28      |
 | CC_OBUF                       | 34       | 34           | 66      |
-| CC_MULT                       | /        | /            | 59      |
+| CC_MULT                       | /        | 1            | 59      |
 
 
 
