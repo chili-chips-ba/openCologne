@@ -99,7 +99,6 @@ plt.plot(yosys_counts, yosys_dff_counts, marker='s', linestyle='--', label="DFF 
 
 plt.xlabel("Number of Cores")
 plt.ylabel("Count")
-plt.title("Resource Utilization vs Number of Cores")
 plt.legend()
 plt.grid(True)
 
@@ -118,7 +117,6 @@ plt.plot(counts, dff_percentage_diff, marker='s', linestyle='-', label="DFF Coun
 
 plt.xlabel("Number of Cores")
 plt.ylabel("Percentage Difference (%)")
-plt.title("Percentage Difference: Yosys vs Proprietary Synthesis")
 plt.legend()
 plt.axhline(0, color='black', linestyle='--', linewidth=0.8)  # Add horizontal line at 0%
 plt.grid(True)
