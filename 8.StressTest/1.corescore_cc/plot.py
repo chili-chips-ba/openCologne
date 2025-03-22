@@ -90,6 +90,9 @@ for count in range(1, 51):
 lut_percentage_diff = [(y - p) / p * 100 for p, y in zip(lut_counts, yosys_lut_counts)]
 dff_percentage_diff = [(y - p) / p * 100 for p, y in zip(dff_counts, yosys_dff_counts)]
 
+
+mean_lut_percentage_diff = np.mean(lut_percentage_diff)
+print(f"Mean LUT Percentage Difference: {mean_lut_percentage_diff:.2f}%")
 # Plot results comparing proprietary and Yosys synthesis
 plt.figure(figsize=(10, 6))
 plt.plot(counts, lut_counts, marker='o', linestyle='-', label="LUT Count (Proprietary)")
