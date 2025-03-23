@@ -7,11 +7,17 @@ There are three different topologies implemented in pnr_tests, with the flexibil
 ## Pipeline
 The simplest topology is a PIPELINE, a linear sequence of Nodes. Currently, registers between Nodes are inserted randomly, often resulting in very long chains. A small patch was added to enforce register insertion between Nodes, helping to shorten these chains.
 
+![pnr_tests](doc/Pipeline.png) 
+
 ## Mesh
 The MESH topology consists of an X×Y two-dimensional array of Nodes. Signals are broadcast to all rows simultaneously. Neighboring row pairs randomly exchange portions of their data between corresponding Nodes, resulting in multiple diagonal data paths across the mesh.
 
+![pnr_tests](doc/Mesh.png) 
+
 ## Star
 The last topology, referred to as STAR, closely resembles the PIPELINE structure but differs in that control signals from the first Node are distributed to all other Nodes. This results in random high fanout during data processing. Integrating multiple topologies within a single design is beneficial and not difficult to implement.
+
+![pnr_tests](doc/Star.png) 
 
 ## Test results
 
