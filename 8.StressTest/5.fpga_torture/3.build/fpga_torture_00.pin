@@ -1,5 +1,5 @@
 # Pinfile for Design fpga_torture_00
-# 2025-02-17 01:59:57
+# 2025-03-23 12:17:38
 # Bounding Box for compact mode is (x1y1) - (x160y128)   box size: 20480
 
 SizeX = 160 | SizeY = 128;
