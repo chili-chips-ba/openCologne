@@ -50,6 +50,35 @@ We have ported these tests to run for the CologneChip CCGM1A1. The resaults that
 | CC_OBUF                       | 34       | 34           | 66      |
 | CC_MULT                       | /        | 1            | 59      |
 
+### Mesh test results
+
+|               **GateMate CCGM1A1**    |           **Gowin GW2AR-18LQ176**       |  **Delta**      |
+|---------------------------------------|-----------------------------------------|-----------------|
+| Number of wires:             3214     | Number of wires:             3791       |       -577      |
+| Number of wire bits:          26257   | Number of wire bits:         15027      |       11230     |
+| Number of public wires:      554      | Number of public wires:      3791       |       -3237     |
+| Number of public wire bits:  10566    | Number of public wire bits:  15027      |       -4461     |
+| Number of ports:             8        | Number of ports:             8          |       0         |
+| Number of port bits:         70       | Number of port bits:         70         |       0         |       
+| Number of memories:          0        | Number of memories:          0          |       0         |
+| Number of memory bits:       0        | Number of memory bits:       0          |       0         |
+| Number of processes:         0        | Number of processes:         0          |       0         |
+| Number of cells:             8195     | Number of cells:             3834       |       4361      |
+| $scopeinfo:                  52       | $scopeinfo:                  52         |       0         |
+| CC_ADDF:                     3124     | ALU:                         933        |       /         |
+| CC_BRAM_20K:                 9        | DFFE:                        54         |       /         |
+| CC_BUFG:                     1        | DFFR:                        249        |       /         |
+| CC_DFF:                      1385     | DFF:                         715        |       670       |
+| CC_IBUF:                     36       | IBUF:                        36         |       0         |
+| CC_LUT1:                     18       | LUT1:                        123        |       -105      |
+| CC_LUT2:                     640      | LUT2:                        135        |       505       |
+| CC_LUT3:                     1650     | LUT3:                        773        |       877       |
+| CC_LUT4:                     1210     | LUT4:                        413        |       797       |
+| CC_MX4:                      30       | MUX2_LUT5:                   161        |       /         |
+| CC_MX8:                      6        | RAM16SDP4:                   72         |       /         |
+| CC_OBUF:                     34       | OBUF:                        34         |       0         |
+| CC_MULT:                     /        | /                                       |       /         |
+
 
 
 ## WIP
