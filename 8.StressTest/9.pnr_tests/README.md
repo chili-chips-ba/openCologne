@@ -2,20 +2,26 @@
 
 These tests were originaly written by Mike Reznikov and they can be found on the link: https://github.com/mirekez/pnr_tests
 
-There are three different topologies implemented in pnr_tests, with the flexibility to add more. Each topology is composed of Nodes, where each Node implements a combinational logic function and currently contains no registers. An array of data is collected from random inputs, passed through the entire pipeline, and routed to random output pins. Additionally, a small random subset of data bits is designated as control signals and connected to both the logic function control inputs and flow control pins. Each Node randomly implements functions like MUX/DEMUX, QUEUE, MATH (MUL/DIV), ENCODER/DECODER, and possibly more.
-
-## Pipeline
-The simplest topology is a PIPELINE, a linear sequence of Nodes. Currently, registers between Nodes are inserted randomly, often resulting in very long chains. A small patch was added to enforce register insertion between Nodes, helping to shorten these chains.
-
-![pnr_tests](doc/Pipeline.png) 
+There are three different topologies implemented in pnr_tests, with the flexibility to add more. Each topology is composed of Nodes, where each Node implements a combinational logic function and currently contains no registers. An array of data is collected from random inputs, passed through the entire pipeline, and routed to random output pins. Additionally, a small random subset of data bits is designated as control signals and connected to both the logic function control inputs and flow control pins. Each Node randomly implements functions like MUX/DEMUX, QUEUE, MATH (MUL/DIV), ENCODER/DECODER, and possibly more. 
 
 ## Mesh
 The MESH topology consists of an X×Y two-dimensional array of Nodes. Signals are broadcast to all rows simultaneously. Neighboring row pairs randomly exchange portions of their data between corresponding Nodes, resulting in multiple diagonal data paths across the mesh.
 
+The first three arguments (project, part, and partpath) specify the project name, FPGA part, and the path to part-specific configuration files. However, the last four arguments play a crucial role in defining the structure and complexity of the generated mesh network. The k argument represents the complexity parameter, this parameter defines the size of the Nodes, it is a generalized abstract parameter used by each Node specifically. The x and y arguments define the dimensions of the Mesh, where x is the number of columns and y is the number of rows, shaping the overall architecture. The m parameter specifies the maximum bit width of the mesh links and this value , determining the data size that can be processed and transferred between Nodes. Lastly, n defines the number of generated configurations, allowing multiple variations of the mesh to be instantiated for different testing scenarios. These parameters together dictate the FPGA design's scalability, resource utilization, and connectivity, making them fundamental to the synthesis process.
+
 ![pnr_tests](doc/Mesh.png) 
+
+## Pipeline
+The simplest topology is a PIPELINE, a linear sequence of Nodes. Currently, registers between Nodes are inserted randomly, often resulting in very long chains. A small patch was added to enforce register insertion between Nodes, helping to shorten these chains. 
+
+Just like in the Mesh test, the first three arguments are the project name, the FPGA part and the path to the part-specific configuration. The l argument specifies the pipeline length, defining how many sequential processing stages are created in the pipeline. The m parameter sets the maximum bit width of data traveling through the pipeline, determining the largest data size handled. Finally, n defines the number of generated configurations, allowing multiple design variations to be synthesized and tested. These parameters collectively determine the pipeline’s depth, computational complexity, and data processing capabilities.
+
+![pnr_tests](doc/Pipeline.png)
 
 ## Star
 The last topology, referred to as STAR, closely resembles the PIPELINE structure but differs in that control signals from the first Node are distributed to all other Nodes. This results in random high fanout during data processing. Integrating multiple topologies within a single design is beneficial and not difficult to implement.
+
+The first three arguments are the same as in the previous two tests, while last five arguments determine the structure and complexity of the design. The k parameter represents the complexity level. The x argument specifies the number of modules in each star cluster, while y determines how many clusters are instantiated. The m parameter defines the maximum bit width used in data processing, controlling the size of the handled data. Lastly, n sets the number of design variants to generate, allowing multiple configurations for experimentation.
 
 ![pnr_tests](doc/Star.png) 
 
