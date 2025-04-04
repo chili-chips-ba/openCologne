@@ -128,7 +128,6 @@ The CPEs consisting of two L2T4 make this a quasi-41k LUT4 device, but the logic
 The maximum frequency of the chip is an area of dispute. Tool reports on STA laregly depend on the operating environment specified by the `-tm` option in `p_r`. It's unclear what results may be expected in terms of Fmax, since it's proven that at times, p_r produces a non-functioning configuration for `-tm 1`, see [issue61](https://github.com/chili-chips-ba/openCologne/issues/61).  **Maximum proven frequency at `-tm 3` of CCGM1A1 of 137 MHz** obtained [here](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest/5.fpga_torture).
 
 
-
 ## Additional Tests:
 - https://github.com/mirekez/pnr_tests (this is a generic Verilog generator. By playing with parameters, different parts of design can be converted to RAM/SRL/DSP blocks. It also generates XDC to randomly assign pins, which is an auxiliary functionality tied to Xilinx. Dialects for other vendors can also be created).
 - https://aignacio.com/posts/hdls/mpsoc_riscv - How to fit 100x RISC-V cores into an FPGA, using a NOC
@@ -140,5 +139,7 @@ The maximum frequency of the chip is an area of dispute. Tool reports on STA lar
 - [Project Peppercorn - GateMate bitstream documentation](https://github.com/YosysHQ/prjpeppercorn)
 - [nextpnr-gatemate](https://github.com/YosysHQ/nextpnr/tree/gatemate)
 
-  
+## Public Appearances:
+- [2025-04-03](https://www.linkedin.com/posts/chili-chips_fpga-architecture-cpu-activity-7313761502774140929-xan0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAJv-TcBSi_5ff0VNMrInrT-xg44YF3jnyU)
+
 ### End of Document
