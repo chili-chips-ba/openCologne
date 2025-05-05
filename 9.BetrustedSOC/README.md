@@ -4,7 +4,9 @@
 
 #### References:
 > https://betrusted.io/betrusted-architecture
+> 
 > https://github.com/betrusted-io/betrusted-soc
+> 
 > https://hackaday.com/2020/09/29/bunnies-betrusted-makes-first-appearance-as-mobile-fpga-based-soc-development-kit/
     
 #### End of Document 
