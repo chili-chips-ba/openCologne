@@ -51,37 +51,37 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
 
 - [x] Level I, Play 2 - **DONE, with bonus examples**
 >- [x] 2.Simple--1--PSRAM
->- [ ] 2.Simple--2--QSPI-Flash, WIP
->- [ ] 2.Simple--3--Ethernet, WIP
+>- [ ] 2.Simple--2--QSPI-Flash, done outside of this project
+>- [ ] 2.Simple--3--Ethernet, done outside of this project
 >- [x] 2.Simple--4--1Wire-Controller
 >- [x] 2.Simple--5--UART-Test
 >- [x] 2.Simple--6--PS2-Keyboard
 >- [x] 2.Simple--7--Audio-4-bit-DAC
 
-- [ ] Level I, Play 3 - WIP
-> - [ ] **PCB repo**: Design additional [extensions](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMate), WIP
+- [x] Level I, Play 3
+> - [x] **PCB repo1**: Design additional [extension boards](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMate)
 
 ---
-- [x] Level II, Play 4 - **DONE**, a very complex bonus example is in the works
+- [x] Level II, Play 4 - **DONE**
 >- [x] 4.Advanced--1--SPI-LCD
 >- [x] 4.Advanced--2--LED64x64
 >- [x] 4.Advanced--3--FM-Transmitter
->- [ ] 4.Advanced--4--Yamaha-OPL3-FM-Synth, WIP
+>- [ ] 4.Advanced--4--Yamaha-OPL3-FM-Synth, partly done, abandoned due to issues with tools
 
-- [x] Level II, Play 5 - **DONE**, now also includes **bonus audio player** for any soundtrack, in addition to the original video-only game
+- [x] Level II, Play 5 - **DONE**
 > - [x] 5.TetriSaraj
 
 - [ ] Level II, Play 6
->- [ ] **PCB repo**: Design and manufacture the ULX5M board
+>- [ ] **PCB repo2**: Design and manufacture the [ULX5M board](https://github.com/intergalaktik/ulx5m-gs)
 
 ---
-- [ ] Level III, Play 7
+- [ ] Level III, Play 7 - WIP
 > - [ ] 7.SerDes
 
-- [ ] Level III, Play 8
-> - [ ] 8.StressTest, WIP
+- [x] Level III, Play 8 - **DONE**
+> - [x] 8.StressTest
 
-- [ ] Level III, Play 9
+- [ ] Level III, Play 9 - WIP
 > - [ ] 9.BetrustedSOC
 
 ---
@@ -90,7 +90,7 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
 > - [ ] 10.Bonus--2--Amaranth-Rotary-Encoder, WIP
 > - [ ] 10.Bonus--3--Amaranth-eduRISC5
 > - [x] 10.Bonus--4--I2C-Master
-> - [ ] 10.Bonus--5--eduSOC, WIP
+> - [ ] 10.Bonus--5--eduSOC, moved to 8.StressTest
 > - [x] 10.Bonus--6--I2S-DAC
 
 We fell in love with what we were doing and, as makers at heart, could not resist the temptation to keep designing for GateMate. Hence this additional output that was not originally planned for, nor commissioned by NLnet.
