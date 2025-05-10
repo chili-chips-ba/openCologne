@@ -45,53 +45,54 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
 
 ## Project Completion Matrix
 
-- [x] Level I, Play 1 - **DONE, includes bonus examples**
->- [x] 1.Blinky--ILA-Test
->- [x] 1.Blinky--Verilog-VHDL-Python.Amaranth
+--- Level I
+- [x] Play 1 - **DONE, includes bonus examples**
+   - [x] 1.Blinky--ILA-Test
+   - [x] 1.Blinky--Verilog-VHDL-Python.Amaranth
 
-- [x] Level I, Play 2 - **DONE, with bonus examples**
->- [x] 2.Simple--1--PSRAM
->- [ ] 2.Simple--2--QSPI-Flash, done outside of this project
->- [ ] 2.Simple--3--Ethernet, done outside of this project
->- [x] 2.Simple--4--1Wire-Controller
->- [x] 2.Simple--5--UART-Test
->- [x] 2.Simple--6--PS2-Keyboard
->- [x] 2.Simple--7--Audio-4-bit-DAC
+- [x] Play 2 - **DONE, with bonus examples**
+   - [x] 2.Simple--1--PSRAM
+   - [ ] 2.Simple--2--QSPI-Flash, done outside of this project
+   - [ ] 2.Simple--3--Ethernet, done outside of this project
+   - [x] 2.Simple--4--1Wire-Controller
+   - [x] 2.Simple--5--UART-Test
+   - [x] 2.Simple--6--PS2-Keyboard
+   - [x] 2.Simple--7--Audio-4-bit-DAC
 
-- [x] Level I, Play 3
-> - [x] **PCB repo1**: Design additional [extension boards](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMate)
+- [x] Play 3
+   - [x] **PCB repo1**: Design additional [extension boards](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMate)
 
----
-- [x] Level II, Play 4 - **DONE**
->- [x] 4.Advanced--1--SPI-LCD
->- [x] 4.Advanced--2--LED64x64
->- [x] 4.Advanced--3--FM-Transmitter
->- [ ] 4.Advanced--4--Yamaha-OPL3-FM-Synth, partly done, abandoned due to issues with tools
+--- Level II
+- [x] Play 4 - **DONE**
+   - [x] 4.Advanced--1--SPI-LCD
+   - [x] 4.Advanced--2--LED64x64
+   - [x] 4.Advanced--3--FM-Transmitter
+   - [ ] 4.Advanced--4--Yamaha-OPL3-FM-Synth, partly done, abandoned due to issues with tools
 
-- [x] Level II, Play 5 - **DONE**
-> - [x] 5.TetriSaraj
+- [x] Play 5 - **DONE**
+   - [x] 5.TetriSaraj
 
-- [ ] Level II, Play 6
->- [ ] **PCB repo2**: Design and manufacture the [ULX5M board](https://github.com/intergalaktik/ulx5m-gs)
+- [ ] Play 6
+   - [ ] **PCB repo2**: Design and manufacture the [ULX5M board](https://github.com/intergalaktik/ulx5m-gs)
 
----
-- [ ] Level III, Play 7 - WIP
-> - [ ] 7.SerDes
+--- Level III
+- [ ] Play 7 - WIP
+   - [ ] 7.SerDes
 
-- [x] Level III, Play 8 - **DONE**
-> - [x] 8.StressTest
+- [x] Play 8 - **DONE**
+   - [x] 8.StressTest
 
-- [ ] Level III, Play 9 - WIP
-> - [ ] 9.BetrustedSOC
+- [ ] Play 9 - WIP
+   - [ ] 9.BetrustedSOC
 
----
-- [ ] Bonus#1, Play 10, even more examples
-> - [ ] 10.Bonus--1--Amaranth-7Segment, WIP
-> - [ ] 10.Bonus--2--Amaranth-Rotary-Encoder, WIP
-> - [ ] 10.Bonus--3--Amaranth-eduRISC5
-> - [x] 10.Bonus--4--I2C-Master
-> - [ ] 10.Bonus--5--eduSOC, moved to 8.StressTest
-> - [x] 10.Bonus--6--I2S-DAC
+--- Bonus
+- [ ] Play 10, even more examples
+   - [ ] 10.Bonus--1--Amaranth-7Segment, WIP
+   - [ ] 10.Bonus--2--Amaranth-Rotary-Encoder, WIP
+   - [ ] 10.Bonus--3--Amaranth-eduRISC5
+   - [x] 10.Bonus--4--I2C-Master
+   - [ ] 10.Bonus--5--eduSOC, moved to 8.StressTest
+   - [x] 10.Bonus--6--I2S-DAC
 
 We fell in love with what we were doing and, as makers at heart, could not resist the temptation to keep designing for GateMate. Hence this additional output that was not originally planned for, nor commissioned by NLnet.
 
@@ -99,7 +100,7 @@ We fell in love with what we were doing and, as makers at heart, could not resis
 Please click on the folder with individual examples for additional detail, documenation and specific instructions.
 
 
-## Bonus#2 (from CologneChip direct input/needs)
+## Bonus+, from CologneChip direct input/needs
 - Comps with Gowin, Lattice and Xilinx design flows:
     - overall execution speed
     - ease of use
