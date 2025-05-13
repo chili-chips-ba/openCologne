@@ -1,8 +1,10 @@
-# openCologne
-## * WORK IN PROGRESS * UNDER CONSTRUCTION *
-> WHILE THIS NOTICE IS PRESENT, DON'T EXPECT DESIGN, SIM, OR ANY OTHER FILE IN HERE 2BE DOIN' WHAT IT'S SAYIN'
+# Ethernet
 
-Your description goes here
-   https://github.com/emard/ulx3s-misc/tree/master/examples
+Patrick Urban (@pu-cc) is in the process of polishing it in the following repos:
+- https://github.com/pu-cc/litex
+- https://github.com/pu-cc/litex-boards
+- https://github.com/pu-cc/liteeth
+
+Pleate reach out directly to him for additional detail.
    
-**<h3>  End of Document </h3>** 
+### End of Document
