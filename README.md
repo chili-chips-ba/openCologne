@@ -52,8 +52,8 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
 
 - [x] Play 2 - **DONE, with bonus examples**
    - [x] 2.Simple--1--PSRAM
-   - [ ] 2.Simple--2--QSPI-Flash, done outside of this project
-   - [ ] 2.Simple--3--Ethernet, done outside of this project
+   - [x] 2.Simple--2--QSPI-Flash, done outside of this project
+   - [x] 2.Simple--3--Ethernet, done outside of this project
    - [x] 2.Simple--4--1Wire-Controller
    - [x] 2.Simple--5--UART-Test
    - [x] 2.Simple--6--PS2-Keyboard
@@ -140,8 +140,10 @@ We are proud to have initiated GateMate enablement in opensource [Amaranth](http
 We welcome everyone interested to contribute. Please reach out to fpga@chili-chips.com, or join our <a href="https://discord.gg/F5UPDFFdsH">GateMate Discord Channel</a>. 
 
 ## Additional References
-- https://github.com/PythonLinks/awesome-gatemate
 - https://github.com/YosysHQ/prjpeppercorn
+   - https://github.com/YosysHQ/prjpeppercorn-test-cases
+   - https://projectf.io/demos
+- https://github.com/PythonLinks/awesome-gatemate
 - https://colognechip.com/wp-content/uploads/Novel-GateMate-FPGA-Architecture-FPL2021.pdf
   
 ## Acknowledgements
