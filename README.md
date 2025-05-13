@@ -52,8 +52,8 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
 
 - [x] Play 2 - **DONE, with bonus examples**
    - [x] 2.Simple--1--PSRAM
-   - [x] 2.Simple--2--QSPI-Flash, done outside of this project
-   - [x] 2.Simple--3--Ethernet, done outside of this project
+   - [x] 2.Simple--2--QSPI-Flash, done by @pu-cc outside of this project
+   - [x] 2.Simple--3--Ethernet, done by @pu-cc outside of this project
    - [x] 2.Simple--4--1Wire-Controller
    - [x] 2.Simple--5--UART-Test
    - [x] 2.Simple--6--PS2-Keyboard
