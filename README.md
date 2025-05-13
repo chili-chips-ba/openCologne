@@ -67,7 +67,7 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
    - [x] 4.Advanced--1--SPI-LCD
    - [x] 4.Advanced--2--LED64x64
    - [x] 4.Advanced--3--FM-Transmitter
-   - [ ] 4.Advanced--4--Yamaha-OPL3-FM-Synth, partly done, abandoned due to issues with tools
+   - [ ] 4.Advanced--4--Yamaha-OPL3-FM-Synth, partly done, on hold due to issues with GateMate legacy tools. To be revisited when Project Peppercorn opensource PNR for GateMate is made available
 
 - [x] Play 5 - **DONE**
    - [x] 5.TetriSaraj
