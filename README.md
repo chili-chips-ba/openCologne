@@ -143,6 +143,7 @@ We welcome everyone interested to contribute. Please reach out to fpga@chili-chi
 - https://github.com/YosysHQ/prjpeppercorn
    - https://github.com/YosysHQ/prjpeppercorn-test-cases
    - https://projectf.io/demos
+- https://github.com/yuri-panchul/basics-graphics-music
 - https://github.com/PythonLinks/awesome-gatemate
 - https://colognechip.com/wp-content/uploads/Novel-GateMate-FPGA-Architecture-FPL2021.pdf
   
