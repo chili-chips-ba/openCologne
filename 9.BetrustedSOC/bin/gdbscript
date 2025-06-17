@@ -1,0 +1,2 @@
+file ../fw/target/riscv32imac-unknown-none-elf/release/betrusted-soc
+set riscv use_compressed_breakpoints off

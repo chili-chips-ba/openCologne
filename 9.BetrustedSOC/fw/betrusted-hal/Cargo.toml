@@ -1,0 +1,21 @@
+[package]
+name = "betrusted-hal"
+version = "0.1.0"
+authors = ["bunnie <bunnie@kosagi.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+betrusted-pac = { path = "../betrusted-pac" }
+embedded-graphics = { path = "../embedded-graphics/embedded-graphics" }
+spin = "0.5.2"
+bitflags = "1.2.1"
+volatile = "0.2.6"
+rand_core = "0.5.1"
+digest = "0.9"
+
+[features]
+evt = []
+dvt = []
+pvt = []

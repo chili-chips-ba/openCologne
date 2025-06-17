@@ -1,0 +1,58 @@
+*~
+/build/*
+__pycache__/
+/.Xil/*
+/.idea/*
+*.d
+*.o
+pycharm.env
+*.bin
+*.elf
+*.jou
+*.log
+*.map
+run/
+target/
+/venv/*
+/test/
+/env/
+
+.venv/*
+# betrusted-pac is auto-generated
+fw/betrusted-pac/
+xous/betrusted-pac/
+
+# this is an auto-generated library file by 'deps/rom-locate/key2bits.py -c'
+fw/rom-inject/src/lib.rs
+
+# these are the user-local fuse ROM keys. my.nky is the input, encrypted.nky is the output (which has HMAC and IV folded in)
+my.nky
+encrypted.nky
+
+# auto-gen by the betrusted-soc.py script
+rom.db
+
+# in general, we don't want this
+Cargo.lock
+
+# these are auto-generated files -- keys come from .crt files originally
+keystore.patch
+keystore.bin
+
+# xous build files
+xous/xous.img
+xous/xous-stage1.bin
+xous/xous-kernel.bin
+
+# Spinal build directories
+VexRiscv/project/
+VexRiscv/target/
+VexRiscv/.bloop/
+VexRiscv/.bsp/
+VexRiscv/.idea/
+VexRiscv/.metals/
+VexRiscv/.vscode/
+
+.metals/
+.env
+.vscode/

@@ -1,0 +1,47 @@
+[workspace]
+default-members = [
+  "betrusted-boot",
+  "sha2",
+]
+members = [
+  "svd2utra",
+  "xtask",
+  "betrusted-boot",
+  "sha2",
+]
+resolver = "2"
+
+# force sha2 to use our hw implementation
+[patch.crates-io.sha2]
+path = "./sha2"
+package = "sha2"
+default-features = false
+
+[patch.crates-io.utralib]
+path = "./utralib"
+
+# redirect curve25519-dalek to our version with hw acceleration
+[patch.crates-io.curve25519-dalek]
+git="https://github.com/betrusted-io/curve25519-dalek.git"
+branch="main"
+#path = "../../curve25519-dalek"
+package = "curve25519-dalek"
+version = "3.1.0"
+default-features = false
+features = ["u32e_backend"]
+
+# only if we need to do some dev work...
+#[patch.crates-io.ed25519-dalek]
+#path = "../../ed25519-dalek"
+#package = "ed25519-dalek"
+#version = "1"
+#default-features = false
+#features = ["u32_backend", "bootloader"]
+
+[profile.release]
+codegen-units = 1 # 1 better optimizations
+debug = false
+lto = "fat"
+opt-level = 's'  # Optimize for size instead of performance
+panic = "abort" # Remove panic output, which can reduce file size
+strip = true

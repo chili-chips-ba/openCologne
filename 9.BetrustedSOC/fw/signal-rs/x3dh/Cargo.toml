@@ -1,0 +1,39 @@
+[package]
+name = "x3dh"
+version = "0.1.0"
+authors = ["Andrew Dona-Couch <signal-rs@andrewcou.ch>"]
+
+[dependencies]
+#curve25519-dalek = "1"
+#ed25519-dalek = "1.0.0-pre.1"
+#orion = "0.13"
+hmac = "0.8"
+hkdf = "0.9"
+rand_core = "0.5.1"
+
+signal-common = { path = "../signal-common" }
+
+[dependencies.sha2]
+version = "0.9"
+default-features = false
+
+[dependencies.rand]
+version = "0.7"
+default-features = false
+
+[dependencies.x25519-dalek]
+path = "../../x25519-dalek"
+#version = "0.6"
+default-features = false
+features = ["u32_backend"]
+
+[dependencies.curve25519-dalek]
+path = "../../curve25519-dalek"
+default-features = false
+features = ["u32_backend"]
+#version = "2"
+
+[dependencies.ed25519-dalek]
+version = "1.0.0-pre.3"
+default-features = false
+features = ["u32_backend", "alloc"]

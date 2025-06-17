@@ -1,0 +1,13 @@
+[target.riscv32i-unknown-none-elf]
+rustflags = [
+  "-C", "link-arg=-Tlink.x",
+  "-C", "force-frame-pointers=no",
+  "-C", "link-arg=-Map=boot.map",
+]
+
+[target.riscv32imac-unknown-none-elf]
+rustflags = [
+  "-C", "link-arg=-Tlink.x",
+  "-C", "force-frame-pointers=no",
+  "-C", "link-arg=-Map=boot.map",
+]

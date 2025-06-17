@@ -1,0 +1,4 @@
+boot.bin
+boot.map
+target/
+betrusted-boot/bin/

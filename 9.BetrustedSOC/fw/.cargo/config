@@ -1,0 +1,17 @@
+[target.riscv32i-unknown-none-elf]
+#runner = "riscv64-unknown-elf-gdb -x gdb_init"
+rustflags = [
+  "-C", "link-arg=-Tmemory.x",
+  "-C", "link-arg=-Tlink.x",
+]
+
+[target.riscv32imac-unknown-none-elf]
+#runner = "riscv64-unknown-elf-gdb -x gdb_init"
+rustflags = [
+  "-C", "link-arg=-Tmemory.x",
+  "-C", "link-arg=-Tlink.x",
+  "-C", "link-arg=-Map=betrusted-soc.map",
+]
+
+[build]
+target = "riscv32imac-unknown-none-elf"

@@ -1,0 +1,20 @@
+[package]
+authors = [
+    "The Cortex-M Team <cortex-m@teams.rust-embedded.org>",
+    "Jonathan Pallant <github@thejpster.org.uk>",
+    "Jorge Aparicio <jorge@japaric.io>",
+]
+description = "A heap allocator for Cortex-M processors"
+repository = "https://github.com/rust-embedded/alloc-cortex-m"
+documentation = "https://docs.rs/alloc-cortex-m"
+readme = "README.md"
+license = "MIT OR Apache-2.0"
+name = "alloc-riscv"
+version = "0.3.5"
+
+[dependencies]
+riscv = { git = "https://github.com/betrusted-io/riscv.git", tag = "v0.5.5" }
+riscv-rt = { git = "https://github.com/betrusted-io/riscv-rt.git", tag = "v0.6.2" }
+#linked_list_allocator = { path = "../linked-list-allocator" }
+linked_list_allocator = "0.9.0"
+spin = "0.5.2"
