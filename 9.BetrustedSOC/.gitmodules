@@ -1,0 +1,56 @@
+[submodule "deps/migen"]
+	path = deps/migen
+	url = https://github.com/m-labs/migen.git
+[submodule "deps/litex"]
+	path = deps/litex
+	url = 	git submodule sync	git submodule synchttps://github.com/enjoy-digital/litex.git
+[submodule "deps/litescope"]
+	path = deps/litescope
+	url = https://github.com/enjoy-digital/litescope
+[submodule "deps/pyserial"]
+	path = deps/pyserial
+	url = https://github.com/pyserial/pyserial.git
+[submodule "deps/litedram"]
+	path = deps/litedram
+	url = https://github.com/enjoy-digital/litedram.git
+[submodule "fw/embedded-graphics"]
+	path = fw/embedded-graphics
+	url = https://github.com/betrusted-io/embedded-graphics.git
+	branch = master
+[submodule "deps/encrypt-bitstream-python"]
+	path = deps/encrypt-bitstream-python
+	url = https://github.com/betrusted-io/encrypt-bitstream-python.git
+[submodule "deps/opentitan"]
+	path = deps/opentitan
+	url = https://github.com/betrusted-io/opentitan.git
+[submodule "deps/gateware"]
+	path = deps/gateware
+	url = https://github.com/betrusted-io/gateware.git
+	branch = main
+[submodule "deps/valentyusb"]
+	path = deps/valentyusb
+	url = https://github.com/betrusted-io/valentyusb.git
+	branch = burst-support
+[submodule "deps/compiler_rt"]
+	path = deps/compiler_rt
+	url = https://github.com/litex-hub/pythondata-software-compiler_rt.git
+[submodule "fw/curve25519-dalek"]
+	path = fw/curve25519-dalek
+	url = https://github.com/betrusted-io/curve25519-dalek.git
+[submodule "fw/engine25519-as"]
+	path = fw/engine25519-as
+	url = https://github.com/betrusted-io/engine25519-as.git
+[submodule "fw/x25519-dalek"]
+	path = fw/x25519-dalek
+	url = https://github.com/betrusted-io/x25519-dalek.git
+[submodule "deps/pythondata-software-picolibc"]
+	path = deps/pythondata-software-picolibc
+	url = https://github.com/litex-hub/pythondata-software-picolibc
+[submodule "deps/SpinalHDL"]
+	path = deps/SpinalHDL
+	url = https://github.com/SpinalHDL/SpinalHDL.git
+	branch = dev
+[submodule "deps/VexRiscv"]
+	path = deps/VexRiscv
+	url = https://github.com/SpinalHDL/VexRiscv.git
+	branch = dev

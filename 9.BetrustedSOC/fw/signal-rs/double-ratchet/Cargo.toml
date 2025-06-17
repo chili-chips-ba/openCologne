@@ -1,0 +1,46 @@
+[package]
+name = "double-ratchet"
+version = "0.1.0"
+authors = ["Andrew Dona-Couch <signal-rs@andrewcou.ch>"]
+
+[dependencies]
+aes = "0.3.2"
+block-modes = "0.2.0"
+rand_core = "0.5.1"
+hmac = "0.8"
+hkdf = "0.9"
+hashbrown = "0.8"
+
+signal-common = { path = "../signal-common" }
+
+#[dependencies.sha2]
+#version = "0.9"
+#default-features = false
+betrusted-hal = { path = "../../betrusted-hal" }
+betrusted-pac = { path = "../../betrusted-pac" }
+pac = { package = "betrusted-pac", version = "0" }
+
+[dependencies.orion]
+version = "0.15.2"
+default-features = false
+
+[dependencies.rand]
+version = "0.7"
+default-features = false
+
+[dependencies.x25519-dalek]
+path = "../../x25519-dalek"
+#version = "0.6"
+default-features = false
+features = ["u32_backend"]
+
+[dependencies.curve25519-dalek]
+path = "../../curve25519-dalek"
+default-features = false
+features = ["u32_backend"]
+#version = "2"
+
+[dependencies.ed25519-dalek]
+version = "1.0.0-pre.3"
+default-features = false
+features = ["u32_backend", "alloc"]

@@ -1,0 +1,17 @@
+[package]
+name = "jtag"
+version = "0.1.0"
+authors = ["bunnie <bunnie@kosagi.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+betrusted-hal = { path = "../betrusted-hal" }
+alloc-riscv = { path = "../alloc-riscv" }
+betrusted-pac = { path = "../betrusted-pac" }
+
+[features]
+evt = []
+dvt = []
+pvt = []

@@ -1,0 +1,31 @@
+[package]
+name = "betrusted-boot"
+version = "0.1.0"
+authors = ["bunnie <bunnie@kosagi.com>"]
+edition = "2018"
+
+[dependencies]
+utralib = {path = "../utralib"}
+
+[dependencies.com_rs]
+git="https://github.com/betrusted-io/com_rs"
+branch="main"
+
+[dependencies.curve25519-dalek]
+version = "3.1.0" # note this is patched to our fork in ./Cargo.toml
+default-features = false
+features = ["u32e_backend"]
+
+[dependencies.ed25519-dalek]
+version="1.0.1"
+#path = "../../../ed25519-dalek"
+default-features = false
+
+[features]
+debug-print = []
+small-soc = []
+# default = ["debug-print", "small-soc"]
+default = []
+
+[target.'cfg(not(any(windows, unix)))'.dependencies]
+utralib = { path = "../utralib"}

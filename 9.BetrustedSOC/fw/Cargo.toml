@@ -1,0 +1,39 @@
+[package]
+authors = ["bunnie <bunnie@kosagi.com>"]
+edition = "2018"
+readme = "README.md"
+name = "betrusted-soc"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+vexriscv = "0.0.2"
+betrusted-rt = "0.0.1"
+betrusted-pac = { path = "betrusted-pac" }
+betrusted-hal = { path = "betrusted-hal" }
+alloc-riscv = { path = "alloc-riscv" }
+embedded-graphics = { path = "embedded-graphics/embedded-graphics" }
+efuse-ecc = { path = "efuse-ecc" }
+efuse-api = { path = "efuse-api" }
+jtag = { path = "jtag" }
+xous-nommu = { path = "xous-nommu" }
+rom-inject = { path = "rom-inject" }
+signal-common = { path = "signal-rs/signal-common" }
+digest = "0.9"
+volatile = "0.2.6"
+
+[dependencies.double-ratchet]
+path = "signal-rs/double-ratchet"
+default-features = false
+
+[profile.release]
+codegen-units = 1 # better optimizations
+debug = true # symbols are nice and they don't increase the size on Flash
+lto = true # better optimizations
+
+[features]
+pvt = ["jtag/pvt", "betrusted-hal/pvt"]
+dvt = ["jtag/dvt", "betrusted-hal/dvt"]
+evt = ["jtag/evt", "betrusted-hal/evt"]
+default = ["pvt"]
