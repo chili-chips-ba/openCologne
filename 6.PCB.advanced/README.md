@@ -14,6 +14,7 @@ For more, please see:
 <p align="center">
    <img width=500 src="0.doc/ulx5m-gs.1.top.jpg">
    <img width=500 src="0.doc/ulx5m-gs.2.bottom.jpg">
+   <img width=800 src="0.doc/ulx5m-gs.3.routed.png">
 </p>
 
 
