@@ -5,7 +5,7 @@
 # the build will finish without exiting due to missing third-party
 # programs.
 
-LX_DEPENDENCIES = ["riscv"]
+LX_DEPENDENCIES = ["riscv", "vivado"]
 
 # Import lxbuildenv to integrate the deps/ directory
 from re import S
@@ -23,18 +23,16 @@ from migen.genlib.cdc import MultiReg, BlindTransfer, BusSynchronizer
 from migen.genlib.resetsync import AsyncResetSynchronizer
 
 from litex.build.generic_platform import *
-from litex.build.colognechip import CologneChipPlatform
-# from litex.build.xilinx import XilinxPlatform, VivadoProgrammer
+from litex.build.xilinx import XilinxPlatform, VivadoProgrammer
 
 from litex.soc.interconnect.csr import *
 from litex.soc.interconnect.csr_eventmanager import *
 from litex.soc.integration.soc_core import *
 from litex.soc.integration.builder import *
 from litex.soc.integration.doc import AutoDoc, ModuleDoc
-# from litex.soc.cores.clock import S7MMCM, S7IDELAYCTRL
-# from litex.soc.cores.i2s import S7I2S
-# from litex.soc.cores.spi_opi import S7SPIOPI
-from litex.soc.cores.clock import GateMatePLL
+from litex.soc.cores.clock import S7MMCM, S7IDELAYCTRL
+from litex.soc.cores.i2s import S7I2S
+from litex.soc.cores.spi_opi import S7SPIOPI
 from litex.soc.integration.soc import SoCRegion
 
 from litex.soc.interconnect import wishbone
@@ -43,15 +41,15 @@ from gateware.rom_block import BlockRom
 
 from gateware import info
 from gateware import sram_32_cached
-# from gateware import memlcd
-# from gateware import spi_7series as spi
+from gateware import memlcd
+from gateware import spi_7series as spi
 from gateware import messible
-# from gateware import i2c
+from gateware import i2c
 from gateware import ticktimer
 from gateware.wdt import WDT
-# from gateware import spinor
-# from gateware import keyboard
-# from gateware import jtag_phy
+from gateware import spinor
+from gateware import keyboard
+from gateware import jtag_phy
 
 from gateware.trng.ring_osc_v2 import TrngRingOscV2
 from gateware import aes_opentitan as aes
@@ -62,20 +60,12 @@ from gateware.timer_alwayson import TimerAlwaysOn
 from gateware.keyrom import KeyRom
 from gateware import perfcounter
 
-
-# from custom_valentyusb.usbcore.cpu.eptri import TriEndpointInterface
-# from custom_valentyusb.usbcore.io import IoBuf
+from valentyusb.usbcore.cpu.eptri import TriEndpointInterface
+from valentyusb.usbcore.io import IoBuf
 
 # IOs ----------------------------------------------------------------------------------------------
-_io_gatemate =[
-    ("clk10", 0, Pins("IO_SB_A8"), Misc("SCHMITT_TRIGGER=true") ),
-    ("serial",0,
-        Subsignal("tx", Pins("IO_SA_B6")),
-        Subsignal("rx", Pins("IO_SA_A6"), Misc("PULLUP=true"))
-    ),
-    ("arst_n",0,Pins("IO_SB_B7"),Misc("PULLUP=true")),
-]
-""" _io_pvt = [   # PVT-generation I/Os
+
+_io_pvt = [   # PVT-generation I/Os
     ("clk12", 0, Pins("R3"), IOStandard("LVCMOS18")),
 
     ("jtag", 0,
@@ -441,13 +431,10 @@ _io_uart_debug_swapped = [
      IOStandard("LVCMOS33"),
      Misc("SLEW=SLOW"),
      ),
-] """
+]
 
 # Platform -----------------------------------------------------------------------------------------
-class Platform(CologneChipPlatform):
-    def __init__(self, device, *args, toolchain="colognechip", devicename=None, **kwargs):
-        CologneChipPlatform.__init__(self,device,*args,toolchain="colognechip",devicename=None,**kwargs)
-""" 
+
 class Platform(XilinxPlatform):
     def __init__(self, io, toolchain="vivado", programmer="vivado", part="50", encrypt=False, make_mod=False, bbram=False, strategy='default'):
         part = "xc7s" + part + "-csga324-1il"
@@ -524,28 +511,28 @@ class Platform(XilinxPlatform):
             raise ValueError("{} programmer is not supported".format(self.programmer))
 
     def do_finalize(self, fragment):
-        XilinxPlatform.do_finalize(self, fragment) """
+        XilinxPlatform.do_finalize(self, fragment)
 
 # CRG ----------------------------------------------------------------------------------------------
 
 class CRG(Module, AutoCSR):
-    def __init__(self, platform, sys_clk_freq):
+    def __init__(self, platform, sys_clk_freq, spinor_edge_delay_ns=2.5):
         self.warm_reset = Signal()
-        # self.power_down = Signal()
-        # self.crypto_on = Signal()
+        self.power_down = Signal()
+        self.crypto_on = Signal()
 
         self.clock_domains.cd_sys   = ClockDomain()
-        # self.clock_domains.cd_spi   = ClockDomain()
-        # self.clock_domains.cd_lpclk = ClockDomain()
-        # self.clock_domains.cd_spinor = ClockDomain()
+        self.clock_domains.cd_spi   = ClockDomain()
+        self.clock_domains.cd_lpclk = ClockDomain()
+        self.clock_domains.cd_spinor = ClockDomain()
         self.clock_domains.cd_clk200 = ClockDomain()
         self.clock_domains.cd_clk50 = ClockDomain()
-        # self.clock_domains.cd_usb_48 = ClockDomain()
-        # self.clock_domains.cd_usb_12 = ClockDomain()
-        # self.clock_domains.cd_raw_12 = ClockDomain()
+        self.clock_domains.cd_usb_48 = ClockDomain()
+        self.clock_domains.cd_usb_12 = ClockDomain()
+        self.clock_domains.cd_raw_12 = ClockDomain()
 
-        # self.clock_domains.cd_clk200_crypto = ClockDomain()
-        # self.clock_domains.cd_sys_crypto = ClockDomain()
+        self.clock_domains.cd_clk200_crypto = ClockDomain()
+        self.clock_domains.cd_sys_crypto = ClockDomain()
         self.clock_domains.cd_sys_always_on = ClockDomain()
         self.clock_domains.cd_clk50_always_on = ClockDomain()
 
@@ -553,86 +540,68 @@ class CRG(Module, AutoCSR):
 
         sysclk_ns = 1e9 / sys_clk_freq
         # convert delay request in ns to degrees, where 360 degrees is one whole clock period
-        # phase_f = (spinor_edge_delay_ns / sysclk_ns) * 360
+        phase_f = (spinor_edge_delay_ns / sysclk_ns) * 360
         # round phase to the nearest multiple of 7.5 (needs to be a multiple of 45 / CLKOUT2_DIVIDE = 45 / 6 = 7.5
         # note that CLKOUT2_DIVIDE is automatically calculated by mmcm.create_clkout() below
-        # phase = round(phase_f / 7.5) * 7.5
+        phase = round(phase_f / 7.5) * 7.5
 
-        # clk32khz = platform.request("lpclk")
-        # self.specials += Instance("BUFG", i_I=clk32khz, o_O=self.cd_lpclk.clk)
-        # platform.add_platform_command("create_clock -name lpclk -period {:0.3f} [get_nets lpclk]".format(1e9 / 32.768e3))
+        clk32khz = platform.request("lpclk")
+        self.specials += Instance("BUFG", i_I=clk32khz, o_O=self.cd_lpclk.clk)
+        platform.add_platform_command("create_clock -name lpclk -period {:0.3f} [get_nets lpclk]".format(1e9 / 32.768e3))
 
-        clk10 = platform.request("clk10")
-        # platform.add_platform_command("create_clock -name clk12 -period {:0.3f} [get_nets clk12]".format(1e9 / 12e6))
-
+        clk12 = platform.request("clk12")
         # Note: below feature cannot be used because Litex appends this *after* platform commands! This causes the generated
         # clock derived constraints immediately below to fail, because .xdc file is parsed in-order, and the main clock needs
         # to be created before the derived clocks. Instead, we use the line afterwards.
         # platform.add_period_constraint(clk12, 1e9 / 12e6)
+        platform.add_platform_command("create_clock -name clk12 -period {:0.3f} [get_nets clk12]".format(1e9 / 12e6))
         # The above constraint must strictly proceed the below create_generated_clock constraints in the .XDC file
 
         # This allows PLLs/MMCMEs to be placed anywhere and reference the input clock
-        # self.clk12_bufg = Signal()
-        # self.specials += Instance("BUFG", i_I=clk12, o_O=self.clk12_bufg)
-        # self.comb += self.cd_raw_12.clk.eq(self.clk12_bufg)
-        self.cd_clk50_90phase = ClockDomain()
-        self.cd_clk50_180phase = ClockDomain()
-        self.cd_clk50_270phase = ClockDomain()
-        
-        self.submodules.pll_1 = pll_1 = GateMatePLL("ECONOMY", 1, 1)
-        pll_1.register_clkin(clk10, 10e6)
-        pll_1.create_clkout(self.cd_clk50, 50e6)
-        pll_1.create_clkout(self.cd_clk50_90phase, 50e6, 90)
-        pll_1.create_clkout(self.cd_clk50_180phase, 50e6, 180)
-        pll_1.create_clkout(self.cd_clk50_270phase, 50e6, 270)
+        self.clk12_bufg = Signal()
+        self.specials += Instance("BUFG", i_I=clk12, o_O=self.clk12_bufg)
+        self.comb += self.cd_raw_12.clk.eq(self.clk12_bufg)
 
+        self.submodules.mmcm = mmcm = S7MMCM(speedgrade=-1)
+        mmcm.register_clkin(self.clk12_bufg, 12e6)
+        # we count on clocks being assigned to the MMCME2_ADV in order. If we make more MMCME2 or shift ordering, these constraints must change.
+        mmcm.create_clkout(self.cd_usb_48, 48e6, with_reset=False, buf="bufgce", ce=mmcm.locked) # 48 MHz for USB; always-on
+        platform.add_platform_command("create_generated_clock -name usb_48 [get_pins MMCME2_ADV/CLKOUT0]")
 
-        self.comb += self.cd_clk50_always_on.clk.eq(self.cd_clk50.clk)
-        self.comb += self.cd_sys.clk.eq(clk10)
-        self.comb += self.cd_sys_always_on.clk.eq(clk10)
-        pll_1.do_finalize()
+        mmcm.create_clkout(self.cd_spi, 20e6, with_reset=False, buf="bufgce", ce=mmcm.locked & ~self.power_down)
+        platform.add_platform_command("create_generated_clock -name spi_clk [get_pins MMCME2_ADV/CLKOUT1]")
 
+        mmcm.create_clkout(self.cd_spinor, sys_clk_freq, phase=phase, with_reset=False, buf="bufgce", ce=mmcm.locked & ~self.power_down)  # delayed version for SPINOR cclk (different from COM SPI above)
+        platform.add_platform_command("create_generated_clock -name spinor [get_pins MMCME2_ADV/CLKOUT2]")
 
-        # self.submodules.mmcm = mmcm = S7MMCM(speedgrade=-1)
-        # mmcm.register_clkin(self.clk12_bufg, 12e6)
-        # # we count on clocks being assigned to the MMCME2_ADV in order. If we make more MMCME2 or shift ordering, these constraints must change.
-        # mmcm.create_clkout(self.cd_usb_48, 48e6, with_reset=False, buf="bufgce", ce=mmcm.locked) # 48 MHz for USB; always-on
-        # platform.add_platform_command("create_generated_clock -name usb_48 [get_pins MMCME2_ADV/CLKOUT0]")
+        # clk200 does not gate off because we want to keep the IDELAYCTRL block "warm"
+        mmcm.create_clkout(self.cd_clk200, 200e6, with_reset=False, buf="bufg",
+            gated_replicas={self.cd_clk200_crypto : (mmcm.locked & (~self.power_down | self.crypto_on))}) # 200MHz always-on required for IDELAYCTL
+        platform.add_platform_command("create_generated_clock -name clk200 [get_pins MMCME2_ADV/CLKOUT3]")
 
-        # mmcm.create_clkout(self.cd_spi, 20e6, with_reset=False, buf="bufgce", ce=mmcm.locked & ~self.power_down)
-        # platform.add_platform_command("create_generated_clock -name spi_clk [get_pins MMCME2_ADV/CLKOUT1]")
+        # clk50 is explicitly for the crypto unit, so it doesn't have the _crypto suffix, consfusingly...
+        mmcm.create_clkout(self.cd_clk50, 50e6, with_reset=False, buf="bufgce", ce=(mmcm.locked & (~self.power_down | self.crypto_on)),
+            gated_replicas={self.cd_clk50_always_on: mmcm.locked}) # 50MHz for ChaCha conditioner, attached to the always-on TRNG
+        platform.add_platform_command("create_generated_clock -name clk50 [get_pins MMCME2_ADV/CLKOUT4]")
 
-        # mmcm.create_clkout(self.cd_spinor, sys_clk_freq, phase=phase, with_reset=False, buf="bufgce", ce=mmcm.locked & ~self.power_down)  # delayed version for SPINOR cclk (different from COM SPI above)
-        # platform.add_platform_command("create_generated_clock -name spinor [get_pins MMCME2_ADV/CLKOUT2]")
+        mmcm.create_clkout(self.cd_usb_12, 12e6, with_reset=False, buf="bufgce", ce=mmcm.locked) # 12 MHz for USB; always-on
+        platform.add_platform_command("create_generated_clock -name usb_12 [get_pins MMCME2_ADV/CLKOUT5]")
 
-        # # clk200 does not gate off because we want to keep the IDELAYCTRL block "warm"
-        # mmcm.create_clkout(self.cd_clk200, 200e6, with_reset=False, buf="bufg",
-        #     gated_replicas={self.cd_clk200_crypto : (mmcm.locked & (~self.power_down | self.crypto_on))}) # 200MHz always-on required for IDELAYCTL
-        # platform.add_platform_command("create_generated_clock -name clk200 [get_pins MMCME2_ADV/CLKOUT3]")
+        # needs to be exactly 100MHz hence margin=0
+        mmcm.create_clkout(self.cd_sys, sys_clk_freq, margin=0, with_reset=False, buf="bufgce", ce=(~self.power_down & mmcm.locked),
+            gated_replicas={self.cd_sys_crypto : (mmcm.locked & (~self.power_down | self.crypto_on)), self.cd_sys_always_on : mmcm.locked})
+        platform.add_platform_command("create_generated_clock -name sys_clk [get_pins MMCME2_ADV/CLKOUT6]")
 
-        # # clk50 is explicitly for the crypto unit, so it doesn't have the _crypto suffix, consfusingly...
-        # mmcm.create_clkout(self.cd_clk50, 50e6, with_reset=False, buf="bufgce", ce=(mmcm.locked & (~self.power_down | self.crypto_on)),
-        #     gated_replicas={self.cd_clk50_always_on: mmcm.locked}) # 50MHz for ChaCha conditioner, attached to the always-on TRNG
-        # platform.add_platform_command("create_generated_clock -name clk50 [get_pins MMCME2_ADV/CLKOUT4]")
+        # mmcm.expose_drp() # the DRP isn't used, so don't expose it
 
-        # mmcm.create_clkout(self.cd_usb_12, 12e6, with_reset=False, buf="bufgce", ce=mmcm.locked) # 12 MHz for USB; always-on
-        # platform.add_platform_command("create_generated_clock -name usb_12 [get_pins MMCME2_ADV/CLKOUT5]")
+        # timing to the "S" pins is not sensitive because we don't care if there is an extra clock pulse relative
+        # to the gating. Glitch-free operation is guaranteed regardless!
+        platform.add_platform_command('set_false_path -through [get_pins BUFGCTRL*/S*]')
+        platform.add_platform_command('set_false_path -through [get_nets vns_rst_meta*]') # fixes for a later version of vivado
 
-        # # needs to be exactly 100MHz hence margin=0
-        # mmcm.create_clkout(self.cd_sys, sys_clk_freq, margin=0, with_reset=False, buf="bufgce", ce=(~self.power_down & mmcm.locked),
-        #     gated_replicas={self.cd_sys_crypto : (mmcm.locked & (~self.power_down | self.crypto_on)), self.cd_sys_always_on : mmcm.locked})
-        # platform.add_platform_command("create_generated_clock -name sys_clk [get_pins MMCME2_ADV/CLKOUT6]")
-
-        # # mmcm.expose_drp() # the DRP isn't used, so don't expose it
-
-        # # timing to the "S" pins is not sensitive because we don't care if there is an extra clock pulse relative
-        # # to the gating. Glitch-free operation is guaranteed regardless!
-        # platform.add_platform_command('set_false_path -through [get_pins BUFGCTRL*/S*]')
-        # platform.add_platform_command('set_false_path -through [get_nets vns_rst_meta*]') # fixes for a later version of vivado
-
-        # self.ignore_locked = Signal()
+        self.ignore_locked = Signal()
         reset_combo = Signal()
-        self.comb += reset_combo.eq(self.warm_reset | ~pll_1.locked)
+        self.comb += reset_combo.eq(self.warm_reset | (~mmcm.locked & ~self.ignore_locked))
         # See https://forums.xilinx.com/t5/Other-FPGA-Architecture/MMCM-Behavior-After-Its-PWRDWN-Port-Is-Asserted-and-Then/td-p/792324
         # "The DRP functional logic itself does not behave differently for PWRDWN or RST.
         # The "registers" programmed previously through the DRP (or any other once) are not affected either
@@ -644,22 +613,24 @@ class CRG(Module, AutoCSR):
         #self.comb += mmcm.reset.eq(self.power_down)
         #self.comb += mmcm.power_down.eq(self.power_down)
         self.specials += [
-            # AsyncResetSynchronizer(self.cd_usb_48, reset_combo),
-            # AsyncResetSynchronizer(self.cd_spi, reset_combo),
-            # AsyncResetSynchronizer(self.cd_spinor, reset_combo),
-            # AsyncResetSynchronizer(self.cd_clk200, reset_combo),
+            AsyncResetSynchronizer(self.cd_usb_48, reset_combo),
+            AsyncResetSynchronizer(self.cd_spi, reset_combo),
+            AsyncResetSynchronizer(self.cd_spinor, reset_combo),
+            AsyncResetSynchronizer(self.cd_clk200, reset_combo),
             AsyncResetSynchronizer(self.cd_clk50, reset_combo),
-            # AsyncResetSynchronizer(self.cd_usb_12, reset_combo),
+            AsyncResetSynchronizer(self.cd_usb_12, reset_combo),
             AsyncResetSynchronizer(self.cd_sys, reset_combo),
 
-            # AsyncResetSynchronizer(self.cd_clk200_crypto, reset_combo),
-            # AsyncResetSynchronizer(self.cd_sys_crypto, reset_combo),
+            AsyncResetSynchronizer(self.cd_clk200_crypto, reset_combo),
+            AsyncResetSynchronizer(self.cd_sys_crypto, reset_combo),
 
             AsyncResetSynchronizer(self.cd_sys_always_on, reset_combo),
             AsyncResetSynchronizer(self.cd_clk50_always_on, reset_combo),
         ]
 
         # Add an IDELAYCTRL primitive for the SpiOpi block
+        self.submodules += S7IDELAYCTRL(self.cd_clk200, reset_cycles=32) # 155ns @ 200MHz, min 59.28ns
+
 # WarmBoot -----------------------------------------------------------------------------------------
 
 class WarmBoot(Module, AutoCSR):
@@ -673,7 +644,7 @@ class WarmBoot(Module, AutoCSR):
         self.comb += self.do_reset.eq((self.soc_reset.storage & 0xfc) == 0xac)
 
 # BtEvents -----------------------------------------------------------------------------------------
-'''
+
 class BtEvents(Module, AutoCSR, AutoDoc):
     def __init__(self, com, rtc):
         self.submodules.ev = EventManager()
@@ -693,9 +664,9 @@ class BtEvents(Module, AutoCSR, AutoDoc):
             self.com_pad.eq(com),
             self.rtc_pad.eq(rtc),
         ]
-'''
+
 # BtPower ------------------------------------------------------------------------------------------
-'''
+
 class BtPower(Module, AutoCSR, AutoDoc):
     def __init__(self, pads, revision='pvt', xous=True):
         self.intro = ModuleDoc("""BtPower - power control pins
@@ -913,9 +884,9 @@ class BtPower(Module, AutoCSR, AutoDoc):
             self.sd_ts.oe.eq(self.power.fields.selfdestruct),
             self.sd_ts.o.eq(self.power.fields.selfdestruct),
         ]
-'''
+
 # BtGpio -------------------------------------------------------------------------------------------
-'''
+
 class BtGpio(Module, AutoDoc, AutoCSR):
     def __init__(self, pads, usb_type="debug"):
         self.intro = ModuleDoc("""BtGpio - GPIO interface for betrusted""")
@@ -978,9 +949,9 @@ class BtGpio(Module, AutoDoc, AutoCSR):
             # pull from input.status because it's after the MultiReg synchronizer
             self.comb += getattr(self.ev, "gpioint" + str(i)).trigger.eq(self.input.status[i] ^ self.intpol.status[i])
             # note that if you change the polarity on the interrupt it could trigger an interrupt
-'''
+
 # BtSeed -------------------------------------------------------------------------------------------
-'''
+
 class BtSeed(Module, AutoDoc, AutoCSR):
     def __init__(self, reproduceable=False):
         self.intro = ModuleDoc("""Place and route seed. Set to a fixed number for reproduceable builds.
@@ -993,9 +964,9 @@ class BtSeed(Module, AutoDoc, AutoCSR):
           rng        = SystemRandom()
           seed_reset = rng.getrandbits(64)
         self.seed = CSRStatus(64, name="seed", description="Seed used for the build", reset=seed_reset)
-'''
+
 # Keyboard Injector -------------------------------------------------------------------------------
-'''
+
 class KeyInject(Module, AutoDoc, AutoCSR):
     def __init__(self):
         self.intro = ModuleDoc("""Used by developers to pass a key from the UART to the keyboard block.
@@ -1033,10 +1004,9 @@ class KeyInject(Module, AutoDoc, AutoCSR):
                 self.char.eq(0),
             ),
         ]
-'''
 
 # Suspend/Resume ---------------------------------------------------------------------------------
-'''
+
 class SusRes(Module, AutoDoc, AutoCSR):
     def __init__(self, bits=64):
         self.intro = ModuleDoc("""Suspend/Resume Helper
@@ -1086,9 +1056,9 @@ class SusRes(Module, AutoDoc, AutoCSR):
         self.kernel_resume_interrupt = Signal()
         self.comb += self.ev.soft_int.trigger.eq(self.interrupt.fields.interrupt | self.kernel_resume_interrupt)
         self.ev.finalize()
-'''
+
 # Deterministic timeout ---------------------------------------------------------------------------
-'''
+
 class D11cTime(Module, AutoDoc, AutoCSR):
     def __init__(self, count=1638):
         self.intro = ModuleDoc("""Deterministic Timeout
@@ -1133,28 +1103,41 @@ class D11cTime(Module, AutoDoc, AutoCSR):
             )
         ]
         self.specials += MultiReg(heartbeat, self.heartbeat.fields.beat)
-'''
 
+# WFI ---------------------------------------------------------------------------------------------
 
-# # SPINOR soft int ----------------------------------------------------------------------------------
+class Wfi(Module, AutoDoc, AutoCSR):
+    def __init__(self):
+        self.intro = ModuleDoc("""WFI: wait for interrupt
+        Registers to allow the kernel to tell the hardware to throttle clocks until an event happens.
+        """)
 
-# class SpinorSoftInt(Module, AutoCSR, AutoDoc):
-#     def __init__(self):
-#         self.submodules.ev = EventManager()
-#         self.ev.spinor_int = EventSourceProcess(description="Used by software to trigger an interrupt context switch for SPINOR handlers.")
-#         self.ev.finalize()
+        self.wfi = CSRStorage(fields=[
+            CSRField("wfi", description="Writing a `1` triggers an attempt to sleep clocks until an event happens", pulse=True)
+        ])
+        self.ignore_locked = CSRStorage(fields = [
+            CSRField("ignore_locked", description="Writing a `1` causes the reset condition for the SoC to ignore the locked state of the PLL")
+        ])
 
-#         self.softint = CSRStorage(fields=[
-#             CSRField("softint", description="Writing a `1` here triggers a software interrupt for the SPINOR server.", pulse=True)
-#         ])
-#         self.comb += self.ev.spinor_int.trigger.eq(self.softint.fields.softint)
+# SPINOR soft int ----------------------------------------------------------------------------------
+
+class SpinorSoftInt(Module, AutoCSR, AutoDoc):
+    def __init__(self):
+        self.submodules.ev = EventManager()
+        self.ev.spinor_int = EventSourceProcess(description="Used by software to trigger an interrupt context switch for SPINOR handlers.")
+        self.ev.finalize()
+
+        self.softint = CSRStorage(fields=[
+            CSRField("softint", description="Writing a `1` here triggers a software interrupt for the SPINOR server.", pulse=True)
+        ])
+        self.comb += self.ev.spinor_int.trigger.eq(self.softint.fields.softint)
 
 
 # System constants ---------------------------------------------------------------------------------
 
 boot_offset    = 0x500000 # enough space to hold 2x FPGA bitstreams before the firmware start
 bios_size      = 0x10000
-SPI_FLASH_SIZE = 0 #128 * 1024 * 1024
+SPI_FLASH_SIZE = 128 * 1024 * 1024
 SRAM_EXT_SIZE  = 0x1000000
 prefix = ""  # sometimes 'soc_', sometimes '' prefix Litex is attaching to net names
 # changes randomly depending on how the build system feels (currently problems with Chisel doing weird things to net names when CPU core is regenerated)
@@ -1164,24 +1147,24 @@ prefix = ""  # sometimes 'soc_', sometimes '' prefix Litex is attaching to net n
 class BetrustedSoC(SoCCore):
     # I/O range: 0x80000000-0xfffffffff (not cacheable)
     SoCCore.mem_map = {
-        # "rom":             0x80000000, # uncached
-        # "spiflash":        0x20000000,
-        # "sram_ext":        0x40000000,
-        # "memlcd":          0xb0000000,
-        # "audio":           0xe0000000,
-        # "sha2":            0xe0001000,
-        # "sha512":          0xe0002000,
-        # "engine":          0xe0020000,
-        # "usbdev":          0xe0040000,
-        # "vexriscv_debug":  0xefff0000, # this doesn't "stick", LiteX overrides it, so if you use it, you will have to hard code it. Also, search & replace for changes.
+        "rom":             0x80000000, # uncached
+        "spiflash":        0x20000000,
+        "sram_ext":        0x40000000,
+        "memlcd":          0xb0000000,
+        "audio":           0xe0000000,
+        "sha2":            0xe0001000,
+        "sha512":          0xe0002000,
+        "engine":          0xe0020000,
+        "usbdev":          0xe0040000,
+        "vexriscv_debug":  0xefff0000, # this doesn't "stick", LiteX overrides it, so if you use it, you will have to hard code it. Also, search & replace for changes.
         "csr":             0xf0000000,
     }
 
-    def __init__(self, platform, revision, sys_clk_freq=int(10e6), legacy_spi=False,
-                 xous=False, usb_type='debug', uart_name="serial", bios_path='boot/boot.bin',
+    def __init__(self, platform, revision, sys_clk_freq=int(100e6), legacy_spi=False,
+                 xous=False, usb_type='debug', uart_name="crossover", bios_path='boot/boot.bin',
                  puppet=False, use_perfcounter=False, app_uart=False,
                  **kwargs):
-        assert sys_clk_freq in [int(10e6), int(10e6)]
+        assert sys_clk_freq in [int(12e6), int(100e6)]
         global bios_size
 
         # CPU cluster
@@ -1190,22 +1173,23 @@ class BetrustedSoC(SoCCore):
         ## a signature verification of the external SPI code before running it. The theory is that
         ## a user will burn a random AES key into their FPGA and encrypt their bitstream to their
         ## unique AES key, creating a root of trust that offers a defense against trivial patch attacks.
-        # if xous == False:  # raw firmware boots from SPINOR directly; xous boots from default Litex internal ROM
-        #     reset_address = self.mem_map["spiflash"]+boot_offset
-        #     bios_size = 0
-        # else:
-        reset_address = 0x80000000
+
+        if xous == False:  # raw firmware boots from SPINOR directly; xous boots from default Litex internal ROM
+            reset_address = self.mem_map["spiflash"]+boot_offset
+            bios_size = 0
+        else:
+            reset_address = self.mem_map["rom"]
 
         # SoCCore ----------------------------------------------------------------------------------
         SoCCore.__init__(self, platform, sys_clk_freq, csr_data_width=32,
-            integrated_rom_size  = 0x8000,    # don't use default ROM 32kB
+            integrated_rom_size  = 0,    # don't use default ROM
             integrated_rom_init  = None, # bios_path,
-            integrated_sram_size = 0x8000,    # Use external SRAM for boot code 32kB
+            integrated_sram_size = 0,    # Use external SRAM for boot code
             ident                = "", # Was :"Precursor SoC " + revision, but not used by firmware so eliminated
             cpu_type             = "vexriscv",
             csr_paging           = 4096,  # increase paging to 1 page size
             csr_address_width    = 16,    # increase to accommodate larger page size
-            with_uart            = True, #False # implemented manually to allow for UART mux
+            with_uart            = False, # implemented manually to allow for UART mux
             uart_name            = uart_name,
             cpu_reset_address    = reset_address,
             with_ctrl            = False,
@@ -1214,53 +1198,52 @@ class BetrustedSoC(SoCCore):
         # Litex will always try to move the ROM back to 0.
         # Move ROM and RAM to uncached regions - we only use these at boot, and they are already quite fast
         # this helps remove their contribution from the cache tag critical path
-        # if self.mem_map["rom"] == 0:
-        #     self.mem_map["rom"] += 0x80000000
+        if self.mem_map["rom"] == 0:
+            self.mem_map["rom"] += 0x80000000
 
         # Fix the location of CSRs and IRQs so we can do firmware updates between generations of the SoC
         self.csr.locs = {
             'reboot': 0,
-            # 'timer0': 1,
+            'timer0': 1,
             # 'crg': 2,
-            # 'gpio': 3,
+            'gpio': 3,
             # 'uart_phy': 4,
             'uart': 5,
             # 'console_phy': 6,
-            # 'console': 7,
+            'console': 7,
             #'app_uart_phy': 8,
             #'app_uart': 9,
-            # 'info': 10,
+            'info': 10,
             # 'sram_ext': 11,
-            # 'memlcd': 12,
-            # 'com': 13,
-            # 'i2c': 14,
-            # 'btevents': 15,
+            'memlcd': 12,
+            'com': 13,
+            'i2c': 14,
+            'btevents': 15,
             #'messible': 16,
             #'messible2': 17,
-            # 'ticktimer': 18,
-            # 'susres': 19,
-            # 'power': 20,
-            # 'spinor_soft_int': 21,
-            # 'spinor': 22,
-            # 'keyboard': 23,
-            # 'keyinject': 24,
-            # 'seed': 25,
-            # 'keyrom': 26,
-            # 'audio': 27,
-            # 'trng_kernel': 28,
-            # 'trng_server': 29,
-            # 'trng': 30,
-            # 'sha512': 31,
-            # 'engine': 32,
-            # 'jtag': 33,
+            'ticktimer': 18,
+            'susres': 19,
+            'power': 20,
+            'spinor_soft_int': 21,
+            'spinor': 22,
+            'keyboard': 23,
+            'keyinject': 24,
+            'seed': 25,
+            'keyrom': 26,
+            'audio': 27,
+            'trng_kernel': 28,
+            'trng_server': 29,
+            'trng': 30,
+            'sha512': 31,
+            'engine': 32,
+            'jtag': 33,
             'wdt': 34,
-            # 'usbdev': 35,
-            # 'd11ctime': 36,
-            # 'wfi': 37,
+            'usbdev': 35,
+            'd11ctime': 36,
+            'wfi': 37,
             # 'identifier': 38,
             # 'sha2': 39,
         }
-        '''
         if use_perfcounter:
             self.csr.locs['perfcounter'] = 38
         self.irq.locs = {
@@ -1285,13 +1268,10 @@ class BetrustedSoC(SoCCore):
             'engine': 18,
             'usbdev': 19
         }
-        '''
-        '''
         if app_uart:
             self.csr.locs['app_uart'] = 9
             self.irq.locs['app_uart'] = 4
-        '''
-        
+
         # CPU --------------------------------------------------------------------------------------
         self.cpu.use_external_variant("VexRiscv/VexRiscv_BetrustedSoC.v")
         self.submodules.reboot = WarmBoot(self, reset_address)
@@ -1322,53 +1302,47 @@ class BetrustedSoC(SoCCore):
         else:
             self.sync += self.cpu.reset.eq(cpu_reset | reset_hold)
         # make a custom version of the timer0 core that's in the "always on" domain
-        # self.submodules.timer0 = ClockDomainsRenamer(cd_remapping={"always_on":"raw_12"})(TimerAlwaysOn())
-        # self.add_csr("timer0", use_loc_if_exists=True)
-        # self.add_interrupt("timer0", use_loc_if_exists=True)
+        self.submodules.timer0 = ClockDomainsRenamer(cd_remapping={"always_on":"raw_12"})(TimerAlwaysOn())
+        self.add_csr("timer0", use_loc_if_exists=True)
+        self.add_interrupt("timer0", use_loc_if_exists=True)
 
         # Uncached boot ROM ---------------------------------------------------------------------
         # this ROM prefers compact size over performance
-
-
-        # rom_bus = wishbone.Interface(data_width=self.bus.data_width)
-        # rom     = BlockRom(bus=rom_bus, init=bios_path)
-        # self.bus.add_slave("rom", rom.bus, SoCRegion(origin=self.mem_map["rom"], size=bios_size, mode="r", cached=False))
-        # self.check_if_exists("rom")
+        rom_bus = wishbone.Interface(data_width=self.bus.data_width)
+        rom     = BlockRom(bus=rom_bus, init=bios_path)
+        self.bus.add_slave("rom", rom.bus, SoCRegion(origin=self.mem_map["rom"], size=bios_size, mode="r", cached=False))
+        self.check_if_exists("rom")
         self.logger.info("Block ROM {} {} {}.".format(
             "rom",
             "added",
             self.bus.regions["rom"]))
-        # setattr(self.submodules, "rom", rom)
-        '''
+        setattr(self.submodules, "rom", rom)
+
         # Debug cluster ----------------------------------------------------------------------------
         if usb_type == 'device':  # wire up the debug UART automatically if we don't have USB debugging capability
            from litex.soc.cores.uart import UARTWishboneBridge
            self.submodules.uart_bridge = UARTWishboneBridge(platform.request("debug"), sys_clk_freq, baudrate=115200)
            self.add_wb_master(self.uart_bridge.wishbone)
-        '''
+
         # Clockgen cluster -------------------------------------------------------------------------
-        self.submodules.crg = CRG(platform, sys_clk_freq)
+        self.submodules.crg = CRG(platform, sys_clk_freq, spinor_edge_delay_ns=2.5)
         # self.add_csr("crg", use_loc_if_exists=True) # this isn't used by Xous, so don't export it to save on registers.
         self.comb += self.crg.warm_reset.eq(warm_reset) # mirror signal here to hit the Async reset injectors
         # lpclk/sys paths are async
-        # self.platform.add_platform_command('set_clock_groups -asynchronous -group [get_clocks sys_clk] -group [get_clocks lpclk]')
-        # # 12 always-on/sys paths are async
-        # self.platform.add_platform_command('set_clock_groups -asynchronous -group [get_clocks sys_clk] -group [get_clocks clk12]')
-        # # Add a tiny bit of margin to help with noise, process variation across chip generations (seems to help...)
-        # self.platform.add_platform_command("set_clock_uncertainty 0.08 -hold -from [get_clocks sys_clk] -to [get_clocks sys_clk]")
-        # self.platform.add_platform_command("set_clock_uncertainty 0.20 -setup -from [get_clocks sys_clk] -to [get_clocks sys_clk]")
+        self.platform.add_platform_command('set_clock_groups -asynchronous -group [get_clocks sys_clk] -group [get_clocks lpclk]')
+        # 12 always-on/sys paths are async
+        self.platform.add_platform_command('set_clock_groups -asynchronous -group [get_clocks sys_clk] -group [get_clocks clk12]')
+        # Add a tiny bit of margin to help with noise, process variation across chip generations (seems to help...)
+        self.platform.add_platform_command("set_clock_uncertainty 0.08 -hold -from [get_clocks sys_clk] -to [get_clocks sys_clk]")
+        self.platform.add_platform_command("set_clock_uncertainty 0.20 -setup -from [get_clocks sys_clk] -to [get_clocks sys_clk]")
 
         # GPIO module ------------------------------------------------------------------------------
-        # self.submodules.gpio = BtGpio(platform.request("gpio"), usb_type=usb_type)
-        # self.add_csr("gpio", use_loc_if_exists=True)
-        # self.add_interrupt("gpio", use_loc_if_exists=True)
+        self.submodules.gpio = BtGpio(platform.request("gpio"), usb_type=usb_type)
+        self.add_csr("gpio", use_loc_if_exists=True)
+        self.add_interrupt("gpio", use_loc_if_exists=True)
 
         # UART mux ---------------------------------------------------------------------------------
         from litex.soc.cores import uart
-        for resource, obj in platform.constraint_manager.matched:
-            print(f"Resource: {resource}")
-            print(f"Assigned to: {obj}")
-        '''
         uart_pins = platform.request("serial")
         if uart_name == "crossover": # note -- crossover UART is *much* slower than a physical UART.
             self.submodules.uart = uart.UARTCrossover()
@@ -1422,18 +1396,98 @@ class BetrustedSoC(SoCCore):
                     ))
                 self.add_csr("app_uart", use_loc_if_exists=True)
                 self.add_interrupt("app_uart", use_loc_if_exists=True)
-        '''
 
-        
-        '''
+
+        # XADC analog interface---------------------------------------------------------------------
+
+        from litex.soc.cores.xadc import analog_layout
+        analog_pads = Record(analog_layout)
+        analog = platform.request("analog")
+        self.comb += [
+            analog_pads.vp.eq(analog.ana_vp),
+            analog_pads.vn.eq(analog.ana_vn),
+        ]
+        # use explicit dummies to tie the analog inputs, otherwise the name space during finalization changes
+        # (e.g. FHDL adds 'betrustedsoc_' to the beginning of every netlist name to give a prefix to unnamed signals)
+        # notet that the added prefix messes up the .XDC constraints
+        dummy4 = Signal(4, reset=0)
+        dummy5 = Signal(5, reset=0)
+        dummy1 = Signal(1, reset=0)
+        if (revision == 'dvt') or (revision == 'pvt'):
+            self.comb += analog_pads.vauxp.eq(Cat(dummy4,          # 0,1,2,3
+                                             analog.noise1,        # 4
+                                             dummy1,               # 5
+                                             analog.vbus_div,      # 6
+                                             dummy5,               # 7,8,9,10,11
+                                             analog.noise0,        # 12
+                                             dummy1,               # 13
+                                             analog.usbdet_p,      # 14
+                                             analog.usbdet_n,      # 15
+                                        )),
+            self.comb += analog_pads.vauxn.eq(Cat(dummy4,          # 0,1,2,3
+                                             analog.noise1_n,      # 4
+                                             dummy1,               # 5
+                                             analog.vbus_div_n,    # 6
+                                             dummy5,               # 7,8,9,10,11
+                                             analog.noise0_n,      # 12
+                                             dummy1,               # 13
+                                             analog.usbdet_p_n,    # 14
+                                             analog.usbdet_n_n,    # 15
+                                        )),
+        elif revision == 'modnoise':
+            self.comb += analog_pads.vauxp.eq(Cat(dummy4,          # 0,1,2,3
+                                             dummy1,               # 4  was noise1
+                                             dummy1,               # 5
+                                             analog.vbus_div,      # 6
+                                             dummy5,               # 7,8,9,10,11
+                                             dummy1,               # 12 was noise0
+                                             dummy1,               # 13
+                                             analog.usbdet_p,      # 14
+                                             analog.usbdet_n,      # 15
+                                        )),
+            self.comb += analog_pads.vauxn.eq(Cat(dummy4,          # 0,1,2,3
+                                             dummy1,               # 4  was noise1_n
+                                             dummy1,               # 5
+                                             analog.vbus_div_n,    # 6
+                                             dummy5,               # 7,8,9,10,11
+                                             dummy1,               # 12  was noise0_n
+                                             dummy1,               # 13
+                                             analog.usbdet_p_n,    # 14
+                                             analog.usbdet_n_n,    # 15
+                                        )),
+        elif revision == 'pvt2':
+            self.comb += analog_pads.vauxp.eq(Cat(dummy4,          # 0,1,2,3
+                                             analog.noise1,        # 4
+                                             analog.gpio5,         # 5
+                                             analog.vbus_div,      # 6
+                                             dummy4,               # 7,8,9,10
+                                             analog.gpio2,         # 11
+                                             analog.noise0,        # 12
+                                             dummy1,               # 13
+                                             analog.usbdet_p,      # 14
+                                             analog.usbdet_n,      # 15
+                                        )),
+            self.comb += analog_pads.vauxn.eq(Cat(dummy4,          # 0,1,2,3
+                                             analog.noise1_n,      # 4
+                                             analog.gpio5_n,       # 5
+                                             analog.vbus_div_n,    # 6
+                                             dummy4,               # 7,8,9,10
+                                             analog.gpio2_n,       # 11
+                                             analog.noise0_n,      # 12
+                                             dummy1,               # 13
+                                             analog.usbdet_p_n,    # 14
+                                             analog.usbdet_n_n,    # 15
+                                        )),
+        else:
+            print("Revision not supported, can't place analog pins")
+
         if xous == True:
             self.submodules.info = info.Info(platform, self.__class__.__name__, use_xadc=False) # xadc is managed by TRNG
         else:
-            self.submodules.info = info.Info(platform, self.__class__.__name__, use_xadc=False)
-        # self.platform.add_platform_command('create_generated_clock -name dna_cnt -source [get_pins {net}_reg[0]/Q] -divide_by 2 [get_pins DNA_PORT/CLK]', net=self.info.dna.count)
+            self.submodules.info = info.Info(platform, self.__class__.__name__, use_xadc=True, analog_pads=analog_pads)
+        self.platform.add_platform_command('create_generated_clock -name dna_cnt -source [get_pins {net}_reg[0]/Q] -divide_by 2 [get_pins DNA_PORT/CLK]', net=self.info.dna.count)
         self.add_csr("info", use_loc_if_exists=True)
-        '''
-        '''
+
         # reset ignore - we should not be relying on any _rst signals to clear state in a single cycle!
         self.platform.add_platform_command('set_false_path -through [get_nets *_rst]')
 
@@ -1441,9 +1495,7 @@ class BetrustedSoC(SoCCore):
         self.platform.add_platform_command('set_false_path -through [get_nets *xilinxmultiregimpl*0]') # covers sys-to-other
         self.platform.add_platform_command('set_false_path -through [get_pins *xilinxmultiregimpl*0_reg/D]') # covers other-to-sys
         self.platform.add_platform_command('set_false_path -through [get_pins *xilinxmultiregimpl*0_reg[*]/D]') # covers other-to-sys
-        '''
 
-        '''
         # External SRAM ----------------------------------------------------------------------------
         # Cache fill time is ~320ns for 8 words.
         if usb_type == 'spinal':
@@ -1468,9 +1520,7 @@ class BetrustedSoC(SoCCore):
         # relax OE driver constraint (setup time of data to write enable edge is 23ns only, 70ns total cycle time given)
         self.platform.add_platform_command("set_multicycle_path 2 -setup -through [get_pins {net}_reg/Q]", net=self.sram_ext.sync_oe_n)
         self.platform.add_platform_command("set_multicycle_path 1 -hold -through [get_pins {net}_reg/Q]", net=self.sram_ext.sync_oe_n)
-        '''
-        
-        '''
+
         # LCD interface ----------------------------------------------------------------------------
         cached_lcd = False  # not caching LCD memory may lead to net improvement as stack & code are not displaced by use-once LCD entries in iterator routines
         self.submodules.memlcd = ClockDomainsRenamer({"sys":"sys_always_on"})(memlcd.MemLCD(platform.request("lcd")))
@@ -1479,8 +1529,7 @@ class BetrustedSoC(SoCCore):
             self.bus.add_slave("memlcd", self.memlcd.bus, SoCRegion(origin=self.mem_map["memlcd"], size=self.memlcd.fb_depth*4, mode="rw", cached=True))
         else:
             self.bus.add_slave("memlcd", self.memlcd.bus, SoCRegion(origin=self.mem_map["memlcd"], size=self.memlcd.fb_depth*4, mode="rw", cached=False))
-        '''
-        '''
+
         # COM SPI interface ------------------------------------------------------------------------
         if puppet:
            from litex.soc.cores.uart import UARTWishboneBridge
@@ -1514,11 +1563,17 @@ class BetrustedSoC(SoCCore):
             # cross domain clocking is handled with explicit software barriers, or with multiregs
             self.platform.add_false_path_constraints(self.crg.cd_sys.clk, self.crg.cd_spi.clk)
             self.platform.add_false_path_constraints(self.crg.cd_spi.clk, self.crg.cd_sys.clk)
-        '''
+
+        # I2C interface ----------------------------------------------------------------------------
+        self.submodules.i2c = ClockDomainsRenamer({"sys":"sys_always_on"})(i2c.RTLI2C(platform, platform.request("i2c", 0)))
+        self.comb += self.i2c.filter_clk.eq(self.crg.cd_usb_12.clk) # slower clock for de-metastabilizing the slow/jitter edges of I2C
+        self.add_csr("i2c", use_loc_if_exists=True)
+        self.add_interrupt("i2c", use_loc_if_exists=True)
+
         # Event generation for I2C and COM ---------------------------------------------------------
-        # self.submodules.btevents = ClockDomainsRenamer({"sys":"sys_always_on"})(BtEvents(platform.request("com_irq", 0), platform.request("rtc_irq", 0)))
-        # self.add_csr("btevents", use_loc_if_exists=True)
-        # self.add_interrupt("btevents", use_loc_if_exists=True)
+        self.submodules.btevents = ClockDomainsRenamer({"sys":"sys_always_on"})(BtEvents(platform.request("com_irq", 0), platform.request("rtc_irq", 0)))
+        self.add_csr("btevents", use_loc_if_exists=True)
+        self.add_interrupt("btevents", use_loc_if_exists=True)
 
         # Messible for debug -----------------------------------------------------------------------
         # self.submodules.messible = messible.Messible()
@@ -1526,8 +1581,6 @@ class BetrustedSoC(SoCCore):
         # self.submodules.messible2 = messible.Messible()
         # self.add_csr("messible2", use_loc_if_exists=True)
 
-
-        '''
         # Tick timer -------------------------------------------------------------------------------
         self.submodules.ticktimer = ClockDomainsRenamer(cd_remapping={"always_on":"raw_12"})(ticktimer.TickTimer(1000, 12e6, bits=64))
         self.add_csr("ticktimer", use_loc_if_exists=True)
@@ -1546,8 +1599,6 @@ class BetrustedSoC(SoCCore):
             self.ticktimer.pause.eq(self.susres.control.fields.pause),
             self.ticktimer.load.eq(self.susres.control.fields.load),
         ]
-        '''
-
         # We seem to be able to do suspend/resume without the Resume Kicker, so comment it out as a historical note; delete once the susres path is really well tested.
         # the ResumeKicker is a port that the kernel can map and exclusively own in early boot to coordinate the Resume process
         # it provides a single bit that determines if a Resume should be done, and a signal that's passed to the interrupt
@@ -1559,7 +1610,7 @@ class BetrustedSoC(SoCCore):
         #    self.susres.kernel_resume_interrupt.eq(self.resumekicker.kick),
         #    self.resumekicker.resume.eq(self.susres.resume),
         #]
-        '''
+
         # Power control pins -----------------------------------------------------------------------
         self.submodules.power = BtPower(platform.request("power"), revision, xous)
         self.add_csr("power", use_loc_if_exists=True)
@@ -1652,7 +1703,7 @@ class BetrustedSoC(SoCCore):
             #### self.comb += gpio_pads[0].eq(self.trng_osc.trng_fast)  # this one rarely needs probing
             # self.comb += gpio_pads[1].eq(self.trng_osc.trng_slow)
             # self.comb += gpio_pads[2].eq(self.trng_osc.trng_raw)
-        '''
+
         # AES block --------------------------------------------------------------------------------
         # Note: AES instructions have been inserted into the VexriscV CPU, this is more logic-efficient
         # AES block + regular Vex => 21461 Slice LUTs (65.83%) overall; VexRiscv     has 4936 LUTs, 2327 FFs
@@ -1667,8 +1718,6 @@ class BetrustedSoC(SoCCore):
         # There could also be downsides in terms of sidechannels and correctness; the OpenTitan core is supposedly
         # heavily audited, but so far the AES plugin for Vexriscv has only been lightly tested.
         #
-
-        '''
         # Thus, we remind ourselves of the availability of this core option with this comment.
         if xous == False:
             self.submodules.aes = aes.Aes(platform)
@@ -1723,8 +1772,8 @@ class BetrustedSoC(SoCCore):
             self.platform.add_platform_command('set_false_path -rise_from [get_clocks usb_12] -rise_to [get_clocks sys_clk] -through [get_cells -filter {{NAME =~ "storage_7*"}}]')
             self.platform.add_platform_command('set_false_path -rise_from [get_clocks sys_clk] -rise_to [get_clocks usb_12] -through [get_cells -filter {{NAME =~ "storage_6*"}}]')
         elif usb_type=='debug':
-            from custom_valentyusb.usbcore import io as usbio
-            from custom_valentyusb.usbcore.cpu import dummyusb
+            from valentyusb.usbcore import io as usbio
+            from valentyusb.usbcore.cpu import dummyusb
             usb_pads = platform.request("usb")
             usb_iobuf = usbio.IoBuf(usb_pads.d_p, usb_pads.d_n, usb_pads.pullup_p)
             self.submodules.usb = dummyusb.DummyUsb(usb_iobuf, debug=True, burst=True, cdc=True, relax_timing=True, product="Precursor " + revision)
@@ -1769,7 +1818,7 @@ class BetrustedSoC(SoCCore):
             self.add_interrupt("usbdev", use_loc_if_exists=True)
 
             # wishbone debug core
-            from custom_valentyusb.usbcore.cpu import dummyusb
+            from valentyusb.usbcore.cpu import dummyusb
             # this is the list of address ranges that the USB is allowed to access
             filters=[
                 (self.mem_map['csr'] + (self.csr.locs['spinor'] * 0x1000), self.mem_map['csr'] + (self.csr.locs['spinor'] + 1) * 0x1000),
@@ -1958,7 +2007,7 @@ class BetrustedSoC(SoCCore):
             self.add_csr("perfcounter", use_loc_if_exists=True)
 
         self.platform.add_platform_command("set_clock_uncertainty 0.7 [get_clocks spidqs]")
-        '''
+
         # For debugging fixed locations
         # print(self.irq.locs)
         # print(self.csr.locs)
@@ -1981,7 +2030,7 @@ def main():
         "-e", "--encrypt", help="Format output for encryption using the specified dummy key. Image is re-encrypted at sealing time with a secure key.", type=str
     )
     parser.add_argument(
-        "-x", "--xous", help="Build for the Xous runtime environment. Defaults to true. Setting the flag disables this.", default=False, action="store_true"
+        "-x", "--xous", help="Build for the Xous runtime environment. Defaults to true. Setting the flag disables this.", default=True, action="store_false"
     )
     parser.add_argument(
         "-r", "--revision", choices=['modnoise', 'pvt', 'pvt2'], help="Build for a particular revision. Defaults to 'pvt2'", default='pvt2', type=str,
@@ -2005,7 +2054,7 @@ def main():
         "-c", "--perfcounter", default=False, help="Build with the performance counter module.", action="store_true",
     )
     parser.add_argument(
-        "--simple-boot", help="Fall back to the simple, unsigned bootloader", default=True, action="store_false",
+        "--simple-boot", help="Fall back to the simple, unsigned bootloader", default=False, action="store_true",
     )
     parser.add_argument(
         "--app-uart", help="Instantiate an extra UART for app and GDB use", default=False, action="store_true",
@@ -2028,8 +2077,21 @@ def main():
         if args.bbram:
             bbram = True
 
-    io = _io_gatemate
-   
+    if (args.revision == 'pvt') or (args.revision == 'modnoise') or (args.revision == 'pvt2'):
+        io = _io_pvt
+    else:
+        print("Invalid hardware revision specified: {}; aborting.".format(args.revision))
+        sys.exit(1)
+
+    if args.xous and (args.revision == 'pvt'):
+        io += _io_xous
+    elif args.xous and (args.revision == 'pvt2'):
+        io += _io_xous_pvt2
+    elif args.xous and (args.revision == 'modnoise'):
+        io += _io_xous_modnoise
+    else:
+        io += _io_fw
+
     if args.physical_uart:
         uart_name="serial"
     else:
@@ -2044,8 +2106,7 @@ def main():
             bios_path = 'loader{}bios.bin'.format(os.path.sep)
         else:
             # do a first-pass to create the soc.svd file
-            # platform = Platform(io, encrypt=encrypt, bbram=bbram, strategy=args.strategy)
-            platform = Platform(None, io,[])
+            platform = Platform(io, encrypt=encrypt, bbram=bbram, strategy=args.strategy)
             platform.add_extension(_io_uart_debug_swapped)
             soc = BetrustedSoC(platform, args.revision, xous=args.xous, usb_type=args.usb_type, uart_name=uart_name, bios_path=None, app_uart=args.app_uart)
             builder = Builder(soc, output_dir="build", csr_csv="build/csr.csv", csr_svd="build/software/soc.svd",
@@ -2060,12 +2121,9 @@ def main():
 
     ##### second pass to build the actual chip. Note any changes below need to be reflected into the first pass...might be a good idea to modularize that
     ##### setup platform
-    #platform = Platform(io, encrypt=encrypt, bbram=bbram, strategy=args.strategy)
-    platform = Platform(None, io,[])
+    platform = Platform(io, encrypt=encrypt, bbram=bbram, strategy=args.strategy)
     # _io_uart_debug wires debug bridge to Rpi; _io_uart_debug_swapped wires console to Rpi
-
-    
-    # platform.add_extension(_io_uart_debug_swapped) Commented out, don't know if i need it
+    platform.add_extension(_io_uart_debug_swapped)
 
     ##### define the soc
     soc = BetrustedSoC(

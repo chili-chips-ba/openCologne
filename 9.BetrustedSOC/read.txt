@@ -1,1 +1,56 @@
 Port the barebones of BetrustedSOC to GateMate, namely only VexRiscv CPU and UART. We view this as the stepping stone for the next NLnet project with Cologne Chip, perhaps using one of their yet to be released 40K or 80K LUT devices. It's worth noting that BetrustedSOC is hosted in a Spartan7 (XC7S50), which is a 50K LUT6 device, 80% utilized as of October 2022. The native BetrustedSOC is implemented using proprietary Vivado 2019.2 toolchain, and also employs a 5K LUT4 Lattice UP5 FPGA for housekeeping tasks. The full BetrustedSOC would be a very nice and interesting thing to do. However, given its complexity, it's a project of its own. Our WP9 is merely to test the waters and set the stage for a yet to be defined follow-on project dedicated to BetrustedSOC. The idea is that by then, thanks to work on this project, Cologne tools will be sufficiently improved to eliminate their current choke point at cca 20% max utilization. Within this work package, we also plan to create a comprehensive blog that describes all FPGA/RTL developed for the project.
+
+Here’s a clean markdown snippet you can include in your GitHub repo (e.g., `docs/udev-rules.md`) to help others configure access to FPGA devices without needing `sudo`:
+
+---
+
+## 🔧 udev Rule for OpenFPGALoader (No `sudo` Needed)
+
+To use `openFPGALoader` without root privileges, create a udev rule that grants appropriate USB access:
+
+### 1. Identify your device
+
+Run:
+
+```bash
+lsusb
+```
+
+Look for an entry similar to:
+
+```
+Bus 001 Device 005: ID 0403:6010 Future Technology Devices International, Ltd FT2232C Dual USB-UART/FIFO IC
+```
+
+Note the `idVendor` (`0403`) and `idProduct` (`6010`).
+
+### 2. Create the udev rule
+
+Create the rule file:
+
+```bash
+sudo nano /etc/udev/rules.d/60-openfpgaloader.rules
+```
+
+Paste the following (adjust `idVendor`/`idProduct` if different):
+
+```udev
+SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6010", MODE="0666"
+```
+
+### 3. Reload udev rules
+
+```bash
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+```
+
+### 4. Replug your device
+
+Unplug and plug back in the FPGA board to apply the new rule.
+
+You can now run `openFPGALoader` without `sudo`.
+
+---
+
+Let me know if you want a version that includes multiple common FTDI or Lattice USB devices.

@@ -220,7 +220,7 @@ def check_nextpnr_ecp5(args):
 
 dependency_checkers = {
     'python': check_python_version,
-    # 'vivado': check_vivado,
+    'vivado': check_vivado,
     'make': check_make,
     'git': check_git,
     'riscv': check_riscv,
@@ -447,7 +447,7 @@ import lxbuildenv
 # relies on.  lxbuildenv reads this variable in order to ensure
 # the build will finish without exiting due to missing third-party
 # programs.
-LX_DEPENDENCIES = ["riscv"] # I DISABLED "vivado"
+LX_DEPENDENCIES = ["riscv", "vivado"]
 
 # Import lxbuildenv to integrate the deps/ directory
 import lxbuildenv

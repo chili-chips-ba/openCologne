@@ -3,7 +3,7 @@
 	url = https://github.com/m-labs/migen.git
 [submodule "deps/litex"]
 	path = deps/litex
-	url = 	git submodule sync	git submodule synchttps://github.com/enjoy-digital/litex.git
+	url = https://github.com/enjoy-digital/litex.git
 [submodule "deps/litescope"]
 	path = deps/litescope
 	url = https://github.com/enjoy-digital/litescope
@@ -54,3 +54,9 @@
 	path = deps/VexRiscv
 	url = https://github.com/SpinalHDL/VexRiscv.git
 	branch = dev
+[submodule "deps/litex_boards"]
+	path = deps/litex_boards
+	url = https://github.com/litex-hub/litex-boards.git
+[submodule "deps/pythondata_software_picolibc"]
+	path = deps/pythondata_software_picolibc
+	url = https://github.com/litex-hub/pythondata-software-picolibc
