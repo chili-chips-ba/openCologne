@@ -7,3 +7,42 @@
 [submodule "1.Blinky--Verilog-VHDL-Python.Amaranth/4.amaranth/amaranth-boards"]
 	path = 1.Blinky--Verilog-VHDL-Python.Amaranth/4.amaranth/amaranth-boards
 	url = https://github.com/TarikHamedovic/amaranth-boards.git
+[submodule "9.BetrustedSOC/deps/migen"]
+	path = 9.BetrustedSOC/deps/migen
+	url = ./9.BetrustedSOC/deps/migen
+[submodule "9.BetrustedSOC/deps/litex"]
+	path = 9.BetrustedSOC/deps/litex
+	url = ./9.BetrustedSOC/deps/litex
+[submodule "9.BetrustedSOC/deps/litescope"]
+	path = 9.BetrustedSOC/deps/litescope
+	url = ./9.BetrustedSOC/deps/litescope
+[submodule "9.BetrustedSOC/deps/pyserial"]
+	path = 9.BetrustedSOC/deps/pyserial
+	url = ./9.BetrustedSOC/deps/pyserial
+[submodule "9.BetrustedSOC/deps/compiler_rt"]
+	path = 9.BetrustedSOC/deps/compiler_rt
+	url = ./9.BetrustedSOC/deps/compiler_rt
+[submodule "9.BetrustedSOC/deps/encrypt-bitstream-python"]
+	path = 9.BetrustedSOC/deps/encrypt-bitstream-python
+	url = ./9.BetrustedSOC/deps/encrypt-bitstream-python
+[submodule "9.BetrustedSOC/deps/gateware"]
+	path = 9.BetrustedSOC/deps/gateware
+	url = ./9.BetrustedSOC/deps/gateware
+[submodule "9.BetrustedSOC/deps/opentitan"]
+	path = 9.BetrustedSOC/deps/opentitan
+	url = ./9.BetrustedSOC/deps/opentitan
+[submodule "9.BetrustedSOC/deps/pythondata-software-picolibc"]
+	path = 9.BetrustedSOC/deps/pythondata-software-picolibc
+	url = ./9.BetrustedSOC/deps/pythondata-software-picolibc/
+[submodule "9.BetrustedSOC/deps/SpinalHDL"]
+	path = 9.BetrustedSOC/deps/SpinalHDL
+	url = ./9.BetrustedSOC/deps/SpinalHDL
+[submodule "9.BetrustedSOC/deps/valentyusb"]
+	path = 9.BetrustedSOC/deps/valentyusb
+	url = ./9.BetrustedSOC/deps/valentyusb
+[submodule "9.BetrustedSOC/deps/VexRiscv"]
+	path = 9.BetrustedSOC/deps/VexRiscv
+	url = ./9.BetrustedSOC/deps/VexRiscv
+[submodule "9.BetrustedSOC/deps/litex_boards"]
+	path = 9.BetrustedSOC/deps/litex_boards
+	url = ./9.BetrustedSOC/deps/litex_boards
