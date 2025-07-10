@@ -1,1 +1,3 @@
 0.doc/** linguist-vendored=true
+0.doc/**/*.vho linguist-detectable=false
+0.doc/**/*.vhd linguist-detectable=false
