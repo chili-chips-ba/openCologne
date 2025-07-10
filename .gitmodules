@@ -46,3 +46,15 @@
 [submodule "9.BetrustedSOC/deps/litex_boards"]
 	path = 9.BetrustedSOC/deps/litex_boards
 	url = ./9.BetrustedSOC/deps/litex_boards
+[submodule "9.BetrustedSOC/fw/curve25519-dalek"]
+	path = 9.BetrustedSOC/fw/curve25519-dalek
+	url = ./9.BetrustedSOC/fw/curve25519-dalek
+[submodule "9.BetrustedSOC/fw/engine25519-as"]
+	path = 9.BetrustedSOC/fw/engine25519-as
+	url = ./9.BetrustedSOC/fw/engine25519-as/
+[submodule "9.BetrustedSOC/fw/embedded-graphics"]
+	path = 9.BetrustedSOC/fw/embedded-graphics
+	url = ./9.BetrustedSOC/fw/embedded-graphics/
+[submodule "9.BetrustedSOC/fw/x25519-dalek"]
+	path = 9.BetrustedSOC/fw/x25519-dalek
+	url = ./9.BetrustedSOC/fw/x25519-dalek/

@@ -17,7 +17,6 @@ target/
 /test/
 /env/
 
-.venv/*
 # betrusted-pac is auto-generated
 fw/betrusted-pac/
 xous/betrusted-pac/
