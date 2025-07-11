@@ -9,52 +9,52 @@
 	url = https://github.com/TarikHamedovic/amaranth-boards.git
 [submodule "9.BetrustedSOC/deps/migen"]
 	path = 9.BetrustedSOC/deps/migen
-	url = ./9.BetrustedSOC/deps/migen
+	url = https://github.com/m-labs/migen.git
 [submodule "9.BetrustedSOC/deps/litex"]
 	path = 9.BetrustedSOC/deps/litex
-	url = ./9.BetrustedSOC/deps/litex
+	url = https://github.com/enjoy-digital/litex.git
 [submodule "9.BetrustedSOC/deps/litescope"]
 	path = 9.BetrustedSOC/deps/litescope
-	url = ./9.BetrustedSOC/deps/litescope
+	url = https://github.com/enjoy-digital/litescope
 [submodule "9.BetrustedSOC/deps/pyserial"]
 	path = 9.BetrustedSOC/deps/pyserial
-	url = ./9.BetrustedSOC/deps/pyserial
+	url = https://github.com/pyserial/pyserial.git
 [submodule "9.BetrustedSOC/deps/compiler_rt"]
 	path = 9.BetrustedSOC/deps/compiler_rt
-	url = ./9.BetrustedSOC/deps/compiler_rt
+	url = https://github.com/litex-hub/pythondata-software-compiler_rt.git
 [submodule "9.BetrustedSOC/deps/encrypt-bitstream-python"]
 	path = 9.BetrustedSOC/deps/encrypt-bitstream-python
-	url = ./9.BetrustedSOC/deps/encrypt-bitstream-python
+	url = https://github.com/betrusted-io/encrypt-bitstream-python.git
 [submodule "9.BetrustedSOC/deps/gateware"]
 	path = 9.BetrustedSOC/deps/gateware
-	url = ./9.BetrustedSOC/deps/gateware
+	url = https://github.com/betrusted-io/gateware.git
 [submodule "9.BetrustedSOC/deps/opentitan"]
 	path = 9.BetrustedSOC/deps/opentitan
-	url = ./9.BetrustedSOC/deps/opentitan
+	url = https://github.com/betrusted-io/opentitan.git
 [submodule "9.BetrustedSOC/deps/pythondata-software-picolibc"]
 	path = 9.BetrustedSOC/deps/pythondata-software-picolibc
-	url = ./9.BetrustedSOC/deps/pythondata-software-picolibc/
+	url = https://github.com/litex-hub/pythondata-software-picolibc
 [submodule "9.BetrustedSOC/deps/SpinalHDL"]
 	path = 9.BetrustedSOC/deps/SpinalHDL
-	url = ./9.BetrustedSOC/deps/SpinalHDL
+	url = https://github.com/SpinalHDL/SpinalHDL.git
 [submodule "9.BetrustedSOC/deps/valentyusb"]
 	path = 9.BetrustedSOC/deps/valentyusb
-	url = ./9.BetrustedSOC/deps/valentyusb
+	url = https://github.com/betrusted-io/valentyusb.git
 [submodule "9.BetrustedSOC/deps/VexRiscv"]
 	path = 9.BetrustedSOC/deps/VexRiscv
-	url = ./9.BetrustedSOC/deps/VexRiscv
+	url = https://github.com/SpinalHDL/VexRiscv.git
 [submodule "9.BetrustedSOC/deps/litex_boards"]
 	path = 9.BetrustedSOC/deps/litex_boards
-	url = ./9.BetrustedSOC/deps/litex_boards
+	url = https://github.com/litex-hub/litex-boards.git
 [submodule "9.BetrustedSOC/fw/curve25519-dalek"]
 	path = 9.BetrustedSOC/fw/curve25519-dalek
-	url = ./9.BetrustedSOC/fw/curve25519-dalek
+	url = https://github.com/betrusted-io/curve25519-dalek.git
 [submodule "9.BetrustedSOC/fw/engine25519-as"]
 	path = 9.BetrustedSOC/fw/engine25519-as
-	url = ./9.BetrustedSOC/fw/engine25519-as/
+	url = https://github.com/betrusted-io/engine25519-as.git
 [submodule "9.BetrustedSOC/fw/embedded-graphics"]
 	path = 9.BetrustedSOC/fw/embedded-graphics
-	url = ./9.BetrustedSOC/fw/embedded-graphics/
+	url = https://github.com/betrusted-io/embedded-graphics.git
 [submodule "9.BetrustedSOC/fw/x25519-dalek"]
 	path = 9.BetrustedSOC/fw/x25519-dalek
-	url = ./9.BetrustedSOC/fw/x25519-dalek/
+	url = https://github.com/betrusted-io/x25519-dalek.git
