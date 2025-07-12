@@ -4,21 +4,20 @@ The [Betrusted](https://github.com/betrusted-io/betrusted-soc) SoC is a LiteX-ba
 
  It's worth noting that BetrustedSOC is hosted in a Spartan7 (XC7S50), which is a 50K LUT6 device, 80% utilized as of October 2022, meaning the complete design is severly oversized for our 20k LUT GateMate. On top of that some of these features are **not available** on the Olimex GateMate platform. Therefore, for this project, we are targeting a **minimal port** of Betrusted SoC that includes only the **VexRiscv CPU** (Betrusted version) and **UART** peripheral. This simplified version is intended to serve as a prototype for future work on larger GateMate-based designs (e.g., with 40K or 80K LUT devices).
 
- This repository covers every step of porting and building the minimal betrusted-soc on GateMate. **This is the first part covering the project peppercorn's new PnR for Gatemate**
+ This repository covers every step of porting and building the minimal betrusted-soc on GateMate, being **the first openCologne package to cover the new peppercorn PnR for Gatemate**
 <!-- Within this work package, we also plan to create a comprehensive blog that describes all FPGA/RTL developed for the project. -->
 ---
 
 ## Prerequisites
+Please refer to the [betrusted-soc repository](https://github.com/betrusted-io/betrusted-soc) for a complete list of prerequisites. The project supports building with both the proprietary [GateMate](https://www.colognechip.com/programmable-logic/gatemate/#tab-313425) toolchain and the open-source [nextpnr](https://www.colognechip.com/programmable-logic/gatemate/#tab-313425) flow. We strongly recommend using the **nextpnr** toolchain, as the latest proprietary release (June 2025) currently fails to route the design. The easiest way to install nextpnr is via the **oss-cad-suite** prebuilt binaries. As of July 2025, building it from source is not well documented.
 
-Please refer to the [betrusted-soc repository](https://github.com/betrusted-io/betrusted-soc) for the full list of prerequisites. The project provides building with both [GateMate](https://www.colognechip.com/programmable-logic/gatemate/#tab-313425) toolchain and/or the new [nextpnr](https://www.colognechip.com/programmable-logic/gatemate/#tab-313425) toolchain. We strongly suggest proceeding with the nextpnr toolchain since the latest propriatary toolchain (June 2025) fails in routing the design. Easiest way to install nextpnr is through **oss-cad-suite** prebuilt binaries, building from sources isn't well documented as of July 2025.
-
-To initialize all the dependencies in the 9.BetrustedSOC folder:
+9.BetrustedSOC has dependencies integrated as submodules, to intialize them run:
 ```bash
 cd ../ #cd to openCologne/
 git submodule update --init --recursive
 ```
 
-To build the 9.BetrustedSOC it’s recommended to use an **isolated Python environment** (e.g., via `venv`) to avoid conflicts with global or newer tool versions, as this project depends on specific versions of LiteX and related tools. 
+For building the 9.BetrustedSOC it’s recommended to use an **isolated Python environment** (e.g., via `venv`) to avoid conflicts with global or newer tool versions, as this project depends on specific versions of LiteX and related tools. 
 
 If you decide to use an isolated Python environment after activating it you have to install litex locally:
 ```
@@ -29,34 +28,38 @@ cd deps/litex/
 ---
 
 ## Porting to GateMate
-Here we list intricaties of the porting process in detail, explaining common pitfalls with litex and what to look out for. We will not put entire sections of code in this part, but leave to the reader to deduce what each snippet refers to.
+Here we list intricaties of the porting process in detail, explaining common pitfalls with litex and what to look out for. Full code listings are omitted; readers are expected to deduce the intended context and functionality from the provided snippets.
 ### IO and Platform
-Accessing IO is easy since the Olimex board is included in `/deps/litex_boards/platforms/olimex_gatemate_a1_evb.py`, you can just import the python file as a package and have access to the programmer, and the whole list of ios (similar to Vivado board files). We defined the IO manually in `betrusted_soc.py`, as well as the programmer in the platform class - like in Betrusted SOC. 
+Accessing I/O is straightforward, as the Olimex board is already supported in `/deps/litex_boards/platforms/olimex_gatemate_a1_evb.py`. You can simply import this file as a Python module to gain access to the programmer and the full list of I/Os—similar to Vivado board files. In our case, we defined the I/Os manually in `betrusted_soc.py`, along with the programmer definition inside the platform class, following the approach used in the original Betrusted SoC.
 
-Platform class sets the default toolchain to `peppercorn` with the other option of `colognechip`.
+Platform sets the default toolchain to `peppercorn` with the other option of `colognechip`.
 ### CRG (Clock and Reset Generation)
-Litex intends to obscure the clock and reset generation process, but you still want some control over it. Betrusted-soc has 7 internal clock domains: some always on, some gated for less power consumption when idle; here we stick to only one, tied to a PLL.
+LiteX abstracts much of the clock and reset generation logic, but you may still want finer control. The original `betrusted-soc` defines seven internal clock domains—some always-on, others gated for power savings when idle. In our case, we simplify this by using only one domain, sourced from a PLL.
 
-Reset is defined as `!pll_lock & arst_n` where arst_n is an external button input, which is then synchronized (with `AsyncResetSynchronizer`) into the PLLs system clock domain. We run into some very important stuff here.
+The reset logic is defined as `!pll_lock & arst_n`, where `arst_n` is an external asynchronous reset input (e.g., a push-button). This signal is then synchronized into the PLL's system clock domain using `AsyncResetSynchronizer`.
 
-When calling `pll.create_clkout` Litex by default generates a reset tied to the specified clock domain, if not explicitly turned off with an option(`with_reset=False`) as in our case. If you're calling `create_clkout` with it's default settings the reset will be just `!pll_lock`, and trying to specify your own will result in multiple drivers for a `reset`.
+At this point, it's important to understand a key behavior of LiteX. When calling `pll.create_clkout`, LiteX automatically generates a reset signal for the associated clock domain unless explicitly disabled using `with_reset=False`. If left at the default setting, the generated reset will be `!pll_lock`. Attempting to assign your own reset signal in that case will lead to multiple drivers for the same `reset` signal—an error.
 
-Everything connected to a clock domain is tied with it's reset, to obtain full control over the resets and learn more about CRG in Litex visit this [issue](https://github.com/enjoy-digital/litex/issues/1805).
+Because all logic tied to a given clock domain shares its reset, it's crucial to understand and control this mechanism properly. For a deeper discussion and practical tips on CRG (Clock and Reset Generation) in LiteX, refer to this [issue thread](https://github.com/enjoy-digital/litex/issues/1805).
 
 ### SoC definition
-Litex has a lot of default behaviors which can suprise you, here we will try to explain some which were important in the porting process.
+LiteX comes with many default behaviors that can be surprising. In this section, we highlight some that were particularly relevant during the porting process.
 
-Litex has it's own relatively small bios code which is built when `builder.build()` gets called and intialized in memory. Using the litex bios you need to specify a ROM(exact name of the memory must be ROM) of at least 25kB and a 8kB SRAM(exact name of the memory must be SRAM). Motivation to use litex bios for the price of some memory is because it allows for easy app binary reloading through a serial connection when the SoC is running, without rebuilding the SoC to initialize memory. 
+LiteX includes a lightweight BIOS, which is automatically built when `builder.build()` is called and initialized in memory. To use the LiteX BIOS, you must define a memory region named exactly `ROM` (minimum 25 kB) and another named `SRAM` (minimum 8 kB). The benefit of using the BIOS—despite the memory overhead—is that it enables easy reloading of application binaries over a serial connection at runtime, without needing to rebuild the SoC to reinitialize memory.
 
-But then where does the real app binary go? We specify a `main_ram` memory(exactly that name) of 32 kB in which we will later load and run our app binary through the serial port. `rom`, `main_ram` and `sram` memory names have specific engrained behaviors in litex. Whatever memory map you specify with `soc.mem_map['rom':0x1000000...]` it gets overwritten with defualt values listed below, which are also defined in `regions.ld` used for building the app.
+So, where does the actual application binary go? It is loaded into a memory region named exactly `main_ram`, which must be explicitly defined (e.g., as a 32 kB region). The memory region names `rom`, `sram`, and `main_ram` have special meaning in LiteX: even if you override their addresses using `soc.mem_map['rom'] = 0x...`, they will be overwritten with the following defaults defined in `regions.ld`, which is used when linking the application:
+
+```python
+'rom':       0x00000000
+'sram':      0x10000000
+'main_ram':  0x40000000
 ```
-'rom': 0x00000000
-'sram': 0x10000000
-'main_ram': 0x40000000
-```
-The Betrusted implementation overrides this behavior with redefining each region after the soc constructor is called if it got overwritten with the default addresses, however we keep things as default. We're already almost out of memory on the GateMate(30/32 blocks used, rest taken by VexRiscv internal caches and UART FIFOs), therefore the betrusted soc relies on external SRAM, which isn't available in our case. This means we're memory limited (except if we get rid of the litex bios), and beyond software and maybe some clever DMA there's not much left to do regarding memory.
 
-We're using 48% of the CPEs and only 8% of DFFs after porting the SoC.
+The Betrusted SoC overrides this behavior by reassigning the memory regions after the SoC constructor, if they were overwritten. In our case, we leave the defaults unchanged.
+
+We're already near the memory limits of the GateMate FPGA (30 out of 32 Block RAMs used—the remaining ones consumed by VexRiscv instruction/data caches and UART FIFOs). The Betrusted SoC assumes external SRAM is available, but that’s not the case here. This makes us memory-constrained unless we remove the LiteX BIOS. Besides optimizing software or using clever DMA strategies, there isn’t much room left for expansion.
+
+**Resource usage after porting: 48% of CPEs, 93% of Block RAMs, and only 8% of DFFs.**
 
 ---
 ## Notes on the Hardware Build Process
@@ -77,14 +80,24 @@ Nextpnr is a more complicated story, we've raised an [issue](https://github.com/
 
 ## Notes on Software Build Process
 ### Building 
-Litex provides header includes to control the CSRs and the SOC when building the soc. You ought to build your app(bare metal or OS) upon this framework and compile it standalone with a makefile or similar. For a good example on how to set up a bare-metal app run `litex_bare_metal_demo --build-path=./build` and a demo directory with all the app files will be generated. After editing the sources you can just rerun make in the `demo` folder and get a new `demo.bin` which you can reload as instructed below.
+LiteX provides C header files that expose access to the SoC's CSRs and peripherals. Applications—whether bare-metal or OS-based—are expected to be built on top of this framework and compiled independently using a Makefile or similar build system.
 
-After building the hardware, to compile the integrated bare metal example and get it running on the betrusted-soc run:
+A great starting point for setting up a bare-metal application is the `litex_bare_metal_demo` utility. Running:
+
+```bash
+litex_bare_metal_demo --build-path=./build
+```
+
+will generate a `demo/` directory containing all necessary source files. After making changes to the code, simply run `make` inside the `demo/` directory to build a new `demo.bin` binary, which can be reloaded onto the running SoC as explained below.
+
+To compile and run this demo on the `betrusted-soc`, first build the hardware, then execute:
+
 ```bash
 litex_bare_metal_demo --build-path=./build
 litex_term /dev/ttyACM0 --kernel=demo.bin --safe
 ```
-You should see the signature Litex boot up (if not click the soc `reset` button on your board) and you'll be prompted like presented [here](https://github.com/enjoy-digital/litex/tree/master/litex/soc/software/demo)
+
+If everything is set up correctly, you’ll see the signature LiteX boot output. If not, press the `reset` button on your board to restart the SoC. For more details on the demo, refer to the [LiteX software demo documentation](https://github.com/enjoy-digital/litex/tree/master/litex/soc/software/demo).
 
 ---
 
