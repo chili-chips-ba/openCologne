@@ -32,7 +32,8 @@ Here we list intricaties of the porting process in detail, explaining common pit
 
 The graphic below shows all that's been added, removed or modified to fit BetrustedSOC into Gatemate (at least it's minimal version). Important to point out is that the external SRAM is replaced by internal SRAM and Main RAM. **Resource usage after porting: 48% of CPEs, 93% of Block RAMs, and only 8% of DFFs.**
 
-![betrusted](soc.png)
+<img src="soc.png" width="1000">
+
 ### IO and Platform
 Accessing I/O is straightforward, as the Olimex board is already supported in `/deps/litex_boards/platforms/olimex_gatemate_a1_evb.py`. You can simply import this file as a Python module to gain access to the programmer and the full list of I/Os—similar to Vivado board files. In our case, we defined the I/Os manually in `betrusted_soc.py`, along with the programmer definition inside the platform class, following the approach used in the original Betrusted SoC.
 
