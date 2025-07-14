@@ -30,7 +30,9 @@ cd deps/litex/
 ## Porting to GateMate
 Here we list intricaties of the porting process in detail, explaining common pitfalls with litex and what to look out for. Full code listings are omitted; readers are expected to deduce the intended context and functionality from the provided snippets.
 
-The graphic below shows all that's been added, removed or modified to fit BetrustedSOC into Gatemate (at least it's minimal version). Important to point out is that the external SRAM is replaced by internal SRAM and Main RAM. **Resource usage after porting: 48% of CPEs, 93% of Block RAMs, and only 8% of DFFs.**
+The graphic below shows all that's been added, removed or modified to fit BetrustedSOC into Gatemate (at least it's minimal version). Important to point out is that the external SRAM is replaced by internal SRAM and Main RAM. 
+
+> **Resource usage after porting: 48% of CPEs, 93% of Block RAMs, and only 8% of DFFs.**
 
 <img src="soc.png" width="1000">
 
