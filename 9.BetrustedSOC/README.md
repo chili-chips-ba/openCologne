@@ -29,6 +29,10 @@ cd deps/litex/
 
 ## Porting to GateMate
 Here we list intricaties of the porting process in detail, explaining common pitfalls with litex and what to look out for. Full code listings are omitted; readers are expected to deduce the intended context and functionality from the provided snippets.
+
+The graphic below shows all that's been added, removed or modified to fit BetrustedSOC into Gatemate (at least it's minimal version). Important to point out is that the external SRAM is replaced by internal SRAM and Main RAM. **Resource usage after porting: 48% of CPEs, 93% of Block RAMs, and only 8% of DFFs.**
+
+![betrusted](soc.png)
 ### IO and Platform
 Accessing I/O is straightforward, as the Olimex board is already supported in `/deps/litex_boards/platforms/olimex_gatemate_a1_evb.py`. You can simply import this file as a Python module to gain access to the programmer and the full list of I/Os—similar to Vivado board files. In our case, we defined the I/Os manually in `betrusted_soc.py`, along with the programmer definition inside the platform class, following the approach used in the original Betrusted SoC.
 
@@ -60,6 +64,7 @@ The Betrusted SoC overrides this behavior by reassigning the memory regions afte
 We're already near the memory limits of the GateMate FPGA (30 out of 32 Block RAMs used—the remaining ones consumed by VexRiscv instruction/data caches and UART FIFOs). The Betrusted SoC assumes external SRAM is available, but that’s not the case here. This makes us memory-constrained unless we remove the LiteX BIOS. Besides optimizing software or using clever DMA strategies, there isn’t much room left for expansion.
 
 **Resource usage after porting: 48% of CPEs, 93% of Block RAMs, and only 8% of DFFs.**
+
 
 ---
 ## Notes on the Hardware Build Process
