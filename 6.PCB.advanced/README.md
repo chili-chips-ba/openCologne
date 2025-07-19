@@ -20,7 +20,7 @@ For more, please see:
 
 ### Bringup/Debug
 <p align="center">
-   <img width=500 src="0.doc/ulx5m-gs.debug.jpg">
+   <img width=800 src="0.doc/ulx5m-gs.debug.jpg">
 </p>
 
 
