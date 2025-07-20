@@ -18,4 +18,10 @@ For more, please see:
 </p>
 
 
+### Bringup/Debug
+<p align="center">
+   <img width=800 src="0.doc/ulx5m-gs.debug.jpg">
+</p>
+
+
 #### End of Document
