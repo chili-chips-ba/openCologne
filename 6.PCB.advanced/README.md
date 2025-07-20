@@ -23,5 +23,6 @@ For more, please see:
    <img width=800 src="0.doc/ulx5m-gs.debug.jpg">
 </p>
 
+[![ULX5M blinks LEDs on its own](0.doc/ulx5m-gs.debug2.jpg)](https://www.youtube.com/watch?v=LA20pfW7X00 "ULX5M is counting!")
 
 #### End of Document
