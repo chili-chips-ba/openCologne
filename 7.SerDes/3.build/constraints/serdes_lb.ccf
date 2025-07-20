@@ -1,0 +1,20 @@
+## serdes_lb.ccf
+
+NET  "ref_clk"                   Loc = "IO_SB_A8" | schmitt_trigger=true;
+NET  "pll_rstn_i"                Loc = "IO_EB_B0" | pullup=true;
+NET  "trx_rstn_i"                Loc = "IO_NB_B5" | pullup=true;
+
+NET  "TX_PRBS_FORCE_ERR_I"       Loc = "IO_NB_A0" | pulldown=true;
+NET  "RX_PRBS_CNT_RESET_I"       Loc = "IO_NB_A1" | pulldown=true;
+#NET  "RX_COMMA_DETECT_EN_I"      Loc = "IO_NB_A2" | pullup=true;
+
+NET  "RX_RESET_DONE_O_N"         Loc = "IO_EB_B1";
+NET  "TX_RESET_DONE_O_N"         Loc = "IO_EB_B2";
+NET  "TX_DETECT_RX_DONE_O_N"     Loc = "IO_EB_B3";
+NET  "TX_DETECT_RX_PRESENT_O_N"  Loc = "IO_EB_B4";
+NET  "RX_PRBS_ERR_O_N"           Loc = "IO_EB_B5";
+NET  "RX_BUF_ERR_O_N"            Loc = "IO_EB_B6";
+NET  "TX_BUF_ERR_O_N"            Loc = "IO_EB_B7";
+
+NET  "PLL_CLK_O"                 Loc = "IO_NB_A4";
+NET  "RX_CLK_O"                  Loc = "IO_NB_A5";

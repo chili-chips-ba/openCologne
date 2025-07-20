@@ -1,0 +1,1457 @@
+Build started at 2025-07-20T17:41:54.332349
+Main binary: /home/hamed/FPGA/Tools/litex-hub/litex/litex-venv/bin/python3
+Build Options: -Dmultilib=false -Dpicocrt=false -Datomic-ungetc=false -Dthread-local-storage=false -Dio-long-long=true -Dformat-default=integer -Dincludedir=picolibc/riscv64-linux-gnu/include -Dlibdir=picolibc/riscv64-linux-gnu/lib --cross-file=cross.txt
+Python system: Linux
+The Meson build system
+Version: 0.64.1
+Source dir: /home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data
+Build dir: /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc
+Build type: cross build
+Project name: picolibc
+Project version: 1.7.9
+-----
+Detecting compiler via: riscv64-linux-gnu-gcc --version
+compiler returned <Popen: returncode: 0 args: ['riscv64-linux-gnu-gcc', '--version']>
+compiler stdout:
+riscv64-linux-gnu-gcc (GCC) 15.1.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+compiler stderr:
+
+Running command: riscv64-linux-gnu-gcc -E -dM -
+-----
+Detecting linker via: riscv64-linux-gnu-gcc -Wl,--version -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv -fexceptions -Wpragmas -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include
+linker returned <Popen: returncode: 0 args: ['riscv64-linux-gnu-gcc', '-Wl,--version', '-nos...>
+linker stdout:
+GNU ld (GNU Binutils) 2.44
+Copyright (C) 2025 Free Software Foundation, Inc.
+This program is free software; you may redistribute it under the terms of
+the GNU General Public License version 3 or (at your option) a later version.
+This program has absolutely no warranty.
+
+linker stderr:
+collect2 version 15.1.0
+/usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld -plugin /usr/lib/gcc/riscv64-linux-gnu/15.1.0/liblto_plugin.so -plugin-opt=/usr/lib/gcc/riscv64-linux-gnu/15.1.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccVyNch5.res --sysroot=/usr/riscv64-linux-gnu --build-id --eh-frame-hdr --hash-style=gnu -melf32lriscv_ilp32 -X -dynamic-linker /lib/ld-linux-riscv32-ilp32.so.1 -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -L/usr/lib/gcc/riscv64-linux-gnu/15.1.0 -L/usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/lib -L/usr/riscv64-linux-gnu/lib -L/usr/riscv64-linux-gnu/usr/lib --version --no-dynamic-linker --build-id=none
+
+Sanity testing C compiler: riscv64-linux-gnu-gcc
+Is cross compiler: True.
+Sanity check compiler command line: riscv64-linux-gnu-gcc sanitycheckc.c -o sanitycheckc_cross.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -c
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+C compiler for the host machine: riscv64-linux-gnu-gcc (gcc 15.1.0 "riscv64-linux-gnu-gcc (GCC) 15.1.0")
+C linker for the host machine: riscv64-linux-gnu-gcc ld.bfd 2.44
+-----
+Detecting compiler via: cc --version
+compiler returned <Popen: returncode: 0 args: ['cc', '--version']>
+compiler stdout:
+cc (GCC) 15.1.1 20250425
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+compiler stderr:
+
+Running command: cc -E -dM -
+-----
+Detecting linker via: cc -Wl,--version
+linker returned <Popen: returncode: 0 args: ['cc', '-Wl,--version']>
+linker stdout:
+GNU ld (GNU Binutils) 2.44.0
+Copyright (C) 2025 Free Software Foundation, Inc.
+This program is free software; you may redistribute it under the terms of
+the GNU General Public License version 3 or (at your option) a later version.
+This program has absolutely no warranty.
+
+linker stderr:
+collect2 version 15.1.1 20250425
+/usr/bin/ld -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccSzznJy.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/Scrt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../.. -L/lib -L/usr/lib --version -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtendS.o /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crtn.o
+
+Sanity testing C compiler: cc
+Is cross compiler: False.
+Sanity check compiler command line: cc sanitycheckc.c -o sanitycheckc.exe -D_FILE_OFFSET_BITS=64
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+Running test binary command:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/sanitycheckc.exe
+C compiler for the build machine: cc (gcc 15.1.1 "cc (GCC) 15.1.1 20250425")
+C linker for the build machine: cc ld.bfd 2.44.0
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Host machine cpu family: riscv
+Host machine cpu: vexriscv
+Target machine cpu family: riscv
+Target machine cpu: vexriscv
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp447ixp6h
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp447ixp6h/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp447ixp6h/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -nostdlib 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -nostdlib: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpdbjwvt5q
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpdbjwvt5q/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpdbjwvt5q/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+#include <float.h>
+#ifndef __LDBL_MANT_DIG__
+#error No long double support in float.h
+#endif
+long double test()
+{
+	long double ld = 0.0L;
+	 return ld;
+}
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking if "long double check" compiles: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjk3cp3ku
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjk3cp3ku/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjk3cp3ku/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+#include <float.h>
+char size_test[sizeof(double) == sizeof(long double) ? 1 : -1];
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjk3cp3ku/testfile.c:3:6: error: size of array 'size_test' is negative
+    3 | char size_test[sizeof(double) == sizeof(long double) ? 1 : -1];
+      |      ^~~~~~~~~
+
+Checking if "long double same as double" compiles: NO 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpbn4zn2eb
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpbn4zn2eb/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpbn4zn2eb/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+#include <float.h>
+char size_test[__LDBL_MANT_DIG__ == 64 ? 1 : -1];
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpbn4zn2eb/testfile.c:3:6: error: size of array 'size_test' is negative
+    3 | char size_test[__LDBL_MANT_DIG__ == 64 ? 1 : -1];
+      |      ^~~~~~~~~
+
+Checking if "long double mantissa is 64 bits" compiles: NO 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmptf3r37yk
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmptf3r37yk/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmptf3r37yk/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+#include <float.h>
+char size_test[__LDBL_MANT_DIG__ == 113 ? 1 : -1];
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking if "long double mantissa is 113 bits" compiles: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpxe8nwqxf
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpxe8nwqxf/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpxe8nwqxf/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+char size_test[sizeof(float) == sizeof(double) ? 1 : -1];
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpxe8nwqxf/testfile.c:2:6: error: size of array 'size_test' is negative
+    2 | char size_test[sizeof(float) == sizeof(double) ? 1 : -1];
+      |      ^~~~~~~~~
+
+Checking if "double same as float" compiles: NO 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmplb_3zdx4
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmplb_3zdx4/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmplb_3zdx4/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-common 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-common: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjg0x4go2
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjg0x4go2/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjg0x4go2/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -frounding-math 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -frounding-math: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpytjf_zqd
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpytjf_zqd/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpytjf_zqd/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fsignaling-nans 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fsignaling-nans: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpkaf2y_73
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpkaf2y_73/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpkaf2y_73/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wunsupported-floating-point-opt -Wno-unsupported-floating-point-opt 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ riscv64-linux-gnu-gcc: error: unrecognized command-line option '-Wunsupported-floating-point-opt'
+
+Compiler for C supports arguments -Wno-unsupported-floating-point-opt: NO 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpv6va4oqn
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpv6va4oqn/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpv6va4oqn/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-stack-protector 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-stack-protector: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpwgssizx1
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpwgssizx1/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpwgssizx1/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-builtin-copysignl 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-builtin-copysignl: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpksdc0awv
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpksdc0awv/testfile.c -E -P -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -P -O0 
+
+Code:
+ 
+        #ifndef __USER_LABEL_PREFIX__
+        #define MESON_UNDERSCORE_PREFIX unsupported
+        #else
+        #define MESON_UNDERSCORE_PREFIX __USER_LABEL_PREFIX__
+        #endif
+        "MESON_HAVE_UNDERSCORE_DELIMITER" MESON_UNDERSCORE_PREFIX
+        
+Compiler stdout:
+ #define __STDC__ 1
+#define __STDC_VERSION__ 202311L
+#define __STDC_UTF_16__ 1
+#define __STDC_UTF_32__ 1
+#define __STDC_HOSTED__ 1
+#define __STDC_EMBED_NOT_FOUND__ 0
+#define __STDC_EMBED_FOUND__ 1
+#define __STDC_EMBED_EMPTY__ 2
+#define __GNUC__ 15
+#define __GNUC_MINOR__ 1
+#define __GNUC_PATCHLEVEL__ 0
+#define __VERSION__ "15.1.0"
+#define __ATOMIC_RELAXED 0
+#define __ATOMIC_SEQ_CST 5
+#define __ATOMIC_ACQUIRE 2
+#define __ATOMIC_RELEASE 3
+#define __ATOMIC_ACQ_REL 4
+#define __ATOMIC_CONSUME 1
+#define __pic__ 2
+#define __PIC__ 2
+#define __pie__ 2
+#define __PIE__ 2
+#define __FINITE_MATH_ONLY__ 0
+#define __SIZEOF_INT__ 4
+#define __SIZEOF_LONG__ 4
+#define __SIZEOF_LONG_LONG__ 8
+#define __SIZEOF_SHORT__ 2
+#define __SIZEOF_FLOAT__ 4
+#define __SIZEOF_DOUBLE__ 8
+#define __SIZEOF_LONG_DOUBLE__ 16
+#define __SIZEOF_SIZE_T__ 4
+#define __CHAR_BIT__ 8
+#define __BIGGEST_ALIGNMENT__ 16
+#define __ORDER_LITTLE_ENDIAN__ 1234
+#define __ORDER_BIG_ENDIAN__ 4321
+#define __ORDER_PDP_ENDIAN__ 3412
+#define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
+#define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
+#define __SIZEOF_POINTER__ 4
+#define __GNUC_EXECUTION_CHARSET_NAME "UTF-8"
+#define __GNUC_WIDE_EXECUTION_CHARSET_NAME "UTF-32LE"
+#define __SIZE_TYPE__ unsigned int
+#define __PTRDIFF_TYPE__ int
+#define __WCHAR_TYPE__ int
+#define __WINT_TYPE__ unsigned int
+#define __INTMAX_TYPE__ long long int
+#define __UINTMAX_TYPE__ long long unsigned int
+#define __CHAR8_TYPE__ unsigned char
+#define __CHAR16_TYPE__ short unsigned int
+#define __CHAR32_TYPE__ unsigned int
+#define __SIG_ATOMIC_TYPE__ int
+#define __INT8_TYPE__ signed char
+#define __INT16_TYPE__ short int
+#define __INT32_TYPE__ int
+#define __INT64_TYPE__ long long int
+#define __UINT8_TYPE__ unsigned char
+#define __UINT16_TYPE__ short unsigned int
+#define __UINT32_TYPE__ unsigned int
+#define __UINT64_TYPE__ long long unsigned int
+#define __INT_LEAST8_TYPE__ signed char
+#define __INT_LEAST16_TYPE__ short int
+#define __INT_LEAST32_TYPE__ int
+#define __INT_LEAST64_TYPE__ long long int
+#define __UINT_LEAST8_TYPE__ unsigned char
+#define __UINT_LEAST16_TYPE__ short unsigned int
+#define __UINT_LEAST32_TYPE__ unsigned int
+#define __UINT_LEAST64_TYPE__ long long unsigned int
+#define __INT_FAST8_TYPE__ signed char
+#define __INT_FAST16_TYPE__ int
+#define __INT_FAST32_TYPE__ int
+#define __INT_FAST64_TYPE__ long long int
+#define __UINT_FAST8_TYPE__ unsigned char
+#define __UINT_FAST16_TYPE__ unsigned int
+#define __UINT_FAST32_TYPE__ unsigned int
+#define __UINT_FAST64_TYPE__ long long unsigned int
+#define __INTPTR_TYPE__ int
+#define __UINTPTR_TYPE__ unsigned int
+#define __EXCEPTIONS 1
+#define __GXX_ABI_VERSION 1020
+#define __SCHAR_MAX__ 0x7f
+#define __SHRT_MAX__ 0x7fff
+#define __INT_MAX__ 0x7fffffff
+#define __LONG_MAX__ 0x7fffffffL
+#define __LONG_LONG_MAX__ 0x7fffffffffffffffLL
+#define __WCHAR_MAX__ 0x7fffffff
+#define __WCHAR_MIN__ (-__WCHAR_MAX__ - 1)
+#define __WINT_MAX__ 0xffffffffU
+#define __WINT_MIN__ 0U
+#define __PTRDIFF_MAX__ 0x7fffffff
+#define __SIZE_MAX__ 0xffffffffU
+#define __SCHAR_WIDTH__ 8
+#define __SHRT_WIDTH__ 16
+#define __INT_WIDTH__ 32
+#define __LONG_WIDTH__ 32
+#define __LONG_LONG_WIDTH__ 64
+#define __WCHAR_WIDTH__ 32
+#define __WINT_WIDTH__ 32
+#define __PTRDIFF_WIDTH__ 32
+#define __SIZE_WIDTH__ 32
+#define __INTMAX_MAX__ 0x7fffffffffffffffLL
+#define __INTMAX_C(c) c ## LL
+#define __UINTMAX_MAX__ 0xffffffffffffffffULL
+#define __UINTMAX_C(c) c ## ULL
+#define __INTMAX_WIDTH__ 64
+#define __SIG_ATOMIC_MAX__ 0x7fffffff
+#define __SIG_ATOMIC_MIN__ (-__SIG_ATOMIC_MAX__ - 1)
+#define __SIG_ATOMIC_WIDTH__ 32
+#define __INT8_MAX__ 0x7f
+#define __INT16_MAX__ 0x7fff
+#define __INT32_MAX__ 0x7fffffff
+#define __INT64_MAX__ 0x7fffffffffffffffLL
+#define __UINT8_MAX__ 0xff
+#define __UINT16_MAX__ 0xffff
+#define __UINT32_MAX__ 0xffffffffU
+#define __UINT64_MAX__ 0xffffffffffffffffULL
+#define __INT_LEAST8_MAX__ 0x7f
+#define __INT8_C(c) c
+#define __INT_LEAST8_WIDTH__ 8
+#define __INT_LEAST16_MAX__ 0x7fff
+#define __INT16_C(c) c
+#define __INT_LEAST16_WIDTH__ 16
+#define __INT_LEAST32_MAX__ 0x7fffffff
+#define __INT32_C(c) c
+#define __INT_LEAST32_WIDTH__ 32
+#define __INT_LEAST64_MAX__ 0x7fffffffffffffffLL
+#define __INT64_C(c) c ## LL
+#define __INT_LEAST64_WIDTH__ 64
+#define __UINT_LEAST8_MAX__ 0xff
+#define __UINT8_C(c) c
+#define __UINT_LEAST16_MAX__ 0xffff
+#define __UINT16_C(c) c
+#define __UINT_LEAST32_MAX__ 0xffffffffU
+#define __UINT32_C(c) c ## U
+#define __UINT_LEAST64_MAX__ 0xffffffffffffffffULL
+#define __UINT64_C(c) c ## ULL
+#define __INT_FAST8_MAX__ 0x7f
+#define __INT_FAST8_WIDTH__ 8
+#define __INT_FAST16_MAX__ 0x7fffffff
+#define __INT_FAST16_WIDTH__ 32
+#define __INT_FAST32_MAX__ 0x7fffffff
+#define __INT_FAST32_WIDTH__ 32
+#define __INT_FAST64_MAX__ 0x7fffffffffffffffLL
+#define __INT_FAST64_WIDTH__ 64
+#define __UINT_FAST8_MAX__ 0xff
+#define __UINT_FAST16_MAX__ 0xffffffffU
+#define __UINT_FAST32_MAX__ 0xffffffffU
+#define __UINT_FAST64_MAX__ 0xffffffffffffffffULL
+#define __INTPTR_MAX__ 0x7fffffff
+#define __INTPTR_WIDTH__ 32
+#define __UINTPTR_MAX__ 0xffffffffU
+#define __GCC_IEC_559 0
+#define __GCC_IEC_559_COMPLEX 0
+#define __FLT_EVAL_METHOD__ 0
+#define __FLT_EVAL_METHOD_TS_18661_3__ 0
+#define __DEC_EVAL_METHOD__ 2
+#define __FLT_RADIX__ 2
+#define __FLT_MANT_DIG__ 24
+#define __FLT_DIG__ 6
+#define __FLT_MIN_EXP__ (-125)
+#define __FLT_MIN_10_EXP__ (-37)
+#define __FLT_MAX_EXP__ 128
+#define __FLT_MAX_10_EXP__ 38
+#define __FLT_DECIMAL_DIG__ 9
+#define __FLT_MAX__ 3.40282346638528859811704183484516925e+38F
+#define __FLT_NORM_MAX__ 3.40282346638528859811704183484516925e+38F
+#define __FLT_MIN__ 1.17549435082228750796873653722224568e-38F
+#define __FLT_EPSILON__ 1.19209289550781250000000000000000000e-7F
+#define __FLT_DENORM_MIN__ 1.40129846432481707092372958328991613e-45F
+#define __FLT_HAS_DENORM__ 1
+#define __FLT_HAS_INFINITY__ 1
+#define __FLT_HAS_QUIET_NAN__ 1
+#define __FLT_IS_IEC_60559__ 1
+#define __DBL_MANT_DIG__ 53
+#define __DBL_DIG__ 15
+#define __DBL_MIN_EXP__ (-1021)
+#define __DBL_MIN_10_EXP__ (-307)
+#define __DBL_MAX_EXP__ 1024
+#define __DBL_MAX_10_EXP__ 308
+#define __DBL_DECIMAL_DIG__ 17
+#define __DBL_MAX__ ((double)1.79769313486231570814527423731704357e+308L)
+#define __DBL_NORM_MAX__ ((double)1.79769313486231570814527423731704357e+308L)
+#define __DBL_MIN__ ((double)2.22507385850720138309023271733240406e-308L)
+#define __DBL_EPSILON__ ((double)2.22044604925031308084726333618164062e-16L)
+#define __DBL_DENORM_MIN__ ((double)4.94065645841246544176568792868221372e-324L)
+#define __DBL_HAS_DENORM__ 1
+#define __DBL_HAS_INFINITY__ 1
+#define __DBL_HAS_QUIET_NAN__ 1
+#define __DBL_IS_IEC_60559__ 1
+#define __LDBL_MANT_DIG__ 113
+#define __LDBL_DIG__ 33
+#define __LDBL_MIN_EXP__ (-16381)
+#define __LDBL_MIN_10_EXP__ (-4931)
+#define __LDBL_MAX_EXP__ 16384
+#define __LDBL_MAX_10_EXP__ 4932
+#define __DECIMAL_DIG__ 36
+#define __LDBL_DECIMAL_DIG__ 36
+#define __LDBL_MAX__ 1.18973149535723176508575932662800702e+4932L
+#define __LDBL_NORM_MAX__ 1.18973149535723176508575932662800702e+4932L
+#define __LDBL_MIN__ 3.36210314311209350626267781732175260e-4932L
+#define __LDBL_EPSILON__ 1.92592994438723585305597794258492732e-34L
+#define __LDBL_DENORM_MIN__ 6.47517511943802511092443895822764655e-4966L
+#define __LDBL_HAS_DENORM__ 1
+#define __LDBL_HAS_INFINITY__ 1
+#define __LDBL_HAS_QUIET_NAN__ 1
+#define __LDBL_IS_IEC_60559__ 1
+#define __FLT16_MANT_DIG__ 11
+#define __FLT16_DIG__ 3
+#define __FLT16_MIN_EXP__ (-13)
+#define __FLT16_MIN_10_EXP__ (-4)
+#define __FLT16_MAX_EXP__ 16
+#define __FLT16_MAX_10_EXP__ 4
+#define __FLT16_DECIMAL_DIG__ 5
+#define __FLT16_MAX__ 6.55040000000000000000000000000000000e+4F16
+#define __FLT16_NORM_MAX__ 6.55040000000000000000000000000000000e+4F16
+#define __FLT16_MIN__ 6.10351562500000000000000000000000000e-5F16
+#define __FLT16_EPSILON__ 9.76562500000000000000000000000000000e-4F16
+#define __FLT16_DENORM_MIN__ 5.96046447753906250000000000000000000e-8F16
+#define __FLT16_HAS_DENORM__ 1
+#define __FLT16_HAS_INFINITY__ 1
+#define __FLT16_HAS_QUIET_NAN__ 1
+#define __FLT16_IS_IEC_60559__ 1
+#define __FLT32_MANT_DIG__ 24
+#define __FLT32_DIG__ 6
+#define __FLT32_MIN_EXP__ (-125)
+#define __FLT32_MIN_10_EXP__ (-37)
+#define __FLT32_MAX_EXP__ 128
+#define __FLT32_MAX_10_EXP__ 38
+#define __FLT32_DECIMAL_DIG__ 9
+#define __FLT32_MAX__ 3.40282346638528859811704183484516925e+38F32
+#define __FLT32_NORM_MAX__ 3.40282346638528859811704183484516925e+38F32
+#define __FLT32_MIN__ 1.17549435082228750796873653722224568e-38F32
+#define __FLT32_EPSILON__ 1.19209289550781250000000000000000000e-7F32
+#define __FLT32_DENORM_MIN__ 1.40129846432481707092372958328991613e-45F32
+#define __FLT32_HAS_DENORM__ 1
+#define __FLT32_HAS_INFINITY__ 1
+#define __FLT32_HAS_QUIET_NAN__ 1
+#define __FLT32_IS_IEC_60559__ 1
+#define __FLT64_MANT_DIG__ 53
+#define __FLT64_DIG__ 15
+#define __FLT64_MIN_EXP__ (-1021)
+#define __FLT64_MIN_10_EXP__ (-307)
+#define __FLT64_MAX_EXP__ 1024
+#define __FLT64_MAX_10_EXP__ 308
+#define __FLT64_DECIMAL_DIG__ 17
+#define __FLT64_MAX__ 1.79769313486231570814527423731704357e+308F64
+#define __FLT64_NORM_MAX__ 1.79769313486231570814527423731704357e+308F64
+#define __FLT64_MIN__ 2.22507385850720138309023271733240406e-308F64
+#define __FLT64_EPSILON__ 2.22044604925031308084726333618164062e-16F64
+#define __FLT64_DENORM_MIN__ 4.94065645841246544176568792868221372e-324F64
+#define __FLT64_HAS_DENORM__ 1
+#define __FLT64_HAS_INFINITY__ 1
+#define __FLT64_HAS_QUIET_NAN__ 1
+#define __FLT64_IS_IEC_60559__ 1
+#define __FLT128_MANT_DIG__ 113
+#define __FLT128_DIG__ 33
+#define __FLT128_MIN_EXP__ (-16381)
+#define __FLT128_MIN_10_EXP__ (-4931)
+#define __FLT128_MAX_EXP__ 16384
+#define __FLT128_MAX_10_EXP__ 4932
+#define __FLT128_DECIMAL_DIG__ 36
+#define __FLT128_MAX__ 1.18973149535723176508575932662800702e+4932F128
+#define __FLT128_NORM_MAX__ 1.18973149535723176508575932662800702e+4932F128
+#define __FLT128_MIN__ 3.36210314311209350626267781732175260e-4932F128
+#define __FLT128_EPSILON__ 1.92592994438723585305597794258492732e-34F128
+#define __FLT128_DENORM_MIN__ 6.47517511943802511092443895822764655e-4966F128
+#define __FLT128_HAS_DENORM__ 1
+#define __FLT128_HAS_INFINITY__ 1
+#define __FLT128_HAS_QUIET_NAN__ 1
+#define __FLT128_IS_IEC_60559__ 1
+#define __FLT32X_MANT_DIG__ 53
+#define __FLT32X_DIG__ 15
+#define __FLT32X_MIN_EXP__ (-1021)
+#define __FLT32X_MIN_10_EXP__ (-307)
+#define __FLT32X_MAX_EXP__ 1024
+#define __FLT32X_MAX_10_EXP__ 308
+#define __FLT32X_DECIMAL_DIG__ 17
+#define __FLT32X_MAX__ 1.79769313486231570814527423731704357e+308F32x
+#define __FLT32X_NORM_MAX__ 1.79769313486231570814527423731704357e+308F32x
+#define __FLT32X_MIN__ 2.22507385850720138309023271733240406e-308F32x
+#define __FLT32X_EPSILON__ 2.22044604925031308084726333618164062e-16F32x
+#define __FLT32X_DENORM_MIN__ 4.94065645841246544176568792868221372e-324F32x
+#define __FLT32X_HAS_DENORM__ 1
+#define __FLT32X_HAS_INFINITY__ 1
+#define __FLT32X_HAS_QUIET_NAN__ 1
+#define __FLT32X_IS_IEC_60559__ 1
+#define __FLT64X_MANT_DIG__ 113
+#define __FLT64X_DIG__ 33
+#define __FLT64X_MIN_EXP__ (-16381)
+#define __FLT64X_MIN_10_EXP__ (-4931)
+#define __FLT64X_MAX_EXP__ 16384
+#define __FLT64X_MAX_10_EXP__ 4932
+#define __FLT64X_DECIMAL_DIG__ 36
+#define __FLT64X_MAX__ 1.18973149535723176508575932662800702e+4932F64x
+#define __FLT64X_NORM_MAX__ 1.18973149535723176508575932662800702e+4932F64x
+#define __FLT64X_MIN__ 3.36210314311209350626267781732175260e-4932F64x
+#define __FLT64X_EPSILON__ 1.92592994438723585305597794258492732e-34F64x
+#define __FLT64X_DENORM_MIN__ 6.47517511943802511092443895822764655e-4966F64x
+#define __FLT64X_HAS_DENORM__ 1
+#define __FLT64X_HAS_INFINITY__ 1
+#define __FLT64X_HAS_QUIET_NAN__ 1
+#define __FLT64X_IS_IEC_60559__ 1
+#define __BFLT16_MANT_DIG__ 8
+#define __BFLT16_DIG__ 2
+#define __BFLT16_MIN_EXP__ (-125)
+#define __BFLT16_MIN_10_EXP__ (-37)
+#define __BFLT16_MAX_EXP__ 128
+#define __BFLT16_MAX_10_EXP__ 38
+#define __BFLT16_DECIMAL_DIG__ 4
+#define __BFLT16_MAX__ 3.38953138925153547590470800371487867e+38BF16
+#define __BFLT16_NORM_MAX__ 3.38953138925153547590470800371487867e+38BF16
+#define __BFLT16_MIN__ 1.17549435082228750796873653722224568e-38BF16
+#define __BFLT16_EPSILON__ 7.81250000000000000000000000000000000e-3BF16
+#define __BFLT16_DENORM_MIN__ 9.18354961579912115600575419704879436e-41BF16
+#define __BFLT16_HAS_DENORM__ 1
+#define __BFLT16_HAS_INFINITY__ 1
+#define __BFLT16_HAS_QUIET_NAN__ 1
+#define __BFLT16_IS_IEC_60559__ 0
+#define __REGISTER_PREFIX__ 
+#define __USER_LABEL_PREFIX__ 
+#define __GNUC_STDC_INLINE__ 1
+#define __NO_INLINE__ 1
+#define __CHAR_UNSIGNED__ 1
+#define __GCC_ATOMIC_BOOL_LOCK_FREE 1
+#define __GCC_ATOMIC_CHAR_LOCK_FREE 1
+#define __GCC_ATOMIC_CHAR8_T_LOCK_FREE 1
+#define __GCC_ATOMIC_CHAR16_T_LOCK_FREE 1
+#define __GCC_ATOMIC_CHAR32_T_LOCK_FREE 1
+#define __GCC_ATOMIC_WCHAR_T_LOCK_FREE 1
+#define __GCC_ATOMIC_SHORT_LOCK_FREE 1
+#define __GCC_ATOMIC_INT_LOCK_FREE 1
+#define __GCC_ATOMIC_LONG_LOCK_FREE 1
+#define __GCC_ATOMIC_LLONG_LOCK_FREE 1
+#define __GCC_ATOMIC_TEST_AND_SET_TRUEVAL 1
+#define __GCC_ATOMIC_POINTER_LOCK_FREE 1
+#define __GCC_HAVE_DWARF2_CFI_ASM 1
+#define __PRAGMA_REDEFINE_EXTNAME 1
+#define __SIZEOF_WCHAR_T__ 4
+#define __SIZEOF_WINT_T__ 4
+#define __SIZEOF_PTRDIFF_T__ 4
+#define __riscv 1
+#define __riscv_mul 1
+#define __riscv_div 1
+#define __riscv_muldiv 1
+#define __riscv_xlen 32
+#define __riscv_float_abi_soft 1
+#define __riscv_cmodel_medany 1
+#define __riscv_misaligned_slow 1
+#define __riscv_arch_test 1
+#define __riscv_i 2000000
+#define __riscv_m 2000000
+#define __riscv_zmmul 1000000
+#define __gnu_linux__ 1
+#define __linux 1
+#define __linux__ 1
+#define linux 1
+#define __unix 1
+#define __unix__ 1
+#define unix 1
+#define __ELF__ 1
+#define __vexriscv__ 1
+#define _FILE_OFFSET_BITS 64
+#define _STDC_PREDEF_H 1
+#define __STDC_ISO_10646__ 201706L
+#define MESON_UNDERSCORE_PREFIX __USER_LABEL_PREFIX__
+        "MESON_HAVE_UNDERSCORE_DELIMITER"
+
+Compiler stderr:
+ 
+Queried compiler for function prefix: __USER_LABEL_PREFIX__ is ""
+Program riscv64-linux-gnu-gcc-nm found: YES
+Program scripts/duplicate-names found: YES (/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/scripts/duplicate-names)
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjmyvx_6h
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjmyvx_6h/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjmyvx_6h/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wl,--fatal-warnings -Wl,--defsym=_start=0 -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ int main(void) { return 0; }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports link arguments -Wl,--defsym=_start=0: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpmpdyifgk
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpmpdyifgk/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpmpdyifgk/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wl,--fatal-warnings -Wl,-alias,main,testalias -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ int main(void) { return 0; }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: unrecognized -a option `lias'
+collect2: error: ld returned 1 exit status
+
+Compiler for C supports link arguments -Wl,-alias,main,testalias: NO 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp3x0k_zg9
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp3x0k_zg9/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp3x0k_zg9/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=attributes 
+
+Code:
+ 
+        int foo(void) { return 0; }
+        int bar(void) __attribute__((alias("foo")));
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports function attribute alias: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpf52u6_dy
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpf52u6_dy/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpf52u6_dy/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=attributes 
+
+Code:
+ int foo(const char * p, ...) __attribute__((format(printf, 1, 2)));
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports function attribute format: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjop930dc
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjop930dc/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjop930dc/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=attributes 
+
+Code:
+ int foo(void) __attribute__((weak));
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports function attribute weak: YES 
+Running command: /usr/bin/riscv64-linux-gnu-gcc -print-search-dirs
+--- stdout ---
+install: /usr/lib/gcc/riscv64-linux-gnu/15.1.0/
+programs: =/usr/lib/gcc/riscv64-linux-gnu/15.1.0/:/usr/lib/gcc/riscv64-linux-gnu/15.1.0/:/usr/lib/gcc/riscv64-linux-gnu/:/usr/lib/gcc/riscv64-linux-gnu/15.1.0/:/usr/lib/gcc/riscv64-linux-gnu/:/usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/riscv64-linux-gnu/15.1.0/:/usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/
+libraries: =/usr/lib/gcc/riscv64-linux-gnu/15.1.0/:/usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/lib/riscv64-linux-gnu/15.1.0/:/usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/lib/:/usr/riscv64-linux-gnu/lib64/lp64d/riscv64-linux-gnu/15.1.0/:/usr/riscv64-linux-gnu/lib64/lp64d/:/usr/riscv64-linux-gnu/usr/lib64/lp64d/riscv64-linux-gnu/15.1.0/:/usr/riscv64-linux-gnu/usr/lib64/lp64d/:/usr/riscv64-linux-gnu/lib/riscv64-linux-gnu/15.1.0/:/usr/riscv64-linux-gnu/lib/:/usr/riscv64-linux-gnu/usr/lib/riscv64-linux-gnu/15.1.0/:/usr/riscv64-linux-gnu/usr/lib/
+
+--- stderr ---
+
+
+Running command: /usr/bin/expr install: /usr/lib/gcc/riscv64-linux-gnu/15.1.0/ : install: *\(.*\)
+--- stdout ---
+/usr/lib/gcc/riscv64-linux-gnu/15.1.0/
+
+--- stderr ---
+
+
+Configuring picolibc.specs using configuration
+Configuring picolibcpp.specs using configuration
+Configuring test.specs using configuration
+Configuring picolibc.ld using configuration
+Configuring picolibcpp.ld using configuration
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp7vg93cjd
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp7vg93cjd/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp7vg93cjd/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=implicit-function-declaration 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Werror=implicit-function-declaration: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjnc_opzi
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjnc_opzi/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjnc_opzi/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=vla 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Werror=vla: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpz6z8yg_9
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpz6z8yg_9/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpz6z8yg_9/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Warray-bounds 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Warray-bounds: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpknintjb8
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpknintjb8/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpknintjb8/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wold-style-definition 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Wold-style-definition: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp4xr90kvb
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp4xr90kvb/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp4xr90kvb/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=double-promotion 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Werror=double-promotion: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpp8lkvna1
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpp8lkvna1/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpp8lkvna1/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wmissing-braces -Wno-missing-braces 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Wno-missing-braces: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp68bwh2pu
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp68bwh2pu/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp68bwh2pu/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wimplicit-int -Wno-implicit-int 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Wno-implicit-int: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmphla9mddj
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmphla9mddj/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmphla9mddj/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wreturn-type -Wno-return-type 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Wno-return-type: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp7bqw3dcy
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp7bqw3dcy/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp7bqw3dcy/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Wunused-command-line-argument -Wno-unused-command-line-argument 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ riscv64-linux-gnu-gcc: error: unrecognized command-line option '-Wunused-command-line-argument'; did you mean '-Wunused-dummy-argument'?
+
+Compiler for C supports arguments -Wno-unused-command-line-argument: NO 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjg0fpen1
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjg0fpen1/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpjg0fpen1/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+struct test { int part: 24; } __attribute__((packed));
+unsigned int foobar (const struct test *p) { return p->part; }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking if "packed structs may contain bitfields" compiles: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpag6ftazj
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpag6ftazj/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpag6ftazj/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+#include <stddef.h>
+int overflows (size_t a, size_t b) { size_t x; return __builtin_mul_overflow(a, b, &x); }
+volatile size_t aa = 42;
+int main (void) { return overflows(aa, aa); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100d4
+
+Checking if "has __builtin_mul_overflow" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpkw5pxvlg
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpkw5pxvlg/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpkw5pxvlg/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+#include <stddef.h>
+int overflows (size_t a, size_t b) { size_t x; return __builtin_add_overflow(a, b, &x); }
+volatile size_t aa = 42;
+int main (void) { return overflows(aa, aa); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100d4
+
+Checking if "has __builtin_add_overflow" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpfvys83u5
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpfvys83u5/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpfvys83u5/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib 
+
+Code:
+ 
+float _Complex test(float _Complex z) { return z; }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking if "supports _Complex" compiles: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpz0mr5xm4
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpz0mr5xm4/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpz0mr5xm4/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+volatile int a = 42;
+int main (void) {
+  return __builtin_expect(a, 1);
+}
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100d4
+
+Checking if "has __builtin_expect" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpxs48fx9e
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpxs48fx9e/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpxs48fx9e/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -Werror: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpq4tj68h_
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpq4tj68h_/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpq4tj68h_/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -Werror 
+
+Code:
+ 
+void *foobar(int) __attribute__((__alloc_size__(1)));
+void *foobar2(int, int) __attribute__((__alloc_size__(1, 2)));
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking if "attribute __alloc_size__" compiles: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmprihatfao
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmprihatfao/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmprihatfao/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -Werror 
+
+Code:
+ 
+void __attribute__((constructor(101))) ctor (void) {}
+void __attribute__((destructor(101))) dtor (void) {}
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking if "attributes constructor/destructor" compiles: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpicjxtec1
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpicjxtec1/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpicjxtec1/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(void * i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_alloca(1)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_alloca" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp43_fikim
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp43_fikim/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp43_fikim/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_ffs(42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_ffs" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpj1dukuvb
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpj1dukuvb/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpj1dukuvb/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(long i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_ffsl((long)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_ffsl" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpias_51sp
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpias_51sp/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpias_51sp/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(long long i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_ffsll((long long)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_ffsll" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpnhp2i4tp
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpnhp2i4tp/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpnhp2i4tp/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_ctz((unsigned int)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_ctz" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpfk3_di2t
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpfk3_di2t/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpfk3_di2t/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_ctzl((unsigned long)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_ctzl" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmphhuqz9f1
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmphhuqz9f1/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmphhuqz9f1/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_ctzll((unsigned long long)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_ctzll" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp6noktqff
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp6noktqff/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp6noktqff/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(long double i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_copysignl((long double)42, (long double) 42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_copysignl" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp86a5nthi
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp86a5nthi/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp86a5nthi/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(double i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_copysign(42, 42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_copysign" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmptut7wzsf
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmptut7wzsf/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmptut7wzsf/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_isinfl((long double)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_isinfl" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpghr_2ak6
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpghr_2ak6/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpghr_2ak6/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_isinf((long double)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_isinf" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp9b5qnczf
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp9b5qnczf/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp9b5qnczf/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_isnanl((long double)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_isnanl" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp43to2ofq
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp43to2ofq/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp43to2ofq/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_isnan((long double)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_isnan" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp77sx9evq
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp77sx9evq/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp77sx9evq/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_finitel((long double)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_finitel" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmphc4nb30s
+Command line:  riscv64-linux-gnu-gcc -L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmphc4nb30s/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmphc4nb30s/output.exe -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -MD -MP 
+
+Code:
+ 
+static int foo(int i __attribute__((unused))) { return 0; }
+int main(void) { return foo(__builtin_isfinite((long double)42)); }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/lib/gcc/riscv64-linux-gnu/15.1.0/../../../../riscv64-linux-gnu/bin/ld: warning: cannot find entry symbol _start; defaulting to 000100b4
+
+Checking if "test for __builtin_isfinite" : links: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp5g0a4387
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp5g0a4387/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp5g0a4387/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-tree-loop-distribute-patterns 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-tree-loop-distribute-patterns: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpenbplvdm
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpenbplvdm/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpenbplvdm/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -std=c18 -nostdlib -Werror 
+
+Code:
+ int __attribute__((no_builtin)) foo(int x) { return x + 1; }
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpenbplvdm/testfile.c:1:1: error: 'no_builtin' attribute directive ignored [-Werror=attributes]
+    1 | int __attribute__((no_builtin)) foo(int x) { return x + 1; }
+      | ^~~
+cc1: all warnings being treated as errors
+
+Checking if "no_builtin attribute" compiles: NO 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp97k8v1o0
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp97k8v1o0/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp97k8v1o0/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=attributes 
+
+Code:
+ inline __attribute__((always_inline)) int foo(void) { return 0; }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports function attribute always_inline: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpeot2kgne
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpeot2kgne/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpeot2kgne/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -Werror=attributes 
+
+Code:
+ inline __attribute__((gnu_inline)) int foo(void) { return 0; }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports function attribute gnu_inline: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpewc__1hf
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpewc__1hf/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpewc__1hf/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-builtin 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-builtin: YES 
+Running command: /usr/bin/sed -e /^#/d -e /^$/d -e s/ .*$// /home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/iconv/encoding.aliases
+--- stdout ---
+big5
+cp775
+cp850
+cp852
+cp855
+cp866
+euc_jp
+euc_kr
+euc_tw
+iso_8859_1
+iso_8859_10
+iso_8859_11
+iso_8859_13
+iso_8859_14
+iso_8859_15
+iso_8859_2
+iso_8859_3
+iso_8859_4
+iso_8859_5
+iso_8859_6
+iso_8859_7
+iso_8859_8
+iso_8859_9
+iso_ir_111
+koi8_r
+koi8_ru
+koi8_u
+koi8_uni
+ucs_2
+ucs_2_internal
+ucs_2be
+ucs_2le
+ucs_4
+ucs_4_internal
+ucs_4be
+ucs_4le
+us_ascii
+utf_16
+utf_16be
+utf_16le
+utf_8
+win_1250
+win_1251
+win_1252
+win_1253
+win_1254
+win_1255
+win_1256
+win_1257
+win_1258
+
+--- stderr ---
+
+
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp9gdeiqdx
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp9gdeiqdx/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp9gdeiqdx/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -ffunction-sections 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -ffunction-sections: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp4b2_ds63
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp4b2_ds63/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp4b2_ds63/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fstack-protector-all 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fstack-protector-all: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpiyflaf32
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpiyflaf32/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpiyflaf32/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fstack-protector-strong 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fstack-protector-strong: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp5j6r7ovs
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp5j6r7ovs/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmp5j6r7ovs/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-builtin-malloc 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-builtin-malloc: YES 
+Running compile:
+Working directory:  /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpf6sh5ufs
+Command line:  riscv64-linux-gnu-gcc -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio -I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include -I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc -I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpf6sh5ufs/testfile.c -o /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/meson-private/tmpf6sh5ufs/output.obj -c -Os -march=rv32i2p0_m -mabi=ilp32 -D__vexriscv__ -g3 -no-pie -fomit-frame-pointer -Wall -fno-builtin -fno-stack-protector -fexceptions -Wpragmas -D_FILE_OFFSET_BITS=64 -O0 -fno-builtin-free 
+
+Code:
+ extern int i;
+int i;
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler for C supports arguments -fno-builtin-free: YES 
+Message: libc/string/memcpy.c: machine overrides generic
+Message: libc/string/memmove.S: machine overrides generic
+Message: libc/string/memset.S: machine overrides generic
+Message: libc/string/strcpy.c: machine overrides generic
+Message: libc/string/strlen.c: machine overrides generic
+Message: libc/string/strcmp.S: machine overrides generic
+Message: libc/include/sys/fenv.h: machine overrides generic
+Message: libc/include/machine/math.h: machine overrides generic
+Message: libm/math/s_fabs.c: machine overrides generic
+Message: libm/math/s_sqrt.c: machine overrides generic
+Message: libm/math/sf_fabs.c: machine overrides generic
+Message: libm/math/sf_sqrt.c: machine overrides generic
+Message: libm/common/s_finite.c: machine overrides generic
+Message: libm/common/s_copysign.c: machine overrides generic
+Message: libm/common/s_isinf.c: machine overrides generic
+Message: libm/common/s_isnan.c: machine overrides generic
+Message: libm/common/s_fma.c: machine overrides generic
+Message: libm/common/s_fmax.c: machine overrides generic
+Message: libm/common/s_fmin.c: machine overrides generic
+Message: libm/common/s_fpclassify.c: machine overrides generic
+Message: libm/common/s_lrint.c: machine overrides generic
+Message: libm/common/s_llrint.c: machine overrides generic
+Message: libm/common/s_lround.c: machine overrides generic
+Message: libm/common/s_llround.c: machine overrides generic
+Message: libm/common/sf_finite.c: machine overrides generic
+Message: libm/common/sf_copysign.c: machine overrides generic
+Message: libm/common/sf_isinf.c: machine overrides generic
+Message: libm/common/sf_isnan.c: machine overrides generic
+Message: libm/common/sf_fma.c: machine overrides generic
+Message: libm/common/sf_fmax.c: machine overrides generic
+Message: libm/common/sf_fmin.c: machine overrides generic
+Message: libm/common/sf_fpclassify.c: machine overrides generic
+Message: libm/common/sf_lrint.c: machine overrides generic
+Message: libm/common/sf_llrint.c: machine overrides generic
+Message: libm/common/sf_lround.c: machine overrides generic
+Message: libm/common/sf_llround.c: machine overrides generic
+Message: libm/fenv/feclearexcept.c: machine overrides generic
+Message: libm/fenv/fegetenv.c: machine overrides generic
+Message: libm/fenv/fegetexceptflag.c: machine overrides generic
+Message: libm/fenv/fegetround.c: machine overrides generic
+Message: libm/fenv/feholdexcept.c: machine overrides generic
+Message: libm/fenv/feraiseexcept.c: machine overrides generic
+Message: libm/fenv/fesetenv.c: machine overrides generic
+Message: libm/fenv/fesetexceptflag.c: machine overrides generic
+Message: libm/fenv/fesetround.c: machine overrides generic
+Message: libm/fenv/fetestexcept.c: machine overrides generic
+Message: libm/fenv/feupdateenv.c: machine overrides generic
+Configuring picolibc.h using configuration
+Build targets in project: 9
+NOTICE: Future-deprecated features used:
+ * 0.56.0: {'meson.source_root'}
+ * 0.58.0: {'meson.get_cross_property'}
+
+picolibc 1.7.9
+
+  User defined options
+    Cross files         : cross.txt
+    includedir          : picolibc/riscv64-linux-gnu/include
+    libdir              : picolibc/riscv64-linux-gnu/lib
+    atomic-ungetc       : false
+    format-default      : integer
+    io-long-long        : true
+    multilib            : false
+    picocrt             : false
+    thread-local-storage: false
+
+Found ninja-1.11.1.git.kitware.jobserver-1 at /home/hamed/FPGA/Tools/litex-hub/litex/litex-venv/bin/ninja
+Failed to guess install tag for /usr/lib/gcc/riscv64-linux-gnu/15.1.0/picolibc.specs
+Failed to guess install tag for /usr/lib/gcc/riscv64-linux-gnu/15.1.0/picolibcpp.specs
+Failed to guess install tag for /usr/local/picolibc/riscv64-linux-gnu/lib/picolibc.ld
+Failed to guess install tag for /usr/local/picolibc/riscv64-linux-gnu/lib/picolibcpp.ld
+Command line for building ['newlib/libc.a'] is long, using a response file
+WARNING: Running the setup command as `meson [options]` instead of `meson setup [options]` is ambiguous and deprecated.
