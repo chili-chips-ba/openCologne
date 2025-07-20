@@ -1,0 +1,16 @@
+[binaries]
+c     = 'riscv64-linux-gnu-gcc'
+ar    = 'riscv64-linux-gnu-gcc-ar'
+as    = 'riscv64-linux-gnu-as'
+nm    = 'riscv64-linux-gnu-gcc-nm'
+strip = 'riscv64-linux-gnu-strip'
+
+[host_machine]
+system     = 'unknown'
+cpu_family = 'riscv'
+cpu        = 'vexriscv'
+endian     = 'little'
+
+[built-in options]
+c_args      = [ '-Os', '-march=rv32i2p0_m', '-mabi=ilp32', '-D__vexriscv__', '-g3', '-no-pie', '-fomit-frame-pointer', '-Wall', '-fno-builtin', '-fno-stack-protector', '-I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio', '-I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include', '-I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase', '-I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include', '-I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software', '-I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include', '-I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc', '-I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv', '-fexceptions', '-Wpragmas', ]
+c_link_args = [ '-nostdlib', '-nodefaultlibs', '-Wl,--no-dynamic-linker', '-Wl,--build-id=none', '-MD', '-MP', '-Os', '-march=rv32i2p0_m', '-mabi=ilp32', '-D__vexriscv__', '-g3', '-no-pie', '-fomit-frame-pointer', '-Wall', '-fno-builtin', '-fno-stack-protector', '-I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio', '-I/home/hamed/FPGA/Tools/litex-hub/litex/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include', '-I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/libbase', '-I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software/include', '-I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/software', '-I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include', '-I/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include/../libc', '-I/home/hamed/FPGA/Tools/litex-hub/litex/litex/litex/soc/cores/cpu/vexriscv', '-fexceptions', '-Wpragmas', '-L/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/include', ]

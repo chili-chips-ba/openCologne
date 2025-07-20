@@ -1,0 +1,26 @@
+%rename link	picolibc_link
+%rename cpp	picolibc_cpp
+%rename cc1	picolibc_cc1
+%rename cc1plus	picolibc_cc1plus
+
+*cpp:
+-isystem %{-picolibc-prefix=*:%*/picolibc/riscv64-linux-gnu/include/; -picolibc-buildtype=*:/usr/local/picolibc/riscv64-linux-gnu/include/%*; :/usr/local/picolibc/riscv64-linux-gnu/include} %(picolibc_cpp)
+
+*cc1:
+ %(picolibc_cc1) 
+
+*cc1plus:
+-isystem %{-picolibc-prefix=*:%*/picolibc/riscv64-linux-gnu/include/; -picolibc-buildtype=*:/usr/local/picolibc/riscv64-linux-gnu/include/%*; :/usr/local/picolibc/riscv64-linux-gnu/include}  %(picolibc_cc1plus)  
+
+*link:
+%{DPICOLIBC_FLOAT_PRINTF_SCANF:--defsym=vfprintf=__f_vfprintf} %{DPICOLIBC_FLOAT_PRINTF_SCANF:--defsym=vfscanf=__f_vfscanf} %{DPICOLIBC_DOUBLE_PRINTF_SCANF:--defsym=vfprintf=__d_vfprintf} %{DPICOLIBC_DOUBLE_PRINTF_SCANF:--defsym=vfscanf=__d_vfscanf} %{DPICOLIBC_INTEGER_PRINTF_SCANF:--defsym=vfprintf=__i_vfprintf} %{DPICOLIBC_INTEGER_PRINTF_SCANF:--defsym=vfscanf=__i_vfscanf} -L%{-picolibc-prefix=*:%*/picolibc/riscv64-linux-gnu/lib; -picolibc-buildtype=*:/usr/local/picolibc/riscv64-linux-gnu/lib/%*; :/usr/local/picolibc/riscv64-linux-gnu/lib} %{!T:-Tpicolibc.ld} %(picolibc_link) --gc-sections 
+
+*lib:
+--start-group %(libgcc)  -lc %{-oslib=*:-l%*} --end-group
+
+*endfile:
+
+
+*startfile:
+%{-picolibc-prefix=*:%*/picolibc/riscv64-linux-gnu/lib/crt0%{-crt0=*:-%*%O;:%O}%s; -picolibc-buildtype=*:/usr/local/picolibc/riscv64-linux-gnu/lib/%*/crt0%{-crt0=*:-%*%O;:%O}%s; :/usr/local/picolibc/riscv64-linux-gnu/lib/crt0%{-crt0=*:-%*%O;:%O}%s} 
+

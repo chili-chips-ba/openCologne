@@ -1,0 +1,13 @@
+[options]
+multilib = false
+picocrt = false
+atomic-ungetc = false
+thread-local-storage = false
+io-long-long = true
+format-default = integer
+includedir = picolibc/riscv64-linux-gnu/include
+libdir = picolibc/riscv64-linux-gnu/lib
+
+[properties]
+cross_file = ['/home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/software/libc/cross.txt']
+
