@@ -46,8 +46,14 @@ For more, please see:
 
 #### V02 mounted on the CM4-BB3 carrier card
 <p align="center">
-   <img width=800 src="0.doc/ulx5m-gs.v02.5.with-CM4_BB3.jpg">
+   <img width=600 src="0.doc/ulx5m-gs.v02.5.with-CM4_BB3.jpg">
+   <img width=600 src="0.doc/ulx5m-gs.v02.6.with-CM4_BB3.HDMI.jpg">
 </p>
 
+#### V02 mounted on the CM4 "Piunora" carrier card
+<p align="center">
+   <img width=600 src="0.doc/ulx5m-gs.v02.7.with-CM4_Piunora.jpg">
+   <img width=600 src="0.doc/ulx5m-gs.v02.8.with-CM4_Piunora.HDMI.jpg">
+</p>
 
 #### End of Document
