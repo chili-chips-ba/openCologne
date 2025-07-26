@@ -19,8 +19,8 @@ SERVER_PID    := $(BUILD_DIR)/litex_server.pid
 # ------------------------------------------------------------------
 #  LiteX / Python virtual‐env settings (override via environment)
 # ------------------------------------------------------------------
-LITEX_PATH   ?= $(HOME)/FPGA/Tools/litex-hub/litex
-LITEX_VENV   ?= $(LITEX_PATH)/litex-venv
+LITEX_PATH   ?= $(HOME)/litex
+LITEX_VENV   ?= $(HOME)/litex-venv
 PYTHON       := python3
 
 # ------------------------------------------------------------------
