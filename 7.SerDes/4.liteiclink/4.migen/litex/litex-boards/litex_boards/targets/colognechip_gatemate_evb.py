@@ -48,7 +48,7 @@ class _CRG(LiteXModule):
 
 class BaseSoC(SoCCore):
     def __init__(self, sys_clk_freq=48e6,
-        with_led_chaser = True,
+        # with_led_chaser = False,
         with_serdes=False,
         **kwargs):
         platform = colognechip_gatemate_evb.Platform()
@@ -64,19 +64,32 @@ class BaseSoC(SoCCore):
         SoCCore.__init__(self, platform, sys_clk_freq, ident="LiteX SoC on GateMate EVB", **kwargs)
 
         # Leds -------------------------------------------------------------------------------------
-        if with_led_chaser:
-            self.leds = LedChaser(
-                pads         = platform.request_all("user_led_n"),
-                sys_clk_freq = sys_clk_freq)
+        # if with_led_chaser:
+        #     self.leds = LedChaser(
+        #         pads         = platform.request_all("user_led_n"),
+        #         sys_clk_freq = sys_clk_freq)
 
         if with_serdes:
             from liteiclink.serdes.serdes_gm import SerDesGM
             serdes = SerDesGM(sys_clk_freq=sys_clk_freq,
                                refclk_freq=125e6,
                                linerate=1.25e9,
-                               internal_loopback=True)
-            self.submodules.serdes = serdes
-            serdes.add_controls(auto_enable=True)
+                               internal_loopback=False)
+            self.submodules += serdes
+            serdes.add_stream_endpoints()
+            serdes.add_controls()
+            leds = platform.request_all("user_led_n")
+            self.comb += [
+                leds[0].eq(serdes.rx_reset_done_n),        # LED0 ← RX_RESET_DONE_O_N
+                leds[1].eq(serdes.tx_reset_done_n),        # LED1 ← TX_RESET_DONE_O_N
+                leds[2].eq(serdes.tx_detect_rx_done_n),    # LED2 ← TX_DETECT_RX_DONE_O_N
+                leds[3].eq(serdes.tx_detect_rx_present_n), # LED3 ← TX_DETECT_RX_PRESENT_O_N
+                leds[4].eq(serdes.rx_prbs_err_n),          # LED4 ← RX_PRBS_ERR_O_N
+                leds[5].eq(serdes.rx_buf_err_n),           # LED5 ← RX_BUF_ERR_O_N
+                leds[6].eq(serdes.tx_buf_err_n),           # LED6 ← TX_BUF_ERR_O_N
+                leds[7].eq(~serdes.tx_ready)               # LED7 ← “ADPLL locked” indicator
+            ]
+
 
 # Build --------------------------------------------------------------------------------------------
 
@@ -87,6 +100,7 @@ def main():
     parser.add_target_argument("--flash",        action="store_true",      help="Flash bitstream.")
     parser.add_target_argument("--with-serdes", action="store_true",       help="Enable SERDES (1.25 Gbps transceiver loopback test).")
     args = parser.parse_args()
+
 
     soc = BaseSoC(
         sys_clk_freq = args.sys_clk_freq,

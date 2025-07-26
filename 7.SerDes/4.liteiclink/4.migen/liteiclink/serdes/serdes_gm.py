@@ -10,9 +10,8 @@ from litex.soc.cores.code_8b10b import Encoder, Decoder
 
 class SerDesGM(LiteXModule):
     def __init__(self, sys_clk_freq, refclk_freq=125e6, linerate=1.25e9,
-                 tx_pads=None, rx_pads=None,
                  tx_polarity=0, rx_polarity=0,
-                 internal_loopback=True):
+                 internal_loopback=False):
         # We use a fixed 20-bit data path (two 10-bit 8b/10b words) at half the line rate.
         data_width = 20
         self.nwords = data_width // 10
@@ -49,7 +48,9 @@ class SerDesGM(LiteXModule):
         rx_data = Signal(data_width)
         tx_bus  = Signal(24)
         rx_bus  = Signal(24)
-
+        
+        
+        
         _tx_prbs_config = Signal(2)
         _rx_prbs_config = Signal(2)
         _rx_prbs_pause  = Signal()
@@ -68,10 +69,22 @@ class SerDesGM(LiteXModule):
         tx_reset_done = Signal()
         rx_reset_done = Signal()
         adpll_reset   = Signal(reset=1)
+        tx_detect_rx_done     = Signal()
+        tx_detect_rx_present  = Signal()
+        rx_buf_err            = Signal()
+        tx_buf_err            = Signal()
+        rx_prbs_err_flag      = Signal()    # you’ll have to OR–reduce your 32‑bit error count into 1 bit
 
         tx_half_toggle = Signal(reset=0)
         tx_half_clk    = Signal()
-
+        self.rx_reset_done_n        = rx_reset_done
+        self.tx_reset_done_n        = tx_reset_done
+        self.tx_detect_rx_done_n    = tx_detect_rx_done
+        self.tx_detect_rx_present_n = tx_detect_rx_present
+        self.rx_buf_err_n           = rx_buf_err
+        self.tx_buf_err_n           = tx_buf_err
+        self.comb += rx_prbs_err_flag.eq(self.rx_prbs_errors != 0)
+        self.rx_prbs_err_n = rx_prbs_err_flag
         self.specials += [
             Instance("CC_BUFG", i_I=self.txoutclk, o_O=self.cd_tx.clk),      # 125 MHz TX domain
             Instance("CC_BUFG", i_I=self.rxoutclk, o_O=self.cd_rx.clk)       # 62.5 MHz RX domain
@@ -173,7 +186,7 @@ class SerDesGM(LiteXModule):
             p_SERDES_TESTMODE  = 1,
             # ADPLL (PLL) configuration
             p_PLL_EN_ADPLL_CTRL = 1,
-            p_PLL_CONFIG_SEL    = 1,
+            p_PLL_CONFIG_SEL    = 1, #0 :internal, 1: regfile
             p_PLL_REF_SEL       = 1,   # 1 = LVDS reference (expects diff ref clock, or internal calibration if none)
             p_PLL_REF_BYPASS    = 0,
             p_PLL_REF_RTERM     = 1,
@@ -189,6 +202,71 @@ class SerDesGM(LiteXModule):
             p_PLL_FT            = 512,
             p_PLL_OPEN_LOOP     = 0,
             p_PLL_SCAP_AUTO_CAL = 1,
+            p_PLL_SET_OP_LOCK  = 0,
+            p_PLL_ENFORCE_LOCK  = 0,
+            p_PLL_DISABLE_LOCK  = 0,
+            p_PLL_LOCK_WINDOW   = 1, 
+            p_PLL_FAST_LOCK     = 1, 
+            p_PLL_SYNC_BYPASS   = 0,
+            p_PLL_PFD_SELECT    = 0,
+            p_PLL_REF_RTERM     = 1,
+            #TX
+            p_TX_SEL_PRE = 0,
+            p_TX_SEL_POST = 0,
+            p_TX_AMP = 0XF,
+
+            p_TX_BRANCH_EN_PRE  = 0,
+            p_TX_BRANCH_EN_MAIN = 0x3F,
+            p_TX_BRANCH_EN_POST = 0,
+            p_TX_TAIL_CASCODE   = 0x4,
+            p_TX_DC_ENABLE      = 0x3F,
+            p_TX_DC_OFFSET      = 0x8, # note: set to 8
+            p_TX_CM_RAISE       = 0x0,
+            p_TX_CM_THRESHOLD_0 = 0xE,
+            p_TX_CM_THRESHOLD_1 = 0x10,
+            p_TX_SEL_PRE_EI     = 0x0,
+            p_TX_SEL_POST_EI    = 0x0,
+            p_TX_AMP_EI         = 0xF,
+            p_TX_BRANCH_EN_PRE_EI  = 0x0,
+            p_TX_BRANCH_EN_MAIN_EI = 0x3F,
+            p_TX_BRANCH_EN_POST_EI = 0x0,
+            p_TX_TAIL_CASCODE_EI   = 0x4,
+            p_TX_DC_ENABLE_EI      = 0x3F,
+            p_TX_DC_OFFSET_EI      = 0x0,
+            p_TX_CM_RAISE_EI       = 0x0,
+            p_TX_CM_THRESHOLD_0_EI = 0xE,
+            p_TX_CM_THRESHOLD_1_EI = 0x10,
+            p_TX_SEL_PRE_RXDET     = 0x0,
+            p_TX_SEL_POST_RXDET    = 0x0,
+            p_TX_AMP_RXDET         = 0xF,
+            p_TX_BRANCH_EN_PRE_RXDET = 0x0,
+            p_TX_BRANCH_EN_MAIN_RXDET = 0x3F,
+            p_TX_BRANCH_EN_POST_RXDET = 0x0,
+            p_TX_TAIL_CASCODE_RXDET   = 0x4,
+            p_TX_DC_ENABLE_RXDET      =0x3F,
+            p_TX_DC_OFFSET_RXDET      = 0x0,
+            p_TX_CM_RAISE_RXDET       = 0x0,
+            p_TX_CM_THRESHOLD_0_RXDET = 0xE,
+            p_TX_CM_THRESHOLD_1_RXDET = 0x10,
+            p_TX_CALIB_EN  = 0x0,
+            p_TX_CALIB_OVR = 0x0,
+            p_TX_CALIB_VAL = 0x0,
+            p_TX_CM_REG_KI = 0x80,
+            p_TX_CM_SAR_EN = 0x0,
+            p_TX_CM_REG_EN = 0x1,
+
+            p_TX_PCS_RESET_OVR=0x0,
+            p_TX_PCS_RESET=0x0,
+            p_TX_PMA_RESET_OVR=0x0,
+            p_TX_PMA_RESET=0x0,
+            p_TX_RESET_OVR=0x0,
+            p_TX_RESET=0x0,
+            p_TX_LOOPBACK_OVR=0x0,
+            p_TX_DETECT_RX_OVR=0x0,
+            p_TX_DETECT_RX=0x0,
+            p_TX_DATA_OVR=0x0,
+            p_TX_DATA_CNT=0x0,
+            p_TX_DATA_VALID=0x0,
             # ADPLL BISC (Background calibration for PLL)
             p_PLL_BISC_MODE         = 5,
             p_PLL_BISC_TIMER_MAX    = 15,
@@ -198,9 +276,9 @@ class SerDesGM(LiteXModule):
             p_PLL_BISC_COR_DLY      = 1,
             p_PLL_BISC_CAL_SIGN     = 0,
             p_PLL_BISC_CAL_AUTO     = 1,
-            p_PLL_BISC_CP_MIN       = 4,
-            p_PLL_BISC_CP_MAX       = 18,
-            p_PLL_BISC_CP_START     = 12,
+            p_PLL_BISC_CP_MIN       = 6,
+            p_PLL_BISC_CP_MAX       = 30,
+            p_PLL_BISC_CP_START     = 6,
             p_PLL_BISC_DLY_PFD_MON_REF = 0,
             p_PLL_BISC_DLY_PFD_MON_DIV = 2,
             # 8b/10b settings (bypass internal encoder/decoder)
@@ -224,7 +302,7 @@ class SerDesGM(LiteXModule):
             # Comma alignment
             p_RX_COMMA_DETECT_EN_OVR = 0,
             p_RX_COMMA_DETECT_EN     = 0,
-            p_RX_ALIGN_COMMA_WORD    = 1,
+            p_RX_ALIGN_COMMA_WORD    = 3,
             p_RX_ALIGN_COMMA_ENABLE  = 0x3FF,
             p_RX_ALIGN_MCOMMA_VALUE  = 0x283,
             p_RX_ALIGN_PCOMMA_VALUE  = 0x17C,
@@ -268,62 +346,87 @@ class SerDesGM(LiteXModule):
             # Loopback configuration
             p_TX_PMA_LOOPBACK = 0, p_TX_PCS_LOOPBACK = 0,
             p_RX_PMA_LOOPBACK = 0, p_RX_PCS_LOOPBACK = 0,
+            p_RX_BUF_RESET_TIME = 0x3,
+            p_RX_EN_EQA_EXT_VALUE = 0x0,
+            p_RX_EYE_MEAS_EN =0x0,
+            p_RX_EYE_MEAS_CFG = 0,    
+            p_RX_DATA_SEL =  0x0,
+            p_RX_BUF_BYPASS = 0x0,        
+            p_RX_LOOPBACK_OVR= 0x0,        
+            p_RX_RESET_OVR= 0x0,
+            p_RX_RESET= 0x0,
+            p_RX_PMA_RESET_OVR= 0x0,
+            p_RX_PMA_RESET= 0x0,
+            p_RX_PCS_RESET_OVR=0x0,
+            p_RX_PCS_RESET= 0x0,
+            p_RX_BUF_RESET_OVR= 0x0,
+            p_RX_BUF_RESET= 0x0,
         )
         # SERDES I/O port connections
         serdes_params.update(
+            # Clocks & loopback
             i_TX_CLK_I               = ClockSignal("tx_half"),
+            i_RX_CLK_I               = ClockSignal("rx"),
+            o_PLL_CLK_O              = self.txoutclk,
+            o_RX_CLK_O               = self.rxoutclk,
+            i_LOOPBACK_I             = 0b010 if internal_loopback else 0b000,
+
+            # Resets
             i_TX_RESET_I             = tx_reset,
+            i_RX_RESET_I             = rx_reset,
+            i_RX_PMA_RESET_I         = 0,
+            i_RX_EQA_RESET_I         = 0,
+            i_RX_CDR_RESET_I         = 0,
+            i_RX_PCS_RESET_I         = 0,
+            i_RX_BUF_RESET_I         = 0,
             i_TX_PCS_RESET_I         = 0,
             i_TX_PMA_RESET_I         = 0,
+            i_PLL_RESET_I            = pll_reset,
+
+            # TX data & controls
             i_TX_DATA_I              = Cat(tx_bus[0:8], tx_bus[10:18]),
             i_TX_CHAR_IS_K_I         = 0,
             i_TX_CHAR_DISPMODE_I     = Cat(tx_bus[9], tx_bus[23]),
             i_TX_CHAR_DISPVAL_I      = Cat(tx_bus[8], tx_bus[22]),
-            i_TX_POLARITY_I          = tx_polarity,
             i_TX_POWER_DOWN_N_I      = 1,
+            i_TX_POLARITY_I          = tx_polarity,
             i_TX_ELEC_IDLE_I         = 0,
             i_TX_DETECT_RX_I         = 1,
+            i_TX_PRBS_SEL_I          = _tx_prbs_config,
+            i_TX_PRBS_FORCE_ERR_I    = _tx_prbs_force_err,
+
             o_TX_RESET_DONE_O        = tx_reset_done,
-            #o_TX_BUF_ERR_O           = Open(),
-            #o_TX_DETECT_RX_DONE_O    = Open(),
-            #o_TX_DETECT_RX_PRESENT_O = Open(),
-            i_RX_CLK_I               = ClockSignal("rx"),
-            i_RX_RESET_I             = rx_reset,
-            i_RX_PMA_RESET_I         = 0,
-            i_RX_CDR_RESET_I         = 0,
-            i_RX_PCS_RESET_I         = 0,
-            i_RX_BUF_RESET_I         = 0,
+            o_TX_BUF_ERR_O           = tx_buf_err,
+            o_TX_DETECT_RX_DONE_O    = tx_detect_rx_done,
+            o_TX_DETECT_RX_PRESENT_O = tx_detect_rx_present,
+
+             # RX data & controls
+            i_RX_POWER_DOWN_N_I      = 1,
             i_RX_POLARITY_I          = rx_polarity,
             i_RX_EN_EI_DETECTOR_I    = 0,
-            i_RX_COMMA_DETECT_EN_I   = 0,
+            i_RX_COMMA_DETECT_EN_I   = rx_comma_detect_en,
             i_RX_SLIDE_I             = 0,
-            i_RX_MCOMMA_ALIGN_I      = 0,
-            i_RX_PCOMMA_ALIGN_I      = 0,
+            i_RX_MCOMMA_ALIGN_I      = rx_comma_detect_en,
+            i_RX_PCOMMA_ALIGN_I      = rx_comma_detect_en,
+            i_RX_PRBS_SEL_I          = _rx_prbs_config,
+            i_RX_PRBS_CNT_RESET_I    = _rx_prbs_pause,
+    
             o_RX_DATA_O              = Cat(rx_bus[0:8], rx_bus[10:18]),
-            o_RX_CHAR_IS_K_O         = Cat(rx_bus[8], rx_bus[18]),
-            o_RX_DISP_ERR_O          = Cat(rx_bus[9], rx_bus[19]),
-            #o_RX_NOT_IN_TABLE_O      = Open(),
-            #o_RX_PRBS_ERR_O          = Open(),
-            #o_RX_BUF_ERR_O           = Open(),
-            #o_RX_BYTE_IS_ALIGNED_O   = Open(),
-            #o_RX_BYTE_REALIGN_O      = Open(),
+            o_RX_PRBS_ERR_O          = rx_prbs_err,
+            o_RX_BUF_ERR_O           = rx_buf_err,
             o_RX_RESET_DONE_O        = rx_reset_done,
-            #o_RX_EI_EN_O            = Open(),
-            # Clock outputs
-            o_PLL_CLK_O              = self.txoutclk,
-            o_RX_CLK_O               = self.rxoutclk,
-            # Loopback control
-            i_LOOPBACK_I             = 0b010 if internal_loopback else 0b000,
-            # Register interface (unused, tie off)
+
+            # register file
             i_REGFILE_CLK_I          = 0,
             i_REGFILE_WE_I           = 0,
             i_REGFILE_EN_I           = 0,
             i_REGFILE_ADDR_I         = 0,
             i_REGFILE_DI_I           = 0,
-            i_REGFILE_MASK_I         = 0
-            #o_REGFILE_DO_O          = Open(),
-            #o_REGFILE_RDY_O         = Open()
+            i_REGFILE_MASK_I         = 0,
+            o_REGFILE_DO_O           = regfile_do,
+            o_REGFILE_RDY_O          = regfile_rdy,
         )
+
         # Connect SERDES to physical I/O pads if provided
         if tx_pads is not None and hasattr(tx_pads, "p"):
             serdes_params.update({o_TXP: tx_pads.p, o_TXN: tx_pads.n})
@@ -332,6 +435,7 @@ class SerDesGM(LiteXModule):
         # Instantiate the CC_SERDES primitive with all parameters
         self.specials += Instance("CC_SERDES", **serdes_params)
     def add_stream_endpoints(self):
+
         # Create stream endpoints for data (each with nwords*8 data bits and nwords control bits for K)
         self.sink   = stream.Endpoint([("data", 8*self.nwords), ("ctrl", self.nwords)])
         self.source = stream.Endpoint([("data", 8*self.nwords), ("ctrl", self.nwords)])

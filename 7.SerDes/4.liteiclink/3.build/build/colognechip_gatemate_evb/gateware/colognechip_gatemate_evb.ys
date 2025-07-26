@@ -1,9 +1,0 @@
-verilog_defaults -push
-verilog_defaults -add -defer
-read_verilog /home/hamed/FPGA/Tools/litex-hub/litex/pythondata-cpu-vexriscv/pythondata_cpu_vexriscv/verilog/VexRiscv.v
-read_verilog /home/hamed/FPGA/chili-chips/openCologne/7.SerDes/4.liteiclink/3.build/build/colognechip_gatemate_evb/gateware/colognechip_gatemate_evb.v
-verilog_defaults -pop
-attrmap -tocase keep -imap keep="true" keep=1 -imap keep="false" keep=0 -remove keep=0
-
-synth_gatemate -nomx8  -top colognechip_gatemate_evb
-write_verilog  colognechip_gatemate_evb_synth.v
