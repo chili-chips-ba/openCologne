@@ -76,8 +76,8 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
    - [x] **PCB repo2**: Design and manufacture the [ULX5M board](https://github.com/intergalaktik/ulx5m-gs)
 
 --- Level III
-- [ ] Play 7 - WIP
-   - [ ] 7.SerDes
+- [x] Play 7 - **DONE, with Doc still WIP**
+   - [x] 7.SerDes
 
 - [x] Play 8 - **DONE**
    - [x] 8.StressTest
@@ -134,7 +134,23 @@ We are proud to have initiated GateMate enablement in opensource [Amaranth](http
   <img width=500 src="0.doc/Intergalaktik/IO-boards.jpg">
 </p>
    
-[Click](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMate) for more...
+Click [here](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMate) for more on extension cards. For ULX5M, check [this](https://github.com/chili-chips-ba/openCologne/tree/main/6.PCB.advanced).
+
+#### ULX5M-v02 bringup
+[![ULX5M blinks LEDs on its own](6.PCB.advanced/0.doc/ulx5m-gs.v02.4.debug.jpg)](https://www.youtube.com/watch?v=LA20pfW7X00 "ULX5M is counting!")
+
+#### ULX5M-v02 mounted on the CM4-BB3 carrier card, with HDMI test image
+<p align="center">
+   <img width=600 src="6.PCB.advanced/0.doc/ulx5m-gs.v02.5.with-CM4_BB3.jpg">
+   <img width=600 src="6.PCB.advanced/0.doc/ulx5m-gs.v02.6.with-CM4_BB3.HDMI.jpg">
+</p>
+
+#### ULX5M-v02 mounted on the CM4 "Piunora" carrier card, with HDMI test image
+<p align="center">
+   <img width=600 src="6.PCB.advanced/0.doc/ulx5m-gs.v02.7.with-CM4_Piunora.jpg">
+   <img width=600 src="6.PCB.advanced/0.doc/ulx5m-gs.v02.8.with-CM4_Piunora.HDMI.jpg">
+</p>
+
 
 ## Beinvolved
 We welcome everyone interested to contribute. Please reach out to fpga@chili-chips.com, or join our <a href="https://discord.gg/F5UPDFFdsH">GateMate Discord Channel</a>. 
