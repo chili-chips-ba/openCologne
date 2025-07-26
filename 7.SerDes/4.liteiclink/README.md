@@ -33,7 +33,7 @@ Usage:
 
 The most important ones are:
 
-* `make build-board` which runs the build process using Vivado(later openXC7 will be used instead). The command has parameters `FREQ` and `OPTIONS` which can be overloaded, but running it without any parameters is going to include `--with-etherbone` and `--with-uberclock` with a frequency of `65MHz`.
+* `make build-board` which runs the build process using Vivado(later openXC7 will be used instead). The command has parameters `FREQ` and `OPTIONS` which can be overloaded.
 
 * `make build-sw` which compiles the bare-metal C application. The imporant note to add is to run the command after the build finishes because the compiler depends of the generated files in the `3.build/build` folder.
 
