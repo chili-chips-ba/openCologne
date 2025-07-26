@@ -1,34 +1,142 @@
 # SerDes App for GateMate
 
-Design a high-speed serial, **memory-mapped Chip-to-Chip (C2C) Interconnect**. The goal of such IP is to set the stage for creating compute clusters and Hyper Cubes made of GateMate FPGAs, all physically interconnected with SerDes, with this C2C on top of it, serving as logical and transport layer.
+## Verifying board setup
 
-## References:
-- CologneChip [SerDes example design](https://github.com/pu-cc/gm_serdes_lb) and latest [datasheet](https://colognechip.com/docs/ds1001-gatemate1-datasheet-latest.pdf)
-- Xilinx PG046 - [Aurora 8B/10B](https://docs.amd.com/r/en-US/pg046-aurora-8b10b/Introduction?tocId=Tqe8wtK9r1zAUq13hUnVEw)
-    - Xilinx SP002 - [Aurora 8B/10B Protocol Spec](https://docs.amd.com/v/u/en-US/aurora_8b10b_protocol_spec_sp002)
-- BerkeleyLab [ChitChat](https://berkeleylab.github.io/Bedrock/_gen_md/serial_io/chitchat/README_md.html) protocol
-- LiteX [IC Link](https://github.com/enjoy-digital/liteiclink)
-- [MesaBusProtocol](https://github.com/blackmesalabs/MesaBusProtocol)
-- [Transputer](http://www.bitsavers.org/components/inmos/transputer/C011_Link_Adaptor.pdf)
-- [LiteX 1000basex](https://github.com/pu-cc/liteeth/tree/gatemate1000basex)
+Using the provided serdestool we can verify that our board setup is functioning correctrly. We can run a loopback test ( `./sedestool --tcloopback `) :
 
-- Timing-aware/better PNR for this high-speed design:
-    - [Project Peppercorn](https://github.com/YosysHQ/prjpeppercorn)
-    - [nextpnr for GateMate](https://github.com/YosysHQ/nextpnr/tree/gatemate)
+```
+    INFO:  Found 1 device in JTAG chain.
+    INFO:  Starting SerDes loopback testcases
+    
+    INFO:  Enabling TX PMA Loopback (Mode 0)
+    INFO:  Configuring SerDes ADPLL
+    INFO:  SerDes ADPLL frequency / data rate is 625.0 MHz / 1250.0 Mbit/s
+    INFO:  Disabling SerDes ADPLL
+    INFO:  Writing SerDes ADPLL divider settings
+    INFO:  Stopping SerDes ADPLL self-calibration
+    INFO:  Starting SerDes ADPLL
+    INFO:  Starting SerDes ADPLL self-calibration
+    INFO:  SerDes ADPLL locked
+    INFO:  PFDAC result: max reached: 0, ac_result:  98320, CP:  3
+    INFO:  ADPLL status: LCK: 1 FTO: 0 FTU: 0 FT:  708 SY:   0 ST: 2
+    INFO:  Resetting SerDes TX
+    INFO:  Resetting SerDes RX
+    INFO:  Sending data (this might take a while) ...
+    INFO:  Checking 32-Bit comma alignment
+    INFO:  Resetting SerDes TX
+    INFO:  Resetting SerDes RX
+    INFO:  Sending data (this might take a while) ...
+    INFO:  Checking 16-Bit comma alignment
+    INFO:  Resetting SerDes TX
+    INFO:  Resetting SerDes RX
+    INFO:  Sending data (this might take a while) ...
+    INFO:  Checking 8-Bit comma alignment
+    
+    INFO:  Enabling TX PMA Loopback (Mode 1)
+    INFO:  Configuring SerDes ADPLL
+    INFO:  SerDes ADPLL frequency / data rate is 625.0 MHz / 1250.0 Mbit/s
+    INFO:  Disabling SerDes ADPLL
+    INFO:  Writing SerDes ADPLL divider settings
+    INFO:  Stopping SerDes ADPLL self-calibration
+    INFO:  Starting SerDes ADPLL
+    INFO:  Starting SerDes ADPLL self-calibration
+    INFO:  SerDes ADPLL locked
+    INFO:  PFDAC result: max reached: 0, ac_result:     16, CP:  6
+    INFO:  ADPLL status: LCK: 1 FTO: 0 FTU: 0 FT:  706 SY:   0 ST: 2
+    INFO:  Resetting SerDes TX
+    INFO:  Resetting SerDes RX
+    INFO:  Sending data (this might take a while) ...
+    INFO:  Checking 32-Bit comma alignment
+    INFO:  Resetting SerDes TX
+    INFO:  Resetting SerDes RX
+    INFO:  Sending data (this might take a while) ...
+    INFO:  Checking 16-Bit comma alignment
+    INFO:  Resetting SerDes TX
+    INFO:  Resetting SerDes RX
+    INFO:  Sending data (this might take a while) ...
+    INFO:  Checking 8-Bit comma alignment
+    
+    INFO:  Enabling TX PCS Loopback
+    INFO:  Configuring SerDes ADPLL
+    INFO:  SerDes ADPLL frequency / data rate is 625.0 MHz / 1250.0 Mbit/s
+    INFO:  Disabling SerDes ADPLL
+    INFO:  Writing SerDes ADPLL divider settings
+    INFO:  Stopping SerDes ADPLL self-calibration
+    INFO:  Starting SerDes ADPLL
+    INFO:  Starting SerDes ADPLL self-calibration
+    INFO:  SerDes ADPLL locked
+    INFO:  PFDAC result: max reached: 0, ac_result:  98330, CP: 25
+    INFO:  ADPLL status: LCK: 1 FTO: 0 FTU: 0 FT:  707 SY:   0 ST: 2
+    INFO:  Resetting SerDes TX
+    INFO:  Resetting SerDes RX
+    INFO:  Sending data (this might take a while) ...
+    INFO:  Checking 32-Bit comma alignment
+    INFO:  Resetting SerDes TX
+    INFO:  Resetting SerDes RX
+    INFO:  Sending data (this might take a while) ...
+    INFO:  Checking 16-Bit comma alignment
+    INFO:  Resetting SerDes TX
+    INFO:  Resetting SerDes RX
+    INFO:  Sending data (this might take a while) ...
+    INFO:  Checking 8-Bit comma alignment
 
-## Plan of Record
-Having thoroughly studied all options, the developers presented them in a project meeting on _July 11, 2025_, where team unanimously decided for the GateMate Chip2Chip SerDes:
-- not to mimic the semi-proprietary _Xilinx/AMD Aurora_
-- not to be based on _BerkeleyLab ChitChat_ 
-- not to be based on _MesaBusProtocol_
-- not to invent _our own scheme_ (which was the original plan of Chili.CHIPS*ba developers)
-- but rather to port `LiteX IC Link`, thus honoring CologneChip guidance and strong preference **<== WINNER!**
+``` 
+as well as a PRBS test (`./serdestool --tcprbs`):
 
-The _IC Link_ comes with a worked out interface to the CPU. Its interface to SerDes will leverage from Patrick's _1000basex Ethernet MAC_ project. The best part of the _IC Link_ is that it opens the full power of LiteX integration, making it available for CologneChip customers almosts instantly, and so with minimal coding burden. As such, the _IC Link_ is the Chip2Chip interconnect that CologneChip would benefit the most from for their SerDes. 
 
-Given that GateMate proprietary (aka "legacy") PnR is rather unreliable and insensitive to timing constraints, while the new opensource PnR (Project Peppercorn) has already saved the day for our WP9-[BetrustedSOC](https://github.com/chili-chips-ba/openCologne/tree/main/9.BetrustedSOC), the _Chip2Chip SerDes_ will be delivered solely and exclusively for the _nextpnr_.
+```
+    INFO:  Found 1 device in JTAG chain.
+    INFO:  Starting SerDes PRBS testcases
+    INFO:  Configuring SerDes ADPLL
+    INFO:  SerDes ADPLL frequency / data rate is 625.0 MHz / 1250.0 Mbit/s
+    INFO:  Disabling SerDes ADPLL
+    INFO:  Writing SerDes ADPLL divider settings
+    INFO:  Stopping SerDes ADPLL self-calibration
+    INFO:  Starting SerDes ADPLL
+    INFO:  Starting SerDes ADPLL self-calibration
+    INFO:  SerDes ADPLL locked
+    INFO:  PFDAC result: max reached: 0, ac_result:     19, CP: 28
+    INFO:  ADPLL status: LCK: 1 FTO: 0 FTU: 0 FT:  708 SY:   0 ST: 2
+    INFO:  Resetting SerDes TX
+    INFO:  Resetting SerDes RX
+    INFO:  Setting up PRBS-7
+    INFO:  Sending data (this might take a while) ...
+    INFO:  0/10
+    INFO:  1/10
+    INFO:  2/10
+    INFO:  3/10
+    INFO:  4/10
+    INFO:  5/10
+    INFO:  6/10
+    INFO:  7/10
+    INFO:  8/10
+    INFO:  9/10
+    INFO:  RX_PRBS_LOCKED: 1, RX_PRBS_ERR_CNT: 0
+    INFO:  Starting error injection
+    INFO:  RX_PRBS_LOCKED: 1, RX_PRBS_ERR_CNT: 6
+    INFO:  Setting up PRBS-15
+    INFO:  Sending data (this might take a while) ...
+    INFO:  0/10
+    INFO:  1/10
+    INFO:  2/10
+    INFO:  3/10
+    INFO:  4/10
+    INFO:  5/10
+    INFO:  6/10
+    INFO:  7/10
+    INFO:  8/10
+    INFO:  9/10
+    INFO:  RX_PRBS_LOCKED: 1, RX_PRBS_ERR_CNT: 0
+    INFO:  Starting error injection
+    INFO:  RX_PRBS_LOCKED: 1, RX_PRBS_ERR_CNT: 7
+```
 
-### Public Announcements
-[2025-02-21](https://www.linkedin.com/posts/patrick-urban-086177251_gatemate-fpga-colognechip-activity-7298662301677551616-4sw0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAJv-TcBSi_5ff0VNMrInrT-xg44YF3jnyU)
+P and N signals of the TX and RX channel are connected as in the following image:
+
+<p align="center" width="100%">
+    <img width="50%" src="https://github.com/user-attachments/assets/2139922b-93cc-4056-a106-45b4574b3201">
+</p>
+
+
 
 ### End of Document
