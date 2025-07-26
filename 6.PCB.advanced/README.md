@@ -4,24 +4,56 @@ For more, please see:
 - [Extension_Boards_for_Olimex_GateMate repo](https://github.com/intergalaktik/ulx5m-gs)
 - [PCB Request Issues](https://github.com/chili-chips-ba/openCologne/issues?q=label%3A%22PCB+request%22+)
 
-### Conceptual design
+### ---Conceptual Design---
 <p align="center">
    <img width=500 src="0.doc/ulx5m.concept1.jpg">
    <img width=500 src="0.doc/ulx5m.concept2.png">
 </p>
 
-### Manufactured prototypes
+### ---Version1 Design--- 
+
+#### V01 layout
 <p align="center">
-   <img width=500 src="0.doc/ulx5m-gs.1.top.jpg">
-   <img width=500 src="0.doc/ulx5m-gs.2.bottom.jpg">
-   <img width=800 src="0.doc/ulx5m-gs.3.routed.png">
+   <img width=800 src="0.doc/ulx5m-gs.v01.1.routed.png">
 </p>
 
-
-### Bringup/Debug
+#### V01 manufactured PCB
 <p align="center">
-   <img width=800 src="0.doc/ulx5m-gs.debug.jpg">
+   <img width=800 src="0.doc/ulx5m-gs.v01.2.barePCB.jpg">
 </p>
 
+#### V01 bringup/debug 
+<p align="center">
+   <img width=800 src="0.doc/ulx5m-gs.v01.3.debug.jpg">
+</p>
+
+### ---Version2 Design---
+
+##### V02 draft for team review
+<p align="center">
+   <img width=500 src="0.doc/ulx5m-gs.v02.1.top.jpg">
+   <img width=500 src="0.doc/ulx5m-gs.v02.2.bottom.jpg">
+</p>
+
+##### V02 assembled prototype
+<p align="center">
+   <img width=800 src="0.doc/ulx5m-gs.v02.3.jpg">
+</p>
+
+#### V02 bringup/debug
+[![ULX5M blinks LEDs on its own](0.doc/ulx5m-gs.v02.4.debug.jpg)](https://www.youtube.com/watch?v=LA20pfW7X00 "ULX5M is counting!")
+
+
+#### V02 mounted on the CM4-BB3 carrier card
+<p align="center">
+   <img width=600 src="0.doc/ulx5m-gs.v02.5.with-CM4_BB3.jpg">
+   <img width=600 src="0.doc/ulx5m-gs.v02.6.with-CM4_BB3.HDMI.jpg">
+</p>
+
+#### V02 mounted on the CM4 "Piunora" carrier card
+<p align="center">
+   <img width=600 src="0.doc/ulx5m-gs.v02.7.with-CM4_Piunora.jpg">
+   <img width=600 src="0.doc/ulx5m-gs.v02.8.with-CM4_Piunora.HDMI.jpg">
+</p>
 
 #### End of Document

@@ -28,6 +28,9 @@ The _IC Link_ comes with a worked out interface to the CPU. Its interface to Ser
 
 Given that GateMate proprietary (aka "legacy") PnR is rather unreliable and insensitive to timing constraints, while the new opensource PnR (Project Peppercorn) has already saved the day for our WP9-[BetrustedSOC](https://github.com/chili-chips-ba/openCologne/tree/main/9.BetrustedSOC), the _Chip2Chip SerDes_ will be delivered solely and exclusively for the _nextpnr_.
 
+
+For details on the work completed so far and the planned next steps, please refer to the [4.liteiclink](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/4.liteiclink) section of the repository.
+
 ### Public Announcements
 [2025-02-21](https://www.linkedin.com/posts/patrick-urban-086177251_gatemate-fpga-colognechip-activity-7298662301677551616-4sw0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAJv-TcBSi_5ff0VNMrInrT-xg44YF3jnyU)
 
