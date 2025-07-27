@@ -19,7 +19,7 @@ Design a high-speed serial, **memory-mapped Chip-to-Chip (C2C) Interconnect**. T
 - Primer on [Eye Diagrams](https://incompliancemag.com/eye-diagram-part1)
 
 <p align="center" width="100%">
-    <img width="80%" src="0.doc/Eye-Diagrams.png">
+    <img width="65%" src="0.doc/Eye-Diagrams.png">
 </p>
 
 
