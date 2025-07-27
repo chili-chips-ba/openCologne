@@ -31,7 +31,12 @@ Given that GateMate proprietary (aka "legacy") PnR is rather unreliable and inse
 
 For details on the work completed so far and the planned next steps, please refer to the [4.liteiclink](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/4.liteiclink) section of the repository.
 
+## Implementation
+We strongly recommend to start with standalone [SerDes loopback test](1.serdestool_by_gm/README.md) to get used to the hardware platform, SerDes settings, cabling and work with RF-class signaling in general. 
+
+Then move onto our [Lite IC Link](2.liteiclink/README.md) port for GateMate SerDes. You will find more detail in the respective project folders.
+
 ### Public Announcements
-[2025-02-21](https://www.linkedin.com/posts/patrick-urban-086177251_gatemate-fpga-colognechip-activity-7298662301677551616-4sw0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAJv-TcBSi_5ff0VNMrInrT-xg44YF3jnyU)
+- [2025-02-21](https://www.linkedin.com/posts/patrick-urban-086177251_gatemate-fpga-colognechip-activity-7298662301677551616-4sw0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAJv-TcBSi_5ff0VNMrInrT-xg44YF3jnyU)
 
 ### End of Document
