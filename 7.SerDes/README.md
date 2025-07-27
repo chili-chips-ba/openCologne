@@ -16,6 +16,13 @@ Design a high-speed serial, **memory-mapped Chip-to-Chip (C2C) Interconnect**. T
     - [Project Peppercorn](https://github.com/YosysHQ/prjpeppercorn)
     - [nextpnr for GateMate](https://github.com/YosysHQ/nextpnr/tree/gatemate)
 
+- Primer on [Eye Diagrams](https://incompliancemag.com/eye-diagram-part1)
+
+<p align="center" width="100%">
+    <img width="80%" src="0.doc/Eye-Diagrams.png">
+</p>
+
+
 ## Plan of Record
 Having thoroughly studied all options, the developers presented them in a project meeting on _July 11, 2025_, where team unanimously decided for the GateMate Chip2Chip SerDes:
 - not to mimic the semi-proprietary _Xilinx/AMD Aurora_
