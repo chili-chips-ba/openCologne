@@ -134,7 +134,7 @@ as well as a PRBS test (`./serdestool --tcprbs`):
 P and N signals of the TX and RX channel are connected as in the following image:
 
 <p align="center" width="100%">
-    <img width="50%" src="https://github.com/user-attachments/assets/2139922b-93cc-4056-a106-45b4574b3201">
+    <img width="50%" src="../0.doc/SerDes-Loopback.jpg">
 </p>
 
 
