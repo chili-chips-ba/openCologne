@@ -16,7 +16,7 @@ Design a high-speed serial, **memory-mapped Chip-to-Chip (C2C) Interconnect**. T
     - [Project Peppercorn](https://github.com/YosysHQ/prjpeppercorn)
     - [nextpnr for GateMate](https://github.com/YosysHQ/nextpnr/tree/gatemate)
 
-- Primer on [Eye Diagrams](https://incompliancemag.com/eye-diagram-part1) and [Equivalent Time Sampling](https://www.tek.com/en/documents/application-note/real-time-versus-equivalent-time-sampling)
+- Primer on [Eye Diagrams](https://incompliancemag.com/eye-diagram-part1) and [Equivalent Time Sampling](https://www.tek.com/en/documents/application-note/real-time-versus-equivalent-time-sampling) (vs. real-time)
 
 <p align="center" width="100%">
     <img width="65%" src="0.doc/Eye-Diagrams.png">
