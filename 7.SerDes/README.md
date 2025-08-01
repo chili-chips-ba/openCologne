@@ -24,6 +24,9 @@ Design a high-speed serial, **memory-mapped Chip-to-Chip (C2C) Interconnect**. T
 
 - Gowin primer on SerDes Signal Integrity ([SI](https://www.gowinsemi.com/en/market/market_detail/48)) measurements 
 
+- Altera [Serial Link Analyzer](https://www.altera.com/products/development-tools/quartus-prime/advanced-link-analyzer)
+
+  
 ## Plan of Record
 Having thoroughly studied all options, the developers presented them in a project meeting on _July 11, 2025_, where team unanimously decided for the GateMate Chip2Chip SerDes:
 - not to mimic the semi-proprietary _Xilinx/AMD Aurora_
