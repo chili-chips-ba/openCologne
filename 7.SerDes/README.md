@@ -26,7 +26,9 @@ Design a high-speed serial, **memory-mapped Chip-to-Chip (C2C) Interconnect**. T
 
 - Altera [Serial Link Analyzer](https://www.altera.com/products/development-tools/quartus-prime/advanced-link-analyzer)
 
-  
+- Xilinx UG908 - In-System [IBERT](https://docs.amd.com/r/en-US/ug908-vivado-programming-debugging/Using-Vivado-Serial-I/O-Analyzer-to-Debug-the-Design)
+
+    
 ## Plan of Record
 Having thoroughly studied all options, the developers presented them in a project meeting on _July 11, 2025_, where team unanimously decided for the GateMate Chip2Chip SerDes:
 - not to mimic the semi-proprietary _Xilinx/AMD Aurora_
