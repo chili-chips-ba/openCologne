@@ -1,5 +1,8 @@
 # SerDes App for GateMate
 
+## References
+- Measuring Eye Diagrams on [Rigol MSO5000](https://www.youtube.com/watch?si=vo3GYcDNML9LsX7S&v=JcJbcKl5llo&feature=youtu.be)
+  
 ## Verifying board setup
 
 Using the provided serdestool we can verify that our board setup is functioning correctrly. We can run a loopback test ( `./sedestool --tcloopback `) :
