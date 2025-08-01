@@ -22,6 +22,7 @@ Design a high-speed serial, **memory-mapped Chip-to-Chip (C2C) Interconnect**. T
     <img width="65%" src="0.doc/Eye-Diagrams.png">
 </p>
 
+- Gowin primer on SerDes Signal Integrity ([SI](https://www.gowinsemi.com/en/market/market_detail/48)) measurements 
 
 ## Plan of Record
 Having thoroughly studied all options, the developers presented them in a project meeting on _July 11, 2025_, where team unanimously decided for the GateMate Chip2Chip SerDes:
