@@ -1,5 +1,6 @@
 # Lite IC Link
 ## Block Diagram
+
 ```
                            ┌────────────────────────────────────────────────────────────────────────────┐
                            │                                sys_clk Domain                              │
@@ -14,38 +15,42 @@
                            │     - reset_cnt → adpll_reset                                              │
                            │     - lock_cnt → cdr_locked                                                │
                            │     - drives tx_reset_done → tx_ready, rx_reset_done → rx_ready            │
-                           └───────────────────────────────┬────────────────────────────────────────────┘
-                                                           │
-                        ┌──────────────────────────────────┴──────────────────────────────────────────┐
-                        │                                 Clock Buffering                             │
-                        │─────────────────────────────────────────────────────────────────────────────│
-                        │ • Instance CC_BUFG: txoutclk → cd_tx.clk                                    │
-                        │ • Instance CC_BUFG: rxoutclk → cd_rx.clk                                    │
-                        └──────────────────────────────────┬──────────────────────────────────────────┘
-                                                           │
-              ┌────────────────────────────────────────────▼───────────────────────────────────────────────┐
-              │                                           cd_tx Domain                                     |                 │                                                                                            |
-              │────────────────────────────────────────────────────────────────────────────────────────────|
-              │ 1) 8b/10b Encoder (ClockDomainsRenamer “tx”)                                               │
-              │     – Inputs: sink.data[8·nbytes], sink.ctrl[nbytes]                                       │
-              │     – Outputs: encoder.output (10-bit symbols + K flags)                                   │
-              │                                                                                            │
-              │ 2) PRBSTX                                                                                  │
-              │     – i ← encoder.output                                                                   │
-              │     – config ← synced tx_prbs_config                                                       │
-              │     – o → PRBS bit-stream                                                                  │
-              │                                                                                            │
-              │ 3) Datapath MUX                                                                            │
-              │     – If prbs_config ≠ 0: tx_data ← PRBS.o                                                 │
-              │       Else:            tx_data ← encoder.output                                            │
-              │                                                                                            │
-              │ 4) Bus Packing                                                                             │
-              │     – tx_bus[8*i:8*(i+1)] ← tx_data[8*i:8*(i+1)]                                           │
-              │                                                                                            │
-              │ 5) sink.ready = 1                                                                          │
-              └────────────────────────────────────────────┬───────────────────────────────────────────────┘
-                                                           │
-              ┌────────────────────────────────────────────▼───────────────────────────────────────────────┐ 
+                           └──────────────────────────────────┬─────────────────────────────────────────┘
+                                                              |
+                       ┌───────────────────────────┐          |                 ┌───────────────────────────┐
+                       │      Clock Buffering      |          |                 │      Clock Buffering      | 
+                       │───────────────────────────|          |                 │───────────────────────────|            
+                       │ • Instance CC_BUFG:       |◀────────┘───────────────▶│ • Instance CC_BUFG:       |
+                       |    - txoutclk → cd_tx.clk │                            |    - rxoutclk → cd_rx.clk │                      
+                       └────────────┬──────────────┘                            └─────────────┬─────────────┘
+                                    |                                                         |
+┌───────────────────────────────────▼──────────────────────┐     ┌────────────────────────────▼─────────────────────────────┐
+│                   cd_tx Domain                           |     │                       cd_rx Domain                       |       
+│──────────────────────────────────────────────────────────|     │──────────────────────────────────────────────────────────|
+│ 1) 8b/10b Encoder (ClockDomainsRenamer “tx”)             |     │ 1) Bus Unpacking                                         │
+│     – Inputs: sink.data[8·nbytes], sink.ctrl[nbytes]     │     │     – rx_data[8*i:8*(i+1)] ← rx_bus[8*i:8*(i+1)]         |
+│     – Outputs: encoder.output (10-bit symbols + K flags) │     │     – disp_flags (K bits)                                |
+│                                                          │     │                                                          │
+│ 2) PRBSTX                                                │     │ 2) PRBSRX                                                │
+│     – i ← encoder.output                                 │     │     – i ← rx_data                                        │
+│     – config ← synced tx_prbs_config                     │     │     – config ← synced rx_prbs_config                     │
+│     – o → PRBS bit-stream                                │     │     – errors → MultiReg → sys_clk (rx_prbs_errors)       │
+│                                                          │     │                                                          │
+│ 3) Datapath MUX                                          │     │ 3) 8b/10b Decoders                                       │
+│     – If prbs_config ≠ 0: tx_data ← PRBS.o               │     │     – d,i ← rx_data, disp_flags                          │
+│       Else:            tx_data ← encoder.output          |     │     – outputs: decoder.d → source.data,                  |
+|                                                          |     |                decoder.k → source.ctrl                   │
+|                                                          │     │ 4) source.valid = 1                                      │
+│ 4) Bus Packin                                            │     └─────────────────────────┬────────────────────────────────┘
+│     – tx_bus[8*i:8*(i+1)] ← tx_data[8*i:8*(i+1)          │                               |
+│                                                          │                               |
+│ 5) sink.ready = 1                                        |                               |
+└─────────────────────────┬────────────────────────────────┘                               | 
+                          |                                                                |
+                          |                                                                |
+                          |                                                                |
+                          |                                                                |
+              ┌───────────▼────────────────────────────────────────────────────────────────▼───────────────┐ 
               │                                     CC_SERDES Primitive                                    │
               │────────────────────────────────────────────────────────────────────────────────────────────│
               │ • Params p_PLL_…, p_TX_…, p_RX_…, loopback, 8b/10b enable, comma align…                    │
@@ -68,27 +73,8 @@
               │ • Physical pads (optional):                                                                │
               │     – o_TXP/o_TXN                                                                          │
               │     – i_RXP/i_RXN                                                                          │
-              └────────────────────────────────────────────┬───────────────────────────────────────────────┘
-                                                           │
-              ┌────────────────────────────────────────────▼───────────────────────────────────────────────┐
-              │                                           cd_rx Domain                                     |                 │                                                                                            |
-              │────────────────────────────────────────────────────────────────────────────────────────────│
-              │ 1) Bus Unpacking                                                                           │
-              │     – rx_data[8*i:8*(i+1)] ← rx_bus[8*i:8*(i+1)]                                           │
-              │     – disp_flags (K bits)                                                                  │
-              │                                                                                            │
-              │ 2) PRBSRX                                                                                  │
-              │     – i ← rx_data                                                                          │
-              │     – config ← synced rx_prbs_config                                                       │
-              │     – errors → MultiReg → sys_clk (rx_prbs_errors)                                         │
-              │                                                                                            │
-              │ 3) 8b/10b Decoders                                                                         │
-              │     – d,i ← rx_data, disp_flags                                                            │
-              │     – outputs: decoder.d → source.data, decoder.k → source.ctrl                            │
-              │                                                                                            │
-              │ 4) source.valid = 1                                                                        │
               └────────────────────────────────────────────────────────────────────────────────────────────┘
-
+                                                           
 
    ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────┐
    │                                               Stream Interface                                          │
