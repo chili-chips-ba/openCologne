@@ -11,7 +11,8 @@ Design a high-speed serial, **memory-mapped Chip-to-Chip (C2C) Interconnect**. T
 - [MesaBusProtocol](https://github.com/blackmesalabs/MesaBusProtocol)
 - [Transputer](http://www.bitsavers.org/components/inmos/transputer/C011_Link_Adaptor.pdf)
 - [LiteX 1000basex](https://github.com/pu-cc/liteeth/tree/gatemate1000basex)
-
+- [Seding Data Structures from chip to chip](https://www.reddit.com/r/FPGA/comments/1m8gl5o/how_to_send_a_struct_from_one_dev_board_to_another)
+  
 - Timing-aware/better PNR for this high-speed design:
     - [Project Peppercorn](https://github.com/YosysHQ/prjpeppercorn)
     - [nextpnr for GateMate](https://github.com/YosysHQ/nextpnr/tree/gatemate)
@@ -50,6 +51,7 @@ We strongly recommend to start with standalone [SerDes loopback test](1.serdesto
 Then move onto our [Lite IC Link](2.liteiclink/README.md) port for GateMate SerDes. You will find more detail in the respective project folders.
 
 ### Public Announcements
+- [2025-08-10](https://www.linkedin.com/feed/update/urn:li:activity:7359764905572376577?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7359764905572376577%2C7360217016948985856%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287360217016948985856%2Curn%3Ali%3Aactivity%3A7359764905572376577%29)
 - [2025-02-21](https://www.linkedin.com/posts/patrick-urban-086177251_gatemate-fpga-colognechip-activity-7298662301677551616-4sw0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAJv-TcBSi_5ff0VNMrInrT-xg44YF3jnyU)
 
 ### End of Document
