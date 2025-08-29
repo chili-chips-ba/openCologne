@@ -174,6 +174,7 @@ We are grateful to:
 </p>
 
 ## Public Postings
+- [Project impact](https://www.linkedin.com/feed/update/urn:li:activity:7366484946456137732?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7366484946456137732%2C7367058727419461634%29&replyUrn=urn%3Ali%3Acomment%3A%28activity%3A7366484946456137732%2C7367071208963534851%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287367058727419461634%2Curn%3Ali%3Aactivity%3A7366484946456137732%29&dashReplyUrn=urn%3Ali%3Afsd_comment%3A%287367071208963534851%2Curn%3Ali%3Aactivity%3A7366484946456137732%29)
 - [CologneChip News](https://colognechip.com/news/new-extensions-for-the-olimex-gatemate-fpga-board)
 - [IO cards](https://www.linkedin.com/posts/goran-mahovlic_fpga-opensource-openhardware-activity-7272630456599138304-nB8K?utm_source=share&utm_medium=member_desktop)
 - [IO cards2](https://www.linkedin.com/posts/goran-mahovlic_fpga-opensource-openhardware-activity-7273353028055769089-qn1x?utm_source=share&utm_medium=member_desktop)
