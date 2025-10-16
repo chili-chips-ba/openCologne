@@ -1,3 +1,6 @@
+[Click here](https://github.com/chili-chips-ba/openCologne-PCIE) if interested in our new CologneChip project, which is about designing the first fully open-source **PCIE EndPoint**.
+
+----
 Currently there are few FPGA vendors in Europe. One of these vendors, CologneChip. Their GateMate device has a somewhat unique feature set for the 20K class, most notably the high-speed SerDes. It is also one of the rare families designed around 2-input [LUT trees and muxes](https://github.com/chili-chips-ba/openCologne/issues/28#issue-2442939220), vs. the mainstream microRAM-based LUTs with 4, 5 or 6 address inputs. 
 <p align="center">
    <img width=250 src="https://github.com/chili-chips-ba/openCologne/blob/main/0.doc/artwork/opencologne.logo.svg">
