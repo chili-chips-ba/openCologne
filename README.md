@@ -176,6 +176,8 @@ We are grateful to:
     <img width="115" alt="NGI-Entrust-Logo" src="https://github.com/chili-chips-ba/openeye-CamSI/assets/67533663/013684f5-d530-42ab-807d-b4afd34c1522">
 </p>
 
+This project was funded through the NGI0 Entrust Fund, a fund established by NLnet with financial support from the European Commission's Next Generation Internet programme, under the aegis of DG Communications Networks, Content and Technology under grant agreement No 101069594.
+
 ## Public Postings
 - [Project impact](https://www.linkedin.com/feed/update/urn:li:activity:7366484946456137732?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7366484946456137732%2C7367058727419461634%29&replyUrn=urn%3Ali%3Acomment%3A%28activity%3A7366484946456137732%2C7367071208963534851%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287367058727419461634%2Curn%3Ali%3Aactivity%3A7366484946456137732%29&dashReplyUrn=urn%3Ali%3Afsd_comment%3A%287367071208963534851%2Curn%3Ali%3Aactivity%3A7366484946456137732%29)
 - [CologneChip News](https://colognechip.com/news/new-extensions-for-the-olimex-gatemate-fpga-board)
