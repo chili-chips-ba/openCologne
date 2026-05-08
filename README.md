@@ -1,3 +1,6 @@
+[![NLnet Foundation](https://img.shields.io/badge/funded%20by-NLnet%20Foundation-74AA00)](https://nlnet.nl/)
+[![GitHub stars](https://img.shields.io/github/stars/chili-chips-ba/openCologne?style=social)](https://github.com/chili-chips-ba/openCologne/stargazers)
+
 [Click here](https://github.com/chili-chips-ba/openCologne-PCIE) if interested in our new CologneChip project, which is about designing the first fully open-source **PCIE EndPoint**.
 
 ----
