@@ -128,6 +128,21 @@ The CPEs consisting of two L2T4 make this a quasi-41k LUT4 device, but the logic
 The maximum frequency of the chip is an area of dispute. Tool reports on STA laregly depend on the operating environment specified by the `-tm` option in `p_r`. It's unclear what results may be expected in terms of Fmax, since it's proven that at times, p_r produces a non-functioning configuration for `-tm 1`, see [issue61](https://github.com/chili-chips-ba/openCologne/issues/61).  **Maximum proven frequency at `-tm 3` of CCGM1A1 of 137 MHz** obtained [here](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest/5.fpga_torture).
 
 
+## PrjPeppercorn re-runs
+
+October 2026, open flow: Yosys 0.69 (`synth_gatemate -luttree -nomx8`) and nextpnr-himbaechel 0.11.1-77-g6b438a1c (`--router router2 --seed 1`). "Before" is Cologne Chip's legacy `p_r`, unless noted.
+
+| Test | Before | PrjPeppercorn, 2026-10 | Issue |
+|---|---|---|---|
+| LUTRAM_stress_test | fails to route at 24 instances | 24 to 96 route (96: 64% of LUTs, 14 min); 128 (86%) fails placement after 51 min | [#52](https://github.com/chili-chips-ba/openCologne/issues/52) |
+| VeeRwolf, 1 core | 25184 / 20480 CPEs (123%), does not fit | 21852 / 20480 CPEs (107%), does not fit | [#66](https://github.com/chili-chips-ba/openCologne/issues/66) |
+| BetrustedSoC, fixed seed | (nextpnr, 2025) Fmax jumps with target clock, hangs at 30 MHz | same result at 10, 28, 30, 35 MHz: 19.75 MHz, no hangs, repeatable | [#73](https://github.com/chili-chips-ba/openCologne/issues/73) |
+
+- LUTRAM still ends up in CPE flip-flops in both flows: 160 per 16x10 instance.
+- nextpnr is now deterministic: a fixed seed gives the same placement for any clock target. Only the PLL settings differ.
+- nextpnr reports half-CPEs (`CPE_LT 43703 / 40960`). We halve it to compare with `p_r`.
+- Run nextpnr with `--vopt allow-unconstrained` when not all pins are in the CCF.
+
 ## Additional Tests:
 - https://github.com/mirekez/pnr_tests (this is a generic Verilog generator. By playing with parameters, different parts of design can be converted to RAM/SRL/DSP blocks. It also generates XDC to randomly assign pins, which is an auxiliary functionality tied to Xilinx. Dialects for other vendors can also be created).
 - https://aignacio.com/posts/hdls/mpsoc_riscv - How to fit 100x RISC-V cores into an FPGA, using a NOC
