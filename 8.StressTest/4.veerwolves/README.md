@@ -75,3 +75,7 @@ Comparable Gowin Arora GW2AR-18C device doesn't fare any better in this test:
 ERROR (RP0006) : The number(28340(26008 LUTs, 2284 ALUs, 0 ROM16s, 8 SSRAMs)) of logic in the design exceeds the resource limit(20736) of current device
 GowinSynthesis finish
 ```
+
+## PrjPeppercorn re-run (2026-10)
+
+Yosys 0.69 + nextpnr-himbaechel 0.11.1-77: one core needs 107% of CPEs (legacy `p_r`: 123%), still does not fit. Tables and steps: [8.StressTest](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest#prjpeppercorn-re-runs).

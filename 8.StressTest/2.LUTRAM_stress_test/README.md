@@ -82,3 +82,7 @@ cd 2.sim
 make
 ```
 Post-synthesis and post-pnr sims are avaliable also in iverilog and verilator, check the makefile for further information.
+
+## PrjPeppercorn re-run (2026-10)
+
+Yosys 0.69 + nextpnr-himbaechel 0.11.1-77: LUTRAM now routes up to 96 instances; 128 runs out of logic. Tables and steps: [8.StressTest](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest#prjpeppercorn-re-runs).

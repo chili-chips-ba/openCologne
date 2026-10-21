@@ -119,6 +119,10 @@ If everything is set up correctly, you’ll see the signature LiteX boot output.
 
 <!-- **EXTRA**: Incrementally reintroduce additional Betrusted SoC peripherals and features -->
 
+## PrjPeppercorn re-run (2026-10)
+
+Yosys 0.69 + nextpnr-himbaechel 0.11.1-77: 19.75 MHz at every PLL target, no hangs, repeatable with a fixed seed. Tables and steps: [8.StressTest](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest#prjpeppercorn-re-runs).
+
 ---
 ## References
 

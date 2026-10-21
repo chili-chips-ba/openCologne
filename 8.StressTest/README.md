@@ -134,14 +134,90 @@ October 2026, open flow: Yosys 0.69 (`synth_gatemate -luttree -nomx8`) and nextp
 
 | Test | Before | PrjPeppercorn, 2026-10 | Issue |
 |---|---|---|---|
-| LUTRAM_stress_test | fails to route at 24 instances | 24 to 96 route (96: 64% of LUTs, 14 min); 128 (86%) fails placement after 51 min | [#52](https://github.com/chili-chips-ba/openCologne/issues/52) |
+| LUTRAM_stress_test | fails to route at 24 instances | 24 to 96 route; 128 (89%) fails placement | [#52](https://github.com/chili-chips-ba/openCologne/issues/52) |
 | VeeRwolf, 1 core | 25184 / 20480 CPEs (123%), does not fit | 21852 / 20480 CPEs (107%), does not fit | [#66](https://github.com/chili-chips-ba/openCologne/issues/66) |
-| BetrustedSoC, fixed seed | (nextpnr, 2025) Fmax jumps with target clock, hangs at 30 MHz | same result at 10, 28, 30, 35 MHz: 19.75 MHz, no hangs, repeatable | [#73](https://github.com/chili-chips-ba/openCologne/issues/73) |
+| BetrustedSoC, fixed seed | (nextpnr, 2025) Fmax jumps with target clock, hangs at 30 MHz | 19.75 MHz at every target, no hangs, repeatable | [#73](https://github.com/chili-chips-ba/openCologne/issues/73) |
 
-- LUTRAM still ends up in CPE flip-flops in both flows: 160 per 16x10 instance.
-- nextpnr is now deterministic: a fixed seed gives the same placement for any clock target. Only the PLL settings differ.
-- nextpnr reports half-CPEs (`CPE_LT 43703 / 40960`). We halve it to compare with `p_r`.
-- Run nextpnr with `--vopt allow-unconstrained` when not all pins are in the CCF.
+nextpnr counts half-CPEs: `CPE_LT` and `CPE_FF` are out of 40960, two per CPE. We halve them to compare with `p_r`.
+
+### LUTRAM_stress_test ([#52](https://github.com/chili-chips-ba/openCologne/issues/52))
+
+Original design, wide read mux kept, `LUTRAM16X10` swept.
+
+| Instances | CPE_LT | CPE_FF | P&R time | Result |
+|---|---|---|---|---|
+| 24 | 6942 (17%) | 3840 (9%) | 1.6 min | routed |
+| 32 | 9256 (23%) | 5120 (12%) | 2.5 min | routed |
+| 48 | 13921 (34%) | 7680 (19%) | 4.2 min | routed |
+| 64 | 18399 (45%) | 10240 (25%) | 5.6 min | routed |
+| 96 | 27678 (67%) | 15360 (37%) | 13.7 min | routed |
+| 128 | 36738 (89%) | 20480 (50%) | 51 min | no legal placement |
+
+- The routing wall at 24 instances is gone. The limit is now logic, between 96 and 128.
+- LUTRAM still becomes CPE flip-flops in both flows: 160 per 16x10 instance. GateMate has no distributed RAM.
+
+### VeeRwolf, 1 core ([#66](https://github.com/chili-chips-ba/openCologne/issues/66))
+
+| Yosys cell | Count |
+|---|---|
+| CC_L2T4 | 15660 |
+| CC_L2T5 | 5023 |
+| CC_LUT2 / CC_LUT1 | 2632 / 361 |
+| CC_MX2 / CC_MX4 | 3979 / 777 |
+| CC_ADDF | 3055 |
+| CC_DFF | 8982 |
+| CC_BRAM_40K / CC_MULT | 14 / 3 |
+
+| Resource | `p_r` | nextpnr |
+|---|---|---|
+| CPEs needed | 25184 (123%) | 21852 (107%), `CPE_LT` 43703 / 40960 |
+| Flip-flops | 9308 | 8982 (22%) |
+| BRAM halves | n/a | 28 / 64 (44%) |
+| Result | "FPGA too small" | no legal placement, 1.8 min |
+
+- The open flow needs 13% fewer CPEs, but one core still does not fit.
+- Open question: why ~26.6k LUT-equivalents need more than 20480 CPEs. Good first issue.
+
+### BetrustedSoC, fixed seed ([#73](https://github.com/chili-chips-ba/openCologne/issues/73))
+
+LiteX netlist from `9.BetrustedSOC`, re-synthesized. The clock comes from `CC_PLL`, so the target is the PLL `OUT_CLK`, not `--freq`.
+
+| PLL target | Fmax | P&R time |
+|---|---|---|
+| 10 MHz | 19.75 MHz (PASS) | 10.6 min |
+| 20 MHz | 19.75 MHz (FAIL) | 12.5 min |
+| 28 MHz | 19.75 MHz (FAIL) | 10.8 min |
+| 30 MHz, 2 runs | 19.75 MHz (FAIL) | 10.7 min each |
+| 35 MHz | 19.75 MHz (FAIL) | 10.7 min |
+
+| Resource | Used |
+|---|---|
+| CPE_LT | 17786 / 40960 (43%) |
+| CPE_FF | 3389 / 40960 (8%) |
+| BRAM halves | 58 / 64 (91%) |
+
+- No hangs. The two 30 MHz runs give byte-identical output.
+- Placement is the same for every target; only the PLL settings differ. With one clock, nextpnr steers by relative delay, so this is expected.
+- Critical path: 9.6 ns logic, 41.0 ns routing. Routing is 81% of it, from the register file across the die. BRAM at 91% spreads the design.
+
+### Reproduce
+
+```sh
+# LUTRAM, N instances
+yosys -p "read_verilog -sv 1.hw/lutram_16x10.sv 1.hw/top.sv; chparam -set LUTRAM16X10 N top; synth_gatemate -luttree -nomx8 -top top; write_json top.json"
+nextpnr-himbaechel --device CCGM1A1 --json top.json --vopt out=top.txt --vopt allow-unconstrained --router router2 --seed 1
+
+# VeeRwolf: FuseSoC sv2v netlist, Gowin clkgen swapped for rtl/clk_gen_cc.v
+yosys -p "read_verilog -sv -defer veer.v rtl/clk_gen_cc.v; synth_gatemate -luttree -nomx8 -top veerwolf_pack_cc; write_json veer.json"
+nextpnr-himbaechel --device CCGM1A1 --json veer.json --vopt out=veer.txt --vopt ccf=data/cc.ccf --router router2 --seed 1
+
+# BetrustedSoC: set CC_PLL OUT_CLK in betrusted_soc.v, then the LiteX-generated betrusted_soc.ys with -luttree
+nextpnr-himbaechel --device CCGM1A1 --json betrusted_soc.json --vopt out=betrusted_soc.txt --vopt ccf=betrusted_soc.ccf --router router2 --timing-allow-fail --seed 1
+```
+
+- `-luttree` is required: without it nextpnr stops with "CC_LUT4 unsupported".
+- `-defer` keeps Yosys from elaborating VeeR's default-parameter `rvdffe`, which trips its `$error` check.
+- `--vopt allow-unconstrained` is needed when not all pins are in the CCF.
 
 ## Additional Tests:
 - https://github.com/mirekez/pnr_tests (this is a generic Verilog generator. By playing with parameters, different parts of design can be converted to RAM/SRL/DSP blocks. It also generates XDC to randomly assign pins, which is an auxiliary functionality tied to Xilinx. Dialects for other vendors can also be created).
