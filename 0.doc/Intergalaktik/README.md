@@ -2,11 +2,11 @@
 
 ## I2S Mic Board
 
-The I2S Mic Extension Board can be found on [ulx3s-extensions](https://github.com/goran-mahovlic/ulx3s-extensions/tree/master/I2S_MIC). All of the KiCAD files are available to view. The [schematic](https://github.com/chili-chips-ba/openCologne/blob/main/0.doc/Intergalaktik/i2s_mic_schematic.pdf) and [microphone chip](https://github.com/chili-chips-ba/openCologne/blob/main/0.doc/Intergalaktik/i2s_mic_datasheet.PDF) are placed in the documentation folder. 
+The I2S Mic Extension Board can be found on [ulx3s-extensions](https://github.com/goran-mahovlic/ulx3s-extensions/tree/master/I2S_MIC). All of the KiCAD files are available to view. The [schematic](https://github.com/chili-chips-ba/openCologne/blob/main/0.doc/Intergalaktik/i2s_mic_schematic.pdf) and [microphone chip](https://cdn-shop.adafruit.com/product-files/3421/i2S+Datasheet.PDF) are placed in the documentation folder. 
 
 Below are shown the front and back of the I2S Mic Board from KiCad 3D view. 
 
-The I2S Mic Extension Board is available on the [ulx3s-extensions](https://github.com/goran-mahovlic/ulx3s-extensions/tree/master/I2S_MIC) repository, where all the KiCAD design files can be viewed. Additional documentation, including the [schematic](https://github.com/chili-chips-ba/openCologne/blob/main/0.doc/Intergalaktik/i2s_mic_schematic.pdf) and the [microphone chip datasheet](https://github.com/chili-chips-ba/openCologne/blob/main/0.doc/Intergalaktik/i2s_mic_datasheet.PDF), is located in the documentation folder.
+The I2S Mic Extension Board is available on the [ulx3s-extensions](https://github.com/goran-mahovlic/ulx3s-extensions/tree/master/I2S_MIC) repository, where all the KiCAD design files can be viewed. Additional documentation, including the [schematic](https://github.com/chili-chips-ba/openCologne/blob/main/0.doc/Intergalaktik/i2s_mic_schematic.pdf) and the [microphone chip datasheet](https://cdn-shop.adafruit.com/product-files/3421/i2S+Datasheet.PDF), is located in the documentation folder.
 
 Below, you can see the front and back views of the I2S Mic Board, rendered in KiCad's 3D viewer.
 
