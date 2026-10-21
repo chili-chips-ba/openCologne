@@ -8,8 +8,8 @@
 // Description: Board top for test setup 1: one GateMate EVB (Olimex
 // GateMateA1-EVB), its SerDes TX cabled to its own RX.
 //
-// WORK IN PROGRESS: the GateMate CC_SERDES PHY and the eduBOS5 SoC come
-// next; the EVB clock, reset and LED stay.
+// WORK IN PROGRESS: SerWB and the eduBOS5 SoC come next; the EVB clock,
+// reset and LED stay.
 //
 // What it does now:
 //   - reset synchronizer: the active-low button resets asynchronously and
@@ -19,8 +19,15 @@
 //     comes out is compared with it;
 //   - PRBS self-test: PRBS7 TX into the PRBS checker, 20 bits per clock; its
 //     error count must not move once the checker has locked;
-//   - LED: blinks (heartbeat) while the self-test passes, stays low after
-//     the first mismatch, until reset.
+//   - SerDes link test: the GateMate SerDes PHY (iclink_serdes_gm) sends
+//     commas, then PRBS7, out of its TX and back into its RX; once the
+//     checker has locked, its error count must not move, and no K
+//     character or invalid symbol may arrive;
+//   - LED: blinks (heartbeat) while the link is up and every test passes,
+//     stays low after the first error, until reset.
+//
+// In simulation the SerDes BFM takes the place of CC_SERDES: its reference
+// clock and serial pins are ports of top (tb_top loops them back).
 //
 // Pins: 3.build/GateMateA1-EVB.ccf.
 //==========================================================================
@@ -28,11 +35,19 @@
 module top
   import top_pkg::*;
 (
-    input  logic clk,    // CLK0: 10 MHz EVB oscillator
-    input  logic btn_n,  // FPGA_BUT: user button, low when pressed, used as reset
-    output logic led     // FPGA_LED: heartbeat; low after a self-test error
+`ifndef SYNTHESIS
+    input  logic clk_ref,  // SerDes reference
+    input  logic ser_rxp,
+    input  logic ser_rxn,
+    output logic ser_txp,
+    output logic ser_txn,
+`endif
+    input  logic clk,      // CLK0: 10 MHz EVB oscillator
+    input  logic btn_n,    // FPGA_BUT: user button, low when pressed, used as reset
+    output logic led       // FPGA_LED: heartbeat; low after a self-test error
 );
   import iclink_pkg::*;
+  import iclink_phy_pkg::*;
 
   //-----------------------------------------------------------------------
   // Reset synchronizer: asynchronous assert, synchronous release
@@ -178,8 +193,96 @@ module top
     end
   end
 
+  //-----------------------------------------------------------------------
+  // SerDes link test: commas, then PRBS7, TX -> cable -> RX
+  //-----------------------------------------------------------------------
+  logic clk_tx, clk_rx, tx_ready, rx_ready, rx_aligned;
+  phy_ctrl_t link_ctrl;
+  phy_word_t link_tx, link_rx;
+  logic [    PHY_NWORDS-1:0] link_rx_invalid;
+  logic [              31:0] link_errors;
+  logic [              31:0] link_base;  // the count at the end of warm-up
+  logic [  LINK_IDLE_LOG2:0] link_idle;  // on clk_tx; top bit set: commas sent, PRBS on
+  logic [LINK_WARMUP_LOG2:0] link_warm;  // on clk_rx; top bit set: link up
+  logic                      link_error;  // on clk_rx
+  logic [1:0] link_up_sync, link_error_sync;  // to clk
+
+  iclink_serdes_gm u_phy (
+`ifndef SYNTHESIS
+      .clk_ref       (clk_ref),
+      .ser_rxp       (ser_rxp),
+      .ser_rxn       (ser_rxn),
+      .ser_txp       (ser_txp),
+      .ser_txn       (ser_txn),
+`endif
+      .clk_reg       (clk),
+      .arst_n        (rst_n),
+      .ctrl          (link_ctrl),
+      .clk_tx        (clk_tx),
+      .tx_ready      (tx_ready),
+      .tx            (link_tx),
+      .clk_rx        (clk_rx),
+      .rx_ready      (rx_ready),
+      .rx_aligned    (rx_aligned),
+      .rx            (link_rx),
+      .rx_invalid    (link_rx_invalid),
+      .rx_prbs_errors(link_errors)
+  );
+
+  always_ff @(posedge clk_tx or negedge tx_ready) begin
+    if (!tx_ready) begin
+      link_idle <= '0;
+    end
+    else if (!link_idle[LINK_IDLE_LOG2]) begin
+      link_idle <= link_idle + 1'b1;
+    end
+  end
+
   always_comb begin
-    led = heartbeat[HEARTBEAT_W-1] & !st_error & !prbs_error;
+    link_tx = '0;
+    link_tx.d[0] = K28_5;  // idle: a comma in lane 0; replaced by PRBS7 after LINK_IDLE_LOG2
+    link_tx.k[0] = 1'b1;
+    link_ctrl = '{
+        tx_prbs: link_idle[LINK_IDLE_LOG2] ? PRBS_7 : PRBS_OFF,
+        rx_prbs: PRBS_7,
+        rx_prbs_pause: 1'b0,
+        rx_align: 1'b1
+    };
+  end
+
+  // the checker locks on the first PRBS words (no K): then the count must
+  // not move, and no K, invalid symbol or all-zero word (a dead link: PRBS7
+  // never has more than 6 zeros in a row) may arrive
+  always_ff @(posedge clk_rx or negedge rx_ready) begin
+    if (!rx_ready) begin
+      link_warm  <= '0;
+      link_base  <= '0;
+      link_error <= 1'b0;
+    end
+    else if (!link_warm[LINK_WARMUP_LOG2]) begin
+      link_warm <= (rx_aligned && link_rx.k == '0) ? link_warm + 1'b1 : '0;
+      link_base <= link_errors;
+    end
+    else if (link_errors != link_base || link_rx.k != '0 || link_rx_invalid != '0
+             || link_rx.d == '0) begin
+      link_error <= 1'b1;
+    end
+  end
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      link_up_sync    <= '0;
+      link_error_sync <= '0;
+    end
+    else begin
+      link_up_sync    <= {link_up_sync[0], link_warm[LINK_WARMUP_LOG2]};
+      link_error_sync <= {link_error_sync[0], link_error};
+    end
+  end
+
+  always_comb begin
+    led = heartbeat[HEARTBEAT_W-1] & !st_error & !prbs_error & link_up_sync[1]
+          & !link_error_sync[1];
   end
 
 endmodule : top

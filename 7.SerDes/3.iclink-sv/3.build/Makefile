@@ -16,7 +16,8 @@
 #==========================================================================
 
 DEVICE   ?= CCGM1A1
-FREQ     ?= 10                   # MHz, the EVB clock (CLK0)
+FREQ     ?= 32                   # MHz, one constraint for every clock: the SerDes core
+                                 # clocks run at 31.25 MHz, the EVB clock (CLK0) at 10
 SEED     ?= 1
 CCF      ?= GateMateA1-EVB.ccf
 BOARD    ?= gatemate_evb_jtag
@@ -29,13 +30,15 @@ OFL      ?= openFPGALoader
 BLD      := build
 HW       := $(abspath ../1.hw)
 SV       := $(shell bash -c '. ./sources.sh && design_rtl $(HW)')
+# the GateMate primitives (CC_SERDES, ...) as blackboxes for read_slang
+CELLS    := $(shell $(YOSYS)-config --datdir)/gatemate/cells_bb.v
 
 .PHONY: all load clean
 
 all: $(BLD)/top.bit
 
 $(BLD)/top.json: $(SV) | $(BLD)
-	$(YOSYS) -l $(BLD)/yosys.log -p "read_slang -D SYNTHESIS --top top $(SV); \
+	$(YOSYS) -l $(BLD)/yosys.log -p "read_slang -D SYNTHESIS --top top $(CELLS) $(SV); \
 	  synth_gatemate -top top -luttree -nomx8 -json $@" > /dev/null
 
 $(BLD)/top.txt: $(BLD)/top.json $(CCF)

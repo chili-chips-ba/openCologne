@@ -27,6 +27,12 @@ package top_pkg;
   localparam int         PRBS_W           = 20;
   localparam int         PRBS_WARMUP_LOG2 = 4;
 
+  // SerDes link test: the TX sends commas for 2^LINK_IDLE_LOG2 clocks (RX
+  // comma alignment), then PRBS7; the RX checker locks within
+  // 2^LINK_WARMUP_LOG2 clocks of the first PRBS word
+  localparam int         LINK_IDLE_LOG2   = 10;
+  localparam int         LINK_WARMUP_LOG2 = 4;
+
 endpackage : top_pkg
 
 // -----------------------------------------------------------------------------

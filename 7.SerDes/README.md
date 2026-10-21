@@ -135,7 +135,7 @@ SerWB needs both directions (a read returns data), so it runs on setup 2 only. S
 
 ## Simulation
 
-The SerDes in simulation is our open-source [SerDes BFM](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/2.serdes-model) from openCologne-PCIE: a behavioural `CC_SERDES` with the vendor model's module name, ports and parameters, checked against it. No NDA model needed. Verilator runs our RTL with the BFM in place of the hard macro: the eduBOS5 RTL executes the test firmware, so no co-simulation (VProc) is needed. Each test case passes or fails on its own.
+The SerDes in simulation is our open-source [SerDes BFM](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/2.serdes-model) from openCologne-PCIE: a behavioural `CC_SERDES` with the vendor model's module name, ports and parameters, checked against it. No NDA model needed. Verilator runs our RTL with the BFM in place of the hard macro: the eduBOS5 RTL executes the test firmware, so no co-simulation (VProc) is needed. Each test case passes or fails on its own. A copy of the BFM (openCologne-PCIE `6ef654d`) is in [`3.iclink-sv/2.sim/serdes-model`](3.iclink-sv/2.sim/serdes-model).
 
 | Test case | Mirrors | Setup | Pass |
 |---|---|---|---|
@@ -148,7 +148,8 @@ Unit tests, run now (`make -C 3.iclink-sv/2.sim`):
 |---|---|
 | `sim_8b10b` | the SV 8b/10b against LiteX's own `code_8b10b.py`, bit for bit; round trip; running disparity |
 | `sim_prbs` | the SV PRBS7/15/31 TX and RX against LiteX's own `prbs.py`, clock for clock; pause |
-| `sim_top` | the board top's 8b/10b and PRBS self-tests: a clean run, then a one-bit error must light the error |
+| `sim_phy_oneway` | the GateMate SerDes PHY on the SerDes BFM, TX looped to RX: alignment, data bit-exact, PRBS7/15/31 error-free, a flipped line bit seen |
+| `sim_top` | the board top's self-tests and SerDes link: a clean run, then a flipped line bit and a one-bit symbol error must each light the error |
 
 ## QA
 
