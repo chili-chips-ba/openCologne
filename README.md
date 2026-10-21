@@ -1,6 +1,8 @@
 [![NLnet:Funded](https://badgen.net/badge/NLnet/Funded/08C)](https://nlnet.nl/)
 [![Stars](https://badgen.net/github/stars/chili-chips-ba/openCologne?label=Stars)](https://github.com/chili-chips-ba/openCologne/stargazers)
 [![License:BSD-3](https://badgen.net/badge/License/BSD-3/blue)](LICENSES)
+[![Lint](https://badgen.net/github/checks/chili-chips-ba/openCologne/main/run-lint?label=Lint)](https://github.com/chili-chips-ba/openCologne/actions/workflows/lint.yml)
+[![Verible](https://badgen.net/github/checks/chili-chips-ba/openCologne/main/verible?label=Verible)](https://github.com/chili-chips-ba/openCologne/actions/workflows/verible.yml)
 [![SerDes:Pass](https://badgen.net/badge/SerDes/Pass/green)](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/1.serdes-test.STANDALONE)
 [![PrjPeppercorn:Pass](https://badgen.net/badge/PrjPeppercorn/Pass/green)](https://github.com/YosysHQ/prjpeppercorn)
 [![LiteX:YES](https://badgen.net/badge/LiteX/YES/green)](7.SerDes#build)

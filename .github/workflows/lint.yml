@@ -1,0 +1,41 @@
+# SPDX-FileCopyrightText: 2026 Chili.CHIPS
+#
+# SPDX-License-Identifier: BSD-3-Clause
+#
+# RTL lint gate: 7.SerDes/3.iclink-sv/3.build/run-lint.sh on the 7.SerDes/3.iclink-sv top, chip view;
+# phases tags, verilator, yosys and slang. The verible phase is gated in
+# verible.yml. Tools come from the OSS CAD Suite (Yosys with the yosys-slang
+# plugin, Verilator). The other examples are legacy and not gated.
+
+name: lint
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  run-lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install OSS CAD Suite (Yosys + yosys-slang, Verilator)
+        uses: YosysHQ/setup-oss-cad-suite@v3
+
+      - name: Tool versions
+        run: |
+          yosys -V
+          verilator --version
+
+      - name: run-lint 7.SerDes (chip view)
+        env:
+          YOSYS_ARGS: -m slang
+          LINT_WORK: ${{ runner.temp }}/lint/serdes
+        run: bash 7.SerDes/3.iclink-sv/3.build/run-lint.sh tags verilator yosys slang
+
+      - name: Keep the lint reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-reports
+          path: ${{ runner.temp }}/lint
