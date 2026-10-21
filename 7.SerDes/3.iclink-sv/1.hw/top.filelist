@@ -10,5 +10,9 @@
 ${HW_SRC}/iclink_pkg.sv
 ${HW_SRC}/iclink_8b10b_enc.sv
 ${HW_SRC}/iclink_8b10b_dec.sv
+${HW_SRC}/iclink_prbs_gen.sv
+${HW_SRC}/iclink_prbs_chk.sv
+${HW_SRC}/iclink_prbs_tx.sv
+${HW_SRC}/iclink_prbs_rx.sv
 ${HW_SRC}/top_pkg.sv
 ${HW_SRC}/top.sv

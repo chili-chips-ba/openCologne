@@ -17,6 +17,8 @@
 //   - 8b/10b self-test: the IC Link encoder and decoder, back to back in the
 //     fabric (no SerDes yet). A counter with a K28.5 comma goes in, and what
 //     comes out is compared with it;
+//   - PRBS self-test: PRBS7 TX into the PRBS checker, 20 bits per clock; its
+//     error count must not move once the checker has locked;
 //   - LED: blinks (heartbeat) while the self-test passes, stays low after
 //     the first mismatch, until reset.
 //
@@ -131,8 +133,53 @@ module top
     end
   end
 
+  //-----------------------------------------------------------------------
+  // PRBS self-test: PRBS7 TX -> checker; the count must not move after warm-up
+  //-----------------------------------------------------------------------
+  logic [        PRBS_W-1:0] prbs;
+  logic [              31:0] prbs_errors;
+  logic [              31:0] prbs_base;  // the count at the end of warm-up
+  logic [PRBS_WARMUP_LOG2:0] prbs_warm;  // top bit set: warm-up over
+  logic                      prbs_error;
+
+  iclink_prbs_tx #(
+      .WIDTH(PRBS_W)
+  ) u_prbs_tx (
+      .clk     (clk),
+      .arst_n  (rst_n),
+      .config_i(PRBS_7),
+      .i       ('0),
+      .o       (prbs)
+  );
+
+  iclink_prbs_rx #(
+      .WIDTH(PRBS_W)
+  ) u_prbs_rx (
+      .clk     (clk),
+      .arst_n  (rst_n),
+      .config_i(PRBS_7),
+      .pause   (1'b0),
+      .i       (prbs),
+      .errors  (prbs_errors)
+  );
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      prbs_warm  <= '0;
+      prbs_base  <= '0;
+      prbs_error <= 1'b0;
+    end
+    else if (!prbs_warm[PRBS_WARMUP_LOG2]) begin
+      prbs_warm <= prbs_warm + 1'b1;
+      prbs_base <= prbs_errors;
+    end
+    else if (prbs_errors != prbs_base) begin
+      prbs_error <= 1'b1;
+    end
+  end
+
   always_comb begin
-    led = heartbeat[HEARTBEAT_W-1] & !st_error;
+    led = heartbeat[HEARTBEAT_W-1] & !st_error & !prbs_error;
   end
 
 endmodule : top

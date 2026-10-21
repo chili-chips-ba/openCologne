@@ -21,15 +21,18 @@ LiteX's LiteICLink (SerWB: Wishbone over a serial link) and a GateMate `CC_SERDE
 | Block | RTL | Verified |
 |---|---|---|
 | 8b/10b encoder (2 symbols/clock) and decoder: `iclink_pkg.sv`, `iclink_8b10b_enc.sv`, `iclink_8b10b_dec.sv` | done, ported from LiteX's `code_8b10b.py` | bit-exact with LiteX: 4548 encoder clocks and all 1024 decoder symbols ([`gen_8b10b_vectors.py`](2.sim/gen_8b10b_vectors.py) runs LiteX's own code); round trip; running disparity; two injected bugs caught |
-| EVB board top: reset, 8b/10b self-test, LED | done | `sim_top`: clean run and a one-bit error; bitstream, 42 MHz max at a 10 MHz clock |
-| PRBS, GateMate `CC_SERDES` PHY | next | with the SerDes BFM |
+| PRBS7/15/31 generator, checker, TX, RX: `iclink_prbs_gen/_chk/_tx/_rx.sv` | done, ported from LiteX's `prbs.py` | matches LiteX's PRBSTX looped into PRBSRX over 3060 clocks ([`gen_prbs_vectors.py`](2.sim/gen_prbs_vectors.py)): injected bit errors, pass-through, idle flood; a wrong tap is caught. `pause` is checked on its own: LiteX's does not work (see below) |
+| EVB board top: reset, 8b/10b and PRBS7 self-tests, LED | done | `sim_top`: clean run and a one-bit error; bitstream, 39 MHz max at a 10 MHz clock, 941 LUT trees |
+| GateMate `CC_SERDES` PHY | next | with the SerDes BFM |
 | SerWB (packet, scrambler, Wishbone bridge) | to do | |
 | eduBOS5 SoC with PeakRDL CSRs | to do | |
 
-The board top runs the 8b/10b encoder into the decoder in the fabric (no SerDes yet). The LED blinks while what comes out matches what went in, and stays low after the first error.
+The board top runs the 8b/10b encoder into the decoder, and PRBS7 TX into the checker, in the fabric (no SerDes yet). The LED blinks while both pass, and stays low after the first error.
+
+**Found in LiteX:** `PRBSRX`'s `pause` does nothing. `~with_errors_saturation` is plain Python, and `~False` is `-1`, which widens the Migen expression so that `~self.pause` is never 0. With `pause=1` it still counts every error. Our SV pauses.
 
 ```
-make -C 2.sim            # unit tests: TB_8B10B: PASS, TB_TOP: PASS
+make -C 2.sim            # unit tests: TB_8B10B, TB_PRBS, TB_TOP: PASS
 make -C 3.build          # build/top.bit (Yosys, nextpnr-himbaechel-gatemate, gmpack)
 make -C 3.build load     # program the EVB
 ```

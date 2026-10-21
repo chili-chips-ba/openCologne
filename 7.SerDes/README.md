@@ -147,7 +147,8 @@ Unit tests, run now (`make -C 3.iclink-sv/2.sim`):
 | Test | Checks |
 |---|---|
 | `sim_8b10b` | the SV 8b/10b against LiteX's own `code_8b10b.py`, bit for bit; round trip; running disparity |
-| `sim_top` | the board top's 8b/10b self-test: a clean run, then a one-bit error must light the error |
+| `sim_prbs` | the SV PRBS7/15/31 TX and RX against LiteX's own `prbs.py`, clock for clock; pause |
+| `sim_top` | the board top's 8b/10b and PRBS self-tests: a clean run, then a one-bit error must light the error |
 
 ## QA
 

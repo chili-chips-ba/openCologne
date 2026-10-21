@@ -15,6 +15,14 @@ package iclink_pkg;
   typedef logic [7:0] byte_t;  // a character before 8b/10b
   typedef logic [9:0] symbol_t;  // a 10-bit symbol on the line
 
+  // PRBS pattern (LiteX prbs.py PRBS_CONFIG_*); 0 = off
+  typedef enum logic [1:0] {
+    PRBS_OFF = 2'b00,
+    PRBS_7   = 2'b01,
+    PRBS_15  = 2'b10,
+    PRBS_31  = 2'b11
+  } prbs_cfg_t;
+
   // 5b/6b ------------------------------------------------------------------
   function automatic logic [5:0] enc_5b6b(input logic [4:0] x);
     unique case (x)
