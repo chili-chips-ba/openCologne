@@ -95,7 +95,7 @@ Alleviating the imposed limits of L2T4 an L2T5 primitive is formed. With the cos
 
 ## 8-input logic -- experimental
 
-Furthermore, combining the two independent L2T4 blocks with one more LUT2, we get an 8-input LUT tree. Our [analysis](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest/6.sw_analysis) yielded **671848/2<sup>256<sup>** distinct functions of 8-inputs feasible to implement in this structure. We see that it's no good for real, 8-input independent variable logic functions, considering the cons of not being able to realize non-decomposable functions, which amplify in this case.
+Furthermore, combining the two independent L2T4 blocks with one more LUT2, we get an 8-input LUT tree. Our [analysis](https://github.com/chili-chips-ba/openCologne/tree/main/8.StressTest/6.sw_analysis) yielded **671848/2<sup>256</sup>** distinct functions of 8-inputs feasible to implement in this structure. We see that it's no good for real, 8-input independent variable logic functions, considering the cons of not being able to realize non-decomposable functions, which amplify in this case.
 
 This feature is still experimental, as the synthesis and PnR tools are not yet suited to accomodate this primitive, as discussed [here](https://github.com/chili-chips-ba/openCologne/issues/28).
 
@@ -116,7 +116,7 @@ To unveil the real potential of the CologneChip GateMate A1 FPGA, we ran several
 - [fpga_torture](https://github.com/stnolting/fpga_torture) — A combined power and utilization stress test.
 
 ## The takeaway and key insights
-Testing so far has uncovered 2 important hypoteses:
+Testing so far has uncovered 3 important hypoteses:
   1. Lut-trees are not as potent as traditional LUTs, and the area-potency tradeoff is on the limit of paying off, especially when you count in the missing features of Lut-trees. 
   2. Short, local routing is handled really well (**up to 97.8% utilization**), but global routing is least to say a challenge
   3. The number of DFFs seems to be oversized for this number of logic elements
@@ -137,7 +137,7 @@ The maximum frequency of the chip is an area of dispute. Tool reports on STA lar
 - [Michael Gude talk on GateMate architecture](https://underline.io/lecture/34046-novel-architecture-for-european-fpga)
 - [Why GateMate?!](https://pythonlinks.info/presentations/vectors/WhyGateMate.pdf)
 - [Project Peppercorn - GateMate bitstream documentation](https://github.com/YosysHQ/prjpeppercorn)
-- [nextpnr-gatemate](https://github.com/YosysHQ/nextpnr/tree/gatemate)
+- [nextpnr-gatemate](https://github.com/YosysHQ/nextpnr/tree/main/himbaechel/uarch/gatemate)
 
 ## Public Appearances:
 - [2025-04-03](https://www.linkedin.com/posts/chili-chips_fpga-architecture-cpu-activity-7313761502774140929-xan0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAJv-TcBSi_5ff0VNMrInrT-xg44YF3jnyU)

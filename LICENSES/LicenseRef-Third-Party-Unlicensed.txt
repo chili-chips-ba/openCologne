@@ -1,0 +1,11 @@
+Third-party code without a stated license
+
+The files under this identifier were written by third parties and copied or
+adapted from public sources (web sites, forums, vendor tool packages, or
+repositories) that do not state any license. The copyright holder named in
+REUSE.toml, or in the file itself, keeps all rights.
+
+They are kept here for reference and to make the examples complete. They are
+NOT covered by the open-source licenses of this project, and no rights in
+them are granted by this project. Before reusing them, check the original
+source or ask its author for terms.

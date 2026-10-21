@@ -47,7 +47,7 @@ Running the simulation in `2.sim/cocotb` with:
 ```
 make
 ```
-You can get a simple waveform of recieving `0X1C` data or ASCII `A` from the keyboard. The Data bits are `0001_1100` in binary, and transmitted the LSB first. The Parity bit is 0, as the Data already contains odd number of 1s.
+You can get a simple waveform of recieving `0X1C` data, i.e. the scan code of key `A`, from the keyboard. The Data bits are `0001_1100` in binary, and transmitted the LSB first. The Parity bit is 0, as the Data already contains odd number of 1s.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/819dba78-73c2-4501-bfc8-fd9616a7b24f">

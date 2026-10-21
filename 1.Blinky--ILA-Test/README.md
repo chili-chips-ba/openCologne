@@ -33,7 +33,6 @@ With the ILA, you can perform in-system debugging of your designs on the GateMat
 - [Basic ILA setup](#basic-ila-setup)  
   - [Access to external software](#access-to-external-software)
   - [Setting Up Communication with External Hardware](#setting-up-communication-with-external-hardware)
-- [Hardware setup](#hardware-setup)
 - [ILA Configuration Options](#ila-configuration-options)
   - [Frequency analysis](#frequency-analysis)
     - [Use an external CLK input signal](#use-an-external-clk-input-signal)
@@ -45,7 +44,7 @@ With the ILA, you can perform in-system debugging of your designs on the GateMat
   - [Sample Compare Pattern](#sample-compare-pattern)
   - [Synchronization Level](#synchronization-level)
   - [Optimization](#optimization)
-- [Use with the Olimex GateMateA1 EVB](#use-with-the-olimex-gatematea1-EVB)
+- [Use with the Olimex GateMateA1 EVB](#use-with-the-olimex-gatematea1-evb)
 - [Usage](#usage)
   - [Trigger condition](#trigger-condition)
   - [ILAcop parameters and options](#ilacop-parameters-and-options)
@@ -92,7 +91,7 @@ The ILA can be used both with the GateMate FPGA Evaluation Board and with the cu
 - If customer hardware is used, please note that the ILA requires a USB interface between
 the computer and the GateMate FPGA. The FPGA ultimately uses an SPI interface
 to communicate with the PCB circuitry. The USB-to-SPI adapter can either be built
-on the customer PCB or the GateMate FPGA Programmer can used and connected to the FPGA. Please see [Programmer Board Datasheet] (https://www.colognechip.com/docs/ds1002-gatemate1-programmer-latest.pdf) for more information.
+on the customer PCB or the GateMate FPGA Programmer can used and connected to the FPGA. Please see [Programmer Board Datasheet](https://www.colognechip.com/docs/ds1002-gatemate1-programmer-latest.pdf) for more information.
 
 ## Installation
 
@@ -152,7 +151,7 @@ In the following the files of the  ILA and their functions are explained:
   - **config\_design:**  
     During the configuration of the ILA, the software creates an edited version of the DUT gateware. These Verilog files are stored in this folder. 
 - **example_dut:**  
-  In this folder, there are two example designs that demonstrate the functionality of the ILA and can be used for understanding. In the folders of the respective examples **blink** and **gol_image_test_vhdl** you will find further explanations of the design and test procedure.
+  In this folder, there are three example designs that demonstrate the functionality of the ILA and can be used for understanding. In the folders of the respective examples **blink**, **blink_4** and **ws2812_gol** you will find further explanations of the design and test procedure.
 - **src:**  
   This folder contains the verilog source files of the ILA
 - **sim:**  
@@ -1190,7 +1189,7 @@ Subsequently, the ILA is synthesized, placed, and routed along with the DUT, and
 
 Every time the ILA was configured with the interactive shell, the configuration is stored in a JSON file. You are able to edit the file and reconfigure the ILA with the configurations defined inside the file. For more informations see section [Reconfiguaration of the ILA using a JSON File](#reconfiguaration-of-the-ila-using-a-json-file).
 
-The design is uploaded as required and the communication with the gateware is started. How to change the upload mode is explained in section  [Hardware setup](#hardware-setup).
+The design is uploaded as required and the communication with the gateware is started. How to change the upload mode is explained in section  [Setting Up Communication with External Hardware](#setting-up-communication-with-external-hardware).
 
 <pre>
 ###### Signals under test ######

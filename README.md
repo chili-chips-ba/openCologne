@@ -1,5 +1,11 @@
-[![NLnet Foundation](https://img.shields.io/badge/funded%20by-NLnet%20Foundation-74AA00)](https://nlnet.nl/)
-[![GitHub stars](https://img.shields.io/github/stars/chili-chips-ba/openCologne?style=social)](https://github.com/chili-chips-ba/openCologne/stargazers)
+[![NLnet:Funded](https://badgen.net/badge/NLnet/Funded/08C)](https://nlnet.nl/)
+[![Stars](https://badgen.net/github/stars/chili-chips-ba/openCologne?label=Stars)](https://github.com/chili-chips-ba/openCologne/stargazers)
+[![License:BSD-3](https://badgen.net/badge/License/BSD-3/blue)](LICENSES)
+[![SerDes:Pass](https://badgen.net/badge/SerDes/Pass/green)](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/1.serdes-test.STANDALONE)
+[![PrjPeppercorn:Pass](https://badgen.net/badge/PrjPeppercorn/Pass/green)](https://github.com/YosysHQ/prjpeppercorn)
+[![LiteX:YES](https://badgen.net/badge/LiteX/YES/green)](7.SerDes#build)
+[![eduBOS5:YES](https://badgen.net/badge/eduBOS5/YES/green)](https://github.com/chili-chips-ba/openPCIE/blob/main/2.rtl/0.common.opensource/src/CPU.eduBOS5/README.md)
+[![PeakRDL:YES](https://badgen.net/badge/PeakRDL/YES/green)](7.SerDes)
 
 [Click here](https://github.com/chili-chips-ba/openCologne-PCIE) if interested in our new CologneChip project, which is about designing the first fully open-source **PCIE EndPoint**.
 
@@ -52,53 +58,53 @@ For background, BetrustedSOC is currently hosted in a Spartan7 XC7S50 (50K LUT6 
 ## Project Completion Matrix
 
 --- Level I
-- [x] Play 1 - **DONE, includes bonus examples**
-   - [x] 1.Blinky--ILA-Test
-   - [x] 1.Blinky--Verilog-VHDL-Python.Amaranth
+- ✅ Play 1 - **DONE, includes bonus examples**
+   - ✅ 1.Blinky--ILA-Test
+   - ✅ 1.Blinky--Verilog-VHDL-Python.Amaranth
 
-- [x] Play 2 - **DONE, with bonus examples**
-   - [x] 2.Simple--1--PSRAM
-   - [x] 2.Simple--2--QSPI-Flash, done by @pu-cc outside of this project
-   - [x] 2.Simple--3--Ethernet, done by @pu-cc outside of this project
-   - [x] 2.Simple--4--1Wire-Controller
-   - [x] 2.Simple--5--UART-Test
-   - [x] 2.Simple--6--PS2-Keyboard
-   - [x] 2.Simple--7--Audio-4-bit-DAC
+- ✅ Play 2 - **DONE, with bonus examples**
+   - ✅ 2.Simple--1--PSRAM
+   - ✅ 2.Simple--2--QSPI-Flash, done by @pu-cc outside of this project
+   - ✅ 2.Simple--3--Ethernet, done by @pu-cc outside of this project
+   - ✅ 2.Simple--4--1Wire-Controller
+   - ✅ 2.Simple--5--UART-Test
+   - ✅ 2.Simple--6--PS2-Keyboard
+   - ✅ 2.Simple--7--Audio-4-bit-DAC
 
-- [x] Play 3 - **DONE, with bonus I/O cards**
-   - [x] **PCB repo1**: Design additional [extension boards](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMate)
+- ✅ Play 3 - **DONE, with bonus I/O cards**
+   - ✅ **PCB repo1**: Design additional [extension boards](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMate)
 
 --- Level II
-- [x] Play 4 - **DONE**
-   - [x] 4.Advanced--1--SPI-LCD
-   - [x] 4.Advanced--2--LED64x64
-   - [x] 4.Advanced--3--FM-Transmitter
+- ✅ Play 4 - **DONE**
+   - ✅ 4.Advanced--1--SPI-LCD
+   - ✅ 4.Advanced--2--LED64x64
+   - ✅ 4.Advanced--3--FM-Transmitter
    - [ ] 4.Advanced--4--Yamaha-OPL3-FM-Synth, partly done, on hold due to issues with GateMate legacy tools. To be revisited when Project Peppercorn opensource PNR for GateMate is made available
 
-- [x] Play 5 - **DONE**
-   - [x] 5.TetriSaraj
+- ✅ Play 5 - **DONE**
+   - ✅ 5.TetriSaraj
 
-- [x] Play 6 - **DONE**
-   - [x] **PCB repo2**: Design and manufacture the [ULX5M board](https://github.com/intergalaktik/ulx5m-gs)
+- ✅ Play 6 - **DONE**
+   - ✅ **PCB repo2**: Design and manufacture the [ULX5M board](https://github.com/intergalaktik/ulx5m-gs)
 
 --- Level III
-- [x] Play 7 - **DONE, with Doc still WIP**
-   - [x] 7.SerDes
+- ✅ Play 7 - **DONE, with Doc still WIP**
+   - ✅ 7.SerDes
 
-- [x] Play 8 - **DONE**
-   - [x] 8.StressTest
+- ✅ Play 8 - **DONE**
+   - ✅ 8.StressTest
 
-- [x] Play 9 - **DONE**
-   - [x] 9.BetrustedSOC
+- ✅ Play 9 - **DONE**
+   - ✅ 9.BetrustedSOC
 
 --- Bonus
 - [ ] Play 10, even more examples
    - [ ] 10.Bonus--1--Amaranth-7Segment, WIP
    - [ ] 10.Bonus--2--Amaranth-Rotary-Encoder, WIP
    - [ ] 10.Bonus--3--Amaranth-eduRISC5
-   - [x] 10.Bonus--4--I2C-Master
-   - [x] 10.Bonus--5--eduSOC, moved to 8.StressTest
-   - [x] 10.Bonus--6--I2S-DAC
+   - ✅ 10.Bonus--4--I2C-Master
+   - ✅ 10.Bonus--5--eduSOC, moved to 8.StressTest
+   - ✅ 10.Bonus--6--I2S-DAC
 
 We fell in love with what we were doing and, as makers at heart, could not resist the temptation to keep designing for GateMate. Hence this additional output that was not originally planned for, nor commissioned by NLnet.
 
@@ -158,9 +164,6 @@ Click [here](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMa
 </p>
 
 
-## Beinvolved
-We welcome everyone interested to contribute. Please reach out to fpga@chili-chips.com, or join our <a href="https://discord.gg/F5UPDFFdsH">GateMate Discord Channel</a>. 
-
 ## Additional References
 - https://github.com/YosysHQ/prjpeppercorn
    - https://github.com/YosysHQ/prjpeppercorn-test-cases
@@ -181,7 +184,52 @@ We are grateful to:
 
 This project was funded through the NGI0 Entrust Fund, a fund established by NLnet with financial support from the European Commission's Next Generation Internet programme, under the aegis of DG Communications Networks, Content and Technology under grant agreement No 101069594.
 
-## Public Postings
+### Partners and Contributors
+
+<p align="center">
+  <a href="https://intergalaktik.eu"><img width="50%" alt="Intergalaktik logo" src="0.doc/artwork/Intergalaktik.logo.png"></a>
+  <a href="https://radiona.org"><img width="20%" alt="Radiona logo" src="0.doc/artwork/Radiona.logo.png"></a>
+</p>
+
+<p align="center">
+  <a href="https://colognechip.com"><img width="45%" alt="Cologne Chip logo" src="0.doc/artwork/Cologne-Chip.logo.png"></a>
+  <a href="https://colognechip.com/programmable-logic/gatemate"><img width="20%" alt="GateMate FPGA logo" src="0.doc/artwork/GateMate.png"></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/chili-chips-ba/openCologne-PCIE"><img width="15%" alt="openCologne-PCIE project logo: SerDes BFM" src="0.doc/artwork/openCologne-PCIE.hex.png"></a>
+</p>
+
+<p align="center">
+  <a href="https://oshwa.org"><img width="20%" alt="Open Source Hardware Association logo" src="0.doc/artwork/oshw-logo-filled-black.png"></a>
+  <a href="https://www.kicad.org"><img width="25%" alt="KiCad logo" src="0.doc/artwork/kicad_logo.png"></a>
+</p>
+
+### Tools and Building Blocks
+
+<p align="center">
+  <a href="https://github.com/enjoy-digital/litex"><img width="25%" alt="LiteX logo" src="0.doc/artwork/LiteX.logo.png"></a>
+  <a href="https://github.com/tarik-ibrahimovic/eduBOS5"><img width="17%" alt="eduBOS5 logo" src="0.doc/artwork/eduBOS5.logo.png"></a>
+  <a href="https://riscv.org"><img width="12%" alt="RISC-V logo" src="0.doc/artwork/RISC-V-logo.svg"></a>
+  <a href="https://peakrdl.readthedocs.io"><img width="14%" alt="PeakRDL logo" src="0.doc/artwork/PeakRDL.logo.png"></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/yosyshq"><img width="20%" alt="Yosys logo" src="0.doc/artwork/Yosys.logo.png"></a>
+  <a href="https://github.com/YosysHQ/prjpeppercorn"><img width="20%" alt="prjpeppercorn logo: nextpnr for GateMate" src="0.doc/artwork/prjpeppercorn.logo.png"></a>
+  <a href="https://github.com/trabucayre/openFPGALoader"><img width="20%" alt="openFPGALoader logo" src="0.doc/artwork/openFPGAloader.logo.png"></a>
+  <a href="https://www.veripool.org/verilator"><img width="20%" alt="Verilator logo" src="0.doc/artwork/Verilator.logo.png"></a>
+  <a href="https://github.com/steveicarus/iverilog"><img width="20%" alt="Icarus Verilog logo" src="0.doc/artwork/Icarus-Verilog.logo.png"></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/MikePopoloski/slang"><img width="25%" alt="MikePopoloski slang logo" src="0.doc/artwork/slang.logo.png"></a>
+  <a href="https://www.chipsalliance.org/projects"><img width="15%" alt="Chips Alliance SV Tools logo" src="0.doc/artwork/ChipsAlliance-SV-Tools.logo.png"></a>
+  <a href="https://github.com/chipsalliance/verible"><img width="25%" alt="Verible logo" src="0.doc/artwork/Verible.logo.png"></a>
+  <a href="https://www.drawio.com"><img width="25%" alt="draw.io logo" src="0.doc/artwork/drawio.logo.png"></a>
+</p>
+
+## Community Outreach
 - [Project impact](https://www.linkedin.com/feed/update/urn:li:activity:7366484946456137732?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7366484946456137732%2C7367058727419461634%29&replyUrn=urn%3Ali%3Acomment%3A%28activity%3A7366484946456137732%2C7367071208963534851%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287367058727419461634%2Curn%3Ali%3Aactivity%3A7366484946456137732%29&dashReplyUrn=urn%3Ali%3Afsd_comment%3A%287367071208963534851%2Curn%3Ali%3Aactivity%3A7366484946456137732%29)
 - [CologneChip News](https://colognechip.com/news/new-extensions-for-the-olimex-gatemate-fpga-board)
 - [IO cards](https://www.linkedin.com/posts/goran-mahovlic_fpga-opensource-openhardware-activity-7272630456599138304-nB8K?utm_source=share&utm_medium=member_desktop)
@@ -190,5 +238,25 @@ This project was funded through the NGI0 Entrust Fund, a fund established by NLn
 - [LED 64x64](https://www.linkedin.com/posts/ahmed-imamovic_etfpga-fpga-rtl-activity-7242253055411331073-E36f?utm_source=share&utm_medium=member_desktop)
 - [LCD](https://www.linkedin.com/posts/chili-chips_gatemate-spi-lcd-activity-7233383297500733441-F4PM?utm_source=share&utm_medium=member_desktop)
 
+## Community Involvement
 
+Feel like helping the GateMate community grow better and larger?! Reach out to fpga@chili-chips.com, or join our <a href="https://discord.gg/F5UPDFFdsH">GateMate Discord Channel</a>.
+
+Don't feel shy to ask for help ===> [![issues](https://badgen.net/github/open-issues/chili-chips-ba/openCologne?label=issues)](https://github.com/chili-chips-ba/openCologne/issues).
+
+## Contribution Guidelines
+
+See [Contributions](CONTRIBUTING.md): how to report an issue, the QA steps a change goes through (lint, format, simulation, build, LEQ), the license, and GenAI use. [7.SerDes](7.SerDes) is becoming our reference example for that flow.
+
+## RTL Coding Rules
+
+New RTL follows our RTL coding rules, as in [openPCIE](https://github.com/chili-chips-ba/openPCIE/blob/main/2.rtl/README.md#rtl-coding-rules) and [wireguard-fpga](https://github.com/chili-chips-ba/wireguard-fpga/blob/main/1.hw/README.md#rtl-coding-rules). The older examples predate them.
+
+## GenAI
+
+Our repo may contain elements of work facilitated by the modern GenAI tools <img alt="Claude" height="16" src="https://cdn.simpleicons.org/claude/D97757">, used under strict guidance and tight supervision of the blood-and-flesh developers, and solely as suggestions.
+
+In the end, it is us, the human devs, who are fully responsible for any shortfalls you may uncover while tapping into repo resources.
+
+--------------------
 #### End of Document

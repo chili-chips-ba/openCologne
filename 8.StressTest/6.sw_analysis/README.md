@@ -22,8 +22,8 @@ The output should look something like this:
 ```
 Number of distinct 4-input logic functions that can be implemented in:
 LUT4: 65536 (runtime: 0.22s)
-L2T4: 912 (runtime: 0.42s)
-L2T5: 520 (runtime: 0.02s)
+L2T4: 520 (runtime: 0.02s)
+L2T5: 912 (runtime: 0.42s)
 L2T8: 671848 (runtime: 53m 40.23s) //8-input functions actually
 ```
 ## Routing network architecture assessment

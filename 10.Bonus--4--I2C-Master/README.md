@@ -7,7 +7,7 @@ The I2C has two wires, one transmits the clock signal and the other the data sig
 ![image](https://github.com/user-attachments/assets/43d528dd-e20f-4ad4-ae62-27448d62b9a0)
 
 
-## WM860 Audio Codec I2C
+## WM8960 Audio Codec I2C
 
 ![image](https://github.com/user-attachments/assets/387093c5-4f7c-4f13-b4ed-931a01ec0e1e)
 
@@ -30,12 +30,12 @@ The `1.hw` folder contains the following folder structure:
 ### Workflow
 
 #### Create the RTL File List:
-To generate a file list of the RTL files for synthesis, run the `create_rtlfilelist.sh` script in the `3.build` folder with one of the following flags:
+To generate a file list of the RTL files for synthesis, run the `create_rtl_filelist.sh` script in the `3.build` folder with one of the following flags:
 * -v: Generate rtl.filelist with Verilog (.v) files.
 * -sv: Generate rtl.filelist with SystemVerilog (.sv) files (default).
 * -sv2v: Generate rtl.filelist with SystemVerilog files for conversion to Verilog using sv2v.
 ```
-./create_rtlfilelist.sh -<flag>
+./create_rtl_filelist.sh -<flag>
 ```
 #### Convert SystemVerilog to Verilog (Optional):
 

@@ -1,0 +1,398 @@
+# SPDX-FileCopyrightText: 2024-2026 Chili.CHIPS
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+# When several annotations match a file, the LAST one in this file wins.
+# Order: project-wide default first, then third-party exceptions.
+#
+#   precedence = "closest"  -> a file's own SPDX/copyright header wins; the
+#                              annotation fills in only what the file lacks
+#   precedence = "override" -> this annotation applies even if the file says otherwise
+#
+# The Amaranth and amaranth-boards git submodules (1.Blinky--*/4.amaranth/)
+# are independent repositories under their own terms; REUSE does not cover
+# submodules.
+
+version = 1
+
+# =============================================================================
+# 1. Project default (Chili.CHIPS)
+# =============================================================================
+
+# Everything not listed below: RTL, testbenches, firmware, build/sim scripts,
+# docs, our own pictures and diagrams, and tool outputs of our designs.
+[[annotations]]
+path = ["**"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2024-2026 Chili.CHIPS"
+SPDX-License-Identifier = "BSD-3-Clause"
+
+# Tool reports and logs of our builds. The tool banners in them (Yosys,
+# Gowin) name the tool vendor; they do not make the vendor the author.
+[[annotations]]
+path = [
+  "8.StressTest/1.corescore_cc/gowin_rpt/**",
+  "8.StressTest/1.corescore_cc/yosys_logs/**",
+  "1.Blinky--Verilog-VHDL-Python.Amaranth/4.amaranth/examples/Blinky/build/top.rpt",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "2024-2025 Chili.CHIPS"
+SPDX-License-Identifier = "BSD-3-Clause"
+
+# PS/2 keyboard top, ported from the original by Paul Ruiz (marked "LICENSE=BSD")
+[[annotations]]
+path = ["2.Simple--6--PS2-Keyboard/1.hw/top.v"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Paul Ruiz (original author)"
+SPDX-License-Identifier = "BSD-3-Clause"
+
+# =============================================================================
+# 2. Third-party code (redistributable under its own license)
+# =============================================================================
+
+# Cologne Chip GateMate ILA, copied from https://github.com/colognechip/gatemate_ila
+[[annotations]]
+path = ["1.Blinky--ILA-Test/**"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2023 Cologne Chip AG"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# PicoRV32 / PicoSoC (ISC), https://github.com/YosysHQ/picorv32
+[[annotations]]
+path = [
+  "5.TetriSaraj/1.hw/picorv32.v",
+  "5.TetriSaraj/1.hw/picosoc_noflash.v",
+  "5.TetriSaraj/1.hw/simpleuart.v",
+  "5.TetriSaraj/1.hw/top.v",
+  "5.TetriSaraj/2.sw/main.c",
+  "10.Bonus--5--eduSOC/1.hw/ip.cpu/cpu.PICORV32/**",
+]
+precedence = "closest"
+SPDX-FileCopyrightText = ["2015-2017 Claire Xenia Wolf (formerly Clifford Wolf)", "2023-2024 Chili.CHIPS (modifications)"]
+SPDX-License-Identifier = "ISC"
+
+[[annotations]]
+path = ["10.Bonus--5--eduSOC/1.hw/ip.cpu/cpu.PICORV32/picorv32.ORIG.sv"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2015 Claire Xenia Wolf (formerly Clifford Wolf)"
+SPDX-License-Identifier = "ISC"
+
+# riscv-tests, https://github.com/riscv-software-src/riscv-tests (via PicoRV32)
+[[annotations]]
+path = ["10.Bonus--5--eduSOC/2.sw/tests/rv32mi/**", "10.Bonus--5--eduSOC/2.sw/tests/rv32ui/**"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2012-2015 The Regents of the University of California"
+SPDX-License-Identifier = "BSD-3-Clause"
+
+# FM/RDS transmitter, from https://github.com/emard/ulx3s-misc (examples/fm).
+# VHDL originals carry their own BSD notice.
+[[annotations]]
+path = ["4.Advanced--3--FM-Transmitter/1.hw/vhdl/**"]
+precedence = "closest"
+SPDX-FileCopyrightText = ["2015 Davor Jadrijevic", "2013-2015 Marko Zec, University of Zagreb"]
+SPDX-License-Identifier = "BSD-2-Clause"
+
+# ... and our Verilog/SystemVerilog ports of them
+[[annotations]]
+path = ["4.Advanced--3--FM-Transmitter/1.hw/verilog/**", "4.Advanced--3--FM-Transmitter/1.hw/systemverilog/**"]
+precedence = "closest"
+SPDX-FileCopyrightText = ["2024 Chili.CHIPS", "2015 Davor Jadrijevic", "2013-2015 Marko Zec, University of Zagreb"]
+SPDX-License-Identifier = "BSD-3-Clause AND BSD-2-Clause"
+
+# OPL3 FPGA, https://github.com/gtaylormb/opl3_fpga
+[[annotations]]
+path = ["4.Advanced--4--Yamaha-OPL3-FM-Synth/1.hw/modules/**"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2014 Greg Taylor"
+SPDX-License-Identifier = "LGPL-3.0-or-later"
+
+# Tool outputs built from the OPL3 sources (Lattice Diamond project, Verilator obj_dir)
+[[annotations]]
+path = ["4.Advanced--4--Yamaha-OPL3-FM-Synth/3.build/LatticeBuild/**", "4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/obj_dir/**"]
+precedence = "override"
+SPDX-FileCopyrightText = ["2014 Greg Taylor", "2024 Chili.CHIPS"]
+SPDX-License-Identifier = "LGPL-3.0-or-later"
+
+# StressTest: CoreScore, https://github.com/olofk/corescore, and its builds
+[[annotations]]
+path = [
+  "8.StressTest/1.corescore_cc/fusesoc_libraries/corescore/**",
+  "8.StressTest/1.corescore_cc/build/**",
+  "8.StressTest/1.corescore_cc/gowin/**",
+]
+precedence = "closest"
+SPDX-FileCopyrightText = "2020-2024 Olof Kindgren"
+SPDX-License-Identifier = "Apache-2.0"
+
+# StressTest: VeeRwolf, https://github.com/chipsalliance/VeeRwolf, with the
+# VeeR EL2 core, Zephyr and FuseSoC files it pulls in
+[[annotations]]
+path = ["8.StressTest/4.veerwolves/**"]
+precedence = "closest"
+SPDX-FileCopyrightText = ["2019-2021 Western Digital Corporation or its affiliates", "2019-2023 Olof Kindgren"]
+SPDX-License-Identifier = "Apache-2.0"
+
+# LiteDRAM core generated by LiteX
+[[annotations]]
+path = ["8.StressTest/4.veerwolves/cores/litedram/**"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2012-2021 EnjoyDigital"
+SPDX-License-Identifier = "BSD-2-Clause"
+
+# Free Model Foundry SPI flash model
+[[annotations]]
+path = ["8.StressTest/4.veerwolves/tb/s25fl128s.v"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2009-2019 Free Model Foundry"
+SPDX-License-Identifier = "GPL-2.0-only"
+
+# Our own additions to the VeeRwolf tree
+[[annotations]]
+path = [
+  "8.StressTest/4.veerwolves/README.md",
+  "8.StressTest/4.veerwolves/0.doc/**",
+  "8.StressTest/4.veerwolves/gowin/gowin.sh",
+  "8.StressTest/4.veerwolves/gowin/gowin.tcl",
+  "8.StressTest/4.veerwolves/gowin/log",
+  "8.StressTest/4.veerwolves/data/cc.ccf",
+  "8.StressTest/4.veerwolves/rtl/clk_gen_cc.v",
+]
+precedence = "closest"
+SPDX-FileCopyrightText = "2024-2025 Chili.CHIPS"
+SPDX-License-Identifier = "BSD-3-Clause"
+
+# StressTest: LUTRAM test, own LICENSE file in that folder
+[[annotations]]
+path = ["8.StressTest/2.LUTRAM_stress_test/**"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2024 tarik-ibrahimovic"
+SPDX-License-Identifier = "BSD-3-Clause"
+
+# PSRAM controller by Curtis Whitley (Surelog preprocessor copies)
+[[annotations]]
+path = ["**/slpp_all/lib/work/psram.v"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2024 Curtis Whitley"
+SPDX-License-Identifier = "Apache-2.0"
+
+# StressTest: fpga_torture, https://github.com/stnolting/fpga_torture
+[[annotations]]
+path = ["8.StressTest/5.fpga_torture/1.hw/fpga_torture.vhd", "8.StressTest/5.fpga_torture/2.sim/fpga_torture_tb.vhd"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2021 Stephan Nolting"
+SPDX-License-Identifier = "BSD-3-Clause"
+
+# StressTest: FemtoRV32 Quark, https://github.com/BrunoLevy/learn-fpga
+[[annotations]]
+path = ["8.StressTest/10.femtorv32-quark-bicycle/1.hw/femtorv32_quark_bicycle.v", "8.StressTest/10.femtorv32-quark-bicycle/3.femtorv32-quark-bicycle-gowin/src/**"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2020-2024 Bruno Levy"
+SPDX-License-Identifier = "BSD-3-Clause"
+
+# StressTest: Space Invaders, https://gitlab.com/x653/spaceinvaders-fpga
+[[annotations]]
+path = ["8.StressTest/8.spaceinvaders-fpga/spaceinvaders-gowin/src/**"]
+precedence = "closest"
+SPDX-FileCopyrightText = "Michael Schröder (gitlab.com/x653)"
+SPDX-License-Identifier = "MIT"
+
+# StressTest: pnr_tests by Mike Reznikov, https://github.com/mirekez/pnr_tests
+# (upstream ships the GPLv3 text without an "or later" statement)
+[[annotations]]
+path = ["8.StressTest/9.pnr_tests/pnr_tests-main/**"]
+precedence = "closest"
+SPDX-FileCopyrightText = "Mike Reznikov"
+SPDX-License-Identifier = "GPL-3.0-only"
+
+# =============================================================================
+# 3. Third-party code with NO license stated by its source
+#    (kept for reference; terms unknown, see LICENSES/LicenseRef-Third-Party-Unlicensed.txt)
+# =============================================================================
+
+# Cologne Chip simulation library (cpelib.v) and UG1001 examples
+[[annotations]]
+path = [
+  "**/cpelib_prim_sim.sv",
+  "8.StressTest/1.corescore_cc/fusesoc_libraries/corescore/rtl/cpelib.v",
+  "0.doc/CologneChip/UG1001--Primitives-Library.Examples/**",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "2022-2024 Cologne Chip AG"
+SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
+
+# UART from nandland.com
+[[annotations]]
+path = ["2.Simple--5--UART-Test/1.hw/uart_rx.v", "2.Simple--5--UART-Test/1.hw/uart_tx.v", "10.Bonus--6--I2S-DAC/1.hw/uart_rx.v"]
+precedence = "override"
+SPDX-FileCopyrightText = "Russell Merrick (nandland.com)"
+SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
+
+# TetriSaraj helpers from various sources
+[[annotations]]
+path = ["5.TetriSaraj/1.hw/debounce.v"]
+precedence = "override"
+SPDX-FileCopyrightText = "fpga4student.com"
+SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
+
+[[annotations]]
+path = ["5.TetriSaraj/1.hw/vga_controller.v"]
+precedence = "override"
+SPDX-FileCopyrightText = ["David J. Marion", "Pong P. Chu (reference book)"]
+SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
+
+[[annotations]]
+path = ["5.TetriSaraj/1.hw/uart_rx.v", "5.TetriSaraj/1.hw/uart_tx.v"]
+precedence = "override"
+SPDX-FileCopyrightText = "2021 Shubhayu Das"
+SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
+
+# Audio DAC modules from https://github.com/emard/ulx3s-misc (examples/audio)
+[[annotations]]
+path = [
+  "2.Simple--7--Audio-4-bit-DAC/1.hw/dacpwm.v",
+  "2.Simple--7--Audio-4-bit-DAC/1.hw/sinewave.v",
+  "2.Simple--7--Audio-4-bit-DAC/1.hw/squarewave.v",
+  "2.Simple--7--Audio-4-bit-DAC/1.hw/trianglewave.v",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "Davor Jadrijevic (EMARD)"
+SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
+
+# PCM5102 I2S driver, adapted from https://github.com/noscene/ice40_audio
+[[annotations]]
+path = ["10.Bonus--6--I2S-DAC/1.hw/PCM5102.v", "4.Advanced--4--Yamaha-OPL3-FM-Synth/4.dac/1.hw/PCM5102.v"]
+precedence = "override"
+SPDX-FileCopyrightText = ["noscene (github.com/noscene/ice40_audio)", "2024 Chili.CHIPS (modifications)"]
+SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
+
+# Dhrystone benchmark
+[[annotations]]
+path = ["10.Bonus--5--eduSOC/2.sw/tests/dhry*"]
+precedence = "override"
+SPDX-FileCopyrightText = "Reinhold P. Weicker"
+SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
+
+# FuseSoC standard core library (no license in its repository)
+[[annotations]]
+path = ["8.StressTest/1.corescore_cc/fusesoc_libraries/fusesoc-cores/**", "8.StressTest/4.veerwolves/fusesoc_libraries/fusesoc-cores/**"]
+precedence = "closest"
+SPDX-FileCopyrightText = "Olof Kindgren and FuseSoC cores contributors"
+SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
+
+# ... except SERV, https://github.com/olofk/serv
+[[annotations]]
+path = ["8.StressTest/1.corescore_cc/fusesoc_libraries/fusesoc-cores/serv/serv_1.0.2/**", "8.StressTest/1.corescore_cc/fusesoc_libraries/fusesoc-cores/serv/serving/**"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2018-2020 Olof Kindgren"
+SPDX-License-Identifier = "ISC"
+
+# Gowin IP generator output (PLL)
+[[annotations]]
+path = ["8.StressTest/8.spaceinvaders-fpga/spaceinvaders-gowin/src/gowin_rpll/**"]
+precedence = "override"
+SPDX-FileCopyrightText = "2014-2024 Gowin Semiconductor Corporation"
+SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
+
+# =============================================================================
+# 4. Third-party documents under an open license
+# =============================================================================
+
+[[annotations]]
+path = ["0.doc/Olimex/rp2040-datasheet.pdf"]
+precedence = "override"
+SPDX-FileCopyrightText = "2020-2024 Raspberry Pi Ltd"
+SPDX-License-Identifier = "CC-BY-ND-4.0"
+
+[[annotations]]
+path = ["4.Advanced--2--LED64x64/0.doc/led-panel-sch.pdf"]
+precedence = "override"
+SPDX-FileCopyrightText = ["2018-2019 Piotr Esden-Tempski", "2018-2019 1BitSquared"]
+SPDX-License-Identifier = "CC-BY-SA-4.0"
+
+[[annotations]]
+path = ["10.Bonus--5--eduSOC/0.doc/Misc/verilator.User-Guide.pdf", "10.Bonus--5--eduSOC/0.doc/Misc/verilator_doc.pdf"]
+precedence = "override"
+SPDX-FileCopyrightText = "2003-2024 Wilson Snyder"
+SPDX-License-Identifier = "LGPL-3.0-only OR Artistic-2.0"
+
+[[annotations]]
+path = ["10.Bonus--5--eduSOC/2.sw/app/doc/RISCV-Assembler.V1.4.2.pdf"]
+precedence = "override"
+SPDX-FileCopyrightText = "1991-2019 Free Software Foundation, Inc."
+SPDX-License-Identifier = "GFDL-1.3-or-later"
+
+# =============================================================================
+# 5. Third-party material included for reference only (NOT open-licensed)
+# =============================================================================
+
+# Datasheets, user guides, schematics, vendor figures, board photos and logos.
+[[annotations]]
+path = [
+  "0.doc/CologneChip/*.pdf",
+  "0.doc/Intergalaktik/*.pdf",
+  "0.doc/Intergalaktik/*.PDF",
+  "0.doc/Intergalaktik/*.jpg",
+  "0.doc/Intergalaktik/*.png",
+  "0.doc/Olimex/GateMateA1-EVB---*.pdf",
+  "0.doc/Olimex/PCB.*",
+  "0.doc/Yosys_guide.pdf",
+  "0.doc/artwork/Intergalaktik.logo.png",
+  "0.doc/artwork/Radiona.logo.png",
+  "0.doc/artwork/Cologne-Chip.logo.png",
+  "0.doc/artwork/GateMate.png",
+  "0.doc/artwork/oshw-logo-*",
+  "0.doc/artwork/kicad_logo.png",
+  "0.doc/artwork/Icarus-Verilog.logo.png",
+  "0.doc/artwork/Verilator.logo.png",
+  "0.doc/artwork/Yosys.logo.png",
+  "0.doc/artwork/slang.logo.png",
+  "0.doc/artwork/ChipsAlliance-SV-Tools.logo.png",
+  "0.doc/artwork/Verible.logo.png",
+  "0.doc/artwork/PeakRDL.logo.png",
+  "0.doc/artwork/drawio.logo.png",
+  "0.doc/artwork/openFPGAloader.logo.png",
+  "0.doc/artwork/RISC-V-logo.svg",
+  "0.doc/artwork/LiteX.logo.png",
+  "2.Simple--1--PSRAM/0.doc/PSRAM-datasheet--LY68S3200.pdf",
+  "2.Simple--1--PSRAM/0.doc/Olimex-PSRAM-SCH.png",
+  "2.Simple--2--QSPI-Flash/0.doc/*.pdf",
+  "2.Simple--3--Ethernet/0.doc/*.pdf",
+  "2.Simple--7--Audio-4-bit-DAC/0.doc/**",
+  "3.PCB.simple/radiona-IO-cards.jpg",
+  "4.Advanced--1--SPI-LCD/0.doc/*.pdf",
+  "4.Advanced--1--SPI-LCD/0.doc/pictures/waveshare-LCDs.jpg",
+  "4.Advanced--1--SPI-LCD/0.doc/pictures/2.2inchSPIModule.jpg",
+  "4.Advanced--2--LED64x64/0.doc/RGB Matrix 64x64 - Waveshare Wiki.pdf",
+  "4.Advanced--2--LED64x64/0.doc/images/RGB-Matrix-P2-64x64_pinout.jpg",
+  "4.Advanced--4--Yamaha-OPL3-FM-Synth/0.doc/AudioCard/*.pdf",
+  "4.Advanced--4--Yamaha-OPL3-FM-Synth/0.doc/AudioCard/*.PNG",
+  "4.Advanced--4--Yamaha-OPL3-FM-Synth/0.doc/AudioCard/1.CODEC-chip.CirrusWM8960/**",
+  "6.PCB.advanced/Electronica2024_Intergalaktik_ULX5M_demo.pdf",
+  "6.PCB.advanced/ULX5M.concept.png",
+  "6.PCB.advanced/ulx5m_11.jpg",
+  "8.StressTest/0.doc/Gowin-Arora/*.pdf",
+  "8.StressTest/0.doc/L2T5.png",
+  "8.StressTest/0.doc/LUT_CPE.png",
+  "8.StressTest/9.pnr_tests/pnr_tests-main/colognechip/**",
+  "10.Bonus--5--eduSOC/0.doc/Misc/RISCV_CARD.pdf",
+  "10.Bonus--5--eduSOC/0.doc/Misc/gtkwave-3.3.27.User-Guide.pdf",
+  "10.Bonus--5--eduSOC/2.sw/app/doc/RISCV-ISA.pdf",
+  "10.Bonus--5--eduSOC/2.sw/app/doc/RISCV-Intro.pdf",
+  "10.Bonus--6--I2S-DAC/0.doc/**",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "Respective owners, as identified in each document"
+SPDX-License-Identifier = "LicenseRef-Third-Party-Document"
+
+# 9.BetrustedSOC: a port of betrusted-io/betrusted-soc (bunnie), CERN-OHL-1.2
+[[annotations]]
+path = "9.BetrustedSOC/**"
+precedence = "closest"
+SPDX-FileCopyrightText = ["betrusted-io contributors, https://github.com/betrusted-io/betrusted-soc", "2025 Chili.CHIPS"]
+SPDX-License-Identifier = "CERN-OHL-1.2"
+
+[[annotations]]
+path = "9.BetrustedSOC/fw/alloc-riscv/**"
+precedence = "closest"
+SPDX-FileCopyrightText = "alloc-riscv contributors"
+SPDX-License-Identifier = "Apache-2.0 OR MIT"

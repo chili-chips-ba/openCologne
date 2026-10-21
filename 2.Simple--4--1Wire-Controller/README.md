@@ -21,7 +21,7 @@ Figure below represents the full test setup.
 
 ## Test Scenarios
 
-You ought to slightly modify the top module in order to test both directions. In essence, you change what the UART sends to the PC (either "`master_rdat`" or "`slave_rdat`")
+You ought to slightly modify the top module in order to test both directions. In essence, you change what the UART sends to the PC (either "`onewire_rdat`" or "`slv_written_data`")
 
 ### Test1. Master sending:
 ```

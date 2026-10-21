@@ -6,7 +6,7 @@ The checkered pattern is concurrently displayed on both:
 - 1.5 inch IPS HD OLED, RGB666, 240x240 [ST7789](https://www.adafruit.com/product/3787)
 - 0.95 inch OLED, RGB565, 96x64 [SSD1331](https://done.land/components/humaninterface/display/oled/ssd1331) 
 
-The pictures below show expected results. Also see [this](https://www.linkedin.com/posts/chili-chips_gatemate-spi-lcd-activity-7233383297500733441-F4PM?utm_source=share&utm_medium=member_desktop").
+The pictures below show expected results. Also see [this](https://www.linkedin.com/posts/chili-chips_gatemate-spi-lcd-activity-7233383297500733441-F4PM?utm_source=share&utm_medium=member_desktop).
 
 ## 1) GateMate EVB
 simultaneously driving both 1.5" and 0.95" SPI LCD displays
