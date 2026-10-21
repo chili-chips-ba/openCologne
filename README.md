@@ -166,6 +166,30 @@ Click [here](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMa
 </p>
 
 
+## GateMate SerDes as InterChip Link
+
+Our flagship: two GateMate chips talk over their SerDes, as one memory-mapped system. One CPU reads and writes the other chip's registers and memory as if they were its own. It is LiteX's [LiteICLink](https://github.com/enjoy-digital/liteiclink), hand-ported to SystemVerilog, so it can be linted, simulated with open tools, and dropped into LiteX as an SV core.
+
+```mermaid
+flowchart LR
+  subgraph A["GateMate A"]
+    direction TB
+    CPUA["eduBOS5<br/>RISC-V"] --> CSRA["CSRs<br/>(PeakRDL)"] --> SWA["SerWB<br/>bus bridge"] --> PHYA["8b/10b + PRBS<br/>CC_SERDES"]
+  end
+  subgraph B["GateMate B"]
+    direction TB
+    PHYB["8b/10b + PRBS<br/>CC_SERDES"] --> SWB["SerWB<br/>bus bridge"] --> CSRB["CSRs<br/>(PeakRDL)"] --> CPUB["eduBOS5<br/>RISC-V"]
+  end
+  PHYA <== "serial link<br/>(sim: SerDes BFM)" ==> PHYB
+```
+
+- **Full end-to-end sim with open tools.** In sim, our [SerDes BFM](7.SerDes/3.iclink-sv/2.sim/serdes-model) (from [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE)) stands in for the wire and the `CC_SERDES` hard macro. No VProc, no vendor model: the RTL runs as built.
+- **Bit-exact with LiteX.** Every block is checked against LiteX's own Python model, clock for clock.
+- **Done:** 8b/10b, PRBS7/15/31, the `CC_SERDES` PHY with a one-way link sim, a bitstream with the open Peppercorn flow.
+- **Next:** SerWB, two eduBOS5 SoCs end to end, then the boards: one EVB looped TX to RX, then two ULX5M-GS.
+
+More in [7.SerDes](7.SerDes).
+
 ## Additional References
 - https://github.com/YosysHQ/prjpeppercorn
    - https://github.com/YosysHQ/prjpeppercorn-test-cases
