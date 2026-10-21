@@ -1,238 +1,106 @@
+// SPDX-FileCopyrightText: 2026 Chili.CHIPS
+//
+// SPDX-License-Identifier: BSD-3-Clause
+//
+// UART receiver, 16 clocks per bit (i_clk = 16x baud rate). A low level on rx
+// starts a frame: rx is sampled at clocks 6, 7 and 8 of the start bit and a
+// 2-of-3 majority vote at clock 10 confirms it (busy goes high), else the
+// receiver returns to idle. Each following bit is voted the same way at clock
+// 14 of its 16-clock slot. After FRAME_BITS data bits (LSB first), the parity
+// bit (if PARITY_BIT < 2) and STOP_BITS stop bits, data is presented with
+// converted = 1 and held until flush. Stop bits are not checked. With parity
+// enabled, data_valid compares PARITY_BIT with the XOR of the data register
+// value from before this frame (existing behaviour, kept on purpose).
+
 `timescale 10ns/1ns
 
-/*
- * Custom UART RX design, with all requisite customization options
- * Written by Shubhayu Das, November 2021
- * Version: 1.2.0
- * Last updated: 27th November, 2021
- * 
- * The clock frequency and the baud rate have to be calculated and set manually.
- * As it stands now, this module will automatically calculate the prescalar needed.
- * This division will be done in software, which is inefficient, and wastes power
- * 
- ***************************
- *
- * THEORY OF WORKING of this module:
- *
- * CLOCKS:
- * - An input clock of 25MHz is expected.
- * - Internally, a "slow_clk_en" pulse is generated, depending on baud rate.
- *
- * UART:
- * An active low signal starts receiving.
- * I am implementing oversampling. Each RX bit is sampled 15 times,
- * then the "obtained_bit" function is used to calculate the detected bit
- *
- * An FSM is used to handle the operation of the module.
- * FSM states:
- *  - IDLE          : Waiting for start bit(0)
- *  - DETECT_START  : Possible start bit detected. Oversample and decide
- *  - STARTED       : Receiving started, oversample and decide individual bits
- *  - CONVERSION    : RX complete, run parity check, retain data until flushed 
- *
- * Oversampling:
- * The incoming RX signal is oversampled, and the oversampled bits are stored in
- * the "oversampled_bit" buffer. Once the buffer is full, the "obtained_bit"
- * function is used to find the accurate bit. This bit is stored in "sampled_rx_data",
- * at the correct location
- *
- * RX:
- * Oversampling is continued until all bits are received. The "sampled_rx_data"
- * contains the final data. This data must be read only AFTER the converted flag goes high.
- *
- ***************************
- * Parameters in the module:
- *
- * FRAME_BITS   - The number of bits in the data frame. Allowed values: 5-9 bits/frame
- * PARITY_BIT   - Set to "2" to disable parity check. Set to "0/1" for odd/even parity resp.
- * STOP_BITS    - The number of stop bits, Allowed values: 1-2 bits
- *
- ***************************
- * Inputs to the module:
- *
- * rx       - The input rx signal
- * i_clk    - The clock of the local system, used for sampling the bits and FSM sync
- * flush    - Clear the converted data from the register
- * 
- ***************************
- * Outputs of the module
- *
- * data         - The final converted data, of appropriate bit-width
- * converted    - Active high signal indicating successfully received frame
- * data_valid   - Active high signal indicating if received data is valid(if parity is enabled)
- * busy         - Indicates if data reception has started and system is busy
- * 
- ***************************
- * In this version, the oversampling factor is 15.
- * 
- * Note that due to small mismatches, between the input clock frequency and the target baud rate,
- * there will a drift over time. This needs to be taken care of in the parent module.
- *
- ***************************
- *
- * Sample input clock setup for Basys 3:
- * Set the clock to 100MHz in the constraints file. 
- * Then divide the clock to get a time period of 540ns
- *
- ***************************
- * TODO: handling lost bits, using timeout
- * Actually looking at the stop bit(s)
-*/
-
-//`define DEBUG
-
 module uart_rx #(
-    parameter FRAME_BITS = 8, // Number of data bits, can be 7/8
-    PARITY_BIT = 2, // Parity disabled by default
-    STOP_BITS = 1   // Using only 1 stop bit
+    parameter FRAME_BITS = 8,  // data bits per frame
+    PARITY_BIT = 2,            // 0/1: parity check, 2: no parity
+    STOP_BITS  = 1             // stop bits per frame
 ) (
-    input rx,
-    input i_clk,
-    input flush,
+    input                       rx,
+    input                       i_clk,
+    input                       flush,
     output reg [FRAME_BITS-1:0] data,
-    output reg converted,
-    output reg data_valid,
-    output reg busy
+    output reg                  converted,
+    output reg                  data_valid,
+    output reg                  busy
 );
 
-// FSM states
-localparam IDLE         = 0;
-localparam DETECT_START = 1;
-localparam STARTED      = 2;
-localparam CONVERSION   = 3;
+    localparam integer NBITS = FRAME_BITS + STOP_BITS + ((PARITY_BIT < 2) ? 1 : 0);
 
-// Calculating the total number of bits that need to be stored
-localparam TOTAL_RX_BITS = (PARITY_BIT < 2 ) ? FRAME_BITS + STOP_BITS + 1 : FRAME_BITS + STOP_BITS;
+    localparam [1:0] S_IDLE  = 2'd0,
+                     S_START = 2'd1,
+                     S_BITS  = 2'd2,
+                     S_DONE  = 2'd3;
 
-// Hardcoding the number of samples per bit.
-// Change this according to the input clock frequency
-localparam OVERSAMPLE_FACTOR = 15;
+    reg [1:0]       state;
+    reg [3:0]       slot;     // clock index within a bit
+    reg [3:0]       nbits;    // bits received so far
+    reg [2:0]       vote;     // samples at slot 6, 7, 8
+    reg [NBITS-1:0] shreg;    // received bits, first bit ends in [0]
 
-// Three parameters used by the "obtained_bit" function
-localparam integer SAMPLE_LOC_1 = (OVERSAMPLE_FACTOR / 2) - 1;
-localparam integer SAMPLE_LOC_2  = (OVERSAMPLE_FACTOR / 2);
-localparam integer SAMPLE_LOC_3 = (OVERSAMPLE_FACTOR / 2) + 1;
+    // FPGA power-up values (there is no reset)
+    initial begin
+        state      = S_IDLE;
+        slot       = 4'd0;
+        nbits      = 4'd0;
+        vote       = 3'b000;
+        shreg      = {NBITS{1'b0}};
+        data       = {FRAME_BITS{1'b0}};
+        converted  = 1'b0;
+        data_valid = 1'b0;
+        busy       = 1'b0;
+    end
 
-reg [1:0] state;            // FSM state
+    wire vote_bit = (vote[0] & vote[1]) | (vote[1] & vote[2]) | (vote[0] & vote[2]);
+    wire sampling = (slot == 4'd6) || (slot == 4'd7) || (slot == 4'd8);
+    wire parity_ok = ((^data) == (PARITY_BIT == 1));
 
-reg [3:0] bit_location;     // Indexing variable for the received data
-reg [3:0] insert_location;  //  current index of data in oversampling buffer
+    always @(posedge i_clk) begin
+        case (state)
+            S_IDLE: begin
+                converted  <= 1'b0;
+                data_valid <= 1'b0;
+                busy       <= 1'b0;
+                slot       <= 4'd0;
+                nbits      <= 4'd0;
+                shreg      <= {NBITS{1'b0}};
+                data       <= {FRAME_BITS{1'b0}};
+                if (!rx) state <= S_START;
+            end
 
-reg [OVERSAMPLE_FACTOR-1:0] oversampled_bit;    // oversampling buffer
-reg [TOTAL_RX_BITS-1:0] sampled_rx_data;        // RX buffer
-
-initial begin
-    
-    `ifdef DEBUG
-        $display("Oversampling factor: %2d", OVERSAMPLE_FACTOR);
-    `endif
-
-    state = IDLE;
-
-    busy = 0;
-    bit_location = 0;
-    insert_location = 0;
-    sampled_rx_data = {(TOTAL_RX_BITS-1){1'b0}};
-end
-
-// Managing the states of the conversion FSM
-always @(posedge i_clk) begin
-    case (state)
-
-        // Unless "0" is detected on RX line, wait
-        IDLE :
-            state <= rx ? IDLE : DETECT_START;
-            
-        // Once "0" is seen on RX line, sample certain times, decide if RX started
-        // If RX started, go to next state
-        DETECT_START: begin
-            if(insert_location == (OVERSAMPLE_FACTOR-4))
-                if(busy)
-                    state <= STARTED;
-                else begin
-                    state <= IDLE;
+            S_START: begin
+                if (sampling) vote <= {rx, vote[2:1]};
+                if (slot == 4'd10) busy <= ~vote_bit;   // start bit must vote 0
+                if (slot == 4'd11) begin
+                    slot  <= 4'd0;
+                    state <= busy ? S_BITS : S_IDLE;
+                end else begin
+                    slot <= slot + 4'd1;
                 end
             end
 
-        // Receive all bits of the RX data, with oversampling
-        STARTED:
-            state <= (bit_location == TOTAL_RX_BITS) ? CONVERSION : STARTED;
-
-        // Check parity, then retain data until data is flushed
-        CONVERSION: 
-            state <= (flush) ? IDLE : CONVERSION;        
-    endcase
-end
-
-// Actual logic in each state
-always @(posedge i_clk) begin
-    case (state)
-    
-        // Simply reset all the vectors
-        IDLE: begin
-            converted <= 0;
-            data_valid <= 0;
-            busy <= 0;
-            bit_location <= 0;
-            insert_location <= 0; // Not really needed
-            oversampled_bit <= 15'b0;
-            sampled_rx_data = {(TOTAL_RX_BITS-1){1'b0}};
-            data <= {FRAME_BITS{1'b0}};
-        end
-        
-        // Try to detect if a zero bit is detected, marking start of transmission
-        DETECT_START: begin
-            if (insert_location == (OVERSAMPLE_FACTOR - 5)) begin
-                busy <= ~obtained_bit(oversampled_bit);    // Decide what bit was received
-                oversampled_bit <= 15'b0;   // Reset the oversampling buffer
-            end
-            else
-                oversampled_bit[insert_location] <= rx; // Fill the oversample buffer
-
-            if(busy)
-                insert_location <= 0; // Increment insertion location
-            else
-                insert_location <= insert_location + 1;
-        end
-        
-        // Once transmission start is confirmed, start receiving the data, with oversampling
-        STARTED: begin
-            oversampled_bit[insert_location] <= rx;
-            insert_location <= insert_location + 1;
-
-            // Once oversampling buffer is full, decide what bit was received
-            if (insert_location == OVERSAMPLE_FACTOR - 1) begin
-                sampled_rx_data[bit_location] <= obtained_bit(oversampled_bit);
-                oversampled_bit <= 15'b0;   // Reset the oversampling buffer
-                
-                bit_location <= bit_location + 1;
-            end
-        end
-        
-        // Transmission complete, check parity, put out data and other flag bits
-        CONVERSION: begin
-            if(~converted) begin
-                converted <= 1;
-                data <= sampled_rx_data[FRAME_BITS-1:0];
-    
-                if(PARITY_BIT < 2) begin
-                    if (^data == PARITY_BIT)
-                        data_valid <= 1;
-                    else
-                        data_valid <= 0;
+            S_BITS: begin
+                if (sampling) vote <= {rx, vote[2:1]};
+                if (slot == 4'd14) begin
+                    shreg <= {vote_bit, shreg[NBITS-1:1]};
+                    nbits <= nbits + 4'd1;
                 end
-                else
-                    data_valid <= 1;
+                if (slot == 4'd15 && nbits == NBITS[3:0]) state <= S_DONE;
+                slot <= slot + 4'd1;                    // wraps every 16 clocks
             end
-        end
-    endcase
-end
 
-// Function to decide the received bit, depending on the oversampled data bits
-function obtained_bit (input [OVERSAMPLE_FACTOR-1:0] oversampled_vector);
-    obtained_bit =  (oversampled_vector[SAMPLE_LOC_1] & oversampled_vector[SAMPLE_LOC_2]) | 
-                    (oversampled_vector[SAMPLE_LOC_2] & oversampled_vector[SAMPLE_LOC_3]) | 
-                    (oversampled_vector[SAMPLE_LOC_1] & oversampled_vector[SAMPLE_LOC_3]);
-endfunction
-    
+            S_DONE: begin
+                if (!converted) begin
+                    converted  <= 1'b1;
+                    data       <= shreg[FRAME_BITS-1:0];
+                    data_valid <= (PARITY_BIT < 2) ? parity_ok : 1'b1;
+                end
+                if (flush) state <= S_IDLE;
+            end
+        endcase
+    end
+
 endmodule

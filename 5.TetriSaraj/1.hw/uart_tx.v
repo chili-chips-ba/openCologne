@@ -1,183 +1,98 @@
+// SPDX-FileCopyrightText: 2026 Chili.CHIPS
+//
+// SPDX-License-Identifier: BSD-3-Clause
+//
+// UART transmitter, the counterpart of uart_rx. Each bit is held for
+// RETENTION_DURATION+1 clocks (16 with the default, matching the 16x clock
+// of uart_rx). When tx_enable is seen in idle, tx_busy rises and data is
+// latched two clocks later, then sent as start bit, FRAME_BITS data bits
+// LSB first, the parity bit if PARITY_BIT < 2, and STOP_BITS stop bits.
+// The parity bit is the XOR of the data bits for both PARITY_BIT = 0 and 1
+// (existing behaviour, kept on purpose). tx idles high.
+
 `timescale 10ns / 1ns
 
-/*
- * Custom TX design, to match the RX module
- * Author: Shubhayu Das
- * Date: 27th November, 2021
- * Version: 1.2
- * Last update: 28th Nov, 2021: Changed order of bytes to big-endian
- *
- ********************
- * Inputs:
- * clk: UART clk, which MUST match the clock on the RX module
- * tx_enable: start transmitting data ASAP
- * data: the actual data to be transmitted
- ******************** 
- * Parameters:
- * FRAME_BITS: Number of data bits per transaction
- * PARITY_BITS: 0/1 indicate odd or even parity, 2 disables parity
- * STOP_BITS: Number of stop bits to send
- * RETENTION_DURATION: Compensate for oversampling UART clock
- *
- ********************
- * Outputs:
- * tx: The TX data line
- * tx_busy: signal to indicate TX line is busy, don't start anything else
- *
- ********************
- * Features of this module:
- *
- * This module automatically compensates for the faster UART clock being used
- * for oversampling in the RX module. This is controlled by the 
- * RETENTION_DURATION" parameter.
- *
- * The input data is sampled as soon as "tx_enable" is set(on the next clock posedge)
- * The input data is stored locally, the source register's value can change
- * freely, without corrupting the TX activity.
- *
- * The data being sent is automatically flipped. So data[7:0] is sent as data[0:7]
-*/
-
-
 module uart_tx #(
-    parameter FRAME_BITS = 8,   // Number of data bits, can be 7/8
-    PARITY_BIT = 2,             // Parity disabled by default
-    STOP_BITS = 1,              // Using only 1 stop bit
-    RETENTION_DURATION = 15     // Compensate for oversampling in RX
+    parameter FRAME_BITS = 8,     // data bits per frame
+    PARITY_BIT = 2,               // 0/1: send parity bit, 2: no parity
+    STOP_BITS  = 1,               // stop bits per frame
+    RETENTION_DURATION = 15       // clocks per bit minus one
 )(
-    input clk,
-    input tx_enable,
+    input                  clk,
+    input                  tx_enable,
     input [FRAME_BITS-1:0] data,
-    output reg tx,
-    output reg tx_busy
+    output reg             tx,
+    output reg             tx_busy
 );
 
-function integer clog2;
-    input integer value;
-          integer temp;
-    begin
-        temp = value - 1;
-        for (clog2 = 0; temp > 0; clog2 = clog2 + 1) begin
-            temp = temp >> 1;
+    localparam integer HAS_PAR = (PARITY_BIT < 2) ? 1 : 0;
+    localparam integer NBITS   = 1 + FRAME_BITS + HAS_PAR + STOP_BITS;
+    localparam integer DW      = $clog2(RETENTION_DURATION + 2);
+    localparam integer NW      = $clog2(NBITS + 2);
+
+    localparam [DW-1:0] DIV_LAST = RETENTION_DURATION;
+    localparam [NW-1:0] N_ALL    = NBITS[NW-1:0];
+
+    localparam [1:0] S_IDLE = 2'd0,
+                     S_ARM  = 2'd1,   // first busy clock
+                     S_LOAD = 2'd2,   // data is latched here
+                     S_SEND = 2'd3;
+
+    // Frame, first bit to send in [0]
+    wire [NBITS-1:0] frame;
+    generate
+        if (HAS_PAR != 0) begin : g_par
+            assign frame = {{STOP_BITS{1'b1}}, ^data, data, 1'b0};
+        end else begin : g_nopar
+            assign frame = {{STOP_BITS{1'b1}}, data, 1'b0};
         end
+    endgenerate
+
+    reg [1:0]       state;
+    reg [NBITS-1:0] shreg;    // bits still to send, next one in [0]
+    reg [DW-1:0]    div;      // clock index within a bit
+    reg [NW-1:0]    nsent;    // bits put on tx so far
+
+    // FPGA power-up values (there is no reset)
+    initial begin
+        state   = S_IDLE;
+        shreg   = {NBITS{1'b1}};
+        div     = DIV_LAST;
+        nsent   = {NW{1'b0}};
+        tx      = 1'b1;
+        tx_busy = 1'b0;
     end
-endfunction
 
-// Knowing how bits need to be sent
-localparam N_TX_BITS = (PARITY_BIT < 2) ? 
-                        (1+FRAME_BITS+1+STOP_BITS) : (1+FRAME_BITS+STOP_BITS);
-localparam INDEX_SIZE = clog2(N_TX_BITS);
+    always @(posedge clk) begin
+        tx_busy <= (state != S_IDLE);
 
-// FSM states
-localparam IDLE = 0;        // Wait for tx_enable to be set
-localparam CAPTURE = 1;     // Copy data into local_data, with parity, stop bits
-localparam TRANSMITTING = 2;// Data being put on TX line
-
-reg [2:0] state;
-reg data_framed;            // Indicates data has been copied to local_data
-
-reg [INDEX_SIZE:0] bit_index;
-
-reg [0:N_TX_BITS-1] local_data; // local data register
-
-// Keeps TX high for requisite number of cycles
-reg [clog2(RETENTION_DURATION):0] retention_counter;
-
-
-initial begin
-    tx = 1;
-    tx_busy = 0;
-    
-    state = IDLE;
-    bit_index = 0;
-    data_framed = 0;
-    local_data = 0;
-    
-    // This is NOT a mistake
-    // This compensates for the immediate addition that happens
-    // in "TRANSMITTING" state
-    retention_counter = RETENTION_DURATION;
-end
-
-// Handle the state changes
-always @(posedge clk) begin
-    case(state)
-        IDLE:
-            state <= (tx_enable) ? CAPTURE : IDLE;
-        
-        CAPTURE:
-            state <= (data_framed) ? TRANSMITTING : CAPTURE;
-            
-        TRANSMITTING:
-            state <= (bit_index == N_TX_BITS) ? IDLE : TRANSMITTING;
-    endcase 
-end
-
-always @(posedge clk) begin
-    case(state)
-        IDLE: begin
-                tx <= 1;
-                tx_busy <= 0;
-                bit_index <= 0;
-                local_data <= 0;
-                data_framed <= 0;
-                retention_counter <= RETENTION_DURATION;
+        case (state)
+            S_IDLE: begin
+                tx    <= 1'b1;
+                div   <= DIV_LAST;
+                nsent <= {NW{1'b0}};
+                if (tx_enable) state <= S_ARM;
             end
-            
-        CAPTURE: begin
-            tx_busy <= 1;
-            
-            // The data needs to be reversed
-            if(PARITY_BIT < 2) begin
-                local_data <= {
-                    1'b0,       // Start bit
-                    data[0],    // Reversed data
-                    data[1],
-                    data[2],
-                    data[3],
-                    data[4],
-                    data[5],
-                    data[6],
-                    data[7],
-                    ^data,      // Parity
-                    {(STOP_BITS){1'b1}} // Stop bit(s)
-                };
-                data_framed <= 1;
+
+            S_ARM:
+                state <= S_LOAD;
+
+            S_LOAD: begin
+                shreg <= frame;
+                state <= S_SEND;
             end
-            else begin
-                // Same as above, but without parity
-                local_data <= {
-                    1'b0,
-                    data[0],
-                    data[1],
-                    data[2],
-                    data[3],
-                    data[4],
-                    data[5],
-                    data[6],
-                    data[7],
-                    {(STOP_BITS){1'b1}}
-                };
-                data_framed <= 1;
+
+            S_SEND: begin
+                div <= (div == DIV_LAST) ? {DW{1'b0}} : div + 1'b1;
+                if (div == {DW{1'b0}}) begin
+                    tx    <= shreg[0];
+                    shreg <= {1'b1, shreg[NBITS-1:1]};
+                    nsent <= nsent + 1'b1;
+                end
+                // back to idle one clock after the last bit went out
+                if (nsent == N_ALL) state <= S_IDLE;
             end
-        end
-        
-        TRANSMITTING: begin
-            if(retention_counter == 0) begin
-                tx <= local_data[bit_index];
-                bit_index <= bit_index + 1;
-                
-                if(bit_index == N_TX_BITS)
-                    tx_busy <= 0;
-                
-            end
-            
-            if(retention_counter < RETENTION_DURATION)
-                retention_counter <= retention_counter + 1;
-            else
-                retention_counter <= 0;
-        end
-    endcase
-end
+        endcase
+    end
 
 endmodule

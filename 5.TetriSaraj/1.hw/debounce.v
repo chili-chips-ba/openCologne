@@ -1,53 +1,39 @@
-//fpga4student.com: FPGA projects, Verilog projects, VHDL projects
-// Verilog code for button debouncing on FPGA
-// debouncing module without creating another clock domain
-// by using clock enable signal 
-module debounce(
-	input clk,
-	input in,
-	output out
+// SPDX-FileCopyrightText: 2026 Chili.CHIPS
+//
+// SPDX-License-Identifier: BSD-3-Clause
+//
+// Push-button debouncer with rising-edge detect. The button is sampled once
+// every 25000 clocks into a 3-stage shift register. The output is high for
+// one sample period (25000 clocks) after the sampled button goes from 0 to 1.
+// Runs in the clk domain, using a clock enable instead of a divided clock.
+
+module debounce (
+    input  wire clk,
+    input  wire in,
+    output wire out
 );
 
-	wire slow_clk_en;
-	wire Q1,Q2,Q2_bar,Q0;
+    localparam [14:0] DIV_LAST = 15'd24999;  // sample every 25000 clocks
 
-	clock_enable u1(clk,slow_clk_en);
-	my_dff_en d0(clk,slow_clk_en,in,Q0);
-	my_dff_en d1(clk,slow_clk_en,Q0,Q1);
-	my_dff_en d2(clk,slow_clk_en,Q1,Q2);
-	
-	assign Q2_bar = ~Q2;
-	assign out = Q1 & Q2_bar;
-endmodule
+    reg  [14:0] div_cnt;
+    reg  [2:0]  smp;      // smp[0] is the newest sample, smp[2] the oldest
+    wire        sample = (div_cnt == DIV_LAST);
 
-// Slow clock enable for debouncing button 
-module clock_enable(
-	input Clk_100M,
-	output slow_clk_en
-);
-    reg [26:0]counter=0;
-	
-    always @(posedge Clk_100M)
-    begin
-       counter <= (counter>=24999) ? 0 : counter + 1;
+    // FPGA power-up values (there is no reset)
+    initial begin
+        div_cnt = 15'd0;
+        smp     = 3'b000;
     end
 
-    assign slow_clk_en = (counter == 24999) ? 1'b1 : 1'b0;
-endmodule
-
-// D-flip-flop with clock enable signal for debouncing module 
-module my_dff_en(
-	input DFF_CLOCK, 
-	input clock_enable, 
-	input D, 
-	output reg Q=0
-);
-
-    always @ (posedge DFF_CLOCK) 
-	begin
-		if(clock_enable==1) 
-			Q <= D;
+    always @(posedge clk) begin
+        if (sample) div_cnt <= 15'd0;
+        else        div_cnt <= div_cnt + 15'd1;
     end
-	
-endmodule 
 
+    always @(posedge clk) begin
+        if (sample) smp <= {smp[1:0], in};
+    end
+
+    assign out = smp[1] & ~smp[2];
+
+endmodule

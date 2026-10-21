@@ -1,49 +1,56 @@
-/*
- generates sine wave
- using discrete-time evaluation of the
- physical model of a sprung mass lossless mechanical oscillator
-*/
+// SPDX-FileCopyrightText: 2026 Chili.CHIPS
+//
+// SPDX-License-Identifier: BSD-3-Clause
+//
+// Sine oscillator without a table: a discrete-time spring-mass model.
+// Every 2^DELAY clocks the position is advanced by speed >> SPD_TO_POS_SHIFT,
+// and one clock later the speed is reduced by position >> POS_TO_SPD_SHIFT
+// (arithmetic shifts). Position and speed then trace a stable sine/cosine
+// pair. pcm is the position. POS_INIT and SPD_INIT set phase and amplitude.
+// Needs SPD_BITS < PCM_BITS and DELAY >= 2.
+
 module sinewave #(
-  parameter DELAY            = 8,  // sample rate = 2^-n
-  parameter PCM_BITS         = 12, // output PCM bits
-  parameter SPD_BITS         = 10,
-  parameter POS_TO_SPD_SHIFT = 8,  // mechanical "spring" stiffness = 2^-n
-  parameter SPD_TO_POS_SHIFT = 3,  // mechanical "mass" = 2^-n
-  parameter POS_INIT         = 0,  // initial position = 0
-  parameter SPD_INIT         = 277 // initial speed 340 sets max amplitude that fits into 12-bit
+    parameter DELAY            = 8,    // update period = 2^DELAY clocks
+    parameter PCM_BITS         = 12,   // output width
+    parameter SPD_BITS         = 10,   // speed register width
+    parameter POS_TO_SPD_SHIFT = 8,    // spring stiffness = 2^-n
+    parameter SPD_TO_POS_SHIFT = 3,    // 1/mass = 2^-n
+    parameter POS_INIT         = 0,
+    parameter SPD_INIT         = 277   // amplitude, 277 fits 12 bits
 ) (
-  input                        clk,
-  output signed [PCM_BITS-1:0] pcm // 12-bit signed PCM output
+    input  wire                       clk,
+    output wire signed [PCM_BITS-1:0] pcm
 );
-    reg  signed [SPD_BITS-1:0] spd = SPD_INIT;
-    reg  signed [PCM_BITS-1:0] pos = POS_INIT;
-    wire signed [SPD_BITS-1:0] pos_shift;
-    wire signed [PCM_BITS-1:0] pos_next;
-    wire signed [PCM_BITS-1:0] spd_shift;
-    reg         [PCM_BITS-1:0] pcm_reg;
-    reg         [DELAY-1:0]    delay_reg; // counter to slow down
-    assign spd_shift =
-    {
-      {(PCM_BITS-(SPD_BITS-SPD_TO_POS_SHIFT)){spd[SPD_BITS-1]}}, // 5 bit sign expansion, 5+7 = 12 bit
-      spd[SPD_BITS-1:SPD_TO_POS_SHIFT]                           // 10->7 bit
-    };
-    assign pos_shift =
-    {
-      {(SPD_BITS-(PCM_BITS-POS_TO_SPD_SHIFT)){pos[PCM_BITS-1]}}, // 6 bit sign expansion, 6+4 = 10 bit 
-      pos[PCM_BITS-1:POS_TO_SPD_SHIFT]                           // 12->4 bit
-    };
-    assign pos_next = pos + spd_shift;
+
+    reg signed [PCM_BITS-1:0] pos;
+    reg signed [SPD_BITS-1:0] spd;
+    reg        [DELAY-1:0]    tick_cnt;
+
+    // FPGA power-up values (there is no reset)
+    initial begin
+        pos      = POS_INIT;
+        spd      = SPD_INIT;
+        tick_cnt = {DELAY{1'b0}};
+    end
+
+    // Scaled terms, sign-extended to the width of their target
+    wire signed [SPD_BITS-1:0] spd_sh = spd >>> SPD_TO_POS_SHIFT;
+    // top bits of pos_sh are only sign copies, the low SPD_BITS are used
+    /* verilator lint_off UNUSEDSIGNAL */
+    wire signed [PCM_BITS-1:0] pos_sh = pos >>> POS_TO_SPD_SHIFT;
+    /* verilator lint_on UNUSEDSIGNAL */
+    wire signed [PCM_BITS-1:0] d_pos  = {{(PCM_BITS-SPD_BITS){spd_sh[SPD_BITS-1]}}, spd_sh};
+    wire signed [SPD_BITS-1:0] d_spd  = pos_sh[SPD_BITS-1:0];
+
+    wire step_pos = (tick_cnt == {DELAY{1'b0}});
+    wire step_spd = (tick_cnt == {{(DELAY-1){1'b0}}, 1'b1});
 
     always @(posedge clk) begin
-      if( (|(delay_reg[DELAY-1:1])) == 1'b0 ) begin
-        // every 2nd clock calculates next value of the sine wave
-        if( delay_reg[0] == 1'b0) // alternate
-          pos <= pos_next;        // apply speed to position
-        else
-          spd <= spd - pos_shift; // apply acceleration to speed
-      end
-      delay_reg <= delay_reg + 1;
+        tick_cnt <= tick_cnt + 1'b1;
+        if (step_pos) pos <= pos + d_pos;
+        if (step_spd) spd <= spd - d_spd;
     end
 
     assign pcm = pos;
+
 endmodule

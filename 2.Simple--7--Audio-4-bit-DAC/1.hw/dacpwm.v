@@ -1,37 +1,58 @@
-// combines resistor DAC and PWM
-// upper bits using DAC, lower bit using PWM
+// SPDX-FileCopyrightText: 2026 Chili.CHIPS
+//
+// SPDX-License-Identifier: BSD-3-Clause
+//
+// Signed PCM to unsigned resistor-ladder DAC code, with PWM on the low bits.
+// The top DAC_BITS of pcm (sign bit inverted, i.e. offset binary) give the
+// base level L. The remaining PWM_BITS give the fraction f: a free-running
+// PWM counter outputs L+1 while counter < f and L otherwise, so the average
+// output is L + f/2^PWM_BITS. Inputs are registered first, so dac follows
+// pcm with two clocks of latency. L+1 wraps to 0 at full scale (existing
+// behaviour, kept on purpose).
 
 module dacpwm #(
-  parameter PCM_BITS = 12,                  // input: how many bits PCM (including sign bit)
-  parameter DAC_BITS = 4                    // output: how many bits DAC output, unsigned
+    parameter PCM_BITS = 12,                   // signed PCM input width
+    parameter DAC_BITS = 4                     // unsigned DAC output width
 ) (
-  input                         clk,        // required to run PWM
-  input signed [PCM_BITS-1:0]   pcm,        // 12-bit signed PCM input
-  output       [DAC_BITS-1:0]   dac         // 4-bit unsigned DAC output
+    input  wire                       clk,
+    input  wire signed [PCM_BITS-1:0] pcm,
+    output wire        [DAC_BITS-1:0] dac
 );
-    parameter PWM_BITS = PCM_BITS-DAC_BITS; // how many bits for PWM that increases DAC resolution
 
-    // generate 2 DAC output optional values: PCM+0 and PCM+1
-    reg [DAC_BITS-1:0] dac0, dac1;
-    reg [PWM_BITS-1:0] pcm_low;
+    localparam PWM_BITS = PCM_BITS - DAC_BITS;
+
+    localparam [DAC_BITS-1:0] SIGN_FLIP = {1'b1, {(DAC_BITS-1){1'b0}}};
+
+    // Stage 1: split the sample
+    reg [DAC_BITS-1:0] level, level_up;
+    reg [PWM_BITS-1:0] frac;
+
+    wire [DAC_BITS-1:0] top_bits = pcm[PCM_BITS-1:PWM_BITS] ^ SIGN_FLIP;
+
     always @(posedge clk) begin
-      dac0    <= { ~pcm[PCM_BITS-1], pcm[PCM_BITS-2:PCM_BITS-DAC_BITS]};
-      dac1    <= { ~pcm[PCM_BITS-1], pcm[PCM_BITS-2:PCM_BITS-DAC_BITS]} + 1;
-      pcm_low <=    pcm[PWM_BITS-1:0];
+        level    <= top_bits;
+        level_up <= top_bits + 1'b1;
+        frac     <= pcm[PWM_BITS-1:0];
     end
 
-    // constantly running PWM counter
-    reg [PWM_BITS-1:0] pwm_counter;
+    // Stage 2: PWM between level and level+1
+    reg [PWM_BITS-1:0] pwm_cnt;
+    reg [DAC_BITS-1:0] dac_q;
+
+    // FPGA power-up values (there is no reset)
+    initial begin
+        level    = {DAC_BITS{1'b0}};
+        level_up = {DAC_BITS{1'b0}};
+        frac     = {PWM_BITS{1'b0}};
+        pwm_cnt  = {PWM_BITS{1'b0}};
+        dac_q    = {DAC_BITS{1'b0}};
+    end
+
     always @(posedge clk) begin
-      pwm_counter <= pwm_counter + 1'b1; // constantly running
+        pwm_cnt <= pwm_cnt + 1'b1;
+        dac_q   <= (pwm_cnt < frac) ? level_up : level;
     end
 
-    // the comparator
-    // using PWM to switch between dac0 and dac1
-    reg [DAC_BITS-1:0] dac_output;
-    always @(posedge clk)begin
-      dac_output <= pwm_counter >= pcm_low ? dac0 : dac1;
-    end
+    assign dac = dac_q;
 
-    assign dac = dac_output;
 endmodule
