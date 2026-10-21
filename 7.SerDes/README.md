@@ -9,6 +9,7 @@ Design a high-speed serial, **memory-mapped Chip-to-Chip (C2C) Interconnect**. T
 - BerkeleyLab [ChitChat](https://berkeleylab.github.io/Bedrock/_gen_md/serial_io/chitchat/README_md.html) protocol
 - LiteX [IC Link](https://github.com/enjoy-digital/liteiclink)
 - [MesaBusProtocol](https://github.com/blackmesalabs/MesaBusProtocol)
+- T. Ibrahimović, N. Osmić, [eduBOS5: A Case Study in Structured SystemVerilog and PPA Optimization for Resource-Constrained RISC-V FPGA Cores](https://doi.org/10.1109/Austrochip67945.2025.11183711), Austrochip 2025, IEEE. The CPU in our SoC.
 - openCologne-PCIE [SerDes BFM](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/2.serdes-model) and [SerDes loopback tests](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/1.serdes-test.STANDALONE)
 - [Transputer](http://www.bitsavers.org/components/inmos/transputer/C011_Link_Adaptor.pdf)
 - [LiteX 1000basex](https://github.com/pu-cc/liteeth/tree/gatemate1000basex)
