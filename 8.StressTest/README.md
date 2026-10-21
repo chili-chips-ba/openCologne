@@ -176,6 +176,22 @@ Original design, wide read mux kept, `LUTRAM16X10` swept.
 | Result | "FPGA too small" | no legal placement, 1.8 min |
 
 - The open flow needs 13% fewer CPEs, but one core still does not fit.
+
+Where nextpnr's 43703 half-CPEs go (`--pack-only`, packed netlist):
+
+| Packed half-CPEs | nextpnr | Ideal |
+|---|---|---|
+| LUT / MX logic | 27761 | 27761 |
+| L2T5 upper halves | 5023 | 5023 |
+| Adders: 2733 CPEs, only 322 of 3055 ADDFs paired | 5466 | 3056 |
+| FF-only route-throughs (`$lt`) | 3556 | 0 |
+| LUT driving FF + logic (`$lower`) | 862 | 0 |
+| BRAM port halves | 741 | 0 |
+| Carry-chain in / out | 294 | 0 |
+| **Total** | **43703 (107%)** | **35840 (87.5%)** |
+
+- On paper the core fits at 87.5%. Packing overhead (7863 half-CPEs) pushes it to 107%.
+- The two biggest items: FF-only halves, and adders not paired two per CPE.
 - Open question: why ~26.6k LUT-equivalents need more than 20480 CPEs. Good first issue.
 
 ### BetrustedSoC, fixed seed ([#73](https://github.com/chili-chips-ba/openCologne/issues/73))
@@ -225,6 +241,7 @@ nextpnr-himbaechel --device CCGM1A1 --json betrusted_soc.json --vopt out=betrust
 - https://gitlab.com/x653/spaceinvaders-fpga - While this is not a targeted stress test, it is still an interesting real-life design to reproduce if time allows, see [this](https://olimex.wordpress.com/2025/01/08/space-inavders-retrogame-runs-on-gatematea1-evb)...
 
 ## References:
+- T. Ibrahimović, N. Osmić, [Inside GateMate: Analysis and Benchmarking of a New FPGA Architecture](https://doi.org/10.1109/ICM66518.2025.11322434), 37th International Conference on Microelectronics (ICM), IEEE, 2025. Paper on these stress tests.
 - [Michael Gude talk on GateMate architecture](https://underline.io/lecture/34046-novel-architecture-for-european-fpga)
 - [Why GateMate?!](https://pythonlinks.info/presentations/vectors/WhyGateMate.pdf)
 - [Project Peppercorn - GateMate bitstream documentation](https://github.com/YosysHQ/prjpeppercorn)
