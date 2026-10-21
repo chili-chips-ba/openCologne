@@ -103,7 +103,7 @@ gmpack top.txt top.bit
 openFPGALoader -b gatemate_evb_jtag top.bit
 ```
 
-Unlike LiteX, we leave out `--timing-allow-fail`: a timing failure stops the build. [`3.iclink-sv/3.build`](3.iclink-sv/3.build) will wrap it; the sources come from [`3.iclink-sv/1.hw/top.filelist`](3.iclink-sv/1.hw/top.filelist).
+Unlike LiteX, we leave out `--timing-allow-fail`: a timing failure stops the build. [`3.iclink-sv/3.build`](3.iclink-sv/3.build) wraps it (`make`, `make load`); the sources come from [`3.iclink-sv/1.hw/top.filelist`](3.iclink-sv/1.hw/top.filelist).
 
 ### Within LiteX
 
@@ -141,6 +141,13 @@ The SerDes in simulation is our open-source [SerDes BFM](https://github.com/chil
 |---|---|---|---|
 | `phy_oneway` | setup 1 | one PHY, BFM TX looped to its RX | lock and alignment within a bound; 0 PRBS errors; a flipped bit on the line is counted |
 | `serwb_twoway` | setup 2 | two eduBOS5 SoCs, two BFMs, lines crossed | eduBOS5 A writes then reads back B's RAM and a B CSR (PeakRDL); data matches; the link recovers after one side is reset |
+
+Unit tests, run now (`make -C 3.iclink-sv/2.sim`):
+
+| Test | Checks |
+|---|---|
+| `sim_8b10b` | the SV 8b/10b against LiteX's own `code_8b10b.py`, bit for bit; round trip; running disparity |
+| `sim_top` | the board top's 8b/10b self-test: a clean run, then a one-bit error must light the error |
 
 ## QA
 
