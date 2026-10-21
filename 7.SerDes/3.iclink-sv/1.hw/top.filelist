@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: 2026 Chili.CHIPS
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+#==========================================================================
+# Files of the 'top' design module, in compile order: packages first.
+# Read by 3.build/sources.sh (run-lint, run-format, run-leq).
+#==========================================================================
+
+${HW_SRC}/top_pkg.sv
+${HW_SRC}/top.sv

@@ -10,7 +10,7 @@ Open an [Issue](https://github.com/chili-chips-ba/openCologne/issues). For bugs,
 
 1. Bigger change? Open an Issue first, so we agree on the approach
 2. Fork, branch off `main`, make the change
-3. QA process (being set up on [7.SerDes](7.SerDes), our reference example):
+3. QA process, shown on our reference example [7.SerDes/3.iclink-sv](7.SerDes/3.iclink-sv):
    - **run-lint** shows no errors. Fix lint findings at the root. Waive only as the last resort, with a reason.
    - **run-format --check** passes.
    - The example's **simulation** passes,
@@ -18,7 +18,7 @@ Open an [Issue](https://github.com/chili-chips-ba/openCologne/issues). For bugs,
    - For a mere cleanup: **run-leq** proves there are no functional changes.
 4. Open a Pull Request against `main`.
 
-Observe our RTL coding rules, as in [openPCIE](https://github.com/chili-chips-ba/openPCIE/blob/main/2.rtl/README.md#rtl-coding-rules). The older examples predate them.
+Observe our [RTL coding rules](7.SerDes/3.iclink-sv/1.hw/README.md#rtl-coding-rules). The older examples predate them.
 
 ## License
 

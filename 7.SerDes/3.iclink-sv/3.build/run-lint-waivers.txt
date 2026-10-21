@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: 2026 Chili.CHIPS
+#
+# SPDX-License-Identifier: BSD-3-Clause
+#
+# Accepted lint findings, read by run-lint.sh.
+#
+# One waiver per line:  <phase> <regex>
+#   <phase>  tags | verilator | yosys | slang | verible
+#   <regex>  extended regex (grep -E), matched against one finding line as it
+#            appears in <phase>.all of a run-lint.sh work directory
+# A finding that matches is waived. Put the reason on a comment line above it.
+#
+# Guideline: resolve a finding at its root; waive only as the last resort, by
+# the same steps as openPCIE's run-lint-waivers.txt:
+#   1. dead logic in our RTL: delete it;
+#   2. oversized buses in our RTL: size them to what is used;
+#   3. unused outputs of hard macros, primitives and third-party cores:
+#      .PIN (/*LINT:OK*/), or route them to an NC_ (no-connect) signal;
+#   4. only then a waiver here, with its reason.
+
+# NC_ signals are no-connects by name: driven by an unused output, never read
+verilator ^%Warning-UNUSEDSIGNAL: .*'NC_[A-Za-z0-9_]+'

@@ -246,11 +246,11 @@ Don't feel shy to ask for help ===> [![issues](https://badgen.net/github/open-is
 
 ## Contribution Guidelines
 
-See [Contributions](CONTRIBUTING.md): how to report an issue, the QA steps a change goes through (lint, format, simulation, build, LEQ), the license, and GenAI use. [7.SerDes](7.SerDes) is becoming our reference example for that flow.
+See [Contributions](CONTRIBUTING.md): how to report an issue, the QA steps a change goes through (lint, format, simulation, build, LEQ), the license, and GenAI use. [7.SerDes/3.iclink-sv](7.SerDes/3.iclink-sv) is our reference example: it carries the full QA flow, so start there.
 
 ## RTL Coding Rules
 
-New RTL follows our RTL coding rules, as in [openPCIE](https://github.com/chili-chips-ba/openPCIE/blob/main/2.rtl/README.md#rtl-coding-rules) and [wireguard-fpga](https://github.com/chili-chips-ba/wireguard-fpga/blob/main/1.hw/README.md#rtl-coding-rules). The older examples predate them.
+New RTL follows our [RTL coding rules](7.SerDes/3.iclink-sv/1.hw/README.md#rtl-coding-rules), as in [openPCIE](https://github.com/chili-chips-ba/openPCIE/blob/main/2.rtl/README.md#rtl-coding-rules) and [wireguard-fpga](https://github.com/chili-chips-ba/wireguard-fpga/blob/main/1.hw/README.md#rtl-coding-rules). The older examples predate them.
 
 ## GenAI
 
