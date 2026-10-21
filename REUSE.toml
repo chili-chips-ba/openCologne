@@ -207,44 +207,6 @@ precedence = "override"
 SPDX-FileCopyrightText = "Russell Merrick (nandland.com)"
 SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
 
-# TetriSaraj helpers from various sources
-[[annotations]]
-path = ["5.TetriSaraj/1.hw/debounce.v"]
-precedence = "override"
-SPDX-FileCopyrightText = "fpga4student.com"
-SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
-
-[[annotations]]
-path = ["5.TetriSaraj/1.hw/vga_controller.v"]
-precedence = "override"
-SPDX-FileCopyrightText = ["David J. Marion", "Pong P. Chu (reference book)"]
-SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
-
-[[annotations]]
-path = ["5.TetriSaraj/1.hw/uart_rx.v", "5.TetriSaraj/1.hw/uart_tx.v"]
-precedence = "override"
-SPDX-FileCopyrightText = "2021 Shubhayu Das"
-SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
-
-# Audio DAC modules from https://github.com/emard/ulx3s-misc (examples/audio)
-[[annotations]]
-path = [
-  "2.Simple--7--Audio-4-bit-DAC/1.hw/dacpwm.v",
-  "2.Simple--7--Audio-4-bit-DAC/1.hw/sinewave.v",
-  "2.Simple--7--Audio-4-bit-DAC/1.hw/squarewave.v",
-  "2.Simple--7--Audio-4-bit-DAC/1.hw/trianglewave.v",
-]
-precedence = "override"
-SPDX-FileCopyrightText = "Davor Jadrijevic (EMARD)"
-SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
-
-# PCM5102 I2S driver, adapted from https://github.com/noscene/ice40_audio
-[[annotations]]
-path = ["10.Bonus--6--I2S-DAC/1.hw/PCM5102.v", "4.Advanced--4--Yamaha-OPL3-FM-Synth/4.dac/1.hw/PCM5102.v"]
-precedence = "override"
-SPDX-FileCopyrightText = ["noscene (github.com/noscene/ice40_audio)", "2024 Chili.CHIPS (modifications)"]
-SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
-
 # Dhrystone benchmark
 [[annotations]]
 path = ["10.Bonus--5--eduSOC/2.sw/tests/dhry*"]
@@ -278,28 +240,10 @@ SPDX-License-Identifier = "LicenseRef-Third-Party-Unlicensed"
 # =============================================================================
 
 [[annotations]]
-path = ["0.doc/Olimex/rp2040-datasheet.pdf"]
-precedence = "override"
-SPDX-FileCopyrightText = "2020-2024 Raspberry Pi Ltd"
-SPDX-License-Identifier = "CC-BY-ND-4.0"
-
-[[annotations]]
 path = ["4.Advanced--2--LED64x64/0.doc/led-panel-sch.pdf"]
 precedence = "override"
 SPDX-FileCopyrightText = ["2018-2019 Piotr Esden-Tempski", "2018-2019 1BitSquared"]
 SPDX-License-Identifier = "CC-BY-SA-4.0"
-
-[[annotations]]
-path = ["10.Bonus--5--eduSOC/0.doc/Misc/verilator.User-Guide.pdf", "10.Bonus--5--eduSOC/0.doc/Misc/verilator_doc.pdf"]
-precedence = "override"
-SPDX-FileCopyrightText = "2003-2024 Wilson Snyder"
-SPDX-License-Identifier = "LGPL-3.0-only OR Artistic-2.0"
-
-[[annotations]]
-path = ["10.Bonus--5--eduSOC/2.sw/app/doc/RISCV-Assembler.V1.4.2.pdf"]
-precedence = "override"
-SPDX-FileCopyrightText = "1991-2019 Free Software Foundation, Inc."
-SPDX-License-Identifier = "GFDL-1.3-or-later"
 
 # =============================================================================
 # 5. Third-party material included for reference only (NOT open-licensed)
