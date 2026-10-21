@@ -376,3 +376,100 @@ path = "9.BetrustedSOC/fw/alloc-riscv/**"
 precedence = "closest"
 SPDX-FileCopyrightText = "alloc-riscv contributors"
 SPDX-License-Identifier = "Apache-2.0 OR MIT"
+
+# =============================================================================
+# 6. Exceptions inside the third-party trees above (they must stay last)
+# =============================================================================
+
+# nandland UART (Russell Merrick): the same module is MIT in github.com/nandland/UART
+[[annotations]]
+path = ["2.Simple--5--UART-Test/1.hw/uart_rx.v", "2.Simple--5--UART-Test/1.hw/uart_tx.v", "10.Bonus--6--I2S-DAC/1.hw/uart_rx.v"]
+precedence = "override"
+SPDX-FileCopyrightText = "2022 nandland (Russell Merrick), https://github.com/nandland/UART"
+SPDX-License-Identifier = "MIT"
+
+# serdestool, https://github.com/pu-cc/gm_serdes_lb (ISC text, no holder named)
+[[annotations]]
+path = ["7.SerDes/1.serdestool_by_gm/serdes_lb.v", "7.SerDes/1.serdestool_by_gm/serdestool.py"]
+precedence = "override"
+SPDX-FileCopyrightText = "Patrick Urban, Cologne Chip AG"
+SPDX-License-Identifier = "ISC"
+
+# LiteX BIOS-based demo firmware (Florent Kermarrec, "License: BSD" = LiteX BSD-2)
+[[annotations]]
+path = ["7.SerDes/2.liteiclink/2.sw/main.c", "7.SerDes/2.liteiclink/2.sw/demo/main.c"]
+precedence = "override"
+SPDX-FileCopyrightText = "2020 Florent Kermarrec <florent@enjoy-digital.fr>"
+SPDX-License-Identifier = "BSD-2-Clause"
+
+# OPL3: async FIFO from Gisselquist Technology's ETH10G ("3rd version of the GNU GPL")
+[[annotations]]
+path = ["4.Advanced--4--Yamaha-OPL3-FM-Synth/1.hw/modules/misc/src/afifo.v"]
+precedence = "override"
+SPDX-FileCopyrightText = "2023-2024 Gisselquist Technology, LLC"
+SPDX-License-Identifier = "GPL-3.0-only"
+
+# GateMate ILA: RacyICs RAM models (shipped under gatemate_ila's GPL-3.0)
+[[annotations]]
+path = ["1.Blinky--ILA-Test/sim/fpga_ram/**"]
+precedence = "override"
+SPDX-FileCopyrightText = ["RacyICs GmbH", "2023 Cologne Chip AG"]
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# CoreScore FuseSoC export: SERV/serving (ISC) and verilog-axis (MIT)
+[[annotations]]
+path = ["8.StressTest/1.corescore_cc/gowin/gowin_corescore/src/serv_1.0.2/**", "8.StressTest/1.corescore_cc/gowin/gowin_corescore/src/serving_1.0.2/**"]
+precedence = "override"
+SPDX-FileCopyrightText = "2018-2020 Olof Kindgren"
+SPDX-License-Identifier = "ISC"
+
+[[annotations]]
+path = ["8.StressTest/1.corescore_cc/gowin/gowin_corescore/src/verilog-axis_0-r3/**", "8.StressTest/4.veerwolves/rtl/axi_ram.v"]
+precedence = "override"
+SPDX-FileCopyrightText = "2014-2018 Alex Forencich"
+SPDX-License-Identifier = "MIT"
+
+# VeeRwolf FuseSoC export (gowin/gowin_veerwolf/src): each core under its own license
+[[annotations]]
+path = ["8.StressTest/4.veerwolves/gowin/gowin_veerwolf/src/cdc_utils_0.1-r1/**"]
+precedence = "override"
+SPDX-FileCopyrightText = "cdc_utils contributors (rights waived)"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = ["8.StressTest/4.veerwolves/gowin/gowin_veerwolf/src/pulp-platform.org__*/**"]
+precedence = "override"
+SPDX-FileCopyrightText = "2018-2019 ETH Zurich and University of Bologna"
+SPDX-License-Identifier = "SHL-0.51"
+
+[[annotations]]
+path = ["8.StressTest/4.veerwolves/gowin/gowin_veerwolf/src/uart16550_1.5.5-r1/**"]
+precedence = "override"
+SPDX-FileCopyrightText = "2000-2001 Jacob Gorban, Igor Mohor (OpenCores)"
+SPDX-License-Identifier = "LGPL-2.1-or-later"
+
+[[annotations]]
+path = ["8.StressTest/4.veerwolves/gowin/gowin_veerwolf/src/verilog-arbiter_0-r3/**"]
+precedence = "override"
+SPDX-FileCopyrightText = "Berin Martini, https://github.com/bmartini/verilog-arbiter"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["8.StressTest/4.veerwolves/gowin/gowin_veerwolf/src/wb_common_1.0.3/**", "8.StressTest/4.veerwolves/gowin/gowin_veerwolf/src/wb_intercon_1.4.1/**"]
+precedence = "override"
+SPDX-FileCopyrightText = "2013-2019 Olof Kindgren"
+SPDX-License-Identifier = "ISC"
+
+# out.v: the flattened netlist of all the cores above
+[[annotations]]
+path = ["8.StressTest/4.veerwolves/gowin/gowin_veerwolf/src/out.v"]
+precedence = "override"
+SPDX-FileCopyrightText = ["2019-2021 Western Digital Corporation or its affiliates", "2019-2023 Olof Kindgren", "2018-2019 ETH Zurich and University of Bologna", "2000-2001 Jacob Gorban, Igor Mohor (OpenCores)", "Berin Martini"]
+SPDX-License-Identifier = "Apache-2.0 AND SHL-0.51 AND LGPL-2.1-or-later AND MIT AND ISC AND CC0-1.0"
+
+# riscv-compliance test header (Codasip), https://github.com/riscv-non-isa/riscv-arch-test
+[[annotations]]
+path = ["8.StressTest/4.veerwolves/riscv-target/veer/compliance_test.h"]
+precedence = "override"
+SPDX-FileCopyrightText = "2017 Codasip Ltd."
+SPDX-License-Identifier = "BSD-3-Clause"
