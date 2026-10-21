@@ -1,1 +1,0 @@
-python3 sv2vpre.py

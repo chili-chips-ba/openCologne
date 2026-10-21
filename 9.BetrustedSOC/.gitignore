@@ -7,6 +7,7 @@ __pycache__/
 *.o
 pycharm.env
 *.bin
+!VexRiscv/*_rom_storage.bin
 *.elf
 *.jou
 *.log

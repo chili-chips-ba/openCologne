@@ -27,18 +27,6 @@ precedence = "closest"
 SPDX-FileCopyrightText = "2024-2026 Chili.CHIPS"
 SPDX-License-Identifier = "BSD-3-Clause"
 
-# Tool reports and logs of our builds. The tool banners in them (Yosys,
-# Gowin) name the tool vendor; they do not make the vendor the author.
-[[annotations]]
-path = [
-  "8.StressTest/1.corescore_cc/gowin_rpt/**",
-  "8.StressTest/1.corescore_cc/yosys_logs/**",
-  "1.Blinky--Verilog-VHDL-Python.Amaranth/4.amaranth/examples/Blinky/build/top.rpt",
-]
-precedence = "override"
-SPDX-FileCopyrightText = "2024-2025 Chili.CHIPS"
-SPDX-License-Identifier = "BSD-3-Clause"
-
 # PS/2 keyboard top, ported from the original by Paul Ruiz (marked "LICENSE=BSD")
 [[annotations]]
 path = ["2.Simple--6--PS2-Keyboard/1.hw/top.v"]
@@ -106,9 +94,9 @@ precedence = "closest"
 SPDX-FileCopyrightText = "2014 Greg Taylor"
 SPDX-License-Identifier = "LGPL-3.0-or-later"
 
-# Tool outputs built from the OPL3 sources (Lattice Diamond project, Verilator obj_dir)
+# Lattice Diamond project and bitstream built from the OPL3 sources
 [[annotations]]
-path = ["4.Advanced--4--Yamaha-OPL3-FM-Synth/3.build/LatticeBuild/**", "4.Advanced--4--Yamaha-OPL3-FM-Synth/2.sim/obj_dir/**"]
+path = ["4.Advanced--4--Yamaha-OPL3-FM-Synth/3.build/LatticeBuild/**"]
 precedence = "override"
 SPDX-FileCopyrightText = ["2014 Greg Taylor", "2024 Chili.CHIPS"]
 SPDX-License-Identifier = "LGPL-3.0-or-later"
@@ -153,7 +141,6 @@ path = [
   "8.StressTest/4.veerwolves/0.doc/**",
   "8.StressTest/4.veerwolves/gowin/gowin.sh",
   "8.StressTest/4.veerwolves/gowin/gowin.tcl",
-  "8.StressTest/4.veerwolves/gowin/log",
   "8.StressTest/4.veerwolves/data/cc.ccf",
   "8.StressTest/4.veerwolves/rtl/clk_gen_cc.v",
 ]
@@ -167,13 +154,6 @@ path = ["8.StressTest/2.LUTRAM_stress_test/**"]
 precedence = "closest"
 SPDX-FileCopyrightText = "2024 tarik-ibrahimovic"
 SPDX-License-Identifier = "BSD-3-Clause"
-
-# PSRAM controller by Curtis Whitley (Surelog preprocessor copies)
-[[annotations]]
-path = ["**/slpp_all/lib/work/psram.v"]
-precedence = "closest"
-SPDX-FileCopyrightText = "2024 Curtis Whitley"
-SPDX-License-Identifier = "Apache-2.0"
 
 # StressTest: fpga_torture, https://github.com/stnolting/fpga_torture
 [[annotations]]

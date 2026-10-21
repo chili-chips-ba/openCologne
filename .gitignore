@@ -1,22 +1,120 @@
+# Track sources, setup files, scripts and docs. Of build outputs, keep at most
+# one final bitstream per example (re-included below with "!").
+
+# --- Editors, backups, local IDE state -------------------------------------
 *~
 *.bak
 *.bkp
+\#*\#
+.\#*
+*.gprj.user
+*xOLD*
+.recovery
+
+# --- Logs --------------------------------------------------------------------
 *.log
 
-*obj_dir*
+# --- Python, compiled objects, firmware build products -----------------------
+__pycache__/
+*.py[co]
+*.o
+*.d
+*.a
+*.elf
+*.elf.map
+*.fbi
+**/sw_build/
+/7.SerDes/2.liteiclink/2.sw/**/demo.bin
+/7.SerDes/2.liteiclink/3.build/build/
 
-*xOLD*
+# --- Simulation --------------------------------------------------------------
+obj_dir/
+sim_build/
+results.xml
+*.vvp
+*.vcd
+*.fst
+*.ghw
+work-obj*.cf
+**/[24].sim/tb.xml
+**/[24].sim/tb.stems
 
-*output*
+# --- Surelog parse cache, Yosys netlists, CDC reports -------------------------
+slpp_all/
+**/net/*_synth*.v
+*_cdc.json
+*_cdc.txt
 
-#*impl*
-*gwsynthesis*
-*temp*
-*.gprj.user
+# --- sv2v output written into the build folder --------------------------------
+/2.Simple--1--PSRAM/3.build/*.v
+/2.Simple--4--1Wire-Controller/3.build/*.v
+/8.StressTest/2.LUTRAM_stress_test/3.build/*.v
+/8.StressTest/10.femtorv32-quark-bicycle/2.build/*.v
 
-*\#*\#
-*\#*
-7.SerDes/2.liteiclink/3.build/build
+# --- Cologne Chip p_r outputs (the *_00.cfg.bit bitstream is not ignored) -----
+*_00.v
+*_00.cfg
+*_00.cdf
+*_00pre.cdf
+*_00.sdf
+*_00.used
+*_00.pin
+*_00.place
+*_00_final.prn
+*_in.prn
+*_x_convert.prn
+*.refwire
+*.refcomp
+*.refparam
+*.pathes
+*.crf
+*.idh
+**/[23].build/*.id
+**/[23].build/*.net
+**/[23].build/*.pos
+lut_report.txt
+lut3.txt
+lut4.txt
 
+# --- Gowin IDE outputs (keep the .gprj and impl/*_process_config.json) --------
+**/impl/pnr/*
+**/impl/gwsynthesis/
+**/impl/temp/
+!/8.StressTest/7.sigma_delta_DAC/build_proj/impl/pnr/build_proj.fs
 
+# --- 1.Blinky--ILA-Test: timestamped runs of the ILA app ---------------------
+/1.Blinky--ILA-Test/p_r_out/*
+!/1.Blinky--ILA-Test/p_r_out/.gitkeep
+!/1.Blinky--ILA-Test/p_r_out/ila_top_24-07-11_21-41-30_00.cfg.bit
+/1.Blinky--ILA-Test/net/*
+!/1.Blinky--ILA-Test/net/.gitkeep
+/1.Blinky--ILA-Test/example_dut/*/net/*
+!/1.Blinky--ILA-Test/example_dut/*/net/.gitkeep
+/1.Blinky--ILA-Test/example_dut/*/sim/simulation/
+/1.Blinky--ILA-Test/app/config_design/*
+!/1.Blinky--ILA-Test/app/config_design/.gitkeep
+/1.Blinky--ILA-Test/app/save_config/*
+!/1.Blinky--ILA-Test/app/save_config/.gitkeep
+!/1.Blinky--ILA-Test/app/save_config/ila_config_blink_24-07-11_21-41-30.json
+/1.Blinky--ILA-Test/app/vcd_files/*
+!/1.Blinky--ILA-Test/app/vcd_files/.gitkeep
 
+# --- Amaranth build folders --------------------------------------------------
+/1.Blinky--Verilog-VHDL-Python.Amaranth/4.amaranth/examples/*/build/*
+!/1.Blinky--Verilog-VHDL-Python.Amaranth/4.amaranth/examples/Uart/build/top_00.cfg.bit
+
+# --- 4.Advanced--4--Yamaha-OPL3-FM-Synth --------------------------------------
+/4.Advanced--4--Yamaha-OPL3-FM-Synth/3.build/LatticeBuild/First_Implementation/*
+!/4.Advanced--4--Yamaha-OPL3-FM-Synth/3.build/LatticeBuild/First_Implementation/OPL3Test_First_Implementation.bit
+/4.Advanced--4--Yamaha-OPL3-FM-Synth/1.hw/modules/*/analysis/*.bin
+/4.Advanced--4--Yamaha-OPL3-FM-Synth/1.hw/modules/*/analysis/octave-workspace
+
+# --- 8.StressTest --------------------------------------------------------------
+/8.StressTest/1.corescore_cc/build/**
+!/8.StressTest/1.corescore_cc/build/**/
+!/8.StressTest/1.corescore_cc/build/corescore_0/cc_gatemate-gatemate/corescore_0_00.cfg.bit
+/8.StressTest/1.corescore_cc/yosys_logs/
+/8.StressTest/1.corescore_cc/gowin_rpt/
+/8.StressTest/4.veerwolves/build/
+/8.StressTest/4.veerwolves/gowin/log
+/8.StressTest/9.pnr_tests/pnr_tests-gowin/tests/*/gen_*/*.json
