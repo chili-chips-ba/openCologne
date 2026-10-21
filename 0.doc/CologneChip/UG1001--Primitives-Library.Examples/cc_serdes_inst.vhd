@@ -1,8 +1,5 @@
 serdes_inst: CC_SERDES
 generic map (
-  CCAG_CFG_PARAM           => "", // legacy
-  SERDES_ENABLE            => 0,
-
   TX_SEL_PRE               => 0,
   TX_SEL_POST              => 0,
   TX_AMP                   => 15,
@@ -60,8 +57,8 @@ generic map (
   TX_PRBS_SEL              => 0,
   TX_PRBS_FORCE_ERR        => 0,
   TX_LOOPBACK_OVR          => 0,
-  TX_POWERDOWN_OVR         => 0,
-  TX_POWERDOWN_N           => 0,
+  TX_POWER_DOWN_OVR         => 0,
+  TX_POWER_DOWN_N           => 0,
   TX_ELEC_IDLE_OVR         => 0,
   TX_ELEC_IDLE             => 0,
   TX_DETECT_RX_OVR         => 0,
@@ -77,7 +74,7 @@ generic map (
   RX_BUF_RESET_TIME        => 3,
   RX_PCS_RESET_TIME        => 3,
   RX_RESET_TIMER_PRESC     => 0,
-  RX_RESETDONE_GATE        => 0,
+  RX_RESET_DONE_GATE       => 0,
   RX_CDR_RESET_TIME        => 3,
   RX_EQA_RESET_TIME        => 3,
   RX_PMA_RESET_TIME        => 3,
@@ -144,8 +141,8 @@ generic map (
   RX_PRBS_SEL              => 0,
   RX_LOOPBACK_OVR          => 0,
   RX_PRBS_CNT_RESET        => 0,
-  RX_POWERDOWN_OVR         => 0,
-  RX_POWERDOWN_N           => 0,
+  RX_POWER_DOWN_OVR         => 0,
+  RX_POWER_DOWN_N           => 0,
   RX_RESET_OVR             => 0,
   RX_RESET                 => 0,
   RX_PMA_RESET_OVR         => 0,
@@ -172,7 +169,6 @@ generic map (
   RX_DBG_RE                => 0,
   RX_DBG_WE                => 0,
   RX_DBG_DATA              => 0,
-
   PLL_EN_ADPLL_CTRL        => 0,
   PLL_CONFIG_SEL           => 0,
   PLL_SET_OP_LOCK          => 0,
@@ -217,7 +213,6 @@ port map (
   TX_PMA_RESET_I         => TX_PMA_RESET_I,
   TX_POWER_DOWN_N_I      => TX_POWER_DOWN_N_I,
   TX_CLK_I               => TX_CLK_I,
-
   TX_POLARITY_I          => TX_POLARITY_I,
   TX_PRBS_SEL_I          => TX_PRBS_SEL_I, -- 3-bit
   TX_PRBS_FORCE_ERR_I    => TX_PRBS_FORCE_ERR_I,
@@ -228,9 +223,7 @@ port map (
   TX_CHAR_DISPVAL_I      => TX_CHAR_DISPVAL_I, -- 8-bit
   TX_ELEC_IDLE_I         => TX_ELEC_IDLE_I,
   TX_DETECT_RX_I         => TX_DETECT_RX_I,
-
   TX_DATA_I              => TX_DATA_I, -- 64-bit
-
   TX_RESET_DONE_O        => TX_RESET_DONE_O,
   TX_BUF_ERR_O           => TX_BUF_ERR_O,
   TX_DETECT_RX_PRESENT_O => TX_DETECT_RX_PRESENT_O,
@@ -245,7 +238,6 @@ port map (
   RX_BUF_RESET_I       => RX_BUF_RESET_I,
   RX_POWER_DOWN_N_I    => RX_POWER_DOWN_N_I,
   RX_CLK_I             => RX_CLK_I,
-
   RX_POLARITY_I        => RX_POLARITY_I,
   RX_PRBS_SEL_I        => RX_PRBS_SEL_I, -- 3-bit
   RX_PRBS_CNT_RESET_I  => RX_PRBS_CNT_RESET_I,
@@ -256,9 +248,7 @@ port map (
   RX_SLIDE_I           => RX_SLIDE_I,
   RX_MCOMMA_ALIGN_I    => RX_MCOMMA_ALIGN_I,
   RX_PCOMMA_ALIGN_I    => RX_PCOMMA_ALIGN_I,
-
   RX_CLK_O             => RX_CLK_O,
-
   RX_NOT_IN_TABLE_O    => RX_NOT_IN_TABLE_O, -- 8-bit
   RX_CHAR_IS_COMMA_O   => RX_CHAR_IS_COMMA_O, -- 8-bit
   RX_CHAR_IS_K_O       => RX_CHAR_IS_K_O, -- 8-bit
@@ -269,7 +259,6 @@ port map (
   RX_BYTE_REALIGN_O    => RX_BYTE_REALIGN_O,
   RX_RESET_DONE_O      => RX_RESET_DONE_O,
   RX_EI_EN_O           => RX_EI_EN_O,
-
   RX_DATA_O            => RX_DATA_O, -- 64-bit
 
   -- Register File
@@ -279,7 +268,6 @@ port map (
   REGFILE_ADDR_I       => REGFILE_ADDR_I, -- 8-bit
   REGFILE_DI_I         => REGFILE_DI_I, -- 16-bit
   REGFILE_MASK_I       => REGFILE_MASK_I, -- 16-bit
-
   REGFILE_DO_O         => REGFILE_DO_O, -- 16-bit
   REGFILE_RDY_O        => REGFILE_RDY_O,
 
