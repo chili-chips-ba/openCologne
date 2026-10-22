@@ -21,6 +21,8 @@ jobs:
 
       - name: Install OSS CAD Suite (Yosys + yosys-slang, Verilator)
         uses: YosysHQ/setup-oss-cad-suite@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Tool versions
         run: |
