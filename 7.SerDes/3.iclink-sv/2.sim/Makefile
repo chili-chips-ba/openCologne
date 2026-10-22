@@ -12,6 +12,7 @@
 #                        (WAVES=1: also writes phy_twoway.fst)
 #   make sim_serwb_tx  SerWB packetizer against LiteICLink's Packetizer (vectors/serwb_*)
 #   make sim_serwb_rx  SerWB depacketizer against LiteICLink's CRCDepacketizer (vectors/serwb_rx_*)
+#   make sim_serwb_pump  FIFO pump, two sides on the digital bus (SerDes out of the loop), flow control
 #   make sim_top    the board top: self-tests and the SerDes link, clean and with errors
 #   make vectors    regenerate vectors/*.hex from LiteX (needs LiteX in python3)
 #   make clean
@@ -24,9 +25,9 @@ WAVES ?= 0
 TRACE := $(if $(filter 1,$(WAVES)),--trace-fst --trace-structs,)
 PLUS  := $(if $(filter 1,$(WAVES)),+waves,)
 
-.PHONY: all sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_serwb_tx sim_serwb_rx sim_top vectors clean
+.PHONY: all sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_top vectors clean
 
-all: sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_serwb_tx sim_serwb_rx sim_top
+all: sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_top
 
 sim_8b10b:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
@@ -76,6 +77,16 @@ sim_serwb_rx:
 	./obj_serwb_rx/Vtb_serwb_rx | tee sim_serwb_rx.log
 	@grep -q "TB_SERWB_RX: PASS" sim_serwb_rx.log
 
+PUMP_SRC := $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv $(HW)/iclink_serwb_pkg.sv \
+  $(HW)/iclink_cdc_ptr.sv $(HW)/iclink_serwb_fifo.sv $(HW)/iclink_serwb_tx.sv \
+  $(HW)/iclink_serwb_rx.sv $(HW)/iclink_serwb_pump.sv
+
+sim_serwb_pump:
+	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL -Wno-UNUSEDPARAM \
+	  --top-module tb_serwb_pump -Mdir obj_serwb_pump $(PUMP_SRC) tb_serwb_pump.sv
+	./obj_serwb_pump/Vtb_serwb_pump | tee sim_serwb_pump.log
+	@grep -q "TB_SERWB_PUMP: PASS" sim_serwb_pump.log
+
 sim_top:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
 	  --top-module tb_top -Mdir obj_top serdes-model.vlt \
@@ -88,4 +99,4 @@ vectors:
 	mkdir -p vectors && python3 gen_8b10b_vectors.py vectors && python3 gen_prbs_vectors.py vectors && python3 gen_serwb_vectors.py vectors && python3 gen_serwb_rx_vectors.py vectors
 
 clean:
-	rm -rf $(OUT) obj_prbs obj_phy obj_phy2 obj_serwb_tx obj_serwb_rx obj_top sim_8b10b.log sim_prbs.log sim_phy_oneway.log sim_phy_twoway.log sim_serwb_tx.log sim_serwb_rx.log sim_top.log phy_oneway.fst phy_twoway.fst
+	rm -rf $(OUT) obj_prbs obj_phy obj_phy2 obj_serwb_tx obj_serwb_rx obj_serwb_pump obj_top sim_8b10b.log sim_prbs.log sim_phy_oneway.log sim_phy_twoway.log sim_serwb_tx.log sim_serwb_rx.log sim_serwb_pump.log pump_levels.csv sim_top.log phy_oneway.fst phy_twoway.fst
