@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 600" width="1180" height="600" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffffff"/></marker><marker id="lk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f9a825"/></marker></defs>
+<rect x="0" y="0" width="1180" height="600" rx="18" fill="#ffffff"/>
+<rect x="50" y="40" width="380" height="530" rx="16" fill="#1b2433" stroke="#0d1320" stroke-width="3"/>
+<text x="240.0" y="84" text-anchor="middle" font-size="28" font-weight="700" fill="#ffffff">GateMate A</text>
+<rect x="80.0" y="112" width="320" height="72" rx="10" fill="#2e7d32"/>
+<text x="240.0" y="145" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">eduBOS5</text>
+<text x="240.0" y="170" text-anchor="middle" font-size="17" fill="#ffffff" fill-opacity="0.9">RISC-V CPU</text>
+<rect x="80.0" y="226" width="320" height="72" rx="10" fill="#00838f"/>
+<text x="240.0" y="259" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">CSRs</text>
+<text x="240.0" y="284" text-anchor="middle" font-size="17" fill="#ffffff" fill-opacity="0.9">PeakRDL</text>
+<line x1="240.0" y1="188" x2="240.0" y2="222" stroke="#ffffff" stroke-width="4" marker-start="url(#ah)" marker-end="url(#ah)"/>
+<rect x="80.0" y="340" width="320" height="72" rx="10" fill="#e65100"/>
+<text x="240.0" y="373" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">Serial Wishbone</text>
+<text x="240.0" y="398" text-anchor="middle" font-size="17" fill="#ffffff" fill-opacity="0.9">SerWB, from LiteICLink</text>
+<line x1="240.0" y1="302" x2="240.0" y2="336" stroke="#ffffff" stroke-width="4" marker-start="url(#ah)" marker-end="url(#ah)"/>
+<rect x="80.0" y="454" width="320" height="72" rx="10" fill="#c62828"/>
+<text x="240.0" y="487" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">8b/10b + PRBS</text>
+<text x="240.0" y="512" text-anchor="middle" font-size="17" fill="#ffffff" fill-opacity="0.9">CC_SERDES PHY</text>
+<line x1="240.0" y1="416" x2="240.0" y2="450" stroke="#ffffff" stroke-width="4" marker-start="url(#ah)" marker-end="url(#ah)"/>
+<rect x="750" y="40" width="380" height="530" rx="16" fill="#1b2433" stroke="#0d1320" stroke-width="3"/>
+<text x="940.0" y="84" text-anchor="middle" font-size="28" font-weight="700" fill="#ffffff">GateMate B</text>
+<rect x="780.0" y="112" width="320" height="72" rx="10" fill="#2e7d32"/>
+<text x="940.0" y="145" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">eduBOS5</text>
+<text x="940.0" y="170" text-anchor="middle" font-size="17" fill="#ffffff" fill-opacity="0.9">RISC-V CPU</text>
+<rect x="780.0" y="226" width="320" height="72" rx="10" fill="#00838f"/>
+<text x="940.0" y="259" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">CSRs</text>
+<text x="940.0" y="284" text-anchor="middle" font-size="17" fill="#ffffff" fill-opacity="0.9">PeakRDL</text>
+<line x1="940.0" y1="188" x2="940.0" y2="222" stroke="#ffffff" stroke-width="4" marker-start="url(#ah)" marker-end="url(#ah)"/>
+<rect x="780.0" y="340" width="320" height="72" rx="10" fill="#e65100"/>
+<text x="940.0" y="373" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">Serial Wishbone</text>
+<text x="940.0" y="398" text-anchor="middle" font-size="17" fill="#ffffff" fill-opacity="0.9">SerWB, from LiteICLink</text>
+<line x1="940.0" y1="302" x2="940.0" y2="336" stroke="#ffffff" stroke-width="4" marker-start="url(#ah)" marker-end="url(#ah)"/>
+<rect x="780.0" y="454" width="320" height="72" rx="10" fill="#c62828"/>
+<text x="940.0" y="487" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">8b/10b + PRBS</text>
+<text x="940.0" y="512" text-anchor="middle" font-size="17" fill="#ffffff" fill-opacity="0.9">CC_SERDES PHY</text>
+<line x1="940.0" y1="416" x2="940.0" y2="450" stroke="#ffffff" stroke-width="4" marker-start="url(#ah)" marker-end="url(#ah)"/>
+<line x1="406.0" y1="490.0" x2="774.0" y2="490.0" stroke="#f9a825" stroke-width="9" marker-start="url(#lk)" marker-end="url(#lk)"/>
+<text x="590.0" y="432.0" text-anchor="middle" font-size="24" font-weight="700" fill="#1b2433">SerDes link</text>
+<text x="590.0" y="462.0" text-anchor="middle" font-size="20" font-weight="600" fill="#1b2433">2.5 Gb/s</text>
+<text x="590.0" y="532.0" text-anchor="middle" font-size="18" fill="#37474f">sim: SerDes BFM</text>
+<text x="590.0" y="250.0" text-anchor="middle" font-size="22" font-weight="700" fill="#1b2433">one CPU reads and</text>
+<text x="590.0" y="278.0" text-anchor="middle" font-size="22" font-weight="700" fill="#1b2433">writes the other</text>
+<text x="590.0" y="306.0" text-anchor="middle" font-size="22" font-weight="700" fill="#1b2433">chip's memory</text>
+</svg>
