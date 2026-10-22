@@ -69,6 +69,49 @@ One GateMate. Solid boxes are done; dashed ones, tagged NEXT, come next.
 - **Latency,** TX data in to RX data out: 1 (encoder input) + 2 (encoder) + 1 (TX flops) + `CC_SERDES` + 1 (RX flops) + 1 clocks.
 - **Why the RX decodes in the hard macro:** with its 8b/10b off, `CC_SERDES` hands out only bits 7:0 of each symbol, so the fabric cannot see whole symbols.
 
+### FIFO pump (spec, for review)
+
+A message link between the two eduBOS5 CPUs, ahead of Serial Wishbone: each CPU pushes 32-bit words into a TX FIFO, the pump streams them over the PHY, and the other CPU pops them from an RX FIFO. No remote memory access; both firmwares take part.
+
+```
+ eduBOS5 --CSR--> TX FIFO ==async==> pump TX --> PHY tx  ~~line~~>  PHY rx --> pump RX ==async==> RX FIFO --CSR--> eduBOS5
+  (sys)           1024 x 32          (clk_tx)                                  (clk_rx)           1024 x 32          (sys)
+```
+
+**On the line.** Per 64-bit PHY word, two 32-bit halves (bytes 0-3, 4-7), coded as Serial Wishbone codes them (control symbol in byte 0 of a half):
+
+| Half carries | Bytes | K flags |
+|---|---|---|
+| a data word | 4 data bytes, LSB first | 0000 |
+| fill (nothing to send) | K28.1, then 3 x D0.0 | 0001 |
+| comma (alignment, every 256 idle clocks and at start-up) | K28.5, then 3 x D0.0 | 0001 |
+| XOFF / XON (flow control) | K28.3 / K28.4, then 3 x D0.0 | 0001 |
+
+Data goes in half 0, one word per clock: 31.25 M words/s, 1.0 Gb/s of payload, above what eduBOS5 can push. Half 1 carries fill, or XOFF / XON when the flow-control state changes. Both halves for data later, if a faster source needs 2 Gb/s.
+
+**Flow control.** When the RX FIFO rises above 1024 - 128 words, the receiver sends XOFF on its own TX; the far TX stops popping its FIFO. XON below 512. The 128-word margin covers the round trip (about 0.5 us, 16 clocks) many times over. On setup 1 the XOFF loops back to the same chip, which pauses itself.
+
+**Errors.** A half with an invalid 8b/10b symbol is dropped and counted (`rx_errors`). No CRC on the link; a CRC per message can run in firmware.
+
+**Clocks.** Three domains: `sys` (CPU, CSRs), `clk_tx`, `clk_rx`. Two async FIFOs (Gray-coded pointers; `CC_FIFO_40K` in hardware, 1024 x 40), and synchronizers for the XOFF state (`clk_rx` to `clk_tx`) and the status bits.
+
+**CSRs** (SystemRDL, PeakRDL):
+
+| Register | Fields |
+|---|---|
+| `TX_DATA` | write: push a word (ignored when full) |
+| `RX_DATA` | read: pop a word |
+| `STATUS` | `tx_level`, `rx_level`, `tx_full`, `rx_empty`, `link_up`, `xoff_rx` (far side paused us) |
+| `ERRORS` | `rx_errors`, `rx_overflow` (sticky), write 1 to clear |
+| `CTRL` | `enable`, `flush` |
+
+**Tests.** The testbenches of setups 1 and 2 gain a pump phase after the PHY tests, so the two FSTs and the sessions `tb_phy.ONEWAY` / `tb_phy.TWOWAY` cover it:
+
+1. Words pushed on one side arrive in order on the other; on setup 2 both ways at once.
+2. Flow control: the reader stops; XOFF arrives before the RX FIFO overflows; no word is lost; XON resumes.
+3. Negative: a flipped bit drops exactly one word and counts it in `rx_errors`.
+4. Later, with the eduBOS5 SoC: firmware on A sends a message, B echoes it.
+
 ### PHY RTL
 
 `iclink_serdes_gm`, as built: modules, `CC_SERDES` ports, bus widths and the three clock domains.
@@ -132,7 +175,7 @@ Unlike LiteX, we leave out `--timing-allow-fail`: a timing failure stops the bui
 The same tests run in simulation and on boards: the sim mirrors each hardware setup.
 
 <p align="center">
-  <img width="100%" alt="Test jig: simulation with two eduBOS5 SoCs and two SerDes BFMs, lines crossed; setup 1 one GateMate EVB with TX cabled to its own RX; setup 2 two ULX5M-GS boards crossed, with a host PC on the UART console" src="0.doc/iclink-testjig.drawio.png">
+  <img width="100%" alt="Test jig: simulation with two eduBOS5 SoCs and two SerDes BFMs, lines crossed; setup 1 one GateMate EVB with TX cabled to its own RX; setup 2 two ULX5M-GS boards crossed, with a host PC on the UART console; setup 3 a ULX5M-GS (GateMate) to a ULX4M-LD (Lattice ECP5, LiteICLink)" src="0.doc/iclink-testjig.drawio.png">
 </p>
 
 | # | Hardware | Link | Tests |

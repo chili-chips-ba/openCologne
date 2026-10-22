@@ -177,12 +177,12 @@ Our flagship: two GateMate chips talk over their SerDes, as one memory-mapped sy
 - **Full end-to-end sim with open tools.** In sim, our [SerDes BFM](7.SerDes/3.iclink-sv/2.sim/serdes-model) (from [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE)) stands in for the wire and the `CC_SERDES` hard macro. No VProc, no vendor model: the RTL runs as built.
 - **Bit-exact with LiteX.** Every block is checked against LiteX's own Python model, clock for clock.
 - **Done:** 8b/10b, PRBS7/15/31, the `CC_SERDES` PHY with a one-way link sim, a bitstream with the open Peppercorn flow.
-- **Next:** Serial Wishbone (SerWB), two eduBOS5 SoCs end to end, then the boards: one EVB looped TX to RX, then two ULX5M-GS.
+- **Next:** Serial Wishbone (SerWB), two eduBOS5 SoCs end to end, then the boards: one EVB looped TX to RX; two ULX5M-GS (GateMate to GateMate); ULX5M-GS to ULX4M-LD (GateMate to Lattice ECP5, LiteICLink interoperability).
 
 End-to-end test jig: the same tests run in sim and on boards.
 
 <p align="center">
-  <img width="100%" alt="Test jig: simulation with two eduBOS5 SoCs and two SerDes BFMs, lines crossed; setup 1 one GateMate EVB with TX cabled to its own RX; setup 2 two ULX5M-GS boards crossed, with a host PC on the UART console" src="7.SerDes/0.doc/iclink-testjig.drawio.png">
+  <img width="100%" alt="Test jig: simulation with two eduBOS5 SoCs and two SerDes BFMs, lines crossed; setup 1 one GateMate EVB with TX cabled to its own RX; setup 2 two ULX5M-GS boards crossed, with a host PC on the UART console; setup 3 a ULX5M-GS (GateMate) to a ULX4M-LD (Lattice ECP5, LiteICLink)" src="7.SerDes/0.doc/iclink-testjig.drawio.png">
 </p>
 
 More in [7.SerDes](7.SerDes): design internals, test jig, build and QA.
