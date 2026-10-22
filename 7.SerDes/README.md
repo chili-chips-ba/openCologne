@@ -80,7 +80,7 @@ The SoC is ours, so the core needs no LiteX to run. LiteX users take only the SV
 One GateMate. Solid boxes are done; dashed ones, tagged NEXT, come next.
 
 <p align="center">
-  <img width="100%" alt="Design internals of one GateMate: SoC (eduBOS5, Wishbone bus, RAM and UART, PeakRDL CSRs), Serial Wishbone (Etherbone, packetizer, optional scrambler), and our PHY (PRBS, 8b/10b, I/O flops, CC_SERDES hard macro) to a 2.5 Gb/s serial line" src="0.doc/iclink-internals.svg">
+  <img width="100%" alt="Design internals of one GateMate: SoC (eduBOS5, Wishbone bus, RAM and UART, PeakRDL CSRs), Serial Wishbone (Etherbone, packetizer, optional scrambler), and our PHY (PRBS, 8b/10b, I/O flops, CC_SERDES hard macro) to a 2.5 Gb/s serial line" src="0.doc/iclink-internals.drawio.png">
 </p>
 
 | Block | RTL | From | Status |
@@ -154,7 +154,7 @@ LiteX picks `nextpnr-himbaechel-gatemate` from `PATH` when it exists, else `next
 The same tests run in simulation and on boards: the sim mirrors each hardware setup.
 
 <p align="center">
-  <img width="100%" alt="Test jig: simulation with two eduBOS5 SoCs and two SerDes BFMs, lines crossed; setup 1 one GateMate EVB with TX cabled to its own RX; setup 2 two ULX5M-GS boards crossed, with a host PC on the UART console" src="0.doc/iclink-testjig.svg">
+  <img width="100%" alt="Test jig: simulation with two eduBOS5 SoCs and two SerDes BFMs, lines crossed; setup 1 one GateMate EVB with TX cabled to its own RX; setup 2 two ULX5M-GS boards crossed, with a host PC on the UART console" src="0.doc/iclink-testjig.drawio.png">
 </p>
 
 | # | Hardware | Link | Tests |
