@@ -68,6 +68,55 @@ Why the differences:
 - **PRBS through 8b/10b.** A raw PRBS would reach the fabric only as decoded bytes, so the PRBS travels as D characters and is checked after the decoder.
 - **8 words per clock.** The `CC_SERDES` fabric interface is 64 bits + 8 K flags at line rate / 80. The encoder's running disparity runs through all 8 words in one clock, 2 to 4 times LiteICLink's chain. That chain is the TX critical path at 31.25 MHz; registering the encoder input took the PRBS mux out of it.
 
+## Serial Wishbone frame
+
+The format of LiteICLink `8ef8d79` ([`../0.upstream/liteiclink/doc/serwb.md`](../0.upstream/liteiclink/doc/serwb.md), `serwb/packet.py`), which our port keeps so it interoperates. Not in RTL yet.
+
+**Packet**, in 32-bit words:
+
+| Word | Content |
+|---|---|
+| 0 | preamble `0x5AA55AA5` |
+| 1 | `[7:0]` port, `[23:8]` payload length in bytes, `[31:24]` 0 |
+| 2 .. | payload, length / 4 words |
+| last | CRC32 over the header and payload, only with `with_crc` (both sides) |
+
+The receiver hunts for the preamble, reads port and length, and forwards the payload to that port. Unknown ports are dropped; a packet that stops arriving is dropped after a 1 ms timeout; with CRC, a bad packet is dropped and counted in `crc_errors`.
+
+**Port 0 carries Etherbone**, one record per packet, 32-bit addresses and data (CERN's Etherbone, as cut down in LiteICLink: no probing, no address spaces):
+
+| Payload word | Content |
+|---|---|
+| 0 | Etherbone header: magic `0x4E6F`, version 1, flags `nr` / `pr` / `pf`, `addr_size`, `port_size` |
+| 1 | Etherbone header, rest (zero) |
+| 2 | record header: flags (`bca`, `rca`, `rff`, `cyc`, `wca`, `wff`), `byte_enable`, `wcount`, `rcount` |
+| 3 | write: base address; read: return address |
+| 4 .. | write: `wcount` data words; read: `rcount` addresses to read |
+
+**One 32-bit write**, A to B: 7 words, 8 with CRC.
+
+| Word | Value |
+|---|---|
+| 0 | `0x5AA55AA5` |
+| 1 | port 0, length 20 bytes |
+| 2, 3 | Etherbone header |
+| 4 | record header, `wcount` = 1, `rcount` = 0 |
+| 5 | address |
+| 6 | data |
+| (7) | CRC32 |
+
+Writes are posted: acknowledged once sent. **A read** is a round trip: A sends a record with `rcount` = 1 (return address, then the address to read); B reads its bus and answers with a record with `wcount` = 1 (return address, then the data).
+
+**On the line.** Each 32-bit word is 4 bytes, each an 8b/10b symbol (data as D characters). Between packets the line carries control symbols, K flag set, in byte 0 of a word:
+
+| Symbol | Use |
+|---|---|
+| K28.5 | comma: alignment at link start-up |
+| K28.1 | fill when there is nothing to send (with flow control; without it, zero words) |
+| K28.3 / K28.4 | XOFF / XON: pause and resume the far transmitter (flow control, both sides) |
+
+**On our PHY**, 8 symbols per clock: two SerWB words per 31.25 MHz clock, the first in bytes 0-3, the second in bytes 4-7, each K flag with its byte. LiteICLink's 4-symbol SerWB encoder is then replaced by the PHY's 8-symbol path (see the table above): interoperability is at the packet layer.
+
 ## Conversion process
 
 LiteICLink is Python (Migen). We port it by hand, block by block:
