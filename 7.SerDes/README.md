@@ -94,20 +94,6 @@ Our versions (a blinky and a `CC_SERDES` design pack to bitstreams): Yosys 0.69,
 
 The core builds two ways, so it is usable with or without LiteX.
 
-### Standalone, without LiteX
-
-The SV core is plain RTL: drop it into any GateMate design. The flow is LiteX's, below, with our sources and pins, for the EVB (`CCGM1A1`):
-
-```
-yosys -p "read_slang <sources>; synth_gatemate -top top -luttree -nomx8 -json top.json"
-nextpnr-himbaechel-gatemate --device CCGM1A1 --json top.json --vopt ccf=GateMateA1-EVB.ccf \
-    --vopt out=top.txt --router router2 --freq <MHz> --seed 1
-gmpack top.txt top.bit
-openFPGALoader -b gatemate_evb_jtag top.bit
-```
-
-Unlike LiteX, we leave out `--timing-allow-fail`: a timing failure stops the build. [`3.iclink-sv/3.build`](3.iclink-sv/3.build) wraps it (`make`, `make load`); the sources come from [`3.iclink-sv/1.hw/top.filelist`](3.iclink-sv/1.hw/top.filelist).
-
 ### Within LiteX
 
 LiteX takes the SV core through its Migen wrapper (`platform.add_source` + `Instance`). Its GateMate platform has both flows: `toolchain="colognechip"` (Yosys + `p_r`) and `toolchain="peppercorn"` (Yosys + nextpnr + `gmpack`); LiteX-Boards' GateMate targets default to `peppercorn`. For example, LiteX's own EVB SoC:
@@ -126,6 +112,20 @@ gmpack <target>.txt <target>.bit
 ```
 
 LiteX picks `nextpnr-himbaechel-gatemate` from `PATH` when it exists, else `nextpnr-himbaechel`. Its BIOS needs a RISC-V GCC on `PATH` (e.g. `riscv-none-elf-gcc`). That SoC builds in 36 s. Our versions: LiteX `8e0e71c`, LiteICLink `cb6cd0c` (2026-10-20).
+
+### Standalone, without LiteX
+
+The SV core is plain RTL: drop it into any GateMate design. The flow is LiteX's, below, with our sources and pins, for the EVB (`CCGM1A1`):
+
+```
+yosys -p "read_slang <sources>; synth_gatemate -top top -luttree -nomx8 -json top.json"
+nextpnr-himbaechel-gatemate --device CCGM1A1 --json top.json --vopt ccf=GateMateA1-EVB.ccf \
+    --vopt out=top.txt --router router2 --freq <MHz> --seed 1
+gmpack top.txt top.bit
+openFPGALoader -b gatemate_evb_jtag top.bit
+```
+
+Unlike LiteX, we leave out `--timing-allow-fail`: a timing failure stops the build. [`3.iclink-sv/3.build`](3.iclink-sv/3.build) wraps it (`make`, `make load`); the sources come from [`3.iclink-sv/1.hw/top.filelist`](3.iclink-sv/1.hw/top.filelist).
 
 ## Test setups
 
