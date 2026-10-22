@@ -136,6 +136,12 @@ The format of LiteICLink `8ef8d79`, which our port keeps so it interoperates. No
 - the SerWB spec: [LiteICLink `doc/serwb.md`, Protocol](https://github.com/enjoy-digital/liteiclink/blob/master/doc/serwb.md#protocol), implemented in [`serwb/packet.py`](https://github.com/enjoy-digital/liteiclink/blob/master/liteiclink/serwb/packet.py); our copy: [`../0.upstream/liteiclink/doc/serwb.md`](../0.upstream/liteiclink/doc/serwb.md). LiteICLink added this document on 2026-10-21 (`175c81e`), with its SerWB review; before, the format was only in the code;
 - Etherbone: CERN's [Etherbone core](https://ohwr.org/projects/etherbone-core), as implemented in LiteEth's [`frontend/etherbone.py`](https://github.com/enjoy-digital/liteeth/blob/master/liteeth/frontend/etherbone.py), which LiteICLink reuses.
 
+At a glance:
+
+<p align="center"><img width="100%" alt="A Serial Wishbone packet, left to right: idle fill, preamble, port, length, zero byte, payload (Etherbone on port 0, FIFO pump on port 2), CRC32, idle fill" src="../../0.doc/serwb-packet-simple.drawio.png"></p>
+
+In detail, word by word and on the line:
+
 <p align="center"><img width="100%" alt="Serial Wishbone packet: preamble, port and length, payload (Etherbone on port 0, FIFO pump on port 2), CRC32; on the line, 8b/10b symbols with K28.1 fill, K28.5 comma and XON/XOFF between packets" src="../../0.doc/serwb-packet.drawio.png"></p>
 
 **Packet**, in 32-bit words:
@@ -193,7 +199,12 @@ So it is proven only by test.
 
 ### Interoperability proof
 
-**The reference is LiteX's own SerWB code, not our reading of the spec.** LiteICLink's packetizer, depacketizer, CRC and Etherbone (Python / Migen) generate the traffic our RTL must produce, and check the traffic our RTL sends. An error in our understanding of the format then shows up as a mismatch against LiteX itself. Three levels, each with LiteX on the other side:
+Two references, for two jobs:
+
+- **To read and learn:** this README's [Serial Wishbone frame](#serial-wishbone-frame), a readable spec of the format, with an at-a-glance picture and a word-by-word one, following LiteICLink's own [`doc/serwb.md`](https://github.com/enjoy-digital/liteiclink/blob/master/doc/serwb.md#protocol).
+- **To prove interoperability:** LiteX's own SerWB code, not our reading of either document.
+
+**The proof uses LiteX's own SerWB code.** LiteICLink's packetizer, depacketizer, CRC and Etherbone (Python / Migen) generate the traffic our RTL must produce, and check the traffic our RTL sends. An error in our understanding of the format then shows up as a mismatch against LiteX itself. Three levels, each with LiteX on the other side:
 
 | Level | LiteX side (generator / checker) | Our side | Proves |
 |---|---|---|---|
