@@ -82,13 +82,23 @@ A message link between the two eduBOS5 CPUs, ahead of remote memory access: each
 
 <p align="center"><img width="100%" alt="Serial Wishbone packet format" src="0.doc/serwb-packet.drawio.png"></p>
 
-**Packets.** Up to 16 words per packet: preamble, port/length, payload, CRC32. A packet goes out when 16 words wait or the TX FIFO has been idle for 64 clocks. 16 words carry 84% payload; the line carries two SerWB words per clock (bytes 0-3, 4-7). Between packets: SerWB's K28.1 fill and K28.5 commas.
+**Packets.** Preamble, port/length, payload, CRC32. A packet goes out when `PKT_WORDS` words wait (default 16) or the TX FIFO has been idle for 64 clocks. The pump moves **two SerWB words per clock** (bytes 0-3 and 4-7), so it fills the line. Between packets: SerWB's K28.1 fill and K28.5 commas. Payload share: 16 words 84%, 64 words 96%; the far receiver must accept the size (`crc_max_words` on LiteICLink).
+
+**Speed.** eduBOS5 is the first source, for the demo; an FSM or DMA can fill the FIFO later. The FIFO decouples the two: the CPU fills it at its own pace, the pump drains it at line rate, so even eduBOS5 makes full-speed bursts of up to a FIFO (1024 words, 4 KB). Three performance levels, chosen by a parameter (`LINE_RATE`), from the same 100 MHz reference ([clocks and line rate](3.iclink-sv/1.hw/README.md#clocks-and-line-rate)):
+
+| Level | Line rate | Core clock (64-bit) | After 8b/10b | Payload, 16-word packets |
+|---|---|---|---|---|
+| low | 1.25 Gb/s | 15.625 MHz | 1.0 Gb/s | 0.84 Gb/s |
+| **default** | **2.5 Gb/s** | 31.25 MHz | 2.0 Gb/s | 1.68 Gb/s |
+| high | 5 Gb/s | 62.5 MHz | 4.0 Gb/s | 3.37 Gb/s |
+
+5 Gb/s needs the fabric at 62.5 MHz, about twice what the TX path closes today (33 MHz). It takes `CC_SERDES`'s own TX 8b/10b (the fabric encoder out of the path), a CRC32 and packetizer pipelined for 64 bits per clock, and the SI settings for 5 Gb/s. The two lower levels need only the PLL setting. LiteICLink on ECP5 (setup 3) runs 1.25 and 2.5 Gb/s from 100 MHz; 5 Gb/s there needs a 200 or 250 MHz reference.
 
 **Flow control.** SerWB's own, both sides on (`with_flow_control`): the receiver sends XOFF (K28.3) when its RX buffer is almost full, XON (K28.4) to resume. Our RX FIFO raises it at 1024 - 128 words; the margin covers the round trip many times over. On setup 1 the XOFF loops back to the same chip, which pauses itself.
 
 **Errors.** CRC on (`with_crc`): a bad packet is dropped and counted in `crc_errors`. No retransmission; a dropped message is the firmware's to notice (a sequence number in the first word).
 
-**Clocks.** Three domains: `sys` (CPU, CSRs), `clk_tx`, `clk_rx`. Two async FIFOs (Gray-coded pointers; `CC_FIFO_40K` in hardware, 1024 x 40), and synchronizers for the flow-control state and the status bits.
+**Clocks.** Three domains: `sys` (CPU, CSRs), `clk_tx`, `clk_rx`. Two async FIFOs, 32 bits in from the CPU, 64 bits out to the pump (Gray-coded pointers; in hardware `CC_FIFO_40K` in 80-bit SDP mode, 512 x 64 + flags = 1024 words), and synchronizers for the flow-control state and the status bits.
 
 **CSRs** (SystemRDL, PeakRDL):
 
