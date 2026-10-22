@@ -71,7 +71,7 @@ One GateMate. Solid boxes are done; dashed ones, tagged NEXT, come next.
 
 ### FIFO pump (spec, for review)
 
-A message link between the two eduBOS5 CPUs, ahead of Serial Wishbone: each CPU pushes 32-bit words into a TX FIFO, the pump streams them over the PHY, and the other CPU pops them from an RX FIFO. No remote memory access; both firmwares take part.
+A message link between the two eduBOS5 CPUs, ahead of Serial Wishbone: each CPU pushes 32-bit words into a TX FIFO, the pump streams them over the PHY, and the other CPU pops them from an RX FIFO. No remote memory access; both firmwares take part. It is the eduBOS5 <-> FIFO <-> link architecture planned for [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/6.soc), there with the PCIe PIPE in place of this PHY, so the FIFO pump and its firmware carry over.
 
 ```
  eduBOS5 --CSR--> TX FIFO ==async==> pump TX --> PHY tx  ~~line~~>  PHY rx --> pump RX ==async==> RX FIFO --CSR--> eduBOS5
