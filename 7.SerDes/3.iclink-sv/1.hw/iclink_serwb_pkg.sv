@@ -128,6 +128,22 @@ package iclink_serwb_pkg;
     endcase
   endfunction
 
+  // the CRC term of SERWB_CRC_INIT over n words: a constant per n, so a
+  // packet start costs the CRC loop nothing (it goes into the data term)
+  function automatic word_t serwb_crc_iterm(input logic [1:0] n);
+    case (n)
+      2'd1: begin
+        return serwb_crc32(SERWB_CRC_INIT, '0);
+      end
+      2'd2: begin
+        return serwb_crc32(serwb_crc32(SERWB_CRC_INIT, '0), '0);
+      end
+      default: begin
+        return SERWB_CRC_INIT;
+      end
+    endcase
+  endfunction
+
   // the CRC term over n = 0, 1 or 2 words
   function automatic word_t serwb_crc_cterm(input word_t crc, input logic [1:0] n);
     case (n)

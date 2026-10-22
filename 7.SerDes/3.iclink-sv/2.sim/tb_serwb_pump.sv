@@ -12,6 +12,9 @@
 //      XOFF stops A, A's TX FIFO fills and pushes back on A's CPU; B's RX
 //      FIFO must not overflow. Then B reads again: XON, A drains, all
 //      words arrive in order.
+//   3. line rate: A's TX is held while A's CPU fills the TX FIFO (1024
+//      words, 64 packets); then the burst goes out with no CPU in the way,
+//      and B's depacketizer must see BURST_RATE words a clock or more.
 //
 // The fill levels are logged (pump_levels.csv) for the End2End Flow
 // section of the README, with the peak RX level above XOFF_LEVEL.
@@ -24,6 +27,9 @@ module tb_serwb_pump;
   localparam int LINE_LAT   = 12;             // clocks, PHY TX + CC_SERDES + PHY RX
   localparam int N_RANDOM   = 6000;           // words each way, phase 1
   localparam int N_FLOOD    = 4000;           // words A -> B, phase 2
+  localparam int N_BURST    = DEPTH;          // words A -> B, phase 3: a full TX FIFO
+  localparam int N_MEASURE  = 800;            // words timed, before B's XOFF level
+  localparam real BURST_RATE = 1.59;          // words a clock: 16 per packet of 10 clocks
   localparam int AW         = $clog2(DEPTH);
 
   logic clk_line, clk_a, clk_b;
@@ -55,6 +61,7 @@ module tb_serwb_pump;
   logic a_paused, b_paused, a_pause, b_pause;
   logic [15:0] a_crc, b_crc, a_drops, b_drops, a_ovf, b_ovf;
   logic link_en;
+  logic a_tx_hold;  // phase 3: A's TX held while its FIFO fills
 
   iclink_serwb_pump #(
       .DEPTH(DEPTH)
@@ -71,7 +78,7 @@ module tb_serwb_pump;
       .rx_avail     (a_avail),
       .clk_tx       (clk_line),
       .tx_arst_n    (arst_n),
-      .tx_en        (link_en),
+      .tx_en        (link_en && !a_tx_hold),
       .phy_tx       (a_tx),
       .clk_rx       (clk_line),
       .rx_arst_n    (arst_n),
@@ -131,7 +138,7 @@ module tb_serwb_pump;
   endfunction
 
   // phase control
-  int   phase;  // 1 random both ways, 2 flood A -> B, 3 done
+  int   phase;  // 1 random both ways, 2 flood A -> B, 3 burst A -> B, 4 done
   logic b_reads;  // B's CPU reads (low: phase 2 stall)
 
   // CPU A: pushes A -> B; pops B -> A
@@ -151,7 +158,7 @@ module tb_serwb_pump;
       if (a_push && !a_full) begin
         a_sent <= a_sent + 1;
       end
-      a_push  <= (a_sent + (a_push && !a_full) < a_goal) && (phase == 2 || ($urandom % 3) != 0);
+      a_push  <= (a_sent + (a_push && !a_full) < a_goal) && (phase >= 2 || ($urandom % 3) != 0);
       a_wdata <= pattern(1'b0, a_sent + (a_push && !a_full));
       if (a_pop && !a_empty) begin
         if (a_rdata !== pattern(1'b1, a_got)) begin
@@ -216,12 +223,29 @@ module tb_serwb_pump;
     end
   end : _levels
 
+  // burst meter: words out of B's depacketizer, from the first one of the burst
+  int burst_words, burst_clks;
+
+  always_ff @(posedge clk_line or negedge arst_n) begin : _burst
+    if (!arst_n) begin
+      burst_words <= 0;
+      burst_clks  <= 0;
+    end
+    else if (phase == 3 && !a_tx_hold && burst_words < N_MEASURE) begin
+      if (burst_words > 0 || u_b.dp_valid != '0) begin
+        burst_words <= burst_words + int'(u_b.dp_valid[0]) + int'(u_b.dp_valid[1]);
+        burst_clks  <= burst_clks + 1;
+      end
+    end
+  end : _burst
+
   initial begin : _run
     logic pass;
     phase   = 0;
     b_reads = 1'b1;
     link_en = 1'b0;
     a_goal  = 0;
+    a_tx_hold = 1'b0;
     b_goal  = 0;
     fd_lvl  = $fopen("pump_levels.csv", "w");
     $fwrite(fd_lvl, "time_ps,b_rx_used,a_tx_used,b_pause,a_paused,a_tx_full\n");
@@ -247,16 +271,29 @@ module tb_serwb_pump;
     b_reads = 1'b1;
     wait (b_got == N_RANDOM + N_FLOOD);
     repeat (200) @(posedge clk_line);
-    phase = 3;
+
+    // 3. A's TX held, its FIFO filled, then let go
+    a_tx_hold = 1'b1;
+    phase     = 3;
+    a_goal    = N_RANDOM + N_FLOOD + N_BURST;
+    wait (a_sent == a_goal);
+    repeat (50) @(posedge clk_line);
+    a_tx_hold = 1'b0;
+    wait (b_got == N_RANDOM + N_FLOOD + N_BURST);
+    repeat (200) @(posedge clk_line);
+    phase = 4;
     $fclose(fd_lvl);
 
-    pass = a_bad == 0 && b_bad == 0 && a_got == N_RANDOM && b_got == N_RANDOM + N_FLOOD &&
+    pass = a_bad == 0 && b_bad == 0 && a_got == N_RANDOM && b_got == N_RANDOM + N_FLOOD + N_BURST &&
+        real'(burst_words) / real'(burst_clks) >= BURST_RATE &&
         a_drops == 0 && b_drops == 0 && a_ovf == 0 && b_ovf == 0 && a_crc == 0 && b_crc == 0 &&
         b_rx_peak <= DEPTH;
     $display("phase 2: B RX FIFO peak %0d of %0d (XOFF at %0d: +%0d words after XOFF)", b_rx_peak,
              DEPTH, XOFF_LEVEL, b_rx_peak - XOFF_LEVEL);
     $display("         A TX FIFO peak %0d (pushback on A's CPU); drops %0d/%0d, overflows %0d/%0d",
              a_tx_peak, a_drops, b_drops, a_ovf, b_ovf);
+    $display("phase 3: burst of %0d words: %0d words in %0d clocks = %0.3f a clock (line: 2)",
+             N_BURST, burst_words, burst_clks, real'(burst_words) / real'(burst_clks));
     $display("TB_SERWB_PUMP: %s  A->B %0d words, B->A %0d words, in order, none lost",
              pass ? "PASS" : "FAIL", b_got, a_got);
     $finish;

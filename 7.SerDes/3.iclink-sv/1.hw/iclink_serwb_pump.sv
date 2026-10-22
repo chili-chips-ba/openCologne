@@ -110,9 +110,10 @@ module iclink_serwb_pump
     T_DATA
   } tx_state_t;
 
-  tx_state_t                          tx_state;
-  logic      [                  13:0] tx_left;  // words of this packet still to give
-  logic      [$clog2(FLUSH_CLKS)-1:0] flush_cnt;
+  tx_state_t tx_state;
+  logic [13:0] tx_left;  // words of this packet still to give
+  logic tx_left_ge2;  // tx_left >= 2, from a flop: the FIFO read address waits on it
+  logic [$clog2(FLUSH_CLKS)-1:0] flush_cnt;
   logic hdr_ready, d_ready, pk_ready;
   word_t [1:0] pk_word;
   logic  [1:0] pk_valid;
@@ -120,28 +121,31 @@ module iclink_serwb_pump
   always_comb begin
     txf_take = '0;
     if (tx_state == T_DATA && d_ready) begin
-      txf_take = (tx_left >= 14'd2) ? 2'd2 : 2'd1;
+      txf_take = tx_left_ge2 ? 2'd2 : 2'd1;
     end
   end
 
   always_ff @(posedge clk_tx or negedge tx_arst_n) begin
     if (!tx_arst_n) begin
-      tx_state  <= T_WAIT;
-      tx_left   <= '0;
-      flush_cnt <= '0;
+      tx_state    <= T_WAIT;
+      tx_left     <= '0;
+      tx_left_ge2 <= 1'b0;
+      flush_cnt   <= '0;
     end
     else begin
       unique case (tx_state)
         T_WAIT: begin
           if (txf_avail >= (AW + 1)'(PKT_WORDS)) begin
-            tx_left   <= 14'(PKT_WORDS);
-            tx_state  <= T_HDR;
-            flush_cnt <= '0;
+            tx_left     <= 14'(PKT_WORDS);
+            tx_left_ge2 <= PKT_WORDS >= 2;
+            tx_state    <= T_HDR;
+            flush_cnt   <= '0;
           end
           else if (txf_avail != '0 && flush_cnt == '1) begin
-            tx_left   <= 14'(txf_avail);
-            tx_state  <= T_HDR;
-            flush_cnt <= '0;
+            tx_left     <= 14'(txf_avail);
+            tx_left_ge2 <= txf_avail >= (AW + 1)'(2);
+            tx_state    <= T_HDR;
+            flush_cnt   <= '0;
           end
           else if (txf_avail != '0) begin
             flush_cnt <= flush_cnt + 1'b1;
@@ -159,8 +163,9 @@ module iclink_serwb_pump
 
         T_DATA: begin
           if (d_ready) begin
-            tx_left <= tx_left - 14'(txf_take);
-            if (tx_left <= 14'd2) begin
+            tx_left     <= tx_left - 14'(txf_take);
+            tx_left_ge2 <= tx_left >= 14'd4;  // 2 go now
+            if (!tx_left_ge2 || tx_left == 14'd2) begin
               tx_state <= T_WAIT;
             end
           end
@@ -309,7 +314,7 @@ module iclink_serwb_pump
 
   // a packet that finds no room writes nothing more and is rewound at its end
   always_comb begin
-    room      = (rxf_used + (AW + 1)'(dp_valid[0]) + (AW + 1)'(dp_valid[1])) <= (AW + 1)'(DEPTH);
+    room      = rxf_used <= (AW + 1)'(DEPTH - 2);  // a flop and a compare: off the write path
     ovf       = ovf_pkt | (dp_valid != '0 && !room);
     rxf_valid = ovf ? 2'b00 : dp_valid;
     keep      = dp_commit && !ovf && dp_port == PORT;

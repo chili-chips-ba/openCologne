@@ -66,9 +66,10 @@ module iclink_serwb_tx
   state_t        state;
   logic   [13:0] left;  // data words still to send
   beat_t f, t;  // after stage 1 and stage 2
-  word_t t_dterm;  // stage 2: the data term of t's CRC slots
-  word_t crc;  // stage 3: the CRC over the packet so far
-  word_t crc_now;  // the CRC including this beat's words
+  word_t       t_dterm;  // stage 2: the data term of t's CRC slots, and the INIT term on a start
+  logic  [1:0] t_n;  // stage 2: how many words t's CRC slots hold
+  word_t       crc;  // stage 3: the CRC over the packet so far
+  word_t       crc_now;  // the CRC including this beat's words
 
   assign hdr_ready = (state == S_IDLE) & o_ready;
   assign d_ready   = (state == S_DATA) & o_ready;
@@ -133,27 +134,34 @@ module iclink_serwb_tx
     if (!arst_n) begin
       t       <= '0;
       t_dterm <= '0;
+      t_n     <= '0;
     end
     else if (o_ready) begin
-      t       <= f;
-      t_dterm <= serwb_crc_dterm(f.word, f.crcd);
+      t <= f;
+      t_n <= {1'b0, f.crcd[0]} + {1'b0, f.crcd[1]};
+      t_dterm <= serwb_crc_dterm(
+          f.word, f.crcd
+      ) ^ (f.init ? serwb_crc_iterm(
+          {1'b0, f.crcd[0]} + {1'b0, f.crcd[1]}
+      ) : '0);
     end
   end
 
   // 3. CRC: the running CRC takes the data term; a CRC slot gets the result
   always_comb begin
-    crc_now = serwb_crc_cterm(t.init ? SERWB_CRC_INIT : crc,
-                              {1'b0, t.crcd[0]} + {1'b0, t.crcd[1]}) ^ t_dterm;
+    // crc is 0 between packets (cleared after the CRC slot), so a start needs
+    // no gating here: its INIT term is in t_dterm
+    crc_now = serwb_crc_cterm(crc, t_n) ^ t_dterm;
   end
 
   always_ff @(posedge clk or negedge arst_n) begin
     if (!arst_n) begin
-      crc     <= SERWB_CRC_INIT;
+      crc     <= '0;
       o_word  <= '0;
       o_valid <= '0;
     end
     else if (o_ready) begin
-      crc     <= crc_now;
+      crc     <= (t.crcslot != '0) ? '0 : crc_now;
       o_valid <= t.valid;
       for (int s = 0; s < 2; s++) begin
         o_word[s] <= t.crcslot[s] ? crc_now : t.word[s];

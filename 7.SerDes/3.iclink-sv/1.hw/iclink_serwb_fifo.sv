@@ -20,6 +20,11 @@
 // written and not yet known as read (committed or not); r_avail counts
 // committed words not yet read. The pointers cross by iclink_cdc_ptr.
 //
+// Timing: the write port is registered in front of the RAM (a word lands a
+// clock later; the reader cannot see it sooner, through the pointer
+// crossing). On the read side, the rows for taking 0, 1 or 2 words come
+// from rd_ptr alone, and the late r_take only picks one.
+//
 // The writer must keep w_used + (words written) <= DEPTH; the reader must
 // not take more than r_avail.
 //==========================================================================
@@ -64,13 +69,33 @@ module iclink_serwb_fifo
     w_row0      = wr_ptr[AW-1:1] + (AW - 1)'(wr_ptr[0]);
   end
 
-  // word 0 goes to wr_ptr, word 1 to wr_ptr + 1
-  always_ff @(posedge w_clk) begin
-    if (wr_ptr[0] ? w_valid[1] : w_valid[0]) begin
-      mem0[w_row0] <= wr_ptr[0] ? w_word[1] : w_word[0];
+  // word 0 goes to wr_ptr, word 1 to wr_ptr + 1: into flops first, then the RAMs
+  logic [1:0] ram_we;
+  logic [AW-2:0] ram_row0, ram_row1;
+  word_t ram_d0, ram_d1;
+
+  always_ff @(posedge w_clk or negedge w_arst_n) begin
+    if (!w_arst_n) begin
+      ram_we <= '0;
     end
-    if (wr_ptr[0] ? w_valid[0] : w_valid[1]) begin
-      mem1[w_row1] <= wr_ptr[0] ? w_word[0] : w_word[1];
+    else begin
+      ram_we <= {wr_ptr[0] ? w_valid[0] : w_valid[1], wr_ptr[0] ? w_valid[1] : w_valid[0]};
+    end
+  end
+
+  always_ff @(posedge w_clk) begin
+    ram_row0 <= w_row0;
+    ram_row1 <= w_row1;
+    ram_d0   <= wr_ptr[0] ? w_word[1] : w_word[0];
+    ram_d1   <= wr_ptr[0] ? w_word[0] : w_word[1];
+  end
+
+  always_ff @(posedge w_clk) begin
+    if (ram_we[0]) begin
+      mem0[ram_row0] <= ram_d0;
+    end
+    if (ram_we[1]) begin
+      mem1[ram_row1] <= ram_d1;
     end
   end
 
@@ -97,14 +122,33 @@ module iclink_serwb_fifo
   //-----------------------------------------------------------------------
   // read side
   //-----------------------------------------------------------------------
-  logic [AW:0] rd_ptr, rd_ptr_next, com_ptr_r;
+  logic [AW:0] rd_ptr, rd_ptr_next, com_ptr_r, r_avail_now;
   logic [AW-2:0] r_row0, r_row1;  // rows of the even and the odd one of the next two words
+  logic [AW-2:0] h, h1, h2;  // rd_ptr's row and the two after it
   word_t q0, q1;  // RAM outputs: words at the even and odd one of them
 
+  // r_take arrives late: the rows for take 0, 1 and 2 come from rd_ptr
+  // alone, and r_take only picks one (of rows h, h + 1, h + 2)
   always_comb begin
     rd_ptr_next = rd_ptr + (AW + 1)'(r_take);
-    r_row1      = rd_ptr_next[AW-1:1];
-    r_row0      = rd_ptr_next[AW-1:1] + (AW - 1)'(rd_ptr_next[0]);
+    h           = rd_ptr[AW-1:1];
+    h1          = h + 1'b1;
+    h2          = h + (AW - 1)'(2);
+    unique case (r_take)
+      2'd1: begin
+        r_row1 = rd_ptr[0] ? h1 : h;
+        r_row0 = h1;
+      end
+      2'd2: begin
+        r_row1 = h1;
+        r_row0 = rd_ptr[0] ? h2 : h1;
+      end
+      default: begin
+        r_row1 = h;
+        r_row0 = rd_ptr[0] ? h1 : h;
+      end
+    endcase
+    r_avail_now = com_ptr_r - rd_ptr;
   end
 
   // registered reads at the next pointer, so the words at rd_ptr are ready
@@ -125,7 +169,7 @@ module iclink_serwb_fifo
     end
     else begin
       rd_ptr  <= rd_ptr_next;
-      r_avail <= com_ptr_r - rd_ptr_next;
+      r_avail <= r_avail_now - (AW + 1)'(r_take);
     end
   end
 

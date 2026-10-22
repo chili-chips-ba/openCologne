@@ -19,8 +19,8 @@
 // took. This replaces LiteICLink's store-and-forward buffer: the FIFO is
 // the buffer.
 //
-// Four stages: input flops; framing (the state machine, no CRC); the data
-// term of the beat's words; the running CRC and the check. The CRC is
+// Five stages: input flops; framing (the state machine, no CRC); the data
+// term of the beat's words; the running CRC; the check. The CRC is
 // linear, so the data term needs no running CRC, and the CRC loop is one
 // shallow XOR tree (iclink_serwb_pkg). Every output comes out of the last
 // stage, so words, commits and drops keep their order.
@@ -192,37 +192,69 @@ module iclink_serwb_rx
   end
 
   //-----------------------------------------------------------------------
-  // 2. data term
+  // 2. data term, and the INIT term on a packet start
   //-----------------------------------------------------------------------
-  beat_t t;
-  word_t t_dterm;
+  beat_t       t;
+  word_t       t_dterm;
+  logic  [1:0] t_n;  // how many words t's CRC slots hold
 
   always_ff @(posedge clk or negedge arst_n) begin
     if (!arst_n) begin
       t       <= '0;
       t_dterm <= '0;
+      t_n     <= '0;
     end
     else begin
-      t       <= f;
-      t_dterm <= serwb_crc_dterm(f.word, f.crcd);
+      t <= f;
+      t_n <= {1'b0, f.crcd[0]} + {1'b0, f.crcd[1]};
+      t_dterm <= serwb_crc_dterm(
+          f.word, f.crcd
+      ) ^ (f.init ? serwb_crc_iterm(
+          {1'b0, f.crcd[0]} + {1'b0, f.crcd[1]}
+      ) : '0);
     end
   end
 
   //-----------------------------------------------------------------------
-  // 3. running CRC, check, outputs
+  // 3. running CRC
   //-----------------------------------------------------------------------
-  word_t crc, crc_now;
-  logic good;
+  beat_t g;
+  word_t crc, crc_now;  // crc: the running CRC, 0 between packets
+  word_t g_crc;  // the CRC over the packet up to and with g's words
+  word_t g_rcvd;  // the received CRC, if g has one
 
+  // crc is 0 between packets (cleared at a check or a drop), so a start
+  // needs no gating here: its INIT term is in t_dterm
   always_comb begin
-    crc_now = serwb_crc_cterm(t.init ? SERWB_CRC_INIT : crc,
-                              {1'b0, t.crcd[0]} + {1'b0, t.crcd[1]}) ^ t_dterm;
-    good = (t.chk[0] && t.word[0] == crc_now) || (t.chk[1] && t.word[1] == crc_now);
+    crc_now = serwb_crc_cterm(crc, t_n) ^ t_dterm;
   end
 
   always_ff @(posedge clk or negedge arst_n) begin
     if (!arst_n) begin
-      crc         <= SERWB_CRC_INIT;
+      crc    <= '0;
+      g      <= '0;
+      g_crc  <= '0;
+      g_rcvd <= '0;
+    end
+    else begin
+      crc    <= (t.chk != '0 || t.drop) ? '0 : crc_now;
+      g      <= t;
+      g_crc  <= crc_now;
+      g_rcvd <= t.chk[0] ? t.word[0] : t.word[1];
+    end
+  end
+
+  //-----------------------------------------------------------------------
+  // 4. check, outputs
+  //-----------------------------------------------------------------------
+  logic good;
+
+  always_comb begin
+    good = (g_rcvd == g_crc);
+  end
+
+  always_ff @(posedge clk or negedge arst_n) begin
+    if (!arst_n) begin
       o_word      <= '0;
       o_valid     <= '0;
       o_port      <= '0;
@@ -231,17 +263,15 @@ module iclink_serwb_rx
       o_crc_error <= 1'b0;
     end
     else begin
-      crc         <= crc_now;
-
       // compacted, slot 0 first
-      o_word[0]   <= t.data[0] ? t.word[0] : t.word[1];
-      o_word[1]   <= t.word[1];
-      o_valid     <= {t.data[0] & t.data[1], t.data[0] | t.data[1]};
+      o_word[0]   <= g.data[0] ? g.word[0] : g.word[1];
+      o_word[1]   <= g.word[1];
+      o_valid     <= {g.data[0] & g.data[1], g.data[0] | g.data[1]};
 
-      o_port      <= t.port;
-      o_commit    <= (t.chk != '0) && good;
-      o_crc_error <= (t.chk != '0) && !good;
-      o_drop      <= t.drop || ((t.chk != '0) && !good);
+      o_port      <= g.port;
+      o_commit    <= (g.chk != '0) && good;
+      o_crc_error <= (g.chk != '0) && !good;
+      o_drop      <= g.drop || ((g.chk != '0) && !good);
     end
   end
 
