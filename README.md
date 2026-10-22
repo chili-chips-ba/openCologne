@@ -174,11 +174,11 @@ Our flagship: two GateMate chips talk over their SerDes, as one memory-mapped sy
 flowchart LR
   subgraph A["GateMate A"]
     direction TB
-    CPUA["eduBOS5<br/>RISC-V"] --> CSRA["CSRs<br/>(PeakRDL)"] --> SWA["SerWB<br/>bus bridge"] --> PHYA["8b/10b + PRBS<br/>CC_SERDES"]
+    CPUA["eduBOS5<br/>RISC-V"] --> CSRA["CSRs<br/>(PeakRDL)"] --> SWA["Serial Wishbone<br/>(SerWB)"] --> PHYA["8b/10b + PRBS<br/>CC_SERDES"]
   end
   subgraph B["GateMate B"]
     direction TB
-    PHYB["8b/10b + PRBS<br/>CC_SERDES"] --> SWB["SerWB<br/>bus bridge"] --> CSRB["CSRs<br/>(PeakRDL)"] --> CPUB["eduBOS5<br/>RISC-V"]
+    PHYB["8b/10b + PRBS<br/>CC_SERDES"] --> SWB["Serial Wishbone<br/>(SerWB)"] --> CSRB["CSRs<br/>(PeakRDL)"] --> CPUB["eduBOS5<br/>RISC-V"]
   end
   PHYA <== "serial link<br/>(sim: SerDes BFM)" ==> PHYB
 ```
@@ -186,9 +186,30 @@ flowchart LR
 - **Full end-to-end sim with open tools.** In sim, our [SerDes BFM](7.SerDes/3.iclink-sv/2.sim/serdes-model) (from [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE)) stands in for the wire and the `CC_SERDES` hard macro. No VProc, no vendor model: the RTL runs as built.
 - **Bit-exact with LiteX.** Every block is checked against LiteX's own Python model, clock for clock.
 - **Done:** 8b/10b, PRBS7/15/31, the `CC_SERDES` PHY with a one-way link sim, a bitstream with the open Peppercorn flow.
-- **Next:** SerWB, two eduBOS5 SoCs end to end, then the boards: one EVB looped TX to RX, then two ULX5M-GS.
+- **Next:** Serial Wishbone (SerWB), two eduBOS5 SoCs end to end, then the boards: one EVB looped TX to RX, then two ULX5M-GS.
 
-More in [7.SerDes](7.SerDes).
+End-to-end test jig: the same tests run in sim and on boards.
+
+```mermaid
+flowchart LR
+  subgraph SIM["Simulation: Verilator, open tools only"]
+    direction LR
+    SA["SoC A<br/>eduBOS5 runs<br/>test firmware"] <--> MA["SerDes BFM A<br/>(CC_SERDES model)"]
+    MA <== "serial lines,<br/>crossed" ==> MB["SerDes BFM B<br/>(CC_SERDES model)"]
+    MB <--> SB["SoC B<br/>eduBOS5"]
+  end
+  subgraph HW1["Setup 1: one GateMate EVB"]
+    direction LR
+    ETX["SerDes TX"] -- "cable, TX to own RX" --> ERX["SerDes RX"]
+  end
+  subgraph HW2["Setup 2: two ULX5M-GS boards"]
+    direction LR
+    UA["ULX5M-GS A"] <== "TX/RX crossed" ==> UB["ULX5M-GS B"]
+  end
+  PC["Host PC<br/>UART console"] --- UA
+```
+
+More in [7.SerDes](7.SerDes): design internals, test jig, build and QA.
 
 ## Additional References
 - https://github.com/YosysHQ/prjpeppercorn
