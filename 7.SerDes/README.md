@@ -71,29 +71,22 @@ One GateMate. Solid boxes are done; dashed ones, tagged NEXT, come next.
 
 ### FIFO pump (spec, for review)
 
-A message link between the two eduBOS5 CPUs, ahead of Serial Wishbone: each CPU pushes 32-bit words into a TX FIFO, the pump streams them over the PHY, and the other CPU pops them from an RX FIFO. No remote memory access; both firmwares take part. It is the eduBOS5 <-> FIFO <-> link architecture planned for [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/6.soc), there with the PCIe PIPE in place of this PHY, so the FIFO pump and its firmware carry over.
+A message link between the two eduBOS5 CPUs, ahead of remote memory access: each CPU pushes 32-bit words into a TX FIFO, the pump streams them to the other side, and the other CPU pops them from an RX FIFO. Both firmwares take part. It is the eduBOS5 <-> FIFO <-> link architecture planned for [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/6.soc), there with the PCIe PIPE in place of this PHY, so the FIFO side and its firmware carry over.
+
+**Standard SerWB, not a format of our own.** LiteICLink's Serial Wishbone carries user streams on its packet ports, next to Etherbone: `SERWBCore.add_downstream_endpoint(port, ...)` / `add_upstream_endpoint(port, ...)`. Port 0 is Etherbone, port 1 is LiteICLink's SerIO by default. The pump uses **port 2**. Its words travel in ordinary SerWB packets ([frame format](3.iclink-sv/1.hw/README.md#serial-wishbone-frame)), so a LiteICLink SoC on an ECP5 (test setup 3) can send and receive them, and SerWB's CRC and flow control come with it. Etherbone, for remote memory access, comes later on port 0, on the same packet layer.
 
 ```
- eduBOS5 --CSR--> TX FIFO ==async==> pump TX --> PHY tx  ~~line~~>  PHY rx --> pump RX ==async==> RX FIFO --CSR--> eduBOS5
-  (sys)           1024 x 32          (clk_tx)                                  (clk_rx)           1024 x 32          (sys)
+ eduBOS5 --CSR--> TX FIFO ==async==> packetizer (port 2) --> PHY tx ~~line~~> PHY rx --> depacketizer --> RX FIFO ==async==> --CSR--> eduBOS5
+  (sys)           1024 x 32          (clk_tx)                                        (clk_rx)          1024 x 32            (sys)
 ```
 
-**On the line.** Per 64-bit PHY word, two 32-bit halves (bytes 0-3, 4-7), coded as Serial Wishbone codes them (control symbol in byte 0 of a half):
+**Packets.** Up to 16 words per packet: preamble, port/length, payload, CRC32. A packet goes out when 16 words wait or the TX FIFO has been idle for 64 clocks. 16 words carry 84% payload; the line carries two SerWB words per clock (bytes 0-3, 4-7). Between packets: SerWB's K28.1 fill and K28.5 commas.
 
-| Half carries | Bytes | K flags |
-|---|---|---|
-| a data word | 4 data bytes, LSB first | 0000 |
-| fill (nothing to send) | K28.1, then 3 x D0.0 | 0001 |
-| comma (alignment, every 256 idle clocks and at start-up) | K28.5, then 3 x D0.0 | 0001 |
-| XOFF / XON (flow control) | K28.3 / K28.4, then 3 x D0.0 | 0001 |
+**Flow control.** SerWB's own, both sides on (`with_flow_control`): the receiver sends XOFF (K28.3) when its RX buffer is almost full, XON (K28.4) to resume. Our RX FIFO raises it at 1024 - 128 words; the margin covers the round trip many times over. On setup 1 the XOFF loops back to the same chip, which pauses itself.
 
-Data goes in half 0, one word per clock: 31.25 M words/s, 1.0 Gb/s of payload, above what eduBOS5 can push. Half 1 carries fill, or XOFF / XON when the flow-control state changes. Both halves for data later, if a faster source needs 2 Gb/s.
+**Errors.** CRC on (`with_crc`): a bad packet is dropped and counted in `crc_errors`. No retransmission; a dropped message is the firmware's to notice (a sequence number in the first word).
 
-**Flow control.** When the RX FIFO rises above 1024 - 128 words, the receiver sends XOFF on its own TX; the far TX stops popping its FIFO. XON below 512. The 128-word margin covers the round trip (about 0.5 us, 16 clocks) many times over. On setup 1 the XOFF loops back to the same chip, which pauses itself.
-
-**Errors.** A half with an invalid 8b/10b symbol is dropped and counted (`rx_errors`). No CRC on the link; a CRC per message can run in firmware.
-
-**Clocks.** Three domains: `sys` (CPU, CSRs), `clk_tx`, `clk_rx`. Two async FIFOs (Gray-coded pointers; `CC_FIFO_40K` in hardware, 1024 x 40), and synchronizers for the XOFF state (`clk_rx` to `clk_tx`) and the status bits.
+**Clocks.** Three domains: `sys` (CPU, CSRs), `clk_tx`, `clk_rx`. Two async FIFOs (Gray-coded pointers; `CC_FIFO_40K` in hardware, 1024 x 40), and synchronizers for the flow-control state and the status bits.
 
 **CSRs** (SystemRDL, PeakRDL):
 
@@ -102,15 +95,16 @@ Data goes in half 0, one word per clock: 31.25 M words/s, 1.0 Gb/s of payload, a
 | `TX_DATA` | write: push a word (ignored when full) |
 | `RX_DATA` | read: pop a word |
 | `STATUS` | `tx_level`, `rx_level`, `tx_full`, `rx_empty`, `link_up`, `xoff_rx` (far side paused us) |
-| `ERRORS` | `rx_errors`, `rx_overflow` (sticky), write 1 to clear |
+| `ERRORS` | `crc_errors`, `rx_overflow` (sticky), write 1 to clear |
 | `CTRL` | `enable`, `flush` |
 
-**Tests.** The testbenches of setups 1 and 2 gain a pump phase after the PHY tests, so the two FSTs and the sessions `tb_phy.ONEWAY` / `tb_phy.TWOWAY` cover it:
+**Tests.** The testbenches of setups 1 and 2 gain a pump phase after the PHY tests, so the FSTs and the sessions `tb_phy.ONEWAY` / `tb_phy.TWOWAY` cover it:
 
 1. Words pushed on one side arrive in order on the other; on setup 2 both ways at once.
-2. Flow control: the reader stops; XOFF arrives before the RX FIFO overflows; no word is lost; XON resumes.
-3. Negative: a flipped bit drops exactly one word and counts it in `rx_errors`.
-4. Later, with the eduBOS5 SoC: firmware on A sends a message, B echoes it.
+2. The packets are bit-exact with LiteICLink's packetizer (vectors from its Python model, as for 8b/10b).
+3. Flow control: the reader stops; XOFF arrives before the RX FIFO overflows; no word is lost; XON resumes.
+4. Negative: a flipped bit inside a packet drops that packet and counts it in `crc_errors`.
+5. Later, with the eduBOS5 SoC: firmware on A sends a message, B echoes it. On setup 3, the ECP5 side runs LiteICLink with the same port 2.
 
 ### PHY RTL
 

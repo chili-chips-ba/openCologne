@@ -126,7 +126,7 @@ They make the link memory-mapped: eduBOS5 on chip A loads or stores to an addres
 - **Etherbone** turns one Wishbone access (address, data, read or write, byte enables) into a record and runs it on the far bus; a read returns its data, so A's load just waits.
 - **The packetizer** frames each record (preamble, port, length, optional CRC32), so the receiver finds its start, drops broken ones and resyncs after an error.
 
-When B only needs to receive data, neither is needed: the FIFO pump ([7.SerDes README](../../README.md#fifo-pump-spec-for-review)) moves words between the two CPUs instead.
+When B only needs to receive data, Etherbone is not needed, but the packetizer still is: it carries user streams on its other ports. The FIFO pump ([7.SerDes README](../../README.md#fifo-pump-spec-for-review)) moves words between the two CPUs on port 2, in standard SerWB packets, so it interoperates with LiteICLink.
 
 ## Serial Wishbone frame
 
