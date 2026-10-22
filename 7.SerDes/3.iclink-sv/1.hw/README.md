@@ -153,6 +153,16 @@ In detail, word by word and on the line:
 | 2 .. | payload, length / 4 words |
 | last | CRC32 over the header and payload, only with `with_crc` (both sides) |
 
+**Packet size.** The format allows up to 65532 payload bytes (16383 words, `length[23:10]`); the receiver ignores `length[9:8]`, so the payload is whole words. A real receiver sets a smaller limit:
+
+| Receiver | Largest payload | Set by |
+|---|---|---|
+| LiteICLink without CRC (`Depacketizer`) | 16383 words | the format only; it buffers nothing |
+| LiteICLink with CRC (`CRCDepacketizer`) | `max_words`: 64 by default; in `SERWBCore` `crc_max_words`, default the Etherbone packet (10 words, at least 16) | its store-and-forward buffer |
+| This core, FIFO pump (port 2) | `MAX_WORDS`, default 16 (`PKT_WORDS`) | the parameter; the RX FIFO is the buffer |
+
+A larger payload is dropped at the header and counted. Both ends must agree: the sender's `PKT_WORDS` must not exceed the receiver's limit. The packet on the line is the payload + 3 words (preamble, port/length, CRC32).
+
 The receiver hunts for the preamble, reads port and length, and forwards the payload to that port. Unknown ports are dropped; a packet that stops arriving is dropped after a 1 ms timeout; with CRC, a bad packet is dropped and counted in `crc_errors`.
 
 **Port 0 carries Etherbone**, one record per packet, 32-bit addresses and data (CERN's Etherbone, as cut down in LiteICLink: no probing, no address spaces):
