@@ -94,11 +94,13 @@ A message link between the two eduBOS5 CPUs, ahead of remote memory access: each
 
 5 Gb/s needs the fabric at 62.5 MHz, about twice what the TX path closes today (33 MHz). It takes `CC_SERDES`'s own TX 8b/10b (the fabric encoder out of the path), a CRC32 and packetizer pipelined for 64 bits per clock, and the SI settings for 5 Gb/s. The two lower levels need only the PLL setting. LiteICLink on ECP5 (setup 3) runs 1.25 and 2.5 Gb/s from 100 MHz; 5 Gb/s there needs a 200 or 250 MHz reference.
 
-**Flow control.** SerWB's own, both sides on (`with_flow_control`): the receiver sends XOFF (K28.3) when its RX buffer is almost full, XON (K28.4) to resume. Our RX FIFO raises it at 1024 - 128 words; the margin covers the round trip many times over. On setup 1 the XOFF loops back to the same chip, which pauses itself.
+**Flow control.** SerWB's own, both sides on (`with_flow_control`): the receiver sends XOFF (K28.3) when its RX buffer is almost full, XON (K28.4) to resume. Our RX FIFO raises it at 1024 - 128 words. The margin must cover the round trip: our XOFF waiting behind a packet, both PHY pipelines, and the far packet already under way (up to its `PKT_WORDS` + 3). It is checked against the RTL latencies when the pump is built. On setup 1 the XOFF loops back to the same chip, which pauses itself.
 
 **Errors.** CRC on (`with_crc`): a bad packet is dropped and counted in `crc_errors`. No retransmission; a dropped message is the firmware's to notice (a sequence number in the first word).
 
 **Clocks.** Three domains: `sys` (CPU, CSRs), `clk_tx`, `clk_rx`. Two async FIFOs, 32 bits in from the CPU, 64 bits out to the pump (Gray-coded pointers; in hardware `CC_FIFO_40K` in 80-bit SDP mode, 512 x 64 + flags = 1024 words), and synchronizers for the flow-control state and the status bits.
+
+**RX FIFO as the packet buffer.** The depacketizer writes payload words as they arrive. A good CRC commits them (the read side sees the packet); a bad CRC, a timeout or an oversized header rewinds the write pointer to the last commit. LiteICLink's `CRCDepacketizer` stores each packet in its own `max_words` buffer first; here the RX FIFO is that buffer, so no block RAM is spent twice.
 
 **CSRs** (SystemRDL, PeakRDL):
 
@@ -240,6 +242,7 @@ Unit tests, run now (`make -C 3.iclink-sv/2.sim`):
 | `sim_phy_oneway` | the GateMate SerDes PHY on the SerDes BFM, TX looped to RX: alignment, data bit-exact, PRBS7/15/31 error-free, a flipped line bit seen |
 | `sim_phy_twoway` | two PHYs, lines crossed: data both ways bit-exact; PRBS15 one way and PRBS31 the other at once; a flip on one line is seen on that side only |
 | `sim_serwb_tx` | the SerWB packetizer (FIFO pump, 2 words per clock) against LiteICLink's own `Packetizer(with_crc=True)`: 200 random packets, 2291 words bit for bit, with input gaps and line stalls; preamble look-alikes in the payload |
+| `sim_serwb_rx` | the SerWB depacketizer (2 words per clock) against LiteICLink's own `CRCDepacketizer`: the same 259 packets forwarded, 43 CRC errors and 98 drops counted, from a stream with flipped payload and CRC bits, 0-word and oversized packets, corrupted headers, lost preambles and garbage; words in random slots with gaps; then a timeout drop |
 | `sim_top` | the board top's self-tests and SerDes link: a clean run, then a flipped line bit and a one-bit symbol error must each light the error |
 
 Planned: **SerDes in the loop, or out.** The same SerWB tests run twice:
