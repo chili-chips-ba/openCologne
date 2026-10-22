@@ -189,7 +189,19 @@ Writes are posted: acknowledged once sent. **A read** is a round trip: A sends a
 - **bit and byte order on the line, polarity:** set by each SerDes; to be measured on test setup 3 (ECP5);
 - **framing and Etherbone:** identical by construction, when we port the core bit-exact and check it against LiteX's model, as for 8b/10b.
 
-So it is proven only by test: setup 3 on the boards, `interop_twoway` in simulation, and LiteICLink's own SerWB tests run against our port.
+So it is proven only by test.
+
+### Interoperability proof
+
+**The reference is LiteX's own SerWB code, not our reading of the spec.** LiteICLink's packetizer, depacketizer, CRC and Etherbone (Python / Migen) generate the traffic our RTL must produce, and check the traffic our RTL sends. An error in our understanding of the format then shows up as a mismatch against LiteX itself. Three levels, each with LiteX on the other side:
+
+| Level | LiteX side (generator / checker) | Our side | Proves |
+|---|---|---|---|
+| 1. Vectors | LiteICLink `Packetizer` / `Depacketizer` (`serwb/packet.py`), run in Migen, write packet vectors, as `gen_8b10b_vectors.py` does for 8b/10b | our packetizer and depacketizer in Verilator | bit-exact packets: preamble, port, length, payload, CRC32 |
+| 2. LiteICLink's tests | its own test cases (`test/test_serwb_packet.py`: loopback, CRC loopback, corrupted packet dropped, oversized packet dropped, zero length, timeout; `test_serwb_link.py`: Wishbone, byte enables, unknown port) | the same cases run against our RTL | same behaviour, error cases included |
+| 3. Silicon | LiteICLink SoC on the ECP5 (test setup 3) | IC Link on the GateMate | the same over a real link, both directions |
+
+The 8b/10b and PRBS ports already pass level 1 against LiteX's own models (`code_8b10b.py`, `prbs.py`), clock for clock. Levels 1 and 2 run in CI; level 3 on the bench.
 
 **Can the payload contain `0x5AA55AA5`?** Yes. Nothing stops it: the payload is plain data. The receiver still keeps its place by counting, not by searching. It looks for the preamble only between packets; inside a packet it counts `length` bytes and ignores what they hold (`Depacketizer`, `serwb/packet.py`). A false start needs the receiver to lose count first, after a bit error, a dropped word or a reset. Then:
 

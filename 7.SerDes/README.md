@@ -113,7 +113,7 @@ A message link between the two eduBOS5 CPUs, ahead of remote memory access: each
 **Tests.** The testbenches of setups 1 and 2 gain a pump phase after the PHY tests, so the FSTs and the sessions `tb_phy.ONEWAY` / `tb_phy.TWOWAY` cover it:
 
 1. Words pushed on one side arrive in order on the other; on setup 2 both ways at once.
-2. The packets are bit-exact with LiteICLink's packetizer (vectors from its Python model, as for 8b/10b).
+2. **Interoperability proof:** the packets are bit-exact with LiteICLink's own packetizer, and LiteICLink's own SerWB test cases pass against our RTL ([levels 1 and 2](3.iclink-sv/1.hw/README.md#interoperability-proof)).
 3. Flow control: the reader stops; XOFF arrives before the RX FIFO overflows; no word is lost; XON resumes.
 4. Negative: a flipped bit inside a packet drops that packet and counts it in `crc_errors`.
 5. Later, with the eduBOS5 SoC: firmware on A sends a message, B echoes it. On setup 3, the ECP5 side runs LiteICLink with the same port 2.
@@ -212,6 +212,8 @@ Steps, each one passing before the next:
 1. **PHY, data both ways.** Commas, then a counter stream as 8b/10b data, checked on each side. Not PRBS: LiteICLink sends its PRBS raw on the line, ours travels as 8b/10b D characters (see [Compared with LiteICLink](3.iclink-sv/1.hw/README.md#compared-with-liteiclink)), so the two PRBS checkers do not match. This step also settles the bit order within a symbol, the byte order within a word, and the pair polarity between the two SerDes.
 2. **Serial Wishbone across the vendors.** eduBOS5 on the GateMate writes and reads a RAM and a CSR of a LiteX SoC on the ECP5, then the other way round. Upstream LiteICLink has no Serial Wishbone on the ECP5 transceiver (its SerWB PHYs are Xilinx and Efinix I/O SerDes, and a low-speed generic one). The ECP5 side therefore needs a small adapter: `SERWBCore` on `SerDesECP5`, two 16-bit PHY words per 32-bit SerWB word. We would offer it to LiteICLink together with the GateMate PHY.
 3. **CRC across the vendors.** The negative test of setup 2, with one side on each vendor.
+
+This setup is level 3 of the [interoperability proof](3.iclink-sv/1.hw/README.md#interoperability-proof): LiteICLink itself generates and checks the traffic on the ECP5 side.
 
 In simulation, setup 3 is mirrored by `interop_twoway` (planned): our PHY on the SerDes BFM on one side; on the other, LiteX's own 8b/10b encoder and decoder at 2 words per clock, converted to Verilog, standing in for the ECP5 DCU.
 
