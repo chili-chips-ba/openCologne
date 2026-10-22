@@ -1,0 +1,200 @@
+{
+  "version": 4,
+  "sourceFilePath": "phy_oneway.fst",
+  "signals": [
+    {
+      "kind": "signal",
+      "id": "iclink-0",
+      "ref": "14",
+      "path": "tb_phy_oneway.clk_reg",
+      "name": "clk_reg",
+      "color": 4283215696,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-1",
+      "ref": "64",
+      "path": "tb_phy_oneway.dut.serdes_reset",
+      "name": "serdes_reset",
+      "color": 4280731354,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-2",
+      "ref": "23",
+      "path": "tb_phy_oneway.tx_ready",
+      "name": "tx_ready",
+      "color": 4294962776,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-3",
+      "ref": "24",
+      "path": "tb_phy_oneway.rx_ready",
+      "name": "rx_ready",
+      "color": 4293673082,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-4",
+      "ref": "25",
+      "path": "tb_phy_oneway.rx_aligned",
+      "name": "rx_aligned",
+      "color": 4294944550,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-5",
+      "ref": "21",
+      "path": "tb_phy_oneway.clk_tx",
+      "name": "clk_tx",
+      "color": 4293848814,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-6",
+      "ref": "70",
+      "path": "tb_phy_oneway.dut.tx_enc_d",
+      "name": "tx_enc_d",
+      "color": 4283215696,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-7",
+      "ref": "16",
+      "path": "tb_phy_oneway.ser_txp",
+      "name": "ser_txp",
+      "color": 4280731354,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-8",
+      "ref": "20",
+      "path": "tb_phy_oneway.flip",
+      "name": "flip",
+      "color": 4294962776,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-9",
+      "ref": "22",
+      "path": "tb_phy_oneway.clk_rx",
+      "name": "clk_rx",
+      "color": 4293673082,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-10",
+      "ref": "48",
+      "path": "tb_phy_oneway.rx_invalid",
+      "name": "rx_invalid",
+      "color": 4294944550,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-11",
+      "ref": "53",
+      "path": "tb_phy_oneway.check",
+      "name": "check",
+      "color": 4293848814,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-12",
+      "ref": "54",
+      "path": "tb_phy_oneway.locked",
+      "name": "locked",
+      "color": 4283215696,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-13",
+      "ref": "56",
+      "path": "tb_phy_oneway.rx_bad",
+      "name": "rx_bad",
+      "color": 4280731354,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-14",
+      "ref": "26",
+      "path": "tb_phy_oneway.ctrl.tx_prbs",
+      "name": "tx_prbs",
+      "color": 4294962776,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-15",
+      "ref": "49",
+      "path": "tb_phy_oneway.rx_prbs_errors",
+      "name": "rx_prbs_errors",
+      "color": 4293673082,
+      "format": "hexadecimal",
+      "height": 30.0
+    }
+  ],
+  "cursor": {
+    "primary": 925051000,
+    "secondary": null
+  },
+  "markers": {},
+  "view": {
+    "ticksPerPixel": 5063.882829541913,
+    "panOffsetTicks": 924500000.0,
+    "scrollOffset": 0.0
+  },
+  "panels": {
+    "signalTree": false,
+    "valueColumn": true,
+    "transactionView": false,
+    "stageView": false,
+    "statisticsStrip": false,
+    "cocotbLogPanel": false,
+    "rtlSource": false,
+    "sizes": {
+      "left": 220.0,
+      "right": 150.0
+    }
+  },
+  "signalTreeState": {
+    "expanded": [],
+    "selected": [],
+    "scroll": 0.0
+  },
+  "translateFilters": {},
+  "stage": {
+    "panels": []
+  },
+  "activeTheme": "wavecrux-dark",
+  "decoders": []
+}

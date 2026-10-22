@@ -37,6 +37,8 @@ results.xml
 *.vvp
 *.vcd
 *.fst
+!/7.SerDes/3.iclink-sv/2.sim/phy_oneway.fst
+!/7.SerDes/3.iclink-sv/2.sim/phy_twoway.fst
 *.ghw
 work-obj*.cf
 **/[24].sim/tb.xml

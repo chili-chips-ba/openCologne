@@ -12,18 +12,20 @@ LiteX's LiteICLink (SerWB: Wishbone over a serial link) and a GateMate `CC_SERDE
 
 | Folder | What |
 |---|---|
+| [0.upstream](0.upstream) | snapshot of the LiteX / LiteICLink sources we port, for reference |
 | [1.hw](1.hw) | RTL, `top.filelist`, and our [RTL coding rules](1.hw/README.md#rtl-coding-rules) |
-| [2.sim](2.sim) | unit tests, Verilator: `make` |
-| [3.build](3.build) | bitstream (`make`, open-source flow), QA (`run-lint.sh`, `run-format.sh`, `run-leq.sh`), EVB pins |
+| [2.sim](2.sim) | unit and PHY tests, Verilator: `make`; `WAVES=1` writes FSTs for WaveCrux |
+| [3.build](3.build) | standalone build: bitstream (`make`, open-source flow), QA (`run-lint.sh`, `run-format.sh`, `run-leq.sh`), EVB pins |
+| [4.litex](4.litex) | LiteX integration: `SerDesGateMate` and a demo SoC |
 
 ## Status
 
 | Block | RTL | Verified |
 |---|---|---|
-| 8b/10b encoder (2 symbols/clock) and decoder: `iclink_pkg.sv`, `iclink_8b10b_enc.sv`, `iclink_8b10b_dec.sv` | done, ported from LiteX's `code_8b10b.py` | bit-exact with LiteX: 4548 encoder clocks and all 1024 decoder symbols ([`gen_8b10b_vectors.py`](2.sim/gen_8b10b_vectors.py) runs LiteX's own code); round trip; running disparity; two injected bugs caught |
+| 8b/10b encoder (`NWORDS` symbols/clock: 2 as in LiteX, 8 in the PHY) and decoder: `iclink_pkg.sv`, `iclink_8b10b_enc.sv`, `iclink_8b10b_dec.sv` | done, ported from LiteX's `code_8b10b.py` | bit-exact with LiteX: 4548 encoder clocks and all 1024 decoder symbols ([`gen_8b10b_vectors.py`](2.sim/gen_8b10b_vectors.py) runs LiteX's own code); round trip; running disparity; two injected bugs caught |
 | PRBS7/15/31 generator, checker, TX, RX: `iclink_prbs_gen/_chk/_tx/_rx.sv` | done, ported from LiteX's `prbs.py` | matches LiteX's PRBSTX looped into PRBSRX over 3060 clocks ([`gen_prbs_vectors.py`](2.sim/gen_prbs_vectors.py)): injected bit errors, pass-through, idle flood; a wrong tap is caught. `pause` is checked on its own: LiteX's does not work (see below) |
-| GateMate `CC_SERDES` PHY: `iclink_phy_pkg.sv`, `iclink_serdes_gm.sv` | done | `sim_phy_oneway`, on the SerDes BFM, TX looped to RX: bring-up and comma alignment in 27 us; 2000 words of 8 bytes + K, bit-exact; PRBS7/15/31 0 errors in 1000 clocks each; one flipped line bit is seen every time; pause. Swapping the TX symbol bits 8 and 9 is caught |
-| EVB board top: reset, 8b/10b and PRBS7 self-tests, SerDes link test (setup 1), LED | done | `sim_top`: clean run, a flipped line bit, a one-bit symbol error; bitstream, `CC_SERDES` placed, SerDes clocks 34.7 MHz max at 31.25 MHz needed, 2930 LUT trees. Not yet run on the board |
+| GateMate `CC_SERDES` PHY: `iclink_phy_pkg.sv`, `iclink_serdes_gm.sv` | done | `sim_phy_oneway`, on the SerDes BFM, TX looped to RX: bring-up and comma alignment in 27 us; 2000 words of 8 bytes + K, bit-exact; PRBS7/15/31 0 errors in 1000 clocks each; one flipped line bit is seen every time; pause. Swapping the TX symbol bits 8 and 9 is caught. `sim_phy_twoway`: two PHYs, lines crossed, data and PRBS both ways at once; a flip is seen on its own side only |
+| EVB board top: reset, 8b/10b and PRBS7 self-tests, SerDes link test (setup 1), LED | done | `sim_top`: clean run, a flipped line bit, a one-bit symbol error; bitstream, `CC_SERDES` placed, Fmax clk_tx 33.1 MHz, clk_rx 47.7 MHz (31.25 MHz needed). Not yet run on the board |
 | SerWB (packet, scrambler, Wishbone bridge) | to do | |
 | eduBOS5 SoC with PeakRDL CSRs | to do | |
 

@@ -46,4 +46,38 @@ IEEE 1800-2009 SystemVerilog:
 - **Formatting:** `run-format.sh` (Verible): every body in `begin` ... `end`, alignment on, LF line endings, at most 100 columns. Run it last, after lint, before a commit; `run-format.sh --check` only lists unformatted files.
 
 -----------
+## Compared with LiteICLink
+
+Upstream: LiteX `d2b47282a`, LiteICLink `8ef8d79` (2026-10-21), snapshot in [`../0.upstream`](../0.upstream).
+
+| | LiteICLink (ECP5, Xilinx GTx PHYs) | This core (GateMate `CC_SERDES`) |
+|---|---|---|
+| Words per clock | 2 (20-bit SerDes word), or 4 (40-bit) | 8 (80-bit SerDes word) |
+| User data per clock | 16 or 32 bits + 2 or 4 K flags | 64 bits + 8 K flags |
+| Core clock at 2.5 Gb/s | 125 or 62.5 MHz | 31.25 MHz |
+| TX order | 8b/10b encoder, then PRBS mux | PRBS mux, then 8b/10b encoder |
+| PRBS on the line | raw bits | 8b/10b D characters |
+| 8b/10b TX | fabric (LiteX `Encoder`) | fabric (`iclink_8b10b_enc`, bit-exact port) |
+| 8b/10b RX | fabric (LiteX `Decoder`) + word aligner | inside `CC_SERDES`, with comma alignment |
+| Encoder pipeline | 2 clocks | 1 input register + 2 clocks |
+| Flops at the SerDes | as the PHY needs | one stage on every datapath and control port |
+
+Why the differences:
+
+- **RX in the hard macro.** With its 8b/10b off, `CC_SERDES` hands out only bits 7:0 of each symbol, so the fabric cannot decode. RX decoding and comma alignment stay in `CC_SERDES`.
+- **PRBS through 8b/10b.** A raw PRBS would reach the fabric only as decoded bytes, so the PRBS travels as D characters and is checked after the decoder.
+- **8 words per clock.** The `CC_SERDES` fabric interface is 64 bits + 8 K flags at line rate / 80. The encoder's running disparity runs through all 8 words in one clock, 2 to 4 times LiteICLink's chain. That chain is the TX critical path at 31.25 MHz; registering the encoder input took the PRBS mux out of it.
+
+## Conversion process
+
+LiteICLink is Python (Migen). We port it by hand, block by block:
+
+1. Read the Migen module and its tests; pick the SV structure (packages, `always_ff`, one module per Migen class).
+2. Write the SV to our [RTL coding rules](#rtl-coding-rules).
+3. Generate test vectors from LiteX's own Python model ([`../2.sim/gen_8b10b_vectors.py`](../2.sim/gen_8b10b_vectors.py), [`gen_prbs_vectors.py`](../2.sim/gen_prbs_vectors.py)), and compare clock for clock in Verilator.
+4. Lint, format and, for clean-ups, prove equivalence with [`../3.build`](../3.build) (`run-lint.sh`, `run-format.sh`, `run-leq.sh`).
+5. When upstream moves, regenerate the vectors: unchanged vectors mean the port still matches.
+
+Where LiteICLink's structure does not fit `CC_SERDES` (the PHY), we keep its interface and write new RTL.
+
 #### End-of-Document

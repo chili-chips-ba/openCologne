@@ -30,6 +30,13 @@ module tb_phy_oneway;
   logic [31:0] rx_prbs_errors;
   int errors = 0;
 
+  initial begin : _waves
+    if ($test$plusargs("waves")) begin
+      $dumpfile("phy_oneway.fst");  // make sim_phy_oneway WAVES=1
+      $dumpvars(0, tb_phy_oneway);
+    end
+  end : _waves
+
   initial begin : _clk_ref
     clk_ref = 1'b0;
     forever #5 clk_ref = ~clk_ref;  // 100 MHz SerDes reference

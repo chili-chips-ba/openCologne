@@ -1,0 +1,283 @@
+{
+  "version": 4,
+  "sourceFilePath": "phy_twoway.fst",
+  "signals": [
+    {
+      "kind": "signal",
+      "id": "iclink-0",
+      "ref": "39",
+      "path": "tb_phy_twoway.u_a.tx_ready",
+      "name": "a.tx_ready",
+      "color": 4283215696,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-1",
+      "ref": "41",
+      "path": "tb_phy_twoway.u_a.rx_aligned",
+      "name": "a.rx_aligned",
+      "color": 4280731354,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-2",
+      "ref": "545",
+      "path": "tb_phy_twoway.u_b.tx_ready",
+      "name": "b.tx_ready",
+      "color": 4294962776,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-3",
+      "ref": "547",
+      "path": "tb_phy_twoway.u_b.rx_aligned",
+      "name": "b.rx_aligned",
+      "color": 4293673082,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-4",
+      "ref": "18",
+      "path": "tb_phy_twoway.a_txp",
+      "name": "a.ser_txp",
+      "color": 4294944550,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-5",
+      "ref": "22",
+      "path": "tb_phy_twoway.flip_ab",
+      "name": "flip_ab",
+      "color": 4293848814,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-6",
+      "ref": "20",
+      "path": "tb_phy_twoway.b_txp",
+      "name": "b.ser_txp",
+      "color": 4283215696,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-7",
+      "ref": "23",
+      "path": "tb_phy_twoway.flip_ba",
+      "name": "flip_ba",
+      "color": 4280731354,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-8",
+      "ref": "25",
+      "path": "tb_phy_twoway.check",
+      "name": "check",
+      "color": 4294962776,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-9",
+      "ref": "544",
+      "path": "tb_phy_twoway.u_b.clk_rx",
+      "name": "b.clk_rx",
+      "color": 4293673082,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-10",
+      "ref": "566",
+      "path": "tb_phy_twoway.u_b.rx_invalid",
+      "name": "b.rx_invalid",
+      "color": 4294944550,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-11",
+      "ref": "570",
+      "path": "tb_phy_twoway.u_b.rx_bad",
+      "name": "b.rx_bad",
+      "color": 4293848814,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-12",
+      "ref": "38",
+      "path": "tb_phy_twoway.u_a.clk_rx",
+      "name": "a.clk_rx",
+      "color": 4283215696,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-13",
+      "ref": "60",
+      "path": "tb_phy_twoway.u_a.rx_invalid",
+      "name": "a.rx_invalid",
+      "color": 4280731354,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-14",
+      "ref": "64",
+      "path": "tb_phy_twoway.u_a.rx_bad",
+      "name": "a.rx_bad",
+      "color": 4294962776,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-15",
+      "ref": "26",
+      "path": "tb_phy_twoway.ctrl_a.tx_prbs",
+      "name": "a.tx_prbs",
+      "color": 4293673082,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-16",
+      "ref": "30",
+      "path": "tb_phy_twoway.ctrl_b.tx_prbs",
+      "name": "b.tx_prbs",
+      "color": 4294944550,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-17",
+      "ref": "61",
+      "path": "tb_phy_twoway.u_a.rx_prbs_errors",
+      "name": "a.rx_prbs_errors",
+      "color": 4293848814,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-18",
+      "ref": "567",
+      "path": "tb_phy_twoway.u_b.rx_prbs_errors",
+      "name": "b.rx_prbs_errors",
+      "color": 4283215696,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-19",
+      "ref": "541",
+      "path": "tb_phy_twoway.u_b.ser_rxp",
+      "name": "b.ser_rxp",
+      "color": 4280731354,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-20",
+      "ref": "35",
+      "path": "tb_phy_twoway.u_a.ser_rxp",
+      "name": "a.ser_rxp",
+      "color": 4294962776,
+      "format": "hexadecimal",
+      "height": 30.0
+    }
+  ],
+  "cursor": {
+    "primary": 925051000,
+    "secondary": null
+  },
+  "markers": {},
+  "view": {
+    "ticksPerPixel": 5570.271112496103,
+    "panOffsetTicks": 924081622.0006232,
+    "scrollOffset": 0.0
+  },
+  "panels": {
+    "signalTree": false,
+    "valueColumn": true,
+    "transactionView": false,
+    "stageView": false,
+    "statisticsStrip": false,
+    "cocotbLogPanel": false,
+    "rtlSource": false,
+    "sizes": {
+      "left": 220.0,
+      "right": 150.0
+    }
+  },
+  "signalTreeState": {
+    "expanded": [],
+    "selected": [],
+    "scroll": 0.0
+  },
+  "translateFilters": {},
+  "stage": {
+    "panels": []
+  },
+  "activeTheme": "wavecrux-dark",
+  "decoders": [
+    {
+      "decoderId": "ferrite.pcie_serial",
+      "instanceNumber": 1,
+      "config": {
+        "bindings": {
+          "line": "541"
+        },
+        "parameters": {
+          "rate": "gen1",
+          "invert": false,
+          "scrambling": "off",
+          "coalesce": true,
+          "show_idle": false
+        }
+      }
+    },
+    {
+      "decoderId": "ferrite.pcie_serial",
+      "instanceNumber": 2,
+      "config": {
+        "bindings": {
+          "line": "35"
+        },
+        "parameters": {
+          "rate": "gen1",
+          "invert": false,
+          "scrambling": "off",
+          "coalesce": true,
+          "show_idle": false
+        }
+      }
+    }
+  ]
+}

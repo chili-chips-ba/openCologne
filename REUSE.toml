@@ -270,6 +270,7 @@ path = [
   "0.doc/artwork/Verilator.logo.png",
   "0.doc/artwork/Yosys.logo.png",
   "0.doc/artwork/slang.logo.png",
+  "0.doc/artwork/WaveCrux.logo.png",
   "0.doc/artwork/ChipsAlliance-SV-Tools.logo.png",
   "0.doc/artwork/Verible.logo.png",
   "0.doc/artwork/PeakRDL.logo.png",
@@ -417,3 +418,14 @@ path = ["8.StressTest/4.veerwolves/riscv-target/veer/compliance_test.h"]
 precedence = "override"
 SPDX-FileCopyrightText = "2017 Codasip Ltd."
 SPDX-License-Identifier = "BSD-3-Clause"
+
+# 7.SerDes: snapshot of the upstream LiteX / LiteICLink sources we port
+# (files without their own SPDX header)
+[[annotations]]
+path = [
+  "7.SerDes/3.iclink-sv/0.upstream/liteiclink/doc/serwb.md",
+  "7.SerDes/3.iclink-sv/0.upstream/liteiclink/serwb/__init__.py",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "2017-2026 Florent Kermarrec <florent@enjoy-digital.fr>"
+SPDX-License-Identifier = "BSD-2-Clause"

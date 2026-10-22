@@ -152,8 +152,9 @@ The SerDes in simulation is our open-source [SerDes BFM](https://github.com/chil
 
 | Test case | Mirrors | Setup | Pass |
 |---|---|---|---|
-| `phy_oneway` | setup 1 | one PHY, BFM TX looped to its RX | lock and alignment within a bound; 0 PRBS errors; a flipped bit on the line is counted |
-| `serwb_twoway` | setup 2 | two eduBOS5 SoCs, two BFMs, lines crossed | eduBOS5 A writes then reads back B's RAM and a B CSR (PeakRDL); data matches; the link recovers after one side is reset |
+| `phy_oneway` | setup 1 | one PHY, BFM TX looped to its RX | done: lock and alignment within a bound; 0 PRBS errors; a flipped bit on the line is counted |
+| `phy_twoway` | setup 2, PHY only | two PHYs, two BFMs, lines crossed | done: data and PRBS both ways at once, bit-exact; a flip is seen on its own side only |
+| `serwb_twoway` | setup 2 | two eduBOS5 SoCs, two BFMs, lines crossed | next: eduBOS5 A writes then reads back B's RAM and a B CSR (PeakRDL); data matches; the link recovers after one side is reset; the CRC test below |
 
 Unit tests, run now (`make -C 3.iclink-sv/2.sim`):
 
@@ -162,7 +163,53 @@ Unit tests, run now (`make -C 3.iclink-sv/2.sim`):
 | `sim_8b10b` | the SV 8b/10b against LiteX's own `code_8b10b.py`, bit for bit; round trip; running disparity |
 | `sim_prbs` | the SV PRBS7/15/31 TX and RX against LiteX's own `prbs.py`, clock for clock; pause |
 | `sim_phy_oneway` | the GateMate SerDes PHY on the SerDes BFM, TX looped to RX: alignment, data bit-exact, PRBS7/15/31 error-free, a flipped line bit seen |
+| `sim_phy_twoway` | two PHYs, lines crossed: data both ways bit-exact; PRBS15 one way and PRBS31 the other at once; a flip on one line is seen on that side only |
 | `sim_top` | the board top's self-tests and SerDes link: a clean run, then a flipped line bit and a one-bit symbol error must each light the error |
+
+### Negative tests
+
+Every test that passes on a clean link also has to fail on a broken one. The testbenches break the serial line on purpose:
+
+1. **Flip one bit** on the line for one UI (0.4 ns), in the middle of a word, through an XOR between TX and RX.
+2. **Data:** the receiver must see it, as an invalid 8b/10b symbol or a wrong word, and `rx_bad` must count it. In `phy_twoway` only the side whose line was hit may count.
+3. **PRBS:** `rx_prbs_errors` must go up. With `pause` set, the same flip must not count.
+4. **Board top:** a flipped line bit and a one-bit symbol error must each light the error LED.
+
+**CRC (with `serwb_twoway`).** LiteICLink's Serial Wishbone can add a CRC32 to every packet (`with_crc=True`, both sides). The receiver drops a packet with a bad CRC and counts it in `crc_errors`. The test: eduBOS5 A writes a known value to B, a bit on the A->B line flips inside that packet, then A reads it back. Pass: the corrupted write is not applied, `crc_errors` on B is 1, and the next write and read go through. The same flip with the CRC off shows why it is needed: the access is corrupted silently whenever the flip still gives a valid 8b/10b symbol.
+
+### Waves
+
+`make -C 3.iclink-sv/2.sim sim_phy_oneway WAVES=1` (or `sim_phy_twoway`) also writes `phy_oneway.fst` / `phy_twoway.fst`, kept next to the testbenches. Open them in [WaveCrux](https://wavecrux.app) with the sessions [`tb_phy_oneway.SERDES-PHY.wavecrux`](3.iclink-sv/2.sim/tb_phy_oneway.SERDES-PHY.wavecrux) and [`tb_phy_twoway.SERDES-PHY.wavecrux`](3.iclink-sv/2.sim/tb_phy_twoway.SERDES-PHY.wavecrux).
+
+The whole `phy_oneway` run, 204 us: bring-up, the data stream with `check`, then PRBS7, 15 and 31, and the deliberate bit flips (`flip`).
+
+<p align="center"><img width="100%" alt="WaveCrux: the whole phy_oneway run" src="3.iclink-sv/2.sim/images/wavecrux-oneway-overview.png"></p>
+
+Bring-up: the bring-up FSM releases the SerDes resets, TX is ready, the comma alignment locks, RX is ready (rx_invalid reads ff for a few clocks, until the first words arrive); then the checker locks on the data stream.
+
+<p align="center"><img width="100%" alt="WaveCrux: phy_oneway bring-up" src="3.iclink-sv/2.sim/images/wavecrux-oneway-bringup.png"></p>
+
+Data: one 64-bit word per 32 ns clock (`tx_enc_d`), 80 bits on the 2.5 Gb/s line (`ser_txp`). The word ending in `bc` carries the K28.5 comma in lane 0.
+
+<p align="center"><img width="100%" alt="WaveCrux: phy_oneway data on the serial line" src="3.iclink-sv/2.sim/images/wavecrux-oneway-data.png"></p>
+
+A deliberate bit flip (cursor). About 0.48 us later, through the encoder, the BFM and the decoder, lane 3 reports an invalid symbol (`rx_invalid` = 08) and `rx_bad` counts the word.
+
+<p align="center"><img width="100%" alt="WaveCrux: a flipped bit caught in phy_oneway" src="3.iclink-sv/2.sim/images/wavecrux-oneway-flip.png"></p>
+
+The same during PRBS7: `rx_prbs_errors` counts the flip.
+
+<p align="center"><img width="100%" alt="WaveCrux: a flipped bit counted by the PRBS checker" src="3.iclink-sv/2.sim/images/wavecrux-oneway-prbs-flip.png"></p>
+
+`phy_twoway`: a flip on the A->B line. Rows are A's, then B's (the session labels them `a.` and `b.`). Only B sees it: B's `rx_invalid` = 09 and `rx_bad` = 1; A's stay 0.
+
+<p align="center"><img width="100%" alt="WaveCrux: phy_twoway, a flip on A->B seen by B only" src="3.iclink-sv/2.sim/images/wavecrux-twoway-flip-ab.png"></p>
+
+### Decoders
+
+[`tb_phy_twoway.SERDES-PHY.wavecrux`](3.iclink-sv/2.sim/tb_phy_twoway.SERDES-PHY.wavecrux) binds Ferrite's `ferrite.pcie_serial` decoder ([wavecrux-decoders](https://github.com/Ferrite-Engineering/wavecrux-decoders), PCIe plugin) to the received line of each side (`b.ser_rxp`, `a.ser_rxp`), with `rate` = `gen1` (2.5 GT/s, our line rate) and `scrambling` = `off`. It recovers the bits, locks on K28.5 commas and decodes 8b/10b. It flags `8b/10b code error` and `Disparity error` at the flipped bit. Its PCIe layer (ordered sets, packets) does not apply to IC Link traffic; use the symbol view. The plugin has to be installed in WaveCrux.
+
+For `serwb_twoway`, WaveCrux's built-in Wishbone decoder will show the bus accesses on each side, next to the link.
 
 ## QA
 
