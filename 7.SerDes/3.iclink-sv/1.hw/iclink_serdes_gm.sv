@@ -25,7 +25,7 @@
 //         the controls (resets, comma align, regfile) come from flops too;
 //     RX: one flop stage (rx_ser) takes every RX datapath and status output
 //         first; TX_RESET_DONE_O goes into a synchronizer flop.
-//   Latency, TX data in to RX data out: 2 (encoder) + 1 (tx_ser) + CC_SERDES
+//   Latency, TX data in to RX data out: 1 (tx_enc) + 2 (encoder) + 1 (tx_ser) + CC_SERDES
 //   + 1 (rx_ser) + 1 (rx) clocks.
 //
 //   Clocks: clk_tx = PLL_CLK_O (line rate / 80, 31.25 MHz at 2.5 Gb/s);
@@ -157,6 +157,8 @@ module iclink_serdes_gm
   logic tx_ready_meta;
   prbs_cfg_t tx_prbs_meta, tx_prbs;  // for the K mask; PRBS TX syncs its own
   logic    [    PHY_DW-1:0] tx_payload;
+  logic    [    PHY_DW-1:0] tx_enc_d;  // tx_payload, registered: the PRBS mux and the
+  logic    [PHY_NWORDS-1:0] tx_enc_k;  // encoder tables in one clock miss 31.25 MHz
   symbol_t [PHY_NWORDS-1:0] tx_symbol;
   logic    [PHY_NWORDS-1:0] NC_tx_disparity;  // running disparity: not needed
   logic                     tx_resetdone;  // CC_SERDES output, read only by the sync below
@@ -194,14 +196,25 @@ module iclink_serdes_gm
       .o       (tx_payload)
   );
 
+  always_ff @(posedge clk_tx or negedge tx_ready) begin
+    if (!tx_ready) begin
+      tx_enc_d <= '0;
+      tx_enc_k <= '0;
+    end
+    else begin
+      tx_enc_d <= tx_payload;
+      tx_enc_k <= (tx_prbs == PRBS_OFF) ? tx.k : '0;  // PRBS bytes are D characters
+    end
+  end
+
   iclink_8b10b_enc #(
       .NWORDS(PHY_NWORDS)
   ) u_enc (
       .clk      (clk_tx),
       .arst_n   (tx_ready),
       .ce       (1'b1),
-      .d        (tx_payload),
-      .k        ((tx_prbs == PRBS_OFF) ? tx.k : '0),  // PRBS bytes are D characters
+      .d        (tx_enc_d),
+      .k        (tx_enc_k),
       .symbol   (tx_symbol),
       .disparity(NC_tx_disparity)
   );

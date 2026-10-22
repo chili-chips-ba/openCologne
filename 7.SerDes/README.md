@@ -66,7 +66,7 @@ One GateMate. Solid boxes are done; dashed ones, tagged NEXT, come next.
 
 - **Datapath:** 8 bytes + 8 K flags per clock each way, 64 payload bits.
 - **Clocks:** `clk_tx` = `CC_SERDES` `PLL_CLK_O`, line rate / 80: 31.25 MHz at 2.5 Gb/s. `clk_rx` = `RX_CLK_O`. The board clock runs the bring-up.
-- **Latency,** TX data in to RX data out: 2 (encoder) + 1 (TX flops) + `CC_SERDES` + 1 (RX flops) + 1 clocks.
+- **Latency,** TX data in to RX data out: 1 (encoder input) + 2 (encoder) + 1 (TX flops) + `CC_SERDES` + 1 (RX flops) + 1 clocks.
 - **Why the RX decodes in the hard macro:** with its 8b/10b off, `CC_SERDES` hands out only bits 7:0 of each symbol, so the fabric cannot see whole symbols.
 
 ### PHY RTL
@@ -96,7 +96,7 @@ The core builds two ways, so it is usable with or without LiteX.
 
 ### Within LiteX
 
-LiteX takes the SV core through its Migen wrapper (`platform.add_source` + `Instance`). Its GateMate platform has both flows: `toolchain="colognechip"` (Yosys + `p_r`) and `toolchain="peppercorn"` (Yosys + nextpnr + `gmpack`); LiteX-Boards' GateMate targets default to `peppercorn`. For example, LiteX's own EVB SoC:
+LiteX takes the SV core through its Migen wrapper, [`3.iclink-sv/4.litex`](3.iclink-sv/4.litex): `SerDesGateMate`, with the interface of LiteICLink's transceiver PHYs, and a demo SoC on the EVB that builds in about 1 minute. LiteX's GateMate platform has both flows: `toolchain="colognechip"` (Yosys + `p_r`) and `toolchain="peppercorn"` (Yosys + nextpnr + `gmpack`); LiteX-Boards' GateMate targets default to `peppercorn`. For example, LiteX's own EVB SoC:
 
 ```
 python3 -m litex_boards.targets.colognechip_gatemate_evb --toolchain peppercorn --cpu-type serv --build
@@ -111,7 +111,7 @@ nextpnr-himbaechel-gatemate --json <target>.json --vopt out=<target>.txt --devic
 gmpack <target>.txt <target>.bit
 ```
 
-LiteX picks `nextpnr-himbaechel-gatemate` from `PATH` when it exists, else `nextpnr-himbaechel`. Its BIOS needs a RISC-V GCC on `PATH` (e.g. `riscv-none-elf-gcc`). That SoC builds in 36 s. Our versions: LiteX `8e0e71c`, LiteICLink `cb6cd0c` (2026-10-20).
+LiteX picks `nextpnr-himbaechel-gatemate` from `PATH` when it exists, else `nextpnr-himbaechel`. Its BIOS needs a RISC-V GCC on `PATH` (e.g. `riscv-none-elf-gcc`). That SoC builds in 36 s. Our versions: LiteX `d2b47282a`, LiteICLink `8ef8d79`, litex-boards `448c5c1a` (2026-10-21).
 
 ### Standalone, without LiteX
 
