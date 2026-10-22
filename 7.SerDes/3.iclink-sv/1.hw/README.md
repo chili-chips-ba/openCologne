@@ -68,6 +68,66 @@ Why the differences:
 - **PRBS through 8b/10b.** A raw PRBS would reach the fabric only as decoded bytes, so the PRBS travels as D characters and is checked after the decoder.
 - **8 words per clock.** The `CC_SERDES` fabric interface is 64 bits + 8 K flags at line rate / 80. The encoder's running disparity runs through all 8 words in one clock, 2 to 4 times LiteICLink's chain. That chain is the TX critical path at 31.25 MHz; registering the encoder input took the PRBS mux out of it.
 
+## Clocks and line rate
+
+**Why 31.25 MHz.** The core clock is the line rate divided by the line bits per clock. We use the widest `CC_SERDES` fabric interface, 64 data bits (80 line bits after 8b/10b), so f_core = 2.5 Gb/s / 80 = 31.25 MHz (DS1001, eq. 2.5). That is 64 bits x 31.25 MHz = 2.0 Gb/s of payload, the whole line minus 8b/10b. The other widths need faster fabric:
+
+| `CC_SERDES` datapath | Line bits per clock | Core clock at 2.5 Gb/s |
+|---|---|---|
+| 16 / 20-bit | 20 | 125 MHz |
+| 32 / 40-bit | 40 | 62.5 MHz |
+| **64 / 80-bit (this core)** | 80 | **31.25 MHz** |
+
+Our TX path closes at about 33 MHz (the 8-word encoder chain); 62.5 or 125 MHz with fabric 8b/10b is out of reach on GateMate. Wide and slow is what fits.
+
+**PLL setting.** The bring-up writes regfile `0x51` = `0x16FA` (`iclink_phy_pkg.sv`, `CFG_SEQ`):
+
+| Field | Bits | Value | Means (DS1001 Tables 2.15, 2.17) |
+|---|---|---|---|
+| `PLL_FCNTRL` | [5:0] | 58 | M1 = 20 |
+| `PLL_MAIN_DIVSEL` | [11:6] | 27 | N1 = 1, N2 = 5, N3 = 5 |
+| `PLL_OUT_DIVSEL` | [13:12] | 1 | M3 = 2 |
+| `TX_DATAPATH_SEL[1]` | parameter | 1 (64-bit) | M4 = 2 |
+
+From the 100 MHz reference: oscillator 100 x N1·N2·N3 = 2500 MHz (its range is 1250-2500 MHz); bit rate clock f_BRC = 2500 / M3 = 1.25 GHz, both edges, 2.5 Gb/s; core clock f_DPC = f_BRC / (M1 · M4) = 1250 / 40 = 31.25 MHz.
+
+**Other line rates.** The oscillator stays at 2500 MHz; M3 sets the rate:
+
+| Line rate | M3 (`OUT_DIVSEL`) | f_BRC | Core clock, 64-bit | `0x51` |
+|---|---|---|---|---|
+| 1.25 Gb/s | 4 (`11`) | 625 MHz | 15.625 MHz | `0x36FA` |
+| **2.5 Gb/s** | 2 (`01`) | 1.25 GHz | 31.25 MHz | `0x16FA` |
+| 5 Gb/s | 1 (`00`) | 2.5 GHz | 62.5 MHz | `0x06FA` |
+
+- **1.25 Gb/s:** the register value only; timing gets easier. Or the 32-bit path (M4 = 1) at 31.25 MHz with 4 words per clock (`PHY_NWORDS` = 4).
+- **5 Gb/s:** 62.5 MHz is too fast for the fabric encoder. The way is `CC_SERDES`'s own TX 8b/10b (`TX_8B10B_EN_I`), leaving only flops and the PRBS mux in the fabric; plus the SI settings below and a board check (5 Gb/s is the chip's maximum).
+- The SerDes BFM may model 2.5 Gb/s only; to check before simulating other rates. Per-rate CDR settings: not given in DS1001.
+
+## Signal-integrity settings
+
+Today the bring-up writes the PLL only: every SI setting is at its default (no TX emphasis, no DFE adaptation, no termination calibration). Most influential first (our judgement, for short board and cable links at 2.5-5 Gb/s; DS1001 section 2.5):
+
+| # | Setting | Registers | Effect | Default |
+|---|---|---|---|---|
+| 1 | TX swing | `TX_AMP` (unit current), `TX_BRANCH_EN_MAIN` (0-63 branches) | eye height at the receiver; too high adds crosstalk and power | 15, 63 |
+| 2 | TX pre/post-emphasis (FFE) | `TX_SEL_PRE` / `TX_SEL_POST`, `TX_BRANCH_EN_PRE` / `_POST` (0-31) | boosts transitions against channel loss; the main lever at 5 Gb/s or on long cables | off |
+| 3 | RX DFE, 3 taps | `RX_EN_EQA` (adaptation), `RX_TAPW`, `RX_TH_MON1/2`, `RX_AFE_OFFSET` | cancels inter-symbol interference | adaptation off |
+| 4 | RX termination, common mode | `RX_CALIB_EN` (calibrate 100 ohm), `RX_RTERM_VCMSEL` (0.62-0.86 x VDDIO) | reflections; input common mode (AC coupling: set here; DC: set by the TX) | calibration off, 4 |
+| 5 | RX CDR loop | `RX_CDR_CKP` / `CKI`, `RX_CDR_LOCK_CFG`, `RX_CDR_TRANS_TH` | jitter tolerance, lock time | `0xF8`, 0 |
+| 6 | TX common mode | `TX_CM_RAISE`, `TX_DC_OFFSET`, `TX_CM_THRESHOLD_0/1` | matters with DC coupling | `TX_DC_OFFSET` 0 (DS1001: "set to 8") |
+| 7 | Reference clock, polarity | `PLL_REF_RTERM`, `TX/RX_POLARITY_I` | reference jitter (spec 1 ps) goes straight to the PLL; polarity fixes swapped P/N | on, normal |
+
+**Tuning.** PRBS with `rx_prbs_errors` as the error counter, and `CC_SERDES`'s eye measurement (DS1001 Tables 2.46, 2.47) for the margin; sweep in the order above. Worth adding to the bring-up regardless: `TX_DC_OFFSET` = 8, and termination calibration.
+
+## Why Etherbone and the packetizer
+
+They make the link memory-mapped: eduBOS5 on chip A loads or stores to an address window, and the access runs on chip B's bus with no software on B.
+
+- **Etherbone** turns one Wishbone access (address, data, read or write, byte enables) into a record and runs it on the far bus; a read returns its data, so A's load just waits.
+- **The packetizer** frames each record (preamble, port, length, optional CRC32), so the receiver finds its start, drops broken ones and resyncs after an error.
+
+When B only needs to receive data, neither is needed: the FIFO pump ([7.SerDes README](../../README.md#fifo-pump-spec-for-review)) moves words between the two CPUs instead.
+
 ## Serial Wishbone frame
 
 The format of LiteICLink `8ef8d79`, which our port keeps so it interoperates. Not in RTL yet. Sources:
