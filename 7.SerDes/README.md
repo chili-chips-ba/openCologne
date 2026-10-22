@@ -168,6 +168,10 @@ SerWB needs both directions (a read returns data), so it runs on setup 2 only, w
 
 The SerDes in simulation is our open-source [SerDes BFM](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/2.serdes-model) from openCologne-PCIE: a behavioural `CC_SERDES` with the vendor model's module name, ports and parameters, checked against it. No NDA model needed. Verilator runs our RTL with the BFM in place of the hard macro: the eduBOS5 RTL executes the test firmware, so no co-simulation (VProc) is needed. Each test case passes or fails on its own. A copy of the BFM (openCologne-PCIE `6ef654d`) is in [`3.iclink-sv/2.sim/serdes-model`](3.iclink-sv/2.sim/serdes-model).
 
+<p align="center">
+  <img width="100%" alt="tb_phy_oneway: the test sequence drives our PHY (iclink_serdes_gm); the SerDes BFM stands in for CC_SERDES, its serial TX looped to its RX through an XOR for fault injection" src="0.doc/iclink-tb.drawio.png">
+</p>
+
 | Test case | Mirrors | Setup | Pass |
 |---|---|---|---|
 | `phy_oneway` | setup 1 | one PHY, BFM TX looped to its RX | lock and alignment within a bound; 0 PRBS errors; a flipped bit on the line is counted |
