@@ -19,6 +19,12 @@
 // took. This replaces LiteICLink's store-and-forward buffer: the FIFO is
 // the buffer.
 //
+// Four stages: input flops; framing (the state machine, no CRC); the data
+// term of the beat's words; the running CRC and the check. The CRC is
+// linear, so the data term needs no running CRC, and the CRC loop is one
+// shallow XOR tree (iclink_serwb_pkg). Every output comes out of the last
+// stage, so words, commits and drops keep their order.
+//
 // Timeout as LiteICLink: TIMEOUT_CLKS clocks without a word in DATA or
 // CHECK drops the packet. One packet ends per clock at most (a packet is
 // 4 words or more), so one o_commit / o_drop per clock is enough.
@@ -52,19 +58,31 @@ module iclink_serwb_rx
 
   typedef struct packed {
     state_t      state;
-    word_t       crc;
     logic [13:0] left;   // data words still to come
     logic [7:0]  port;
   } ctx_t;
 
+  // what a stage carries for one beat
+  typedef struct packed {
+    word_t [1:0] word;
+    logic [1:0]  data;  // payload words, to the FIFO
+    logic [1:0]  crcd;  // slots the CRC covers: port / length and data
+    logic [1:0]  chk;   // the slot with the received CRC
+    logic        init;  // a header: the CRC starts again
+    logic        drop;  // a header out of range, or a timeout
+    logic [7:0]  port;
+  } beat_t;
+
   // one word through the state machine
-  function automatic void step(input ctx_t c, input word_t w, output ctx_t n, output logic dv,
-                               output logic commit, output logic drop, output logic crc_err);
-    n       = c;
-    dv      = 1'b0;
-    commit  = 1'b0;
-    drop    = 1'b0;
-    crc_err = 1'b0;
+  function automatic void step(input ctx_t c, input word_t w, output ctx_t n, output logic data,
+                               output logic crcd, output logic chk, output logic init,
+                               output logic drop);
+    n    = c;
+    data = 1'b0;
+    crcd = 1'b0;
+    chk  = 1'b0;
+    init = 1'b0;
+    drop = 1'b0;
     unique case (c.state)
       S_PREAMBLE: begin
         if (w == SERWB_PREAMBLE) begin
@@ -75,9 +93,10 @@ module iclink_serwb_rx
       S_HEADER: begin
         n.port = w[7:0];
         n.left = w[23:10];
-        n.crc  = serwb_crc32(SERWB_CRC_INIT, w);
         if (w[23:10] != '0 && w[23:10] <= 14'(MAX_WORDS)) begin
           n.state = S_DATA;
+          crcd    = 1'b1;
+          init    = 1'b1;
         end
         else begin
           n.state = S_PREAMBLE;
@@ -86,8 +105,8 @@ module iclink_serwb_rx
       end
 
       S_DATA: begin
-        dv     = 1'b1;
-        n.crc  = serwb_crc32(c.crc, w);
+        data   = 1'b1;
+        crcd   = 1'b1;
         n.left = c.left - 14'd1;
         if (c.left == 14'd1) begin
           n.state = S_CHECK;
@@ -96,45 +115,114 @@ module iclink_serwb_rx
 
       S_CHECK: begin
         n.state = S_PREAMBLE;
-        if (w == c.crc) begin
-          commit = 1'b1;
-        end
-        else begin
-          crc_err = 1'b1;
-          drop    = 1'b1;
-        end
+        chk     = 1'b1;
       end
     endcase
   endfunction
 
+  //-----------------------------------------------------------------------
+  // 0. input flops
+  //-----------------------------------------------------------------------
+  word_t [1:0] r_word;
+  logic  [1:0] r_valid;
+
+  always_ff @(posedge clk or negedge arst_n) begin
+    if (!arst_n) begin
+      r_word  <= '0;
+      r_valid <= '0;
+    end
+    else begin
+      r_word  <= i_word;
+      r_valid <= i_valid;
+    end
+  end
+
+  //-----------------------------------------------------------------------
+  // 1. framing
+  //-----------------------------------------------------------------------
   ctx_t ctx, ctx_mid, ctx_next;
-  logic [1:0] dv, commit, drop, crc_err;
+  beat_t f_next, f;
+  logic [1:0] init, drop;
   logic                              timeout;
   logic [$clog2(TIMEOUT_CLKS+1)-1:0] timer;  // clocks without a word, inside a packet
 
   always_comb begin : _steps
-    ctx_mid                     = ctx;
-    ctx_next                    = ctx;
-    {dv, commit, drop, crc_err} = '0;
-    if (i_valid[0]) begin
-      step(ctx, i_word[0], ctx_mid, dv[0], commit[0], drop[0], crc_err[0]);
+    ctx_mid  = ctx;
+    ctx_next = ctx;
+    f_next   = '0;
+    init     = '0;
+    drop     = '0;
+    if (r_valid[0]) begin
+      step(ctx, r_word[0], ctx_mid, f_next.data[0], f_next.crcd[0], f_next.chk[0], init[0],
+           drop[0]);
     end
     ctx_next = ctx_mid;
-    if (i_valid[1]) begin
-      step(ctx_mid, i_word[1], ctx_next, dv[1], commit[1], drop[1], crc_err[1]);
+    if (r_valid[1]) begin
+      step(ctx_mid, r_word[1], ctx_next, f_next.data[1], f_next.crcd[1], f_next.chk[1], init[1],
+           drop[1]);
     end
     // as LiteICLink, the timer drops in DATA and CHECK only, never in HEADER
-    timeout = (i_valid == '0) && (ctx.state inside {S_DATA, S_CHECK}) &&
+    timeout = (r_valid == '0) && (ctx.state inside {S_DATA, S_CHECK}) &&
         (timer == $bits(timer)'(TIMEOUT_CLKS - 1));
     if (timeout) begin
       ctx_next.state = S_PREAMBLE;
     end
+    f_next.word = r_word;
+    f_next.init = |init;
+    f_next.drop = (|drop) | timeout;
+    f_next.port = ctx.port;  // a CHECK comes a clock or more after its HEADER
   end : _steps
 
   always_ff @(posedge clk or negedge arst_n) begin
     if (!arst_n) begin
-      ctx         <= '{state: S_PREAMBLE, crc: SERWB_CRC_INIT, left: '0, port: '0};
-      timer       <= '0;
+      ctx   <= '{state: S_PREAMBLE, left: '0, port: '0};
+      timer <= '0;
+      f     <= '0;
+    end
+    else begin
+      ctx <= ctx_next;
+      f   <= f_next;
+      if (r_valid != '0 || timeout || ctx.state == S_PREAMBLE) begin
+        timer <= '0;
+      end
+      else begin
+        timer <= timer + 1'b1;
+      end
+    end
+  end
+
+  //-----------------------------------------------------------------------
+  // 2. data term
+  //-----------------------------------------------------------------------
+  beat_t t;
+  word_t t_dterm;
+
+  always_ff @(posedge clk or negedge arst_n) begin
+    if (!arst_n) begin
+      t       <= '0;
+      t_dterm <= '0;
+    end
+    else begin
+      t       <= f;
+      t_dterm <= serwb_crc_dterm(f.word, f.crcd);
+    end
+  end
+
+  //-----------------------------------------------------------------------
+  // 3. running CRC, check, outputs
+  //-----------------------------------------------------------------------
+  word_t crc, crc_now;
+  logic good;
+
+  always_comb begin
+    crc_now = serwb_crc_cterm(t.init ? SERWB_CRC_INIT : crc,
+                              {1'b0, t.crcd[0]} + {1'b0, t.crcd[1]}) ^ t_dterm;
+    good = (t.chk[0] && t.word[0] == crc_now) || (t.chk[1] && t.word[1] == crc_now);
+  end
+
+  always_ff @(posedge clk or negedge arst_n) begin
+    if (!arst_n) begin
+      crc         <= SERWB_CRC_INIT;
       o_word      <= '0;
       o_valid     <= '0;
       o_port      <= '0;
@@ -143,24 +231,17 @@ module iclink_serwb_rx
       o_crc_error <= 1'b0;
     end
     else begin
-      ctx <= ctx_next;
-
-      if (i_valid != '0 || timeout || ctx.state == S_PREAMBLE) begin
-        timer <= '0;
-      end
-      else begin
-        timer <= timer + 1'b1;
-      end
+      crc         <= crc_now;
 
       // compacted, slot 0 first
-      o_word[0]   <= dv[0] ? i_word[0] : i_word[1];
-      o_word[1]   <= i_word[1];
-      o_valid     <= {dv[0] & dv[1], dv[0] | dv[1]};
+      o_word[0]   <= t.data[0] ? t.word[0] : t.word[1];
+      o_word[1]   <= t.word[1];
+      o_valid     <= {t.data[0] & t.data[1], t.data[0] | t.data[1]};
 
-      o_port      <= ctx.port;  // a CHECK comes a clock or more after its HEADER
-      o_commit    <= |commit;
-      o_drop      <= (|drop) | timeout;
-      o_crc_error <= |crc_err;
+      o_port      <= t.port;
+      o_commit    <= (t.chk != '0) && good;
+      o_crc_error <= (t.chk != '0) && !good;
+      o_drop      <= t.drop || ((t.chk != '0) && !good);
     end
   end
 

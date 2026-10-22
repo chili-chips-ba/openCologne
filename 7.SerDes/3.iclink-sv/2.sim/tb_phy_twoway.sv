@@ -12,9 +12,13 @@
 //   3. one serial bit flipped on the A->B line: B must see it, A must not;
 //   4. PRBS both ways at once (A sends PRBS15, B sends PRBS31): 0 errors,
 //      then a flip on B->A is counted by A only.
-module tb_phy_twoway;
+module tb_phy_twoway
   import iclink_pkg::*;
   import iclink_phy_pkg::*;
+#(
+    parameter int LINE_RATE     = 2500,                // Mb/s: 1250, 2500 or 5000
+    parameter bit TX_HARD_8B10B = (LINE_RATE >= 5000)
+);
 
   localparam int DATA_WORDS = 2000;  // words checked per side in step 2
   localparam int PRBS_CLOCKS = 1000;  // clean PRBS clocks
@@ -46,8 +50,10 @@ module tb_phy_twoway;
   end : _clk_reg
 
   phy_side #(
-      .SEED_TX(SEED_A),
-      .SEED_RX(SEED_B)
+      .LINE_RATE    (LINE_RATE),
+      .TX_HARD_8B10B(TX_HARD_8B10B),
+      .SEED_TX      (SEED_A),
+      .SEED_RX      (SEED_B)
   ) u_a (
       .clk_ref(clk_ref),
       .clk_reg(clk_reg),
@@ -62,8 +68,10 @@ module tb_phy_twoway;
   );
 
   phy_side #(
-      .SEED_TX(SEED_B),
-      .SEED_RX(SEED_A)
+      .LINE_RATE    (LINE_RATE),
+      .TX_HARD_8B10B(TX_HARD_8B10B),
+      .SEED_TX      (SEED_B),
+      .SEED_RX      (SEED_A)
   ) u_b (
       .clk_ref(clk_ref),
       .clk_reg(clk_reg),
@@ -82,7 +90,7 @@ module tb_phy_twoway;
     #3.1;  // somewhere inside a word
     if (ab) flip_ab = 1'b1;
     else flip_ba = 1'b1;
-    #0.4;  // one UI at 2.5 Gb/s
+    #(1000.0 / LINE_RATE);  // one UI
     flip_ab = 1'b0;
     flip_ba = 1'b0;
   endtask
@@ -183,8 +191,10 @@ module phy_side
   import iclink_pkg::*;
   import iclink_phy_pkg::*;
 #(
-    parameter int SEED_TX = 0,  // our stream
-    parameter int SEED_RX = 0   // the peer's stream
+    parameter int LINE_RATE     = 2500,
+    parameter bit TX_HARD_8B10B = 1'b0,
+    parameter int SEED_TX       = 0,     // our stream
+    parameter int SEED_RX       = 0      // the peer's stream
 ) (
     input  logic      clk_ref,
     input  logic      clk_reg,
@@ -205,7 +215,10 @@ module phy_side
   int rx_words = 0, rx_bad = 0, expect_n = 0;
   logic locked = 1'b0;
 
-  iclink_serdes_gm dut (
+  iclink_serdes_gm #(
+      .LINE_RATE    (LINE_RATE),
+      .TX_HARD_8B10B(TX_HARD_8B10B)
+  ) dut (
       .clk_ref       (clk_ref),
       .ser_rxp       (ser_rxp),
       .ser_rxn       (ser_rxn),

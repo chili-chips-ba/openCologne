@@ -13,9 +13,13 @@
 //   4. PRBS7, PRBS15, PRBS31: error count stays at 0, then one serial bit
 //      flip must count; with pause, a flip must not count.
 //==========================================================================
-module tb_phy_oneway;
+module tb_phy_oneway
   import iclink_pkg::*;
   import iclink_phy_pkg::*;
+#(
+    parameter int LINE_RATE     = 2500,                // Mb/s: 1250, 2500 or 5000
+    parameter bit TX_HARD_8B10B = (LINE_RATE >= 5000)
+);
 
   localparam int DATA_WORDS = 2000;  // words checked in step 2
   localparam int PRBS_CLOCKS = 1000;  // clean PRBS clocks per pattern
@@ -52,7 +56,10 @@ module tb_phy_oneway;
     ser_rxn = ser_txn ^ flip;
   end
 
-  iclink_serdes_gm dut (
+  iclink_serdes_gm #(
+      .LINE_RATE    (LINE_RATE),
+      .TX_HARD_8B10B(TX_HARD_8B10B)
+  ) dut (
       .clk_ref       (clk_ref),
       .ser_rxp       (ser_rxp),
       .ser_rxn       (ser_rxn),
@@ -139,7 +146,7 @@ module tb_phy_oneway;
     @(posedge clk_tx);
     #3.1;  // somewhere inside a word
     flip = 1'b1;
-    #0.4;  // one UI at 2.5 Gb/s
+    #(1000.0 / LINE_RATE);  // one UI
     flip = 1'b0;
   endtask
 
@@ -256,6 +263,25 @@ module tb_phy_oneway;
     else begin
       $display("PRBS7: pause: a flipped bit was not counted");
     end
+
+    // the core clock follows the PLL setting: LINE_RATE / 80
+    begin : _clk_check
+      realtime t0, t1;
+      real mhz;
+      @(posedge clk_tx);
+      t0 = $realtime;
+      repeat (100) @(posedge clk_tx);
+      t1  = $realtime;
+      mhz = 100.0 * 1000.0 / (t1 - t0);
+      if (mhz < LINE_RATE / 80.0 * 0.99 || mhz > LINE_RATE / 80.0 * 1.01) begin
+        errors++;
+        $display("ERROR: clk_tx %0.3f MHz, expected %0.3f", mhz, LINE_RATE / 80.0);
+      end
+      else begin
+        $display("clk_tx %0.3f MHz at %0d Mb/s, TX 8b/10b in %0s", mhz, LINE_RATE,
+                 TX_HARD_8B10B ? "CC_SERDES" : "the fabric");
+      end
+    end : _clk_check
 
     $display("TB_PHY_ONEWAY: %s", (errors == 0) ? "PASS" : "FAIL");
     $finish;

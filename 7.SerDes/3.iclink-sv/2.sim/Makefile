@@ -25,7 +25,7 @@ WAVES ?= 0
 TRACE := $(if $(filter 1,$(WAVES)),--trace-fst --trace-structs,)
 PLUS  := $(if $(filter 1,$(WAVES)),+waves,)
 
-.PHONY: all sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_top vectors clean
+.PHONY: all sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_phy_rates sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_top vectors clean
 
 all: sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_top
 
@@ -43,9 +43,24 @@ sim_prbs:
 	./obj_prbs/Vtb_prbs | tee sim_prbs.log
 	@grep -q "TB_PRBS: PASS" sim_prbs.log
 
+# line rate in Mb/s (1250, 2500, 5000); HARD=1/0 forces the TX 8b/10b in
+# CC_SERDES on or off (default: on at 5000 only)
+LINE_RATE ?= 2500
+HARD      ?=
+RATE_G    := -GLINE_RATE=$(LINE_RATE) $(if $(HARD),-GTX_HARD_8B10B=$(HARD))
+
+# both PHY testbenches at every rate, and 2.5 Gb/s with the hard TX 8b/10b
+sim_phy_rates:
+	@set -e; for r in 1250:: 2500:: 5000:: 2500:1; do \
+	  rate=$${r%%:*}; hard=$${r##*:}; \
+	  $(MAKE) --no-print-directory sim_phy_oneway LINE_RATE=$$rate HARD=$$hard > /dev/null; \
+	  $(MAKE) --no-print-directory sim_phy_twoway LINE_RATE=$$rate HARD=$$hard > /dev/null; \
+	  echo "$$rate Mb/s$${hard:+, hard TX 8b/10b}: $$(grep -h PASS sim_phy_oneway.log sim_phy_twoway.log | tr '\n' ' ')"; \
+	done | tee sim_phy_rates.log
+
 sim_phy_oneway:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-	  --top-module tb_phy_oneway -Mdir obj_phy $(TRACE) serdes-model.vlt \
+	  --top-module tb_phy_oneway -Mdir obj_phy $(TRACE) $(RATE_G) serdes-model.vlt \
 	  $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv $(HW)/iclink_8b10b_enc.sv \
 	  $(HW)/iclink_prbs_gen.sv $(HW)/iclink_prbs_chk.sv $(HW)/iclink_prbs_tx.sv $(HW)/iclink_prbs_rx.sv \
 	  $(HW)/iclink_serdes_gm.sv $(BFM) \
@@ -55,7 +70,7 @@ sim_phy_oneway:
 
 sim_phy_twoway:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-	  --top-module tb_phy_twoway -Mdir obj_phy2 $(TRACE) serdes-model.vlt \
+	  --top-module tb_phy_twoway -Mdir obj_phy2 $(TRACE) $(RATE_G) serdes-model.vlt \
 	  $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv $(HW)/iclink_8b10b_enc.sv \
 	  $(HW)/iclink_prbs_gen.sv $(HW)/iclink_prbs_chk.sv $(HW)/iclink_prbs_tx.sv $(HW)/iclink_prbs_rx.sv \
 	  $(HW)/iclink_serdes_gm.sv $(BFM) \

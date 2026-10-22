@@ -43,11 +43,35 @@ package iclink_phy_pkg;
 
   localparam logic [7:0] SERDES_CFG_ADDR = 8'h5C;  // SerDes enable
 
-  localparam cfg_write_t [CFG_WRITES-1:0] CFG_SEQ = '{
-      '{8'h50, 16'h0C03},  // 2: PLL on
-      '{SERDES_CFG_ADDR, 16'h0001},  // 1: SerDes enable
-      '{8'h51, 16'h16FA}  // 0: PLL: 2.5 Gb/s from a 100 MHz reference
-  };
+  typedef cfg_write_t [CFG_WRITES-1:0] cfg_seq_t;
+
+  // PLL_CFG1 (0x51) for a line rate in Mb/s, from a 100 MHz reference:
+  // FCNTRL 58, MAIN_DIVSEL 27 (N1 1, N2 5, N3 5); OUT_DIVSEL [13:12] picks
+  // M3 = 1, 2 or 4, so 5, 2.5 or 1.25 Gb/s, with the core clock at 62.5,
+  // 31.25 or 15.625 MHz
+  function automatic logic [15:0] pll_cfg1(input int line_rate);
+    case (line_rate)
+      1250: begin
+        return 16'h36FA;
+      end
+      5000: begin
+        return 16'h06FA;
+      end
+      default: begin
+        return 16'h16FA;  // 2500
+      end
+    endcase
+  endfunction
+
+  function automatic cfg_seq_t cfg_seq(input int line_rate);
+    return
+    '{
+        '{8'h50, 16'h0C03},  // 2: PLL on
+        '{SERDES_CFG_ADDR, 16'h0001},  // 1: SerDes enable
+        '{8'h51, pll_cfg1(line_rate)}  // 0: PLL: the line rate
+    }
+    ;
+  endfunction
 
 endpackage : iclink_phy_pkg
 

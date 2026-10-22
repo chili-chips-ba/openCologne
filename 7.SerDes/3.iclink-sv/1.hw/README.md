@@ -101,7 +101,7 @@ From the 100 MHz reference: oscillator 100 x N1·N2·N3 = 2500 MHz (its range is
 
 - **1.25 Gb/s:** the register value only; timing gets easier. Or the 32-bit path (M4 = 1) at 31.25 MHz with 4 words per clock (`PHY_NWORDS` = 4).
 - **5 Gb/s:** 62.5 MHz is too fast for the fabric encoder. The way is `CC_SERDES`'s own TX 8b/10b (`TX_8B10B_EN_I`), leaving only flops and the PRBS mux in the fabric; plus the SI settings below and a board check (5 Gb/s is the chip's maximum).
-- All three are planned as performance levels of the FIFO pump (parameter `LINE_RATE`, [spec](../../README.md#fifo-pump-spec-for-review)); 2.5 Gb/s is the default.
+- All three are planned as performance levels of the FIFO pump (parameter `LINE_RATE`, [spec](../../README.md#fifo-pump)); 2.5 Gb/s is the default.
 - The SerDes BFM may model 2.5 Gb/s only; to check before simulating other rates. Per-rate CDR settings: not given in DS1001.
 
 ## Signal-integrity settings
@@ -127,7 +127,7 @@ They make the link memory-mapped: eduBOS5 on chip A loads or stores to an addres
 - **Etherbone** turns one Wishbone access (address, data, read or write, byte enables) into a record and runs it on the far bus; a read returns its data, so A's load just waits.
 - **The packetizer** frames each record (preamble, port, length, optional CRC32), so the receiver finds its start, drops broken ones and resyncs after an error.
 
-When B only needs to receive data, Etherbone is not needed, but the packetizer still is: it carries user streams on its other ports. The FIFO pump ([7.SerDes README](../../README.md#fifo-pump-spec-for-review)) moves words between the two CPUs on port 2, in standard SerWB packets, so it interoperates with LiteICLink.
+When B only needs to receive data, Etherbone is not needed, but the packetizer still is: it carries user streams on its other ports. The FIFO pump ([7.SerDes README](../../README.md#fifo-pump)) moves words between the two CPUs on port 2, in standard SerWB packets, so it interoperates with LiteICLink.
 
 ## Serial Wishbone frame
 

@@ -26,7 +26,12 @@
 //     RX: one flop stage (rx_ser) takes every RX datapath and status output
 //         first; TX_RESET_DONE_O goes into a synchronizer flop.
 //   Latency, TX data in to RX data out: 1 (tx_enc) + 2 (encoder) + 1 (tx_ser) + CC_SERDES
-//   + 1 (rx_ser) + 1 (rx) clocks.
+//   + 1 (rx_ser) + 1 (rx) clocks; with TX_HARD_8B10B the 2 encoder clocks go.
+//
+//   LINE_RATE (Mb/s): 1250, 2500 or 5000, the PLL setting; the core clocks
+//   run at LINE_RATE / 80. TX_HARD_8B10B: CC_SERDES encodes TX instead of the
+//   fabric encoder, whose 8-word running-disparity chain closes ~33 MHz; on
+//   by default at 5 Gb/s (62.5 MHz).
 //
 //   Clocks: clk_tx = PLL_CLK_O (line rate / 80, 31.25 MHz at 2.5 Gb/s);
 //   clk_rx = RX_CLK_O. clk_reg (the board clock) runs the bring-up: three
@@ -41,7 +46,10 @@
 module iclink_serdes_gm
   import iclink_pkg::*;
   import iclink_phy_pkg::*;
-(
+#(
+    parameter int LINE_RATE     = 2500,
+    parameter bit TX_HARD_8B10B = (LINE_RATE >= 5000)
+) (
 `ifndef SYNTHESIS
     input  logic clk_ref,  // SerDes reference, 100 MHz
     input  logic ser_rxp,
@@ -69,6 +77,12 @@ module iclink_serdes_gm
   //-----------------------------------------------------------------------
   // Bring-up on clk_reg: the regfile writes, then TX and RX out of reset
   //-----------------------------------------------------------------------
+  localparam cfg_seq_t CFG_SEQ = cfg_seq(LINE_RATE);
+
+  if (!(LINE_RATE inside {1250, 2500, 5000})) begin : g_bad_rate
+    $error("iclink_serdes_gm: LINE_RATE %0d: use 1250, 2500 or 5000", LINE_RATE);
+  end : g_bad_rate
+
   typedef enum logic [2:0] {
     CFG_IDLE,
     CFG_WRITE,
@@ -156,18 +170,17 @@ module iclink_serdes_gm
   //-----------------------------------------------------------------------
   logic tx_ready_meta;
   prbs_cfg_t tx_prbs_meta, tx_prbs;  // for the K mask; PRBS TX syncs its own
-  logic    [    PHY_DW-1:0] tx_payload;
-  logic    [    PHY_DW-1:0] tx_enc_d;  // tx_payload, registered: the PRBS mux and the
-  logic    [PHY_NWORDS-1:0] tx_enc_k;  // encoder tables in one clock miss 31.25 MHz
-  symbol_t [PHY_NWORDS-1:0] tx_symbol;
-  logic    [PHY_NWORDS-1:0] NC_tx_disparity;  // running disparity: not needed
-  logic                     tx_resetdone;  // CC_SERDES output, read only by the sync below
+  logic [    PHY_DW-1:0] tx_payload;
+  logic [    PHY_DW-1:0] tx_enc_d;  // tx_payload, registered: the PRBS mux and the
+  logic [PHY_NWORDS-1:0] tx_enc_k;  // encoder tables in one clock miss 31.25 MHz
+  logic                  tx_resetdone;  // CC_SERDES output, read only by the sync below
 
   // tx_ser: the TX datapath into CC_SERDES, straight from these flops
   typedef struct packed {
     byte_t [PHY_NWORDS-1:0] d;
-    logic [PHY_NWORDS-1:0]  dispmode;  // symbol bit 8
-    logic [PHY_NWORDS-1:0]  dispval;   // symbol bit 9
+    logic [PHY_NWORDS-1:0]  k;         // TX_HARD_8B10B: K flags
+    logic [PHY_NWORDS-1:0]  dispmode;  // else symbol bit 8
+    logic [PHY_NWORDS-1:0]  dispval;   // else symbol bit 9
   } tx_ser_t;
   tx_ser_t tx_ser;
 
@@ -207,30 +220,47 @@ module iclink_serdes_gm
     end
   end
 
-  iclink_8b10b_enc #(
-      .NWORDS(PHY_NWORDS)
-  ) u_enc (
-      .clk      (clk_tx),
-      .arst_n   (tx_ready),
-      .ce       (1'b1),
-      .d        (tx_enc_d),
-      .k        (tx_enc_k),
-      .symbol   (tx_symbol),
-      .disparity(NC_tx_disparity)
-  );
-
-  always_ff @(posedge clk_tx or negedge arst_n) begin
-    if (!arst_n) begin
-      tx_ser <= '0;
-    end
-    else begin
-      for (int w = 0; w < PHY_NWORDS; w++) begin
-        tx_ser.d[w]        <= tx_symbol[w][7:0];
-        tx_ser.dispmode[w] <= tx_symbol[w][8];
-        tx_ser.dispval[w]  <= tx_symbol[w][9];
+  if (TX_HARD_8B10B) begin : g_tx_hard
+    // CC_SERDES encodes: bytes and K flags go straight to it
+    always_ff @(posedge clk_tx or negedge arst_n) begin
+      if (!arst_n) begin
+        tx_ser <= '0;
+      end
+      else begin
+        tx_ser.d <= tx_enc_d;
+        tx_ser.k <= tx_enc_k;
       end
     end
-  end
+  end : g_tx_hard
+  else begin : g_tx_soft
+    symbol_t [PHY_NWORDS-1:0] tx_symbol;
+    logic    [PHY_NWORDS-1:0] NC_tx_disparity;  // running disparity: not needed
+
+    iclink_8b10b_enc #(
+        .NWORDS(PHY_NWORDS)
+    ) u_enc (
+        .clk      (clk_tx),
+        .arst_n   (tx_ready),
+        .ce       (1'b1),
+        .d        (tx_enc_d),
+        .k        (tx_enc_k),
+        .symbol   (tx_symbol),
+        .disparity(NC_tx_disparity)
+    );
+
+    always_ff @(posedge clk_tx or negedge arst_n) begin
+      if (!arst_n) begin
+        tx_ser <= '0;
+      end
+      else begin
+        for (int w = 0; w < PHY_NWORDS; w++) begin
+          tx_ser.d[w]        <= tx_symbol[w][7:0];
+          tx_ser.dispmode[w] <= tx_symbol[w][8];
+          tx_ser.dispval[w]  <= tx_symbol[w][9];
+        end
+      end
+    end
+  end : g_tx_soft
 
   //-----------------------------------------------------------------------
   // RX on clk_rx: CC_SERDES -> rx_ser flops -> data, K, invalid; PRBS check
@@ -324,10 +354,10 @@ module iclink_serdes_gm
       .TX_PMA_RESET_I        (1'b0),
       .TX_CLK_I              (clk_tx),
       .TX_DATA_I             (tx_ser.d),
-      .TX_CHAR_IS_K_I        ('0),                  // 8b/10b is in the fabric
+      .TX_CHAR_IS_K_I        (tx_ser.k),            // 0 unless TX_HARD_8B10B
       .TX_CHAR_DISPMODE_I    (tx_ser.dispmode),
       .TX_CHAR_DISPVAL_I     (tx_ser.dispval),
-      .TX_8B10B_EN_I         (1'b0),
+      .TX_8B10B_EN_I         (TX_HARD_8B10B),
       .TX_8B10B_BYPASS_I     ('0),
       .TX_PRBS_SEL_I         (3'b000),              // PRBS is in the fabric
       .TX_PRBS_FORCE_ERR_I   (1'b0),
@@ -439,9 +469,9 @@ module iclink_serdes_gm
       .tx_prbs_force_err_i (1'b0),
       .tx_powerdown_n_i    (1'b1),
       .tx_data_i           (tx_ser.d),
-      .tx_char_is_k_i      ('0),
+      .tx_char_is_k_i      (tx_ser.k),
       .tx_polarity_i       (1'b0),
-      .tx_8b10b_en_i       (1'b0),
+      .tx_8b10b_en_i       (TX_HARD_8B10B),
       .tx_8b10b_bypass_i   ('0),
       .tx_char_dispmode_i  (tx_ser.dispmode),
       .tx_char_dispval_i   (tx_ser.dispval),
