@@ -1,13 +1,13 @@
 {
   "version": 4,
-  "sourceFilePath": "phy_twoway.fst",
+  "sourceFilePath": "phy_oneway.fst",
   "signals": [
     {
       "kind": "signal",
       "id": "iclink-0",
-      "ref": "39",
-      "path": "tb_phy_twoway.u_a.tx_ready",
-      "name": "a.tx_ready",
+      "ref": "14",
+      "path": "tb_phy_oneway.clk_reg",
+      "name": "clk_reg",
       "color": 4283215696,
       "format": "hexadecimal",
       "height": 30.0
@@ -15,9 +15,9 @@
     {
       "kind": "signal",
       "id": "iclink-1",
-      "ref": "41",
-      "path": "tb_phy_twoway.u_a.rx_aligned",
-      "name": "a.rx_aligned",
+      "ref": "15",
+      "path": "tb_phy_oneway.arst_n",
+      "name": "arst_n",
       "color": 4280731354,
       "format": "hexadecimal",
       "height": 30.0
@@ -25,9 +25,9 @@
     {
       "kind": "signal",
       "id": "iclink-2",
-      "ref": "545",
-      "path": "tb_phy_twoway.u_b.tx_ready",
-      "name": "b.tx_ready",
+      "ref": "57",
+      "path": "tb_phy_oneway.dut.cfg_state",
+      "name": "bringup.cfg_state",
       "color": 4294962776,
       "format": "hexadecimal",
       "height": 30.0
@@ -35,9 +35,9 @@
     {
       "kind": "signal",
       "id": "iclink-3",
-      "ref": "547",
-      "path": "tb_phy_twoway.u_b.rx_aligned",
-      "name": "b.rx_aligned",
+      "ref": "63",
+      "path": "tb_phy_oneway.dut.pll_reset",
+      "name": "pll_reset",
       "color": 4293673082,
       "format": "hexadecimal",
       "height": 30.0
@@ -45,9 +45,9 @@
     {
       "kind": "signal",
       "id": "iclink-4",
-      "ref": "18",
-      "path": "tb_phy_twoway.a_txp",
-      "name": "a.ser_txp",
+      "ref": "64",
+      "path": "tb_phy_oneway.dut.serdes_reset",
+      "name": "serdes_reset",
       "color": 4294944550,
       "format": "hexadecimal",
       "height": 30.0
@@ -55,9 +55,9 @@
     {
       "kind": "signal",
       "id": "iclink-5",
-      "ref": "22",
-      "path": "tb_phy_twoway.flip_ab",
-      "name": "flip_ab",
+      "ref": "23",
+      "path": "tb_phy_oneway.tx_ready",
+      "name": "tx_ready",
       "color": 4293848814,
       "format": "hexadecimal",
       "height": 30.0
@@ -65,9 +65,9 @@
     {
       "kind": "signal",
       "id": "iclink-6",
-      "ref": "20",
-      "path": "tb_phy_twoway.b_txp",
-      "name": "b.ser_txp",
+      "ref": "24",
+      "path": "tb_phy_oneway.rx_ready",
+      "name": "rx_ready",
       "color": 4283215696,
       "format": "hexadecimal",
       "height": 30.0
@@ -75,9 +75,9 @@
     {
       "kind": "signal",
       "id": "iclink-7",
-      "ref": "23",
-      "path": "tb_phy_twoway.flip_ba",
-      "name": "flip_ba",
+      "ref": "25",
+      "path": "tb_phy_oneway.rx_aligned",
+      "name": "rx_aligned",
       "color": 4280731354,
       "format": "hexadecimal",
       "height": 30.0
@@ -85,9 +85,9 @@
     {
       "kind": "signal",
       "id": "iclink-8",
-      "ref": "25",
-      "path": "tb_phy_twoway.check",
-      "name": "check",
+      "ref": "21",
+      "path": "tb_phy_oneway.clk_tx",
+      "name": "clk_tx",
       "color": 4294962776,
       "format": "hexadecimal",
       "height": 30.0
@@ -95,9 +95,9 @@
     {
       "kind": "signal",
       "id": "iclink-9",
-      "ref": "544",
-      "path": "tb_phy_twoway.u_b.clk_rx",
-      "name": "b.clk_rx",
+      "ref": "69",
+      "path": "tb_phy_oneway.dut.tx_payload",
+      "name": "tx.d",
       "color": 4293673082,
       "format": "hexadecimal",
       "height": 30.0
@@ -105,9 +105,9 @@
     {
       "kind": "signal",
       "id": "iclink-10",
-      "ref": "566",
-      "path": "tb_phy_twoway.u_b.rx_invalid",
-      "name": "b.rx_invalid",
+      "ref": "38",
+      "path": "tb_phy_oneway.tx.k",
+      "name": "tx.k",
       "color": 4294944550,
       "format": "hexadecimal",
       "height": 30.0
@@ -115,9 +115,9 @@
     {
       "kind": "signal",
       "id": "iclink-11",
-      "ref": "570",
-      "path": "tb_phy_twoway.u_b.rx_bad",
-      "name": "b.rx_bad",
+      "ref": "70",
+      "path": "tb_phy_oneway.dut.tx_enc_d",
+      "name": "tx.enc_d",
       "color": 4293848814,
       "format": "hexadecimal",
       "height": 30.0
@@ -125,9 +125,9 @@
     {
       "kind": "signal",
       "id": "iclink-12",
-      "ref": "38",
-      "path": "tb_phy_twoway.u_a.clk_rx",
-      "name": "a.clk_rx",
+      "ref": "16",
+      "path": "tb_phy_oneway.ser_txp",
+      "name": "ser_txp",
       "color": 4283215696,
       "format": "hexadecimal",
       "height": 30.0
@@ -135,9 +135,9 @@
     {
       "kind": "signal",
       "id": "iclink-13",
-      "ref": "60",
-      "path": "tb_phy_twoway.u_a.rx_invalid",
-      "name": "a.rx_invalid",
+      "ref": "20",
+      "path": "tb_phy_oneway.flip",
+      "name": "flip",
       "color": 4280731354,
       "format": "hexadecimal",
       "height": 30.0
@@ -145,9 +145,9 @@
     {
       "kind": "signal",
       "id": "iclink-14",
-      "ref": "64",
-      "path": "tb_phy_twoway.u_a.rx_bad",
-      "name": "a.rx_bad",
+      "ref": "18",
+      "path": "tb_phy_oneway.ser_rxp",
+      "name": "ser_rxp",
       "color": 4294962776,
       "format": "hexadecimal",
       "height": 30.0
@@ -155,9 +155,9 @@
     {
       "kind": "signal",
       "id": "iclink-15",
-      "ref": "26",
-      "path": "tb_phy_twoway.ctrl_a.tx_prbs",
-      "name": "a.tx_prbs",
+      "ref": "22",
+      "path": "tb_phy_oneway.clk_rx",
+      "name": "clk_rx",
       "color": 4293673082,
       "format": "hexadecimal",
       "height": 30.0
@@ -165,9 +165,9 @@
     {
       "kind": "signal",
       "id": "iclink-16",
-      "ref": "30",
-      "path": "tb_phy_twoway.ctrl_b.tx_prbs",
-      "name": "b.tx_prbs",
+      "ref": "216",
+      "path": "tb_phy_oneway.dut.u_prbs_rx.i",
+      "name": "rx.d",
       "color": 4294944550,
       "format": "hexadecimal",
       "height": 30.0
@@ -175,9 +175,9 @@
     {
       "kind": "signal",
       "id": "iclink-17",
-      "ref": "61",
-      "path": "tb_phy_twoway.u_a.rx_prbs_errors",
-      "name": "a.rx_prbs_errors",
+      "ref": "47",
+      "path": "tb_phy_oneway.rx.k",
+      "name": "rx.k",
       "color": 4293848814,
       "format": "hexadecimal",
       "height": 30.0
@@ -185,9 +185,9 @@
     {
       "kind": "signal",
       "id": "iclink-18",
-      "ref": "567",
-      "path": "tb_phy_twoway.u_b.rx_prbs_errors",
-      "name": "b.rx_prbs_errors",
+      "ref": "48",
+      "path": "tb_phy_oneway.rx_invalid",
+      "name": "rx_invalid",
       "color": 4283215696,
       "format": "hexadecimal",
       "height": 30.0
@@ -195,9 +195,9 @@
     {
       "kind": "signal",
       "id": "iclink-19",
-      "ref": "541",
-      "path": "tb_phy_twoway.u_b.ser_rxp",
-      "name": "b.ser_rxp",
+      "ref": "51",
+      "path": "tb_phy_oneway.send",
+      "name": "send",
       "color": 4280731354,
       "format": "hexadecimal",
       "height": 30.0
@@ -205,10 +205,80 @@
     {
       "kind": "signal",
       "id": "iclink-20",
-      "ref": "35",
-      "path": "tb_phy_twoway.u_a.ser_rxp",
-      "name": "a.ser_rxp",
+      "ref": "53",
+      "path": "tb_phy_oneway.check",
+      "name": "check",
       "color": 4294962776,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-21",
+      "ref": "54",
+      "path": "tb_phy_oneway.locked",
+      "name": "locked",
+      "color": 4293673082,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-22",
+      "ref": "55",
+      "path": "tb_phy_oneway.rx_words",
+      "name": "rx_words",
+      "color": 4294944550,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-23",
+      "ref": "56",
+      "path": "tb_phy_oneway.rx_bad",
+      "name": "rx_bad",
+      "color": 4293848814,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-24",
+      "ref": "26",
+      "path": "tb_phy_oneway.ctrl.tx_prbs",
+      "name": "ctrl.tx_prbs",
+      "color": 4283215696,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-25",
+      "ref": "27",
+      "path": "tb_phy_oneway.ctrl.rx_prbs",
+      "name": "ctrl.rx_prbs",
+      "color": 4280731354,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-26",
+      "ref": "28",
+      "path": "tb_phy_oneway.ctrl.rx_prbs_pause",
+      "name": "ctrl.rx_prbs_pause",
+      "color": 4294962776,
+      "format": "hexadecimal",
+      "height": 30.0
+    },
+    {
+      "kind": "signal",
+      "id": "iclink-27",
+      "ref": "49",
+      "path": "tb_phy_oneway.rx_prbs_errors",
+      "name": "rx_prbs_errors",
+      "color": 4293673082,
       "format": "hexadecimal",
       "height": 30.0
     }
@@ -219,8 +289,8 @@
   },
   "markers": {},
   "view": {
-    "ticksPerPixel": 5570.271112496103,
-    "panOffsetTicks": 924081622.0006232,
+    "ticksPerPixel": 1589451.5425366159,
+    "panOffsetTicks": 0.0,
     "scrollOffset": 0.0
   },
   "panels": {
@@ -252,23 +322,7 @@
       "instanceNumber": 1,
       "config": {
         "bindings": {
-          "line": "541"
-        },
-        "parameters": {
-          "rate": "gen1",
-          "invert": false,
-          "scrambling": "off",
-          "coalesce": true,
-          "show_idle": false
-        }
-      }
-    },
-    {
-      "decoderId": "ferrite.pcie_serial",
-      "instanceNumber": 2,
-      "config": {
-        "bindings": {
-          "line": "35"
+          "line": "18"
         },
         "parameters": {
           "rate": "gen1",

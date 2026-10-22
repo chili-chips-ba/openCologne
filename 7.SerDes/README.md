@@ -179,7 +179,7 @@ Every test that passes on a clean link also has to fail on a broken one. The tes
 
 ### Waves
 
-`make -C 3.iclink-sv/2.sim sim_phy_oneway WAVES=1` (or `sim_phy_twoway`) also writes `phy_oneway.fst` / `phy_twoway.fst`, kept next to the testbenches. Open them in [WaveCrux](https://wavecrux.app) with the sessions [`tb_phy_oneway.8B10B-SERDES-LOOP.wavecrux`](3.iclink-sv/2.sim/tb_phy_oneway.8B10B-SERDES-LOOP.wavecrux) and [`tb_phy_twoway.8B10B-SERDES-A-B.wavecrux`](3.iclink-sv/2.sim/tb_phy_twoway.8B10B-SERDES-A-B.wavecrux).
+`make -C 3.iclink-sv/2.sim sim_phy_oneway WAVES=1` (or `sim_phy_twoway`) also writes `phy_oneway.fst` / `phy_twoway.fst`, kept next to the testbenches. Open them in [WaveCrux](https://wavecrux.app) with the sessions [`tb_phy_oneway.SETUP1-ONEWAY.wavecrux`](3.iclink-sv/2.sim/tb_phy_oneway.SETUP1-ONEWAY.wavecrux) and [`tb_phy_twoway.SETUP2-TWOWAY.wavecrux`](3.iclink-sv/2.sim/tb_phy_twoway.SETUP2-TWOWAY.wavecrux).
 
 The whole `phy_oneway` run, 204 us: bring-up, the data stream with `check`, then PRBS7, 15 and 31, and the deliberate bit flips (`flip`).
 
@@ -207,9 +207,9 @@ The same during PRBS7: `rx_prbs_errors` counts the flip.
 
 ### Decoders
 
-[`tb_phy_twoway.8B10B-SERDES-A-B.wavecrux`](3.iclink-sv/2.sim/tb_phy_twoway.8B10B-SERDES-A-B.wavecrux) binds Ferrite's `ferrite.pcie_serial` decoder ([wavecrux-decoders](https://github.com/Ferrite-Engineering/wavecrux-decoders), PCIe plugin) to the received line of each side (`b.ser_rxp`, `a.ser_rxp`), with `rate` = `gen1` (2.5 GT/s, our line rate) and `scrambling` = `off`. It recovers the bits, locks on K28.5 commas and decodes 8b/10b. It flags `8b/10b code error` and `Disparity error` at the flipped bit. Its PCIe layer (ordered sets, packets) does not apply to IC Link traffic; use the symbol view. The plugin has to be installed in WaveCrux.
+[`tb_phy_twoway.SETUP2-TWOWAY.wavecrux`](3.iclink-sv/2.sim/tb_phy_twoway.SETUP2-TWOWAY.wavecrux) binds Ferrite's `ferrite.pcie_serial` decoder ([wavecrux-decoders](https://github.com/Ferrite-Engineering/wavecrux-decoders), PCIe plugin) to the received line of each side (`b.ser_rxp`, `a.ser_rxp`), with `rate` = `gen1` (2.5 GT/s, our line rate) and `scrambling` = `off`. It recovers the bits, locks on K28.5 commas and decodes 8b/10b. It flags `8b/10b code error` and `Disparity error` at the flipped bit. Its PCIe layer (ordered sets, packets) does not apply to IC Link traffic; use the symbol view. The plugin has to be installed in WaveCrux.
 
-Session names follow the layers they show, top down: `8B10B-SERDES-LOOP` is one SerDes looped back, `8B10B-SERDES-A-B` both SerDes of the link. `serwb_twoway` gets one session for the whole link, `tb_serwb_twoway.WB-SERWB-8B10B-SERDES-A-B.wavecrux`: in one waveform, the Wishbone bus of each eduBOS5 SoC (WaveCrux's built-in Wishbone decoder: a write on A, then the same access arriving on B), the Serial Wishbone packets, and both SerDes lines with the serial decoder.
+One session per test setup, with everything that setup needs: bring-up (clocks, reset, bring-up FSM, ready flags), TX data and the serial line, the flip, the received line with the serial decoder, RX data and errors, the checker, and PRBS. `SETUP1-ONEWAY` has one PHY; `SETUP2-TWOWAY` has both sides, labelled `a.` and `b.`. When Serial Wishbone is in, the two-way testbench and this same session gain the Wishbone bus of each eduBOS5 SoC (WaveCrux's built-in Wishbone decoder: a write on A, then the access arriving on B) and the Serial Wishbone packets.
 
 ## QA
 
