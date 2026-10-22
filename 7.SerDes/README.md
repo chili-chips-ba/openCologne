@@ -161,6 +161,24 @@ How much buffer, where the thresholds sit, and how the levels move. Measured wit
 
 Re-run: `make -C 3.iclink-sv/2.sim sim_serwb_pump`, then `python3 plot_pump_levels.py` in `2.sim`.
 
+### eduBOS5 Control Program
+
+The software side of the data flow, planned for the demo: one polling loop, the same on A and B, over the [CSRs](#fifo-pump) above.
+
+<p align="center"><img width="100%" alt="Flow chart: reset, enable the pump, wait for link up; then a main loop: send (a message to send? room for n + 1 words? write header and n words to TX_DATA, seq + 1), then receive (a header waiting? read it; magic and seq as expected? read n words with a timeout and use them, else count a loss and drop words to the next header), check errors, and again" src="0.doc/edubos5-pump-fw.drawio.png"></p>
+
+**Messages.** A header word `{0xA5, seq, 8'h00, n}`, then `n` payload words (`n` <= 255). The pump does not know where a message starts or ends: it packs words into packets of 16, so a message may span two packets.
+
+**Rules.**
+
+1. **Never wait in one place.** A full TX FIFO means "receive now, send next time round". If both sides spin on a full TX FIFO while their RX FIFOs fill, neither ever reads, and the link deadlocks.
+2. **Check room before a message**, not before each word: `1024 - tx_level >= n + 1`, so a message goes into the FIFO whole.
+3. **Read the payload with a timeout.** A dropped packet (bad CRC) takes words with it, and they never arrive.
+4. **Detect losses by `seq`.** A wrong `seq` or a missing `0xA5` means a lost packet: count it and drop words up to the next header. There is no retransmission in the pump; resending is the program's choice.
+5. **Look at `ERRORS` now and then:** `crc_errors` counts the dropped packets, `rx_overflow` must stay 0 while flow control works.
+
+On B the demo echoes each message back, so A can check every word it sent.
+
 ### PHY RTL
 
 `iclink_serdes_gm`, as built: modules, `CC_SERDES` ports, bus widths and the three clock domains.
