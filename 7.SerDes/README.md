@@ -139,8 +139,32 @@ The same tests run in simulation and on boards: the sim mirrors each hardware se
 |---|---|---|---|
 | 1 | one GateMate EVB | one way: its SerDes TX cabled to its own RX | PHY: lock, comma alignment, PRBS bit-error count |
 | 2 | two ULX5M-GS boards | two way: TX of each to RX of the other | PHY both ways, then SerWB: board A reads and writes board B's memory and CSRs |
+| 3 | ULX5M-GS (GateMate) and ULX4M-LD (Lattice ECP5) | two way, GateMate to ECP5 | interoperability with LiteICLink on ECP5: PHY both ways, then Serial Wishbone across the two vendors |
 
 SerWB needs both directions (a read returns data), so it runs on setup 2 only, with the host PC on board A's UART console. Setup 1 checks the PHY before two boards are involved.
+
+### Setup 3: GateMate to Lattice ECP5
+
+Our IC Link must talk to LiteICLink on a Lattice ECP5, not only to itself.
+
+| | GateMate side | ECP5 side |
+|---|---|---|
+| Board | ULX5M-GS (CCGM1A1) | ULX4M-LD v2 (LFE5UM5G-85F; the ULX4M-LS has an LFE5U, without SerDes) |
+| SerDes | `CC_SERDES`, our PHY | ECP5 DCU, LiteICLink `SerDesECP5` |
+| Words per clock | 8 (64-bit) at 31.25 MHz | 2 (16-bit) at 125 MHz |
+| Reference clock | 100 MHz | 100 MHz, own oscillator |
+| Line | 2.5 Gb/s, 8b/10b | 2.5 Gb/s, 8b/10b |
+| Other rates | 1.25 Gb/s from 100 MHz; 5 Gb/s from 100 MHz | 1.25 Gb/s from 100 MHz; 5 Gb/s needs a 200 or 250 MHz reference |
+
+Both boards are CM4 modules. The ULX4M-LD routes its SerDes lane to the CM4 PCIe pins (`PCIe_TX/RX/CLK` in LiteX-Boards' `radiona_ulx4m_ld_v2`); the ULX5M-GS routing is to be confirmed on its schematic. Two CM4 carriers with a PCIe x1 connector, and a cable crossing TX to RX, make the link. The two reference clocks are independent, so each receiver recovers its own clock.
+
+Steps, each one passing before the next:
+
+1. **PHY, data both ways.** Commas, then a counter stream as 8b/10b data, checked on each side. Not PRBS: LiteICLink sends its PRBS raw on the line, ours travels as 8b/10b D characters (see [Compared with LiteICLink](3.iclink-sv/1.hw/README.md#compared-with-liteiclink)), so the two PRBS checkers do not match. This step also settles the bit order within a symbol, the byte order within a word, and the pair polarity between the two SerDes.
+2. **Serial Wishbone across the vendors.** eduBOS5 on the GateMate writes and reads a RAM and a CSR of a LiteX SoC on the ECP5, then the other way round. Upstream LiteICLink has no Serial Wishbone on the ECP5 transceiver (its SerWB PHYs are Xilinx and Efinix I/O SerDes, and a low-speed generic one). The ECP5 side therefore needs a small adapter: `SERWBCore` on `SerDesECP5`, two 16-bit PHY words per 32-bit SerWB word. We would offer it to LiteICLink together with the GateMate PHY.
+3. **CRC across the vendors.** The negative test of setup 2, with one side on each vendor.
+
+In simulation, setup 3 is mirrored by `interop_twoway` (planned): our PHY on the SerDes BFM on one side; on the other, LiteX's own 8b/10b encoder and decoder at 2 words per clock, converted to Verilog, standing in for the ECP5 DCU.
 
 ## Simulation
 
@@ -179,7 +203,7 @@ Every test that passes on a clean link also has to fail on a broken one. The tes
 
 ### Waves
 
-`make -C 3.iclink-sv/2.sim sim_phy_oneway WAVES=1` (or `sim_phy_twoway`) also writes `phy_oneway.fst` / `phy_twoway.fst`, kept next to the testbenches. Open them in [WaveCrux](https://wavecrux.app) with the sessions [`tb_phy_oneway.SETUP1-ONEWAY.wavecrux`](3.iclink-sv/2.sim/tb_phy_oneway.SETUP1-ONEWAY.wavecrux) and [`tb_phy_twoway.SETUP2-TWOWAY.wavecrux`](3.iclink-sv/2.sim/tb_phy_twoway.SETUP2-TWOWAY.wavecrux).
+`make -C 3.iclink-sv/2.sim sim_phy_oneway WAVES=1` (or `sim_phy_twoway`) also writes `phy_oneway.fst` / `phy_twoway.fst`, kept next to the testbenches. Open them in [WaveCrux](https://wavecrux.app) with the sessions [`tb_phy_oneway.SETUP.wavecrux`](3.iclink-sv/2.sim/tb_phy_oneway.SETUP.wavecrux) and [`tb_phy_twoway.SETUP.wavecrux`](3.iclink-sv/2.sim/tb_phy_twoway.SETUP.wavecrux).
 
 The whole `phy_oneway` run, 204 us: bring-up, the data stream with `check`, then PRBS7, 15 and 31, and the deliberate bit flips (`flip`).
 
@@ -207,9 +231,9 @@ The same during PRBS7: `rx_prbs_errors` counts the flip.
 
 ### Decoders
 
-[`tb_phy_twoway.SETUP2-TWOWAY.wavecrux`](3.iclink-sv/2.sim/tb_phy_twoway.SETUP2-TWOWAY.wavecrux) binds Ferrite's `ferrite.pcie_serial` decoder ([wavecrux-decoders](https://github.com/Ferrite-Engineering/wavecrux-decoders), PCIe plugin) to the received line of each side (`b.ser_rxp`, `a.ser_rxp`), with `rate` = `gen1` (2.5 GT/s, our line rate) and `scrambling` = `off`. It recovers the bits, locks on K28.5 commas and decodes 8b/10b. It flags `8b/10b code error` and `Disparity error` at the flipped bit. Its PCIe layer (ordered sets, packets) does not apply to IC Link traffic; use the symbol view. The plugin has to be installed in WaveCrux.
+[`tb_phy_twoway.SETUP.wavecrux`](3.iclink-sv/2.sim/tb_phy_twoway.SETUP.wavecrux) binds Ferrite's `ferrite.pcie_serial` decoder ([wavecrux-decoders](https://github.com/Ferrite-Engineering/wavecrux-decoders), PCIe plugin) to the received line of each side (`b.ser_rxp`, `a.ser_rxp`), with `rate` = `gen1` (2.5 GT/s, our line rate) and `scrambling` = `off`. It recovers the bits, locks on K28.5 commas and decodes 8b/10b. It flags `8b/10b code error` and `Disparity error` at the flipped bit. Its PCIe layer (ordered sets, packets) does not apply to IC Link traffic; use the symbol view. The plugin has to be installed in WaveCrux.
 
-One session per test setup, with everything that setup needs: bring-up (clocks, reset, bring-up FSM, ready flags), TX data and the serial line, the flip, the received line with the serial decoder, RX data and errors, the checker, and PRBS. `SETUP1-ONEWAY` has one PHY; `SETUP2-TWOWAY` has both sides, labelled `a.` and `b.`. When Serial Wishbone is in, the two-way testbench and this same session gain the Wishbone bus of each eduBOS5 SoC (WaveCrux's built-in Wishbone decoder: a write on A, then the access arriving on B) and the Serial Wishbone packets.
+One session per test setup, with everything that setup needs: bring-up (clocks, reset, bring-up FSM, ready flags), TX data and the serial line, the flip, the received line with the serial decoder, RX data and errors, the checker, and PRBS. The one-way session has one PHY; the two-way session has both sides, labelled `a.` and `b.`. When Serial Wishbone is in, the two-way testbench and this same session gain the Wishbone bus of each eduBOS5 SoC (WaveCrux's built-in Wishbone decoder: a write on A, then the access arriving on B) and the Serial Wishbone packets.
 
 ## QA
 
