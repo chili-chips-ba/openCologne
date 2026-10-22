@@ -171,7 +171,7 @@ Click [here](https://github.com/intergalaktik/Extension_Boards_for_Olimex_GateMa
 Our flagship: two GateMate chips talk over their SerDes, as one memory-mapped system. One CPU reads and writes the other chip's registers and memory as if they were its own. It is LiteX's [LiteICLink](https://github.com/enjoy-digital/liteiclink), hand-ported to SystemVerilog, so it can be linted, simulated with open tools, and dropped into LiteX as an SV core.
 
 <p align="center">
-  <img width="100%" alt="Two GateMates, each with eduBOS5, PeakRDL CSRs, Serial Wishbone, our PHY and the SerDes BFM in front of the CC_SERDES hard macro, linked over a 2.5 Gb/s SerDes link" src="7.SerDes/0.doc/iclink-flagship.drawio.png">
+  <img width="100%" alt="Two GateMates, each with eduBOS5, PeakRDL CSRs, Serial Wishbone, the SerDes PHY and the SerDes BFM in front of the CC_SERDES hard macro, linked over a 2.5 Gb/s SerDes link" src="7.SerDes/0.doc/iclink-flagship.drawio.png">
 </p>
 
 - **Full end-to-end sim with open tools.** In sim, our [SerDes BFM](7.SerDes/3.iclink-sv/2.sim/serdes-model) (from [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE)) stands in for the wire and the `CC_SERDES` hard macro. No VProc, no vendor model: the RTL runs as built.
