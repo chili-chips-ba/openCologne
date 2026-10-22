@@ -239,7 +239,17 @@ Unit tests, run now (`make -C 3.iclink-sv/2.sim`):
 | `sim_prbs` | the SV PRBS7/15/31 TX and RX against LiteX's own `prbs.py`, clock for clock; pause |
 | `sim_phy_oneway` | the GateMate SerDes PHY on the SerDes BFM, TX looped to RX: alignment, data bit-exact, PRBS7/15/31 error-free, a flipped line bit seen |
 | `sim_phy_twoway` | two PHYs, lines crossed: data both ways bit-exact; PRBS15 one way and PRBS31 the other at once; a flip on one line is seen on that side only |
+| `sim_serwb_tx` | the SerWB packetizer (FIFO pump, 2 words per clock) against LiteICLink's own `Packetizer(with_crc=True)`: 200 random packets, 2291 words bit for bit, with input gaps and line stalls; preamble look-alikes in the payload |
 | `sim_top` | the board top's self-tests and SerDes link: a clean run, then a flipped line bit and a one-bit symbol error must each light the error |
+
+Planned: **SerDes in the loop, or out.** The same SerWB tests run twice:
+
+| Run | Link | Shows |
+|---|---|---|
+| SerDes in the loop | PHY, 8b/10b, SerDes BFM, serial line | the full path, line errors, alignment |
+| SerDes out of the loop | the two sides wired on the 64-bit + 8 K digital bus of `CC_SERDES` | the packet layer alone: fast, no line model |
+
+The section will compare the results and run times of both, and show that the protocol layer sees the same words either way.
 
 ### Negative tests
 
