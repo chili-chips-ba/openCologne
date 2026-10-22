@@ -92,6 +92,10 @@
 ```
 
 
+## Status: does not build
+
+`4.migen/liteiclink/serdes/serdes_gm.py` (the Migen GateMate PHY prototype) stops before synthesis, with the current LiteX (`d2b47282a`) as with the earlier one: `SyntaxError: keyword argument repeated: p_PLL_REF_RTERM`. The `CC_SERDES` instance sets `p_PLL_REF_RTERM` twice (lines 192 and 212). Its other undefined names were found earlier. The prototype stays as the team left it, for reference; the working PHY is the SystemVerilog one in [`../3.iclink-sv`](../3.iclink-sv), with its LiteX wrapper in [`../3.iclink-sv/4.litex`](../3.iclink-sv/4.litex).
+
 ## Workflow Overview
 First, let’s dive into the 2.liteiclink folder and walk through its structure so you can see how each component fits together and how the overall build process comes together
 

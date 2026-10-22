@@ -52,6 +52,18 @@ Built 2026-10-21 with LiteX `d2b47282a`, LiteICLink `8ef8d79`, litex-boards `448
 | `rx` | 46.69 MHz | 31.25 MHz |
 | `sys` | 34.59 MHz | 24 MHz |
 
+## Timing
+
+The `tx` clock (31.25 MHz) is the tight one. What we found getting the demo to close:
+
+| Step | `tx` Fmax |
+|---|---|
+| first LiteX build, PRBS mux feeding the encoder in the same clock | 24.95 MHz, seeds 2-5: 26.4-27.9 MHz, all fail |
+| encoder input registered (`tx_enc_d`, `tx_enc_k` in `iclink_serdes_gm.sv`, +1 clock TX latency) | 30.41 MHz; seeds 2 and 6 pass (31.27, 31.53 MHz), 3, 4, 5 and 7 fail |
+| same RTL, LiteX `d2b47282a` / LiteICLink `8ef8d79` | 31.76 MHz at seed 1, pass |
+
+The standalone build ([`../3.build`](../3.build)) has more room (33.1 MHz): the LiteX SoC around the PHY spreads the placement. The remaining critical path is the encoder's running disparity, chained through all 8 words of a clock (LiteICLink chains 2 or 4). Next: pipeline that chain, compute each word's code for both starting disparities and resolve the chain in a second stage, keeping the output bit-exact with LiteX.
+
 ## Status
 
 - Builds; not yet tested on the board.
