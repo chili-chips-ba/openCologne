@@ -73,12 +73,14 @@ One GateMate. Solid boxes are done; dashed ones, tagged NEXT, come next.
 
 A message link between the two eduBOS5 CPUs, ahead of remote memory access: each CPU pushes 32-bit words into a TX FIFO, the pump streams them to the other side, and the other CPU pops them from an RX FIFO. Both firmwares take part. It is the eduBOS5 <-> FIFO <-> link architecture planned for [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/6.soc), there with the PCIe PIPE in place of this PHY, so the FIFO side and its firmware carry over.
 
-**Standard SerWB, not a format of our own.** LiteICLink's Serial Wishbone carries user streams on its packet ports, next to Etherbone: `SERWBCore.add_downstream_endpoint(port, ...)` / `add_upstream_endpoint(port, ...)`. Port 0 is Etherbone, port 1 is LiteICLink's SerIO by default. The pump uses **port 2**. Its words travel in ordinary SerWB packets ([frame format](3.iclink-sv/1.hw/README.md#serial-wishbone-frame)), so a LiteICLink SoC on an ECP5 (test setup 3) can send and receive them, and SerWB's CRC and flow control come with it. Etherbone, for remote memory access, comes later on port 0, on the same packet layer.
+**Standard SerWB, not a format of our own.** LiteICLink's Serial Wishbone carries user streams on its packet ports, next to Etherbone: `SERWBCore.add_downstream_endpoint(port, ...)` / `add_upstream_endpoint(port, ...)`. Port 0 is Etherbone, port 1 is LiteICLink's SerIO by default. The pump uses **port 2**. Its words travel in ordinary SerWB packets, as specified in [LiteICLink `doc/serwb.md`, Protocol](https://github.com/enjoy-digital/liteiclink/blob/master/doc/serwb.md#protocol), implemented in [`serwb/packet.py`](https://github.com/enjoy-digital/liteiclink/blob/master/liteiclink/serwb/packet.py) (our [frame format](3.iclink-sv/1.hw/README.md#serial-wishbone-frame) summary), so a LiteICLink SoC on an ECP5 (test setup 3) can send and receive them, and SerWB's CRC and flow control come with it. Etherbone, for remote memory access, comes later on port 0, on the same packet layer.
 
 ```
  eduBOS5 --CSR--> TX FIFO ==async==> packetizer (port 2) --> PHY tx ~~line~~> PHY rx --> depacketizer --> RX FIFO ==async==> --CSR--> eduBOS5
   (sys)           1024 x 32          (clk_tx)                                        (clk_rx)          1024 x 32            (sys)
 ```
+
+<p align="center"><img width="100%" alt="Serial Wishbone packet format" src="0.doc/serwb-packet.drawio.png"></p>
 
 **Packets.** Up to 16 words per packet: preamble, port/length, payload, CRC32. A packet goes out when 16 words wait or the TX FIFO has been idle for 64 clocks. 16 words carry 84% payload; the line carries two SerWB words per clock (bytes 0-3, 4-7). Between packets: SerWB's K28.1 fill and K28.5 commas.
 
