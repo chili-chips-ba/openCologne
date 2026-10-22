@@ -221,6 +221,8 @@ The 8b/10b and PRBS ports already pass level 1 against LiteX's own models (`code
 - **with CRC** (`with_crc`), the false packet fails its CRC32 (1 in 2^32 chance to pass), its length is bounded (`crc_max_words`), and it is dropped and counted;
 - **without CRC**, the false packet can reach the bus. The receiver resyncs at the next real preamble, or after the 1 ms timeout.
 
+**How likely.** A random payload word equals the preamble with probability 2^-32 (1 in 4.3 x 10^9). A false packet that reaches the bus needs, in a row: a lost count (itself an error event), a preamble-like word, and, with CRC, a passing CRC32 (another 2^-32): about 2^-64 after an already rare framing error. For scale: at 2.5 Gb/s and a bit error rate of 10^-12, the line sees one bit error about every 400 s. A sequence number in the first word of each pump message lets the firmware notice a dropped or false message.
+
 Formats that must never mistake data for framing mark packet starts with an 8b/10b control symbol, which data cannot produce (PCIe uses STP and SDP). SerWB uses K symbols only between packets. For a robust link we use SerWB **with CRC**. A K-symbol start of packet would be safer still, but it would break compatibility with LiteICLink.
 
 ## Conversion process
