@@ -10,7 +10,7 @@ The chip-to-chip link: LiteX's LiteICLink SerWB over our GateMate `CC_SERDES` PH
 
 ## RTL coding rules
 
-The same rules as [openPCIE](https://github.com/chili-chips-ba/openPCIE/blob/main/2.rtl/README.md#rtl-coding-rules) and [wireguard-fpga](https://github.com/chili-chips-ba/wireguard-fpga/blob/main/1.hw/README.md#rtl-coding-rules), for all new openCologne RTL.
+For all new openCologne RTL.
 
 **LiteX code.** The C2C core (SerWB and the GateMate PHY) is SystemVerilog, hand-ported from LiteICLink, and follows the rules below. Only the thin Migen wrapper that hands it to LiteX is Python, in LiteX's own style.
 
@@ -43,7 +43,7 @@ IEEE 1800-2009 SystemVerilog:
 - **Assertions:** only under an `ifdef`; the RTL is never changed for them.
 - **Clean diffs:** no blank-line or alignment changes beyond what `run-format.sh` makes; check `git diff` before a commit.
 - **Models follow the RTL:** a model keeps the ports, names and structure of the RTL it replaces, as our SerDes BFM does for `CC_SERDES`.
-- **Formatting:** `run-format.sh` (Verible, the same flags as openPCIE): every body in `begin` ... `end`, alignment on, LF line endings, at most 100 columns. Run it last, after lint, before a commit; `run-format.sh --check` only lists unformatted files.
+- **Formatting:** `run-format.sh` (Verible): every body in `begin` ... `end`, alignment on, LF line endings, at most 100 columns. Run it last, after lint, before a commit; `run-format.sh --check` only lists unformatted files.
 
 -----------
 #### End-of-Document

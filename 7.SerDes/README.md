@@ -222,7 +222,7 @@ Unit tests, run now (`make -C 3.iclink-sv/2.sim`):
 
 ## QA
 
-Our standard RTL QA flow, the same as openPCIE, wireguard-fpga and openCologne-PCIE. Scripts in `3.iclink-sv/3.build/`, sources from `3.iclink-sv/1.hw/top.filelist`. Run from the repo root:
+Our standard RTL QA flow. Scripts in `3.iclink-sv/3.build/`, sources from `3.iclink-sv/1.hw/top.filelist`. Run from the repo root:
 
 | Command | Checks |
 |---|---|

@@ -288,7 +288,7 @@ See [Contributions](CONTRIBUTING.md): how to report an issue, the QA steps a cha
 
 ## RTL Coding Rules
 
-New RTL follows our [RTL coding rules](7.SerDes/3.iclink-sv/1.hw/README.md#rtl-coding-rules), as in [openPCIE](https://github.com/chili-chips-ba/openPCIE/blob/main/2.rtl/README.md#rtl-coding-rules) and [wireguard-fpga](https://github.com/chili-chips-ba/wireguard-fpga/blob/main/1.hw/README.md#rtl-coding-rules). The older examples predate them.
+New RTL follows our [RTL coding rules](7.SerDes/3.iclink-sv/1.hw/README.md#rtl-coding-rules). The older examples predate them.
 
 ## GenAI
 
