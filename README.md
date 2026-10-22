@@ -181,24 +181,9 @@ Our flagship: two GateMate chips talk over their SerDes, as one memory-mapped sy
 
 End-to-end test jig: the same tests run in sim and on boards.
 
-```mermaid
-flowchart LR
-  subgraph SIM["Simulation: Verilator, open tools only"]
-    direction LR
-    SA["SoC A<br/>eduBOS5 runs<br/>test firmware"] <--> MA["SerDes BFM A<br/>(CC_SERDES model)"]
-    MA <== "serial lines,<br/>crossed" ==> MB["SerDes BFM B<br/>(CC_SERDES model)"]
-    MB <--> SB["SoC B<br/>eduBOS5"]
-  end
-  subgraph HW1["Setup 1: one GateMate EVB"]
-    direction LR
-    ETX["SerDes TX"] -- "cable, TX to own RX" --> ERX["SerDes RX"]
-  end
-  subgraph HW2["Setup 2: two ULX5M-GS boards"]
-    direction LR
-    UA["ULX5M-GS A"] <== "TX/RX crossed" ==> UB["ULX5M-GS B"]
-  end
-  PC["Host PC<br/>UART console"] --- UA
-```
+<p align="center">
+  <img width="100%" alt="Test jig: simulation with two eduBOS5 SoCs and two SerDes BFMs, lines crossed; setup 1 one GateMate EVB with TX cabled to its own RX; setup 2 two ULX5M-GS boards crossed, with a host PC on the UART console" src="7.SerDes/0.doc/iclink-testjig.svg">
+</p>
 
 More in [7.SerDes](7.SerDes): design internals, test jig, build and QA.
 

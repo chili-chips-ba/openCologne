@@ -77,34 +77,11 @@ The SoC is ours, so the core needs no LiteX to run. LiteX users take only the SV
 
 ### Design internals
 
-One GateMate. Solid boxes are done, dashed ones come next.
+One GateMate. Solid boxes are done; dashed ones, tagged NEXT, come next.
 
-```mermaid
-flowchart LR
-  subgraph SOC["SoC, one per GateMate"]
-    direction TB
-    CPU["eduBOS5<br/>RV32I"] <--> BUS["Wishbone bus"]
-    BUS <--> RAM["RAM"]
-    BUS <--> UART["UART"]
-    BUS <--> CSR["CSRs<br/>(PeakRDL)"]
-  end
-  subgraph SWB["Serial Wishbone (SerWB), LiteICLink ported to SV"]
-    direction TB
-    EB["Etherbone<br/>master / slave"] <--> PK["Packetizer /<br/>Depacketizer"]
-    PK <--> SC["Scrambler /<br/>Descrambler<br/>(optional)"]
-  end
-  subgraph PHY["GateMate PHY, ours (iclink_serdes_gm)"]
-    direction TB
-    PRBS["PRBS7/15/31<br/>gen + checker"] <--> ENC["TX: 8b/10b encoder<br/>RX: data + K"]
-    ENC <--> FL["flops on every<br/>CC_SERDES I/O"]
-  end
-  BUS <--> EB
-  SC <--> PRBS
-  FL <--> SER["CC_SERDES<br/>hard macro"]
-  SER <== "2.5 Gb/s" ==> LINE(("serial<br/>line"))
-  classDef next stroke-dasharray: 5 5
-  class CPU,BUS,RAM,UART,CSR,EB,PK,SC next
-```
+<p align="center">
+  <img width="100%" alt="Design internals of one GateMate: SoC (eduBOS5, Wishbone bus, RAM and UART, PeakRDL CSRs), Serial Wishbone (Etherbone, packetizer, optional scrambler), and our PHY (PRBS, 8b/10b, I/O flops, CC_SERDES hard macro) to a 2.5 Gb/s serial line" src="0.doc/iclink-internals.svg">
+</p>
 
 | Block | RTL | From | Status |
 |---|---|---|---|
@@ -176,24 +153,9 @@ LiteX picks `nextpnr-himbaechel-gatemate` from `PATH` when it exists, else `next
 
 The same tests run in simulation and on boards: the sim mirrors each hardware setup.
 
-```mermaid
-flowchart LR
-  subgraph SIM["Simulation: Verilator, open tools only"]
-    direction LR
-    SA["SoC A<br/>eduBOS5 runs<br/>test firmware"] <--> MA["SerDes BFM A<br/>(CC_SERDES model)"]
-    MA <== "serial lines,<br/>crossed" ==> MB["SerDes BFM B<br/>(CC_SERDES model)"]
-    MB <--> SB["SoC B<br/>eduBOS5"]
-  end
-  subgraph HW1["Setup 1: one GateMate EVB"]
-    direction LR
-    ETX["SerDes TX"] -- "cable, TX to own RX" --> ERX["SerDes RX"]
-  end
-  subgraph HW2["Setup 2: two ULX5M-GS boards"]
-    direction LR
-    UA["ULX5M-GS A"] <== "TX/RX crossed" ==> UB["ULX5M-GS B"]
-  end
-  PC["Host PC<br/>UART console"] --- UA
-```
+<p align="center">
+  <img width="100%" alt="Test jig: simulation with two eduBOS5 SoCs and two SerDes BFMs, lines crossed; setup 1 one GateMate EVB with TX cabled to its own RX; setup 2 two ULX5M-GS boards crossed, with a host PC on the UART console" src="0.doc/iclink-testjig.svg">
+</p>
 
 | # | Hardware | Link | Tests |
 |---|---|---|---|
