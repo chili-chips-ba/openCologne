@@ -214,16 +214,49 @@ Two references, for two jobs:
 
 The 8b/10b and PRBS ports already pass level 1 against LiteX's own models (`code_8b10b.py`, `prbs.py`), clock for clock. Levels 1 and 2 run in CI; level 3 on the bench.
 
-**Can the payload contain `0x5AA55AA5`?** Yes. Nothing stops it: the payload is plain data. The receiver still keeps its place by counting, not by searching. It looks for the preamble only between packets; inside a packet it counts `length` bytes and ignores what they hold (`Depacketizer`, `serwb/packet.py`). A false start needs the receiver to lose count first, after a bit error, a dropped word or a reset. Then:
+## Can data look like a preamble?
 
-- a word in the payload that equals the preamble can start a false packet;
-- the next word must still give a port the receiver knows and a non-zero length; otherwise it is dropped;
-- **with CRC** (`with_crc`), the false packet fails its CRC32 (1 in 2^32 chance to pass), its length is bounded (`crc_max_words`), and it is dropped and counted;
-- **without CRC**, the false packet can reach the bus. The receiver resyncs at the next real preamble, or after the 1 ms timeout.
+**Short answer:** yes, and SerWB does not prevent it. Any 32-bit payload word can equal `0x5AA55AA5`. The link stays safe because the receiver does not rely on the preamble alone.
 
-**How likely.** A random payload word equals the preamble with probability 2^-32 (1 in 4.3 x 10^9). A false packet that reaches the bus needs, in a row: a lost count (itself an error event), a preamble-like word, and, with CRC, a passing CRC32 (another 2^-32): about 2^-64 after an already rare framing error. For scale: at 2.5 Gb/s and a bit error rate of 10^-12, the line sees one bit error about every 400 s. A sequence number in the first word of each pump message lets the firmware notice a dropped or false message.
+### How the receiver keeps its place
 
-Formats that must never mistake data for framing mark packet starts with an 8b/10b control symbol, which data cannot produce (PCIe uses STP and SDP). SerWB uses K symbols only between packets. For a robust link we use SerWB **with CRC**. A K-symbol start of packet would be safer still, but it would break compatibility with LiteICLink.
+The receiver (`Depacketizer`, `serwb/packet.py`) is a small state machine:
+
+1. **Between packets** it compares each word with the preamble.
+2. **On a match** it reads the next word: port and length. A zero length ends the packet there.
+3. **Inside the packet** it counts `length` bytes and passes them on, **without looking at what they hold**. A payload word that equals the preamble is just data here.
+4. **After the last word** (and the CRC32, when on) it goes back to step 1.
+
+So while the receiver is in step, data can never be taken for a preamble: it never searches inside a packet.
+
+### When it can go wrong
+
+Only after the receiver has **lost count**: a bit error in the length, a word lost on the line, or a reset in the middle of a packet. It may then be back at step 1 while the sender is still in a payload, and a payload word that equals the preamble starts a **false packet**. That false packet still has to pass:
+
+| Check | Without CRC | With CRC (`with_crc`) |
+|---|---|---|
+| the port is one the receiver knows | yes | yes |
+| the length is not zero | yes | yes |
+| the length is at most `crc_max_words` | no | yes |
+| the CRC32 over header and payload matches | no | yes: a false packet passes 1 time in 2^32 |
+| a packet that stops arriving is dropped after 1 ms | yes | yes |
+
+With CRC, a false packet is dropped and counted in `crc_errors`; the receiver finds the next real preamble and is back in step. Without CRC, a false packet can reach the bus.
+
+### How likely
+
+- A random payload word equals the preamble 1 time in 2^32 (4.3 x 10^9).
+- A false packet that gets through needs three things in a row: a lost count (itself an error event), a preamble-like word, and a passing CRC32. That is about 2^-64 after an already rare framing error.
+- For scale: at 2.5 Gb/s and a bit error rate of 10^-12, the line sees one bit error about every 400 s.
+
+### What we do
+
+- **CRC on**, both sides: the default for the FIFO pump.
+- **A sequence number** in the first word of each pump message, so the firmware notices a dropped or false message.
+
+### The structural alternative
+
+Protocols that must never mistake data for framing mark each packet start with an 8b/10b **K symbol**, which data cannot produce: PCIe uses STP and SDP. With that, a lost count is found at the next packet start, whatever the data. SerWB uses K symbols only between packets, not to start one, so adding a K-symbol start would break compatibility with LiteICLink. We keep SerWB as it is, with CRC.
 
 ## Conversion process
 
