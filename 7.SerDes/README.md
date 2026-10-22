@@ -286,7 +286,7 @@ The same during PRBS7: `rx_prbs_errors` counts the flip.
 
 One session per test setup, with everything that setup needs: bring-up (clocks, reset, bring-up FSM, ready flags), TX data and the serial line, the flip, the received line with the serial decoder, RX data and errors, the checker, and PRBS. The one-way session has one PHY; the two-way session has both sides, labelled `a.` and `b.`. When Serial Wishbone is in, the two-way testbench and this same session gain the Wishbone bus of each eduBOS5 SoC (WaveCrux's built-in Wishbone decoder: a write on A, then the access arriving on B) and the Serial Wishbone packets.
 
-## QA
+## RTL Quality Assurance
 
 Our standard RTL QA flow. Scripts in `3.iclink-sv/3.build/`, sources from `3.iclink-sv/1.hw/top.filelist`. Run from the repo root:
 
