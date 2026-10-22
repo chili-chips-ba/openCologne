@@ -70,7 +70,10 @@ Why the differences:
 
 ## Serial Wishbone frame
 
-The format of LiteICLink `8ef8d79` ([`../0.upstream/liteiclink/doc/serwb.md`](../0.upstream/liteiclink/doc/serwb.md), `serwb/packet.py`), which our port keeps so it interoperates. Not in RTL yet.
+The format of LiteICLink `8ef8d79`, which our port keeps so it interoperates. Not in RTL yet. Sources:
+
+- the SerWB spec: [`doc/serwb.md`](https://github.com/enjoy-digital/liteiclink/blob/master/doc/serwb.md) (our copy: [`../0.upstream/liteiclink/doc/serwb.md`](../0.upstream/liteiclink/doc/serwb.md)), and its code, `serwb/packet.py`;
+- Etherbone: CERN's [Etherbone core](https://ohwr.org/projects/etherbone-core), as implemented in LiteEth's [`frontend/etherbone.py`](https://github.com/enjoy-digital/liteeth/blob/master/liteeth/frontend/etherbone.py), which LiteICLink reuses.
 
 **Packet**, in 32-bit words:
 
@@ -116,6 +119,23 @@ Writes are posted: acknowledged once sent. **A read** is a round trip: A sends a
 | K28.3 / K28.4 | XOFF / XON: pause and resume the far transmitter (flow control, both sides) |
 
 **On our PHY**, 8 symbols per clock: two SerWB words per 31.25 MHz clock, the first in bytes 0-3, the second in bytes 4-7, each K flag with its byte. LiteICLink's 4-symbol SerWB encoder is then replaced by the PHY's 8-symbol path (see the table above): interoperability is at the packet layer.
+
+**Will it work with Lattice and others?** SerWB is not a standard; it is LiteICLink's own protocol, and LiteICLink is its only reference. It works with another vendor when the other side runs LiteICLink's SerWB core, and both sides agree below it:
+
+- **8b/10b:** standard (IBM), the same code tables in LiteX and in `CC_SERDES`;
+- **bit and byte order on the line, polarity:** set by each SerDes; to be measured on test setup 3 (ECP5);
+- **framing and Etherbone:** identical by construction, when we port the core bit-exact and check it against LiteX's model, as for 8b/10b.
+
+So it is proven only by test: setup 3 on the boards, `interop_twoway` in simulation, and LiteICLink's own SerWB tests run against our port.
+
+**Can the payload contain `0x5AA55AA5`?** Yes. Nothing stops it: the payload is plain data. The receiver still keeps its place by counting, not by searching. It looks for the preamble only between packets; inside a packet it counts `length` bytes and ignores what they hold (`Depacketizer`, `serwb/packet.py`). A false start needs the receiver to lose count first, after a bit error, a dropped word or a reset. Then:
+
+- a word in the payload that equals the preamble can start a false packet;
+- the next word must still give a port the receiver knows and a non-zero length; otherwise it is dropped;
+- **with CRC** (`with_crc`), the false packet fails its CRC32 (1 in 2^32 chance to pass), its length is bounded (`crc_max_words`), and it is dropped and counted;
+- **without CRC**, the false packet can reach the bus. The receiver resyncs at the next real preamble, or after the 1 ms timeout.
+
+Formats that must never mistake data for framing mark packet starts with an 8b/10b control symbol, which data cannot produce (PCIe uses STP and SDP). SerWB uses K symbols only between packets. For a robust link we use SerWB **with CRC**. A K-symbol start of packet would be safer still, but it would break compatibility with LiteICLink.
 
 ## Conversion process
 
