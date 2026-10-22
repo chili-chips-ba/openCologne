@@ -258,6 +258,35 @@ With CRC, a false packet is dropped and counted in `crc_errors`; the receiver fi
 
 Protocols that must never mistake data for framing mark each packet start with an 8b/10b **K symbol**, which data cannot produce: PCIe uses STP and SDP. With that, a lost count is found at the next packet start, whatever the data. SerWB uses K symbols only between packets, not to start one, so adding a K-symbol start would break compatibility with LiteICLink. We keep SerWB as it is, with CRC.
 
+### Compared with PCIe
+
+In SerWB the K symbols do not delimit packets: they fill the gaps and carry flow control, and packets are found by the preamble and the length. PCIe Gen1/Gen2 (also 8b/10b) is the opposite: K symbols are the framing.
+
+| Symbol | Code | PCIe role |
+|---|---|---|
+| STP | K27.7 | start of a TLP (transaction packet) |
+| SDP | K28.2 | start of a DLLP (link packet: ACK/NAK, flow-control credits) |
+| END | K29.7 | end of a good packet |
+| EDB | K30.7 | end of a bad (nullified) packet |
+| COM | K28.5 | starts every ordered set (training, SKP); alignment |
+| SKP | K28.0 | clock compensation between the two ends' clocks |
+| FTS / IDL / PAD | K28.1 / K28.3 / K23.7 | fast training, electrical idle, padding |
+
+Data never produces these symbols, so a PCIe receiver that lost its place finds the next packet at the next STP or SDP, whatever the data held.
+
+| | SerWB (LiteICLink) | PCIe Gen1/2 |
+|---|---|---|
+| Packet start | preamble `0x5AA55AA5`, a data word | STP / SDP, a K symbol |
+| Packet end | counting `length` | END / EDB, a K symbol |
+| Integrity | CRC32, optional | LCRC always; ECRC optional |
+| A bad packet | dropped, never resent | NAK, then replayed from the sender's buffer: no loss |
+| Flow control | XOFF / XON (K28.3 / K28.4) | credits in UpdateFC DLLPs |
+| Clock compensation | none | SKP ordered sets |
+
+The same codes mean different things: K28.3 is SerWB's XOFF and PCIe's IDL, K28.1 is SerWB's fill and PCIe's FTS. The two framings cannot share a lane.
+
+**For openCologne-PCIE**, which reuses the FIFO pump's eduBOS5 <-> FIFO architecture ([`2.rtl/6.soc`](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/6.soc)): the CPU side (FIFOs, CSRs, firmware) carries over unchanged. On the line side the PCIe transaction and data link layers replace the SerWB packetizer. They frame each TLP with STP, sequence number, LCRC and END, and hand data plus K flags to the PIPE: the same byte + K flag shape as this PHY. PCIe Gen3 and later (128b/130b) have no K symbols at all; they frame with tokens and sync headers. That does not apply to GateMate, whose SerDes tops out at 5 Gb/s (Gen2).
+
 ## Conversion process
 
 LiteICLink is Python (Migen). We port it by hand, block by block:
