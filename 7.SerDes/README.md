@@ -2,36 +2,6 @@
 
 Design a high-speed serial, **memory-mapped Chip-to-Chip (C2C) Interconnect**. The goal of such IP is to set the stage for creating compute clusters and Hyper Cubes made of GateMate FPGAs, all physically interconnected with SerDes, with this C2C on top of it, serving as logical and transport layer.
 
-## References:
-- CologneChip [SerDes example design](https://github.com/pu-cc/gm_serdes_lb) and latest [datasheet](https://colognechip.com/docs/ds1001-gatemate1-datasheet-latest.pdf)
-- Xilinx PG046 - [Aurora 8B/10B](https://docs.amd.com/r/en-US/pg046-aurora-8b10b/Introduction?tocId=Tqe8wtK9r1zAUq13hUnVEw)
-    - Xilinx SP002 - [Aurora 8B/10B Protocol Spec](https://docs.amd.com/v/u/en-US/aurora_8b10b_protocol_spec_sp002)
-- BerkeleyLab [ChitChat](https://berkeleylab.github.io/Bedrock/_gen_md/serial_io/chitchat/README_md.html) protocol
-- LiteX [IC Link](https://github.com/enjoy-digital/liteiclink)
-- [MesaBusProtocol](https://github.com/blackmesalabs/MesaBusProtocol)
-- T. Ibrahimović, N. Osmić, [eduBOS5: A Case Study in Structured SystemVerilog and PPA Optimization for Resource-Constrained RISC-V FPGA Cores](https://doi.org/10.1109/Austrochip67945.2025.11183711), Austrochip 2025, IEEE. The CPU in our SoC.
-- openCologne-PCIE [SerDes BFM](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/2.serdes-model) and [SerDes loopback tests](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/1.serdes-test.STANDALONE)
-- [Transputer](http://www.bitsavers.org/components/inmos/transputer/C011_Link_Adaptor.pdf)
-- [LiteX 1000basex](https://github.com/pu-cc/liteeth/tree/gatemate1000basex)
-- [Seding Data Structures from chip to chip](https://www.reddit.com/r/FPGA/comments/1m8gl5o/how_to_send_a_struct_from_one_dev_board_to_another)
-  
-- Timing-aware/better PNR for this high-speed design:
-    - [Project Peppercorn](https://github.com/YosysHQ/prjpeppercorn)
-    - [nextpnr for GateMate](https://github.com/YosysHQ/nextpnr/tree/main/himbaechel/uarch/gatemate)
-
-- Primer on [Eye Diagrams](https://incompliancemag.com/eye-diagram-part1) and [Equivalent Time Sampling](https://www.tek.com/en/documents/application-note/real-time-versus-equivalent-time-sampling) (vs. real-time)
-
-<p align="center" width="100%">
-    <img width="65%" src="0.doc/Eye-Diagrams.png">
-</p>
-
-- Gowin primer on SerDes Signal Integrity ([SI](https://www.gowinsemi.com/en/market/market_detail/48)) measurements 
-
-- Altera [Serial Link Analyzer](https://www.altera.com/products/development-tools/quartus-prime/advanced-link-analyzer)
-
-- Xilinx UG908 - In-System [IBERT](https://docs.amd.com/r/en-US/ug908-vivado-programming-debugging/Using-Vivado-Serial-I/O-Analyzer-to-Debug-the-Design)
-
-    
 ## Plan of Record
 Having thoroughly studied all options, the developers presented them in a project meeting on _July 11, 2025_, where team unanimously decided for the GateMate Chip2Chip SerDes:
 - not to mimic the semi-proprietary _Xilinx/AMD Aurora_
@@ -201,5 +171,34 @@ Tools: Yosys with read_slang (openXC7 or OSS CAD Suite), Verilator, Verible, pyt
 ### Community Outreach
 - [2025-08-10](https://www.linkedin.com/feed/update/urn:li:activity:7359764905572376577?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7359764905572376577%2C7360217016948985856%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287360217016948985856%2Curn%3Ali%3Aactivity%3A7359764905572376577%29)
 - [2025-02-21](https://www.linkedin.com/posts/patrick-urban-086177251_gatemate-fpga-colognechip-activity-7298662301677551616-4sw0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAJv-TcBSi_5ff0VNMrInrT-xg44YF3jnyU)
+
+## References:
+- CologneChip [SerDes example design](https://github.com/pu-cc/gm_serdes_lb) and latest [datasheet](https://colognechip.com/docs/ds1001-gatemate1-datasheet-latest.pdf)
+- Xilinx PG046 - [Aurora 8B/10B](https://docs.amd.com/r/en-US/pg046-aurora-8b10b/Introduction?tocId=Tqe8wtK9r1zAUq13hUnVEw)
+    - Xilinx SP002 - [Aurora 8B/10B Protocol Spec](https://docs.amd.com/v/u/en-US/aurora_8b10b_protocol_spec_sp002)
+- BerkeleyLab [ChitChat](https://berkeleylab.github.io/Bedrock/_gen_md/serial_io/chitchat/README_md.html) protocol
+- LiteX [IC Link](https://github.com/enjoy-digital/liteiclink)
+- [MesaBusProtocol](https://github.com/blackmesalabs/MesaBusProtocol)
+- T. Ibrahimović, N. Osmić, [eduBOS5: A Case Study in Structured SystemVerilog and PPA Optimization for Resource-Constrained RISC-V FPGA Cores](https://doi.org/10.1109/Austrochip67945.2025.11183711), Austrochip 2025, IEEE. The CPU in our SoC.
+- openCologne-PCIE [SerDes BFM](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/2.serdes-model) and [SerDes loopback tests](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/1.serdes-test.STANDALONE)
+- [Transputer](http://www.bitsavers.org/components/inmos/transputer/C011_Link_Adaptor.pdf)
+- [LiteX 1000basex](https://github.com/pu-cc/liteeth/tree/gatemate1000basex)
+- [Seding Data Structures from chip to chip](https://www.reddit.com/r/FPGA/comments/1m8gl5o/how_to_send_a_struct_from_one_dev_board_to_another)
+  
+- Timing-aware/better PNR for this high-speed design:
+    - [Project Peppercorn](https://github.com/YosysHQ/prjpeppercorn)
+    - [nextpnr for GateMate](https://github.com/YosysHQ/nextpnr/tree/main/himbaechel/uarch/gatemate)
+
+- Primer on [Eye Diagrams](https://incompliancemag.com/eye-diagram-part1) and [Equivalent Time Sampling](https://www.tek.com/en/documents/application-note/real-time-versus-equivalent-time-sampling) (vs. real-time)
+
+<p align="center" width="100%">
+    <img width="65%" src="0.doc/Eye-Diagrams.png">
+</p>
+
+- Gowin primer on SerDes Signal Integrity ([SI](https://www.gowinsemi.com/en/market/market_detail/48)) measurements 
+
+- Altera [Serial Link Analyzer](https://www.altera.com/products/development-tools/quartus-prime/advanced-link-analyzer)
+
+- Xilinx UG908 - In-System [IBERT](https://docs.amd.com/r/en-US/ug908-vivado-programming-debugging/Using-Vivado-Serial-I/O-Analyzer-to-Debug-the-Design)
 
 ### End of Document
