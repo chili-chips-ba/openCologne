@@ -69,6 +69,14 @@ One GateMate. Solid boxes are done; dashed ones, tagged NEXT, come next.
 - **Latency,** TX data in to RX data out: 2 (encoder) + 1 (TX flops) + `CC_SERDES` + 1 (RX flops) + 1 clocks.
 - **Why the RX decodes in the hard macro:** with its 8b/10b off, `CC_SERDES` hands out only bits 7:0 of each symbol, so the fabric cannot see whole symbols.
 
+### PHY RTL
+
+`iclink_serdes_gm`, as built: modules, `CC_SERDES` ports, bus widths and the three clock domains.
+
+<p align="center">
+  <img width="100%" alt="iclink_serdes_gm block diagram: clk_tx domain with iclink_prbs_tx, iclink_8b10b_enc and the tx_ser flops into CC_SERDES TX_DATA_I; clk_rx domain with the rx_ser flops, rx regs and iclink_prbs_rx; clk_reg domain with the bring-up FSM driving the PLL reset, regfile writes and TX/RX resets" src="0.doc/iclink-phy-rtl.drawio.png">
+</p>
+
 ## Build
 
 ### From the legacy GateMate tools to Project Peppercorn
