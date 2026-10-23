@@ -3,12 +3,15 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 //==========================================================================
-// Async FIFO of 32-bit words for the FIFO pump: 0, 1 or 2 words in per
-// write clock, 0, 1 or 2 words out per read clock.
+// Async FIFO of 32-bit words for the FIFO pump: 0 .. W words in per write
+// clock, 0 .. W words out per read clock (W = 2 or 4, the pump's words a
+// line clock).
 //
-// Storage: two DEPTH/2 x 32 RAMs, even words and odd words, so two
-// neighbouring words are always in different RAMs: one write port and one
-// registered read port each, which maps to block RAM.
+// Storage: W RAMs of DEPTH/W x 32, word p in RAM p mod W, so W neighbouring
+// words are always in different RAMs: one write port and one registered
+// read port each, which maps to block RAM. WN and RN cap the words in and
+// out a clock where a side moves fewer (the CPU side: one), so its muxes
+// shrink.
 //
 // Commit / rewind (COMMIT = 1, the RX FIFO): the writer's words stay
 // invisible to the reader until w_commit; w_rewind drops all words since
@@ -22,8 +25,8 @@
 //
 // Timing: the write port is registered in front of the RAM (a word lands a
 // clock later; the reader cannot see it sooner, through the pointer
-// crossing). On the read side, the rows for taking 0, 1 or 2 words come
-// from rd_ptr alone, and the late r_take only picks one.
+// crossing). On the read side, the rows for taking 0 .. W words come from
+// rd_ptr alone, and the late r_take only picks one.
 //
 // The writer must keep w_used + (words written) <= DEPTH; the reader must
 // not take more than r_avail.
@@ -31,72 +34,79 @@
 module iclink_serwb_fifo
   import iclink_serwb_pkg::*;
 #(
-    parameter  int DEPTH  = 1024,          // words, a power of 2
+    parameter  int DEPTH  = 1024,           // words, a power of 2
+    parameter  int W      = 2,              // words a clock, a power of 2
+    parameter  int WN     = W,              // words in a clock, at most
+    parameter  int RN     = W,              // words out a clock, at most
     parameter  bit COMMIT = 1'b1,
-    localparam int AW     = $clog2(DEPTH)
+    localparam int AW     = $clog2(DEPTH),
+    localparam int LW     = $clog2(W),      // address bits of the RAM select
+    localparam int TW     = $clog2(W + 1)   // a count of 0 .. W
 ) (
-    input  logic         w_clk,
-    input  logic         w_arst_n,
-    input  word_t [ 1:0] w_word,
-    input  logic  [ 1:0] w_valid,   // 2'b00, 2'b01 or 2'b11: compacted, slot 0 first
-    input  logic         w_commit,  // this clock's words included
-    input  logic         w_rewind,  // this clock's words dropped too
-    output logic  [AW:0] w_used,
+    input  logic          w_clk,
+    input  logic          w_arst_n,
+    input  word_t [W-1:0] w_word,
+    input  logic  [W-1:0] w_valid,   // compacted, slot 0 first: 0, 1, 3, 7 ..
+    input  logic          w_commit,  // this clock's words included
+    input  logic          w_rewind,  // this clock's words dropped too
+    output logic  [ AW:0] w_used,
 
-    input  logic         r_clk,
-    input  logic         r_arst_n,
-    output word_t [ 1:0] r_word,    // the next two words, r_word[0] first
-    input  logic  [ 1:0] r_take,    // 0, 1 or 2 words taken this clock
-    output logic  [AW:0] r_avail
+    input  logic           r_clk,
+    input  logic           r_arst_n,
+    output word_t [ W-1:0] r_word,    // the next W words, r_word[0] first
+    input  logic  [TW-1:0] r_take,    // 0 .. W words taken this clock
+    output logic  [  AW:0] r_avail
 );
 
-  word_t mem0[DEPTH/2];  // even words
-  word_t mem1[DEPTH/2];  // odd words
+  typedef logic [AW-LW-1:0] row_t;
 
   //-----------------------------------------------------------------------
   // write side
   //-----------------------------------------------------------------------
   logic [AW:0] wr_ptr, wr_ptr_next, com_ptr, rd_ptr_w;
-  logic [1:0] w_n;
-  logic [AW-2:0] w_row0, w_row1;  // rows of the even and the odd one of wr_ptr, wr_ptr + 1
+  logic  [TW-1:0] w_n;
+  row_t  [ W-1:0] w_row;  // RAM b's row, for the one of the next W words it holds
+  logic  [ W-1:0] w_we;
+  word_t [ W-1:0] w_d;
 
-  // of two neighbouring words p, p + 1: the odd one is in row p >> 1, the
-  // even one in row (p >> 1) + p[0]; so the pair always lands in both RAMs
+  // word i goes to address wr_ptr + i: RAM b takes word (b - wr_ptr) mod W,
+  // in row wr_ptr >> LW, or in the row after when b is below wr_ptr's RAM
   always_comb begin
-    w_n         = {1'b0, w_valid[0]} + {1'b0, w_valid[1]};
+    w_n = '0;
+    for (int i = 0; i < WN; i++) begin
+      w_n = w_n + TW'(w_valid[i]);
+    end
     wr_ptr_next = wr_ptr + (AW + 1)'(w_n);
-    w_row1      = wr_ptr[AW-1:1];
-    w_row0      = wr_ptr[AW-1:1] + (AW - 1)'(wr_ptr[0]);
+    for (int b = 0; b < W; b++) begin
+      w_row[b] = row_t'(wr_ptr[AW-1:LW]) + row_t'(LW'(b) < wr_ptr[LW-1:0]);
+      w_we[b]  = 1'b0;
+      w_d[b]   = '0;
+      for (int i = 0; i < WN; i++) begin
+        if (LW'(LW'(b) - wr_ptr[LW-1:0]) == LW'(i)) begin
+          w_we[b] = w_valid[i];
+          w_d[b]  = w_word[i];
+        end
+      end
+    end
   end
 
-  // word 0 goes to wr_ptr, word 1 to wr_ptr + 1: into flops first, then the RAMs
-  logic [1:0] ram_we;
-  logic [AW-2:0] ram_row0, ram_row1;
-  word_t ram_d0, ram_d1;
+  // into flops first, then the RAMs
+  logic  [W-1:0] ram_we;
+  row_t  [W-1:0] ram_row;
+  word_t [W-1:0] ram_d;
 
   always_ff @(posedge w_clk or negedge w_arst_n) begin
     if (!w_arst_n) begin
       ram_we <= '0;
     end
     else begin
-      ram_we <= {wr_ptr[0] ? w_valid[0] : w_valid[1], wr_ptr[0] ? w_valid[1] : w_valid[0]};
+      ram_we <= w_we;
     end
   end
 
   always_ff @(posedge w_clk) begin
-    ram_row0 <= w_row0;
-    ram_row1 <= w_row1;
-    ram_d0   <= wr_ptr[0] ? w_word[1] : w_word[0];
-    ram_d1   <= wr_ptr[0] ? w_word[0] : w_word[1];
-  end
-
-  always_ff @(posedge w_clk) begin
-    if (ram_we[0]) begin
-      mem0[ram_row0] <= ram_d0;
-    end
-    if (ram_we[1]) begin
-      mem1[ram_row1] <= ram_d1;
-    end
+    ram_row <= w_row;
+    ram_d   <= w_d;
   end
 
   always_ff @(posedge w_clk or negedge w_arst_n) begin
@@ -123,43 +133,36 @@ module iclink_serwb_fifo
   // read side
   //-----------------------------------------------------------------------
   logic [AW:0] rd_ptr, rd_ptr_next, com_ptr_r, r_avail_now;
-  logic [AW-2:0] r_row0, r_row1;  // rows of the even and the odd one of the next two words
-  logic [AW-2:0] h, h1, h2;  // rd_ptr's row and the two after it
-  word_t q0, q1;  // RAM outputs: words at the even and odd one of them
+  logic  [AW-1:0]        p;  // rd_ptr + t, for each take t (the address, no wrap bit)
+  row_t  [  RN:0][W-1:0] r_row_t;  // RAM b's row after a take of t words
+  row_t  [ W-1:0]        r_row;
+  word_t [ W-1:0]        q;  // RAM outputs
 
-  // r_take arrives late: the rows for take 0, 1 and 2 come from rd_ptr
-  // alone, and r_take only picks one (of rows h, h + 1, h + 2)
+  // r_take arrives late: the rows for each take come from rd_ptr alone, and
+  // r_take only picks one
   always_comb begin
     rd_ptr_next = rd_ptr + (AW + 1)'(r_take);
-    h           = rd_ptr[AW-1:1];
-    h1          = h + 1'b1;
-    h2          = h + (AW - 1)'(2);
-    unique case (r_take)
-      2'd1: begin
-        r_row1 = rd_ptr[0] ? h1 : h;
-        r_row0 = h1;
+    for (int t = 0; t <= RN; t++) begin
+      p = rd_ptr[AW-1:0] + AW'(t);
+      for (int b = 0; b < W; b++) begin
+        r_row_t[t][b] = row_t'(p[AW-1:LW]) + row_t'(LW'(b) < p[LW-1:0]);
       end
-      2'd2: begin
-        r_row1 = h1;
-        r_row0 = rd_ptr[0] ? h2 : h1;
+    end
+    r_row = r_row_t[0];
+    for (int t = 1; t <= RN; t++) begin
+      if (r_take == TW'(t)) begin
+        r_row = r_row_t[t];
       end
-      default: begin
-        r_row1 = h;
-        r_row0 = rd_ptr[0] ? h1 : h;
-      end
-    endcase
+    end
     r_avail_now = com_ptr_r - rd_ptr;
   end
 
-  // registered reads at the next pointer, so the words at rd_ptr are ready
-  always_ff @(posedge r_clk) begin
-    q0 <= mem0[r_row0];
-    q1 <= mem1[r_row1];
-  end
-
+  // r_word[i] is the word at rd_ptr + i, in RAM (rd_ptr + i) mod W
   always_comb begin
-    r_word[0] = rd_ptr[0] ? q1 : q0;
-    r_word[1] = rd_ptr[0] ? q0 : q1;
+    r_word = '0;
+    for (int i = 0; i < RN; i++) begin
+      r_word[i] = q[LW'(rd_ptr[LW-1:0]+LW'(i))];
+    end
   end
 
   always_ff @(posedge r_clk or negedge r_arst_n) begin
@@ -172,6 +175,24 @@ module iclink_serwb_fifo
       r_avail <= r_avail_now - (AW + 1)'(r_take);
     end
   end
+
+  //-----------------------------------------------------------------------
+  // the RAMs, one per word slot; registered reads at the next pointer, so
+  // the words at rd_ptr are ready
+  //-----------------------------------------------------------------------
+  for (genvar b = 0; b < W; b++) begin : g_ram
+    word_t mem[DEPTH/W];
+
+    always_ff @(posedge w_clk) begin
+      if (ram_we[b]) begin
+        mem[ram_row[b]] <= ram_d[b];
+      end
+    end
+
+    always_ff @(posedge r_clk) begin
+      q[b] <= mem[r_row[b]];
+    end
+  end : g_ram
 
   //-----------------------------------------------------------------------
   // pointers across

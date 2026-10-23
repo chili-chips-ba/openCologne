@@ -7,11 +7,13 @@
 // packets out (serwb_rx_expect.txt) and the same CRC error and drop counts
 // (serwb_rx_counts.txt), all written by gen_serwb_rx_vectors.py from
 // LiteICLink. The words land in random slots with random gaps, so packets
-// start in slot 0 and in slot 1. Then the timeout: a packet cut short must
-// be dropped.
+// start in every slot, and with W = 4 the next packet starts next to the
+// CRC before it. Then the timeout: a packet cut short must be dropped.
 module tb_serwb_rx;
   import iclink_serwb_pkg::*;
 
+  parameter int W = 2;
+  localparam int DW = $clog2(W / 2 + 1);
   localparam int TIMEOUT_CLKS = 50;
 
   logic clk;
@@ -22,12 +24,14 @@ module tb_serwb_rx;
     forever #16 clk = ~clk;  // 31.25 MHz
   end : _clk
 
-  word_t [1:0] i_word, o_word;
-  logic [1:0] i_valid, o_valid;
-  logic [7:0] o_port;
-  logic o_commit, o_drop, o_crc_error;
+  word_t [W-1:0] i_word, o_word;
+  logic  [W-1:0] i_valid, o_valid;
+  logic  [   7:0] o_port;
+  logic  [DW-1:0] o_drop;
+  logic o_commit, o_rewind, o_crc_error;
 
   iclink_serwb_rx #(
+      .W           (W),
       .MAX_WORDS   (16),
       .TIMEOUT_CLKS(TIMEOUT_CLKS)
   ) dut (
@@ -93,7 +97,7 @@ module tb_serwb_rx;
     end
     else begin
       n = sent;
-      for (int s = 0; s < 2; s++) begin
+      for (int s = 0; s < W; s++) begin
         i_valid[s] <= 1'b0;
         if (n < stream.size() && ($urandom % 4) != 0) begin
           i_word[s]  <= stream[n];
@@ -118,7 +122,7 @@ module tb_serwb_rx;
       n_drops      <= 0;
     end
     else begin
-      for (int s = 0; s < 2; s++) begin
+      for (int s = 0; s < W; s++) begin
         if (o_valid[s]) begin
           pend.push_back(o_word[s]);
         end
@@ -134,10 +138,10 @@ module tb_serwb_rx;
         n_pkt <= n_pkt + 1;
         pend.delete();
       end
-      if (o_drop) begin
+      if (o_rewind) begin
         pend.delete();
-        n_drops <= n_drops + 1;
       end
+      n_drops <= n_drops + int'(o_drop);
       if (o_crc_error) begin
         n_crc_errors <= n_crc_errors + 1;
       end
@@ -150,8 +154,8 @@ module tb_serwb_rx;
     repeat (TIMEOUT_CLKS + 10) @(posedge clk);
     pass = n_pkt == exp_pkt.size() && n_bad == 0 && n_crc_errors == exp_crc_errors &&
         n_drops == exp_drops;
-    $display("TB_SERWB_RX: %s  %0d of %0d packets as LiteICLink, %0d wrong;",
-             pass ? "PASS" : "FAIL", n_pkt, exp_pkt.size(), n_bad);
+    $display("TB_SERWB_RX: %s  W=%0d, %0d of %0d packets as LiteICLink, %0d wrong;",
+             pass ? "PASS" : "FAIL", W, n_pkt, exp_pkt.size(), n_bad);
     $display("  CRC errors %0d (%0d); drops %0d (%0d, incl. 1 timeout)", n_crc_errors,
              exp_crc_errors, n_drops, exp_drops);
     $finish;

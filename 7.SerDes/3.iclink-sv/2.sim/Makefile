@@ -13,6 +13,8 @@
 #   make sim_serwb_tx  SerWB packetizer against LiteICLink's Packetizer (vectors/serwb_*)
 #   make sim_serwb_rx  SerWB depacketizer against LiteICLink's CRCDepacketizer (vectors/serwb_rx_*)
 #   make sim_serwb_pump  FIFO pump, two sides on the digital bus (SerDes out of the loop), flow control
+#   make sim_serwb_w4  the three SerWB tests with W = 4 words a clock (5 Gb/s), through gearboxes
+#                      (SERWB_W=4 does the same for any one of them)
 #   make sim_top    the board top: self-tests and the SerDes link, clean and with errors
 #   make vectors    regenerate vectors/*.hex from LiteX (needs LiteX in python3)
 #   make clean
@@ -22,10 +24,11 @@ BFM := serdes-model/ccfpga_serdes_pkg.sv serdes-model/ccfpga_serdes.sv
 OUT := obj_8b10b
 
 WAVES ?= 0
+SERWB_W ?= 2
 TRACE := $(if $(filter 1,$(WAVES)),--trace-fst --trace-structs,)
 PLUS  := $(if $(filter 1,$(WAVES)),+waves,)
 
-.PHONY: all sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_phy_rates sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_top vectors clean
+.PHONY: all sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_phy_rates sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_serwb_w4 sim_top vectors clean
 
 all: sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_top
 
@@ -80,27 +83,30 @@ sim_phy_twoway:
 
 sim_serwb_tx:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-	  --top-module tb_serwb_tx -Mdir obj_serwb_tx \
+	  --top-module tb_serwb_tx -GW=$(SERWB_W) -Mdir obj_serwb_tx_w$(SERWB_W) \
 	  $(HW)/iclink_serwb_pkg.sv $(HW)/iclink_serwb_tx.sv tb_serwb_tx.sv
-	./obj_serwb_tx/Vtb_serwb_tx | tee sim_serwb_tx.log
+	./obj_serwb_tx_w$(SERWB_W)/Vtb_serwb_tx | tee sim_serwb_tx.log
 	@grep -q "TB_SERWB_TX: PASS" sim_serwb_tx.log
 
 sim_serwb_rx:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-	  --top-module tb_serwb_rx -Mdir obj_serwb_rx \
+	  --top-module tb_serwb_rx -GW=$(SERWB_W) -Mdir obj_serwb_rx_w$(SERWB_W) \
 	  $(HW)/iclink_serwb_pkg.sv $(HW)/iclink_serwb_rx.sv tb_serwb_rx.sv
-	./obj_serwb_rx/Vtb_serwb_rx | tee sim_serwb_rx.log
+	./obj_serwb_rx_w$(SERWB_W)/Vtb_serwb_rx | tee sim_serwb_rx.log
 	@grep -q "TB_SERWB_RX: PASS" sim_serwb_rx.log
 
 PUMP_SRC := $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv $(HW)/iclink_serwb_pkg.sv \
   $(HW)/iclink_cdc_ptr.sv $(HW)/iclink_serwb_fifo.sv $(HW)/iclink_serwb_tx.sv \
-  $(HW)/iclink_serwb_rx.sv $(HW)/iclink_serwb_pump.sv
+  $(HW)/iclink_serwb_rx.sv $(HW)/iclink_serwb_pump.sv $(HW)/iclink_gearbox.sv
 
 sim_serwb_pump:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL -Wno-UNUSEDPARAM \
-	  --top-module tb_serwb_pump -Mdir obj_serwb_pump $(PUMP_SRC) tb_serwb_pump.sv
-	./obj_serwb_pump/Vtb_serwb_pump | tee sim_serwb_pump.log
+	  --top-module tb_serwb_pump -GW=$(SERWB_W) -Mdir obj_serwb_pump_w$(SERWB_W) $(PUMP_SRC) tb_serwb_pump.sv
+	./obj_serwb_pump_w$(SERWB_W)/Vtb_serwb_pump | tee sim_serwb_pump.log
 	@grep -q "TB_SERWB_PUMP: PASS" sim_serwb_pump.log
+
+sim_serwb_w4:
+	$(MAKE) SERWB_W=4 sim_serwb_tx sim_serwb_rx sim_serwb_pump
 
 sim_top:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
@@ -114,4 +120,4 @@ vectors:
 	mkdir -p vectors && python3 gen_8b10b_vectors.py vectors && python3 gen_prbs_vectors.py vectors && python3 gen_serwb_vectors.py vectors && python3 gen_serwb_rx_vectors.py vectors
 
 clean:
-	rm -rf $(OUT) obj_prbs obj_phy obj_phy2 obj_serwb_tx obj_serwb_rx obj_serwb_pump obj_top sim_8b10b.log sim_prbs.log sim_phy_oneway.log sim_phy_twoway.log sim_serwb_tx.log sim_serwb_rx.log sim_serwb_pump.log pump_levels.csv sim_top.log phy_oneway.fst phy_twoway.fst
+	rm -rf $(OUT) obj_prbs obj_phy obj_phy2 obj_serwb_tx_w* obj_serwb_rx_w* obj_serwb_pump_w* obj_top sim_8b10b.log sim_prbs.log sim_phy_oneway.log sim_phy_twoway.log sim_serwb_tx.log sim_serwb_rx.log sim_serwb_pump.log pump_levels.csv sim_top.log phy_oneway.fst phy_twoway.fst

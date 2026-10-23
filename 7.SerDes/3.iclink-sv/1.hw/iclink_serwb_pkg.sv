@@ -38,13 +38,19 @@ package iclink_serwb_pkg;
 
   // The step is linear over GF(2): serwb_crc32(c, d) = serwb_crc32(c, 0) ^
   // serwb_crc32(0, d). So a pipeline computes the data term on its own,
-  // ahead of the CRC register, and the loop keeps only the c term. Both
+  // ahead of the CRC register, and the loop keeps only the c term. Over one
+  // clock of words, the data term is the XOR of each word's own term, which
+  // depends only on how many covered words follow it in that clock. All
   // terms are XOR matrices, built here from serwb_crc32 at elaboration: each
   // output bit is the XOR of the input bits its row selects, a flat XOR
   // tree, where the bit-serial form above synthesizes into a deep chain.
 
   typedef logic [31:0][31:0] mat32_t;  // [output bit] = which of 32 input bits
-  typedef logic [31:0][63:0] mat64_t;  // [output bit] = which of 64 input bits
+
+  localparam int SERWB_W_MAX = 4;  // words a clock, at most
+
+  typedef mat32_t [SERWB_W_MAX:0] mats_t;
+  typedef word_t [SERWB_W_MAX:0] words_t;
 
   // c -> the CRC after n words of zeros
   function automatic mat32_t serwb_cmat(input int n);
@@ -62,26 +68,16 @@ package iclink_serwb_pkg;
     return m;
   endfunction
 
-  // {w1, w0} -> the CRC of w0 then w1, from 0; w1 alone: the low 32 columns
-  // of SERWB_D1 below
-  function automatic mat64_t serwb_dmat2();
-    mat64_t m;
-    word_t  v;
-    for (int j = 0; j < 64; j++) begin
-      v = (j < 32) ? serwb_crc32(serwb_crc32('0, word_t'(1) << j), '0) :
-          serwb_crc32('0, word_t'(1) << (j - 32));
-      for (int i = 0; i < 32; i++) begin
-        m[i][j] = v[i];
-      end
-    end
-    return m;
-  endfunction
-
-  function automatic mat32_t serwb_dmat1();
+  // w -> the CRC of w, then of k words of zeros, from 0: the data term of
+  // a word with k covered words after it in the same clock
+  function automatic mat32_t serwb_mmat(input int k);
     mat32_t m;
     word_t  v;
     for (int j = 0; j < 32; j++) begin
       v = serwb_crc32('0, word_t'(1) << j);
+      for (int n = 0; n < k; n++) begin
+        v = serwb_crc32(v, '0);
+      end
       for (int i = 0; i < 32; i++) begin
         m[i][j] = v[i];
       end
@@ -89,10 +85,35 @@ package iclink_serwb_pkg;
     return m;
   endfunction
 
-  localparam mat32_t SERWB_C1 = serwb_cmat(1);
-  localparam mat32_t SERWB_C2 = serwb_cmat(2);
-  localparam mat32_t SERWB_D1 = serwb_dmat1();
-  localparam mat64_t SERWB_D2 = serwb_dmat2();
+  function automatic mats_t serwb_cmats();
+    mats_t m;
+    for (int n = 0; n <= SERWB_W_MAX; n++) begin
+      m[n] = serwb_cmat(n);
+    end
+    return m;
+  endfunction
+
+  function automatic mats_t serwb_mmats();
+    mats_t m;
+    for (int k = 0; k <= SERWB_W_MAX; k++) begin
+      m[k] = serwb_mmat(k);
+    end
+    return m;
+  endfunction
+
+  // SERWB_CRC_INIT after n words of zeros
+  function automatic words_t serwb_iwords();
+    words_t v;
+    v[0] = SERWB_CRC_INIT;
+    for (int n = 1; n <= SERWB_W_MAX; n++) begin
+      v[n] = serwb_crc32(v[n-1], '0);
+    end
+    return v;
+  endfunction
+
+  localparam mats_t  SERWB_C = serwb_cmats();
+  localparam mats_t  SERWB_M = serwb_mmats();
+  localparam words_t SERWB_I = serwb_iwords();
 
   function automatic word_t mul32(input mat32_t m, input word_t x);
     word_t o;
@@ -102,59 +123,68 @@ package iclink_serwb_pkg;
     return o;
   endfunction
 
-  function automatic word_t mul64(input mat64_t m, input logic [63:0] x);
-    word_t o;
-    for (int i = 0; i < 32; i++) begin
-      o[i] = ^(m[i] & x);
-    end
-    return o;
-  endfunction
+  // Each branch below multiplies by a constant matrix, a flat XOR tree, and
+  // the case only picks a result. Indexing SERWB_C by a signal instead would
+  // put a matrix mux in front of the AND gates.
 
-  // the data term of 0, 1 or 2 words (mask: slot 0 then slot 1), in order
-  function automatic word_t serwb_crc_dterm(input word_t [1:0] w, input logic [1:0] mask);
-    case (mask)
-      2'b01: begin
-        return mul32(SERWB_D1, w[0]);
-      end
-      2'b10: begin
-        return mul32(SERWB_D1, w[1]);
-      end
-      2'b11: begin
-        return mul64(SERWB_D2, {w[1], w[0]});
-      end
-      default: begin
-        return '0;
-      end
-    endcase
-  endfunction
-
-  // the CRC term of SERWB_CRC_INIT over n words: a constant per n, so a
-  // packet start costs the CRC loop nothing (it goes into the data term)
-  function automatic word_t serwb_crc_iterm(input logic [1:0] n);
+  // the CRC term over n = 0 .. 4 words
+  function automatic word_t serwb_crc_cterm(input word_t crc, input logic [2:0] n);
     case (n)
-      2'd1: begin
-        return serwb_crc32(SERWB_CRC_INIT, '0);
+      3'd1: begin
+        return mul32(SERWB_C[1], crc);
       end
-      2'd2: begin
-        return serwb_crc32(serwb_crc32(SERWB_CRC_INIT, '0), '0);
+      3'd2: begin
+        return mul32(SERWB_C[2], crc);
       end
-      default: begin
-        return SERWB_CRC_INIT;
+      3'd3: begin
+        return mul32(SERWB_C[3], crc);
       end
-    endcase
-  endfunction
-
-  // the CRC term over n = 0, 1 or 2 words
-  function automatic word_t serwb_crc_cterm(input word_t crc, input logic [1:0] n);
-    case (n)
-      2'd1: begin
-        return mul32(SERWB_C1, crc);
-      end
-      2'd2: begin
-        return mul32(SERWB_C2, crc);
+      3'd4: begin
+        return mul32(SERWB_C[4], crc);
       end
       default: begin
         return crc;
+      end
+    endcase
+  endfunction
+
+  // the data term of one word with k = 0 .. 3 covered words after it
+  function automatic word_t serwb_crc_mterm(input word_t w, input logic [1:0] k);
+    case (k)
+      2'd1: begin
+        return mul32(SERWB_M[1], w);
+      end
+      2'd2: begin
+        return mul32(SERWB_M[2], w);
+      end
+      2'd3: begin
+        return mul32(SERWB_M[3], w);
+      end
+      default: begin
+        return mul32(SERWB_M[0], w);
+      end
+    endcase
+  endfunction
+
+  // the INIT term of a packet start with n = 0 .. 4 covered words after it:
+  // a constant per n, so a start costs the CRC loop nothing (it goes into
+  // the data term)
+  function automatic word_t serwb_crc_iterm(input logic [2:0] n);
+    case (n)
+      3'd1: begin
+        return SERWB_I[1];
+      end
+      3'd2: begin
+        return SERWB_I[2];
+      end
+      3'd3: begin
+        return SERWB_I[3];
+      end
+      3'd4: begin
+        return SERWB_I[4];
+      end
+      default: begin
+        return SERWB_I[0];
       end
     endcase
   endfunction
