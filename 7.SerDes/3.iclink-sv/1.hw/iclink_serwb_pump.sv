@@ -10,7 +10,10 @@
 //   phy_rx -> K filter -> depacketizer -> RX FIFO (commit / rewind) ==> sys
 //
 // Packets: PKT_WORDS words once that many wait, or what waits after
-// FLUSH_CLKS clocks. On the line between packets: K28.1 fill. Flow control
+// FLUSH_CLKS clocks. tx_hold (CTRL.tx_hold) keeps a new packet from
+// starting, so the TX FIFO can fill and then go out at line rate; a packet
+// already started ends first. On the line between packets: K28.1 fill,
+// held or not. Flow control
 // as LiteICLink's FlowControl (serwb/datapath.py): the RX FIFO at XOFF_LEVEL
 // words or more asks the far side to pause (K28.3), below XON_LEVEL to
 // resume (K28.4); the request takes one clock from the packetizer, even in
@@ -48,6 +51,7 @@ module iclink_serwb_pump
     input  word_t        tx_data,
     output logic         tx_full,
     output logic  [AW:0] tx_used,
+    input  logic         tx_hold,     // CTRL.tx_hold: no new packet starts
     input  logic         rx_pop,
     output word_t        rx_data,
     output logic         rx_empty,
@@ -114,6 +118,7 @@ module iclink_serwb_pump
   logic [13:0] tx_left;  // words of this packet still to give
   logic tx_left_ge2;  // tx_left >= 2, from a flop: the FIFO read address waits on it
   logic [$clog2(FLUSH_CLKS)-1:0] flush_cnt;
+  logic [1:0] hold_sync;  // tx_hold, from clk_sys
   logic hdr_ready, d_ready, pk_ready;
   word_t [1:0] pk_word;
   logic  [1:0] pk_valid;
@@ -131,11 +136,17 @@ module iclink_serwb_pump
       tx_left     <= '0;
       tx_left_ge2 <= 1'b0;
       flush_cnt   <= '0;
+      hold_sync   <= '0;
     end
     else begin
+      hold_sync <= {hold_sync[0], tx_hold};
+
       unique case (tx_state)
         T_WAIT: begin
-          if (txf_avail >= (AW + 1)'(PKT_WORDS)) begin
+          if (hold_sync[1]) begin
+            flush_cnt <= '0;
+          end
+          else if (txf_avail >= (AW + 1)'(PKT_WORDS)) begin
             tx_left     <= 14'(PKT_WORDS);
             tx_left_ge2 <= PKT_WORDS >= 2;
             tx_state    <= T_HDR;

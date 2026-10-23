@@ -112,7 +112,7 @@ A message link between the two eduBOS5 CPUs, ahead of remote memory access: each
 | `RX_DATA` | read: pop a word |
 | `STATUS` | `tx_level`, `rx_level`, `tx_full`, `rx_empty`, `link_up`, `xoff_rx` (far side paused us) |
 | `ERRORS` | `crc_errors`, `rx_overflow` (sticky), write 1 to clear |
-| `CTRL` | `enable`, `flush` |
+| `CTRL` | `enable`, `flush`, `tx_hold` (no new packet starts: the TX FIFO fills, then goes out at line rate) |
 
 **Tests.** The testbenches of setups 1 and 2 gain a pump phase after the PHY tests, so the FSTs and the sessions `tb_phy.ONEWAY` / `tb_phy.TWOWAY` cover it:
 

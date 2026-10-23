@@ -12,7 +12,7 @@
 //      XOFF stops A, A's TX FIFO fills and pushes back on A's CPU; B's RX
 //      FIFO must not overflow. Then B reads again: XON, A drains, all
 //      words arrive in order.
-//   3. line rate: A's TX is held while A's CPU fills the TX FIFO (1024
+//   3. line rate: A's TX is held (tx_hold) while A's CPU fills the TX FIFO (1024
 //      words, 64 packets); then the burst goes out with no CPU in the way,
 //      and B's depacketizer must see BURST_RATE words a clock or more.
 //
@@ -61,7 +61,7 @@ module tb_serwb_pump;
   logic a_paused, b_paused, a_pause, b_pause;
   logic [15:0] a_crc, b_crc, a_drops, b_drops, a_ovf, b_ovf;
   logic link_en;
-  logic a_tx_hold;  // phase 3: A's TX held while its FIFO fills
+  logic a_tx_hold;  // phase 3: A's tx_hold while its FIFO fills
 
   iclink_serwb_pump #(
       .DEPTH(DEPTH)
@@ -72,13 +72,14 @@ module tb_serwb_pump;
       .tx_data      (a_wdata),
       .tx_full      (a_full),
       .tx_used      (a_used),
+      .tx_hold      (a_tx_hold),
       .rx_pop       (a_pop),
       .rx_data      (a_rdata),
       .rx_empty     (a_empty),
       .rx_avail     (a_avail),
       .clk_tx       (clk_line),
       .tx_arst_n    (arst_n),
-      .tx_en        (link_en && !a_tx_hold),
+      .tx_en        (link_en),
       .phy_tx       (a_tx),
       .clk_rx       (clk_line),
       .rx_arst_n    (arst_n),
@@ -100,6 +101,7 @@ module tb_serwb_pump;
       .tx_data      (b_wdata),
       .tx_full      (b_full),
       .tx_used      (b_used),
+      .tx_hold      (1'b0),
       .rx_pop       (b_pop),
       .rx_data      (b_rdata),
       .rx_empty     (b_empty),
