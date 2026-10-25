@@ -33,8 +33,9 @@ package iclink_phy_pkg;
   // SerDes bring-up: regfile writes, the ones Cologne Chip's PRBS loopback
   // test of the EVB uses (openCologne-PCIE 2.rtl/1.phy/1.serdes-test.STANDALONE)
   localparam int CFG_WRITES = 3;
-  localparam int CFG_IDX_W = $clog2(CFG_WRITES);
-  localparam int CFG_WAIT_W = 6;  // 2^CFG_WAIT_W clk_reg clocks before and after each write
+  localparam int CFG_IDX_W  = (CFG_WRITES > 1) ? $clog2(CFG_WRITES) : 1;
+  // 2^CFG_WAIT_W clk_reg clocks before the first write and after each
+  localparam int CFG_WAIT_W = 6;
 
   typedef struct packed {
     logic [7:0]  addr;
@@ -42,6 +43,15 @@ package iclink_phy_pkg;
   } cfg_write_t;
 
   localparam logic [7:0] SERDES_CFG_ADDR = 8'h5C;  // SerDes enable
+  localparam logic [7:0] PHY_COMMA = 8'hBC;  // K28.5: the lane aligner seeks it in lanes 0, 4
+  localparam logic [7:0] PHY_IDLE = 8'h1C;  // K28.0: a K, but no comma
+
+  // the idle word: K28.5 in lane 0 for comma alignment, K28.0 in lane 4 so
+  // that no half of it reads as data (a SerWB K filter drops it)
+  localparam phy_word_t PHY_COMMA_WORD = '{
+      d: {8'h00, 8'h00, 8'h00, PHY_IDLE, 8'h00, 8'h00, 8'h00, PHY_COMMA},
+      k: 8'b0001_0001
+  };
 
   typedef cfg_write_t [CFG_WRITES-1:0] cfg_seq_t;
 

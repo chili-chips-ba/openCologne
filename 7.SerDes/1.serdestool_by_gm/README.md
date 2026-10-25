@@ -1,11 +1,13 @@
-# SerDes App for GateMate
+# SerDes loopback test
+
+Cologne Chip's `serdestool.py` drives `CC_SERDES` over JTAG. Needs python3 with `pyftdi` (`pip install pyftdi`), a GateMate EVB, and on it a bitstream of `serdes_lb.v` (a `CC_SERDES` loopback design, from `serdestool.py -m serdes_lb.v`), built with the flow in [Build](../README.md#build).
 
 ## References
 - Measuring Eye Diagrams on [Rigol MSO5000](https://www.youtube.com/watch?si=vo3GYcDNML9LsX7S&v=JcJbcKl5llo&feature=youtu.be)
   
 ## Verifying board setup
 
-Using the provided serdestool we can verify that our board setup is functioning correctrly. We can run a loopback test ( `./sedestool --tcloopback `) :
+It checks the board setup. A loopback test (`python3 serdestool.py --tcloopback`):
 
 ```
     INFO:  Found 1 device in JTAG chain.
@@ -84,7 +86,7 @@ Using the provided serdestool we can verify that our board setup is functioning 
     INFO:  Checking 8-Bit comma alignment
 
 ``` 
-as well as a PRBS test (`./serdestool --tcprbs`):
+A PRBS test (`python3 serdestool.py --tcprbs`):
 
 
 ```

@@ -94,7 +94,7 @@ module tb_phy_oneway
     end
     w.d[PHY_NWORDS-1] = byte_t'(n >> 5);  // no two words alike within 8192
     if (n % 16 == 0) begin  // a comma every 16 words, in lane 0
-      w.d[0] = 8'hBC;
+      w.d[0] = PHY_COMMA;
       w.k[0] = 1'b1;
     end
     return w;
@@ -103,7 +103,7 @@ module tb_phy_oneway
   initial forever begin : _tx
     @(posedge clk_tx);
     tx_cnt <= tx_cnt + 1;
-    tx     <= word_of(send ? tx_cnt : 0);
+    tx     <= send ? word_of(tx_cnt) : PHY_COMMA_WORD;
     if (send) begin
       sent.push_back(word_of(tx_cnt));
     end
@@ -212,6 +212,11 @@ module tb_phy_oneway
     join_any
     disable fork;
     $display("bring-up: TX and RX ready, aligned at %0t", $time);
+    // the iclink_serdes_gm policy: comma alignment off once aligned, so a
+    // flipped line bit cannot move the word boundary
+    repeat (32) @(posedge clk_rx);
+    ctrl.rx_align = 1'b0;
+    repeat (8) @(posedge clk_rx);
 
     // 2. data, bit-exact
     @(posedge clk_tx);
@@ -286,6 +291,14 @@ module tb_phy_oneway
     $display("TB_PHY_ONEWAY: %s", (errors == 0) ? "PASS" : "FAIL");
     $finish;
   end
+
+  // a test that never ends fails
+  initial begin : _watchdog
+    #2ms;
+    $display("ERROR: timeout at %0t", $time);
+    $display("TB_PHY_ONEWAY: FAIL");
+    $finish;
+  end : _watchdog
 
 endmodule : tb_phy_oneway
 

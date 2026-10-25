@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2026 Chili.CHIPS
+
+SPDX-License-Identifier: BSD-3-Clause
+-->
+
 # LiteX integration
 
 The GateMate SerDes PHY ([`../1.hw/iclink_serdes_gm.sv`](../1.hw/iclink_serdes_gm.sv)) as a LiteX core. Goal: offer it to LiteICLink as its GateMate transceiver PHY, next to the ECP5 and Xilinx ones.
@@ -6,7 +12,7 @@ The GateMate SerDes PHY ([`../1.hw/iclink_serdes_gm.sv`](../1.hw/iclink_serdes_g
 |---|---|
 | [`serdes_gatemate.py`](serdes_gatemate.py) | `SerDesGateMate`: Migen wrapper (`Instance`) around the SV core, with LiteICLink's transceiver PHY interface |
 | [`gatemate_evb_serdes.py`](gatemate_evb_serdes.py) | demo SoC on the GateMate EVB: the PHY, its CSRs, UARTBone to the host, no CPU |
-| [`gatemate_evb_serdes.bit`](gatemate_evb_serdes.bit) | its bitstream |
+| [`gatemate_evb_serdes.bit`](gatemate_evb_serdes.bit) | its bitstream, built 2026-10-21 (commit `b753304`), before the RX lane aligner |
 
 ## Interface
 
@@ -62,7 +68,7 @@ The `tx` clock (31.25 MHz) is the tight one. What we found getting the demo to c
 | encoder input registered (`tx_enc_d`, `tx_enc_k` in `iclink_serdes_gm.sv`, +1 clock TX latency) | 30.41 MHz; seeds 2 and 6 pass (31.27, 31.53 MHz), 3, 4, 5 and 7 fail |
 | same RTL, LiteX `d2b47282a` / LiteICLink `8ef8d79` | 31.76 MHz at seed 1, pass |
 
-The standalone build ([`../3.build`](../3.build)) has more room (33.1 MHz): the LiteX SoC around the PHY spreads the placement. The remaining critical path is the encoder's running disparity, chained through all 8 words of a clock (LiteICLink chains 2 or 4). Next: pipeline that chain, compute each word's code for both starting disparities and resolve the chain in a second stage, keeping the output bit-exact with LiteX.
+The standalone build ([`../3.build`](../3.build)) has more room (36.6 to 39.1 MHz, current RTL): the LiteX SoC around the PHY spreads the placement. The remaining critical path is the encoder's running disparity, chained through all 8 words of a clock (LiteICLink chains 2 or 4). Next: pipeline that chain, compute each word's code for both starting disparities and resolve the chain in a second stage, keeping the output bit-exact with LiteX.
 
 ## Status
 

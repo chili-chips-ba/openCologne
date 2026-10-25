@@ -18,5 +18,12 @@
 #      .PIN (/*LINT:OK*/), or route them to an NC_ (no-connect) signal;
 #   4. only then a waiver here, with its reason.
 
+# a package serves several designs (top, the SerWB link layer): a constant
+# that one of them does not use is not dead
+verilator ^%Warning-UNUSEDPARAM: 1\.hw/iclink_[a-z_]*pkg\.sv:
+
+# the SerWB modules size their casts for any W; at W = 2 some are 1 bit already
+slang ^1\.hw/iclink_serwb_(fifo|rx)\.sv:[0-9]+:[0-9]+: warning: useless cast
+
 # NC_ signals are no-connects by name: driven by an unused output, never read
 verilator ^%Warning-UNUSEDSIGNAL: .*'NC_[A-Za-z0-9_]+'

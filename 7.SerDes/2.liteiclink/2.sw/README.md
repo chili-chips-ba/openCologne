@@ -1,3 +1,5 @@
+LiteX's bare-metal demo app (upstream `litex/soc/software/demo`), with our `main.c` for the datapath. Its upstream README follows.
+
 [> Bare Metal Demo App
 ----------------------
 

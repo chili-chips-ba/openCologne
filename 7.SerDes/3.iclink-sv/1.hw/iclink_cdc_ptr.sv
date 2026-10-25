@@ -10,7 +10,10 @@
 // packet at a commit; a Gray-coded pointer may only step by one. The copy
 // lags by about 3 destination clocks and is refreshed every 6 or so.
 //
-// Both sides reset to 0, so they may leave reset at different times.
+// Both sides reset to 0, so they may leave reset at different times, but
+// they must enter it together: iclink_serwb_fifo resets both on either.
+// CDC: hold is stable while req crosses, so its bits need no skew limit;
+// req_sync and ack_sync are the synchronizers.
 //==========================================================================
 module iclink_cdc_ptr #(
     parameter int W = 11

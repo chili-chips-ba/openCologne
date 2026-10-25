@@ -29,13 +29,15 @@ module tb_prbs;
   logic             pause;
   logic     [W-1:0] tx_i, tx_o, flip;
   logic     [ 31:0] rx_errors;
+  prbs_cfg_t        NC_tx_cfg;  // not checked: LiteX has no such output
 
   iclink_prbs_tx #(.WIDTH(W)) u_tx (
       .clk     (clk),
       .arst_n  (arst_n),
       .config_i(tx_config),
       .i       (tx_i),
-      .o       (tx_o)
+      .o       (tx_o),
+      .config_o(NC_tx_cfg)
   );
 
   iclink_prbs_rx #(.WIDTH(W)) u_rx (

@@ -30,6 +30,10 @@
 //
 // The writer must keep w_used + (words written) <= DEPTH; the reader must
 // not take more than r_avail.
+//
+// Reset: either side's reset resets both (the FIFO empties), each released
+// on its own clock. A side alone in reset, say clk_rx on a lost link, so
+// cannot leave the other side with pointers that disagree.
 //==========================================================================
 module iclink_serwb_fifo
   import iclink_serwb_pkg::*;
@@ -59,6 +63,41 @@ module iclink_serwb_fifo
 );
 
   typedef logic [AW-LW-1:0] row_t;
+
+  if ((DEPTH & (DEPTH - 1)) != 0 || !(W inside {2, 4}) || DEPTH < 2 * W) begin : g_bad
+    $error("iclink_serwb_fifo: DEPTH %0d (a power of 2), W %0d (2 or 4)", DEPTH, W);
+  end : g_bad
+
+  //-----------------------------------------------------------------------
+  // reset: both sides together
+  //-----------------------------------------------------------------------
+  logic both_n;  // low while either side is in reset
+  logic w_meta, r_meta;  // first stages, read only by the next
+  logic w_rst_n, r_rst_n;  // each side's reset, released on its clock
+
+  assign both_n = w_arst_n & r_arst_n;
+
+  always_ff @(posedge w_clk or negedge both_n) begin
+    if (!both_n) begin
+      w_meta  <= 1'b0;
+      w_rst_n <= 1'b0;
+    end
+    else begin
+      w_meta  <= 1'b1;
+      w_rst_n <= w_meta;
+    end
+  end
+
+  always_ff @(posedge r_clk or negedge both_n) begin
+    if (!both_n) begin
+      r_meta  <= 1'b0;
+      r_rst_n <= 1'b0;
+    end
+    else begin
+      r_meta  <= 1'b1;
+      r_rst_n <= r_meta;
+    end
+  end
 
   //-----------------------------------------------------------------------
   // write side
@@ -95,8 +134,8 @@ module iclink_serwb_fifo
   row_t  [W-1:0] ram_row;
   word_t [W-1:0] ram_d;
 
-  always_ff @(posedge w_clk or negedge w_arst_n) begin
-    if (!w_arst_n) begin
+  always_ff @(posedge w_clk or negedge w_rst_n) begin
+    if (!w_rst_n) begin
       ram_we <= '0;
     end
     else begin
@@ -109,8 +148,8 @@ module iclink_serwb_fifo
     ram_d   <= w_d;
   end
 
-  always_ff @(posedge w_clk or negedge w_arst_n) begin
-    if (!w_arst_n) begin
+  always_ff @(posedge w_clk or negedge w_rst_n) begin
+    if (!w_rst_n) begin
       wr_ptr  <= '0;
       com_ptr <= '0;
       w_used  <= '0;
@@ -165,8 +204,8 @@ module iclink_serwb_fifo
     end
   end
 
-  always_ff @(posedge r_clk or negedge r_arst_n) begin
-    if (!r_arst_n) begin
+  always_ff @(posedge r_clk or negedge r_rst_n) begin
+    if (!r_rst_n) begin
       rd_ptr  <= '0;
       r_avail <= '0;
     end
@@ -201,10 +240,10 @@ module iclink_serwb_fifo
       .W(AW + 1)
   ) u_com_to_r (
       .src_clk   (w_clk),
-      .src_arst_n(w_arst_n),
+      .src_arst_n(w_rst_n),
       .src_ptr   (com_ptr),
       .dst_clk   (r_clk),
-      .dst_arst_n(r_arst_n),
+      .dst_arst_n(r_rst_n),
       .dst_ptr   (com_ptr_r)
   );
 
@@ -212,10 +251,10 @@ module iclink_serwb_fifo
       .W(AW + 1)
   ) u_rd_to_w (
       .src_clk   (r_clk),
-      .src_arst_n(r_arst_n),
+      .src_arst_n(r_rst_n),
       .src_ptr   (rd_ptr),
       .dst_clk   (w_clk),
-      .dst_arst_n(w_arst_n),
+      .dst_arst_n(w_rst_n),
       .dst_ptr   (rd_ptr_w)
   );
 

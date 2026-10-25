@@ -124,6 +124,11 @@ module tb_phy_twoway
     join_any
     disable fork;
     $display("bring-up: A and B ready and aligned at %0t", $time);
+    // the iclink_serdes_gm policy: comma alignment off once aligned
+    repeat (32) @(posedge u_a.clk_rx);
+    ctrl_a.rx_align = 1'b0;
+    ctrl_b.rx_align = 1'b0;
+    repeat (8) @(posedge u_a.clk_rx);
 
     // 2. data both ways, bit-exact
     send = 1'b1;
@@ -182,6 +187,14 @@ module tb_phy_twoway
     $display("TB_PHY_TWOWAY: %s", (errors == 0) ? "PASS" : "FAIL");
     $finish;
   end
+
+  // a test that never ends fails
+  initial begin : _watchdog
+    #2ms;
+    $display("ERROR: timeout at %0t", $time);
+    $display("TB_PHY_TWOWAY: FAIL");
+    $finish;
+  end : _watchdog
 
 endmodule : tb_phy_twoway
 
@@ -248,7 +261,7 @@ module phy_side
     end
     w.d[PHY_NWORDS-1] = byte_t'(n >> 5);
     if (n % 16 == 0) begin
-      w.d[0] = 8'hBC;
+      w.d[0] = PHY_COMMA;
       w.k[0] = 1'b1;
     end
     return w;
@@ -262,7 +275,7 @@ module phy_side
   initial forever begin : _tx
     @(posedge clk_tx);
     tx_cnt <= tx_cnt + 1;
-    tx     <= word_of(send ? tx_cnt : 0, SEED_TX);
+    tx     <= send ? word_of(tx_cnt, SEED_TX) : PHY_COMMA_WORD;
   end : _tx
 
   initial forever begin : _rx

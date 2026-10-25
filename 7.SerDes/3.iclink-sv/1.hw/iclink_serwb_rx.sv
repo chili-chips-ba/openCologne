@@ -34,7 +34,10 @@
 // of the last stage, so words, commits and drops keep their order.
 //
 // Timeout as LiteICLink: TIMEOUT_CLKS clocks without a word in DATA or
-// CHECK drops the packet.
+// CHECK drops the packet. i_hold (we asked the far side to pause) stops
+// the timer: a paused packet waits as long as the pause.
+//
+// o_port is the packet's port, valid with o_commit.
 //==========================================================================
 module iclink_serwb_rx
   import iclink_serwb_pkg::*;
@@ -47,17 +50,27 @@ module iclink_serwb_rx
     input logic clk,
     input logic arst_n,
 
+    input logic          i_hold,  // no timeout while high
     input word_t [W-1:0] i_word,
     input logic  [W-1:0] i_valid,
 
     output word_t [ W-1:0] o_word,
     output logic  [ W-1:0] o_valid,
-    output logic  [   7:0] o_port,
+    output logic  [   7:0] o_port,      // valid with o_commit
     output logic           o_commit,
     output logic           o_rewind,    // drop this packet's words: a CRC error or a timeout
     output logic  [DW-1:0] o_drop,      // packets dropped, CRC errors included
     output logic           o_crc_error
 );
+
+  if (!(W inside {2, 4}) || MAX_WORDS < 1 || MAX_WORDS > 16383 || TIMEOUT_CLKS < 2) begin : g_bad
+    $error(
+        "iclink_serwb_rx: W %0d (2 or 4), MAX_WORDS %0d (1 .. 16383), TIMEOUT_CLKS %0d",
+        W,
+        MAX_WORDS,
+        TIMEOUT_CLKS
+    );
+  end : g_bad
 
   localparam int CW = (W > 3) ? W - 3 : 0;  // B's data words in A's last beat, at most
   localparam int CWD = (CW > 0) ? CW : 1;  // the carry register, declared
@@ -249,7 +262,7 @@ module iclink_serwb_rx
     else begin
       ctx <= ctx_next;
       f   <= f_next;
-      if (r_valid != '0 || timeout || ctx.state == S_PREAMBLE) begin
+      if (r_valid != '0 || timeout || ctx.state == S_PREAMBLE || i_hold) begin
         timer <= '0;
       end
       else begin
@@ -261,7 +274,19 @@ module iclink_serwb_rx
   //-----------------------------------------------------------------------
   // 2. data terms of A and B, with the INIT term on a start
   //-----------------------------------------------------------------------
-  beat_t       t;
+  // what stage 3 reads of a beat
+  typedef struct packed {
+    word_t [W-1:0] word;
+    logic [W-1:0]  data;
+    logic [W-1:0]  chk;
+    logic [W-1:0]  bdata;
+    logic          binit;
+    logic [DW-1:0] drops;
+    logic          tmo;
+    logic [7:0]    port;
+  } mid_t;
+
+  mid_t        t;
   word_t       t_dterm;  // A's
   logic  [2:0] t_n;  // how many words A's CRC slots hold
   word_t       t_bcrc;  // B's CRC after this beat: B starts here, so it is all data term
@@ -274,17 +299,37 @@ module iclink_serwb_rx
       t_bcrc  <= '0;
     end
     else begin
-      t       <= f;
-      t_n     <= count(f.crcd);
+      t <= '{
+          word: f.word,
+          data: f.data,
+          chk: f.chk,
+          bdata: f.bdata,
+          binit: f.binit,
+          drops: f.drops,
+          tmo: f.tmo,
+          port: f.port
+      };
+      t_n <= count(f.crcd);
       t_dterm <= dterm(f.word, f.crcd) ^ (f.init ? serwb_crc_iterm(count(f.crcd)) : '0);
-      t_bcrc  <= CARRY ? (dterm(f.word, f.bcrcd) ^ serwb_crc_iterm(count(f.bcrcd))) : '0;
+      t_bcrc <= CARRY ? (dterm(f.word, f.bcrcd) ^ serwb_crc_iterm(count(f.bcrcd))) : '0;
     end
   end
 
   //-----------------------------------------------------------------------
   // 3. running CRC
   //-----------------------------------------------------------------------
-  beat_t g;
+  // what stage 4 reads of a beat
+  typedef struct packed {
+    word_t [W-1:0] word;
+    logic [W-1:0]  data;
+    logic [W-1:0]  chk;
+    logic [W-1:0]  bdata;
+    logic [DW-1:0] drops;
+    logic          tmo;
+    logic [7:0]    port;
+  } out_t;
+
+  out_t g;
   word_t crc, crc_now;  // crc: the running CRC, 0 between packets
   word_t g_crc;  // A's CRC up to and with g's words
   word_t g_rcvd;  // A's received CRC, if g has one
@@ -309,7 +354,15 @@ module iclink_serwb_rx
       else begin
         crc <= t.tmo ? '0 : crc_now;
       end
-      g     <= t;
+      g <= '{
+          word: t.word,
+          data: t.data,
+          chk: t.chk,
+          bdata: t.bdata,
+          drops: t.drops,
+          tmo: t.tmo,
+          port: t.port
+      };
       g_crc <= crc_now;
       for (int s = 0; s < W; s++) begin
         if (t.chk[s]) begin

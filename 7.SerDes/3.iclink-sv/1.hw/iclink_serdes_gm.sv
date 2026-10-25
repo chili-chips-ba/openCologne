@@ -11,14 +11,31 @@
 //
 //   TX: data -> PRBS TX -> 8b/10b encoder (fabric, iclink_8b10b_enc, as
 //       LiteICLink) -> CC_SERDES with its 8b/10b off: per symbol, bits 7:0
-//       on TX_DATA_I, bit 8 on TX_CHAR_DISPMODE_I, bit 9 on TX_CHAR_DISPVAL_I.
+//       on TX_DATA_I, bit 8 on TX_CHAR_DISPVAL_I, bit 9 on TX_CHAR_DISPMODE_I
+//       (DS1001 Figure 2.34).
 //   RX: CC_SERDES comma alignment and 8b/10b decoder -> data + K + invalid
-//       -> PRBS checker (fabric, iclink_prbs_rx). The RX decodes in the hard
-//       macro: with its 8b/10b off, CC_SERDES hands out only bits 7:0 of
-//       each symbol, so the fabric cannot see whole symbols.
+//       -> lane aligner -> PRBS checker (fabric, iclink_prbs_rx). CC_SERDES
+//       aligns the comma to 32 bits only (RX_ALIGN_COMMA_WORD = 1X): it
+//       lands in lane 0 or lane 4, by the phase of its word counter, which
+//       no one controls (DS1001 Figure 2.41). The lane aligner moves a
+//       lane-4 comma to lane 0, with the next word's lanes 0 to 3. The
+//       lane is taken from each comma while rx_align, from the word after
+//       it (a flop: the compare does not reach the 64-bit mux at 62.5
+//       MHz). A change of lane repeats half a word (to lane 4) or drops
+//       half a word (to lane 0): only commas should be on the line then.
+//       The RX decodes in the hard macro: no fabric, and the comma
+//       alignment is there too (with its 8b/10b off, bits 8 and 9 come
+//       out on RX_CHAR_IS_K_O and RX_DISP_ERR_O, DS1001 Figure 2.39).
 //   PRBS: over the 64 payload bits, sent as D characters through 8b/10b,
 //       not raw on the line as in LiteICLink; the RX checks the decoded
 //       bytes. Send commas first (rx_align), then switch to PRBS.
+//
+//   rx_align policy: high while the far side sends comma words, low before
+//   data or PRBS. While it is high, CC_SERDES realigns on any comma off the
+//   word boundary (DS1001 Table 2.50), and a line error can make one: the
+//   link would slip. So: raise it at bring-up, drop it once rx_aligned and
+//   a few commas have passed, raise it again to realign (rx_ready lost,
+//   a link error). The board top does this (top.sv: ALIGN_COMMAS_LOG2).
 //
 //   Flops at the CC_SERDES boundary, no logic in between:
 //     TX: one flop stage (tx_ser) drives every TX datapath input of CC_SERDES;
@@ -26,7 +43,9 @@
 //     RX: one flop stage (rx_ser) takes every RX datapath and status output
 //         first; TX_RESET_DONE_O goes into a synchronizer flop.
 //   Latency, TX data in to RX data out: 1 (tx_enc) + 2 (encoder) + 1 (tx_ser) + CC_SERDES
-//   + 1 (rx_ser) + 1 (rx) clocks; with TX_HARD_8B10B the 2 encoder clocks go.
+//   + 1 (rx_ser) + 1 (rx, the lane aligner) clocks; with TX_HARD_8B10B the 2
+//   encoder clocks go. A lane-4 comma comes in half a word early and out a
+//   clock later: the same latency.
 //
 //   LINE_RATE (Mb/s): 1250, 2500 or 5000, the PLL setting; the core clocks
 //   run at LINE_RATE / 80. TX_HARD_8B10B: CC_SERDES encodes TX instead of the
@@ -35,7 +54,7 @@
 //
 //   Clocks: clk_tx = PLL_CLK_O (line rate / 80, 31.25 MHz at 2.5 Gb/s);
 //   clk_rx = RX_CLK_O. clk_reg (the board clock) runs the bring-up: three
-//   regfile writes (iclink_phy_pkg::CFG_SEQ), then TX and RX out of reset.
+//   regfile writes (iclink_phy_pkg::cfg_seq()), then TX and RX out of reset.
 //
 //   On the chip CC_SERDES connects to its own serial pins and reference
 //   clock. In simulation the SerDes BFM (ccfpga_serdes, same name and ports
@@ -169,18 +188,19 @@ module iclink_serdes_gm
   // TX on clk_tx: PRBS or data -> 8b/10b -> tx_ser flops -> CC_SERDES
   //-----------------------------------------------------------------------
   logic tx_ready_meta;
-  prbs_cfg_t tx_prbs_meta, tx_prbs;  // for the K mask; PRBS TX syncs its own
-  logic [    PHY_DW-1:0] tx_payload;
-  logic [    PHY_DW-1:0] tx_enc_d;  // tx_payload, registered: the PRBS mux and the
+  prbs_cfg_t tx_prbs_meta, tx_prbs;  // ctrl.tx_prbs, synchronized, into PRBS TX
+  prbs_cfg_t tx_prbs_on;  // PRBS TX's own choice, the same clock as its data: the K mask
+  logic [PHY_DW-1:0] tx_payload;
+  logic [PHY_DW-1:0] tx_enc_d;  // tx_payload, registered: the PRBS mux and the
   logic [PHY_NWORDS-1:0] tx_enc_k;  // encoder tables in one clock miss 31.25 MHz
-  logic                  tx_resetdone;  // CC_SERDES output, read only by the sync below
+  logic tx_resetdone;  // CC_SERDES output, read only by the sync below
 
   // tx_ser: the TX datapath into CC_SERDES, straight from these flops
   typedef struct packed {
     byte_t [PHY_NWORDS-1:0] d;
     logic [PHY_NWORDS-1:0]  k;         // TX_HARD_8B10B: K flags
-    logic [PHY_NWORDS-1:0]  dispmode;  // else symbol bit 8
-    logic [PHY_NWORDS-1:0]  dispval;   // else symbol bit 9
+    logic [PHY_NWORDS-1:0]  dispmode;  // else symbol bit 9 (DS1001 Figure 2.34)
+    logic [PHY_NWORDS-1:0]  dispval;   // else symbol bit 8
   } tx_ser_t;
   tx_ser_t tx_ser;
 
@@ -204,9 +224,10 @@ module iclink_serdes_gm
   ) u_prbs_tx (
       .clk     (clk_tx),
       .arst_n  (tx_ready),
-      .config_i(ctrl.tx_prbs),
+      .config_i(tx_prbs),
       .i       (tx.d),
-      .o       (tx_payload)
+      .o       (tx_payload),
+      .config_o(tx_prbs_on)
   );
 
   always_ff @(posedge clk_tx or negedge tx_ready) begin
@@ -216,7 +237,7 @@ module iclink_serdes_gm
     end
     else begin
       tx_enc_d <= tx_payload;
-      tx_enc_k <= (tx_prbs == PRBS_OFF) ? tx.k : '0;  // PRBS bytes are D characters
+      tx_enc_k <= (tx_prbs_on == PRBS_OFF) ? tx.k : '0;  // PRBS bytes are D characters
     end
   end
 
@@ -255,8 +276,8 @@ module iclink_serdes_gm
       else begin
         for (int w = 0; w < PHY_NWORDS; w++) begin
           tx_ser.d[w]        <= tx_symbol[w][7:0];
-          tx_ser.dispmode[w] <= tx_symbol[w][8];
-          tx_ser.dispval[w]  <= tx_symbol[w][9];
+          tx_ser.dispmode[w] <= tx_symbol[w][9];
+          tx_ser.dispval[w]  <= tx_symbol[w][8];
         end
       end
     end
@@ -305,20 +326,57 @@ module iclink_serdes_gm
     end
   end
 
+  // lane aligner: a comma in lane 4 moves to lane 0; lanes 4 to 7 of the
+  // last word, then lanes 0 to 3 of this one. RX_ALIGN_COMMA_WORD = 1X
+  // steps 32 bits, so two lane positions: 64 bits only
+  localparam int HALF = PHY_NWORDS / 2;
+
+  if (PHY_NWORDS != 8) begin : g_nwords
+    $error("iclink_serdes_gm: the lane aligner needs PHY_NWORDS = 8");
+  end : g_nwords
+
+  byte_t [HALF-1:0] last_d;  // lanes 4 to 7 of the last word
+  logic [HALF-1:0] last_k, last_bad;
+  logic rx_lane4;  // the comma is in lane 4
+  logic comma_at0, comma_at4;
+
+  always_comb begin
+    comma_at0 = rx_ser.k[0] && (rx_ser.d[0] == PHY_COMMA);
+    comma_at4 = rx_ser.k[HALF] && (rx_ser.d[HALF] == PHY_COMMA);
+  end
+
   always_ff @(posedge clk_rx or negedge rx_ready) begin
     if (!rx_ready) begin
       rx         <= '0;
       rx_invalid <= '0;
+      last_d     <= '0;
+      last_k     <= '0;
+      last_bad   <= '0;
+      rx_lane4   <= 1'b0;
     end
     else begin
-      rx.d       <= rx_ser.d;
-      rx.k       <= rx_ser.k;
-      rx_invalid <= rx_ser.not_in_table | rx_ser.disp_err;
+      last_d   <= rx_ser.d[PHY_NWORDS-1:HALF];
+      last_k   <= rx_ser.k[PHY_NWORDS-1:HALF];
+      last_bad <= rx_ser.not_in_table[PHY_NWORDS-1:HALF] | rx_ser.disp_err[PHY_NWORDS-1:HALF];
+      if (rx_align && (comma_at0 || comma_at4)) begin
+        rx_lane4 <= comma_at4 && !comma_at0;
+      end
+      if (rx_lane4) begin
+        rx.d       <= {rx_ser.d[HALF-1:0], last_d};
+        rx.k       <= {rx_ser.k[HALF-1:0], last_k};
+        rx_invalid <= {rx_ser.not_in_table[HALF-1:0] | rx_ser.disp_err[HALF-1:0], last_bad};
+      end
+      else begin
+        rx.d       <= rx_ser.d;
+        rx.k       <= rx_ser.k;
+        rx_invalid <= rx_ser.not_in_table | rx_ser.disp_err;
+      end
     end
   end
 
   iclink_prbs_rx #(
-      .WIDTH(PHY_DW)
+      .WIDTH    (PHY_DW),
+      .PIPE_IDLE(1'b1)     // the 64-bit idle compare, a clock of its own
   ) u_prbs_rx (
       .clk     (clk_rx),
       .arst_n  (rx_ready),
@@ -334,8 +392,9 @@ module iclink_serdes_gm
 `ifdef SYNTHESIS
 
   CC_SERDES #(
-      .SERDES_ENABLE   (1'b1),
-      .SERDES_AUTO_INIT(1'b0)   // the bring-up above sets the PLL up
+      .SERDES_ENABLE      (1'b1),
+      .SERDES_AUTO_INIT   (1'b0),  // the bring-up above sets the PLL up
+      .RX_ALIGN_COMMA_WORD(2'b11)  // the comma in lane 0 or 4: the lane aligner
   ) u_serdes (
       .PLL_RESET_I           (pll_reset),
       .PLL_CLK_O             (clk_tx),
@@ -423,7 +482,9 @@ module iclink_serdes_gm
   logic        NC_rx_byte_realign_o;
   logic        NC_rx_ei_en_o;
 
-  ccfpga_serdes u_serdes (
+  ccfpga_serdes #(
+      .ALIGN_COMMA_WORD(2'b11)  // as RX_ALIGN_COMMA_WORD above
+  ) u_serdes (
       .clk_ref_i           (clk_ref),
       .clk_reg_i           (clk_reg),
       .clk_cfg_i           (clk_reg),

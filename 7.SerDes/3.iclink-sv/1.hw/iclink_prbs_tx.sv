@@ -8,7 +8,9 @@
 // PRBS TX of a SerDes datapath: a SystemVerilog port of LiteX's
 // litex/soc/cores/prbs.py PRBSTX. config 0 passes i through; 1, 2, 3 send
 // PRBS7, 15, 31. config is synchronized (2 flops) for the pass/PRBS choice;
-// the PRBS select uses it as is, as in LiteX.
+// the PRBS select uses it as is, as in LiteX, so config_i must come from
+// this clock or a synchronizer. config_o is the synchronized choice, for
+// logic that must agree with o.
 //==========================================================================
 module iclink_prbs_tx
   import iclink_pkg::*;
@@ -20,7 +22,8 @@ module iclink_prbs_tx
     input  logic                  arst_n,
     input  prbs_cfg_t             config_i,
     input  logic      [WIDTH-1:0] i,
-    output logic      [WIDTH-1:0] o
+    output logic      [WIDTH-1:0] o,
+    output prbs_cfg_t             config_o   // config_i, synchronized: what o follows
 );
 
   logic [WIDTH-1:0] prbs7, prbs15, prbs31, prbs, prbs_ordered;
@@ -80,7 +83,8 @@ module iclink_prbs_tx
       prbs_ordered[b] = REVERSE ? prbs[WIDTH-1-b] : prbs[b];
     end
 
-    o = (config_sync != PRBS_OFF) ? prbs_ordered : i;
+    o        = (config_sync != PRBS_OFF) ? prbs_ordered : i;
+    config_o = config_sync;
   end : _select
 
 endmodule : iclink_prbs_tx

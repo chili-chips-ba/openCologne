@@ -19,34 +19,48 @@
 // side to pause (K28.3), below XON_LEVEL to resume (K28.4); the request
 // takes one clock from the packetizer, even in the middle of a packet, and
 // is sent again every REFRESH_CLKS. A K28.3 from the far side holds the
-// packetizer until a K28.4.
+// packetizer until a K28.4, mid-packet too: while we ask for a pause, the
+// depacketizer's timeout waits, so a long pause drops nothing.
+//
+// XOFF_LEVEL leaves room for the words still coming after XOFF: the round
+// trip of the request (RT_CLKS pump clocks: both directions through the
+// PHYs and CC_SERDES, the synchronizers, the packetizer and depacketizer
+// pipelines), W words a clock. The PHY takes 26 to 29 clocks each way on
+// the SerDes BFM (2.5 and 5 Gb/s), so the round trip is about 75 clocks at
+// W = 2, 60 at W = 4 (half the clock, plus the gearboxes); RT_CLKS = 96
+// leaves a margin. tb_serwb_pump measures the overshoot.
 //
 // RX drops: a bad CRC, a timeout, an oversized header (depacketizer), a
-// port other than PORT, and a packet that found the RX FIFO full (counted
-// as an overflow; flow control keeps it from happening).
+// port other than PORT, and a packet that found the RX FIFO full. That
+// last one counts in drops and in overflows; flow control keeps it from
+// happening.
+//
+// Link down (tx_en low): comma words, K28.5 in lane 0 and K28.0 in lane
+// 4, so the far side's K filter takes no word from them.
 //
 // Clocks: sys (CPU side of both FIFOs), clk_tx (TX FIFO read, packetizer,
 // line), clk_rx (depacketizer, RX FIFO write). The counters and pause are
-// on clk_rx, remote_paused on clk_tx.
+// on clk_rx, remote_paused on clk_tx. Each FIFO resets both its sides on
+// either side's reset (iclink_serwb_fifo).
 //==========================================================================
 module iclink_serwb_pump
-  import iclink_pkg::*;
   import iclink_phy_pkg::*;
   import iclink_serwb_pkg::*;
 #(
-    parameter  int         W            = 2,               // words a line clock: 2 or 4
-    parameter  int         DEPTH        = 1024,            // words, each FIFO
+    parameter  int         W            = 2,                    // words a line clock: 2 or 4
+    parameter  int         DEPTH        = 1024,                 // words, each FIFO
     parameter  int         PKT_WORDS    = 16,
-    parameter  int         MAX_WORDS    = 16,              // largest payload accepted
+    parameter  int         MAX_WORDS    = 16,                   // largest payload accepted
     parameter  logic [7:0] PORT         = 8'd2,
     parameter  int         FLUSH_CLKS   = 64,
-    parameter  int         XOFF_LEVEL   = DEPTH - 64 * W,  // the margin covers the words in flight
+    parameter  int         RT_CLKS      = 96,                   // XOFF round trip, pump clocks
+    parameter  int         XOFF_LEVEL   = DEPTH - RT_CLKS * W,
     parameter  int         XON_LEVEL    = DEPTH / 2,
     parameter  int         REFRESH_CLKS = 1024,
-    parameter  int         TIMEOUT_CLKS = 31250,           // 1 ms at 31.25 MHz
+    parameter  int         TIMEOUT_CLKS = 31250,                // 1 ms at 31.25 MHz
     localparam int         AW           = $clog2(DEPTH),
     localparam int         TW           = $clog2(W + 1),
-    localparam int         NP           = W / 2            // PHY words a line clock
+    localparam int         NP           = W / 2                 // PHY words a line clock
 ) (
     // CPU side
     input  logic         clk_sys,
@@ -79,10 +93,33 @@ module iclink_serwb_pump
     output logic [15:0] overflows
 );
 
-  localparam word_t       WORD_FILL = {24'h0, 8'h3C};  // K28.1
-  localparam word_t       WORD_XOFF = {24'h0, 8'h7C};  // K28.3
-  localparam word_t       WORD_XON  = {24'h0, 8'h9C};  // K28.4
-  localparam logic  [7:0] K28_5     = 8'hBC;
+  localparam word_t WORD_FILL = {24'h0, 8'h3C};  // K28.1
+  localparam word_t WORD_XOFF = {24'h0, 8'h7C};  // K28.3
+  localparam word_t WORD_XON  = {24'h0, 8'h9C};  // K28.4
+
+  if (!(W inside {2, 4}) || (DEPTH & (DEPTH - 1)) != 0) begin : g_bad_w
+    $error("iclink_serwb_pump: W %0d (2 or 4), DEPTH %0d (a power of 2)", W, DEPTH);
+  end : g_bad_w
+  if (PKT_WORDS < 1 || PKT_WORDS > MAX_WORDS || MAX_WORDS > 16383) begin : g_bad_pkt
+    $error(
+        "iclink_serwb_pump: 1 <= PKT_WORDS %0d <= MAX_WORDS %0d (the far side's) <= 16383",
+        PKT_WORDS,
+        MAX_WORDS
+    );
+  end : g_bad_pkt
+  if (!(XON_LEVEL > 0 && XON_LEVEL < XOFF_LEVEL && XOFF_LEVEL <= DEPTH - W)) begin : g_bad_lvl
+    $error(
+        "iclink_serwb_pump: 0 < XON_LEVEL %0d < XOFF_LEVEL %0d <= DEPTH - W", XON_LEVEL, XOFF_LEVEL
+    );
+  end : g_bad_lvl
+  if (FLUSH_CLKS < 2 || (FLUSH_CLKS & (FLUSH_CLKS - 1)) != 0 || REFRESH_CLKS < 2 ||
+      (REFRESH_CLKS & (REFRESH_CLKS - 1)) != 0) begin : g_bad_clks
+    $error(
+        "iclink_serwb_pump: FLUSH_CLKS %0d and REFRESH_CLKS %0d: powers of 2, 2 or more",
+        FLUSH_CLKS,
+        REFRESH_CLKS
+    );
+  end : g_bad_clks
 
   //=======================================================================
   // TX: FIFO, scheduler, packetizer, line
@@ -111,7 +148,7 @@ module iclink_serwb_pump
       .r_avail (txf_avail)
   );
 
-  assign tx_full = (tx_used == (AW + 1)'(DEPTH));
+  assign tx_full = (tx_used >= (AW + 1)'(DEPTH));
 
   // scheduler: a packet of PKT_WORDS, or of what waits after FLUSH_CLKS.
   // The packetizer takes a packet's words from the FIFO as it sends them;
@@ -148,7 +185,7 @@ module iclink_serwb_pump
       pend      <= pend + ((tx_state == T_HDR && hdr_ready) ? (AW + 1)'(tx_words) : '0) -
           (AW + 1)'(txf_take);
 
-      unique case (tx_state)
+      case (tx_state)
         T_WAIT: begin
           if (hold_sync[1]) begin
             flush_cnt <= '0;
@@ -257,8 +294,8 @@ module iclink_serwb_pump
     ln_k    = '0;
     for (int s = 0; s < W; s++) begin
       ln_k[s] = 1'b1;
-      if (!tx_en) begin
-        ln_word[s] = '0;
+      if (!tx_en) begin  // link not up: K28.5 in lane 0, K28.0 in lane 4
+        ln_word[s] = {24'h0, (s % 2 == 0) ? PHY_COMMA : PHY_IDLE};
       end
       else if (send_ctrl) begin
         ln_word[s] = (s == 0) ? (pause_sync[1] ? WORD_XOFF : WORD_XON) : WORD_FILL;
@@ -273,13 +310,7 @@ module iclink_serwb_pump
       for (int b = 0; b < 4; b++) begin
         line[s/2].d[4*(s%2)+b] = ln_word[s][8*b+:8];
       end
-      line[s/2].k[4*(s%2)] = tx_en && ln_k[s];
-    end
-    if (!tx_en) begin
-      for (int p = 0; p < NP; p++) begin
-        line[p].d[0] = K28_5;  // link not up: a comma in lane 0, as the PHY test sends
-        line[p].k[0] = 1'b1;
-      end
+      line[s/2].k[4*(s%2)] = ln_k[s];
     end
   end
 
@@ -322,6 +353,7 @@ module iclink_serwb_pump
   ) u_depacketizer (
       .clk        (clk_rx),
       .arst_n     (rx_arst_n),
+      .i_hold     (pause),        // we asked the far side to pause: no timeout
       .i_word     (rx_word),
       .i_valid    (rx_valid),
       .o_word     (dp_word),

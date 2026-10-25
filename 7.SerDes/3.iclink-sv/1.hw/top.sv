@@ -29,12 +29,17 @@
 // In simulation the SerDes BFM takes the place of CC_SERDES: its reference
 // clock and serial pins are ports of top (tb_top loops them back).
 //
+// LINE_RATE (Mb/s): 1250, 2500 or 5000, passed to the PHY; a 5 Gb/s build
+// needs its clocks constrained at 62.5 MHz (3.build: LINE_RATE=5000).
+//
 // Pins: 3.build/GateMateA1-EVB.ccf.
 //==========================================================================
 
 module top
   import top_pkg::*;
-(
+#(
+    parameter int LINE_RATE = 2500
+) (
 `ifndef SYNTHESIS
     input  logic clk_ref,  // SerDes reference
     input  logic ser_rxp,
@@ -100,7 +105,7 @@ module top
 
   always_comb begin
     tx_k[0] = st_cnt[COMMA_LOG2-1:0] == '0;
-    tx_d[0] = tx_k[0] ? K28_5 : st_cnt;
+    tx_d[0] = tx_k[0] ? PHY_COMMA : st_cnt;
     tx_k[1] = 1'b0;
     tx_d[1] = ~st_cnt;
   end
@@ -151,11 +156,12 @@ module top
   //-----------------------------------------------------------------------
   // PRBS self-test: PRBS7 TX -> checker; the count must not move after warm-up
   //-----------------------------------------------------------------------
-  logic [        PRBS_W-1:0] prbs;
-  logic [              31:0] prbs_errors;
-  logic [              31:0] prbs_base;  // the count at the end of warm-up
-  logic [PRBS_WARMUP_LOG2:0] prbs_warm;  // top bit set: warm-up over
-  logic                      prbs_error;
+  logic      [        PRBS_W-1:0] prbs;
+  logic      [              31:0] prbs_errors;
+  logic      [              31:0] prbs_base;  // the count at the end of warm-up
+  logic      [PRBS_WARMUP_LOG2:0] prbs_warm;  // top bit set: warm-up over
+  logic                           prbs_error;
+  prbs_cfg_t                      NC_prbs_cfg;  // PRBS TX's choice: always PRBS7 here
 
   iclink_prbs_tx #(
       .WIDTH(PRBS_W)
@@ -164,7 +170,8 @@ module top
       .arst_n  (rst_n),
       .config_i(PRBS_7),
       .i       ('0),
-      .o       (prbs)
+      .o       (prbs),
+      .config_o(NC_prbs_cfg)
   );
 
   iclink_prbs_rx #(
@@ -205,9 +212,15 @@ module top
   logic [  LINK_IDLE_LOG2:0] link_idle;  // on clk_tx; top bit set: commas sent, PRBS on
   logic [LINK_WARMUP_LOG2:0] link_warm;  // on clk_rx; top bit set: link up
   logic                      link_error;  // on clk_rx
+  logic link_d_k, link_d_bad, link_d_moved;  // on clk_rx: this word's checks, a clock late
+  logic       link_kx;  // on clk_rx: a K or invalid symbol, a clock late
+  logic [1:0] link_z;  // on clk_rx: each half of the word all zero, a clock late
   logic [1:0] link_up_sync, link_error_sync;  // to clk
+  logic [ALIGN_COMMAS_LOG2:0] align_cnt;  // on clk_rx; top bit set: alignment done, off
 
-  iclink_serdes_gm u_phy (
+  iclink_serdes_gm #(
+      .LINE_RATE(LINE_RATE)
+  ) u_phy (
 `ifndef SYNTHESIS
       .clk_ref       (clk_ref),
       .ser_rxp       (ser_rxp),
@@ -239,33 +252,57 @@ module top
   end
 
   always_comb begin
-    link_tx = '0;
-    link_tx.d[0] = K28_5;  // idle: a comma in lane 0; replaced by PRBS7 after LINK_IDLE_LOG2
-    link_tx.k[0] = 1'b1;
+    link_tx = PHY_COMMA_WORD;  // idle; replaced by PRBS7 after LINK_IDLE_LOG2
     link_ctrl = '{
         tx_prbs: link_idle[LINK_IDLE_LOG2] ? PRBS_7 : PRBS_OFF,
         rx_prbs: PRBS_7,
         rx_prbs_pause: 1'b0,
-        rx_align: 1'b1
+        rx_align: !align_cnt[ALIGN_COMMAS_LOG2]  // off once aligned; on again after rx_ready
     };
+  end
+
+  // comma alignment: on from rx_ready until 2^ALIGN_COMMAS_LOG2 comma words
+  // have come in aligned, then off, so a line error cannot move the word
+  // boundary; a lost link (rx_ready low) turns it on again
+  always_ff @(posedge clk_rx or negedge rx_ready) begin
+    if (!rx_ready) begin
+      align_cnt <= '0;
+    end
+    else if (!align_cnt[ALIGN_COMMAS_LOG2] && rx_aligned && link_rx.k[0]
+             && link_rx.d[0] == PHY_COMMA) begin
+      align_cnt <= align_cnt + 1'b1;
+    end
   end
 
   // the checker locks on the first PRBS words (no K): then the count must
   // not move, and no K, invalid symbol or all-zero word (a dead link: PRBS7
-  // never has more than 6 zeros in a row) may arrive
+  // never has more than 6 zeros in a row) may arrive. Each word's checks
+  // are flops first: the wide compares get a clock (the zero check two)
   always_ff @(posedge clk_rx or negedge rx_ready) begin
     if (!rx_ready) begin
-      link_warm  <= '0;
-      link_base  <= '0;
-      link_error <= 1'b0;
+      link_d_k     <= 1'b0;
+      link_kx      <= 1'b0;
+      link_z       <= '0;
+      link_d_bad   <= 1'b0;
+      link_d_moved <= 1'b0;
+      link_warm    <= '0;
+      link_base    <= '0;
+      link_error   <= 1'b0;
     end
-    else if (!link_warm[LINK_WARMUP_LOG2]) begin
-      link_warm <= (rx_aligned && link_rx.k == '0) ? link_warm + 1'b1 : '0;
-      link_base <= link_errors;
-    end
-    else if (link_errors != link_base || link_rx.k != '0 || link_rx_invalid != '0
-             || link_rx.d == '0) begin
-      link_error <= 1'b1;
+    else begin
+      link_d_k     <= rx_aligned && link_rx.k == '0;
+      link_kx      <= link_rx.k != '0 || link_rx_invalid != '0;
+      link_z[1]    <= link_rx.d[PHY_NWORDS-1:PHY_NWORDS/2] == '0;
+      link_z[0]    <= link_rx.d[PHY_NWORDS/2-1:0] == '0;
+      link_d_bad   <= link_kx || (&link_z);
+      link_d_moved <= link_errors != link_base;
+      if (!link_warm[LINK_WARMUP_LOG2]) begin
+        link_warm <= link_d_k ? link_warm + 1'b1 : '0;
+        link_base <= link_errors;
+      end
+      else if (link_d_moved || link_d_bad) begin
+        link_error <= 1'b1;
+      end
     end
   end
 

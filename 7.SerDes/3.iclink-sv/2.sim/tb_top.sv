@@ -70,7 +70,7 @@ module tb_top;
     flip = 1'b1;
     #0.4;  // one UI at 2.5 Gb/s
     flip = 1'b0;
-    repeat (8) @(posedge clk);
+    repeat (24) @(posedge clk);  // PHY (~27 clk_rx), checks and sync: about 1 us
     if (!dut.link_error_sync[1] || led) begin
       errors++;
       $display("ERROR: a flipped serial bit was not reported (link_error %b, led %b)",
@@ -96,5 +96,13 @@ module tb_top;
     $display("TB_TOP: %s  %0d errors", errors == 0 ? "PASS" : "FAIL", errors);
     $finish;
   end
+
+  // a test that never ends fails
+  initial begin : _watchdog
+    #4ms;
+    $display("ERROR: timeout at %0t", $time);
+    $display("TB_TOP: FAIL");
+    $finish;
+  end : _watchdog
 
 endmodule : tb_top

@@ -16,7 +16,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-DEPTH, XOFF, XON = 1024, 896, 512
+DEPTH, XOFF, XON = 1024, 832, 512  # W = 2: XOFF = DEPTH - 96*W
 CLK_NS = 32.0
 
 SURFACE, INK, INK2, MUTED, GRID, AXIS = "#fcfcfb", "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#c3c2b7"
@@ -55,7 +55,7 @@ def main():
     ax.text((t[i_stop] + t[i_go]) / 2, 40, "A paused by B (XOFF ... XON)", color=INK2,
             ha="center", va="bottom", fontsize=9)
 
-    for y, name in ((DEPTH, "FIFO depth 1024"), (XOFF, "XOFF level 896"), (XON, "XON level 512")):
+    for y, name in ((DEPTH, "FIFO depth 1024"), (XOFF, "XOFF level 832"), (XON, "XON level 512")):
         ax.axhline(y, color=MUTED, lw=1, ls=(0, (4, 3)), zorder=1)
         ax.text(t[-1], y + 8, name, color=INK2, ha="right", va="bottom", fontsize=9)
 

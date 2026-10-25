@@ -8,31 +8,29 @@ Having thoroughly studied all options, the developers presented them in a projec
 - not to be based on _BerkeleyLab ChitChat_ 
 - not to be based on _MesaBusProtocol_
 - not to invent _our own scheme_ (which was the original plan of Chili.CHIPS*ba developers)
-- but rather to port `LiteX IC Link`, thus honoring CologneChip guidance and strong preference **<== WINNER!**
+- but rather to port `LiteX IC Link`, thus honoring Cologne Chip guidance and strong preference **<== WINNER!**
 
-The _IC Link_ comes with a worked out interface to the CPU. Its interface to SerDes will leverage from Patrick's _1000basex Ethernet MAC_ project. The best part of the _IC Link_ is that it opens the full power of LiteX integration, making it available for CologneChip customers almosts instantly, and so with minimal coding burden. As such, the _IC Link_ is the Chip2Chip interconnect that CologneChip would benefit the most from for their SerDes. 
+The _IC Link_ brings a ready CPU interface and full LiteX integration, so Cologne Chip customers get it quickly, with little code. That makes it the C2C link Cologne Chip benefits from most for their SerDes.
 
-Given that GateMate proprietary (aka "legacy") PnR is rather unreliable and insensitive to timing constraints, while the new opensource PnR (Project Peppercorn) has already saved the day for our WP9-[BetrustedSOC](https://github.com/chili-chips-ba/openCologne/tree/main/9.BetrustedSOC), the _Chip2Chip SerDes_ will be delivered solely and exclusively for the _nextpnr_.
+Given that GateMate proprietary (aka "legacy") PnR is rather unreliable and insensitive to timing constraints, while the new opensource PnR (Project Peppercorn) has already saved the day for our WP9-[BetrustedSOC](https://github.com/chili-chips-ba/openCologne/tree/main/9.BetrustedSOC), the _C2C SerDes_ will be delivered solely and exclusively for the _nextpnr_.
 
-
-For details on the work completed so far and the planned next steps, please refer to the [4.liteiclink](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/2.liteiclink) section of the repository.
 
 ## Implementation
 We strongly recommend to start with standalone [SerDes loopback test](1.serdestool_by_gm/README.md) to get used to the hardware platform, SerDes settings, cabling and work with RF-class signaling in general. 
 
-Then move onto our [Lite IC Link](2.liteiclink/README.md) port for GateMate SerDes. You will find more detail in the respective project folders.
+Then go to [3.iclink-sv](3.iclink-sv/README.md): the IC Link in SystemVerilog, with simulation and build. [2.liteiclink](2.liteiclink/README.md) is the earlier Migen prototype, kept for reference.
 
 | Folder | What | Status |
 |---|---|---|
 | [1.serdestool_by_gm](1.serdestool_by_gm) | standalone SerDes loopback test | works |
-| [2.liteiclink](2.liteiclink) | LiteICLink port, Python (Migen): GateMate PHY `serdes_gm.py`, LiteX target, demo firmware | prototype, WIP |
+| [2.liteiclink](2.liteiclink) | LiteICLink port, Python (Migen): GateMate PHY `serdes_gm.py`, LiteX target, demo firmware | prototype, does not build; reference only |
 | [3.iclink-sv](3.iclink-sv) | the same IC Link in SystemVerilog: our reference example, with the full QA flow | WIP |
 
 ## IC Link in SystemVerilog (3.iclink-sv)
 
-We build on LiteX's [LiteICLink](https://github.com/enjoy-digital/liteiclink) rather than a new protocol. Its **Serial Wishbone (SerWB)** is a Wishbone bridge over a serial link (SerWB is LiteICLink's own name, from its `liteiclink/serwb` module): a bus master on one chip reads and writes memory and CSRs on the other. Upstream LiteICLink has transceiver PHYs for Xilinx (GTP, GTX, GTH, GTY) and Lattice ECP5, but none for GateMate; [2.liteiclink](2.liteiclink) prototypes one (`serdes_gm.py`).
+We build on LiteX's [LiteICLink](https://github.com/enjoy-digital/liteiclink) rather than a new protocol. Its **Serial Wishbone (SerWB)** is a Wishbone bridge over a serial link: a bus master on one chip reads and writes memory and CSRs on the other. Upstream LiteICLink has transceiver PHYs for Xilinx (GTP, GTX, GTH, GTY) and Lattice ECP5, but none for GateMate; [2.liteiclink](2.liteiclink) prototypes one (`serdes_gm.py`).
 
-LiteICLink is Python (Migen). We hand-port it to **SystemVerilog**, to our [RTL coding rules](3.iclink-sv/1.hw/README.md#rtl-coding-rules), so it goes through our full QA flow: lint, Verible, LEQ. The protocol stays LiteICLink's, so it interoperates with it. LiteX takes it in as an external core, through a thin Migen wrapper (`Instance` + `add_source`):
+LiteICLink is Python (Migen). We hand-port it to **SystemVerilog**, to our [RTL coding rules](3.iclink-sv/1.hw/README.md#rtl-coding-rules), so it goes through our full QA flow: lint, Verible, LEQ ([RTL Quality Assurance](#rtl-quality-assurance)). The protocol stays LiteICLink's, so it interoperates with it. LiteX takes it in as an external core, through a thin Migen wrapper (`Instance` + `add_source`):
 
 | Layer | What | From |
 |---|---|---|
@@ -44,6 +42,10 @@ LiteICLink is Python (Migen). We hand-port it to **SystemVerilog**, to our [RTL 
 | CSRs | register map in SystemRDL, RTL and C headers generated by [PeakRDL](https://peakrdl.readthedocs.io), not LiteX's CSR generator | PeakRDL |
 
 The SoC needs no LiteX, so neither does the core. LiteX users take only the SV core, through the wrapper.
+
+**Design goals.**
+- **An enabler, not the end goal.** The link serves the design around it: compute clusters, a CPU, an application. It must stay small and leave most of the FPGA, and its four global clocks, to that design. Area counts as much as speed.
+- **One clock, 100% synchronous** (planned; today the [FIFO pump](#fifo-pump) has three clock domains). TX, RX, the FIFOs, the CPU and the PHY bring-up all run on one clock: `PLL_CLK_O`, line rate / 80, from the SerDes PLL. On ULX5M-GS the SerDes reference has its own oscillator, so a CC_PLL from the board clock would drift against it. CC_SERDES's TX buffer takes up phase only; RX clock correction takes up the ppm between the two boards ([what it can and cannot do](#cc_serdes-clock-correction-what-it-can-and-cannot-do)). No async FIFO and no clock-domain crossing in the fabric. Both ends are alike: no clock master or slave.
 
 ### Design internals
 
@@ -58,20 +60,22 @@ One GateMate. Solid boxes are done; dashed ones, tagged NEXT, come next.
 | CPU, RAM, UART | eduBOS5 SoC | openPCIE | next |
 | CSRs | generated by PeakRDL from SystemRDL | new | next |
 | Etherbone master / slave | Wishbone reads and writes as Etherbone records; buffered writes | LiteICLink `serwb/etherbone.py` | next |
-| Packetizer / Depacketizer | frames records into packets, with a timeout on RX | LiteICLink `serwb/packet.py` | next |
+| Packetizer / Depacketizer | `iclink_serwb_tx.sv`, `iclink_serwb_rx.sv`: frames words into packets, CRC32, a timeout on RX | LiteICLink `serwb/packet.py`, bit-exact | done |
+| FIFO pump | `iclink_serwb_pump.sv` (+ `_fifo`, `iclink_cdc_ptr`, `iclink_gearbox`): CPU-to-CPU words on SerWB port 2, flow control | new, on LiteICLink's packet format | done: RTL and unit tests; not yet in the top |
 | Scrambler / Descrambler | optional, off by default in LiteICLink: spreads the spectrum of idle and repetitive data | LiteICLink `serwb/scrambler.py` | next |
 | PRBS7/15/31 | `iclink_prbs_tx.sv`, `iclink_prbs_rx.sv` (+ gen, chk): link test in place of data | LiteICLink `prbs.py`, bit-exact | done |
-| 8b/10b | `iclink_8b10b_enc.sv` in fabric on TX; on RX the decoder and comma alignment run inside `CC_SERDES` | LiteX `code_8b10b.py`, bit-exact | done |
+| 8b/10b | `iclink_8b10b_enc.sv` in fabric on TX, or `CC_SERDES`'s own (`TX_HARD_8B10B`, default at 5 Gb/s); on RX the decoder and comma alignment run inside `CC_SERDES`, then a lane aligner in the fabric moves a comma from lane 4 to lane 0 | LiteX `code_8b10b.py`, bit-exact | done |
 | PHY | `iclink_serdes_gm.sv`: bring-up (3 regfile writes, then resets), ready flags, one flop stage on every `CC_SERDES` datapath input and output | new | done |
 
 - **Datapath:** 8 bytes + 8 K flags per clock each way, 64 payload bits.
 - **Clocks:** `clk_tx` = `CC_SERDES` `PLL_CLK_O`, line rate / 80: 31.25 MHz at 2.5 Gb/s. `clk_rx` = `RX_CLK_O`. The board clock runs the bring-up.
-- **Latency,** TX data in to RX data out: 1 (encoder input) + 2 (encoder) + 1 (TX flops) + `CC_SERDES` + 1 (RX flops) + 1 clocks.
-- **Why the RX decodes in the hard macro:** with its 8b/10b off, `CC_SERDES` hands out only bits 7:0 of each symbol, so the fabric cannot see whole symbols.
+- **Latency,** TX data in to RX data out: 1 (encoder input) + 2 (encoder) + 1 (TX flops) + `CC_SERDES` + 1 (RX flops) + 1 (lane aligner) clocks. With `TX_HARD_8B10B` the 2 encoder clocks go.
+- **Why the RX decodes in the hard macro:** it costs no fabric, and the comma alignment is there too. A fabric decoder is possible: with the decoder off, DS1001 Figure 2.39 hands out bits 8 and 9 of each symbol on `RX_CHAR_IS_K_O` and `RX_DISP_ERR_O`. The SerDes BFM models that path too.
+- **Comma alignment:** `rx_align` stays on while commas come in, then goes off before data or PRBS, and on again to realign. While it is on, `CC_SERDES` realigns on any comma off the word boundary (DS1001 Table 2.50), so a line error could misalign a running link. The board top turns it off after 16 aligned commas (`ALIGN_COMMAS_LOG2` in `top_pkg`) and on again when `rx_ready` drops; the PHY testbenches 32 clocks after alignment.
 
 ### FIFO pump
 
-Status: the RTL (`1.hw/iclink_serwb_*.sv`, `iclink_cdc_ptr.sv`) and its unit tests are done; next it goes into the top and the PHY testbenches. 1.25 and 5 Gb/s follow.
+Status: the RTL (`1.hw/iclink_serwb_*.sv`, `iclink_cdc_ptr.sv`, `iclink_gearbox.sv`) and its unit tests are done, at W = 2 and W = 4; next it goes into the top and the PHY testbenches.
 
 A message link between the two eduBOS5 CPUs, ahead of remote memory access: each CPU pushes 32-bit words into a TX FIFO, the pump streams them to the other side, and the other CPU pops them from an RX FIFO. Both firmwares take part. It is the eduBOS5 <-> FIFO <-> link architecture planned for [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/6.soc), there with the PCIe PIPE in place of this PHY, so the FIFO side and its firmware carry over.
 
@@ -84,7 +88,7 @@ A message link between the two eduBOS5 CPUs, ahead of remote memory access: each
 
 <p align="center"><img width="100%" alt="Serial Wishbone packet format" src="0.doc/serwb-packet.drawio.png"></p>
 
-**Packets.** Preamble, port/length, payload, CRC32. A packet goes out when `PKT_WORDS` words wait (default 16) or the TX FIFO has been idle for 64 clocks. The pump moves **two SerWB words per clock** (bytes 0-3 and 4-7), so it fills the line. Between packets: SerWB's K28.1 fill; K28.5 commas only while the link comes up, as LiteICLink. Payload share: 16 words 84%, 64 words 96%; the far receiver must accept the size (`crc_max_words` on LiteICLink).
+**Packets.** Preamble, port/length, payload, CRC32. A packet goes out when `PKT_WORDS` words wait (default 16) or the TX FIFO has been idle for 64 clocks. The pump moves `W` SerWB words per line clock: **2** on the 64-bit PHY clock (bytes 0-3 and 4-7), or **4** at half that clock through a gearbox, for 5 Gb/s. Either way it fills the line. Between packets: SerWB's K28.1 fill. While the link is down: comma words, K28.5 in byte lane 0 and K28.0 (no comma) in lane 4, which the far side's K filter drops. Payload share: 16 words 84%, 64 words 96%; the far receiver must accept the size (`crc_max_words` on LiteICLink).
 
 **Speed.** eduBOS5 is the first source, for the demo; an FSM or DMA can fill the FIFO later. The FIFO decouples the two: the CPU fills it at its own pace, the pump drains it at line rate, so even eduBOS5 makes full-speed bursts of up to a FIFO (1024 words, 4 KB). Three performance levels, chosen by a parameter (`LINE_RATE`), from the same 100 MHz reference ([clocks and line rate](3.iclink-sv/1.hw/README.md#clocks-and-line-rate)):
 
@@ -94,13 +98,13 @@ A message link between the two eduBOS5 CPUs, ahead of remote memory access: each
 | **default** | **2.5 Gb/s** | 31.25 MHz | 2.0 Gb/s | 1.68 Gb/s |
 | high | 5 Gb/s | 62.5 MHz | 4.0 Gb/s | 3.37 Gb/s |
 
-5 Gb/s needs the fabric at 62.5 MHz, about twice what the TX path closes today (33 MHz). It takes `CC_SERDES`'s own TX 8b/10b (the fabric encoder out of the path), a CRC32 and packetizer pipelined for 64 bits per clock, and the SI settings for 5 Gb/s. The two lower levels need only the PLL setting. LiteICLink on ECP5 (setup 3) runs 1.25 and 2.5 Gb/s from 100 MHz; 5 Gb/s there needs a 200 or 250 MHz reference.
+5 Gb/s needs the PHY side at 62.5 MHz, about twice what the fabric encoder closes (37 MHz). So `CC_SERDES` encodes TX (`TX_HARD_8B10B`), only flops and the PRBS mux stay at 62.5 MHz, and the pump runs at W = 4 on half that clock, through `iclink_gearbox`. Plus the SI settings for 5 Gb/s. It meets timing: `make -C 7.SerDes/3.iclink-sv/3.build LINE_RATE=5000`, 4 seeds, `clk_tx` 100.6 to 141.4 MHz and `clk_rx` 66.2 to 71.9 MHz against 62.5 (a thin margin on `clk_rx`). At 2.5 Gb/s: `clk_tx` 36.6 to 39.1 MHz, `clk_rx` 57.9 to 73.7 MHz against 31.25. The two lower levels need only the PLL setting. LiteICLink on ECP5 (setup 3) runs 1.25 and 2.5 Gb/s from 100 MHz; 5 Gb/s there needs a 200 or 250 MHz reference.
 
-**Flow control.** SerWB's own, both sides on (`with_flow_control`): the receiver sends XOFF (K28.3) when its RX buffer is almost full, XON (K28.4) to resume. As in LiteICLink, the request takes the line for one clock, even in the middle of a packet, and is sent again every 1024 clocks. Our RX FIFO sends XOFF at 896 words and XON below 512; the numbers are worked out in [End2End Flow](#end2end-flow). On setup 1 the XOFF loops back to the same chip, which pauses itself.
+**Flow control.** SerWB's own, both sides on (`with_flow_control`): the receiver sends XOFF (K28.3) when its RX buffer is almost full, XON (K28.4) to resume. As in LiteICLink, the request takes the line for one clock, even in the middle of a packet, and is sent again every 1024 clocks. Our RX FIFO sends XOFF at `DEPTH - RT_CLKS·W` words (`RT_CLKS` = 96: 832 at W = 2, 640 at W = 4) and XON below 512; while a side asks for a pause, its depacketizer's timeout waits, so a long pause drops nothing; the numbers are worked out in [End2End Flow](#end2end-flow). On setup 1 the XOFF loops back to the same chip, which pauses itself.
 
 **Errors.** CRC on (`with_crc`): a bad packet is dropped and counted in `crc_errors`. No retransmission; a dropped message is the firmware's to notice (a sequence number in the first word).
 
-**Clocks.** Three domains: `sys` (CPU, CSRs), `clk_tx`, `clk_rx`. Two async FIFOs of 1024 32-bit words: one word a clock on the CPU side, two on the line side. Each is two 512 x 32 RAMs, even and odd words, so a pair of words always hits both (4 `CC_BRAM_20K` for the two FIFOs). The pointers cross by a toggle handshake (`iclink_cdc_ptr`), which is safe for any jump: two words a clock, or a whole packet at a commit; a Gray-coded pointer may only step by one. 2-flop synchronizers carry the flow-control state.
+**Clocks.** Three domains: `sys` (CPU, CSRs), `clk_tx`, `clk_rx`. Two async FIFOs of 1024 32-bit words: one word a clock on the CPU side, `W` on the line side. Each is two 512 x 32 RAMs, even and odd words, so a pair of words always hits both (4 `CC_BRAM_20K` for the two FIFOs at W = 2). The pointers cross by a toggle handshake (`iclink_cdc_ptr`), which is safe for any jump: two words a clock, or a whole packet at a commit; a Gray-coded pointer may only step by one. 2-flop synchronizers carry the flow-control state. A reset on either side resets both sides of each FIFO and gearbox, each released on its own clock. A gearbox that overflows sends comma words and restarts.
 
 **RX FIFO as the packet buffer.** The depacketizer writes payload words as they arrive. A good CRC commits them (the read side sees the packet); a bad CRC, a timeout or an oversized header rewinds the write pointer to the last commit. LiteICLink's `CRCDepacketizer` stores each packet in its own `max_words` buffer first; here the RX FIFO is that buffer, so no block RAM is spent twice.
 
@@ -124,42 +128,44 @@ A message link between the two eduBOS5 CPUs, ahead of remote memory access: each
 
 ### End2End Flow
 
-How much buffer, where the thresholds sit, and how the levels move. Measured with `sim_serwb_pump`: two pumps wired on the digital bus, a 12-clock line between them each way.
+How much buffer, where the thresholds sit, and how the levels move. Measured with `sim_serwb_pump` at W = 2: two pumps wired on the digital bus, a `LINE_LAT`-clock line between them each way: 29 clocks, about the PHY's latency on the BFM at 2.5 Gb/s.
 
 <p align="center"><img width="100%" alt="FIFO pump end to end: CPU A, TX FIFO, packetizer, the link, depacketizer, RX FIFO with XOFF level 896 and XON level 512, CPU B; the flow-control loop from the RX FIFO level through B's line mux and the line back to A's packetizer" src="0.doc/serwb-pump-e2e.drawio.png"></p>
 
 **The round trip.** From B's RX FIFO reaching the XOFF level to A stopping takes 8 + `LINE_LAT` clocks: level and pause flops, a 2-flop sync into `clk_tx`, the request, the TX flop, the line, the K28.3 detect, a 2-flop sync. Words already on their way still land: 2 + `LINE_LAT` clocks of them (TX flop, line, depacketizer).
 
-| | Formula | `LINE_LAT` 12 |
+| | Formula | `LINE_LAT` 29 |
 |---|---|---|
-| XOFF reaches A | 8 + `LINE_LAT` clocks | 20 clocks, measured 20 |
-| Words still landing | 2 + `LINE_LAT` clocks | 14 clocks, measured 14 |
-| Overshoot above XOFF, worst | 2 words x (10 + 2 x `LINE_LAT`) | 68 words |
-| Overshoot, measured | | 54 words (A's CPU pushed 1.6 words a clock) |
-| Margin | 1024 - 896 = 128 words | covers `LINE_LAT` up to 27 clocks each way |
+| XOFF reaches A | 8 + `LINE_LAT` clocks | 37 clocks |
+| Words still landing | 2 + `LINE_LAT` clocks | 31 clocks |
+| Overshoot above XOFF, worst | 2 words x (10 + 2 x `LINE_LAT`) | 136 words |
+| Overshoot, measured | | 114 words (A's CPU pushed 1.6 words a clock) |
+| Margin | `RT_CLKS`·W = 1024 - 832 = 192 words | covers `LINE_LAT` up to 43 clocks each way |
 
-`LINE_LAT` counts PHY TX, `CC_SERDES`, the cable and PHY RX. The PHY flops are 6 clocks; `CC_SERDES` adds its own, to be measured on the board. 27 clocks is 0.86 us at 2.5 Gb/s.
+At W = 4 (`LINE_LAT` 26, 5 Gb/s) the XOFF level is 640: measured peak 796, 156 words above XOFF, against a 384-word margin.
+
+`LINE_LAT` counts PHY TX, `CC_SERDES`, the cable and PHY RX: on the BFM about 29 clocks at 2.5 Gb/s (0.93 us) and 26 at 5 Gb/s. The silicon's own latency and the cable are to be measured on the board; `RT_CLKS` sets the margin.
 
 **Sizing rules.**
 
 1. **RX FIFO, XOFF level:** depth minus the worst overshoot. One packet in progress (`MAX_WORDS` 16) is part of the level already, since the RX FIFO is the packet buffer.
-2. **RX FIFO, XON level:** high enough that the reader does not run dry while XON travels and data comes back (34 clocks, about 35 words for a reader at 1 word a clock); low enough that XOFF and XON do not chatter. 512 gives 15 times the first and 384 words of hysteresis.
+2. **RX FIFO, XON level:** high enough that the reader does not run dry while XON travels and data comes back (10 + 2 x `LINE_LAT` = 68 clocks, about 68 words for a reader at 1 word a clock); low enough that XOFF and XON do not chatter. 512 gives 7 times the first and 320 words of hysteresis.
 3. **TX FIFO:** the CPU's burst buffer. While the far side lets data through, the line drains it faster than eduBOS5 fills it; it fills only while A is held off, and then `tx_full` pushes back on CPU A.
 4. **Levels are never optimistic.** Each side sees the other's pointer a few clocks late, so a FIFO looks fuller (writer) or emptier (reader) than it is, never the reverse. The lag costs margin, never words.
-5. **A LiteICLink peer** (setup 3) sends packets of at most 16 words and reacts to XOFF in its own clocks; 128 words is 2 us of line at 2.5 Gb/s, well above its pipeline.
+5. **A LiteICLink peer** (setup 3) sends packets of at most 16 words and reacts to XOFF in its own clocks; 192 words is 3 us of line at 2.5 Gb/s, well above its pipeline.
 
 <p align="center"><img width="100%" alt="FIFO levels over time: B's RX FIFO rises to 896, XOFF, peaks at 950 and holds; A's TX FIFO fills to 1024; B reads again, falls to 512, XON; then B refills and drains in a sawtooth between 512 and 896 while A's TX FIFO empties" src="3.iclink-sv/2.sim/images/pump-levels.png"></p>
 
 **Fill and empty, as measured** (B's CPU stops reading, A's keeps pushing):
 
-1. B's RX FIFO fills at 1.6 words a clock and reaches 896: B sends XOFF.
-2. 34 clocks later it peaks at 950: 54 words were already on their way. A has stopped.
+1. B's RX FIFO fills at 1.6 words a clock and reaches 832: B sends XOFF.
+2. It peaks at 946: 114 words were already on their way. A has stopped.
 3. A's TX FIFO now fills from A's CPU and reaches 1024: A's CPU must wait (`tx_full`).
 4. B reads again, at about 1 word a clock.
-5. B drops below 512: XON. A resumes after 20 clocks and, faster than B reads, refills B.
-6. B swings between 512 and 896, XOFF and XON in turn, until A's TX FIFO is empty. Not one word lost, no overflow, no drop.
+5. B drops below 512: XON. A resumes once the XON arrives and, faster than B reads, refills B.
+6. B swings between 512 and 832, XOFF and XON in turn, until A's TX FIFO is empty. Not one word lost, no overflow, no drop.
 
-Re-run: `make -C 3.iclink-sv/2.sim sim_serwb_pump`, then `python3 plot_pump_levels.py` in `2.sim`.
+Re-run: `make -C 7.SerDes/3.iclink-sv/2.sim sim_serwb_pump SERWB_W=2` on its own (a full `make` runs W = 4 last and overwrites `pump_levels.csv`), then `python3 plot_pump_levels.py` in `7.SerDes/3.iclink-sv/2.sim`. The plot marks the W = 2 levels.
 
 ### eduBOS5 Control Program
 
@@ -186,6 +192,37 @@ On B the demo echoes each message back, so A can check every word it sent.
 <p align="center">
   <img width="100%" alt="iclink_serdes_gm block diagram: clk_tx domain with iclink_prbs_tx, iclink_8b10b_enc and the tx_ser flops into CC_SERDES TX_DATA_I; clk_rx domain with the rx_ser flops, rx regs and iclink_prbs_rx; clk_reg domain with the bring-up FSM driving the PLL reset, regfile writes and TX/RX resets" src="0.doc/iclink-phy-rtl.drawio.png">
 </p>
+
+### CC_SERDES clock correction: what it can and cannot do
+
+Two boards have two oscillators. On ULX5M-GS the SerDes reference is a 100 MHz Si511, ±20 ppm, so two boards differ by up to 40 ppm: one word in 25,000. With one clock in the fabric (see Design goals), the RX elastic buffer of `CC_SERDES` must absorb that difference with clock correction (`RX_CLKCOR_USE = 1`).
+
+DS1001 (Tables 2.56, 2.57) gives the rule: below `RX_CLKCOR_MIN_LAT` the buffer repeats incoming clock-correction sequences, above `RX_CLKCOR_MAX_LAT` it removes them. The sequence is 4 symbols (`RX_CLKCOR_SEQ_1_0..3`), `RX_BUF_ERR_O` flags overflow and underflow, and `RX_CLKCOR_USE = 0` uses the buffer for phase only. It doesn't give the depth, how a sequence is matched, or what an insertion repeats. The SerDes BFM fills these in as below: seen in simulation, to check on silicon.
+
+| | BFM behaviour |
+|---|---|
+| Unit | The buffer holds whole datapath words (16, 32 or 64 bits), 64 of them. `MIN_LAT`/`MAX_LAT` count words. |
+| Sequence | 4 bytes, `RX_CLKCOR_SEQ_1_0..3` = {comma, K, data}. The whole word must match: a 64-bit word holds the sequence twice. |
+| Remove | Occupancy above `MAX_LAT`: of two matching words in a row, the second is not written. |
+| Insert | Occupancy below `MIN_LAT` - 1: the read stalls on a matching word, and the output repeats the word **before** it. |
+| Off (`RX_CLKCOR_USE = 0`) | Phase only, limits fixed at 4 and 60. |
+| Error | `RX_BUF_ERR_O` for occupancy below 3 or above 60, until `RX_BUF_RESET_I`. |
+
+If the silicon works the same, three limits follow:
+1. A single sequence word is never removed. It takes two in a row.
+2. Insertion repeats the previous word. It is correct only when the sequence comes in bursts, so that word is the sequence too.
+3. The sequence must sit aligned in the datapath word.
+
+**What we did.**
+- **SerWB** (planned): the pump sends a clock-correction burst, 4 identical 32-bit words aligned to the 64-bit word, every 1024 clocks. That is 24x more often than 40 ppm needs.
+- **The BFM** models the buffer clock by clock, with the exceptions listed in its section "RX: elastic buffer" (`serdes-model/ccfpga_serdes.sv`).
+
+**What it means for PCIe.** The PCIe clock-compensation unit is the SKP ordered set: COM and three SKP symbols, 4 symbols, one every 1180 to 1538 symbols. It meets none of the three conditions:
+1. SKP ordered sets do not come two in a row, so none can be removed.
+2. The symbols before an SKP ordered set are packet or idle data, so an insertion repeats data and corrupts the stream.
+3. The 4 symbols need not sit aligned in the 64-bit word.
+
+Unless the silicon proves otherwise, a PCIe endpoint on `CC_SERDES` must keep `RX_CLKCOR_USE = 0` and run off the host's REFCLK (common clock, 0 ppm, SSC tracked by both sides). With a separate reference clock, SKP insertion and removal must be done in the fabric, symbol by symbol, as the PCIe spec defines it.
 
 ## Build
 
@@ -225,12 +262,13 @@ LiteX picks `nextpnr-himbaechel-gatemate` from `PATH` when it exists, else `next
 
 ### Standalone, without LiteX
 
-The SV core is plain RTL: drop it into any GateMate design. The flow is LiteX's, below, with our sources and pins, for the EVB (`CCGM1A1`):
+The SV core is plain RTL: drop it into any GateMate design. The same flow as LiteX's above, with our sources and pins, for the EVB (`CCGM1A1`):
 
 ```
-yosys -p "read_slang <sources>; synth_gatemate -top top -luttree -nomx8 -json top.json"
+yosys -p "read_slang -D SYNTHESIS --top top $(yosys-config --datdir)/gatemate/cells_bb.v <sources>; \
+    synth_gatemate -top top -luttree -nomx8 -json top.json"
 nextpnr-himbaechel-gatemate --device CCGM1A1 --json top.json --vopt ccf=GateMateA1-EVB.ccf \
-    --vopt out=top.txt --router router2 --freq <MHz> --seed 1
+    --vopt out=top.txt --router router2 --freq 32 --seed 1
 gmpack top.txt top.bit
 openFPGALoader -b gatemate_evb_jtag top.bit
 ```
@@ -251,7 +289,7 @@ The same tests run in simulation and on boards: the sim mirrors each hardware se
 | 2 | two ULX5M-GS boards | two way: TX of each to RX of the other | PHY both ways, then SerWB: board A reads and writes board B's memory and CSRs |
 | 3 | ULX5M-GS (GateMate) and ULX4M-LD (Lattice ECP5) | two way, GateMate to ECP5 | interoperability with LiteICLink on ECP5: PHY both ways, then Serial Wishbone across the two vendors |
 
-SerWB needs both directions (a read returns data), so it runs on setup 2 only, with the host PC on board A's UART console. Setup 1 checks the PHY before two boards are involved.
+Etherbone needs both directions (a read returns data): setups 2 and 3, with the host PC on board A's UART console. The FIFO pump also runs on setup 1, looped back. Setup 1 checks the PHY before two boards are involved.
 
 ### Setup 3: GateMate to Lattice ECP5
 
@@ -280,30 +318,56 @@ In simulation, setup 3 is mirrored by `interop_twoway` (planned): our PHY on the
 
 ## Simulation
 
-The SerDes in simulation is our open-source [SerDes BFM](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/2.serdes-model) from openCologne-PCIE: a behavioural `CC_SERDES` with the vendor model's module name, ports and parameters, checked against it. No NDA model needed. Verilator runs our RTL with the BFM in place of the hard macro: the eduBOS5 RTL executes the test firmware, so no co-simulation (VProc) is needed. Each test case passes or fails on its own. A copy of the BFM (openCologne-PCIE `6ef654d`) is in [`3.iclink-sv/2.sim/serdes-model`](3.iclink-sv/2.sim/serdes-model).
+The SerDes in simulation is our open-source SerDes BFM, [`3.iclink-sv/2.sim/serdes-model`](3.iclink-sv/2.sim/serdes-model). It was developed here, in openCologne, then ported to [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE). It is a behavioural model of `CC_SERDES`, with the vendor model's module name (`ccfpga_serdes`), ports and parameters: a drop-in replacement. Checked against the vendor model (NDA): 0 divergences ([how](#checked-against-the-vendor-model)). Running it needs no NDA model. Verilator runs our RTL with the BFM in place of the hard macro: the eduBOS5 RTL executes the test firmware, so no co-simulation (VProc) is needed. Each test case passes or fails on its own.
+
+**Vendor parameters.** The BFM takes all 115. It acts on 34: resets, comma alignment and slide, RX buffer and clock correction, datapath widths, loopback, PLL rates and lock, the TX buffer. 9 more only set a register value you can read back (`PLL_CFG0`). The other 72 tune what a digital model doesn't have: analog front end, equaliser, TX driver, CDR and PLL loops and their calibration, eye monitor, debug. A value the datasheet doesn't allow (UG1001 Tables 7.12 to 7.14, DS1001 Tables 2.15 to 2.17), or the BFM doesn't model, stops the simulation (`$error`, then `$fatal`). Example: `PLL_OUT_DIVSEL = 2`, n.a. in DS1001 Table 2.15. `TX_BUFFER_ADDR_WIDTH` must stay 5: the BFM's TX buffer is 32 words deep. `PLL_CFG1` and `RX_BUF_CFG` are checked the same way when they take effect.
+
+**Behaviour worth knowing.** Electrical idle is P = N for 20 UI. In `NONE` one TX serves any number of receivers. TX timing runs on an absolute time grid, so line rates off the 100 fs grid don't drift (tested: 3 Gb/s for 5 ms). While comma alignment is on, a comma off the word boundary realigns (DS1001 Table 2.50). Each rising edge of `TX_PRBS_FORCE_ERR_I` makes one bit wrong, which the checker counts as 3. PRBS23 and PRBS31 are BFM extensions: DS1001 lists PRBS7 and PRBS15. `PLL_CFG5` bit 0 reads the PLL lock.
+
+The BFM's `ALIGN_COMMA_WORD` is `CC_SERDES`'s `RX_ALIGN_COMMA_WORD`. A "byte lane" below is one byte of the datapath word: lanes 0 to 7 at 64 bits.
+
+### Settings
+
+Set them on the `make` line, e.g. `make -C 7.SerDes/3.iclink-sv/2.sim sim_phy_oneway CDR_MODEL=FAST SEED=3`, from the repo root.
+
+| Setting | Default | Tests | What it does |
+|---|---|---|---|
+| `CDR_MODEL` | `NONE` | PHY, top | The BFM mode: `NONE` (words beside the pins, fastest), `FAST` (bits from line edges), `ACCURATE` (a sampler every UI and a CDR loop) |
+| `SEED` | none | PHY, top | The seed of the random RX word phase (below), passed as `+verilator+seed+N`. None: Verilator's fixed seed, the same run each time. `0`: a new random seed each run. Any other: that seed, repeatable |
+| `RANDOM_PHASE` | random | PHY, top | `0`: no random RX word phase, the comma always in byte lane 0 |
+| `LINE_RATE` | `2500` | PHY | Mb/s: `1250`, `2500` or `5000` |
+| `HARD` | on at 5000 only | PHY | `1`: the TX 8b/10b in `CC_SERDES`; `0`: in the fabric |
+| `WAVES` | `0` | PHY | `1`: write an FST waveform, for WaveCrux |
+| `SERWB_W` | `2` | SerWB | SerWB words per clock: `2` or `4` |
+| `MODES_TOL_NS` | `1.6` | `sim_modes` | How far a mode's latency may be from ACCURATE's |
+
+**Random RX word phase.** On the silicon the RX word counter starts wherever it starts. With `RX_ALIGN_COMMA_WORD` = 1X the comma then lands in byte lane 0 or 4, a coin toss at each link-up (DS1001 Figure 2.41). The BFM does the same, from the seed. So a lane-0 assumption fails in simulation, before it can fail on the board. Try a few seeds: `for s in 1 2 3 4; do make -C 7.SerDes/3.iclink-sv/2.sim sim_phy_oneway SEED=$s; done`. `RANDOM_PHASE=0` turns it off. `sim_modes` turns it off for its comma-lane sweep, and runs it random in 3 more runs.
+
+**BFM settings.** `CDR_MODEL` and the `BHV_*` settings are in the package (`ccfpga_serdes_pkg.sv`), one for every BFM, so the parameter list stays the vendor's. `CDR_MODEL` and `BHV_RX_WORD_PHASE_RANDOM` are defines (`+define+` in Verilator, `-D` in Icarus); edit the other `BHV_*` there.
+
+Verilator is the reference simulator. The BFM also runs in Icarus Verilog, and `sim_icarus` keeps it so. Testbenches may use SystemVerilog that Icarus lacks, such as arrays of queues and queues of structs. Icarus can fly on, but shouldn't clip our wings.
 
 <p align="center">
   <img width="100%" alt="tb_phy_oneway: the test sequence drives the PHY (iclink_serdes_gm); the SerDes BFM stands in for CC_SERDES, its serial TX looped to its RX through an XOR for fault injection" src="0.doc/iclink-tb.drawio.png">
 </p>
 
-| Test case | Mirrors | Setup | Pass |
-|---|---|---|---|
-| `phy_oneway` | setup 1 | one PHY, BFM TX looped to its RX | done: lock and alignment within a bound; 0 PRBS errors; a flipped bit on the line is counted |
-| `phy_twoway` | setup 2, PHY only | two PHYs, two BFMs, lines crossed | done: data and PRBS both ways at once, bit-exact; a flip is seen on its own side only |
-| `serwb_twoway` | setup 2 | two eduBOS5 SoCs, two BFMs, lines crossed | next: eduBOS5 A writes then reads back B's RAM and a B CSR (PeakRDL); data matches; the link recovers after one side is reset; the CRC test below |
-
-Unit tests, run now (`make -C 3.iclink-sv/2.sim`):
+Tests, all run by `make -C 7.SerDes/3.iclink-sv/2.sim` (needs Verilator and Icarus; about 1 min) unless marked:
 
 | Test | Checks |
 |---|---|
 | `sim_8b10b` | the SV 8b/10b against LiteX's own `code_8b10b.py`, bit for bit; round trip; running disparity |
 | `sim_prbs` | the SV PRBS7/15/31 TX and RX against LiteX's own `prbs.py`, clock for clock; pause |
-| `sim_phy_oneway` | the GateMate SerDes PHY on the SerDes BFM, TX looped to RX: alignment, data bit-exact, PRBS7/15/31 error-free, a flipped line bit seen |
-| `sim_phy_twoway` | two PHYs, lines crossed: data both ways bit-exact; PRBS15 one way and PRBS31 the other at once; a flip on one line is seen on that side only |
+| `sim_phy_oneway` | mirrors setup 1. The GateMate SerDes PHY on the SerDes BFM, TX looped to RX: alignment (then `rx_align` off), data bit-exact, PRBS7/15/31 error-free, a flipped line bit seen |
+| `sim_phy_twoway` | mirrors setup 2, PHY only. Two PHYs, lines crossed: data both ways bit-exact; PRBS15 one way and PRBS31 the other at once; a flip on one line is seen on that side only |
 | `sim_serwb_tx` | the SerWB packetizer (FIFO pump, 2 words per clock) against LiteICLink's own `Packetizer(with_crc=True)`: 200 random packets, 2291 words bit for bit, with input gaps and line stalls; preamble look-alikes in the payload |
 | `sim_serwb_rx` | the SerWB depacketizer (2 words per clock) against LiteICLink's own `CRCDepacketizer`: the same 259 packets forwarded, 43 CRC errors and 98 drops counted, from a stream with flipped payload and CRC bits, 0-word and oversized packets, corrupted headers, lost preambles and garbage; words in random slots with gaps; then a timeout drop |
-| `sim_serwb_pump` | the FIFO pump, two sides on the digital bus (SerDes out of the loop), each CPU on its own clock: 6000 words each way at once, in order; then B stops reading: XOFF, A stops, A's TX FIFO fills, B reads again, XON; no word lost, no overflow ([End2End Flow](#end2end-flow)) |
+| `sim_serwb_pump` | the FIFO pump, two sides on the digital bus (SerDes out of the loop), each CPU on its own clock: 6000 words each way at once, in order; then B stops reading: XOFF, A stops, A's TX FIFO fills, B reads again, XON; no word lost, no overflow ([End2End Flow](#end2end-flow)); a pause longer than the depacketizer's timeout drops nothing; then a `tx_hold` burst of 1024 words at line rate |
+| `sim_serwb_w4` | the three SerWB tests at 4 words per clock (5 Gb/s), through the gearboxes |
 | `sim_top` | the board top's self-tests and SerDes link: a clean run, then a flipped line bit and a one-bit symbol error must each light the error |
+| `sim_modes` | `tb_modes`, one BFM looped back, 38 runs, about 1 min. The three `CDR_MODEL`s against each other at 2.5 Gb/s, 9 cases: 16-bit (comma in byte lane 0, 1), 32-bit (0, 1, 3), 64-bit (0, 3, 5, 7); data bit-exact; latency within 4 UI of ACCURATE (NONE +0.5 UI, FAST +0.5 to 2.5 UI: it knows a bit only at the next line edge). Then, in each mode, PRBS7 and PRBS31 with forced errors; 5 ms at 3 Gb/s in NONE and FAST (no drift off the time grid); the random RX word phase with `ALIGN_COMMA_WORD` = 11, seeds 1 to 3. Every run also checks the decode table against `dec8b10b()` (all 1024 symbols), the comma defaults, register readback and buffer errors. `tb_modes` takes `+cfg1=HEX`, `+run_us=N`, `+prbs=SEL` |
+| `sim_icarus` | `tb_modes` in Icarus, each `CDR_MODEL`, data bit-exact, 15 runs, about 12 s: 16-bit (comma in byte lane 1), 32-bit (3), 32-bit with `ALIGN_COMMA_WORD` = 01 (even lane), 64-bit (0), and 64-bit with `ALIGN_COMMA_WORD` = 11 (lane 0 or 4). It keeps the BFM Icarus-clean: Verilator takes a name used before its declaration, even with `-Wall`; Icarus and the LRM don't |
+| `sim_phy_rates` | not in `all`: both PHY tests at 1250, 2500 and 5000 Mb/s, and at 2500 with the hard TX 8b/10b |
+| `serwb_twoway` | planned; mirrors setup 2: two eduBOS5 SoCs, two BFMs, lines crossed. eduBOS5 A writes then reads back B's RAM and a B CSR (PeakRDL); the link recovers after one side is reset; the CRC test below |
 
 Planned: **SerDes in the loop, or out.** The same SerWB tests run twice:
 
@@ -314,11 +378,46 @@ Planned: **SerDes in the loop, or out.** The same SerWB tests run twice:
 
 The section will compare the results and run times of both, and show that the protocol layer sees the same words either way.
 
+### Speed
+
+Wall clock on one PC, best of 3. Two testbenches:
+- **PIPE 64**: the openCologne-PCIE PHY test (`tb_phy`, PIPE 64 bits), about 280 µs of simulated time. It runs any of the four models, so it compares them with the vendor's.
+- **`tb_modes`**: the BFM looped back, 64 bits. It compares Icarus with Verilator.
+
+| Model | Icarus, PIPE 64 | Icarus, `tb_modes` | Verilator, `tb_modes` |
+|---|---|---|---|
+| BFM, `NONE` | 4.5 s | 0.71 s | 0.016 s |
+| BFM, `FAST` | 8.9 s | 1.22 s | 0.058 s |
+| BFM, `ACCURATE` | 8.5 s | 1.19 s | 0.098 s |
+| Vendor model (NDA) | 86 s | - | - |
+
+In Icarus the vendor model is 9 to 18 times slower than the BFM per simulated µs (10 to 19 in wall clock). Verilator is 12 to 44 times faster than Icarus, and can't build the vendor model. In Icarus, `FAST` and `ACCURATE` cost about the same, since `FAST` still follows every line edge; in Verilator, `ACCURATE` costs 1.7 times `FAST`. `NONE` skips the serial line and is the fastest.
+
+### Checked against the vendor model
+
+Needs the NDA vendor model; not runnable from this repo.
+
+Logic equivalence checking doesn't fit: the vendor model is not synthesizable, so there is no netlist, and the two pipelines differ on purpose. They must agree as streams of words, not clock by clock. So both models run side by side, with the same configuration and the same symbol stream. Each one's received words go into its own queue, from a start marker on, and the queues are compared word by word: equivalence modulo latency.
+
+- **Self-loopback:** each model's TX feeds its own RX. Each datapath on its own.
+- **Cross-linked:** each model's TX feeds the other's RX. A model that talks only to itself undoes its own mistakes, such as a wrong bit order. Cross-linking makes each decode the other's serial format.
+
+Results (2026-10-24, 2.5 Gb/s, 400 words, the openCologne-PCIE `tb_phy` harness):
+
+| Check | NONE | FAST | ACCURATE |
+|---|---|---|---|
+| Self-loopback | 0 divergences, latency 736.0 ns on both | same | same |
+| Cross-linked | n/a | 0 divergences | 0 divergences |
+
+736.0 ns is this harness's latency; `sim_modes` reports 736.2 ns from its own. `NONE` sends no bits on the pins, so a vendor receiver can't decode it: the cross-linked check needs `FAST` or `ACCURATE`.
+
+Not covered: analog behaviour (signal integrity, jitter tolerance, equalisation), which belongs to board measurement; reset and power-state corners, checked by simulation only. The 8b/10b codec is proved: [formal_8b10b](3.iclink-sv/2.sim/serdes-model/formal_8b10b/README.md).
+
 ### Negative tests
 
 Every test that passes on a clean link also has to fail on a broken one. The testbenches break the serial line on purpose:
 
-1. **Flip one bit** on the line for one UI (0.4 ns), in the middle of a word, through an XOR between TX and RX.
+1. **Flip one bit** on the line for one UI (0.4 ns), in the middle of a word, through an XOR between TX and RX. In `NONE` the line is quiet, so the flip is a glitch on the pins, and the BFM inverts the bits it covers: the test runs in every `CDR_MODEL`.
 2. **Data:** the receiver must see it, as an invalid 8b/10b symbol or a wrong word, and `rx_bad` must count it. In `phy_twoway` only the side whose line was hit may count.
 3. **PRBS:** `rx_prbs_errors` must go up. With `pause` set, the same flip must not count.
 4. **Board top:** a flipped line bit and a one-bit symbol error must each light the error LED.
@@ -327,9 +426,9 @@ Every test that passes on a clean link also has to fail on a broken one. The tes
 
 ### Waves
 
-`make -C 3.iclink-sv/2.sim sim_phy_oneway WAVES=1` (or `sim_phy_twoway`) also writes `phy_oneway.fst` / `phy_twoway.fst`, kept next to the testbenches. Open them in [WaveCrux](https://wavecrux.app) with the sessions [`tb_phy.ONEWAY.wavecrux`](3.iclink-sv/2.sim/tb_phy.ONEWAY.wavecrux) and [`tb_phy.TWOWAY.wavecrux`](3.iclink-sv/2.sim/tb_phy.TWOWAY.wavecrux).
+`make -C 7.SerDes/3.iclink-sv/2.sim sim_phy_oneway WAVES=1` (or `sim_phy_twoway`) also writes `phy_oneway.fst` / `phy_twoway.fst`, kept next to the testbenches. For the serial line in the waves, add `CDR_MODEL=FAST` or `ACCURATE`: in `NONE` the line is quiet, and the serial decoder below has nothing to decode. The pictures below show the line. Open them in [WaveCrux](https://wavecrux.app) with the sessions [`tb_phy.ONEWAY.wavecrux`](3.iclink-sv/2.sim/tb_phy.ONEWAY.wavecrux) and [`tb_phy.TWOWAY.wavecrux`](3.iclink-sv/2.sim/tb_phy.TWOWAY.wavecrux).
 
-The whole `phy_oneway` run, 204 us: bring-up, the data stream with `check`, then PRBS7, 15 and 31, and the deliberate bit flips (`flip`).
+The whole `phy_oneway` run, about 200 us: bring-up, the data stream with `check`, then PRBS7, 15 and 31, and the deliberate bit flips (`flip`).
 
 <p align="center"><img width="100%" alt="WaveCrux: the whole phy_oneway run" src="3.iclink-sv/2.sim/images/wavecrux-oneway-overview.png"></p>
 
@@ -341,7 +440,7 @@ Data: one 64-bit word per 32 ns clock (`tx_enc_d`), 80 bits on the 2.5 Gb/s line
 
 <p align="center"><img width="100%" alt="WaveCrux: phy_oneway data on the serial line" src="3.iclink-sv/2.sim/images/wavecrux-oneway-data.png"></p>
 
-A deliberate bit flip (cursor). About 0.48 us later, through the encoder, the BFM and the decoder, lane 3 reports an invalid symbol (`rx_invalid` = 08) and `rx_bad` counts the word.
+A deliberate bit flip (cursor). About 0.48 us later, through the BFM's receiver and the decoder, lane 3 reports an invalid symbol (`rx_invalid` = 08) and `rx_bad` counts the word.
 
 <p align="center"><img width="100%" alt="WaveCrux: a flipped bit caught in phy_oneway" src="3.iclink-sv/2.sim/images/wavecrux-oneway-flip.png"></p>
 
@@ -361,7 +460,7 @@ One session per test setup, with everything that setup needs: bring-up (clocks, 
 
 ## RTL Quality Assurance
 
-Our standard RTL QA flow. Scripts in `3.iclink-sv/3.build/`, sources from `3.iclink-sv/1.hw/top.filelist`. Run from the repo root:
+Our standard RTL QA flow. Scripts in `3.iclink-sv/3.build/`, sources from `3.iclink-sv/1.hw/top.filelist` (the PHY and the board top) and `serwb.filelist` (SerWB, FIFO pump, gearbox). Lint and format cover both; lint also takes the pump and the gearbox as their own tops. LEQ covers the board top. Run from the repo root:
 
 | Command | Checks |
 |---|---|
@@ -371,12 +470,39 @@ Our standard RTL QA flow. Scripts in `3.iclink-sv/3.build/`, sources from `3.icl
 
 Tools: Yosys with read_slang (openXC7 or OSS CAD Suite), Verilator, Verible, python3. CI runs lint (`.github/workflows/lint.yml`) and Verible (`verible.yml`) on every push and pull request.
 
-### Community Outreach
+## Community Outreach
 - [2025-08-10](https://www.linkedin.com/feed/update/urn:li:activity:7359764905572376577?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7359764905572376577%2C7360217016948985856%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287360217016948985856%2Curn%3Ali%3Aactivity%3A7359764905572376577%29)
 - [2025-02-21](https://www.linkedin.com/posts/patrick-urban-086177251_gatemate-fpga-colognechip-activity-7298662301677551616-4sw0?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAJv-TcBSi_5ff0VNMrInrT-xg44YF3jnyU)
 
-## References:
-- CologneChip [SerDes example design](https://github.com/pu-cc/gm_serdes_lb) and latest [datasheet](https://colognechip.com/docs/ds1001-gatemate1-datasheet-latest.pdf)
+**Issues filed upstream**, from the 7.SerDes work:
+
+| Tool / project | Issue | What | State |
+|---|---|---|---|
+| LiteX | [litex#2686](https://github.com/enjoy-digital/litex/issues/2686) (ours: [#75](https://github.com/chili-chips-ba/openCologne/issues/75)) | `PRBSRX`: `pause` and `with_errors_saturation` have no effect | open |
+| Verilator | [verilator#8894](https://github.com/verilator/verilator/issues/8894) | no error for a (local)param used before its declaration | open |
+| Verilator | [verilator#8895](https://github.com/verilator/verilator/issues/8895) | a continuous-assign alias read through a function returns a later value | open |
+| Verilator | [verilator#8896](https://github.com/verilator/verilator/issues/8896) | `always @*` with an intra-assignment delay never finishes | open |
+| Verilator | [verilator#8897](https://github.com/verilator/verilator/issues/8897) | a dynamic array of events: the C++ does not compile | closed (fixed) |
+| Icarus Verilog | [iverilog#1643](https://github.com/steveicarus/iverilog/issues/1643) | an event control on a dynamic-array element never wakes | open |
+| Icarus Verilog | [iverilog#1645](https://github.com/steveicarus/iverilog/issues/1645) | queue of unpacked structs | open |
+| Icarus Verilog | [iverilog#1646](https://github.com/steveicarus/iverilog/issues/1646) | queue slice `q[1:$]` | open |
+| Icarus Verilog | [iverilog#1647](https://github.com/steveicarus/iverilog/issues/1647) | `name()` on an enum-typed parameter | open |
+| Icarus Verilog | [iverilog#1648](https://github.com/steveicarus/iverilog/issues/1648) | unpacked array of queues | open |
+| Icarus Verilog | [iverilog#1649](https://github.com/steveicarus/iverilog/issues/1649) | static array of events | open |
+| Icarus Verilog | [iverilog#1650](https://github.com/steveicarus/iverilog/issues/1650) | function `output` arguments | open |
+| Icarus Verilog | [iverilog#1651](https://github.com/steveicarus/iverilog/issues/1651) | typed assignment pattern `s_t'{a: ...}` | open |
+| Icarus Verilog | [iverilog#1652](https://github.com/steveicarus/iverilog/issues/1652) | field write to an element of an array of packed structs | open |
+| Icarus Verilog | [iverilog#1653](https://github.com/steveicarus/iverilog/issues/1653) | `?:` with `$sformatf()` and a string literal crashes `ivl` | open |
+| Icarus Verilog | [iverilog#438](https://github.com/steveicarus/iverilog/issues/438#issuecomment-6390247886) (comment) | `wait` on a function call: internal error | open |
+| Verible | [verible#217](https://github.com/chipsalliance/verible/issues/217#issuecomment-6390248086) (comment) | lint: a parameter used before its declaration | open |
+| Cologne Chip | [gatemate-pipe#12](https://github.com/colognechip/gatemate-pipe/issues/12) = [openCologne-PCIE#28](https://github.com/chili-chips-ba/openCologne-PCIE/issues/28) | DS1001 Table 2.51: `RX_ALIGN_COMMA_WORD` width and default | open |
+| Cologne Chip | [gatemate-pipe#13](https://github.com/colognechip/gatemate-pipe/issues/13) = [openCologne-PCIE#29](https://github.com/chili-chips-ba/openCologne-PCIE/issues/29) | `RX_RESET_DONE_GATE` (UG1001) vs `RX_RESETDONE_GATE` (model) | open |
+| Cologne Chip | [gatemate-pipe#14](https://github.com/colognechip/gatemate-pipe/issues/14) = [openCologne-PCIE#30](https://github.com/chili-chips-ba/openCologne-PCIE/issues/30) | DS1001: document the RX clock-correction behaviour (depth, matching, insert/remove, PCIe SKP) | open |
+
+State as of 2026-10-24.
+
+## References
+- Cologne Chip [SerDes example design](https://github.com/pu-cc/gm_serdes_lb) and latest [datasheet](https://colognechip.com/docs/ds1001-gatemate1-datasheet-latest.pdf)
 - Xilinx PG046 - [Aurora 8B/10B](https://docs.amd.com/r/en-US/pg046-aurora-8b10b/Introduction?tocId=Tqe8wtK9r1zAUq13hUnVEw)
     - Xilinx SP002 - [Aurora 8B/10B Protocol Spec](https://docs.amd.com/v/u/en-US/aurora_8b10b_protocol_spec_sp002)
 - BerkeleyLab [ChitChat](https://berkeleylab.github.io/Bedrock/_gen_md/serial_io/chitchat/README_md.html) protocol
@@ -386,7 +512,7 @@ Tools: Yosys with read_slang (openXC7 or OSS CAD Suite), Verilator, Verible, pyt
 - openCologne-PCIE [SerDes BFM](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/2.serdes-model) and [SerDes loopback tests](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/1.serdes-test.STANDALONE)
 - [Transputer](http://www.bitsavers.org/components/inmos/transputer/C011_Link_Adaptor.pdf)
 - [LiteX 1000basex](https://github.com/pu-cc/liteeth/tree/gatemate1000basex)
-- [Seding Data Structures from chip to chip](https://www.reddit.com/r/FPGA/comments/1m8gl5o/how_to_send_a_struct_from_one_dev_board_to_another)
+- [Sending Data Structures from chip to chip](https://www.reddit.com/r/FPGA/comments/1m8gl5o/how_to_send_a_struct_from_one_dev_board_to_another)
   
 - Timing-aware/better PNR for this high-speed design:
     - [Project Peppercorn](https://github.com/YosysHQ/prjpeppercorn)

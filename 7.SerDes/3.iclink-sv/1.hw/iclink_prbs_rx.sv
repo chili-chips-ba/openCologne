@@ -8,6 +8,7 @@
 // PRBS RX of a SerDes datapath: a SystemVerilog port of LiteX's
 // litex/soc/cores/prbs.py PRBSRX. Counts the clocks with an error for the
 // PRBS that config selects (0 clears the count); pause holds the count.
+// The count stops at its top, all ones, rather than wrap.
 // Unlike LiteX, pause works there: in LiteX, ~False is -1 in Python, which
 // makes ~pause wide and never 0.
 //==========================================================================
@@ -16,7 +17,8 @@ module iclink_prbs_rx
 #(
     parameter int WIDTH        = 20,
     parameter bit REVERSE      = 1'b1,
-    parameter int ERRORS_WIDTH = 32
+    parameter int ERRORS_WIDTH = 32,
+    parameter bit PIPE_IDLE    = 1'b0   // see iclink_prbs_chk
 ) (
     input  logic                         clk,
     input  logic                         arst_n,
@@ -37,10 +39,11 @@ module iclink_prbs_rx
   end : _order
 
   iclink_prbs_chk #(
-      .WIDTH (WIDTH),
-      .NSTATE(7),
-      .TAP0  (5),
-      .TAP1  (6)
+      .WIDTH    (WIDTH),
+      .NSTATE   (7),
+      .TAP0     (5),
+      .TAP1     (6),
+      .PIPE_IDLE(PIPE_IDLE)
   ) u_chk7 (
       .clk,
       .arst_n,
@@ -48,10 +51,11 @@ module iclink_prbs_rx
       .errors(err7)
   );
   iclink_prbs_chk #(
-      .WIDTH (WIDTH),
-      .NSTATE(15),
-      .TAP0  (13),
-      .TAP1  (14)
+      .WIDTH    (WIDTH),
+      .NSTATE   (15),
+      .TAP0     (13),
+      .TAP1     (14),
+      .PIPE_IDLE(PIPE_IDLE)
   ) u_chk15 (
       .clk,
       .arst_n,
@@ -59,10 +63,11 @@ module iclink_prbs_rx
       .errors(err15)
   );
   iclink_prbs_chk #(
-      .WIDTH (WIDTH),
-      .NSTATE(31),
-      .TAP0  (27),
-      .TAP1  (30)
+      .WIDTH    (WIDTH),
+      .NSTATE   (31),
+      .TAP0     (27),
+      .TAP1     (30),
+      .PIPE_IDLE(PIPE_IDLE)
   ) u_chk31 (
       .clk,
       .arst_n,
@@ -91,7 +96,7 @@ module iclink_prbs_rx
       if (config_sync == PRBS_OFF) begin
         errors <= '0;
       end
-      else if (!pause) begin
+      else if (!pause && errors != '1) begin
         errors <= errors + ERRORS_WIDTH'(error);
       end
     end

@@ -11,13 +11,17 @@
 #   make            bitstream: build/top.bit
 #   make load       program the EVB over JTAG (openFPGALoader)
 #   make clean
+#   LINE_RATE=1250|2500|5000  Mb/s (default 2500); the SerDes core clocks
+#                   clk_tx and clk_rx are constrained at LINE_RATE / 80
+#                   (31.25 MHz at 2500), the EVB clock (CLK0) at FREQ
 #
 # Sources: ../1.hw/top.filelist (sources.sh). Pins: GateMateA1-EVB.ccf.
 #==========================================================================
 
 DEVICE   ?= CCGM1A1
-FREQ     ?= 32                   # MHz, one constraint for every clock: the SerDes core
-                                 # clocks run at 31.25 MHz, the EVB clock (CLK0) at 10
+LINE_RATE ?= 2500
+CORE_MHZ := $(shell awk 'BEGIN { print $(LINE_RATE) / 80 }')
+FREQ     ?= 10                   # MHz, every clock not named below: the EVB clock (CLK0)
 SEED     ?= 1
 CCF      ?= GateMateA1-EVB.ccf
 BOARD    ?= gatemate_evb_jtag
@@ -38,12 +42,17 @@ CELLS    := $(shell $(YOSYS)-config --datdir)/gatemate/cells_bb.v
 all: $(BLD)/top.bit
 
 $(BLD)/top.json: $(SV) | $(BLD)
-	$(YOSYS) -l $(BLD)/yosys.log -p "read_slang -D SYNTHESIS --top top $(CELLS) $(SV); \
+	$(YOSYS) -l $(BLD)/yosys.log -p "read_slang -D SYNTHESIS -G LINE_RATE=$(LINE_RATE) --top top $(CELLS) $(SV); \
 	  synth_gatemate -top top -luttree -nomx8 -json $@" > /dev/null
 
-$(BLD)/top.txt: $(BLD)/top.json $(CCF)
+# the SerDes core clocks, by net name
+$(BLD)/clocks.py: Makefile | $(BLD)
+	printf 'ctx.addClock("clk_tx", %s)\nctx.addClock("clk_rx", %s)\n' $(CORE_MHZ) $(CORE_MHZ) > $@
+
+$(BLD)/top.txt: $(BLD)/top.json $(BLD)/clocks.py $(CCF)
 	$(NEXTPNR) --device $(DEVICE) --json $< --vopt ccf=$(CCF) --vopt out=$@ \
-	  --router router2 --freq $(FREQ) --seed $(SEED) -l $(BLD)/nextpnr.log
+	  --pre-pack $(BLD)/clocks.py --router router2 --freq $(FREQ) --seed $(SEED) \
+	  -l $(BLD)/nextpnr.log
 
 $(BLD)/top.bit: $(BLD)/top.txt
 	$(GMPACK) $< $@
@@ -55,7 +64,7 @@ load: $(BLD)/top.bit
 	$(OFL) -b $(BOARD) $<
 
 clean:
-	rm -rf $(BLD)
+	find $(BLD) -delete 2>/dev/null || true
 
 # -----------------------------------------------------------------------------
 # Project:     openCologne

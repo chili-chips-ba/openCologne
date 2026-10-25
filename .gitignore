@@ -29,6 +29,7 @@ __pycache__/
 /7.SerDes/3.iclink-sv/3.build/build/
 /7.SerDes/3.iclink-sv/4.litex/build/
 /7.SerDes/3.iclink-sv/2.sim/obj_*/
+/7.SerDes/3.iclink-sv/2.sim/modes_*.txt
 /7.SerDes/3.iclink-sv/2.sim/pump_levels.csv
 
 # --- Simulation --------------------------------------------------------------

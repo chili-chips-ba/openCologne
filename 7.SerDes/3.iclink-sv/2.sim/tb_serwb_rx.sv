@@ -29,6 +29,9 @@ module tb_serwb_rx;
   logic  [   7:0] o_port;
   logic  [DW-1:0] o_drop;
   logic o_commit, o_rewind, o_crc_error;
+  logic i_hold;  // the pause hold: tb_serwb_pump tests it
+
+  assign i_hold = 1'b0;
 
   iclink_serwb_rx #(
       .W           (W),

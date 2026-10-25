@@ -7,6 +7,11 @@
 //==========================================================================
 // PRBS generator, WIDTH bits per clock: a SystemVerilog port of LiteX's
 // litex/soc/cores/prbs.py PRBSGenerator (same LFSR, same bit order).
+//
+// The LFSR is linear, so WIDTH steps are a constant matrix: each bit out,
+// and each bit of the next state, is the XOR of some state bits. The
+// masks come from the steps at elaboration; the logic is one XOR of up to
+// NSTATE bits per bit, not a WIDTH-deep chain (64 bits at 62.5 MHz).
 //==========================================================================
 module iclink_prbs_gen #(
     parameter int WIDTH  = 20,
@@ -21,15 +26,35 @@ module iclink_prbs_gen #(
 
   localparam int LEN = (NSTATE > WIDTH) ? NSTATE : WIDTH;
 
+  typedef logic [NSTATE-1:0] mask_t;
+  typedef mask_t [LEN-1:0] masks_t;
+
+  // WIDTH steps of the LFSR on masks: m[j] holds the state bits whose XOR
+  // is bit j; each new bit enters at [0], the oldest drops out
+  function automatic masks_t steps();
+    masks_t m;
+    mask_t  n;
+    for (int j = 0; j < LEN; j++) begin
+      m[j] = (j < NSTATE) ? mask_t'(1) << j : '0;
+    end
+    for (int i = 0; i < WIDTH; i++) begin
+      n = m[TAP0] ^ m[TAP1];
+      for (int j = LEN - 1; j > 0; j--) begin
+        m[j] = m[j-1];
+      end
+      m[0] = n;
+    end
+    return m;
+  endfunction
+
+  localparam masks_t M = steps();
+
   logic [NSTATE-1:0] state;
   logic [   LEN-1:0] cur;
 
-  // WIDTH steps of the LFSR: each new bit enters at [0], the oldest drops out
   always_comb begin : _lfsr
-    cur             = '0;
-    cur[NSTATE-1:0] = state;
-    for (int i = 0; i < WIDTH; i++) begin
-      cur = {cur[LEN-2:0], cur[TAP0] ^ cur[TAP1]};
+    for (int j = 0; j < LEN; j++) begin
+      cur[j] = ^(state & M[j]);
     end
   end : _lfsr
 

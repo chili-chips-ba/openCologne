@@ -4,7 +4,8 @@
 
 // FIFO pump, two sides, SerDes out of the loop: pump A's phy_tx goes to
 // pump B's phy_rx and back, on the 64-bit + 8 K digital bus, through a
-// LINE_LAT-clock delay that stands for PHY TX + CC_SERDES + PHY RX. Each
+// LINE_LAT-clock delay that stands for PHY TX + CC_SERDES + PHY RX (as
+// measured on the SerDes BFM, PHY data in to PHY data out). Each
 // side has its own CPU clock. W = 2: the pumps run on the line clock; W = 4:
 // at half of it, through 2:1 gearboxes (iclink_gearbox), as for 5 Gb/s.
 //
@@ -12,7 +13,9 @@
 //   2. B stops reading while A floods: B's RX FIFO fills to XOFF_LEVEL, the
 //      XOFF stops A, A's TX FIFO fills and pushes back on A's CPU; B's RX
 //      FIFO must not overflow. Then B reads again: XON, A drains, all
-//      words arrive in order.
+//      words arrive in order. The hold outlasts the depacketizer timeout
+//      (TIMEOUT_CLKS, short here), so a packet paused mid-way must wait, not
+//      drop.
 //   3. line rate: A's TX is held (tx_hold) while A's CPU fills the TX FIFO (1024
 //      words, 64 packets); then the burst goes out with no CPU in the way,
 //      and B's depacketizer must see BURST_RATE words a clock or more.
@@ -26,8 +29,9 @@ module tb_serwb_pump;
   parameter int W = 2;  // words a pump clock
   localparam int NP         = W / 2;
   localparam int DEPTH      = 1024;
-  localparam int XOFF_LEVEL = DEPTH - 64 * W;  // the pump's default
-  localparam int LINE_LAT   = 12;             // clocks, PHY TX + CC_SERDES + PHY RX
+  localparam int XOFF_LEVEL = DEPTH - 96 * W;  // the pump's default (RT_CLKS = 96)
+  localparam int LINE_LAT   = (W == 2) ? 29 : 26;  // line clocks, at 2.5 / 5 Gb/s on the BFM
+  localparam int TIMEOUT    = 500;            // pump clocks: well under the phase 2 hold
   localparam int N_RANDOM   = 6000;           // words each way, phase 1
   localparam int N_FLOOD    = 4000;           // words A -> B, phase 2
   localparam int N_BURST    = DEPTH;          // words A -> B, phase 3: a full TX FIFO
@@ -80,8 +84,9 @@ module tb_serwb_pump;
   logic a_tx_hold;  // phase 3: A's tx_hold while its FIFO fills
 
   iclink_serwb_pump #(
-      .W    (W),
-      .DEPTH(DEPTH)
+      .W           (W),
+      .DEPTH       (DEPTH),
+      .TIMEOUT_CLKS(TIMEOUT)
   ) u_a (
       .clk_sys      (clk_a),
       .sys_arst_n   (arst_n),
@@ -110,8 +115,9 @@ module tb_serwb_pump;
   );
 
   iclink_serwb_pump #(
-      .W    (W),
-      .DEPTH(DEPTH)
+      .W           (W),
+      .DEPTH       (DEPTH),
+      .TIMEOUT_CLKS(TIMEOUT)
   ) u_b (
       .clk_sys      (clk_b),
       .sys_arst_n   (arst_n),
@@ -344,7 +350,7 @@ module tb_serwb_pump;
     phase   = 2;
     a_goal  = N_RANDOM + N_FLOOD;
     wait (a_full);
-    repeat (2000) @(posedge clk_line);  // hold: everything must stay put
+    repeat (2000) @(posedge clk_line);  // hold, past TIMEOUT: everything must stay put
     b_reads = 1'b1;
     wait (b_got == N_RANDOM + N_FLOOD);
     repeat (200) @(posedge clk_line);

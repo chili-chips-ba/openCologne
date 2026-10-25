@@ -27,7 +27,8 @@
 // The CRC is linear, so the data term needs no running CRC, and the CRC loop
 // is one shallow XOR tree (iclink_serwb_pkg).
 //
-// hdr: one request per packet, port and word count (1 .. 16383). All of
+// hdr: one request per packet, port and word count (1 .. 16383; 0 is not
+// a packet). All of
 // the packet's words must be waiting by then: d_word shows the next W, and
 // the packetizer takes d_take of them a clock (the pump's TX FIFO).
 //==========================================================================
@@ -53,6 +54,10 @@ module iclink_serwb_tx
     input  logic          o_ready
 );
 
+  if (!(W inside {2, 4})) begin : g_bad_w
+    $error("iclink_serwb_tx: W %0d: 2 or 4", W);
+  end : g_bad_w
+
   typedef enum logic [1:0] {
     S_IDLE,
     S_DATA,
@@ -68,10 +73,18 @@ module iclink_serwb_tx
     logic          init;     // a preamble: the CRC starts again
   } beat_t;
 
+  // what stage 3 reads of a beat
+  typedef struct packed {
+    word_t [W-1:0] word;
+    logic [W-1:0]  valid;
+    logic [W-1:0]  crcslot;
+  } out_t;
+
   state_t state, state_next;
   logic [13:0] left, left_next;  // data words still to send
   logic [TW-1:0] take;  // words this beat takes, if it goes
-  beat_t f_next, f, t;  // into stage 1, after stage 1, after stage 2
+  beat_t f_next, f;  // into stage 1, after stage 1
+  out_t        t;  // after stage 2
   word_t       t_dterm;  // stage 2: the data term of t's CRC slots, and the INIT term on a start
   logic  [2:0] t_n;  // stage 2: how many words t's CRC slots hold
   word_t       crc;  // stage 3: the CRC over the packet so far
@@ -87,7 +100,7 @@ module iclink_serwb_tx
     state_next = state;
     left_next  = left;
 
-    unique case (state)
+    case (state)  // default: an unused state code goes back to S_IDLE
       S_IDLE: begin
         if (hdr_valid) begin
           f_next.word[0]    = SERWB_PREAMBLE;
@@ -108,10 +121,11 @@ module iclink_serwb_tx
             end
           end
           left_next = hdr_words - 14'(take);
-          if (hdr_words + 14'd2 < 14'(W)) begin  // the CRC fits in this beat
+          // in 15 bits: hdr_words + 2 overflows 14 at 16382 and 16383
+          if (15'(hdr_words) + 15'd2 < 15'(W)) begin  // the CRC fits in this beat
             state_next = S_IDLE;
           end
-          else if (hdr_words + 14'd2 == 14'(W)) begin
+          else if (15'(hdr_words) + 15'd2 == 15'(W)) begin
             state_next = S_CRC;
           end
           else begin
@@ -195,7 +209,7 @@ module iclink_serwb_tx
       t_n     <= '0;
     end
     else if (o_ready) begin
-      t       <= f;
+      t       <= '{word: f.word, valid: f.valid, crcslot: f.crcslot};
       t_n     <= n;
       t_dterm <= dterm ^ (f.init ? serwb_crc_iterm(n) : '0);
     end

@@ -3,8 +3,10 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 #
-# Lint of the RTL of top (1.hw/top.filelist, via sources.sh): syntax and
-# limited semantic checks with a set of opensource tools, run in this order:
+# Lint of the RTL of top (1.hw/top.filelist, via sources.sh), and of the
+# SerWB link layer, not in top yet (1.hw/serwb.filelist; tops
+# iclink_serwb_pump and iclink_gearbox): syntax and limited semantic checks
+# with a set of opensource tools, run in this order:
 #
 #   tags       every /*LINT:OK*/ sits on an output port (no tool needed)
 #   verilator  Verilator --lint-only -Wall: unused/undriven signals, widths,
@@ -68,7 +70,10 @@ rm -rf "$W/1.hw"
 cp -r "$HW" "$W/1.hw"
 cd "$W"
 SV=$(design_rtl 1.hw | tr '\n' ' ')
+SERWB=$(serwb_rtl 1.hw | tr '\n' ' ')
 OWN=$(own_rtl 1.hw | tr '\n' ' ')
+# the designs the verilator, yosys and slang phases lint: top, sources
+DESIGNS=("top:$SV" "iclink_serwb_pump:$SERWB" "iclink_gearbox:$SERWB")
 
 have() { command -v "$1" >/dev/null 2>&1; }
 declare -A RESULT
@@ -86,7 +91,7 @@ waivers() {
 # inline waivers .PIN (/*LINT:OK*/), as file:line:PIN (the first line keeps
 # awk's NR==FNR test working when there is none)
 { echo "#"
-  grep -n -o -E '\.[A-Za-z_][A-Za-z0-9_]*[[:space:]]*\([[:space:]]*/\*LINT:OK\*/[[:space:]]*\)' $SV |
+  grep -n -o -E '\.[A-Za-z_][A-Za-z0-9_]*[[:space:]]*\([[:space:]]*/\*LINT:OK\*/[[:space:]]*\)' $OWN |
     sed -E 's/^([^:]*:[0-9]+):\.([A-Za-z0-9_]*).*/\1:\2/'
 } > lint_ok.txt
 
@@ -122,7 +127,7 @@ bb() {
 # module headers of the design and the primitive stubs
 run_tags() {
   bb || { skip tags "no GateMate stubs (yosys-config)"; return; }
-  "$PYTHON" - bb.v -- $SV > tags.log <<'EOF'
+  "$PYTHON" - bb.v -- $OWN > tags.log <<'EOF'
 import re, sys
 ports_only = sys.argv[1:sys.argv.index('--')]
 files = sys.argv[sys.argv.index('--') + 1:]
@@ -163,16 +168,23 @@ run_verilator() {
 `verilator_config
 lint_off -file "*bb.v"
 VLT
-  "$VERILATOR" --lint-only -Wall -Wno-fatal --timing --top-module $TOP -DSYNTHESIS \
-    waive.vlt bb.v $SV > verilator.log 2>&1
+  : > verilator.log
+  for d in "${DESIGNS[@]}"; do
+    "$VERILATOR" --lint-only -Wall -Wno-fatal --timing --top-module ${d%%:*} -DSYNTHESIS \
+      waive.vlt bb.v ${d#*:} >> verilator.log 2>&1
+  done
   found verilator < <(grep -E '^%(Warning|Error)' verilator.log)
 }
 
 run_yosys() {
   have "$YOSYS" || { skip yosys "$YOSYS not found"; return; }
   bb || { skip yosys "no GateMate stubs"; return; }
-  "$YOSYS" $YOSYS_ARGS -q -l yosys.log -p "read_slang -D SYNTHESIS --top $TOP bb.v $SV; \
-      hierarchy -check -top $TOP; proc; check -nolatches -initdrv" >/dev/null 2>&1
+  : > yosys.log
+  for d in "${DESIGNS[@]}"; do
+    "$YOSYS" $YOSYS_ARGS -q -l yosys.one.log -p "read_slang -D SYNTHESIS --top ${d%%:*} bb.v ${d#*:}; \
+        hierarchy -check -top ${d%%:*}; proc; check -nolatches -initdrv" >/dev/null 2>&1
+    cat yosys.one.log >> yosys.log
+  done
   if grep -q '^ERROR' yosys.log; then
     RESULT[yosys]="error, see $W/yosys.log"; echo "-- yosys: error"; return
   fi
@@ -183,8 +195,12 @@ run_yosys() {
 run_slang() {
   have "$YOSYS" || { skip slang "$YOSYS not found"; return; }
   bb || { skip slang "no GateMate stubs"; return; }
-  "$YOSYS" $YOSYS_ARGS -q -l slang.log -p "read_slang -D SYNTHESIS --top $TOP -Wextra bb.v $SV" \
-      >/dev/null 2>&1
+  : > slang.log
+  for d in "${DESIGNS[@]}"; do
+    "$YOSYS" $YOSYS_ARGS -q -l slang.one.log \
+        -p "read_slang -D SYNTHESIS --top ${d%%:*} -Wextra bb.v ${d#*:}" >/dev/null 2>&1
+    cat slang.one.log >> slang.log
+  done
   if grep -q '^ERROR' slang.log; then
     RESULT[slang]="error, see $W/slang.log"; echo "-- slang: error"; return
   fi

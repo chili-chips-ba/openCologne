@@ -12,7 +12,7 @@ The chip-to-chip link: LiteX's LiteICLink SerWB over our GateMate `CC_SERDES` PH
 
 For all new openCologne RTL.
 
-**LiteX code.** The C2C core (SerWB and the GateMate PHY) is SystemVerilog, hand-ported from LiteICLink, and follows the rules below. Only the thin Migen wrapper that hands it to LiteX is Python, in LiteX's own style.
+**Scope.** The C2C core (SerWB and the GateMate PHY) is SystemVerilog, hand-ported from LiteICLink, and follows the rules below. Only the thin Migen wrapper that hands it to LiteX is Python, in LiteX's own style.
 
 IEEE 1800-2009 SystemVerilog:
 
@@ -57,15 +57,15 @@ Upstream: LiteX `d2b47282a`, LiteICLink `8ef8d79` (2026-10-21), snapshot in [`..
 | Core clock at 2.5 Gb/s | 125 or 62.5 MHz | 31.25 MHz |
 | TX order | 8b/10b encoder, then PRBS mux | PRBS mux, then 8b/10b encoder |
 | PRBS on the line | raw bits | 8b/10b D characters |
-| 8b/10b TX | fabric (LiteX `Encoder`) | fabric (`iclink_8b10b_enc`, bit-exact port) |
+| 8b/10b TX | fabric (LiteX `Encoder`) | fabric (`iclink_8b10b_enc`, bit-exact port), or `CC_SERDES` (`TX_HARD_8B10B`, default at 5 Gb/s) |
 | 8b/10b RX | fabric (LiteX `Decoder`) + word aligner | inside `CC_SERDES`, with comma alignment |
 | Encoder pipeline | 2 clocks | 1 input register + 2 clocks |
 | Flops at the SerDes | as the PHY needs | one stage on every datapath and control port |
 
 Why the differences:
 
-- **RX in the hard macro.** With its 8b/10b off, `CC_SERDES` hands out only bits 7:0 of each symbol, so the fabric cannot decode. RX decoding and comma alignment stay in `CC_SERDES`.
-- **PRBS through 8b/10b.** A raw PRBS would reach the fabric only as decoded bytes, so the PRBS travels as D characters and is checked after the decoder.
+- **RX in the hard macro.** RX decoding and comma alignment stay in `CC_SERDES`: they cost no fabric. A fabric decoder is possible: with the decoder off, bits 8 and 9 of each symbol come out on `RX_CHAR_IS_K_O` and `RX_DISP_ERR_O` (DS1001 Figure 2.39).
+- **PRBS through 8b/10b.** With the decoder in `CC_SERDES`, a raw PRBS would reach the fabric only as decoded bytes, so the PRBS travels as D characters and is checked after the decoder.
 - **8 words per clock.** The `CC_SERDES` fabric interface is 64 bits + 8 K flags at line rate / 80. The encoder's running disparity runs through all 8 words in one clock, 2 to 4 times LiteICLink's chain. That chain is the TX critical path at 31.25 MHz; registering the encoder input took the PRBS mux out of it.
 
 ## Clocks and line rate
@@ -78,7 +78,7 @@ Why the differences:
 | 32 / 40-bit | 40 | 62.5 MHz |
 | **64 / 80-bit (this core)** | 80 | **31.25 MHz** |
 
-Our TX path closes at about 33 MHz (the 8-word encoder chain); 62.5 or 125 MHz with fabric 8b/10b is out of reach on GateMate. Wide and slow is what fits.
+Our TX path closes at about 37 MHz (36.6 to 39.1 over 4 seeds; the 8-word encoder chain); 62.5 or 125 MHz with fabric 8b/10b is out of reach on GateMate. Wide and slow is what fits.
 
 **PLL setting.** The bring-up writes regfile `0x51` = `0x16FA` (`iclink_phy_pkg.sv`, `CFG_SEQ`):
 
@@ -99,10 +99,9 @@ From the 100 MHz reference: oscillator 100 x N1·N2·N3 = 2500 MHz (its range is
 | **2.5 Gb/s** | 2 (`01`) | 1.25 GHz | 31.25 MHz | `0x16FA` |
 | 5 Gb/s | 1 (`00`) | 2.5 GHz | 62.5 MHz | `0x06FA` |
 
-- **1.25 Gb/s:** the register value only; timing gets easier. Or the 32-bit path (M4 = 1) at 31.25 MHz with 4 words per clock (`PHY_NWORDS` = 4).
-- **5 Gb/s:** 62.5 MHz is too fast for the fabric encoder. The way is `CC_SERDES`'s own TX 8b/10b (`TX_8B10B_EN_I`), leaving only flops and the PRBS mux in the fabric; plus the SI settings below and a board check (5 Gb/s is the chip's maximum).
-- All three are planned as performance levels of the FIFO pump (parameter `LINE_RATE`, [spec](../../README.md#fifo-pump)); 2.5 Gb/s is the default.
-- The SerDes BFM may model 2.5 Gb/s only; to check before simulating other rates. Per-rate CDR settings: not given in DS1001.
+- **1.25 Gb/s:** the register value only; timing gets easier. Or the 32-bit path (M4 = 1) at 31.25 MHz with 4 words per clock (`PHY_NWORDS` = 4), which would need a lane-aligner change: it supports 8 words only.
+- **5 Gb/s:** 62.5 MHz is too fast for the fabric encoder. The way is `CC_SERDES`'s own TX 8b/10b (`TX_8B10B_EN_I`), leaving only flops and the PRBS mux (a constant XOR matrix) in the fabric. It meets timing (`make -C 7.SerDes/3.iclink-sv/3.build LINE_RATE=5000`, 4 seeds): `clk_tx` 100.6 to 141.4 MHz, `clk_rx` 66.2 to 71.9 MHz. Still to do: the SI settings below and a board check (5 Gb/s is the chip's maximum).
+- All three run in simulation (`sim_phy_rates`), and are the FIFO pump's performance levels (parameter `LINE_RATE`, [spec](../../README.md#fifo-pump)); 2.5 Gb/s is the default. Per-rate CDR settings: not given in DS1001.
 
 ## Signal-integrity settings
 
@@ -131,7 +130,7 @@ When B only needs to receive data, Etherbone is not needed, but the packetizer s
 
 ## Serial Wishbone frame
 
-The format of LiteICLink `8ef8d79`, which our port keeps so it interoperates. Not in RTL yet. Sources:
+The format of LiteICLink `8ef8d79`, which our port keeps so it interoperates. The packet layer is in RTL (`iclink_serwb_tx.sv`, `iclink_serwb_rx.sv`); Etherbone is not yet. Sources:
 
 - the SerWB spec: [LiteICLink `doc/serwb.md`, Protocol](https://github.com/enjoy-digital/liteiclink/blob/master/doc/serwb.md#protocol), implemented in [`serwb/packet.py`](https://github.com/enjoy-digital/liteiclink/blob/master/liteiclink/serwb/packet.py); our copy: [`../0.upstream/liteiclink/doc/serwb.md`](../0.upstream/liteiclink/doc/serwb.md). LiteICLink added this document on 2026-10-21 (`175c81e`), with its SerWB review; before, the format was only in the code;
 - Etherbone: CERN's [Etherbone core](https://ohwr.org/projects/etherbone-core), as implemented in LiteEth's [`frontend/etherbone.py`](https://github.com/enjoy-digital/liteeth/blob/master/liteeth/frontend/etherbone.py), which LiteICLink reuses.
@@ -158,7 +157,7 @@ In detail, word by word and on the line:
 | Receiver | Largest payload | Set by |
 |---|---|---|
 | LiteICLink without CRC (`Depacketizer`) | 16383 words | the format only; it buffers nothing |
-| LiteICLink with CRC (`CRCDepacketizer`) | `max_words`: 64 by default; in `SERWBCore` `crc_max_words`, default the Etherbone packet (10 words, at least 16) | its store-and-forward buffer |
+| LiteICLink with CRC (`CRCDepacketizer`) | `max_words`: 64 by default; in `SERWBCore` `crc_max_words`, default max(16, the Etherbone packet): 16 | its store-and-forward buffer |
 | This core, FIFO pump (port 2) | `MAX_WORDS`, default 16 (`PKT_WORDS`) | the parameter; the RX FIFO is the buffer |
 
 A larger payload is dropped at the header and counted. Both ends must agree: the sender's `PKT_WORDS` must not exceed the receiver's limit. The packet on the line is the payload + 3 words (preamble, port/length, CRC32).
@@ -194,10 +193,10 @@ Writes are posted: acknowledged once sent. **A read** is a round trip: A sends a
 | Symbol | Use |
 |---|---|
 | K28.5 | comma: alignment at link start-up |
-| K28.1 | fill when there is nothing to send (with flow control; without it, zero words) |
+| K28.1 | fill when there is nothing to send (with flow control; without it, zero words). Ours, while the link is down: K28.5 in byte lane 0 and K28.0 in lane 4 |
 | K28.3 / K28.4 | XOFF / XON: pause and resume the far transmitter (flow control, both sides) |
 
-**On our PHY**, 8 symbols per clock: two SerWB words per 31.25 MHz clock, the first in bytes 0-3, the second in bytes 4-7, each K flag with its byte. LiteICLink's 4-symbol SerWB encoder is then replaced by the PHY's 8-symbol path (see the table above): interoperability is at the packet layer.
+**On our PHY**, 8 symbols per clock: two SerWB words per 31.25 MHz clock (W = 2; at W = 4, four per half-rate clock, through the gearbox), the first in bytes 0-3, the second in bytes 4-7, each K flag with its byte. LiteICLink's 4-symbol SerWB encoder is then replaced by the PHY's 8-symbol path (see the table above): interoperability is at the packet layer.
 
 **Will it work with Lattice and others?** SerWB is not a standard; it is LiteICLink's own protocol, and LiteICLink is its only reference. It works with another vendor when the other side runs LiteICLink's SerWB core, and both sides agree below it:
 
@@ -209,10 +208,7 @@ So it is proven only by test.
 
 ### Interoperability proof
 
-Two references, for two jobs:
-
-- **To read and learn:** this README's [Serial Wishbone frame](#serial-wishbone-frame), a readable spec of the format, with an at-a-glance picture and a word-by-word one, following LiteICLink's own [`doc/serwb.md`](https://github.com/enjoy-digital/liteiclink/blob/master/doc/serwb.md#protocol).
-- **To prove interoperability:** LiteX's own SerWB code, not our reading of either document.
+Read the [frame](#serial-wishbone-frame) above; prove interoperability against LiteX's own code.
 
 **The proof uses LiteX's own SerWB code.** LiteICLink's packetizer, depacketizer, CRC and Etherbone (Python / Migen) generate the traffic our RTL must produce, and check the traffic our RTL sends. An error in our understanding of the format then shows up as a mismatch against LiteX itself. Three levels, each with LiteX on the other side:
 
@@ -222,7 +218,7 @@ Two references, for two jobs:
 | 2. LiteICLink's tests | its own test cases (`test/test_serwb_packet.py`: loopback, CRC loopback, corrupted packet dropped, oversized packet dropped, zero length, timeout; `test_serwb_link.py`: Wishbone, byte enables, unknown port) | the same cases run against our RTL | same behaviour, error cases included |
 | 3. Silicon | LiteICLink SoC on the ECP5 (test setup 3) | IC Link on the GateMate | the same over a real link, both directions |
 
-The 8b/10b and PRBS ports already pass level 1 against LiteX's own models (`code_8b10b.py`, `prbs.py`), clock for clock. Levels 1 and 2 run in CI; level 3 on the bench.
+The 8b/10b, PRBS and SerWB packet ports pass level 1 against LiteX's own models (`code_8b10b.py`, `prbs.py`, `serwb/packet.py`). Level 1 runs with `make -C 7.SerDes/3.iclink-sv/2.sim`. Level 2: planned. Level 3: on the bench.
 
 ## Can data look like a preamble?
 
@@ -291,7 +287,7 @@ Data never produces these symbols, so a PCIe receiver that lost its place finds 
 | Integrity | CRC32, optional | LCRC always; ECRC optional |
 | A bad packet | dropped, never resent | NAK, then replayed from the sender's buffer: no loss |
 | Flow control | XOFF / XON (K28.3 / K28.4) | credits in UpdateFC DLLPs |
-| Clock compensation | none | SKP ordered sets |
+| Clock compensation | none in LiteICLink; ours: a clock-correction burst every 1024 clocks (planned) | SKP ordered sets |
 
 The same codes mean different things: K28.3 is SerWB's XOFF and PCIe's IDL, K28.1 is SerWB's fill and PCIe's FTS. The two framings cannot share a lane.
 
@@ -303,7 +299,7 @@ LiteICLink is Python (Migen). We port it by hand, block by block:
 
 1. Read the Migen module and its tests; pick the SV structure (packages, `always_ff`, one module per Migen class).
 2. Write the SV to our [RTL coding rules](#rtl-coding-rules).
-3. Generate test vectors from LiteX's own Python model ([`../2.sim/gen_8b10b_vectors.py`](../2.sim/gen_8b10b_vectors.py), [`gen_prbs_vectors.py`](../2.sim/gen_prbs_vectors.py)), and compare clock for clock in Verilator.
+3. Generate test vectors from LiteX's own Python model ([`gen_8b10b_vectors.py`](../2.sim/gen_8b10b_vectors.py), [`gen_prbs_vectors.py`](../2.sim/gen_prbs_vectors.py), [`gen_serwb_vectors.py`](../2.sim/gen_serwb_vectors.py), [`gen_serwb_rx_vectors.py`](../2.sim/gen_serwb_rx_vectors.py)), and compare clock for clock in Verilator.
 4. Lint, format and, for clean-ups, prove equivalence with [`../3.build`](../3.build) (`run-lint.sh`, `run-format.sh`, `run-leq.sh`).
 5. When upstream moves, regenerate the vectors: unchanged vectors mean the port still matches.
 
