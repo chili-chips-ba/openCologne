@@ -24,6 +24,9 @@ module tb_serwb_tx;
   end : _clk
 
   logic hdr_valid, hdr_ready, o_ready;
+  logic ce;  // a beat every clock: tb_serwb_pump tests the strobe
+
+  assign ce = 1'b1;
   logic  [   7:0] hdr_port;
   logic  [  13:0] hdr_words;
   word_t [ W-1:0] d_word, o_word;

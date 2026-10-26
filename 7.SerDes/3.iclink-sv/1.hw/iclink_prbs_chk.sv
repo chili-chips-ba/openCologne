@@ -10,7 +10,8 @@
 // before it (self-synchronizing), one error bit per bit; all bits flag an
 // error after IDLE_CLOCKS clocks of an unchanging input. PIPE_IDLE puts a
 // flop after the wide "input changed" compare, for 64 bits at 62.5 MHz:
-// the idle flag then comes a clock later than LiteX's.
+// the idle flag then comes a clock later than LiteX's. ce low skips the
+// word: state and idle count hold, no error.
 //==========================================================================
 module iclink_prbs_chk #(
     parameter int WIDTH       = 20,
@@ -22,6 +23,7 @@ module iclink_prbs_chk #(
 ) (
     input  logic             clk,
     input  logic             arst_n,
+    input  logic             ce,
     input  logic [WIDTH-1:0] i,
     output logic [WIDTH-1:0] errors
 );
@@ -65,6 +67,9 @@ module iclink_prbs_chk #(
       errors   <= '0;
       i_last   <= '0;
       idle_cnt <= ($clog2(IDLE_CLOCKS + 1))'(IDLE_CLOCKS);
+    end
+    else if (!ce) begin
+      errors <= '0;
     end
     else begin
       state  <= cur;

@@ -65,8 +65,7 @@ class SerDesSoC(SoCMini):
         serdes.add_stream_endpoints()
         serdes.add_controls()
         serdes.add_clock_cycles()
-        platform.add_period_constraint(serdes.cd_tx.clk, 1e9/serdes.tx_clk_freq)
-        platform.add_period_constraint(serdes.cd_rx.clk, 1e9/serdes.rx_clk_freq)
+        platform.add_period_constraint(serdes.cd_tx.clk, 1e9/serdes.tx_clk_freq)  # rx: the same clock
 
         # No data source yet: send K28.5 commas when PRBS is off, so RX can align.
         self.comb += [

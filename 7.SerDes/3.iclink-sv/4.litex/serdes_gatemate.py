@@ -8,7 +8,8 @@
 # (../1.hw). It offers the interface of LiteICLink's transceiver PHYs
 # (liteiclink/serdes, e.g. SerDesECP5): tx/rx clock domains, tx_ready /
 # rx_ready, rx_align, PRBS7/15/31 generator and checker, and 8 words of
-# 8 bits + K flag per clock through add_stream_endpoints().
+# 8 bits + K flag per clock through add_stream_endpoints(). The core has
+# one clock (CC_SERDES PLL_CLK_O): tx and rx are both on it.
 #
 # The 8b/10b encoder is in the fabric (SV core), the decoder and comma
 # alignment run in CC_SERDES. The SV sources are read with Yosys's slang
@@ -60,6 +61,7 @@ class SerDesGateMate(LiteXModule):
         self.rx_prbs_config = Signal(2)
         self.rx_prbs_pause  = Signal()
         self.rx_prbs_errors = Signal(32)
+        self.rx_buf_err     = Signal()  # RX elastic buffer error, sticky; rx_ready drops with it
 
         self.tx_clk_freq = linerate/(10*nwords)
         self.rx_clk_freq = linerate/(10*nwords)
@@ -70,10 +72,13 @@ class SerDesGateMate(LiteXModule):
         self.rx_d       = Signal(8*nwords)
         self.rx_k       = Signal(nwords)
         self.rx_invalid = Signal(nwords)
+        self.rx_clkcor  = Signal()  # rx is a clock-correction word: drop it
 
         # Clock domains ---------------------------------------------------------------------
+        # One clock: rx is tx's clock, with its own reset.
         self.cd_tx = ClockDomain()
         self.cd_rx = ClockDomain()
+        self.comb += self.cd_rx.clk.eq(self.cd_tx.clk)
         self.specials += [
             AsyncResetSynchronizer(self.cd_tx, ~self.tx_ready),
             AsyncResetSynchronizer(self.cd_rx, ~self.rx_ready),
@@ -88,14 +93,15 @@ class SerDesGateMate(LiteXModule):
             i_clk_reg        = clk_reg,
             i_arst_n         = ~rst_reg,
             i_ctrl           = ctrl,
-            o_clk_tx         = self.cd_tx.clk,
+            o_clk            = self.cd_tx.clk,
             o_tx_ready       = self.tx_ready,
             i_tx             = Cat(self.tx_k, self.tx_d),
-            o_clk_rx         = self.cd_rx.clk,
             o_rx_ready       = self.rx_ready,
             o_rx_aligned     = self.rx_aligned,
             o_rx             = Cat(self.rx_k, self.rx_d),
             o_rx_invalid     = self.rx_invalid,
+            o_rx_clkcor      = self.rx_clkcor,
+            o_rx_buf_err     = self.rx_buf_err,
             o_rx_prbs_errors = self.rx_prbs_errors,
         )
         self.add_sources(platform)
@@ -128,10 +134,12 @@ class SerDesGateMate(LiteXModule):
         self._rx_ready   = CSRStatus(description="RX initialized and ready, CDR locked.")
         self._rx_align   = CSRStorage(reset=1, description="Comma alignment enable.")
         self._rx_aligned = CSRStatus(description="Comma alignment acquired.")
+        self._rx_buf_err = CSRStatus(description="RX elastic buffer error (sticky until reset).")
         self.specials += [
             MultiReg(self.tx_ready,   self._tx_ready.status),
             MultiReg(self.rx_ready,   self._rx_ready.status),
             MultiReg(self.rx_aligned, self._rx_aligned.status),
+            MultiReg(self.rx_buf_err, self._rx_buf_err.status),
         ]
         self.comb += self.rx_align.eq(self._rx_align.storage)  # synchronized in the core
 

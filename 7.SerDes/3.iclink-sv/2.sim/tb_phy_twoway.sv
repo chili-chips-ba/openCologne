@@ -6,26 +6,45 @@
 // PHYs, each on its own SerDes BFM, the serial lines crossed (TX of A to RX
 // of B, TX of B to RX of A).
 //   1. bring-up of both: PLL, TX and RX ready, comma alignment acquired;
-//   2. data both ways at once: a counter stream with K28.5 commas, a
-//      different one per side, each checked word for word on the other side
-//      (8 bytes + 8 K flags): bit-exact, no invalid symbol;
+//   2. data both ways at once: a counter stream with K28.5 commas and
+//      clock-correction bursts, a different one per side, each checked word
+//      for word on the other side (8 bytes + 8 K flags), the correction
+//      words skipped: bit-exact, no invalid symbol;
 //   3. one serial bit flipped on the A->B line: B must see it, A must not;
 //   4. PRBS both ways at once (A sends PRBS15, B sends PRBS31): 0 errors,
-//      then a flip on B->A is counted by A only.
+//      then a flip on B->A is counted by A only;
+//   5. RX_BUF_ERR_O never set on either side.
+//
+// PPM_A, PPM_B: each side's reference clock off 100 MHz, in ppm (+ is
+// faster). With PPM_A != PPM_B the PRBS run of step 4 lasts PPM_CLOCKS, and
+// the RX elastic buffers must correct: the faster side inserts correction
+// words (its far end writes slower than it reads), the slower one removes
+// them. Both are counted in the BFMs; with |PPM_A - PPM_B| >= 100 both must
+// have happened. The buffers' fill range is reported: the RX latency moves
+// with it, one clock a word.
+`timescale 1ns / 100fs
+
 module tb_phy_twoway
   import iclink_pkg::*;
   import iclink_phy_pkg::*;
 #(
-    parameter int LINE_RATE     = 2500,                // Mb/s: 1250, 2500 or 5000
-    parameter bit TX_HARD_8B10B = (LINE_RATE >= 5000)
+    parameter int LINE_RATE     = 2500,                                     // Mb/s: 1250, 2500 or 5000
+    parameter bit TX_HARD_8B10B = (LINE_RATE >= 5000),
+    parameter int PPM_A         = 0,
+    parameter int PPM_B         = 0,
+    // PRBS clocks of step 4 with distinct clocks: 40000, or 8 words of drift
+    parameter int PPM_CLOCKS    = (PPM_A == PPM_B) ? 1000 :
+        ((8000000 / ((PPM_A > PPM_B) ? PPM_A - PPM_B : PPM_B - PPM_A) > 40000) ?
+         8000000 / ((PPM_A > PPM_B) ? PPM_A - PPM_B : PPM_B - PPM_A) : 40000)
 );
 
   localparam int DATA_WORDS = 2000;  // words checked per side in step 2
-  localparam int PRBS_CLOCKS = 1000;  // clean PRBS clocks
   localparam int SEED_A = 0;  // the A stream; B's differs
   localparam int SEED_B = 101;
+  localparam int DPPM = (PPM_A > PPM_B) ? PPM_A - PPM_B : PPM_B - PPM_A;
+  localparam real CORE_NS = 80000.0 / LINE_RATE;
 
-  logic clk_ref, clk_reg, arst_n;
+  logic clk_ref_a, clk_ref_b, clk_reg, arst_n;
   logic a_txp, a_txn, b_txp, b_txn;  // serial TX of each side
   logic flip_ab, flip_ba;  // invert a line while high
   logic send, check;
@@ -39,10 +58,17 @@ module tb_phy_twoway
     end
   end : _waves
 
-  initial begin : _clk_ref
-    clk_ref = 1'b0;
-    forever #5 clk_ref = ~clk_ref;  // 100 MHz SerDes reference, shared
-  end : _clk_ref
+  // 100 MHz SerDes references, each PPM off; on the 100 fs grid, exact for
+  // a ppm that is a multiple of 20
+  initial begin : _clk_ref_a
+    clk_ref_a = 1'b0;
+    forever #(5.0 * (1.0 - PPM_A * 1.0e-6)) clk_ref_a = ~clk_ref_a;
+  end : _clk_ref_a
+
+  initial begin : _clk_ref_b
+    clk_ref_b = 1'b0;
+    forever #(5.0 * (1.0 - PPM_B * 1.0e-6)) clk_ref_b = ~clk_ref_b;
+  end : _clk_ref_b
 
   initial begin : _clk_reg
     clk_reg = 1'b0;
@@ -55,7 +81,7 @@ module tb_phy_twoway
       .SEED_TX      (SEED_A),
       .SEED_RX      (SEED_B)
   ) u_a (
-      .clk_ref(clk_ref),
+      .clk_ref(clk_ref_a),
       .clk_reg(clk_reg),
       .arst_n (arst_n),
       .ser_rxp(b_txp ^ flip_ba),
@@ -73,7 +99,7 @@ module tb_phy_twoway
       .SEED_TX      (SEED_B),
       .SEED_RX      (SEED_A)
   ) u_b (
-      .clk_ref(clk_ref),
+      .clk_ref(clk_ref_b),
       .clk_reg(clk_reg),
       .arst_n (arst_n),
       .ser_rxp(a_txp ^ flip_ab),
@@ -86,7 +112,7 @@ module tb_phy_twoway
   );
 
   task automatic flip_line(bit ab);
-    @(posedge u_a.clk_tx);
+    @(posedge u_a.clk);
     #3.1;  // somewhere inside a word
     if (ab) flip_ab = 1'b1;
     else flip_ba = 1'b1;
@@ -97,6 +123,7 @@ module tb_phy_twoway
 
   initial begin
     logic [31:0] base_a, base_b;
+    int ins_a, ins_b, rem_a, rem_b;
     $timeformat(-6, 2, " us", 0);
     arst_n  = 1'b0;
     flip_ab = 1'b0;
@@ -105,6 +132,10 @@ module tb_phy_twoway
     check   = 1'b0;
     ctrl_a  = '{tx_prbs: PRBS_OFF, rx_prbs: PRBS_OFF, rx_prbs_pause: 1'b0, rx_align: 1'b1};
     ctrl_b  = ctrl_a;
+    if (PPM_A != PPM_B) begin
+      $display("references: A %0d ppm, B %0d ppm; PRBS run %0d clocks", PPM_A, PPM_B,
+               PPM_CLOCKS);
+    end
     repeat (4) @(posedge clk_reg);
     arst_n = 1'b1;
 
@@ -125,14 +156,14 @@ module tb_phy_twoway
     disable fork;
     $display("bring-up: A and B ready and aligned at %0t", $time);
     // the iclink_serdes_gm policy: comma alignment off once aligned
-    repeat (32) @(posedge u_a.clk_rx);
+    repeat (32) @(posedge u_a.clk);
     ctrl_a.rx_align = 1'b0;
     ctrl_b.rx_align = 1'b0;
-    repeat (8) @(posedge u_a.clk_rx);
+    repeat (8) @(posedge u_a.clk);
 
     // 2. data both ways, bit-exact
     send = 1'b1;
-    repeat (32) @(posedge u_a.clk_rx);
+    repeat (32) @(posedge u_a.clk);
     check = 1'b1;
     wait (u_a.rx_words >= DATA_WORDS && u_b.rx_words >= DATA_WORDS);
     if (!u_a.locked || !u_b.locked || u_a.rx_bad != 0 || u_b.rx_bad != 0) begin
@@ -147,7 +178,7 @@ module tb_phy_twoway
 
     // 3. a flip on A->B: B sees it, A does not
     flip_line(1'b1);
-    repeat (64) @(posedge u_b.clk_rx);
+    repeat (64) @(posedge u_b.clk);
     if (u_b.rx_bad == 0 || u_a.rx_bad != 0) begin
       errors++;
       $display("ERROR: flip A->B: B %0d wrong, A %0d wrong", u_b.rx_bad, u_a.rx_bad);
@@ -163,17 +194,37 @@ module tb_phy_twoway
     ctrl_b.rx_prbs = PRBS_15;
     ctrl_b.tx_prbs = PRBS_31;
     ctrl_a.rx_prbs = PRBS_31;
-    repeat (64) @(posedge u_a.clk_rx);  // the checkers lock
+    repeat (64) @(posedge u_a.clk);  // the checkers lock
     base_a = u_a.rx_prbs_errors;
     base_b = u_b.rx_prbs_errors;
-    repeat (PRBS_CLOCKS) @(posedge u_a.clk_rx);
+    ins_a  = u_a.inserts;
+    ins_b  = u_b.inserts;
+    rem_a  = u_a.removes;
+    rem_b  = u_b.removes;
+    repeat (PPM_CLOCKS) @(posedge u_a.clk);
+    ins_a = u_a.inserts - ins_a;
+    ins_b = u_b.inserts - ins_b;
+    rem_a = u_a.removes - rem_a;
+    rem_b = u_b.removes - rem_b;
     if (u_a.rx_prbs_errors != base_a || u_b.rx_prbs_errors != base_b) begin
       errors++;
       $display("ERROR: PRBS: errors on clean lines: A %0d, B %0d", u_a.rx_prbs_errors - base_a,
                u_b.rx_prbs_errors - base_b);
     end
+    $display("clock correction in %0d PRBS clocks: A %0d inserted, %0d removed; B %0d inserted, %0d removed",
+             PPM_CLOCKS, ins_a, rem_a, ins_b, rem_b);
+    $display("elastic buffer fill: A %0d to %0d words, B %0d to %0d (MIN_LAT %0d, MAX_LAT %0d)",
+             u_a.fill_min, u_a.fill_max, u_b.fill_min, u_b.fill_max, PHY_RX_MIN_LAT,
+             PHY_RX_MAX_LAT);
+    if (DPPM >= 100 && (ins_a + ins_b == 0 || rem_a + rem_b == 0)) begin
+      errors++;
+      $display("ERROR: %0d ppm apart: the elastic buffers must insert and remove", DPPM);
+    end
+    else if (PPM_A != PPM_B && DPPM < 100) begin
+      $display("%0d ppm apart: corrections reported, not required", DPPM);
+    end
     flip_line(1'b0);  // B->A
-    repeat (32) @(posedge u_a.clk_rx);
+    repeat (32) @(posedge u_a.clk);
     if (u_a.rx_prbs_errors == base_a || u_b.rx_prbs_errors != base_b) begin
       errors++;
       $display("ERROR: PRBS: flip B->A: A %0d, B %0d", u_a.rx_prbs_errors - base_a,
@@ -181,7 +232,14 @@ module tb_phy_twoway
     end
     else begin
       $display("PRBS15 A->B and PRBS31 B->A: 0 errors in %0d clocks; flip B->A: A %0d, B 0",
-               PRBS_CLOCKS, u_a.rx_prbs_errors - base_a);
+               PPM_CLOCKS, u_a.rx_prbs_errors - base_a);
+    end
+
+    // 5. the elastic buffers never ran out or over
+    if (u_a.rx_buf_err || u_b.rx_buf_err || !u_a.rx_ready || !u_b.rx_ready) begin
+      errors++;
+      $display("ERROR: rx_buf_err A %b B %b, rx_ready A %b B %b", u_a.rx_buf_err, u_b.rx_buf_err,
+               u_a.rx_ready, u_b.rx_ready);
     end
 
     $display("TB_PHY_TWOWAY: %s", (errors == 0) ? "PASS" : "FAIL");
@@ -190,7 +248,7 @@ module tb_phy_twoway
 
   // a test that never ends fails
   initial begin : _watchdog
-    #2ms;
+    #(2.0e6 + 2.0 * PPM_CLOCKS * CORE_NS);
     $display("ERROR: timeout at %0t", $time);
     $display("TB_PHY_TWOWAY: FAIL");
     $finish;
@@ -198,8 +256,10 @@ module tb_phy_twoway
 
 endmodule : tb_phy_twoway
 
-// One side: the PHY on its BFM, a TX counter stream and an RX checker that
-// finds the word number in the received word, then expects the next ones.
+// One side: the PHY on its BFM, a TX counter stream with clock-correction
+// bursts, and an RX checker that finds the word number in the received
+// word, then expects the next ones, skipping correction words. inserts and
+// removes count the BFM's elastic-buffer corrections.
 module phy_side
   import iclink_pkg::*;
   import iclink_phy_pkg::*;
@@ -220,12 +280,15 @@ module phy_side
     input  logic      send,
     input  logic      check
 );
-  logic clk_tx, clk_rx, tx_ready, rx_ready, rx_aligned;
+  logic clk, tx_ready, rx_ready, rx_aligned, rx_buf_err;
   phy_word_t tx, rx;
   logic [PHY_NWORDS-1:0] rx_invalid;
+  logic rx_clkcor;  // must flag exactly the correction words
   logic [31:0] rx_prbs_errors;
-  int tx_cnt = 0;
+  int tx_cnt = 0, tx_clk = 0;
   int rx_words = 0, rx_bad = 0, expect_n = 0;
+  int inserts = 0, removes = 0;
+  int fill_min = 64, fill_max = 0;  // the elastic buffer's fill, words, with rx_ready
   logic locked = 1'b0;
 
   iclink_serdes_gm #(
@@ -240,14 +303,15 @@ module phy_side
       .clk_reg       (clk_reg),
       .arst_n        (arst_n),
       .ctrl          (ctrl),
-      .clk_tx        (clk_tx),
+      .clk           (clk),
       .tx_ready      (tx_ready),
       .tx            (tx),
-      .clk_rx        (clk_rx),
       .rx_ready      (rx_ready),
       .rx_aligned    (rx_aligned),
       .rx            (rx),
       .rx_invalid    (rx_invalid),
+      .rx_clkcor     (rx_clkcor),
+      .rx_buf_err    (rx_buf_err),
       .rx_prbs_errors(rx_prbs_errors)
   );
 
@@ -272,17 +336,34 @@ module phy_side
     return (int'(w.d[PHY_NWORDS-1]) << 5) | ((int'(byte_t'(w.d[1] - byte_t'(1 + seed))) >> 3) & 31);
   endfunction
 
+  // comma words until `send`; then the stream, with a correction burst
+  // every PHY_CLKCOR_EVERY clocks, as a PHY user sends them
   initial forever begin : _tx
-    @(posedge clk_tx);
-    tx_cnt <= tx_cnt + 1;
-    tx     <= send ? word_of(tx_cnt, SEED_TX) : PHY_COMMA_WORD;
+    @(posedge clk);
+    tx_clk <= tx_clk + 1;
+    if (!send) begin
+      tx <= PHY_COMMA_WORD;
+    end
+    else if (tx_clk % PHY_CLKCOR_EVERY < PHY_CLKCOR_BURST) begin
+      tx <= PHY_CLKCOR_WORD;
+    end
+    else begin
+      tx_cnt <= tx_cnt + 1;
+      tx     <= word_of(tx_cnt, SEED_TX);
+    end
   end : _tx
 
   initial forever begin : _rx
     int n;
-    @(posedge clk_rx);
+    @(posedge clk);
     if (!check) begin
       locked <= 1'b0;
+    end
+    else if (rx_clkcor != (rx == PHY_CLKCOR_WORD)) begin
+      rx_bad <= rx_bad + 1;  // rx_clkcor wrong
+    end
+    else if (rx_clkcor) begin
+      // a correction word: the user drops it
     end
     else if (!locked) begin
       n = n_of(rx, SEED_RX);
@@ -299,6 +380,27 @@ module phy_side
       end
     end
   end : _rx
+
+  // the BFM's elastic buffer: a read that stalls repeats a word (insert), a
+  // write that is skipped drops one (remove); sampled half a clock after
+  // each side's edge, where the BFM has settled
+  initial forever begin : _inserts
+    @(negedge clk);
+    if (rx_ready && !dut.u_serdes.eb_r_en) begin
+      inserts++;
+    end
+    if (rx_ready) begin
+      if (int'(dut.u_serdes.eb_r_occ) < fill_min) fill_min = int'(dut.u_serdes.eb_r_occ);
+      if (int'(dut.u_serdes.eb_r_occ) > fill_max) fill_max = int'(dut.u_serdes.eb_r_occ);
+    end
+  end : _inserts
+
+  initial forever begin : _removes
+    @(negedge dut.u_serdes.clk_core_rx_o);
+    if (rx_ready && !dut.u_serdes.eb_w_en) begin
+      removes++;
+    end
+  end : _removes
 
 endmodule : phy_side
 

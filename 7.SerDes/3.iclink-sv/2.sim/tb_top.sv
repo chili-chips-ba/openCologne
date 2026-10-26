@@ -4,7 +4,8 @@
 
 //==========================================================================
 // Board-top test: the self-tests in top.sv run error-free and the SerDes
-// link comes up, on the SerDes BFM with its serial TX looped to its RX;
+// link comes up (PRBS7 with clock-correction bursts), on the SerDes BFM
+// with its serial TX looped to its RX;
 // one bit flipped on the serial line, and one corrupted 8b/10b symbol,
 // must each be reported, and the LED must go low.
 //==========================================================================
@@ -65,12 +66,12 @@ module tb_top;
     end
 
     // 2. one bit flipped on the serial line must be caught
-    @(posedge dut.clk_tx);
+    @(posedge dut.clk_core);
     #3.1;
     flip = 1'b1;
     #0.4;  // one UI at 2.5 Gb/s
     flip = 1'b0;
-    repeat (24) @(posedge clk);  // PHY (~27 clk_rx), checks and sync: about 1 us
+    repeat (24) @(posedge clk);  // PHY (~33 clk_core), checks and sync: about 1.3 us
     if (!dut.link_error_sync[1] || led) begin
       errors++;
       $display("ERROR: a flipped serial bit was not reported (link_error %b, led %b)",

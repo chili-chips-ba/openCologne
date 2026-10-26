@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 #
-# Unit tests of the IC Link RTL, Verilator (and Icarus for sim_icarus).
+# Unit tests of the IC Link RTL, Verilator.
 #   make            all unit tests
 #   make sim_8b10b  8b/10b against LiteX's vectors (vectors/*.hex, committed)
 #   make sim_prbs   PRBS7/15/31 against LiteX's vectors, and pause
@@ -12,17 +12,18 @@
 #                        (WAVES=1: also writes phy_twoway.fst)
 #   make sim_phy_rates   both PHY tests at 1250, 2500 and 5000 Mb/s, and 2500
 #                        with the hard TX 8b/10b
+#   make sim_phy_ppm     sim_phy_twoway with the two reference clocks +-300 ppm and
+#                        +-20 ppm apart, each CDR_MODEL: PRBS error-free, the RX
+#                        elastic buffers insert and remove correction words
 #   make sim_serwb_tx  SerWB packetizer against LiteICLink's Packetizer (vectors/serwb_*)
 #   make sim_serwb_rx  SerWB depacketizer against LiteICLink's CRCDepacketizer (vectors/serwb_rx_*)
-#   make sim_serwb_pump  FIFO pump, two sides on the digital bus (SerDes out of the loop), flow control
-#   make sim_serwb_w4  the three SerWB tests with W = 4 words a clock (5 Gb/s), through gearboxes
+#   make sim_serwb_pump  FIFO pump, two sides on the digital bus (SerDes out of the loop), flow control;
+#                        then again with the line dropping / repeating clock-correction words
+#   make sim_serwb_w4  the three SerWB tests with W = 4 words a pump clock (5 Gb/s): every other
+#                      PHY clock, through gearboxes
 #                      (SERWB_W=4 does the same for any one of them)
 #   make sim_top    the board top: self-tests and the SerDes link, clean and with errors
-#   make sim_modes  the SerDes BFM's CDR_MODELs against each other: 9 datapath width and
-#                   comma lane cases, data bit-exact, latencies within MODES_TOL_NS; then
-#                   PRBS7/31 with forced errors, 5 ms at 3 Gb/s, the random RX word phase
-#   make sim_icarus  the SerDes BFM looped back (tb_modes) in Icarus: each CDR_MODEL at
-#                    16, 32 and 64 bits, ALIGN_COMMA_WORD 01 (even lane) and 11 (lane 0 or 4)
+#   make sim_modes, sim_icarus  the SerDes BFM's own tests, in its home ../../0.gm_serdes_bfm
 #   make vectors    regenerate vectors/*.hex from LiteX (needs LiteX in python3)
 #   make clean
 # Settings (make ... NAME=VALUE):
@@ -31,18 +32,20 @@
 #                 phase. None: Verilator's fixed default seed; 0: a new seed every run
 #   RANDOM_PHASE=0  the RX word phase fixed at 0, PHY and top tests (default: random)
 #   LINE_RATE=1250|2500|5000  Mb/s, PHY tests (default 2500)
+#   PPM_A=N PPM_B=N  sim_phy_twoway: each side's reference clock N ppm off 100 MHz
+#                 (default 0, one clock)
 #   HARD=1|0      the TX 8b/10b in CC_SERDES or the fabric, PHY tests (default: CC_SERDES
 #                 at 5000 only)
 #   WAVES=1       also write an FST waveform, PHY tests
 #   SERWB_W=2|4   SerWB words a clock, SerWB tests (default 2)
-#   MODES_TOL_NS  sim_modes: how far a mode's latency may be from ACCURATE's (default 1.6)
 
 # a simulator that fails in a pipe (| tee) fails the target
 SHELL       := /bin/bash
 .SHELLFLAGS := -o pipefail -ec
 
 HW  := ../1.hw
-BFM := serdes-model/ccfpga_serdes_pkg.sv serdes-model/ccfpga_serdes.sv
+BFM_DIR := ../../0.gm_serdes_bfm
+BFM     := $(BFM_DIR)/ccfpga_serdes_pkg.sv $(BFM_DIR)/ccfpga_serdes.sv
 CDR_MODEL    ?=
 RANDOM_PHASE ?=
 BFM_DEF := $(if $(CDR_MODEL),+define+CDR_MODEL=$(CDR_MODEL)) \
@@ -55,7 +58,7 @@ TRACE := $(if $(filter 1,$(WAVES)),--trace-fst --trace-structs,)
 SEED  ?=
 PLUS  := $(if $(filter 1,$(WAVES)),+waves,) $(if $(SEED),+verilator+seed+$(SEED))
 
-.PHONY: all sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_phy_rates sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_serwb_w4 sim_top sim_modes sim_icarus vectors clean
+.PHONY: all sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_phy_rates sim_phy_ppm sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_serwb_w4 sim_top sim_modes sim_icarus vectors clean
 
 all: sim_icarus sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_serwb_w4 sim_top sim_modes
 
@@ -78,6 +81,9 @@ sim_prbs:
 LINE_RATE ?= 2500
 HARD      ?=
 RATE_G    := -GLINE_RATE=$(LINE_RATE) $(if $(HARD),-GTX_HARD_8B10B=$(HARD))
+PPM_A     ?=
+PPM_B     ?=
+PPM_G     := $(if $(PPM_A),-GPPM_A=$(PPM_A)) $(if $(PPM_B),-GPPM_B=$(PPM_B))
 
 # both PHY testbenches at every rate, and 2.5 Gb/s with the hard TX 8b/10b
 sim_phy_rates:
@@ -90,7 +96,7 @@ sim_phy_rates:
 
 sim_phy_oneway:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-	  --top-module tb_phy_oneway -Mdir obj_phy $(TRACE) $(RATE_G) $(BFM_DEF) serdes-model.vlt \
+	  --top-module tb_phy_oneway -Mdir obj_phy $(TRACE) $(RATE_G) $(BFM_DEF) $(BFM_DIR)/ccfpga_serdes.vlt \
 	  $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv $(HW)/iclink_8b10b_enc.sv \
 	  $(HW)/iclink_prbs_gen.sv $(HW)/iclink_prbs_chk.sv $(HW)/iclink_prbs_tx.sv $(HW)/iclink_prbs_rx.sv \
 	  $(HW)/iclink_serdes_gm.sv $(BFM) \
@@ -100,13 +106,21 @@ sim_phy_oneway:
 
 sim_phy_twoway:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-	  --top-module tb_phy_twoway -Mdir obj_phy2 $(TRACE) $(RATE_G) $(BFM_DEF) serdes-model.vlt \
+	  --top-module tb_phy_twoway -Mdir obj_phy2 $(TRACE) $(RATE_G) $(PPM_G) $(BFM_DEF) $(BFM_DIR)/ccfpga_serdes.vlt \
 	  $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv $(HW)/iclink_8b10b_enc.sv \
 	  $(HW)/iclink_prbs_gen.sv $(HW)/iclink_prbs_chk.sv $(HW)/iclink_prbs_tx.sv $(HW)/iclink_prbs_rx.sv \
 	  $(HW)/iclink_serdes_gm.sv $(BFM) \
 	  tb_phy_twoway.sv
 	./obj_phy2/Vtb_phy_twoway $(PLUS) | tee sim_phy_twoway.log
 	@grep -q "TB_PHY_TWOWAY: PASS" sim_phy_twoway.log
+
+# two reference clocks: A +N ppm, B -N ppm, each CDR model
+sim_phy_ppm:
+	@for m in NONE FAST ACCURATE; do for p in 300 20; do \
+	  $(MAKE) --no-print-directory sim_phy_twoway CDR_MODEL=$$m PPM_A=$$p PPM_B=-$$p > /dev/null || true; \
+	  echo "$$m +-$$p ppm: $$(grep -h "clock correction\|TB_PHY" sim_phy_twoway.log | tr '\n' ' ')"; \
+	done; done | tee sim_phy_ppm.log
+	@test $$(grep -c "TB_PHY_TWOWAY: PASS" sim_phy_ppm.log) -eq 6
 
 sim_serwb_tx:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
@@ -123,86 +137,31 @@ sim_serwb_rx:
 	@grep -q "TB_SERWB_RX: PASS" sim_serwb_rx.log
 
 PUMP_SRC := $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv $(HW)/iclink_serwb_pkg.sv \
-  $(HW)/iclink_cdc_ptr.sv $(HW)/iclink_serwb_fifo.sv $(HW)/iclink_serwb_tx.sv \
-  $(HW)/iclink_serwb_rx.sv $(HW)/iclink_serwb_pump.sv $(HW)/iclink_gearbox.sv
+  $(HW)/iclink_serwb_fifo.sv $(HW)/iclink_serwb_tx.sv $(HW)/iclink_serwb_rx.sv \
+  $(HW)/iclink_gearbox.sv $(HW)/iclink_serwb_pump.sv
 
 sim_serwb_pump:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL -Wno-UNUSEDPARAM \
 	  --top-module tb_serwb_pump -GW=$(SERWB_W) -Mdir obj_serwb_pump_w$(SERWB_W) $(PUMP_SRC) tb_serwb_pump.sv
 	./obj_serwb_pump_w$(SERWB_W)/Vtb_serwb_pump | tee sim_serwb_pump.log
 	@grep -q "TB_SERWB_PUMP: PASS" sim_serwb_pump.log
+	./obj_serwb_pump_w$(SERWB_W)/Vtb_serwb_pump +elastic | tee sim_serwb_pump_elastic.log
+	@grep -q "TB_SERWB_PUMP: PASS" sim_serwb_pump_elastic.log
 
 sim_serwb_w4:
 	$(MAKE) SERWB_W=4 sim_serwb_tx sim_serwb_rx sim_serwb_pump
 
 sim_top:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-	  --top-module tb_top -Mdir obj_top $(BFM_DEF) serdes-model.vlt \
+	  --top-module tb_top -Mdir obj_top $(BFM_DEF) $(BFM_DIR)/ccfpga_serdes.vlt \
 	  $$(sed -e "s|\$${HW_SRC}|$(HW)|" -e "/^#/d" -e "/^$$/d" $(HW)/top.filelist) \
 	  $(BFM) tb_top.sv
 	./obj_top/Vtb_top $(PLUS) | tee sim_top.log
 	@grep -q "TB_TOP: PASS" sim_top.log
 
-# The SerDes BFM modes against each other, at each datapath width and comma
-# lane: data bit-exact, and the latency of every comma within MODES_TOL_NS
-# of ACCURATE's (4 UI at 2.5 Gb/s: FAST knows a bit only at the next edge)
-# The RX word phase is fixed here: the comma lane is swept instead. Then,
-# 64 bits: PRBS7 and PRBS31 with forced errors, each mode; 5 ms at 3 Gb/s
-# (a UI off the 100 fs grid), NONE and FAST; the random RX word phase with
-# ALIGN_COMMA_WORD = 11, ACCURATE, seeds 1 to 3.
-MODES_TOL_NS ?= 1.6
-MODES_RUNS   := 0:0 0:1 1:0 1:1 1:3 3:0 3:3 3:5 3:7
-MODES_VLT    := verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-                -Wno-PINCONNECTEMPTY --top-module tb_modes serdes-model.vlt
-
-sim_modes:
-	@for m in NONE FAST ACCURATE; do for dp in 0 1 3; do \
-	  $(MODES_VLT) -GDP_SEL=$$dp -Mdir obj_modes_$${m}_$$dp +define+CDR_MODEL=$$m +define+BHV_RX_WORD_PHASE_RANDOM=0 \
-	    $(BFM) tb_modes.sv > /dev/null; \
-	done; done
-	@$(MODES_VLT) -GDP_SEL=3 -GALIGN="2'b11" -Mdir obj_modes_rand +define+CDR_MODEL=ACCURATE $(BFM) tb_modes.sv > /dev/null
-	@rm -f sim_modes.log; for r in $(MODES_RUNS); do \
-	  dp=$${r%%:*}; c=$${r##*:}; \
-	  rm -f modes_NONE.txt modes_FAST.txt modes_ACCURATE.txt; \
-	  for m in NONE FAST ACCURATE; do \
-	    ./obj_modes_$${m}_$$dp/Vtb_modes +comma=$$c +words=modes_$$m.txt | grep "TB_MODES" | tee -a sim_modes.log; \
-	  done; \
-	  paste modes_ACCURATE.txt modes_NONE.txt modes_FAST.txt | awk -v tol=$(MODES_TOL_NS) \
-	    '{ for (i = 2; i <= 3; i++) { d = $$i - $$1; if (NR == 1 || d < lo[i]) lo[i] = d; if (NR == 1 || d > hi[i]) hi[i] = d; \
-	         if (d > tol || -d > tol) bad++ } a = $$1 } \
-	     END { printf "MODES: ACCURATE %.1f ns, NONE %+.1f..%+.1f, FAST %+.1f..%+.1f, %d commas: %s\n", \
-	           a, lo[2], hi[2], lo[3], hi[3], NR, (bad || NR == 0) ? "FAIL" : "PASS" }' | tee -a sim_modes.log; \
-	done
-	@for m in NONE FAST ACCURATE; do for p in 1 4; do \
-	  ./obj_modes_$${m}_3/Vtb_modes +prbs=$$p | grep "TB_MODES" | tee -a sim_modes.log; \
-	done; done
-	@for m in NONE FAST; do \
-	  ./obj_modes_$${m}_3/Vtb_modes +cfg1=063A +run_us=5000 | grep "TB_MODES" | tee -a sim_modes.log; \
-	done
-	@for s in 1 2 3; do \
-	  ./obj_modes_rand/Vtb_modes +comma=3 +verilator+seed+$$s | grep "TB_MODES" | tee -a sim_modes.log; \
-	done
-	@test $$(grep -c "^TB_MODES: .*: PASS$$" sim_modes.log) -eq 38
-	@test $$(grep -c "^MODES: .*: PASS$$" sim_modes.log) -eq 9
-
-# Verilator resolves names after the whole module is read, so a name used
-# before its declaration passes, even with -Wall. Icarus (and the LRM)
-# stop on it. Icarus has no `unique case` checks: its "sorry" notes on them
-# are filtered out. The decode-table check (+nolut) is left to sim_modes:
-# it takes Icarus 12 s. Runs: datapath:comma lane:ALIGN_COMMA_WORD; the RX
-# word phase is random (Icarus's fixed seed)
-ICARUS_RUNS := 0:1:0 1:3:0 1:1:1 3:0:0 3:3:3
-
-sim_icarus:
-	@rm -f sim_icarus.log; for m in NONE FAST ACCURATE; do for r in $(ICARUS_RUNS); do \
-	  dp=$${r%%:*}; c=$${r#*:}; c=$${c%%:*}; al=$${r##*:}; v=obj_icarus_$${m}_$${dp}_$$al.vvp; \
-	  rm -f $$v; \
-	  iverilog -g2012 -DCDR_MODEL=$$m -Ptb_modes.DP_SEL=$$dp -Ptb_modes.ALIGN=$$al -o $$v $(BFM) tb_modes.sv 2>&1 \
-	    | { grep -v "sorry: Case unique" || true; }; \
-	  test -f $$v; \
-	  vvp -N $$v +model=$$m +comma=$$c +nolut | grep "TB_MODES" | tee -a sim_icarus.log; \
-	done; done
-	@test $$(grep -c "^TB_MODES: .*: PASS$$" sim_icarus.log) -eq 15
+# The SerDes BFM's own tests run in its home
+sim_modes sim_icarus:
+	$(MAKE) -C $(BFM_DIR) $@
 
 vectors:
 	mkdir -p vectors && python3 gen_8b10b_vectors.py vectors && python3 gen_prbs_vectors.py vectors && python3 gen_serwb_vectors.py vectors && python3 gen_serwb_rx_vectors.py vectors
@@ -212,3 +171,4 @@ vectors:
 clean:
 	find . -maxdepth 1 -name 'obj_*' -exec find {} -delete \;
 	rm -f sim_*.log pump_levels.csv modes_*.txt
+	$(MAKE) -C $(BFM_DIR) clean

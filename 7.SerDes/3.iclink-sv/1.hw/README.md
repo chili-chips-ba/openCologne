@@ -78,7 +78,7 @@ Why the differences:
 | 32 / 40-bit | 40 | 62.5 MHz |
 | **64 / 80-bit (this core)** | 80 | **31.25 MHz** |
 
-Our TX path closes at about 37 MHz (36.6 to 39.1 over 4 seeds; the 8-word encoder chain); 62.5 or 125 MHz with fabric 8b/10b is out of reach on GateMate. Wide and slow is what fits.
+Our TX path closes at about 35 MHz (27.6 to 35.5 over 4 seeds; the 8-word encoder chain); 62.5 or 125 MHz with fabric 8b/10b is out of reach on GateMate. Wide and slow is what fits.
 
 **PLL setting.** The bring-up writes regfile `0x51` = `0x16FA` (`iclink_phy_pkg.sv`, `CFG_SEQ`):
 
@@ -100,8 +100,19 @@ From the 100 MHz reference: oscillator 100 x N1·N2·N3 = 2500 MHz (its range is
 | 5 Gb/s | 1 (`00`) | 2.5 GHz | 62.5 MHz | `0x06FA` |
 
 - **1.25 Gb/s:** the register value only; timing gets easier. Or the 32-bit path (M4 = 1) at 31.25 MHz with 4 words per clock (`PHY_NWORDS` = 4), which would need a lane-aligner change: it supports 8 words only.
-- **5 Gb/s:** 62.5 MHz is too fast for the fabric encoder. The way is `CC_SERDES`'s own TX 8b/10b (`TX_8B10B_EN_I`), leaving only flops and the PRBS mux (a constant XOR matrix) in the fabric. It meets timing (`make -C 7.SerDes/3.iclink-sv/3.build LINE_RATE=5000`, 4 seeds): `clk_tx` 100.6 to 141.4 MHz, `clk_rx` 66.2 to 71.9 MHz. Still to do: the SI settings below and a board check (5 Gb/s is the chip's maximum).
+- **5 Gb/s:** 62.5 MHz is too fast for the fabric encoder. The way is `CC_SERDES`'s own TX 8b/10b (`TX_8B10B_EN_I`), leaving only flops and the PRBS mux (a constant XOR matrix) in the fabric. It meets timing (`make -C 7.SerDes/3.iclink-sv/3.build LINE_RATE=5000`, 4 seeds): the core clock 64.9 to 72.4 MHz. Still to do: the SI settings below and a board check (5 Gb/s is the chip's maximum).
 - All three run in simulation (`sim_phy_rates`), and are the FIFO pump's performance levels (parameter `LINE_RATE`, [spec](../../README.md#fifo-pump)); 2.5 Gb/s is the default. Per-rate CDR settings: not given in DS1001.
+
+**One clock.** TX, RX and the user run on `PLL_CLK_O`; `RX_CLK_I` takes it too, so the RX elastic buffer crosses from the recovered clock and takes up the ppm (clock correction, DS1001 Table 2.57). The bring-up writes `RX_BUF_CFG` (0x25) and the sequence (0x26 to 0x29), the same values as the `CC_SERDES` parameters (`iclink_phy_pkg`):
+
+| Setting | Value | Why |
+|---|---|---|
+| `RX_CLKCOR_SEQ_1_0..3` | `0x11C`, K28.0 | no comma, so harmless to comma alignment; a 64-bit word holds it twice |
+| `RX_CLKCOR_MIN_LAT` | 8 | a word repeats below 7: 4 words above the error limit (3), for the 2-clock count crossing, the recovered clock's wander and a burst of inserts |
+| `RX_CLKCOR_MAX_LAT` | 12 | a word drops above 12: a window wider than one burst moves the fill (3 words), so an insert never leads to a drop |
+| burst | 4 words, every 1024 clocks | 1024 is 24x more often than 40 ppm needs |
+
+Each word of fill is a clock of latency: 8 to 12 here, 4 with the buffer in phase mode (the old default). The buffer reads before the CDR locks, so at the first RX reset done the PHY restarts it (`RX_BUF_RESET_I`); `rx_ready` waits for that. `RX_BUF_ERR_O` sets the sticky `rx_buf_err`, and `rx_ready` drops until reset.
 
 ## Signal-integrity settings
 
@@ -287,7 +298,7 @@ Data never produces these symbols, so a PCIe receiver that lost its place finds 
 | Integrity | CRC32, optional | LCRC always; ECRC optional |
 | A bad packet | dropped, never resent | NAK, then replayed from the sender's buffer: no loss |
 | Flow control | XOFF / XON (K28.3 / K28.4) | credits in UpdateFC DLLPs |
-| Clock compensation | none in LiteICLink; ours: a clock-correction burst every 1024 clocks (planned) | SKP ordered sets |
+| Clock compensation | none in LiteICLink; ours: a clock-correction burst every 1024 clocks (PHY PRBS mode: done; SerWB: planned) | SKP ordered sets |
 
 The same codes mean different things: K28.3 is SerWB's XOFF and PCIe's IDL, K28.1 is SerWB's fill and PCIe's FTS. The two framings cannot share a lane.
 

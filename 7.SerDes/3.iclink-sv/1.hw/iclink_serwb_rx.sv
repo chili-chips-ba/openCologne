@@ -37,6 +37,10 @@
 // CHECK drops the packet. i_hold (we asked the far side to pause) stops
 // the timer: a paused packet waits as long as the pause.
 //
+// ce: every flop loads only on clocks with ce (the pump's strobe, every
+// other clock at W = 4; tie it high for a beat a clock). The outputs hold
+// in between: they count on ce clocks only. TIMEOUT_CLKS counts ce clocks.
+//
 // o_port is the packet's port, valid with o_commit.
 //==========================================================================
 module iclink_serwb_rx
@@ -49,6 +53,7 @@ module iclink_serwb_rx
 ) (
     input logic clk,
     input logic arst_n,
+    input logic ce,      // a beat: the flops load
 
     input logic          i_hold,  // no timeout while high
     input word_t [W-1:0] i_word,
@@ -191,7 +196,7 @@ module iclink_serwb_rx
       r_word  <= '0;
       r_valid <= '0;
     end
-    else begin
+    else if (ce) begin
       r_word  <= i_word;
       r_valid <= i_valid;
     end
@@ -259,7 +264,7 @@ module iclink_serwb_rx
       timer <= '0;
       f     <= '0;
     end
-    else begin
+    else if (ce) begin
       ctx <= ctx_next;
       f   <= f_next;
       if (r_valid != '0 || timeout || ctx.state == S_PREAMBLE || i_hold) begin
@@ -298,7 +303,7 @@ module iclink_serwb_rx
       t_n     <= '0;
       t_bcrc  <= '0;
     end
-    else begin
+    else if (ce) begin
       t <= '{
           word: f.word,
           data: f.data,
@@ -347,7 +352,7 @@ module iclink_serwb_rx
       g_crc  <= '0;
       g_rcvd <= '0;
     end
-    else begin
+    else if (ce) begin
       if (t.chk != '0) begin
         crc <= t.binit ? t_bcrc : '0;
       end
@@ -422,7 +427,7 @@ module iclink_serwb_rx
       carry       <= '0;
       ncarry      <= '0;
     end
-    else begin
+    else if (ce) begin
       o_word <= q[W-1:0];
       for (int i = 0; i < W; i++) begin
         o_valid[i] <= !g.tmo && 4'(i) < 4'(nq);

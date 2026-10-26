@@ -12,6 +12,7 @@
 // and each bit of the next state, is the XOR of some state bits. The
 // masks come from the steps at elaboration; the logic is one XOR of up to
 // NSTATE bits per bit, not a WIDTH-deep chain (64 bits at 62.5 MHz).
+// ce low holds the state and the output.
 //==========================================================================
 module iclink_prbs_gen #(
     parameter int WIDTH  = 20,
@@ -21,6 +22,7 @@ module iclink_prbs_gen #(
 ) (
     input  logic             clk,
     input  logic             arst_n,
+    input  logic             ce,
     output logic [WIDTH-1:0] o
 );
 
@@ -63,7 +65,7 @@ module iclink_prbs_gen #(
       state <= NSTATE'(1);
       o     <= '0;
     end
-    else begin
+    else if (ce) begin
       state <= cur[NSTATE-1:0];
       o     <= cur[WIDTH-1:0];
     end

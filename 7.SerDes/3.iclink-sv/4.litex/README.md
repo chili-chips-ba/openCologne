@@ -18,9 +18,9 @@ The GateMate SerDes PHY ([`../1.hw/iclink_serdes_gm.sv`](../1.hw/iclink_serdes_g
 
 As LiteICLink's `SerDesECP5`:
 
-- clock domains `tx` and `rx`: `CC_SERDES` `PLL_CLK_O` and `RX_CLK_O`, line rate / 80 (31.25 MHz at 2.5 Gb/s); reset until `tx_ready` / `rx_ready`;
+- clock domains `tx` and `rx`: one clock, `CC_SERDES` `PLL_CLK_O`, line rate / 80 (31.25 MHz at 2.5 Gb/s); `rx` has its own reset, until `rx_ready`. The RX elastic buffer takes up the ppm between two boards' clocks, with clock-correction bursts (`iclink_serdes_gm.sv`): in data mode the user sends them;
 - `add_stream_endpoints()`: `sink` (tx) and `source` (rx), 8 words of 8 bits + 8 K flags per clock;
-- `add_controls()`: CSRs `tx_ready`, `rx_ready`, `rx_align`, `rx_aligned`, `tx_prbs_config`, `rx_prbs_config` (+ pause), `rx_prbs_errors`; `add_clock_cycles()` as in LiteICLink.
+- `add_controls()`: CSRs `tx_ready`, `rx_ready`, `rx_align`, `rx_aligned`, `rx_buf_err`, `tx_prbs_config`, `rx_prbs_config` (+ pause), `rx_prbs_errors`; `add_clock_cycles()` as in LiteICLink.
 
 Differences from the ECP5 PHY:
 

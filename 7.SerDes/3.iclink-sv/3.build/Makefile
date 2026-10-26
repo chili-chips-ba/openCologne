@@ -11,9 +11,11 @@
 #   make            bitstream: build/top.bit
 #   make load       program the EVB over JTAG (openFPGALoader)
 #   make clean
-#   LINE_RATE=1250|2500|5000  Mb/s (default 2500); the SerDes core clocks
-#                   clk_tx and clk_rx are constrained at LINE_RATE / 80
-#                   (31.25 MHz at 2500), the EVB clock (CLK0) at FREQ
+#   LINE_RATE=1250|2500|5000  Mb/s (default 2500); the one core clock,
+#                   clk_core (CC_SERDES PLL_CLK_O), is constrained at
+#                   LINE_RATE / 80 (31.25 MHz at 2500), the EVB clock (CLK0)
+#                   at FREQ
+#   BLD=dir         the build directory (default build)
 #
 # Sources: ../1.hw/top.filelist (sources.sh). Pins: GateMateA1-EVB.ccf.
 #==========================================================================
@@ -31,7 +33,7 @@ NEXTPNR  ?= nextpnr-himbaechel-gatemate
 GMPACK   ?= gmpack
 OFL      ?= openFPGALoader
 
-BLD      := build
+BLD      ?= build
 HW       := $(abspath ../1.hw)
 SV       := $(shell bash -c '. ./sources.sh && design_rtl $(HW)')
 # the GateMate primitives (CC_SERDES, ...) as blackboxes for read_slang
@@ -45,9 +47,9 @@ $(BLD)/top.json: $(SV) | $(BLD)
 	$(YOSYS) -l $(BLD)/yosys.log -p "read_slang -D SYNTHESIS -G LINE_RATE=$(LINE_RATE) --top top $(CELLS) $(SV); \
 	  synth_gatemate -top top -luttree -nomx8 -json $@" > /dev/null
 
-# the SerDes core clocks, by net name
+# the core clock, by net name
 $(BLD)/clocks.py: Makefile | $(BLD)
-	printf 'ctx.addClock("clk_tx", %s)\nctx.addClock("clk_rx", %s)\n' $(CORE_MHZ) $(CORE_MHZ) > $@
+	printf 'ctx.addClock("clk_core", %s)\n' $(CORE_MHZ) > $@
 
 $(BLD)/top.txt: $(BLD)/top.json $(BLD)/clocks.py $(CCF)
 	$(NEXTPNR) --device $(DEVICE) --json $< --vopt ccf=$(CCF) --vopt out=$@ \

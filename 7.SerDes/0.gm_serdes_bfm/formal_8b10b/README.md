@@ -11,7 +11,7 @@ The proofs read `ccfpga_serdes_pkg.sv`, the package the SerDes BFM uses. They ch
 From the repo root:
 
 ```sh
-bash 7.SerDes/3.iclink-sv/2.sim/serdes-model/formal_8b10b/run-formal.sh
+make -C 7.SerDes/0.gm_serdes_bfm formal
 ```
 
 Needs `yosys` with `read_slang` (tested with 0.69, openXC7) and `iverilog` (13.0). The build goes to `~/.cache/opencologne/formal_8b10b`.

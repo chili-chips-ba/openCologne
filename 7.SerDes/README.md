@@ -65,11 +65,11 @@ One GateMate. Solid boxes are done; dashed ones, tagged NEXT, come next.
 | Scrambler / Descrambler | optional, off by default in LiteICLink: spreads the spectrum of idle and repetitive data | LiteICLink `serwb/scrambler.py` | next |
 | PRBS7/15/31 | `iclink_prbs_tx.sv`, `iclink_prbs_rx.sv` (+ gen, chk): link test in place of data | LiteICLink `prbs.py`, bit-exact | done |
 | 8b/10b | `iclink_8b10b_enc.sv` in fabric on TX, or `CC_SERDES`'s own (`TX_HARD_8B10B`, default at 5 Gb/s); on RX the decoder and comma alignment run inside `CC_SERDES`, then a lane aligner in the fabric moves a comma from lane 4 to lane 0 | LiteX `code_8b10b.py`, bit-exact | done |
-| PHY | `iclink_serdes_gm.sv`: bring-up (3 regfile writes, then resets), ready flags, one flop stage on every `CC_SERDES` datapath input and output | new | done |
+| PHY | `iclink_serdes_gm.sv`: bring-up (8 regfile writes, then resets), one clock, RX clock correction, ready flags, one flop stage on every `CC_SERDES` datapath input and output | new | done |
 
 - **Datapath:** 8 bytes + 8 K flags per clock each way, 64 payload bits.
-- **Clocks:** `clk_tx` = `CC_SERDES` `PLL_CLK_O`, line rate / 80: 31.25 MHz at 2.5 Gb/s. `clk_rx` = `RX_CLK_O`. The board clock runs the bring-up.
-- **Latency,** TX data in to RX data out: 1 (encoder input) + 2 (encoder) + 1 (TX flops) + `CC_SERDES` + 1 (RX flops) + 1 (lane aligner) clocks. With `TX_HARD_8B10B` the 2 encoder clocks go.
+- **Clocks:** one, `clk` = `CC_SERDES` `PLL_CLK_O`, line rate / 80: 31.25 MHz at 2.5 Gb/s, for TX, RX and the user. `RX_CLK_I` takes it too: the RX elastic buffer, with clock correction, takes up the ppm between two boards. The board clock runs the bring-up.
+- **Latency,** TX data in to RX data out: 1 (encoder input) + 2 (encoder) + 1 (TX flops) + `CC_SERDES` + 1 (RX flops) + 1 (lane aligner) clocks. With `TX_HARD_8B10B` the 2 encoder clocks go. Measured on the BFM (`sim_phy_oneway`): 33 clocks, 31 with `TX_HARD_8B10B` (5 Gb/s), at an elastic-buffer fill of 8 words. The fill moves 6 to 12 with ppm (`sim_phy_ppm`), and the latency with it: 31 to 37 clocks (29 to 35).
 - **Why the RX decodes in the hard macro:** it costs no fabric, and the comma alignment is there too. A fabric decoder is possible: with the decoder off, DS1001 Figure 2.39 hands out bits 8 and 9 of each symbol on `RX_CHAR_IS_K_O` and `RX_DISP_ERR_O`. The SerDes BFM models that path too.
 - **Comma alignment:** `rx_align` stays on while commas come in, then goes off before data or PRBS, and on again to realign. While it is on, `CC_SERDES` realigns on any comma off the word boundary (DS1001 Table 2.50), so a line error could misalign a running link. The board top turns it off after 16 aligned commas (`ALIGN_COMMAS_LOG2` in `top_pkg`) and on again when `rx_ready` drops; the PHY testbenches 32 clocks after alignment.
 
@@ -98,7 +98,7 @@ A message link between the two eduBOS5 CPUs, ahead of remote memory access: each
 | **default** | **2.5 Gb/s** | 31.25 MHz | 2.0 Gb/s | 1.68 Gb/s |
 | high | 5 Gb/s | 62.5 MHz | 4.0 Gb/s | 3.37 Gb/s |
 
-5 Gb/s needs the PHY side at 62.5 MHz, about twice what the fabric encoder closes (37 MHz). So `CC_SERDES` encodes TX (`TX_HARD_8B10B`), only flops and the PRBS mux stay at 62.5 MHz, and the pump runs at W = 4 on half that clock, through `iclink_gearbox`. Plus the SI settings for 5 Gb/s. It meets timing: `make -C 7.SerDes/3.iclink-sv/3.build LINE_RATE=5000`, 4 seeds, `clk_tx` 100.6 to 141.4 MHz and `clk_rx` 66.2 to 71.9 MHz against 62.5 (a thin margin on `clk_rx`). At 2.5 Gb/s: `clk_tx` 36.6 to 39.1 MHz, `clk_rx` 57.9 to 73.7 MHz against 31.25. The two lower levels need only the PLL setting. LiteICLink on ECP5 (setup 3) runs 1.25 and 2.5 Gb/s from 100 MHz; 5 Gb/s there needs a 200 or 250 MHz reference.
+5 Gb/s needs the PHY side at 62.5 MHz, about twice what the fabric encoder closes (37 MHz). So `CC_SERDES` encodes TX (`TX_HARD_8B10B`), only flops and the PRBS mux stay at 62.5 MHz, and the pump runs at W = 4 on half that clock, through `iclink_gearbox`. Plus the SI settings for 5 Gb/s. It meets timing: `make -C 7.SerDes/3.iclink-sv/3.build LINE_RATE=5000`, 4 seeds, the one core clock `clk_core` 64.9 to 72.4 MHz against 62.5. At 2.5 Gb/s: 27.6 to 35.5 MHz against 31.25, one seed of 4 short, on the fabric encoder's disparity chain (the two-clock PHY, same tools: 31.25 to 35.5). The two lower levels need only the PLL setting. LiteICLink on ECP5 (setup 3) runs 1.25 and 2.5 Gb/s from 100 MHz; 5 Gb/s there needs a 200 or 250 MHz reference.
 
 **Flow control.** SerWB's own, both sides on (`with_flow_control`): the receiver sends XOFF (K28.3) when its RX buffer is almost full, XON (K28.4) to resume. As in LiteICLink, the request takes the line for one clock, even in the middle of a packet, and is sent again every 1024 clocks. Our RX FIFO sends XOFF at `DEPTH - RT_CLKS·W` words (`RT_CLKS` = 96: 832 at W = 2, 640 at W = 4) and XON below 512; while a side asks for a pause, its depacketizer's timeout waits, so a long pause drops nothing; the numbers are worked out in [End2End Flow](#end2end-flow). On setup 1 the XOFF loops back to the same chip, which pauses itself.
 
@@ -187,7 +187,7 @@ On B the demo echoes each message back, so A can check every word it sent.
 
 ### PHY RTL
 
-`iclink_serdes_gm`, as built: modules, `CC_SERDES` ports, bus widths and the three clock domains.
+`iclink_serdes_gm`: modules, `CC_SERDES` ports, bus widths. The diagram predates the one-clock PHY: `clk_tx` and `clk_rx` are now one, `clk`; to redraw.
 
 <p align="center">
   <img width="100%" alt="iclink_serdes_gm block diagram: clk_tx domain with iclink_prbs_tx, iclink_8b10b_enc and the tx_ser flops into CC_SERDES TX_DATA_I; clk_rx domain with the rx_ser flops, rx regs and iclink_prbs_rx; clk_reg domain with the bring-up FSM driving the PLL reset, regfile writes and TX/RX resets" src="0.doc/iclink-phy-rtl.drawio.png">
@@ -215,6 +215,7 @@ If the silicon works the same, three limits follow:
 
 **What we did.**
 - **SerWB** (planned): the pump sends a clock-correction burst, 4 identical 32-bit words aligned to the 64-bit word, every 1024 clocks. That is 24x more often than 40 ppm needs.
+- **The PHY**, PRBS mode: done. The PRBS TX sends the burst (4 words of K28.0 x 8) every 1024 clocks and the checker skips it. `RX_CLKCOR_MIN_LAT` 8, `MAX_LAT` 12. `sim_phy_ppm`: two reference clocks ±300 and ±20 ppm apart, PRBS both ways error-free, inserts and removes counted, no `RX_BUF_ERR_O`, all three CDR models.
 - **The BFM** models the buffer clock by clock, with the exceptions listed in its section "RX: elastic buffer" (`serdes-model/ccfpga_serdes.sv`).
 
 **What it means for PCIe.** The PCIe clock-compensation unit is the SKP ordered set: COM and three SKP symbols, 4 symbols, one every 1180 to 1538 symbols. It meets none of the three conditions:
@@ -495,11 +496,13 @@ Tools: Yosys with read_slang (openXC7 or OSS CAD Suite), Verilator, Verible, pyt
 | Icarus Verilog | [iverilog#1653](https://github.com/steveicarus/iverilog/issues/1653) | `?:` with `$sformatf()` and a string literal crashes `ivl` | open |
 | Icarus Verilog | [iverilog#438](https://github.com/steveicarus/iverilog/issues/438#issuecomment-6390247886) (comment) | `wait` on a function call: internal error | open |
 | Verible | [verible#217](https://github.com/chipsalliance/verible/issues/217#issuecomment-6390248086) (comment) | lint: a parameter used before its declaration | open |
+| nextpnr | [nextpnr#1871](https://github.com/YosysHQ/nextpnr/pull/1871) (PR) | `set_multicycle_path` with `-from` and `-to`, for every architecture: the 2:1 strobed pump at 5 Gb/s | open |
+| openXC7 nextpnr | [nextpnr#110](https://github.com/openXC7/nextpnr/issues/110#issuecomment-6394838668) (comment) | the multicycle timing hook tightens the paths it should relax (sign) | open |
 | Cologne Chip | [gatemate-pipe#12](https://github.com/colognechip/gatemate-pipe/issues/12) = [openCologne-PCIE#28](https://github.com/chili-chips-ba/openCologne-PCIE/issues/28) | DS1001 Table 2.51: `RX_ALIGN_COMMA_WORD` width and default | open |
 | Cologne Chip | [gatemate-pipe#13](https://github.com/colognechip/gatemate-pipe/issues/13) = [openCologne-PCIE#29](https://github.com/chili-chips-ba/openCologne-PCIE/issues/29) | `RX_RESET_DONE_GATE` (UG1001) vs `RX_RESETDONE_GATE` (model) | open |
 | Cologne Chip | [gatemate-pipe#14](https://github.com/colognechip/gatemate-pipe/issues/14) = [openCologne-PCIE#30](https://github.com/chili-chips-ba/openCologne-PCIE/issues/30) | DS1001: document the RX clock-correction behaviour (depth, matching, insert/remove, PCIe SKP) | open |
 
-State as of 2026-10-24.
+State as of 2026-10-25.
 
 ## References
 - Cologne Chip [SerDes example design](https://github.com/pu-cc/gm_serdes_lb) and latest [datasheet](https://colognechip.com/docs/ds1001-gatemate1-datasheet-latest.pdf)

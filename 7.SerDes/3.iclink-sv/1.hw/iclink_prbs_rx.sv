@@ -8,7 +8,8 @@
 // PRBS RX of a SerDes datapath: a SystemVerilog port of LiteX's
 // litex/soc/cores/prbs.py PRBSRX. Counts the clocks with an error for the
 // PRBS that config selects (0 clears the count); pause holds the count.
-// The count stops at its top, all ones, rather than wrap.
+// The count stops at its top, all ones, rather than wrap. hold skips the
+// word on i (a clock-correction word): no error, the checkers hold.
 // Unlike LiteX, pause works there: in LiteX, ~False is -1 in Python, which
 // makes ~pause wide and never 0.
 //==========================================================================
@@ -24,6 +25,7 @@ module iclink_prbs_rx
     input  logic                         arst_n,
     input  prbs_cfg_t                    config_i,
     input  logic                         pause,
+    input  logic                         hold,
     input  logic      [       WIDTH-1:0] i,
     output logic      [ERRORS_WIDTH-1:0] errors
 );
@@ -47,6 +49,7 @@ module iclink_prbs_rx
   ) u_chk7 (
       .clk,
       .arst_n,
+      .ce    (!hold),
       .i     (data),
       .errors(err7)
   );
@@ -59,6 +62,7 @@ module iclink_prbs_rx
   ) u_chk15 (
       .clk,
       .arst_n,
+      .ce    (!hold),
       .i     (data),
       .errors(err15)
   );
@@ -71,6 +75,7 @@ module iclink_prbs_rx
   ) u_chk31 (
       .clk,
       .arst_n,
+      .ce    (!hold),
       .i     (data),
       .errors(err31)
   );

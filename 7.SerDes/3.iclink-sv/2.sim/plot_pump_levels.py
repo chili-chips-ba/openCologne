@@ -39,11 +39,11 @@ def main():
 
     i_xoff  = first(lambda i: bp[i] == 1)
     i_stop  = first(lambda i: ap[i] == 1)
-    i_peak  = max(range(len(rows)), key=lambda i: b_rx[i])
+    i_go    = first(lambda i: ap[i] == 0, i_stop)
+    i_peak  = max(range(i_xoff, i_go), key=lambda i: b_rx[i])  # while A is paused
     i_full  = first(lambda i: a_tx[i] >= DEPTH)
     i_read  = first(lambda i: b_rx[i] < b_rx[i_peak] - 4, i_peak)
     i_xon   = first(lambda i: bp[i] == 0, i_xoff)
-    i_go    = first(lambda i: ap[i] == 0, i_stop)
 
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 10})
     fig, ax = plt.subplots(figsize=(10, 4.6), dpi=150)
@@ -87,7 +87,7 @@ def main():
     for s in ("left", "bottom"):
         ax.spines[s].set_color(AXIS)
     ax.tick_params(colors=MUTED)
-    ax.set_title("FIFO pump flow control, measured (tb_serwb_pump, 2.5 Gb/s, line 12 clocks)",
+    ax.set_title("FIFO pump flow control, measured (tb_serwb_pump, 2.5 Gb/s, line 29 clocks)",
                  color=INK, loc="left", fontsize=11)
     leg = ax.legend(loc="upper left", bbox_to_anchor=(0.0, -0.13), ncol=2, frameon=False)
     for txt in leg.get_texts():

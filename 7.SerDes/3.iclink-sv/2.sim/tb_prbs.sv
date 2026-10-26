@@ -30,6 +30,7 @@ module tb_prbs;
   logic     [W-1:0] tx_i, tx_o, flip;
   logic     [ 31:0] rx_errors;
   prbs_cfg_t        NC_tx_cfg;  // not checked: LiteX has no such output
+  logic             NC_tx_clkcor;  // CLKCOR_EVERY = 0: no correction words, as LiteX
 
   iclink_prbs_tx #(.WIDTH(W)) u_tx (
       .clk     (clk),
@@ -37,7 +38,8 @@ module tb_prbs;
       .config_i(tx_config),
       .i       (tx_i),
       .o       (tx_o),
-      .config_o(NC_tx_cfg)
+      .config_o(NC_tx_cfg),
+      .clkcor_o(NC_tx_clkcor)
   );
 
   iclink_prbs_rx #(.WIDTH(W)) u_rx (
@@ -45,6 +47,7 @@ module tb_prbs;
       .arst_n  (arst_n),
       .config_i(rx_config),
       .pause   (pause),
+      .hold    (1'b0),
       .i       (tx_o ^ flip),
       .errors  (rx_errors)
   );

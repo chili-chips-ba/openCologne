@@ -6,8 +6,8 @@
 // SerWB packetizer, W words per clock (2 or 4): LiteICLink's Packetizer
 // with CRC (liteiclink/serwb/packet.py). The same packet words in the same
 // order; each clock carries up to W of them, slot 0 (bytes 0-3) first.
-// W = 2 fits the 64-bit PHY; W = 4 runs at half its clock, through a 2:1
-// gearbox.
+// W = 2 fits the 64-bit PHY; W = 4 moves on every other PHY clock, through
+// a 2:1 gearbox.
 //
 //   W = 2   beat 0:      preamble | port / length
 //           beats 1 ..:  data     | data
@@ -19,6 +19,10 @@
 //
 // A packet always starts in slot 0; the slots after its CRC stay empty
 // (o_valid low), and the line mux after this module fills them with K28.1.
+//
+// ce: every flop loads only on clocks with ce (the pump's strobe, every
+// other clock at W = 4; tie it high for a beat a clock). hdr_ready and
+// d_take count on ce clocks only.
 //
 // Three stages, all held by o_ready low (the far side sent XOFF):
 //   1. framing: the state machine places the words; a CRC slot is empty
@@ -40,6 +44,7 @@ module iclink_serwb_tx
 ) (
     input logic clk,
     input logic arst_n,
+    input logic ce,      // a beat: the flops load
 
     input  logic        hdr_valid,
     input  logic [ 7:0] hdr_port,
@@ -174,7 +179,7 @@ module iclink_serwb_tx
       left  <= '0;
       f     <= '0;
     end
-    else if (o_ready) begin
+    else if (ce && o_ready) begin
       state <= state_next;
       left  <= left_next;
       f     <= f_next;
@@ -208,7 +213,7 @@ module iclink_serwb_tx
       t_dterm <= '0;
       t_n     <= '0;
     end
-    else if (o_ready) begin
+    else if (ce && o_ready) begin
       t       <= '{word: f.word, valid: f.valid, crcslot: f.crcslot};
       t_n     <= n;
       t_dterm <= dterm ^ (f.init ? serwb_crc_iterm(n) : '0);
@@ -228,7 +233,7 @@ module iclink_serwb_tx
       o_word  <= '0;
       o_valid <= '0;
     end
-    else if (o_ready) begin
+    else if (ce && o_ready) begin
       crc     <= (t.crcslot != '0) ? '0 : crc_now;
       o_valid <= t.valid;
       for (int s = 0; s < W; s++) begin

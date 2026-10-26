@@ -2,12 +2,79 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
+// One way of the line in tb_serwb_pump: LAT PHY clocks of delay. With
+// elastic set, it also acts as CC_SERDES's RX elastic buffer between two
+// oscillators, on clock-correction words only: it drops the second of two
+// in a row, or sends one twice. Each comes at random, a request at a time,
+// and keeps the delay within LAT +- 3.
+module tb_serwb_line
+  import iclink_phy_pkg::*;
+#(
+    parameter int LAT = 29
+) (
+    input  logic      clk,
+    input  bit        elastic,
+    input  phy_word_t i_word,
+    output phy_word_t o_word,
+    output int        n_drop,
+    output int        n_rep
+);
+
+  phy_word_t q[$];
+  phy_word_t prev;  // the last word in
+  bit drop_req, rep_req;
+
+  initial begin : _fill
+    for (int i = 0; i < LAT; i++) begin
+      q.push_back(PHY_COMMA_WORD);
+    end
+    o_word   = PHY_COMMA_WORD;
+    prev     = PHY_COMMA_WORD;
+    drop_req = 1'b0;
+    rep_req  = 1'b0;
+    n_drop   = 0;
+    n_rep    = 0;
+  end : _fill
+
+  always @(posedge clk) begin : _line
+    // in: drop the second of two clock-correction words
+    if (drop_req && i_word === PHY_CLKCOR_WORD && prev === PHY_CLKCOR_WORD) begin
+      drop_req <= 1'b0;
+      n_drop   <= n_drop + 1;
+    end
+    else begin
+      q.push_back(i_word);
+    end
+    prev <= i_word;
+    // out: a clock-correction word once more, or the next word
+    if (rep_req && q[0] === PHY_CLKCOR_WORD) begin
+      rep_req <= 1'b0;
+      n_rep   <= n_rep + 1;
+      o_word <= q[0];
+    end
+    else begin
+      o_word <= q.pop_front();
+    end
+    // the next request
+    if (elastic && !drop_req && !rep_req && ($urandom % 64) == 0) begin
+      if (q.size() > LAT + 2 || (q.size() > LAT - 2 && ($urandom % 2) == 0)) begin
+        drop_req <= 1'b1;
+      end
+      else begin
+        rep_req <= 1'b1;
+      end
+    end
+  end : _line
+
+endmodule : tb_serwb_line
+
 // FIFO pump, two sides, SerDes out of the loop: pump A's phy_tx goes to
 // pump B's phy_rx and back, on the 64-bit + 8 K digital bus, through a
 // LINE_LAT-clock delay that stands for PHY TX + CC_SERDES + PHY RX (as
-// measured on the SerDes BFM, PHY data in to PHY data out). Each
-// side has its own CPU clock. W = 2: the pumps run on the line clock; W = 4:
-// at half of it, through 2:1 gearboxes (iclink_gearbox), as for 5 Gb/s.
+// measured on the SerDes BFM, PHY data in to PHY data out). One clock for
+// both pumps and both CPUs: the PHY clock, 31.25 MHz at W = 2 (2.5 Gb/s),
+// 62.5 MHz at W = 4 (5 Gb/s), where the pumps' cores move every other
+// clock (their ce), through gearboxes to a PHY word a clock.
 //
 //   1. both ways at once, random push and pop: every word arrives, in order
 //   2. B stops reading while A floods: B's RX FIFO fills to XOFF_LEVEL, the
@@ -18,55 +85,45 @@
 //      drop.
 //   3. line rate: A's TX is held (tx_hold) while A's CPU fills the TX FIFO (1024
 //      words, 64 packets); then the burst goes out with no CPU in the way,
-//      and B's depacketizer must see BURST_RATE words a clock or more.
+//      and B's depacketizer must see BURST_RATE words a pump clock or more.
 //
-// The fill levels are logged (pump_levels.csv) for the End2End Flow
-// section of the README, with the peak RX level above XOFF_LEVEL.
+// +elastic: the line drops and repeats clock-correction words, as the
+// elastic buffer between two oscillators would (tb_serwb_line); the data
+// must not notice. The fill levels are logged (pump_levels.csv, not with
+// +elastic) for the End2End Flow section of the README, with the peak RX
+// level above XOFF_LEVEL.
 module tb_serwb_pump;
   import iclink_phy_pkg::*;
   import iclink_serwb_pkg::*;
 
   parameter int W = 2;  // words a pump clock
-  localparam int NP         = W / 2;
   localparam int DEPTH      = 1024;
   localparam int XOFF_LEVEL = DEPTH - 96 * W;  // the pump's default (RT_CLKS = 96)
-  localparam int LINE_LAT   = (W == 2) ? 29 : 26;  // line clocks, at 2.5 / 5 Gb/s on the BFM
+  localparam int LINE_LAT   = (W == 2) ? 37 : 35;  // PHY clocks, worst case under ppm at 2.5 / 5 Gb/s on the BFM
   localparam int TIMEOUT    = 500;            // pump clocks: well under the phase 2 hold
   localparam int N_RANDOM   = 6000;           // words each way, phase 1
   localparam int N_FLOOD    = 4000;           // words A -> B, phase 2
   localparam int N_BURST    = DEPTH;          // words A -> B, phase 3: a full TX FIFO
   localparam int N_MEASURE  = 800;            // words timed, before B's XOFF level
-  localparam real BURST_RATE = 1.59 * W / 2;  // words a clock: 16 per packet of 10 (W = 2) or 5 clocks
+  // words a pump clock: 16 per packet of 20 words, 10 clocks (W = 2) or 5,
+  // so 1.6 * W / 2; the window (500 or 250 clocks) may hold one
+  // clock-correction burst (4 or 2 clocks) and one flow control refresh
+  // (1 clock): 800 / 505 = 1.584, 800 / 253 = 3.162
+  localparam real BURST_RATE = 1.58 * W / 2;
   localparam int AW         = $clog2(DEPTH);
 
-  logic clk_line, clk_a, clk_b;
-  logic clk_div, clk_pump;  // the pumps' clock: the line clock, or half of it (W = 4)
+  logic clk;
   logic arst_n;
+  bit   elastic;
 
-  initial begin : _clocks
-    clk_line = 1'b0;
-    clk_a    = 1'b0;
-    clk_b    = 1'b0;
-    fork
-      forever #(32.0 / W) clk_line = ~clk_line;  // 31.25 MHz (W = 2), 62.5 MHz (W = 4)
-      forever #10 clk_a = ~clk_a;  // 50 MHz
-      forever #11.5 clk_b = ~clk_b;  // 43.5 MHz
-    join
-  end : _clocks
-
-  always_ff @(posedge clk_line or negedge arst_n) begin : _div
-    if (!arst_n) begin
-      clk_div <= 1'b0;
-    end
-    else begin
-      clk_div <= ~clk_div;
-    end
-  end : _div
-
-  assign clk_pump = (W == 2) ? clk_line : clk_div;
+  initial begin : _clock
+    clk = 1'b0;
+    forever #(32.0 / W) clk = ~clk;  // 31.25 MHz (W = 2), 62.5 MHz (W = 4)
+  end : _clock
 
   initial begin : _reset
-    arst_n = 1'b0;
+    elastic = $test$plusargs("elastic");
+    arst_n  = 1'b0;
     #200;
     arst_n = 1'b1;
   end : _reset
@@ -75,21 +132,20 @@ module tb_serwb_pump;
   logic a_push, a_full, a_pop, a_empty, b_push, b_full, b_pop, b_empty;
   word_t a_wdata, a_rdata, b_wdata, b_rdata;
   logic [AW:0] a_used, a_avail, b_used, b_avail;
-  phy_word_t [NP-1:0] a_tx, b_tx, a_rx, b_rx;  // on the pumps' clock
-  phy_word_t a_ltx, b_ltx, a_lrx, b_lrx;  // on the line clock
-  phy_word_t line_ab[LINE_LAT], line_ba[LINE_LAT];
+  phy_word_t a_tx, b_tx, a_rx, b_rx;
   logic a_paused, b_paused, a_pause, b_pause;
   logic [15:0] a_crc, b_crc, a_drops, b_drops, a_ovf, b_ovf;
   logic link_en;
   logic a_tx_hold;  // phase 3: A's tx_hold while its FIFO fills
+  int ab_drop, ab_rep, ba_drop, ba_rep;  // what the elastic line did
 
   iclink_serwb_pump #(
       .W           (W),
       .DEPTH       (DEPTH),
       .TIMEOUT_CLKS(TIMEOUT)
   ) u_a (
-      .clk_sys      (clk_a),
-      .sys_arst_n   (arst_n),
+      .clk          (clk),
+      .arst_n       (arst_n),
       .tx_push      (a_push),
       .tx_data      (a_wdata),
       .tx_full      (a_full),
@@ -99,12 +155,8 @@ module tb_serwb_pump;
       .rx_data      (a_rdata),
       .rx_empty     (a_empty),
       .rx_avail     (a_avail),
-      .clk_tx       (clk_pump),
-      .tx_arst_n    (arst_n),
       .tx_en        (link_en),
       .phy_tx       (a_tx),
-      .clk_rx       (clk_pump),
-      .rx_arst_n    (arst_n),
       .rx_en        (link_en),
       .phy_rx       (a_rx),
       .remote_paused(a_paused),
@@ -119,8 +171,8 @@ module tb_serwb_pump;
       .DEPTH       (DEPTH),
       .TIMEOUT_CLKS(TIMEOUT)
   ) u_b (
-      .clk_sys      (clk_b),
-      .sys_arst_n   (arst_n),
+      .clk          (clk),
+      .arst_n       (arst_n),
       .tx_push      (b_push),
       .tx_data      (b_wdata),
       .tx_full      (b_full),
@@ -130,12 +182,8 @@ module tb_serwb_pump;
       .rx_data      (b_rdata),
       .rx_empty     (b_empty),
       .rx_avail     (b_avail),
-      .clk_tx       (clk_pump),
-      .tx_arst_n    (arst_n),
       .tx_en        (link_en),
       .phy_tx       (b_tx),
-      .clk_rx       (clk_pump),
-      .rx_arst_n    (arst_n),
       .rx_en        (link_en),
       .phy_rx       (b_rx),
       .remote_paused(b_paused),
@@ -145,75 +193,28 @@ module tb_serwb_pump;
       .overflows    (b_ovf)
   );
 
-  // the line, both ways, LINE_LAT clocks
-  always_ff @(posedge clk_line) begin : _line
-    line_ab[0] <= a_ltx;
-    line_ba[0] <= b_ltx;
-    for (int i = 1; i < LINE_LAT; i++) begin
-      line_ab[i] <= line_ab[i-1];
-      line_ba[i] <= line_ba[i-1];
-    end
-  end : _line
+  // the line, both ways, LINE_LAT clocks (+- 3 with +elastic)
+  tb_serwb_line #(
+      .LAT(LINE_LAT)
+  ) u_ab (
+      .clk    (clk),
+      .elastic(elastic),
+      .i_word (a_tx),
+      .o_word (b_rx),
+      .n_drop (ab_drop),
+      .n_rep  (ab_rep)
+  );
 
-  assign b_lrx = line_ab[LINE_LAT-1];
-  assign a_lrx = line_ba[LINE_LAT-1];
-
-  // between the pumps and the line: direct (W = 2), or gearboxes (W = 4)
-  if (W == 2) begin : g_direct
-    assign a_ltx = a_tx;
-    assign b_ltx = b_tx;
-    assign a_rx  = a_lrx;
-    assign b_rx  = b_lrx;
-  end : g_direct
-  else begin : g_gearbox
-    iclink_gearbox #(
-        .IN_N (2),
-        .OUT_N(1)
-    ) u_a_tx (
-        .w_clk   (clk_pump),
-        .w_arst_n(arst_n),
-        .w_word  (a_tx),
-        .r_clk   (clk_line),
-        .r_arst_n(arst_n),
-        .r_word  (a_ltx)
-    );
-
-    iclink_gearbox #(
-        .IN_N (2),
-        .OUT_N(1)
-    ) u_b_tx (
-        .w_clk   (clk_pump),
-        .w_arst_n(arst_n),
-        .w_word  (b_tx),
-        .r_clk   (clk_line),
-        .r_arst_n(arst_n),
-        .r_word  (b_ltx)
-    );
-
-    iclink_gearbox #(
-        .IN_N (1),
-        .OUT_N(2)
-    ) u_a_rx (
-        .w_clk   (clk_line),
-        .w_arst_n(arst_n),
-        .w_word  (a_lrx),
-        .r_clk   (clk_pump),
-        .r_arst_n(arst_n),
-        .r_word  (a_rx)
-    );
-
-    iclink_gearbox #(
-        .IN_N (1),
-        .OUT_N(2)
-    ) u_b_rx (
-        .w_clk   (clk_line),
-        .w_arst_n(arst_n),
-        .w_word  (b_lrx),
-        .r_clk   (clk_pump),
-        .r_arst_n(arst_n),
-        .r_word  (b_rx)
-    );
-  end : g_gearbox
+  tb_serwb_line #(
+      .LAT(LINE_LAT)
+  ) u_ba (
+      .clk    (clk),
+      .elastic(elastic),
+      .i_word (b_tx),
+      .o_word (a_rx),
+      .n_drop (ba_drop),
+      .n_rep  (ba_rep)
+  );
 
   // the words: a known sequence per direction
   function automatic word_t pattern(input logic dir, input int n);
@@ -228,7 +229,7 @@ module tb_serwb_pump;
   int a_sent, a_got, a_bad, b_sent, b_got, b_bad;
   int a_goal, b_goal;  // words to send
 
-  always_ff @(posedge clk_a or negedge arst_n) begin : _cpu_a
+  always_ff @(posedge clk or negedge arst_n) begin : _cpu_a
     if (!arst_n) begin
       a_push  <= 1'b0;
       a_wdata <= '0;
@@ -257,7 +258,7 @@ module tb_serwb_pump;
     end
   end : _cpu_a
 
-  always_ff @(posedge clk_b or negedge arst_n) begin : _cpu_b
+  always_ff @(posedge clk or negedge arst_n) begin : _cpu_b
     if (!arst_n) begin
       b_push  <= 1'b0;
       b_wdata <= '0;
@@ -286,17 +287,19 @@ module tb_serwb_pump;
     end
   end : _cpu_b
 
-  // levels, every line clock in phase 2: time, B RX FIFO, A TX FIFO, flags
-  int fd_lvl, b_rx_peak, a_tx_peak, a_full_clks;
+  // levels, every pump clock in phase 2: time, B RX FIFO, A TX FIFO, flags
+  int fd_lvl, b_rx_peak, a_tx_peak;
 
-  always_ff @(posedge clk_pump or negedge arst_n) begin : _levels
+  always_ff @(posedge clk or negedge arst_n) begin : _levels
     if (!arst_n) begin
       b_rx_peak <= 0;
       a_tx_peak <= 0;
     end
-    else if (phase == 2) begin
-      $fwrite(fd_lvl, "%0t,%0d,%0d,%0d,%0d,%0d\n", $time, u_b.rxf_used, u_a.tx_used, b_pause,
-              a_paused, a_full);
+    else if (phase == 2 && u_b.ce) begin
+      if (!elastic) begin
+        $fwrite(fd_lvl, "%0t,%0d,%0d,%0d,%0d,%0d\n", $time, u_b.rxf_used, u_a.tx_used, b_pause,
+                a_paused, a_full);
+      end
       if (int'(u_b.rxf_used) > b_rx_peak) begin
         b_rx_peak <= int'(u_b.rxf_used);
       end
@@ -306,15 +309,16 @@ module tb_serwb_pump;
     end
   end : _levels
 
-  // burst meter: words out of B's depacketizer, from the first one of the burst
+  // burst meter: words out of B's depacketizer, from the first one of the
+  // burst, a pump clock (ce) at a time
   int burst_words, burst_clks;
 
-  always_ff @(posedge clk_pump or negedge arst_n) begin : _burst
+  always_ff @(posedge clk or negedge arst_n) begin : _burst
     if (!arst_n) begin
       burst_words <= 0;
       burst_clks  <= 0;
     end
-    else if (phase == 3 && !a_tx_hold && burst_words < N_MEASURE) begin
+    else if (phase == 3 && !a_tx_hold && burst_words < N_MEASURE && u_b.ce) begin
       if (burst_words > 0 || u_b.dp_valid != '0) begin
         burst_words <= burst_words + $countones(u_b.dp_valid);
         burst_clks  <= burst_clks + 1;
@@ -323,62 +327,73 @@ module tb_serwb_pump;
   end : _burst
 
   initial begin : _run
-    logic pass;
-    phase   = 0;
-    b_reads = 1'b1;
-    link_en = 1'b0;
-    a_goal  = 0;
+    logic  pass;
+    string mode;
+    phase     = 0;
+    b_reads   = 1'b1;
+    link_en   = 1'b0;
+    a_goal    = 0;
     a_tx_hold = 1'b0;
-    b_goal  = 0;
-    fd_lvl  = $fopen("pump_levels.csv", "w");
-    $fwrite(fd_lvl, "time_ps,b_rx_used,a_tx_used,b_pause,a_paused,a_tx_full\n");
+    b_goal    = 0;
+    #1;
+    if (!elastic) begin
+      fd_lvl = $fopen("pump_levels.csv", "w");
+      $fwrite(fd_lvl, "time_ps,b_rx_used,a_tx_used,b_pause,a_paused,a_tx_full\n");
+    end
     wait (arst_n);
-    repeat (20) @(posedge clk_line);
+    repeat (20 * W) @(posedge clk);
     link_en = 1'b1;
 
     // 1. both ways
-    phase   = 1;
-    a_goal  = N_RANDOM;
-    b_goal  = N_RANDOM;
+    phase  = 1;
+    a_goal = N_RANDOM;
+    b_goal = N_RANDOM;
     wait (a_got == N_RANDOM && b_got == N_RANDOM);
     $display("phase 1: %0d words each way, A bad %0d, B bad %0d at %0t", N_RANDOM, a_bad, b_bad,
              $time);
 
     // 2. B stops reading, A floods
-    repeat (100) @(posedge clk_line);
+    repeat (100) @(posedge clk);
     b_reads = 1'b0;
     phase   = 2;
     a_goal  = N_RANDOM + N_FLOOD;
     wait (a_full);
-    repeat (2000) @(posedge clk_line);  // hold, past TIMEOUT: everything must stay put
+    repeat (2000) @(posedge clk);  // hold, past TIMEOUT: everything must stay put
     b_reads = 1'b1;
     wait (b_got == N_RANDOM + N_FLOOD);
-    repeat (200) @(posedge clk_line);
+    repeat (200) @(posedge clk);
 
     // 3. A's TX held, its FIFO filled, then let go
     a_tx_hold = 1'b1;
     phase     = 3;
     a_goal    = N_RANDOM + N_FLOOD + N_BURST;
     wait (a_sent == a_goal);
-    repeat (50) @(posedge clk_line);
+    repeat (50) @(posedge clk);
     a_tx_hold = 1'b0;
     wait (b_got == N_RANDOM + N_FLOOD + N_BURST);
-    repeat (200) @(posedge clk_line);
+    repeat (200) @(posedge clk);
     phase = 4;
-    $fclose(fd_lvl);
+    if (!elastic) begin
+      $fclose(fd_lvl);
+    end
 
     pass = a_bad == 0 && b_bad == 0 && a_got == N_RANDOM && b_got == N_RANDOM + N_FLOOD + N_BURST &&
         real'(burst_words) / real'(burst_clks) >= BURST_RATE &&
         a_drops == 0 && b_drops == 0 && a_ovf == 0 && b_ovf == 0 && a_crc == 0 && b_crc == 0 &&
-        b_rx_peak <= DEPTH;
+        b_rx_peak <= DEPTH && (!elastic || (ab_drop > 0 && ab_rep > 0 && ba_drop > 0 && ba_rep > 0));
     $display("phase 2: B RX FIFO peak %0d of %0d (XOFF at %0d: +%0d words after XOFF)", b_rx_peak,
              DEPTH, XOFF_LEVEL, b_rx_peak - XOFF_LEVEL);
     $display("         A TX FIFO peak %0d (pushback on A's CPU); drops %0d/%0d, overflows %0d/%0d",
              a_tx_peak, a_drops, b_drops, a_ovf, b_ovf);
     $display("phase 3: burst of %0d words: %0d words in %0d clocks = %0.3f a clock (line: %0d)",
              N_BURST, burst_words, burst_clks, real'(burst_words) / real'(burst_clks), W);
-    $display("TB_SERWB_PUMP: %s  A->B %0d words, B->A %0d words, in order, none lost",
-             pass ? "PASS" : "FAIL", b_got, a_got);
+    if (elastic) begin
+      $display("elastic: clock-correction words A->B %0d dropped, %0d repeated; B->A %0d, %0d",
+               ab_drop, ab_rep, ba_drop, ba_rep);
+    end
+    mode = elastic ? " elastic" : "";
+    $display("TB_SERWB_PUMP: %s  W=%0d%s, A->B %0d words, B->A %0d words, in order, none lost",
+             pass ? "PASS" : "FAIL", W, mode, b_got, a_got);
     $finish;
   end : _run
 

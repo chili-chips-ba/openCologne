@@ -31,8 +31,9 @@ package iclink_phy_pkg;
   } phy_ctrl_t;
 
   // SerDes bring-up: regfile writes, the ones Cologne Chip's PRBS loopback
-  // test of the EVB uses (openCologne-PCIE 2.rtl/1.phy/1.serdes-test.STANDALONE)
-  localparam int CFG_WRITES = 3;
+  // test of the EVB uses (openCologne-PCIE 2.rtl/1.phy/1.serdes-test.STANDALONE),
+  // then the RX elastic buffer (RX_BUF_CFG and the clock-correction sequence)
+  localparam int CFG_WRITES = 8;
   localparam int CFG_IDX_W  = (CFG_WRITES > 1) ? $clog2(CFG_WRITES) : 1;
   // 2^CFG_WAIT_W clk_reg clocks before the first write and after each
   localparam int CFG_WAIT_W = 6;
@@ -52,6 +53,30 @@ package iclink_phy_pkg;
       d: {8'h00, 8'h00, 8'h00, PHY_IDLE, 8'h00, 8'h00, 8'h00, PHY_COMMA},
       k: 8'b0001_0001
   };
+
+  // the clock-correction word: CC_SERDES's RX elastic buffer matches its
+  // 4-symbol sequence, here K28.0 four times, in each half, and repeats or
+  // drops a word to take up the ppm between two reference clocks. No comma
+  // in it: a K28.5 in both halves would let the lane aligner pick either
+  // half. Sent in bursts (PHY_CLKCOR_BURST words in a row, every
+  // PHY_CLKCOR_EVERY clocks): of two in a row the buffer may drop one, and
+  // an insertion repeats the word before. All K, so a SerWB K filter drops it.
+  localparam logic [9:0] PHY_CLKCOR_SEQ = {1'b0, 1'b1, PHY_IDLE};  // {comma, K, data}
+  localparam phy_word_t PHY_CLKCOR_WORD = '{d: {PHY_NWORDS{PHY_IDLE}}, k: '1};
+  localparam int PHY_CLKCOR_BURST = 4;
+  localparam int PHY_CLKCOR_EVERY = 1024;
+
+  // RX elastic buffer fill, in 64-bit words: a correction word is repeated
+  // below MIN_LAT - 1, dropped above MAX_LAT; RX_BUF_ERR_O below 3 or above
+  // 60 (DS1001 Table 2.57). Reads start MIN_LAT words behind, so the RX
+  // latency is MIN_LAT to MAX_LAT clocks. MIN_LAT 8: 4 words above the error
+  // limit, for the count crossing, the recovered clock's wander and a burst
+  // of inserts. MAX_LAT 12: a window wider than one burst moves the fill
+  // (3 words), so an insert never leads to a drop or back.
+  localparam logic [5:0] PHY_RX_MIN_LAT = 6'd8;
+  localparam logic [5:0] PHY_RX_MAX_LAT = 6'd12;
+  // RX_BUF_CFG (0x25) = {2'b00, MAX_LAT, MIN_LAT, CLKCOR_USE, BUF_BYPASS}
+  localparam logic [15:0] PHY_RX_BUF_CFG = {2'b00, PHY_RX_MAX_LAT, PHY_RX_MIN_LAT, 1'b1, 1'b0};
 
   typedef cfg_write_t [CFG_WRITES-1:0] cfg_seq_t;
 
@@ -76,6 +101,11 @@ package iclink_phy_pkg;
   function automatic cfg_seq_t cfg_seq(input int line_rate);
     return
     '{
+        '{8'h29, {6'h0, PHY_CLKCOR_SEQ}},  // 7: RX_CLKCOR_SEQ_1_3
+        '{8'h28, {6'h0, PHY_CLKCOR_SEQ}},  // 6: RX_CLKCOR_SEQ_1_2
+        '{8'h27, {6'h0, PHY_CLKCOR_SEQ}},  // 5: RX_CLKCOR_SEQ_1_1
+        '{8'h26, {6'h0, PHY_CLKCOR_SEQ}},  // 4: RX_CLKCOR_SEQ_1_0
+        '{8'h25, PHY_RX_BUF_CFG},  // 3: RX buffer on, clock correction
         '{8'h50, 16'h0C03},  // 2: PLL on
         '{SERDES_CFG_ADDR, 16'h0001},  // 1: SerDes enable
         '{8'h51, pll_cfg1(line_rate)}  // 0: PLL: the line rate

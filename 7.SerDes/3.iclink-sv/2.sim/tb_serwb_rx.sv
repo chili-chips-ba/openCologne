@@ -30,8 +30,10 @@ module tb_serwb_rx;
   logic  [DW-1:0] o_drop;
   logic o_commit, o_rewind, o_crc_error;
   logic i_hold;  // the pause hold: tb_serwb_pump tests it
+  logic ce;  // a beat every clock: tb_serwb_pump tests the strobe
 
   assign i_hold = 1'b0;
+  assign ce     = 1'b1;
 
   iclink_serwb_rx #(
       .W           (W),
