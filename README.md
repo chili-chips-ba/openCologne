@@ -7,7 +7,7 @@
 [![PrjPeppercorn:Pass](https://badgen.net/badge/PrjPeppercorn/Pass/green)](https://github.com/YosysHQ/prjpeppercorn)
 [![LiteX:YES](https://badgen.net/badge/LiteX/YES/green)](7.SerDes/3.iclink-sv/4.litex)
 [![eduBOS5:YES](https://badgen.net/badge/eduBOS5/YES/green)](https://github.com/chili-chips-ba/openPCIE/blob/main/2.rtl/0.common.opensource/src/CPU.eduBOS5/README.md)
-[![PeakRDL:planned](https://badgen.net/badge/PeakRDL/planned/orange)](7.SerDes)
+[![PeakRDL:YES](https://badgen.net/badge/PeakRDL/YES/green)](7.SerDes)
 
 [Click here](https://github.com/chili-chips-ba/openCologne-PCIE) if interested in our new CologneChip project, which is about designing the first fully open-source **PCIE EndPoint**.
 
@@ -174,7 +174,7 @@ Our flagship: two GateMate chips talk over their SerDes, as one memory-mapped sy
   <img width="100%" alt="Two GateMates, each with eduBOS5, PeakRDL CSRs, Serial Wishbone, the SerDes PHY and the SerDes BFM in front of the CC_SERDES hard macro, linked over a 2.5 Gb/s SerDes link" src="7.SerDes/0.doc/iclink-flagship.drawio.png">
 </p>
 
-- **Full end-to-end sim with open tools.** In sim, our [SerDes BFM](7.SerDes/1.sim-model/README.md) (shared with [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE)) stands in for the wire and the `CC_SERDES` hard macro. No VProc, no vendor model: the RTL runs as built.
+- **Full end-to-end sim with open tools.** In sim, our [SerDes BFM](7.SerDes/1.sim-model/README.md) (shared with [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE)) stands in for the wire and the `CC_SERDES` hard macro. No VProc: the RTL runs as built.
 - **The SerDes hard macro, used to the full.** `CC_SERDES` does the 8b/10b encoding and decoding, the comma alignment, the RX clock crossing and the clock correction between two boards; the fabric keeps only PRBS, a lane aligner and flops. The Lattice reference, LiteICLink on ECP5, encodes and decodes 8b/10b in the FPGA fabric.
 - **Bit-exact with LiteX.** Every fabric block is checked against LiteX's own Python model, clock for clock.
 - **Done:** PRBS7/15/31, the `CC_SERDES` PHY with its hard 8b/10b, the Serial Wishbone packet layer (bit-exact with LiteICLink) and a FIFO pump between two CPUs, all on one clock, with clock correction for two boards; one-way, two-way and 200 ppm link sims; a bitstream with the open Peppercorn flow; the eduBOS5 CPU RTL, from openPCIE.

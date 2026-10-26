@@ -44,7 +44,7 @@
 //   openCologne, then ported to openCologne-PCIE. What is modelled, and
 //   how: README.md, next to this file.
 //
-//   It takes all 115 parameters of the vendor model. It acts on 38:
+//   It takes all 115 SerDes parameters. It acts on 38:
 //   resets, comma alignment and slide, RX buffer and clock correction,
 //   datapath widths, loopback, PLL rates and lock, the TX buffer,
 //   electrical idle. 7 more only set a register value to read back
@@ -56,11 +56,11 @@
 //   ALIGN_COMMA_WORD is RX_ALIGN_COMMA_WORD of CC_SERDES; the other names
 //   are the same.
 //
-//   Where DS1001 is silent, the BFM does at its ports what the vendor's
-//   simulation model does: comma alignment (16 commas), lane rotation at
-//   16/32 bits, the reset stages, regfile timing and the writes it drops,
-//   PRBS counts. Where that model contradicts DS1001 by a bug, the BFM
-//   follows DS1001 (RX_EI_EN_O, register defaults). tb_rules checks it.
+//   Where DS1001 is silent, the BFM picks a behaviour at its ports: comma
+//   alignment (16 commas), lane rotation at 16/32 bits, the reset stages,
+//   regfile timing and the writes it drops, PRBS counts. Rules taken
+//   straight from DS1001 are tagged DS (RX_EI_EN_O, register defaults).
+//   tb_rules checks them.
 //
 //   The line: idle (electrical idle) is P = N for 20 UI; TX_ELEC_IDLE_I
 //   drives X on both pins, power down Z (both 0 in Verilator). Idle stops
@@ -291,8 +291,8 @@ module ccfpga_serdes
   // 8b/10b decode table, built at time 0 by running the encoder forward,
   // 1000x faster than dec8b10b() (the decoder under proof) for every
   // symbol. tb_modes checks the two agree on all 1024 symbols. A symbol
-  // not in the table decodes per sub-block (dec_part), as the vendor's
-  // model does: a line error rarely leaves the byte as it was. A sub-block
+  // not in the table decodes per sub-block (dec_part): a line error rarely
+  // leaves the byte as it was. A sub-block
   // that is no code gives ones.
   //#########################################################################
   bit [9:0] dec_lut [1024];  // {valid, k, data}
@@ -533,7 +533,7 @@ module ccfpga_serdes
         d = cfg_en_i ? cfgfile_di_i : regfile_di_i;
         m = cfg_en_i ? 16'hFFFF : regfile_mask_i;
         // with clock correction on, a fabric write keeps the latencies and
-        // the sequence (the vendor's simulation model; DS1001 is silent)
+        // the sequence (DS1001 is silent)
         if (csr.rx_buf_cfg.clkcor_use && !cfg_wr) begin
           if (a == RX_BUF_CFG_ADDR) begin
             m = m & 16'hC003;
@@ -955,7 +955,7 @@ module ccfpga_serdes
     n += chk_range("PLL_REF_SEL", PLL_REF_SEL, 0, 1);
     n += chk_range("PLL_REF_RTERM", PLL_REF_RTERM, 0, 1);
     n += chk_range("TX_PMA_LOOPBACK", TX_PMA_LOOPBACK, 0, 3);
-    // a vendor-model parameter, not in UG1001: the TX buffer stays 32
+    // not in UG1001: the TX buffer stays 32
     // words deep (address width 5)
     n += chk_range("TX_BUFFER_ADDR_WIDTH", TX_BUFFER_ADDR_WIDTH, 5, 5);
     n += pll_cfg1_errors(PLL_DIV_RESET);
@@ -1006,7 +1006,7 @@ module ccfpga_serdes
   localparam int TX_BUF_START = (1 << TX_BUFFER_ADDR_WIDTH) / 2;
 
   // DS1001 Tables 2.34 and 2.52: 001 PRBS-7, 010 PRBS-15, the rest
-  // reserved. As the vendor's simulation model: 011 PRBS-23, 100 PRBS-31;
+  // reserved. Here also: 011 PRBS-23, 100 PRBS-31;
   // TX 101 data, 110 a 2-UI square wave, 111 half a word high, half low;
   // RX 101 to 111 no checker. A reserved code gives a $warning, once.
   bit [1:0] prbs_warned;
@@ -1309,9 +1309,7 @@ module ccfpga_serdes
   real rx_ei_deadline;
 
   // RX_EI_EN_O, on the reference clock: idle for RX_EI_BW_SEL clocks (1 to
-  // 8); RX_EI_BIAS = 0 turns the detector off. As DS1001 Table 2.43, not
-  // as the vendor's simulation model, where RX_EI_BW_SEL != 0 (the
-  // default 4 too) keeps RX_EI_EN_O low.
+  // 8); RX_EI_BIAS = 0 turns the detector off. As DS1001 Table 2.43.
   int rx_ei_run;
 
   always @(posedge clk_ref_i) begin : rx_ei_out
@@ -1369,8 +1367,8 @@ module ccfpga_serdes
   int        rx_bits_seen;
 
   //-------------------------------------------------------------------------
-  // Comma alignment, a word at a time (DS1001 Figures 2.40, 2.41; the rule
-  // is the vendor's simulation model's, DS1001 does not give one):
+  // Comma alignment, a word at a time (DS1001 Figures 2.40, 2.41; DS1001
+  // gives no rule, this is the model's):
   // - hunt: 16 words with a comma on the symbol boundary and none off it;
   //   a comma off it slips the boundary a bit later, then 16 words pause;
   // - then the next such word: a comma in a lane ALIGN_COMMA_WORD does not
@@ -1937,8 +1935,8 @@ module ccfpga_serdes
   // A line without edges for a word: the bits up to now, as ACCURATE's
   // sampler takes them, so the recovered clock runs on and the RX buffer
   // doesn't underflow. With no grid yet (a start on a still line), one from
-  // the window's start, until the first edge. The vendor model's TX puts out
-  // such a line at its reset: 150 ns of X, then a 44 ns run.
+  // the window's start, until the first edge. A peer TX in reset can put
+  // out such a line.
   initial if (CDR_MODEL == FAST) begin : rx_fast_watchdog
     real t0;
     forever begin

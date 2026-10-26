@@ -3,10 +3,9 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 //==========================================================================
-// SerDes BFM rules: what the BFM does as the vendor's simulation model
-// does, at the ports, checked one by one. Ports only, so it runs on that
-// model too (out of this repository): it passes there but for the rules
-// where the BFM follows DS1001 (marked DS). One BFM, its TX looped to its
+// SerDes BFM rules: what the BFM does at its ports where DS1001 is
+// silent, checked one by one; rules straight from DS1001 are marked DS.
+// Ports only, so it runs on any model with these ports. One BFM, its TX looped to its
 // RX through a wire delay the test moves (a bit slip), 2.5 Gb/s, PLL_CLK_O
 // on TX_CLK_I and RX_CLK_I. CDR_MODEL FAST or ACCURATE: a real line.
 //   DP = 3: regfile, PLL, resets, TX (RD+, buffer), comma alignment,

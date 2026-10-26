@@ -3,12 +3,12 @@
 # SPDX-License-Identifier: BSD-3-Clause
 #
 # The SerDes BFM's own tests: one BFM looped back (tb_modes), its rules
-# against the vendor model's behaviour (tb_rules), the 8b/10b proofs.
+# at the ports (tb_rules), the 8b/10b proofs.
 #   make            all of them
 #   make sim_modes  the CDR_MODELs against each other, Verilator: 9 datapath width and
 #                   comma lane cases, data bit-exact, latencies within MODES_TOL_NS; then
 #                   PRBS7/31 with forced errors, 5 ms at 3 Gb/s, the random RX word phase;
-#                   then the BFM's rules (tb_rules: as the vendor's model, at the ports)
+#                   then the BFM's rules (tb_rules, at the ports)
 #   make sim_icarus  tb_modes in Icarus: each CDR_MODEL at 16, 32 and 64 bits,
 #                    ALIGN_COMMA_WORD 01 (even lane) and 11 (lane 0 or 4); then tb_rules
 #   make formal     the 8b/10b proofs (formal_8b10b/run-formal.sh)

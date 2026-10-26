@@ -15,7 +15,7 @@ make -C 7.SerDes/3.iclink-sv/2.sim sim_top  # one test
 
 Needs Verilator 5 (`--binary --timing`; we use 5.052) and Icarus Verilog 13. Only for `make vectors`: python3 with LiteX and LiteICLink. Only for the pump plot: matplotlib.
 
-The SerDes in simulation is our open-source SerDes BFM, [`1.sim-model`](../../1.sim-model/README.md): a behavioural model of `CC_SERDES` with the vendor model's module name, ports and parameters, checked against it with 0 divergences. Verilator runs our RTL with the BFM in place of the hard macro, so no co-simulation (VProc) is needed. Once the eduBOS5 SoC is in, its RTL will run the test firmware the same way.
+The SerDes in simulation is our open-source SerDes BFM, [`1.sim-model`](../../1.sim-model/README.md): a behavioural model of `CC_SERDES`, with its ports and parameters. Verilator runs our RTL with the BFM in place of the hard macro, so no co-simulation (VProc) is needed. Once the eduBOS5 SoC is in, its RTL will run the test firmware the same way.
 
 <p align="center">
   <img width="100%" alt="tb_phy_oneway: the test sequence drives the PHY (iclink_serdes_gm); the SerDes BFM stands in for CC_SERDES, its serial TX looped to its RX through an XOR for fault injection" src="../../0.doc/iclink-tb.drawio.png">
@@ -35,7 +35,7 @@ The SerDes in simulation is our open-source SerDes BFM, [`1.sim-model`](../../1.
 | `sim_serwb_w4` | the three SerWB tests at 4 words per clock (5 Gb/s), through the gearboxes |
 | `sim_top` | the board top's self-tests, SerDes link and FIFO pump: a clean run (PRBS7, then the pump's counter, every word in order), then a flipped line bit must latch the error and turn the LED off |
 | `sim_link_ppm` | mirrors setup 2 with the FIFO pump: two sides, each a PHY on its own BFM and a pump, lines crossed, the references 200 ppm apart (`PPM=`). 100,000 clocks of a counter each way: every word in order, no CRC error, drop, invalid symbol or RX buffer error, and the BFMs must have inserted and removed clock-correction words. Then the same without the pumps' bursts (`NO_CLKCOR`), which must fail ([clock correction](../../0.doc/clock-correction.md)) |
-| `sim_modes` | the SerDes BFM's own tests, run from its folder (`make -C 7.SerDes/1.sim-model sim_modes`): `tb_modes`, the three `CDR_MODEL`s against each other at 16, 32 and 64 bits, 38 runs, then `tb_rules`, its behaviour as the vendor model's, rule by rule ([model README](../../1.sim-model/README.md#verification)) |
+| `sim_modes` | the SerDes BFM's own tests, run from its folder (`make -C 7.SerDes/1.sim-model sim_modes`): `tb_modes`, the three `CDR_MODEL`s against each other at 16, 32 and 64 bits, 38 runs, then `tb_rules`, its behaviour at the ports, rule by rule ([model README](../../1.sim-model/README.md#verification)) |
 | `sim_icarus` | the same two testbenches in Icarus, so the BFM stays Icarus-clean: Verilator takes a name used before its declaration, even with `-Wall`; Icarus and the LRM don't |
 | `sim_phy_rates` | not in `all`: both PHY tests at 1250, 2500 and 5000 Mb/s |
 | `serwb_twoway` | planned; mirrors setup 2: two eduBOS5 SoCs, two BFMs, lines crossed. eduBOS5 A writes then reads back B's RAM and a B CSR (PeakRDL); the link recovers after one side is reset; the CRC test below |
@@ -63,7 +63,7 @@ The BFM's `ALIGN_COMMA_WORD` is `CC_SERDES`'s `RX_ALIGN_COMMA_WORD`. A "byte lan
 
 **Random RX word phase.** On the silicon the RX word counter starts wherever it starts. With `RX_ALIGN_COMMA_WORD` = 1X the comma then lands in byte lane 0 or 4, a coin toss at each link-up (DS1001 Figure 2.41). The BFM does the same, from the seed. So a lane-0 assumption fails in simulation, before it can fail on the board. Try a few seeds: `for s in 1 2 3 4; do make -C 7.SerDes/3.iclink-sv/2.sim sim_phy_oneway SEED=$s; done`. `RANDOM_PHASE=0` turns it off. `sim_modes` turns it off for its comma-lane sweep, and runs it random in 3 more runs.
 
-**BFM settings.** `CDR_MODEL` picks one of three levels of line and receiver model; the `BHV_*` settings tune the BFM. All of them, every vendor parameter it models, its speed and its check against the vendor model: [model README](../../1.sim-model/README.md).
+**BFM settings.** `CDR_MODEL` picks one of three levels of line and receiver model; the `BHV_*` settings tune the BFM. All of them, every SerDes parameter it models, and its speed: [model README](../../1.sim-model/README.md).
 
 Verilator is the reference simulator. The BFM also runs in Icarus Verilog, and `sim_icarus` keeps it so. Testbenches may use SystemVerilog that Icarus lacks, such as arrays of queues and queues of structs. Icarus can fly on, but shouldn't clip our wings.
 

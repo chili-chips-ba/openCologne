@@ -61,7 +61,7 @@ echo ""
 echo "--- SAT proofs (yosys) --------------------------------------"
 run_prop fv_enc_disparity  "encoder never emits an illegal disparity"
 run_prop fv_enc_rd_tracking "reported running disparity matches the symbol"
-run_prop fv_comma_format   "K28.5 encodings match the vendor comma constants"
+run_prop fv_comma_format   "K28.5 encodings match the UG1001 comma constants"
 run_prop fv_injective      "no two inputs share a symbol, at any disparity"
 run_prop fv_run_length     "no run of more than five identical bits on the wire"
 

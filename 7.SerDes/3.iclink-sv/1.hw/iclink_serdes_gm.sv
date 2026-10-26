@@ -58,8 +58,8 @@
 //   (iclink_phy_pkg::cfg_seq()), then TX and RX out of reset.
 //
 //   On the chip CC_SERDES connects to its own serial pins and reference
-//   clock. In simulation the SerDes BFM (ccfpga_serdes, same name and ports
-//   as Cologne Chip's model) takes its place: serial pins and the reference
+//   clock. In simulation the SerDes BFM (ccfpga_serdes, the SerDes ports and
+//   parameters) takes its place: serial pins and the reference
 //   are ports, and the SerDes enable goes through its config port.
 //==========================================================================
 

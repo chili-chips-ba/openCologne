@@ -6,7 +6,7 @@ SPDX-License-Identifier: BSD-3-Clause
 
 # SerDes BFM: an open-source model of the GateMate SerDes
 
-`ccfpga_serdes.sv` is an open-source behavioural model of the GateMate SerDes hard macro (`CC_SERDES`), for simulation. It has the module name, ports, parameter names and defaults of Cologne Chip's simulation model, so it is a drop-in replacement: point the file list here, and nothing else in the design or the testbench changes. It needs no NDA and no vendor tools, and runs in Verilator and Icarus Verilog.
+`ccfpga_serdes.sv` is an open-source behavioural model of the GateMate SerDes hard macro (`CC_SERDES`), for simulation. It has the SerDes ports and parameters, with their names and defaults, so a design's SerDes instance simulates unchanged: point the file list here. It runs in Verilator and Icarus Verilog, with open tools only.
 
 For hardware, the design instantiates the `CC_SERDES` primitive. This model stands in for it in simulation only.
 
@@ -18,15 +18,13 @@ It was developed in [openCologne](https://github.com/chili-chips-ba/openCologne)
 | [`ccfpga_serdes_pkg.sv`](ccfpga_serdes_pkg.sv) | 8b/10b codec and PRBS as functions, the model settings (`CDR_MODEL`, `BHV_*`) |
 | [`Makefile`](Makefile) | its own tests: `make -C 7.SerDes/1.sim-model` runs `sim_modes`, `sim_icarus` and `formal` |
 | [`tb_modes.sv`](tb_modes.sv) | one model looped back: the three `CDR_MODEL`s against each other, PRBS, decode table, registers |
-| [`tb_rules.sv`](tb_rules.sv) | the model's behaviour at its ports, rule by rule, as the vendor's model behaves; runs on that model too |
+| [`tb_rules.sv`](tb_rules.sv) | the model's behaviour at its ports, rule by rule, where DS1001 is silent |
 | [`ccfpga_serdes.vlt`](ccfpga_serdes.vlt) | Verilator: no lint on the model |
 | [`formal_8b10b/`](formal_8b10b) | formal proofs of the 8b/10b codec (`run-formal.sh`) |
-| [`vendor-check/`](vendor-check/vendor-check.sh) | runs against the vendor model, which you bring (NDA): `tb_rules`, side-by-side equivalence, port probes |
-| [`0.doc/equivalence-checking.md`](0.doc/equivalence-checking.md) | how the model is checked against the vendor's |
 
 ## Why
 
-The vendor model is under NDA and slow: 10 to 19 times slower than this one in Icarus (see [Speed](#speed)), and Verilator can't build it. This model is fast, open, and runs your RTL as built: no co-simulation, no VProc. It also behaves like the silicon where a careless model wouldn't: the RX word counter starts at a random phase, so a comma can land in any lane the configuration allows, and logic that assumes lane 0 fails in simulation, not on the board.
+This model is fast, open, and runs your RTL as built, in Verilator or Icarus: no co-simulation, no VProc. It also behaves like the silicon where a careless model wouldn't: the RX word counter starts at a random phase, so a comma can land in any lane the configuration allows, and logic that assumes lane 0 fails in simulation, not on the board.
 
 ## Quick start
 
@@ -50,13 +48,13 @@ The model is not lint-clean by our RTL rules, on purpose (see [Implementation](#
 
 ## Settings
 
-Everything the vendor model has is a parameter, with its name and default. The model's own settings are not: they live in the package, one value for every instance, so the parameter list stays the vendor's.
+Every SerDes setting is a parameter, with its name and default. The model's own settings are not: they live in the package, one value for every instance, so the parameter list stays the SerDes's.
 
 | Setting | Default | Set by | What it does |
 |---|---|---|---|
 | `CDR_MODEL` | `NONE` | define | The serial line and receiver: `NONE`, `FAST` or `ACCURATE` (below) |
 | `BHV_RX_WORD_PHASE_RANDOM` | `1` | define | The RX word counter starts at a random symbol, from the simulator seed, as on the silicon. `0`: it starts at 0, the comma in lane 0 |
-| `BHV_PLL_LOCK_TIME_NS` | `500.0` | package | PLL reset to lock. `35200.0` matches the vendor model |
+| `BHV_PLL_LOCK_TIME_NS` | `500.0` | package | PLL reset to lock |
 | `BHV_REF_CLK_MHZ` | `0.0` | package | Reference clock; `0.0`: measured at run time |
 | `BHV_RX_PRESENT` | `1` | package | What receiver detection finds |
 | `BHV_RX_DETECT_TIME_NS` | `120.0` | package | Receiver detection time |
@@ -81,13 +79,13 @@ Defines: `+define+CDR_MODEL=FAST` in Verilator, `-DCDR_MODEL=FAST` in Icarus. Ed
 | A glitch on the pins | inverts the bits it covers | is seen as edges, as on a wire | is seen as edges |
 | Speed (Verilator, `tb_modes`) | 0.016 s, fastest | 0.058 s | 0.098 s |
 | Both ends must be | `NONE` | anything with a real line | anything with a real line |
-| Use it for | regressions, long runs, protocol work | the line in waves, a peer that is not this model (the vendor's, a cross-link) | CDR lock and tracking, frequency offset between ends |
+| Use it for | regressions, long runs, protocol work | the line in waves, a peer that is not this model | CDR lock and tracking, frequency offset between ends |
 
-The three agree word for word, with latencies within 4 UI of each other (`sim_modes`, below). `NONE` puts no bits on the line, so a vendor-model receiver can't decode it.
+The three agree word for word, with latencies within 4 UI of each other (`sim_modes`, below). `NONE` puts no bits on the line, so only another `NONE` receiver can take it.
 
 ## Parameters
 
-The model takes all 115 parameters of the vendor model, with their names and defaults, so any instantiation of it works unchanged. It acts on 38. 7 more only set a register value to read back. The other 70 tune what a digital model doesn't have; it accepts them for drop-in compatibility. A value the datasheet doesn't allow (UG1001 Tables 7.12 to 7.14, DS1001 Tables 2.15 to 2.17), or one the model doesn't model, stops the simulation (`$error`, then `$fatal`). So do a bad `PLL_CFG1` or `RX_BUF_CFG` written at run time, when it takes effect. Example: `PLL_OUT_DIVSEL = 2`, n.a. in DS1001 Table 2.15.
+The model takes all 115 SerDes parameters, with their names and defaults, so any instantiation works unchanged. It acts on 38. 7 more only set a register value to read back. The other 70 tune what a digital model doesn't have; it accepts them for drop-in compatibility. A value the datasheet doesn't allow (UG1001 Tables 7.12 to 7.14, DS1001 Tables 2.15 to 2.17), or one the model doesn't model, stops the simulation (`$error`, then `$fatal`). So do a bad `PLL_CFG1` or `RX_BUF_CFG` written at run time, when it takes effect. Example: `PLL_OUT_DIVSEL = 2`, n.a. in DS1001 Table 2.15.
 
 **Modelled (34):**
 
@@ -138,19 +136,19 @@ The model takes all 115 parameters of the vendor model, with their names and def
 
 None of it is visible at the fabric interface: analog and PMA internals (driver taps and emphasis, termination calibration, AFE gain and peaking, equaliser adaptation, eye monitor), ADPLL internals (DCO tuning, calibration: the PLL locks after `BHV_PLL_LOCK_TIME_NS`), scan and debug capture. Signal integrity, jitter tolerance and equalisation belong to board measurement, not to a digital model.
 
-### Where DS1001 is silent: as the vendor model
+### Where DS1001 is silent
 
-Where the datasheet says nothing, the model does at its ports what Cologne Chip's simulation model does. [`tb_rules.sv`](tb_rules.sv) checks it: 55 checks at 64 bits, each a PASS or FAIL line, and runs unchanged on the vendor model ([`vendor-check`](vendor-check/vendor-check.sh)). The main ones:
+Where the datasheet says nothing, the model picks a behaviour at its ports, to check on silicon. [`tb_rules.sv`](tb_rules.sv) checks it: 55 checks at 64 bits, each a PASS or FAIL line. The main ones:
 
 - **Comma alignment** locks after 16 aligned commas. Once locked, a comma in another lane is not corrected, while a comma off the symbol boundary still realigns. `RX_BYTE_REALIGN_O` is a pulse.
 - **16 and 32-bit TX:** the line takes the quarters (halves) of `TX_DATA_I` in turn.
 - **Running disparity** starts at RD+.
 - **Register file:** `REGFILE_RDY_O` after 3 clocks (no register), 5 (a config register) or 16 (PLL status); a write that comes while the file is busy is lost.
-- **Resets:** each reset input reruns its stage and the later ones; done comes 12 to 28 clocks after, as measured on the vendor model.
+- **Resets:** each reset input reruns its stage and the later ones; done comes 12 to 28 clocks after.
 - **TX buffer:** `TX_BUF_ERR_O` is sticky until `TX_PCS_RESET_I`; with `TX_CLK_I` stopped, zero symbols go out and no error is flagged.
 - **PLL:** `PLL_CONFIG_SEL` = 0 ignores `PLL_CFG1`; `PLL_REF_BYPASS` puts the reference on `PLL_CLK_O`. With the PLL on, a write drops any change to `PLL_CFG0[9:1]` or `PLL_CFG1`, and the model gives a `$warning`: set them with bit 0 = 0, then turn the PLL on. Our own IC Link bring-up fell into this one.
 
-Where the vendor model contradicts DS1001, the model follows DS1001 and its rule is tagged `DS`: `RX_EI_EN_O` at the default `RX_EI_BW_SEL`, and register defaults. On the vendor model, those rules fail, as they should.
+Rules taken straight from DS1001 are tagged `DS`: `RX_EI_EN_O` at the default `RX_EI_BW_SEL`, and register defaults.
 
 ### RX buffer and clock correction
 
@@ -184,24 +182,7 @@ A behavioural model, not RTL: `#` delays (the serializer, sampler, CDR, clocks a
 | Formal | the 8b/10b codec: disparity, running disparity, comma format, injectivity, run length; exhaustive decode | [`formal_8b10b/`](formal_8b10b/README.md) | 6 of 6 |
 | `sim_modes` | the three `CDR_MODEL`s against each other at 16, 32 and 64 bits, comma in every lane: data bit-exact, latency within 4 UI; PRBS with forced errors; 5 ms at 3 Gb/s; the random word phase; the decode table (all 1024 symbols), comma defaults, register readback, buffer errors. Then `tb_rules` | `make -C 7.SerDes/1.sim-model sim_modes` | 38 runs, 9 mode comparisons, 6 `tb_rules` runs: all pass |
 | `sim_icarus` | `tb_modes` and `tb_rules` in Icarus, each `CDR_MODEL`: keeps the model Icarus-clean | same, `make sim_icarus` | 15 + 6 runs, all pass |
-| `tb_rules` on the vendor model | the same 55 rules (64 bits), on Cologne Chip's model | `vendor-check/vendor-check.sh rules 3 0` (needs the NDA model) | 54 of 55: the one `DS` rule fails, as it should |
-| Side by side with the vendor model | both models, same configuration and symbols: each looped back, and crossed (each one's TX into the other's RX); 8b/10b in the SerDes or in the fabric; 16, 32 and 64 bits | `vendor-check/vendor-check.sh equiv`; openCologne-PCIE `run-phy.sh equiv --ref [--cross]` | 32 and 64 bits: 0 divergences, every case. 16 bits: gaps on the vendor side (below) |
-| Vendor's own testcase | the PIPE test of Cologne Chip's PIPE testbench | openCologne-PCIE, `run-phy.sh pipe64` | pass, 101 checks |
-
-**Against the vendor model** (2026-10-24, 2.5 Gb/s, 64 bits, 400 words): logic equivalence checking doesn't fit, since the vendor model is not synthesizable and the two pipelines differ on purpose. So both run side by side, and each one's received words, from a start marker on, are compared as streams: equivalence modulo latency. Cross-linking makes each model decode the other's serial format, which a model talking only to itself can't show. The method in full: [`0.doc/equivalence-checking.md`](0.doc/equivalence-checking.md).
-
-| Check | NONE | FAST | ACCURATE |
-|---|---|---|---|
-| Self-loopback | 0 divergences, latency 736.0 ns on both models | same | same |
-| Cross-linked | n/a (no bits on the line) | 0 divergences | 0 divergences |
-
-**2026-10-26, after the move to the vendor model's behaviour** (`vendor-check.sh equiv`, 200 words, 36 cases, `FAST` and `ACCURATE`):
-
-| Datapath | Looped back | Crossed |
-|---|---|---|
-| 64 bits (IC Link, PCIe PIPE 64) | 0 divergences | 0 divergences |
-| 32 bits, 8b/10b in the fabric | 0 divergences | 0 divergences |
-| 16 bits | the vendor model's own loop disagrees with the data sent, the model's doesn't | 0 divergences, but `FAST` with the 8b/10b in the SerDes: 77 symbols |
+| PIPE test | openCologne-PCIE's PHY test, PIPE 64 | openCologne-PCIE, `run-phy.sh pipe64` | pass, 101 checks |
 
 **At 16 and 32 bits, the built-in 8b/10b encoder is not self-sufficient.** On its own it puts wrong disparity on the line; the fabric has to encode, or fix the disparity.
 
@@ -212,37 +193,32 @@ A behavioural model, not RTL: `#` delays (the serializer, sampler, CDR, clocks a
 | 16 bits | right | 84 of 400 |
 
 - **Why:** the encoder chains the running disparity lane 0 to 7 in each word, but at 16 and 32 bits the line takes the quarters / halves of the words in turn (DS1001 2.5.5.1). So a lane sent, past the first quarter / half, takes its disparity from a lane of the same word that is not sent. At 64 bits every lane is sent, in chain order.
-- **Data dependent:** with the word in every quarter / half, a copy is right only if the copies before it leave the disparity as it was. Both models do this, so it is the vendor's design, as modelled; on silicon it is not checked (asked of Cologne Chip).
+- **Data dependent:** with the word in every quarter / half, a copy is right only if the copies before it leave the disparity as it was. 80 or 92 at 32 bits: which half goes out first. As modelled; on silicon it is not checked.
 - **Workarounds:** encode in the fabric (done here, 0 errors). Untested: keep the 8b/10b in the SerDes, track the disparity in the fabric and force it per lane with `TX_CHAR_DISPMODE_I` / `TX_CHAR_DISPVAL_I`.
 
 IC Link and PCIe PIPE 64 use 64 bits only, so neither is affected.
 
-The 80 or 92 at 32 bits depends only on the testbench: whether the payload starts an odd or even number of clocks after the TX reset, that is, which half goes out first. Both models' TXs and RXs agree: one line into both RXs flags the same symbols.
-
-So the model is the vendor's equal at 32 and 64 bits. At 16 bits the gaps are on the vendor side. Its RX buffer flags `RX_BUF_ERR_O` for 150 to 260 clocks around start-up, and once for about 1.6 µs in its own loop, while the payload goes through, so that data is wrong; an `RX_BUF_RESET` doesn't shorten it. The 77 symbols are the same window: with `FAST`, the payload starts earlier. Its cause, inside the vendor model, is not found yet. Not lane rotation: both models' TX lines decode cleanly on the other's RX.
-
-`FAST` used to lose the vendor model's line at 16 and 32 bits. At its TX reset, that line carries 150 ns of X, then a 44 ns run with no edges. `FAST` takes bits only at edges, so its words stopped, and the RX buffer underflowed. Now a watchdog takes the bits when a word passes without an edge, as `ACCURATE`'s sampler does.
+**A line without edges.** `FAST` takes bits at line edges. A peer whose TX is in reset can hold the line still for a word or more; a watchdog then takes the bits, as `ACCURATE`'s sampler does, so the recovered clock runs on and the RX buffer doesn't underflow.
 
 ### Speed
 
-Wall clock on one PC, best of 3. PIPE 64: the openCologne-PCIE PHY test, about 280 µs simulated, which runs any of the models. `tb_modes`: the model looped back, 64 bits.
+Wall clock on one PC, best of 3. PIPE 64: the openCologne-PCIE PHY test, about 280 µs simulated. `tb_modes`: the model looped back, 64 bits.
 
 | Model | Icarus, PIPE 64 | Icarus, `tb_modes` | Verilator, `tb_modes` |
 |---|---|---|---|
 | this model, `NONE` | 4.5 s | 0.71 s | 0.016 s |
 | this model, `FAST` | 8.9 s | 1.22 s | 0.058 s |
 | this model, `ACCURATE` | 8.5 s | 1.19 s | 0.098 s |
-| vendor model (NDA) | 86 s | - | - |
 
-In Icarus the vendor model is 10 to 19 times slower (86 s against 8.9 and 4.5 s). The [equivalence-checking](0.doc/equivalence-checking.md) run gives about 20 times on the vendor's own testcase, wall clock with compilation. Verilator is 12 to 44 times faster than Icarus, and can't build the vendor model. In Icarus, `FAST` and `ACCURATE` cost about the same, since `FAST` still follows every line edge; in Verilator, `ACCURATE` costs 1.7 times `FAST`. `NONE` skips the serial line and is the fastest.
+Verilator is 12 to 44 times faster than Icarus. In Icarus, `FAST` and `ACCURATE` cost about the same, since `FAST` still follows every line edge; in Verilator, `ACCURATE` costs 1.7 times `FAST`. `NONE` skips the serial line and is the fastest.
 
 ## Where it is used
 
 | Project | Flow |
 |---|---|
 | openCologne | [7.SerDes](../3.iclink-sv/2.sim/README.md): the IC Link PHY, one-way and two-way; the board top with the FIFO pump; `sim_link_ppm`, two boards 200 ppm apart kept in step by the RX buffer's clock correction (`MIN_LAT` 8, `MAX_LAT` 12, K23.7 bursts); `sim_modes`, `sim_icarus` |
-| openCologne-PCIE | `2.rtl/1.phy/3.sim` (`run-phy.sh pipe64`, `equiv`): the PIPE test and the vendor comparison; `2.rtl/4.dll/sim`: DLL, MAC/LTSSM, PIPE and this SerDes, two link partners |
+| openCologne-PCIE | `2.rtl/1.phy/3.sim` (`run-phy.sh pipe64`): the PIPE test; `2.rtl/4.dll/sim`: DLL, MAC/LTSSM, PIPE and this SerDes, two link partners |
 
 ## License
 
-BSD-3-Clause, Chili.CHIPS. The vendor model is not part of this repository; the vendor comparison takes it from outside the tree (openCologne-PCIE `2.rtl/1.phy/3.sim/serdes_nda_env.sh`).
+BSD-3-Clause, Chili.CHIPS.

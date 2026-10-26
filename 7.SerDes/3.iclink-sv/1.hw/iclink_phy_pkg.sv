@@ -34,7 +34,7 @@ package iclink_phy_pkg;
   // test of the EVB (openCologne-PCIE 2.rtl/1.phy/1.serdes-test.STANDALONE),
   // plus PLL_CFG0 with the PLL off first: CC_SERDES takes PLL_CFG0 [9:1]
   // only while the PLL is off, and CONFIG_SEL (bit 1) is what makes
-  // PLL_CFG1 set the line rate (vendor model; PLL_CONFIG_SEL defaults to 0)
+  // PLL_CFG1 set the line rate (PLL_CONFIG_SEL defaults to 0)
   localparam int CFG_WRITES = 4;
   localparam int CFG_IDX_W  = (CFG_WRITES > 1) ? $clog2(CFG_WRITES) : 1;
   // 2^CFG_WAIT_W clk_reg clocks before the first write and after each

@@ -436,7 +436,7 @@ module tb_modes #(
 
   initial begin
     string f;
-    string model;  // +model=NAME, e.g. the vendor model in its place
+    string model;  // +model=NAME, e.g. another model in its place
     model = (ccfpga_serdes_pkg::CDR_MODEL == ccfpga_serdes_pkg::NONE) ? "NONE" :
             (ccfpga_serdes_pkg::CDR_MODEL == ccfpga_serdes_pkg::FAST) ? "FAST" : "ACCURATE";
     void'($value$plusargs("model=%s", model));

@@ -83,7 +83,7 @@ package ccfpga_serdes_pkg;
   } cdr_model_t;
 
   // One mode for every BFM in the simulation: the parameter list stays the
-  // vendor's, and NONE talks only to NONE. Pick it at compile time, e.g.
+  // SerDes's, and NONE talks only to NONE. Pick it at compile time, e.g.
   // +define+CDR_MODEL=FAST (Verilator), -DCDR_MODEL=FAST (Icarus).
 `ifdef CDR_MODEL
   localparam cdr_model_t CDR_MODEL = `CDR_MODEL;
@@ -91,8 +91,8 @@ package ccfpga_serdes_pkg;
   localparam cdr_model_t CDR_MODEL = NONE;
 `endif
 
-  // The BFM's own settings, the same for every BFM; the vendor's model has
-  // none of them. Edit them here.
+  // The BFM's own settings, the same for every BFM; the SerDes has none of
+  // them. Edit them here.
   localparam real BHV_PLL_LOCK_TIME_NS  = 500.0;  // PLL reset to lock
   localparam real BHV_REF_CLK_MHZ       = 0.0;    // reference clock; 0: measured
   localparam int  BHV_RX_PRESENT        = 1;      // receiver detection finds a far end
@@ -143,9 +143,9 @@ package ccfpga_serdes_pkg;
     return (id >= 0) && (id < cdr_none_id);
   endfunction
 
-  // M1 x 4 for a PLL_FCNTRL value (DS1001 Table 2.17). As the vendor's
-  // simulation model, 10, 53, 54 and 55 give 5.0, 15.0, 16.0 and 16.0; the
-  // table says 5.25, 15.75, 16.5 and 16.5.
+  // M1 x 4 for a PLL_FCNTRL value (DS1001 Table 2.17). 10, 53, 54 and 55
+  // give 5.0, 15.0, 16.0 and 16.0 here; the table says 5.25, 15.75, 16.5
+  // and 16.5.
   function automatic int pll_m1_x4(input bit [5:0] fcntrl);
     case (int'(fcntrl))
       0, 1: return 4;  // the alternative clock path: param_check stops it
