@@ -501,6 +501,7 @@ module ccfpga_serdes
   always @(posedge clk_reg_i or negedge reset_reg_n_i) begin : regfile
     bit        access, cfg_wr, on;
     bit [ 7:0] a;
+    bit [ 8:0] f;
     bit [15:0] d, m;
     if (!reset_reg_n_i) begin
       rf_reset();
@@ -556,10 +557,16 @@ module ccfpga_serdes
           end
           PLL_CFG0_ADDR: begin
             // [9:1] take only a write that leaves the PLL off (bit 0 = 0):
-            // set them first, then turn the PLL on (DS1001 Table 2.18 note)
+            // set them first, then turn the PLL on (DS1001 Table 2.18 note).
+            // A dropped change gives a $warning: the PLL keeps its old line
             on = m[0] ? d[0] : csr.pll_cfg0[0];
+            f  = 9'(masked(16'(csr.pll_cfg0[9:1]), 16'(d[9:1]), 16'(m[9:1])));
             if (!on || cfg_wr) begin
-              csr.pll_cfg0[9:1] = 9'(masked(16'(csr.pll_cfg0[9:1]), 16'(d[9:1]), 16'(m[9:1])));
+              csr.pll_cfg0[9:1] = f;
+            end
+            else if (f != csr.pll_cfg0[9:1]) begin
+              $warning("%m: PLL_CFG0 = 0x%04h with the PLL on: [9:1] dropped, kept 0x%03h; write them with bit 0 = 0 first",
+                       d, {csr.pll_cfg0[9:1], 1'b0});
             end
             if (m[0]) begin
               csr.pll_cfg0[0] = d[0];
@@ -579,6 +586,9 @@ module ccfpga_serdes
               if (pll_enabled) begin  // in use at once: else when the PLL turns on
                 pll_cfg1_check(csr.pll_cfg1);
               end
+            end
+            else if (14'(masked(16'(csr.pll_cfg1), d, m)) != csr.pll_cfg1) begin
+              $warning("%m: PLL_CFG1 = 0x%04h with the PLL on: dropped; write it with PLL_CFG0[0] = 0", d);
             end
           end
           default: begin
@@ -1853,7 +1863,8 @@ module ccfpga_serdes
 
   //-------------------------------------------------------------------------
   // CDR_MODEL = FAST: an ideal sampler. Bit centres on a grid of UIs, taken
-  // in bulk at each line edge. An edge within UI/4 of the grid moves the
+  // in bulk at each line edge, or after a word without one (the watchdog,
+  // below). An edge within UI/4 of the grid moves the
   // grid to it (the CDR, at once); others, like a glitch, do not, until
   // the lock is lost: then the next edge starts a new grid. 8b/10b runs
   // are 5 bits at most, so a word is late by 5 UI at most. At a stop
@@ -1864,6 +1875,8 @@ module ccfpga_serdes
   int  rx_fast_grid_n;         // bits taken since it
   bit  rx_fast_level;          // the line since the last edge
   real rx_fast_x;              // now, in UI since the grid
+  bit  rx_fast_edge;           // an edge since the watchdog's last check
+  bit  rx_fast_prov;           // the grid is the watchdog's, not an edge's
 
   // the bits whose centres lie before now
   task automatic rx_fast_take();
@@ -1885,13 +1898,19 @@ module ccfpga_serdes
           rx_fast_take();
         end
         rx_fast_grid_t = -1.0;
+        rx_fast_prov   = FALSE;
         rx_stop();
       end
       else if (ui > 0.0) begin
         if (rx_fast_grid_t >= 0.0) begin
           rx_fast_take();
           x = rx_fast_x;
-          if ((x - $floor(x + 0.5) < 0.25) && (x - $floor(x + 0.5) > -0.25)) begin
+          if (rx_fast_prov) begin  // the watchdog's grid: the first edge sets it
+            rx_fast_grid_t = $realtime;
+            rx_fast_grid_n = 0;
+            rx_fast_prov   = FALSE;
+          end
+          else if ((x - $floor(x + 0.5) < 0.25) && (x - $floor(x + 0.5) > -0.25)) begin
             rx_fast_grid_t = $realtime;
             rx_fast_grid_n = 0;
             rx_lock_count();
@@ -1910,6 +1929,35 @@ module ccfpga_serdes
           rx_fast_grid_n = 0;
         end
         rx_fast_level = rx_pad_p;
+        rx_fast_edge  = HI;
+      end
+    end
+  end
+
+  // A line without edges for a word: the bits up to now, as ACCURATE's
+  // sampler takes them, so the recovered clock runs on and the RX buffer
+  // doesn't underflow. With no grid yet (a start on a still line), one from
+  // the window's start, until the first edge. The vendor model's TX puts out
+  // such a line at its reset: 150 ns of X, then a 44 ns run.
+  initial if (CDR_MODEL == FAST) begin : rx_fast_watchdog
+    real t0;
+    forever begin
+      if (rx_sampler_run && (ui > 0.0)) begin
+        rx_fast_edge = LO;
+        t0           = $realtime;
+        #(10 * RX_BYTES * ui);
+        if (!rx_fast_edge && rx_sampler_run) begin
+          if (rx_fast_grid_t < 0.0) begin
+            rx_fast_grid_t = t0;
+            rx_fast_grid_n = 0;
+            rx_fast_level  = rx_pad_p;
+            rx_fast_prov   = TRUE;
+          end
+          rx_fast_take();
+        end
+      end
+      else begin
+        @(rx_sampler_run or pll_locked);
       end
     end
   end

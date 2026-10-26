@@ -14,7 +14,7 @@
 #   vendor-check.sh rules DP SLIDE          ../tb_rules.sv on the vendor model; compare
 #                                           with make -C .. sim_icarus (the BFM)
 #   vendor-check.sh equiv                   tb_equiv.sv, both models side by side, each
-#                                           looped and crossed: 8 cases x FAST/ACCURATE
+#                                           looped and crossed: 9 cases x FAST/ACCURATE
 #   vendor-check.sh probe ven|bfm STIM "PARAMS" "PLUSARGS" [CDR]
 #                                           probe.sv with stims/STIM.vh on one model
 #
@@ -72,7 +72,7 @@ equiv_one() {  # DP HARD LANE PRBS CDR CROSS TAG
 equiv() {  # cases DP:HARD:LANE:PRBS, each CDR_MODEL FAST/ACCURATE, own loop and crossed
   need_prep
   local dp hard lane prbs
-  for c in 3:1:0:0 3:1:3:0 3:1:0:1 1:0:0:0 1:0:1:0 0:0:0:0 0:0:1:0 0:1:0:0; do
+  for c in 3:1:0:0 3:1:3:0 3:1:0:1 1:0:0:0 1:0:1:0 1:1:0:0 0:0:0:0 0:0:1:0 0:1:0:0; do
     IFS=: read -r dp hard lane prbs <<< "$c"
     for m in FAST ACCURATE; do for x in 0 1; do
       while [ "$(jobs -rp | wc -l)" -ge "$JOBS" ]; do wait -n; done

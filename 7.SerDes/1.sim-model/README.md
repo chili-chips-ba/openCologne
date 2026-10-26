@@ -75,7 +75,7 @@ Defines: `+define+CDR_MODEL=FAST` in Verilator, `-DCDR_MODEL=FAST` in Icarus. Ed
 | | `NONE` | `FAST` | `ACCURATE` |
 |---|---|---|---|
 | The line (`TX_SERIO_P/N`) | no bits: whole words travel beside the pins, through the package, at the far TX's pace. P and N only tell each RX, once at start, which TX is its peer | real bits, one event a UI | real bits, one event a UI |
-| The receiver | takes the peer's word as a line would hand it over: up to the next word boundary of the alignment, the rest with the next word | an ideal sampler: bit centres on a UI grid, taken in bulk at each line edge. An edge within UI/4 of the grid moves the grid (the CDR, at once); others, like a glitch, don't, until lock is lost | a sampler every UI, steered by a first-order CDR loop: each line edge measures the phase error against mid-UI and moves the next sample by `BHV_CDR_KP` times it |
+| The receiver | takes the peer's word as a line would hand it over: up to the next word boundary of the alignment, the rest with the next word | an ideal sampler: bit centres on a UI grid, taken in bulk at each line edge, and after a word without one (a stuck line). An edge within UI/4 of the grid moves the grid (the CDR, at once); others, like a glitch, don't, until lock is lost | a sampler every UI, steered by a first-order CDR loop: each line edge measures the phase error against mid-UI and moves the next sample by `BHV_CDR_KP` times it |
 | CDR lock | at once | `BHV_CDR_LOCK_EDGES` edges on the grid lock it, as many off it lose it | the same, edges within UI/4 |
 | Latency against `ACCURATE` | +0.5 UI | +0.5 to 2.5 UI: it knows a bit only at the next edge, and 8b/10b runs are 5 bits at most | reference |
 | A glitch on the pins | inverts the bits it covers | is seen as edges, as on a wire | is seen as edges |
@@ -148,7 +148,7 @@ Where the datasheet says nothing, the model does at its ports what Cologne Chip'
 - **Register file:** `REGFILE_RDY_O` after 3 clocks (no register), 5 (a config register) or 16 (PLL status); a write that comes while the file is busy is lost.
 - **Resets:** each reset input reruns its stage and the later ones; done comes 12 to 28 clocks after, as measured on the vendor model.
 - **TX buffer:** `TX_BUF_ERR_O` is sticky until `TX_PCS_RESET_I`; with `TX_CLK_I` stopped, zero symbols go out and no error is flagged.
-- **PLL:** `PLL_CONFIG_SEL` = 0 ignores `PLL_CFG1`; `PLL_REF_BYPASS` puts the reference on `PLL_CLK_O`.
+- **PLL:** `PLL_CONFIG_SEL` = 0 ignores `PLL_CFG1`; `PLL_REF_BYPASS` puts the reference on `PLL_CLK_O`. With the PLL on, a write drops any change to `PLL_CFG0[9:1]` or `PLL_CFG1`, and the model gives a `$warning`: set them with bit 0 = 0, then turn the PLL on. Our own IC Link bring-up fell into this one.
 
 Where the vendor model contradicts DS1001, the model follows DS1001 and its rule is tagged `DS`: `RX_EI_EN_O` at the default `RX_EI_BW_SEL`, and register defaults. On the vendor model, those rules fail, as they should.
 
@@ -185,7 +185,7 @@ A behavioural model, not RTL: `#` delays (the serializer, sampler, CDR, clocks a
 | `sim_modes` | the three `CDR_MODEL`s against each other at 16, 32 and 64 bits, comma in every lane: data bit-exact, latency within 4 UI; PRBS with forced errors; 5 ms at 3 Gb/s; the random word phase; the decode table (all 1024 symbols), comma defaults, register readback, buffer errors. Then `tb_rules` | `make -C 7.SerDes/1.sim-model sim_modes` | 38 runs, 9 mode comparisons, 6 `tb_rules` runs: all pass |
 | `sim_icarus` | `tb_modes` and `tb_rules` in Icarus, each `CDR_MODEL`: keeps the model Icarus-clean | same, `make sim_icarus` | 15 + 6 runs, all pass |
 | `tb_rules` on the vendor model | the same 55 rules (64 bits), on Cologne Chip's model | `vendor-check/vendor-check.sh rules 3 0` (needs the NDA model) | 54 of 55: the one `DS` rule fails, as it should |
-| Side by side with the vendor model | both models, same configuration and symbols: each looped back, and crossed (each one's TX into the other's RX); 8b/10b in the SerDes or in the fabric; 16, 32 and 64 bits | `vendor-check/vendor-check.sh equiv`; openCologne-PCIE `run-phy.sh equiv --ref [--cross]` | 64 bits: 0 divergences, every case. 16 and 32 bits: not yet (below) |
+| Side by side with the vendor model | both models, same configuration and symbols: each looped back, and crossed (each one's TX into the other's RX); 8b/10b in the SerDes or in the fabric; 16, 32 and 64 bits | `vendor-check/vendor-check.sh equiv`; openCologne-PCIE `run-phy.sh equiv --ref [--cross]` | 32 and 64 bits: 0 divergences, every case. 16 bits: gaps on the vendor side (below) |
 | Vendor's own testcase | the PIPE test of Cologne Chip's PIPE testbench | openCologne-PCIE, `run-phy.sh pipe64` | pass, 101 checks |
 
 **Against the vendor model** (2026-10-24, 2.5 Gb/s, 64 bits, 400 words): logic equivalence checking doesn't fit, since the vendor model is not synthesizable and the two pipelines differ on purpose. So both run side by side, and each one's received words, from a start marker on, are compared as streams: equivalence modulo latency. Cross-linking makes each model decode the other's serial format, which a model talking only to itself can't show. The method in full: [`0.doc/equivalence-checking.md`](0.doc/equivalence-checking.md).
@@ -195,15 +195,33 @@ A behavioural model, not RTL: `#` delays (the serializer, sampler, CDR, clocks a
 | Self-loopback | 0 divergences, latency 736.0 ns on both models | same | same |
 | Cross-linked | n/a (no bits on the line) | 0 divergences | 0 divergences |
 
-**2026-10-26, after the move to the vendor model's behaviour** (`vendor-check.sh equiv`, 200 words, 32 cases, `FAST` and `ACCURATE`):
+**2026-10-26, after the move to the vendor model's behaviour** (`vendor-check.sh equiv`, 200 words, 36 cases, `FAST` and `ACCURATE`):
 
 | Datapath | Looped back | Crossed |
 |---|---|---|
 | 64 bits (IC Link, PCIe PIPE 64) | 0 divergences | 0 divergences |
-| 32 bits, 8b/10b in the fabric | 0 divergences | `ACCURATE` 0; `FAST`: the model doesn't lock on the vendor's line |
-| 16 bits | the vendor model's own loop disagrees with the data sent (lane rotation), the model's doesn't | `ACCURATE` 0; `FAST`: as at 32 bits |
+| 32 bits, 8b/10b in the fabric | 0 divergences | 0 divergences |
+| 16 bits | the vendor model's own loop disagrees with the data sent, the model's doesn't | 0 divergences, but `FAST` with the 8b/10b in the SerDes: 77 symbols |
 
-So the model is the vendor's equal at 64 bits. At 16 and 32 bits two gaps are left: `FAST` on a vendor model's line, and the 16-bit loop.
+**At 16 and 32 bits, the built-in 8b/10b encoder is not self-sufficient.** On its own it puts wrong disparity on the line; the fabric has to encode, or fix the disparity.
+
+| 8b/10b in the SerDes | Data and K | `RX_DISP_ERR_O` set |
+|---|---|---|
+| 64 bits | right | 0 symbols |
+| 32 bits | right | 80 to 92 of 800 |
+| 16 bits | right | 84 of 400 |
+
+- **Why:** the encoder chains the running disparity lane 0 to 7 in each word, but at 16 and 32 bits the line takes the quarters / halves of the words in turn (DS1001 2.5.5.1). So a lane sent, past the first quarter / half, takes its disparity from a lane of the same word that is not sent. At 64 bits every lane is sent, in chain order.
+- **Data dependent:** with the word in every quarter / half, a copy is right only if the copies before it leave the disparity as it was. Both models do this, so it is the vendor's design, as modelled; on silicon it is not checked (asked of Cologne Chip).
+- **Workarounds:** encode in the fabric (done here, 0 errors). Untested: keep the 8b/10b in the SerDes, track the disparity in the fabric and force it per lane with `TX_CHAR_DISPMODE_I` / `TX_CHAR_DISPVAL_I`.
+
+IC Link and PCIe PIPE 64 use 64 bits only, so neither is affected.
+
+The 80 or 92 at 32 bits depends only on the testbench: whether the payload starts an odd or even number of clocks after the TX reset, that is, which half goes out first. Both models' TXs and RXs agree: one line into both RXs flags the same symbols.
+
+So the model is the vendor's equal at 32 and 64 bits. At 16 bits the gaps are on the vendor side. Its RX buffer flags `RX_BUF_ERR_O` for 150 to 260 clocks around start-up, and once for about 1.6 µs in its own loop, while the payload goes through, so that data is wrong; an `RX_BUF_RESET` doesn't shorten it. The 77 symbols are the same window: with `FAST`, the payload starts earlier. Its cause, inside the vendor model, is not found yet. Not lane rotation: both models' TX lines decode cleanly on the other's RX.
+
+`FAST` used to lose the vendor model's line at 16 and 32 bits. At its TX reset, that line carries 150 ns of X, then a 44 ns run with no edges. `FAST` takes bits only at edges, so its words stopped, and the RX buffer underflowed. Now a watchdog takes the bits when a word passes without an edge, as `ACCURATE`'s sampler does.
 
 ### Speed
 

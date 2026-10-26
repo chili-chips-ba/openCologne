@@ -127,9 +127,10 @@ Simulation: [2.sim](3.iclink-sv/2.sim/README.md), on our SerDes BFM, [`1.sim-mod
 | Cologne Chip | [gatemate-pipe#12](https://github.com/colognechip/gatemate-pipe/issues/12) = [openCologne-PCIE#28](https://github.com/chili-chips-ba/openCologne-PCIE/issues/28) | DS1001 Table 2.51: `RX_ALIGN_COMMA_WORD` width and default | open |
 | Cologne Chip | [gatemate-pipe#13](https://github.com/colognechip/gatemate-pipe/issues/13) = [openCologne-PCIE#29](https://github.com/chili-chips-ba/openCologne-PCIE/issues/29) | `RX_RESET_DONE_GATE` (UG1001) vs `RX_RESETDONE_GATE` (model) | open |
 | Cologne Chip | [gatemate-pipe#14](https://github.com/colognechip/gatemate-pipe/issues/14) = [openCologne-PCIE#30](https://github.com/chili-chips-ba/openCologne-PCIE/issues/30) | DS1001: document the RX clock-correction behaviour (depth, matching, insert/remove, PCIe SKP) | open |
+| Cologne Chip | email to support (TODO) | simulation model vs DS1001 Table 2.43: `RX_EI_EN_O` stays low at `RX_EI_BW_SEL` != 0 (default 4); does the silicon also drop `PLL_CFG0[9:1]` / `PLL_CFG1` written with the PLL on?; 16-bit own loop: `RX_BUF_ERR_O` for ~1.6 µs during the payload, data wrong (not at 32/64 bits, not cleared by `RX_BUF_RESET`): silicon or model?; the TX 8b/10b at 16/32 bits chains the disparity lane 0 to 7 while the line takes quarters / halves in turn, so the disparity is wrong: is it meant for 16/32 bits, and does silicon do the same? | to do |
 | Project Peppercorn | [prjpeppercorn#33](https://github.com/YosysHQ/prjpeppercorn/issues/33) | `gmpack`: smaller bitstreams (pattern addressing for repeated tiles, compression) | open |
 
-State as of 2026-10-25.
+State as of 2026-10-26.
 
 ## References
 - Cologne Chip [SerDes example design](https://github.com/pu-cc/gm_serdes_lb) and latest [datasheet](https://colognechip.com/docs/ds1001-gatemate1-datasheet-latest.pdf)
