@@ -1,3 +1,11 @@
+[![8b10b-Formal:Pass](https://badgen.net/badge/8b10b%20Formal/Pass/green)](1.sim-model/formal_8b10b)
+[![BFM-Sim:Pass](https://badgen.net/badge/BFM%20Sim/Pass/green)](1.sim-model)
+[![IC-Link-Sim:Pass](https://badgen.net/badge/IC%20Link%20Sim/Pass/green)](3.iclink-sv/2.sim)
+[![Timing:Met](https://badgen.net/badge/Timing/Met/green)](3.iclink-sv/3.build/README.md#timing-results)
+[![Board-1.25Gbps:WIP](https://badgen.net/badge/Board%201.25Gbps/WIP/orange)](0.doc/test-setups.md)
+[![Board-2.5Gbps:TODO](https://badgen.net/badge/Board%202.5Gbps/TODO/red)](0.doc/test-setups.md)
+[![Board-5Gbps:TODO](https://badgen.net/badge/Board%205Gbps/TODO/red)](0.doc/test-setups.md)
+
 # SerDes App for GateMate
 
 Design a high-speed serial, **memory-mapped Chip-to-Chip (C2C) Interconnect**. The goal of such IP is to set the stage for creating compute clusters and Hyper Cubes made of GateMate FPGAs, all physically interconnected with SerDes, with this C2C on top of it, serving as logical and transport layer.
@@ -16,13 +24,13 @@ Given that GateMate proprietary (aka "legacy") PnR is rather unreliable and inse
 
 ## Where to start
 
-Start with the standalone [SerDes loopback test](2.serdestool_by_gm/README.md), to get used to the hardware platform, SerDes settings, cabling and work with RF-class signaling in general. Then go to [3.iclink-sv](3.iclink-sv/README.md): the IC Link in SystemVerilog, with simulation and build.
+Start with the standalone [SerDes loopback test](2.prbs-loopback/README.md), to get used to the hardware platform, SerDes settings, cabling and work with RF-class signaling in general. Then go to [3.iclink-sv](3.iclink-sv/README.md): the IC Link in SystemVerilog, with simulation and build.
 
 | Folder | What | Status |
 |---|---|---|
 | [0.doc](0.doc) | diagrams, and the design notes below | |
 | [1.sim-model](1.sim-model/README.md) | SerDes BFM: open-source simulation model of `CC_SERDES`; shared with openCologne-PCIE | done |
-| [2.serdestool_by_gm](2.serdestool_by_gm) | standalone SerDes loopback test | works |
+| [2.prbs-loopback](2.prbs-loopback) | standalone SerDes loopback test | works |
 | [3.iclink-sv](3.iclink-sv/README.md) | the IC Link in SystemVerilog: our reference example, with the full QA flow | WIP |
 | [9.liteiclink-migen](9.liteiclink-migen/README.md) | the earlier LiteICLink port in Python (Migen): GateMate PHY `serdes_gm.py`, LiteX target, demo firmware | archived prototype, does not build |
 
@@ -76,7 +84,7 @@ One GateMate. Solid boxes are done; dashed ones, tagged NEXT, come next.
 | PRBS7/15/31 | `iclink_prbs_tx.sv`, `iclink_prbs_rx.sv` (+ gen, chk): link test in place of data | LiteICLink `prbs.py`, bit-exact | done |
 | 8b/10b | inside `CC_SERDES`, both ways: the TX encoder, the RX decoder and comma alignment; then a lane aligner in the fabric moves a comma from lane 4 to lane 0. Our LiteX port (`2.sim/iclink_8b10b_enc.sv`, `_dec.sv`) stays in simulation, as the reference | `CC_SERDES`; reference: LiteX `code_8b10b.py`, bit-exact | done |
 | PHY | `iclink_serdes_gm.sv`: bring-up (4 regfile writes, then resets), ready flags, RX clock correction, one flop stage on every `CC_SERDES` datapath input and output ([the PHY](3.iclink-sv/1.hw/README.md#the-phy)) | new | done |
-| EVB board top | `top.sv`: PRBS self-test, SerDes link test (setup 1), FIFO pump test, LED | new | done; bitstream meets timing ([results](3.iclink-sv/3.build/README.md#timing-results)); not yet run on the board |
+| EVB board top | `top.sv`: PRBS self-test, SerDes link test (setup 1), FIFO pump test, LED | new | done; bitstream meets timing ([results](3.iclink-sv/3.build/README.md#timing-results)); board bring-up at 1.25 Gb/s in progress, 2.5 and 5 Gb/s next |
 | LiteX wrapper | `4.litex/serdes_gatemate.py`, demo SoC | new | builds, meets timing; not yet run on the board |
 
 - **Datapath:** 8 bytes + 8 K flags per clock each way, 64 payload bits.

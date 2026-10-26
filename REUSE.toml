@@ -335,7 +335,7 @@ SPDX-License-Identifier = "MIT"
 
 # serdestool, https://github.com/pu-cc/gm_serdes_lb (ISC text, no holder named)
 [[annotations]]
-path = ["7.SerDes/2.serdestool_by_gm/serdes_lb.v", "7.SerDes/2.serdestool_by_gm/serdestool.py"]
+path = ["7.SerDes/2.prbs-loopback/serdes_lb.v", "7.SerDes/2.prbs-loopback/serdestool.py"]
 precedence = "override"
 SPDX-FileCopyrightText = "Patrick Urban, Cologne Chip AG"
 SPDX-License-Identifier = "ISC"
