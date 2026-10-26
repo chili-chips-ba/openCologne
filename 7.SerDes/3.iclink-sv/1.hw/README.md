@@ -78,7 +78,7 @@ Why the differences:
 | 32 / 40-bit | 40 | 62.5 MHz |
 | **64 / 80-bit (this core)** | 80 | **31.25 MHz** |
 
-With 8b/10b in `CC_SERDES`, the board top with the PHY and the FIFO pump closes at 38.9 to 41.4 MHz (4 seeds); the fabric encoder's 8-word chain held it at 32.4 to 35.3. 62.5 or 125 MHz with fabric 8b/10b is out of reach on GateMate. Wide and slow is what fits.
+With 8b/10b in `CC_SERDES`, the board top with the PHY and the FIFO pump closes at 38.2 to 41.4 MHz (seeds 1 to 4; with clock correction, seeds 1 and 2: 38.2, 40.8); the fabric encoder's 8-word chain held it at 32.4 to 35.3. 62.5 or 125 MHz with fabric 8b/10b is out of reach on GateMate. Wide and slow is what fits.
 
 **PLL setting.** The bring-up writes regfile `0x51` = `0x16FA` (`iclink_phy_pkg.sv`, `CFG_SEQ`):
 
@@ -100,7 +100,7 @@ From the 100 MHz reference: oscillator 100 x N1·N2·N3 = 2500 MHz (its range is
 | 5 Gb/s | 1 (`00`) | 2.5 GHz | 62.5 MHz | `0x06FA` |
 
 - **1.25 Gb/s:** the register value only; timing gets easier. Or the 32-bit path (M4 = 1) at 31.25 MHz with 4 words per clock (`PHY_NWORDS` = 4), which would need a lane-aligner change: it supports 8 words only.
-- **5 Gb/s:** `CC_SERDES` encodes and decodes 8b/10b, leaving only flops, the lane aligner and the PRBS mux (a constant XOR matrix) in the fabric. It meets timing (`make -C 7.SerDes/3.iclink-sv/3.build LINE_RATE=5000`): `clk_core` 69.3 MHz against 62.5 (seed 1, PHY only: the FIFO pump at 5 Gb/s needs half `clk_core` for W = 4, not in the top yet). Still to do: the SI settings below and a board check (5 Gb/s is the chip's maximum).
+- **5 Gb/s:** `CC_SERDES` encodes and decodes 8b/10b, leaving only flops, the lane aligner and the PRBS mux (a constant XOR matrix) in the fabric. It meets timing (`make -C 7.SerDes/3.iclink-sv/3.build LINE_RATE=5000`): `clk_core` 68.2 MHz against 62.5 (seed 1, PHY only: the FIFO pump at 5 Gb/s needs half `clk_core` for W = 4, not in the top yet). Still to do: the SI settings below and a board check (5 Gb/s is the chip's maximum).
 - All three run in simulation (`sim_phy_rates`), and are the FIFO pump's performance levels (parameter `LINE_RATE`, [spec](../../README.md#fifo-pump)); 2.5 Gb/s is the default. Per-rate CDR settings: not given in DS1001.
 
 ## Signal-integrity settings

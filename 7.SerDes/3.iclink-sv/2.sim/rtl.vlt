@@ -11,3 +11,7 @@
 `verilator_config
 lint_off -rule CASEINCOMPLETE -file "*1.hw/iclink_serwb_pkg.sv"
 lint_off -rule CASEINCOMPLETE -file "*1.hw/iclink_phy_pkg.sv"
+
+// a package serves several designs: a constant one test does not use is not
+// dead (as in 3.build/run-lint-waivers.txt)
+lint_off -rule UNUSEDPARAM -file "*1.hw/iclink_*pkg.sv"

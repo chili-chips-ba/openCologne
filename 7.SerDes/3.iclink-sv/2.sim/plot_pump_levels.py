@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 
 DEPTH, XOFF, XON = 1024, 832, 512  # W = 2: XOFF = DEPTH - 96*W
 CLK_NS = 32.0
-LINE_LAT = 27  # line clocks each way, tb_serwb_pump
+LINE_LAT = 31  # line clocks each way, tb_serwb_pump
 
 SURFACE, INK, INK2, MUTED, GRID, AXIS = "#fcfcfb", "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#c3c2b7"
 B_RX, A_TX = "#2a78d6", "#eb6834"  # categorical slots 1 and 2

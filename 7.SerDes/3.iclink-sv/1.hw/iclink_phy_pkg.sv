@@ -53,6 +53,19 @@ package iclink_phy_pkg;
       k: 8'b0001_0001
   };
 
+  // RX clock correction in the CC_SERDES RX buffer, for two boards on two
+  // oscillators. The sequence: 4 symbols, each {comma, K, byte} as decoded
+  // (DS1001 Tables 2.56, 2.57), here K23.7 four times, CC_SERDES's default.
+  // A whole 64-bit word must match: the clock-correction word holds it
+  // twice. The buffer inserts one below MIN_LAT - 1 words and removes one
+  // above MAX_LAT; 8 and 12 keep the latency 4 words over the bare buffer's
+  // (the defaults, 32 and 39, would add 28)
+  localparam logic [7:0] PHY_CLKCOR = 8'hF7;  // K23.7: a K, no comma
+  localparam logic [9:0] PHY_CLKCOR_SEQ = {1'b0, 1'b1, PHY_CLKCOR};
+  localparam logic [5:0] PHY_CLKCOR_MIN_LAT = 6'd8;
+  localparam logic [5:0] PHY_CLKCOR_MAX_LAT = 6'd12;
+  localparam phy_word_t PHY_CLKCOR_WORD = '{d: {PHY_NWORDS{PHY_CLKCOR}}, k: '1};
+
   typedef cfg_write_t [CFG_WRITES-1:0] cfg_seq_t;
 
   // PLL_CFG1 (0x51) for a line rate in Mb/s, from a 100 MHz reference:

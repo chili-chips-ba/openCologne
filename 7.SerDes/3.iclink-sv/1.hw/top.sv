@@ -144,13 +144,14 @@ module top
   phy_ctrl_t link_ctrl;
   phy_word_t link_tx, link_rx;
   logic [    PHY_NWORDS-1:0] link_rx_invalid;
+  logic                      link_rx_buf_err;  // the CC_SERDES RX buffer over- or underflowed
   logic [              31:0] link_errors;
   logic [              31:0] link_base;  // the count at the end of warm-up
   logic [  LINK_IDLE_LOG2:0] link_idle;  // on clk_core; top bit set: commas sent, PRBS on
   logic [LINK_WARMUP_LOG2:0] link_warm;  // on clk_core; top bit set: link up
   logic                      link_error;  // on clk_core
   logic link_d_k, link_d_bad, link_d_moved;  // on clk_core: this word's checks, a clock late
-  logic       link_kx;  // on clk_core: a K or invalid symbol, a clock late
+  logic       link_kx;  // on clk_core: a K, an invalid symbol or a buffer error, a clock late
   logic [1:0] link_z;  // on clk_core: each half of the word all zero, a clock late
   logic [1:0] link_up_sync, link_error_sync;  // to clk
   logic      [ALIGN_COMMAS_LOG2:0] align_cnt;  // on clk_core; top bit set: alignment done, off
@@ -184,6 +185,7 @@ module top
       .rx_aligned    (rx_aligned),
       .rx            (link_rx),
       .rx_invalid    (link_rx_invalid),
+      .rx_buf_err    (link_rx_buf_err),
       .rx_prbs_errors(link_errors)
   );
 
@@ -240,7 +242,7 @@ module top
     end
     else begin
       link_d_k     <= rx_aligned && link_rx.k == '0;
-      link_kx      <= link_rx.k != '0 || link_rx_invalid != '0;
+      link_kx      <= link_rx.k != '0 || link_rx_invalid != '0 || link_rx_buf_err;
       link_z[1]    <= link_rx.d[PHY_NWORDS-1:PHY_NWORDS/2] == '0;
       link_z[0]    <= link_rx.d[PHY_NWORDS/2-1:0] == '0;
       link_d_bad   <= link_kx || (&link_z);
@@ -330,7 +332,7 @@ module top
           end
         end
         pump_bad <= (pump_pop && pump_rdata != pump_expect)
-          || (pump_start[PUMP_START_LOG2] && link_rx_invalid != '0);
+          || (pump_start[PUMP_START_LOG2] && (link_rx_invalid != '0 || link_rx_buf_err));
         if (pump_bad || pump_crc != '0 || pump_drops != '0 || pump_ovf != '0) begin
           pump_error <= 1'b1;
         end

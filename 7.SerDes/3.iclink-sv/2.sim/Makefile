@@ -18,6 +18,8 @@
 #   make sim_serwb_w4  the three SerWB tests with W = 4 words a clock (5 Gb/s), through gearboxes
 #                      (SERWB_W=4 does the same for any one of them)
 #   make sim_top    the board top: self-test, SerDes link and FIFO pump, clean and with errors
+#   make sim_link_ppm  two sides PPM apart (default 200): clock correction keeps every word;
+#                      without its bursts (NO_CLKCOR) the same test must fail
 #   make sim_modes  the SerDes BFM's CDR_MODELs against each other: 9 datapath width and
 #                   comma lane cases, data bit-exact, latencies within MODES_TOL_NS; then
 #                   PRBS7/31 with forced errors, 5 ms at 3 Gb/s, the random RX word phase
@@ -53,9 +55,9 @@ TRACE := $(if $(filter 1,$(WAVES)),--trace-fst --trace-structs,)
 SEED  ?=
 PLUS  := $(if $(filter 1,$(WAVES)),+waves,) $(if $(SEED),+verilator+seed+$(SEED))
 
-.PHONY: all sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_phy_rates sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_serwb_w4 sim_top sim_modes sim_icarus vectors clean
+.PHONY: all sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_phy_rates sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_serwb_w4 sim_top sim_link_ppm sim_modes sim_icarus vectors clean
 
-all: sim_icarus sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_serwb_w4 sim_top sim_modes
+all: sim_icarus sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_serwb_w4 sim_top sim_link_ppm sim_modes
 
 sim_8b10b:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
@@ -129,6 +131,25 @@ sim_serwb_pump:
 
 sim_serwb_w4:
 	$(MAKE) SERWB_W=4 sim_serwb_tx sim_serwb_rx sim_serwb_pump
+
+# two boards on two oscillators, PPM apart: the PHYs, the pumps and the
+# CC_SERDES clock correction must keep every word. Then the same without
+# the clock-correction bursts (NO_CLKCOR), which must fail
+PPM ?= 200
+LINK_SRC := sim-model.vlt rtl.vlt $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv $(HW)/iclink_serwb_pkg.sv \
+  $(HW)/iclink_prbs_gen.sv $(HW)/iclink_prbs_chk.sv $(HW)/iclink_prbs_tx.sv $(HW)/iclink_prbs_rx.sv \
+  $(HW)/iclink_serdes_gm.sv $(HW)/iclink_serwb_fifo.sv $(HW)/iclink_serwb_tx.sv $(HW)/iclink_serwb_rx.sv \
+  $(HW)/iclink_serwb_pump.sv $(BFM) tb_link_ppm.sv
+LINK_VLT := verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
+  -Wno-UNUSEDPARAM --top-module tb_link_ppm -GPPM=$(PPM) $(BFM_DEF)
+
+sim_link_ppm:
+	$(LINK_VLT) -Mdir obj_link $(LINK_SRC)
+	./obj_link/Vtb_link_ppm | tee sim_link_ppm.log
+	@grep -q "TB_LINK_PPM: PASS" sim_link_ppm.log
+	$(LINK_VLT) -Mdir obj_link_neg +define+NO_CLKCOR $(LINK_SRC)
+	./obj_link_neg/Vtb_link_ppm | tee sim_link_ppm_neg.log
+	@grep -q "TB_LINK_PPM: FAIL" sim_link_ppm_neg.log && echo "NO_CLKCOR: FAIL, as it must"
 
 sim_top:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \

@@ -50,9 +50,11 @@
 //   Clocks: one core clock, clk_core = PLL_CLK_O (line rate / 80, 31.25 MHz
 //   at 2.5 Gb/s), for TX and RX: RX_CLK_I takes it, and the CC_SERDES RX
 //   buffer moves RX from the recovered clock (RX_CLK_O, unused) onto it.
-//   Between two boards the buffer needs clock correction for the ppm
-//   (RX_CLKCOR_USE); one board, or one reference, needs none. clk_reg (the
-//   board clock) runs the bring-up: three regfile writes
+//   Between two boards the buffer takes up the ppm by clock correction,
+//   on here (iclink_phy_pkg: PHY_CLKCOR_*): the far side must send the
+//   clock-correction word in bursts, as iclink_serwb_pump does. rx_buf_err
+//   flags a buffer over- or underflow. clk_reg (the board clock) runs the
+//   bring-up: three regfile writes
 //   (iclink_phy_pkg::cfg_seq()), then TX and RX out of reset.
 //
 //   On the chip CC_SERDES connects to its own serial pins and reference
@@ -87,6 +89,7 @@ module iclink_serdes_gm
     output logic                       rx_aligned,     // on clk_core: comma alignment acquired
     output phy_word_t                  rx,             // on clk_core, every clock
     output logic      [PHY_NWORDS-1:0] rx_invalid,     // on clk_core: bad code or disparity
+    output logic                       rx_buf_err,     // on clk_core: RX buffer over/underflow
     output logic      [          31:0] rx_prbs_errors  // on clk_core: clocks with a PRBS error
 );
 
@@ -244,6 +247,7 @@ module iclink_serdes_gm
     logic [PHY_NWORDS-1:0]  not_in_table;
     logic [PHY_NWORDS-1:0]  disp_err;
     logic                   aligned;
+    logic                   buf_err;
     logic                   resetdone;
   } rx_ser_t;
   rx_ser_t                  rx_hm;  // hard-macro outputs
@@ -260,6 +264,7 @@ module iclink_serdes_gm
       rx_ready_meta <= 1'b0;
       rx_ready      <= 1'b0;
       rx_aligned    <= 1'b0;
+      rx_buf_err    <= 1'b0;
       rx_pause_meta <= 1'b0;
       rx_pause      <= 1'b0;
       rx_align_meta <= 1'b0;
@@ -270,6 +275,7 @@ module iclink_serdes_gm
       rx_ready_meta <= rx_ser.resetdone;
       rx_ready      <= rx_ready_meta;
       rx_aligned    <= rx_ser.aligned;
+      rx_buf_err    <= rx_ser.buf_err;
       rx_pause_meta <= ctrl.rx_prbs_pause;
       rx_pause      <= rx_pause_meta;
       rx_align_meta <= ctrl.rx_align;
@@ -344,8 +350,15 @@ module iclink_serdes_gm
 
   CC_SERDES #(
       .SERDES_ENABLE      (1'b1),
-      .SERDES_AUTO_INIT   (1'b0),  // the bring-up above sets the PLL up
-      .RX_ALIGN_COMMA_WORD(2'b11)  // the comma in lane 0 or 4: the lane aligner
+      .SERDES_AUTO_INIT   (1'b0),                // the bring-up above sets the PLL up
+      .RX_ALIGN_COMMA_WORD(2'b11),               // the comma in lane 0 or 4: the lane aligner
+      .RX_CLKCOR_USE      (1'b1),                // two boards: the ppm between them
+      .RX_CLKCOR_MIN_LAT  (PHY_CLKCOR_MIN_LAT),
+      .RX_CLKCOR_MAX_LAT  (PHY_CLKCOR_MAX_LAT),
+      .RX_CLKCOR_SEQ_1_0  (PHY_CLKCOR_SEQ),
+      .RX_CLKCOR_SEQ_1_1  (PHY_CLKCOR_SEQ),
+      .RX_CLKCOR_SEQ_1_2  (PHY_CLKCOR_SEQ),
+      .RX_CLKCOR_SEQ_1_3  (PHY_CLKCOR_SEQ)
   ) u_serdes (
       .PLL_RESET_I           (pll_reset),
       .PLL_CLK_O             (clk_core),
@@ -408,7 +421,7 @@ module iclink_serdes_gm
       .RX_BYTE_IS_ALIGNED_O  (rx_hm.aligned),
       .RX_BYTE_REALIGN_O     (  /*LINT:OK*/),       // alignment is acquired once
       .RX_RESET_DONE_O       (rx_hm.resetdone),
-      .RX_BUF_ERR_O          (  /*LINT:OK*/),       // RX buffer status: not used
+      .RX_BUF_ERR_O          (rx_hm.buf_err),
       .RX_EI_EN_O            (  /*LINT:OK*/)        // electrical-idle detector is off
   );
 
@@ -430,12 +443,18 @@ module iclink_serdes_gm
   logic        NC_rx_present_o;
   logic        NC_term_serio_o;
   logic        NC_rx_prbs_err_o;
-  logic        NC_rx_buf_err_o;
   logic        NC_rx_byte_realign_o;
   logic        NC_rx_ei_en_o;
 
   ccfpga_serdes #(
-      .ALIGN_COMMA_WORD(2'b11)  // as RX_ALIGN_COMMA_WORD above
+      .ALIGN_COMMA_WORD (2'b11),               // as RX_ALIGN_COMMA_WORD above
+      .RX_CLKCOR_USE    (1),
+      .RX_CLKCOR_MIN_LAT(PHY_CLKCOR_MIN_LAT),
+      .RX_CLKCOR_MAX_LAT(PHY_CLKCOR_MAX_LAT),
+      .RX_CLKCOR_SEQ_1_0(PHY_CLKCOR_SEQ),
+      .RX_CLKCOR_SEQ_1_1(PHY_CLKCOR_SEQ),
+      .RX_CLKCOR_SEQ_1_2(PHY_CLKCOR_SEQ),
+      .RX_CLKCOR_SEQ_1_3(PHY_CLKCOR_SEQ)
   ) u_serdes (
       .clk_ref_i           (clk_ref),
       .clk_reg_i           (clk_reg),
@@ -516,7 +535,7 @@ module iclink_serdes_gm
       .rx_char_is_comma_o  (NC_rx_comma),
       .rx_not_in_table_o   (rx_hm.not_in_table),
       .rx_disp_err_o       (rx_hm.disp_err),
-      .rx_buf_err_o        (NC_rx_buf_err_o),
+      .rx_buf_err_o        (rx_hm.buf_err),
       .rx_byte_is_aligned_o(rx_hm.aligned),
       .rx_byte_realign_o   (NC_rx_byte_realign_o),
       .rx_resetdone_o      (rx_hm.resetdone),

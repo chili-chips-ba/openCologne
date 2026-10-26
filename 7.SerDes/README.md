@@ -101,7 +101,7 @@ A message link between the two eduBOS5 CPUs, ahead of remote memory access: each
 | **default** | **2.5 Gb/s** | 31.25 MHz | 2.0 Gb/s | 1.68 Gb/s |
 | high | 5 Gb/s | 62.5 MHz | 4.0 Gb/s | 3.37 Gb/s |
 
-5 Gb/s needs the PHY side at 62.5 MHz. `CC_SERDES` encodes and decodes 8b/10b, so only flops, the PRBS mux and the lane aligner run at 62.5 MHz, and the pump runs at W = 4 on half that clock, through `iclink_gearbox`. Plus the SI settings for 5 Gb/s. The PHY meets timing on one clock: `make -C 7.SerDes/3.iclink-sv/3.build LINE_RATE=5000`, `clk_core` 69.3 MHz against 62.5 (seed 1; the board top builds without the pump at 5 Gb/s, since it has no half-rate clock for W = 4 yet). At 2.5 Gb/s, with the pump in the top: `clk_core` 38.9 to 41.4 MHz against 31.25 (4 seeds). With the fabric encoder it was 32.4 to 35.3. The two lower levels need only the PLL setting. LiteICLink on ECP5 (setup 3) runs 1.25 and 2.5 Gb/s from 100 MHz; 5 Gb/s there needs a 200 or 250 MHz reference.
+5 Gb/s needs the PHY side at 62.5 MHz. `CC_SERDES` encodes and decodes 8b/10b, so only flops, the PRBS mux and the lane aligner run at 62.5 MHz, and the pump runs at W = 4 on half that clock, through `iclink_gearbox`. Plus the SI settings for 5 Gb/s. The PHY meets timing on one clock: `make -C 7.SerDes/3.iclink-sv/3.build LINE_RATE=5000`, `clk_core` 68.2 MHz against 62.5 (seed 1; the board top builds without the pump at 5 Gb/s, since it has no half-rate clock for W = 4 yet). At 2.5 Gb/s, with the pump in the top: `clk_core` 38.2 to 41.4 MHz against 31.25 (4 seeds). With the fabric encoder it was 32.4 to 35.3. The two lower levels need only the PLL setting. LiteICLink on ECP5 (setup 3) runs 1.25 and 2.5 Gb/s from 100 MHz; 5 Gb/s there needs a 200 or 250 MHz reference.
 
 **Flow control.** SerWB's own, both sides on (`with_flow_control`): the receiver sends XOFF (K28.3) when its RX buffer is almost full, XON (K28.4) to resume. As in LiteICLink, the request takes the line for one clock, even in the middle of a packet, and is sent again every 1024 clocks. Our RX FIFO sends XOFF at `DEPTH - RT_CLKS·W` words (`RT_CLKS` = 96: 832 at W = 2, 640 at W = 4) and XON below 512; while a side asks for a pause, its depacketizer's timeout waits, so a long pause drops nothing; the numbers are worked out in [End2End Flow](#end2end-flow). On setup 1 the XOFF loops back to the same chip, which pauses itself.
 
@@ -131,30 +131,30 @@ A message link between the two eduBOS5 CPUs, ahead of remote memory access: each
 
 ### End2End Flow
 
-How much buffer, where the thresholds sit, and how the levels move. Measured with `sim_serwb_pump` at W = 2: two pumps wired on the digital bus, a `LINE_LAT`-clock line between them each way: 27 clocks, the PHY's latency on the BFM at every line rate (`sim_phy_oneway` prints it). One clock for both pumps and both CPUs, as on the chip.
+How much buffer, where the thresholds sit, and how the levels move. Measured with `sim_serwb_pump` at W = 2: two pumps wired on the digital bus, a `LINE_LAT`-clock line between them each way: 31 clocks, the PHY's latency on the BFM at every line rate, with the RX buffer at `MIN_LAT` 8 (`sim_phy_oneway` prints it). One clock for both pumps and both CPUs, as on the chip.
 
 <p align="center"><img width="100%" alt="FIFO pump end to end, all on clk_core: CPU A, TX FIFO, packetizer, the link, depacketizer, RX FIFO with XOFF level 832 and XON level 512, CPU B; the flow-control loop from the RX FIFO level through B's line mux and the line back to A's packetizer" src="0.doc/serwb-pump-e2e.drawio.png"></p>
 
 **The round trip.** One clock and no synchronizers, so the loop is short. From B's RX FIFO reaching the XOFF level to A stopping takes 3 + `LINE_LAT` clocks: the pause flop, the request flop, the TX flop, the line, then the K28.3 detect flop on A. Words A sent before it stopped still land: another `LINE_LAT` clocks of them.
 
-| | Formula | `LINE_LAT` 27 |
+| | Formula | `LINE_LAT` 31 |
 |---|---|---|
-| XOFF reaches A | 3 + `LINE_LAT` clocks | 30 clocks, measured 30 |
-| Last word lands in B | 3 + 2 x `LINE_LAT` clocks after XOFF, plus the packet in flight (its words commit at its CRC) | 57 clocks; peak measured at 63 |
-| Overshoot above XOFF, worst | W words x (3 + 2 x `LINE_LAT`) | 114 words |
-| Overshoot, measured | | 64 words (A's CPU pushes at most 1 word a clock) |
+| XOFF reaches A | 3 + `LINE_LAT` clocks | 34 clocks, measured 34 |
+| Last word lands in B | 3 + 2 x `LINE_LAT` clocks after XOFF, plus the packet in flight (its words commit at its CRC) | 65 clocks; peak measured at 63 |
+| Overshoot above XOFF, worst | W words x (3 + 2 x `LINE_LAT`) | 130 words |
+| Overshoot, measured | | 71 words (A's CPU pushes at most 1 word a clock) |
 | Margin | `RT_CLKS`·W = 1024 - 832 = 192 words | covers `LINE_LAT` up to 46 clocks each way |
 
 With the async FIFOs the same loop took 8 + `LINE_LAT` clocks to reach A: two 2-flop synchronizers more.
 
-At W = 4 (`LINE_LAT` 27, 5 Gb/s) the pump runs at half `clk_core`, behind the gearboxes, and the XOFF level is 640: measured peak 808, 168 words above XOFF, against a 384-word margin.
+At W = 4 (`LINE_LAT` 31, 5 Gb/s) the pump runs at half `clk_core`, behind the gearboxes, and the XOFF level is 640: measured peak 815, 175 words above XOFF, against a 384-word margin.
 
-`LINE_LAT` counts PHY TX, `CC_SERDES` with its RX buffer, the cable and PHY RX: on the BFM 27 clocks at every rate (0.86 us at 2.5 Gb/s). The silicon's own latency and the cable are to be measured on the board; `RT_CLKS` sets the margin.
+`LINE_LAT` counts PHY TX, `CC_SERDES` with its RX buffer, the cable and PHY RX: on the BFM 31 clocks at every rate (0.99 us at 2.5 Gb/s). The silicon's own latency and the cable are to be measured on the board; `RT_CLKS` sets the margin.
 
 **Sizing rules.**
 
 1. **RX FIFO, XOFF level:** depth minus the worst overshoot. One packet in progress (`MAX_WORDS` 16) is part of the level already, since the RX FIFO is the packet buffer.
-2. **RX FIFO, XON level:** high enough that the reader does not run dry while XON travels and data comes back (3 + 2 x `LINE_LAT` = 57 clocks, about 57 words for a reader at 1 word a clock); low enough that XOFF and XON do not chatter. 512 gives 9 times the first and 320 words of hysteresis.
+2. **RX FIFO, XON level:** high enough that the reader does not run dry while XON travels and data comes back (3 + 2 x `LINE_LAT` = 65 clocks, about 65 words for a reader at 1 word a clock); low enough that XOFF and XON do not chatter. 512 gives 8 times the first and 320 words of hysteresis.
 3. **TX FIFO:** the CPU's burst buffer. While the far side lets data through, the line drains it faster than the CPU fills it (2 words a clock against 1); it fills only while A is held off, and then `tx_full` pushes back on CPU A.
 4. **Levels are exact.** One clock: each FIFO level is a flop, from both pointers of the same clock. A word becomes readable 3 clocks after it is written (the RAM write flop, then the commit pointer, so the RAM always holds what the reader may take).
 5. **A LiteICLink peer** (setup 3) sends packets of at most 16 words and reacts to XOFF in its own clocks; 192 words is 3 us of line at 2.5 Gb/s, well above its pipeline.
@@ -164,10 +164,10 @@ At W = 4 (`LINE_LAT` 27, 5 Gb/s) the pump runs at half `clk_core`, behind the ge
 **Fill and empty, as measured** (B's CPU stops reading, A's keeps pushing):
 
 1. B's RX FIFO fills at 1 word a clock, A's CPU rate, and reaches 832: B sends XOFF.
-2. It peaks at 896, 63 clocks later: 64 words were already on their way. A stopped after 30 clocks.
+2. It peaks at 896, 63 clocks later: 64 words were already on their way. A stopped after 34 clocks.
 3. A's TX FIFO now fills from A's CPU and reaches 1024: A's CPU must wait (`tx_full`).
 4. B reads again, at about 1 word a clock.
-5. B drops below 512: XON. A resumes 30 clocks later and, at up to 2 words a clock, refills B faster than B reads.
+5. B drops below 512: XON. A resumes 34 clocks later and, at up to 2 words a clock, refills B faster than B reads.
 6. B swings between about 450 and 900, XOFF and XON in turn, until A's TX FIFO is empty. Not one word lost, no overflow, no drop.
 
 Re-run: `make -C 7.SerDes/3.iclink-sv/2.sim sim_serwb_pump SERWB_W=2` on its own (a full `make` runs W = 4 last and overwrites `pump_levels.csv`), then `python3 plot_pump_levels.py` in `7.SerDes/3.iclink-sv/2.sim`. The plot marks the W = 2 levels.
@@ -200,27 +200,17 @@ On B the demo echoes each message back, so A can check every word it sent.
 
 ### CC_SERDES clock correction: what it can and cannot do
 
-Two boards have two oscillators. On ULX5M-GS the SerDes reference is a 100 MHz Si511, ±20 ppm, so two boards differ by up to 40 ppm: one word in 25,000. With one clock in the fabric (see Design goals), the RX elastic buffer of `CC_SERDES` must absorb that difference with clock correction (`RX_CLKCOR_USE = 1`).
+Two boards have two oscillators. On ULX5M-GS the SerDes reference is a 100 MHz Si511, ±20 ppm, so two boards differ by up to 40 ppm: one word in 25,000. With one clock in the fabric (see Design goals), the RX buffer of `CC_SERDES` must absorb that difference with clock correction: it removes or repeats a clock-correction word when its fill leaves `MIN_LAT` to `MAX_LAT`.
 
-DS1001 (Tables 2.56, 2.57) gives the rule: below `RX_CLKCOR_MIN_LAT` the buffer repeats incoming clock-correction sequences, above `RX_CLKCOR_MAX_LAT` it removes them. The sequence is 4 symbols (`RX_CLKCOR_SEQ_1_0..3`), `RX_BUF_ERR_O` flags overflow and underflow, and `RX_CLKCOR_USE = 0` uses the buffer for phase only. It doesn't give the depth, how a sequence is matched, or what an insertion repeats. The SerDes BFM fills these in as below: seen in simulation, to check on silicon.
-
-| | BFM behaviour |
-|---|---|
-| Unit | The buffer holds whole datapath words (16, 32 or 64 bits), 64 of them. `MIN_LAT`/`MAX_LAT` count words. |
-| Sequence | 4 bytes, `RX_CLKCOR_SEQ_1_0..3` = {comma, K, data}. The whole word must match: a 64-bit word holds the sequence twice. |
-| Remove | Occupancy above `MAX_LAT`: of two matching words in a row, the second is not written. |
-| Insert | Occupancy below `MIN_LAT` - 1: the read stalls on a matching word, and the output repeats the word **before** it. |
-| Off (`RX_CLKCOR_USE = 0`) | Phase only, limits fixed at 4 and 60. |
-| Error | `RX_BUF_ERR_O` for occupancy below 3 or above 60, until `RX_BUF_RESET_I`. |
-
-If the silicon works the same, three limits follow:
+DS1001 leaves open how a sequence is matched and what an insertion repeats. The SerDes BFM fills that in, to be checked on silicon: [model README, RX buffer and clock correction](1.sim-model/README.md#rx-buffer-and-clock-correction). If the silicon works as modelled, three limits follow:
 1. A single sequence word is never removed. It takes two in a row.
-2. Insertion repeats the previous word. It is correct only when the sequence comes in bursts, so that word is the sequence too.
+2. An insertion repeats the word before the sequence. It is safe only when that word is harmless to repeat.
 3. The sequence must sit aligned in the datapath word.
 
 **What we did.**
-- **SerWB** (planned): the pump sends a clock-correction burst, 4 identical 32-bit words aligned to the 64-bit word, every 1024 clocks. That is 24x more often than 40 ppm needs.
-- **The BFM** models the buffer clock by clock, with the exceptions listed in its section "RX: elastic buffer" (`1.sim-model/ccfpga_serdes.sv`; [model README](1.sim-model/README.md#rx-buffer-and-clock-correction)).
+- **PHY:** clock correction on (`RX_CLKCOR_USE = 1`), the sequence K23.7 four times (`CC_SERDES`'s default), `MIN_LAT` 8 and `MAX_LAT` 12 (the defaults, 32 and 39, would add 28 words of latency). `rx_buf_err` flags an overflow or underflow; the board top counts it as a link error.
+- **FIFO pump:** every 1024 clocks a burst of 4 PHY words: a fill word, then 3 clock-correction words (`PHY_CLKCOR_WORD`, the sequence twice). It goes out even mid-packet, as XOFF does; the packet waits. The fill word in front means an insertion never repeats data (limit 2). Three words, not two, because with the comma in lane 4 each PHY word arrives split over two RX words, and two whole correction words in a row must still reach the far buffer (limits 1 and 3). One burst every 1024 clocks is 24 times more often than 40 ppm needs, and costs 0.4% of the line.
+- **Test:** `sim_link_ppm`, two sides 200 ppm apart (5 times the board worst case), 100,000 clocks of a counter each way: every word arrives in order, no CRC error, drop or buffer error; A's buffer inserted 20 correction words, B's removed 18. Without the bursts (`NO_CLKCOR`) A's buffer runs dry within about 25,000 clocks, flags errors from then on, and B->A loses 60% of its words.
 
 **What it means for PCIe.** The PCIe clock-compensation unit is the SKP ordered set: COM and three SKP symbols, 4 symbols, one every 1180 to 1538 symbols. It meets none of the three conditions:
 1. SKP ordered sets do not come two in a row, so none can be removed.
@@ -364,6 +354,7 @@ Tests, all run by `make -C 7.SerDes/3.iclink-sv/2.sim` (needs Verilator and Icar
 | `sim_serwb_pump` | the FIFO pump, two sides on the digital bus (SerDes out of the loop), one clock for both pumps and both CPUs: 6000 words each way at once, in order; then B stops reading: XOFF, A stops, A's TX FIFO fills, B reads again, XON; no word lost, no overflow ([End2End Flow](#end2end-flow)); a pause longer than the depacketizer's timeout drops nothing; then a `tx_hold` burst of 1024 words at line rate |
 | `sim_serwb_w4` | the three SerWB tests at 4 words per clock (5 Gb/s), through the gearboxes |
 | `sim_top` | the board top's self-tests, SerDes link and FIFO pump: a clean run (PRBS7, then the pump's counter, every word in order), then a flipped line bit must light the error |
+| `sim_link_ppm` | mirrors setup 2 with the FIFO pump: two sides, each a PHY on its own BFM and a pump, lines crossed, the references 200 ppm apart (`PPM=`). 100,000 clocks of a counter each way: every word in order, no CRC error, drop, invalid symbol or RX buffer error, and the BFMs must have inserted and removed clock-correction words. Then the same without the pumps' bursts (`NO_CLKCOR`), which must fail |
 | `sim_modes` | `tb_modes`, one BFM looped back, 38 runs, about 1 min. The three `CDR_MODEL`s against each other at 2.5 Gb/s, 9 cases: 16-bit (comma in byte lane 0, 1), 32-bit (0, 1, 3), 64-bit (0, 3, 5, 7); data bit-exact; latency within 4 UI of ACCURATE (NONE +0.5 UI, FAST +0.5 to 2.5 UI: it knows a bit only at the next line edge). Then, in each mode, PRBS7 and PRBS31 with forced errors; 5 ms at 3 Gb/s in NONE and FAST (no drift off the time grid); the random RX word phase with `ALIGN_COMMA_WORD` = 11, seeds 1 to 3. Every run also checks the decode table against `dec8b10b()` (all 1024 symbols), the comma defaults, register readback and buffer errors. `tb_modes` takes `+cfg1=HEX`, `+run_us=N`, `+prbs=SEL` |
 | `sim_icarus` | `tb_modes` in Icarus, each `CDR_MODEL`, data bit-exact, 15 runs, about 12 s: 16-bit (comma in byte lane 1), 32-bit (3), 32-bit with `ALIGN_COMMA_WORD` = 01 (even lane), 64-bit (0), and 64-bit with `ALIGN_COMMA_WORD` = 11 (lane 0 or 4). It keeps the BFM Icarus-clean: Verilator takes a name used before its declaration, even with `-Wall`; Icarus and the LRM don't |
 | `sim_phy_rates` | not in `all`: both PHY tests at 1250, 2500 and 5000 Mb/s |

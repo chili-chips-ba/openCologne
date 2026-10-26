@@ -189,7 +189,7 @@ In Icarus the vendor model is 9 to 18 times slower per simulated µs. Verilator 
 
 | Project | Flow |
 |---|---|
-| openCologne | [7.SerDes](../README.md#simulation): the IC Link PHY, one-way and two-way, the board top with the FIFO pump, `sim_modes`, `sim_icarus` |
+| openCologne | [7.SerDes](../README.md#simulation): the IC Link PHY, one-way and two-way; the board top with the FIFO pump; `sim_link_ppm`, two boards 200 ppm apart kept in step by the RX buffer's clock correction (`MIN_LAT` 8, `MAX_LAT` 12, K23.7 bursts); `sim_modes`, `sim_icarus` |
 | openCologne-PCIE | `2.rtl/1.phy/3.sim` (`run-phy.sh pipe64`, `equiv`): the PIPE test and the vendor comparison; `2.rtl/4.dll/sim`: DLL, MAC/LTSSM, PIPE and this SerDes, two link partners |
 
 ## License

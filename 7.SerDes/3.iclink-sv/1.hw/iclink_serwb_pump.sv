@@ -35,6 +35,18 @@
 // Link down (tx_en low): comma words, K28.5 in lane 0 and K28.0 in lane
 // 4, so the far side's K filter takes no word from them.
 //
+// Clock correction, for two boards on two oscillators: every CLKCOR_CLKS
+// clocks the line carries a burst of CC_PHY PHY words, a fill word and
+// then clock-correction words (iclink_phy_pkg: PHY_CLKCOR_WORD), even in
+// the middle of a packet, which waits. The far side's CC_SERDES RX buffer
+// removes one of two correction words in a row, or repeats the word
+// before a correction word. The fill word in front keeps that from ever
+// being a data word. Three correction words leave two whole ones in a row
+// at the far end even when its comma sits in lane 4 and each PHY word
+// arrives split over two. The far side's K filter drops all of them.
+// 40 ppm between boards is one word in 25,000; one burst every 1024
+// clocks costs 0.4% of the line.
+//
 // One clock: the CPU, both FIFOs, the packetizer, the depacketizer and
 // the line all run on clk, the PHY clock (W = 2) or half of it (W = 4).
 // The PHY's RX comes out on that clock too, through the CC_SERDES RX
@@ -44,20 +56,23 @@ module iclink_serwb_pump
   import iclink_phy_pkg::*;
   import iclink_serwb_pkg::*;
 #(
-    parameter  int         W            = 2,                    // words a line clock: 2 or 4
-    parameter  int         DEPTH        = 1024,                 // words, each FIFO
-    parameter  int         PKT_WORDS    = 16,
-    parameter  int         MAX_WORDS    = 16,                   // largest payload accepted
-    parameter  logic [7:0] PORT         = 8'd2,
-    parameter  int         FLUSH_CLKS   = 64,
-    parameter  int         RT_CLKS      = 96,                   // XOFF round trip, pump clocks
-    parameter  int         XOFF_LEVEL   = DEPTH - RT_CLKS * W,
-    parameter  int         XON_LEVEL    = DEPTH / 2,
-    parameter  int         REFRESH_CLKS = 1024,
-    parameter  int         TIMEOUT_CLKS = 31250,                // 1 ms at 31.25 MHz
-    localparam int         AW           = $clog2(DEPTH),
-    localparam int         TW           = $clog2(W + 1),
-    localparam int         NP           = W / 2                 // PHY words a line clock
+    parameter int W = 2,  // words a line clock: 2 or 4
+    parameter int DEPTH = 1024,  // words, each FIFO
+    parameter int PKT_WORDS = 16,
+    parameter int MAX_WORDS = 16,  // largest payload accepted
+    parameter logic [7:0] PORT = 8'd2,
+    parameter int FLUSH_CLKS = 64,
+    parameter int RT_CLKS = 96,  // XOFF round trip, pump clocks
+    parameter int XOFF_LEVEL = DEPTH - RT_CLKS * W,
+    parameter int XON_LEVEL = DEPTH / 2,
+    parameter int REFRESH_CLKS = 1024,
+    parameter int CLKCOR_CLKS = 1024,  // a clock-correction burst
+    parameter int TIMEOUT_CLKS = 31250,  // 1 ms at 31.25 MHz
+    localparam int AW = $clog2(DEPTH),
+    localparam int TW = $clog2(W + 1),
+    localparam int NP = W / 2,  // PHY words a line clock
+    localparam int CC_PHY = 4,  // PHY words a clock-correction burst
+    localparam int CC_CLKS = CC_PHY / NP  // its clocks
 ) (
     input logic clk,
     input logic arst_n,
@@ -114,6 +129,11 @@ module iclink_serwb_pump
         REFRESH_CLKS
     );
   end : g_bad_clks
+  if (CLKCOR_CLKS < 2 * CC_CLKS || (CLKCOR_CLKS & (CLKCOR_CLKS - 1)) != 0) begin : g_bad_clkcor
+    $error(
+        "iclink_serwb_pump: CLKCOR_CLKS %0d: a power of 2, %0d or more", CLKCOR_CLKS, 2 * CC_CLKS
+    );
+  end : g_bad_clkcor
 
   //=======================================================================
   // TX: FIFO, scheduler, packetizer, line
@@ -229,9 +249,37 @@ module iclink_serwb_pump
   word_t     [                   W-1:0] ln_word;
   logic      [                   W-1:0] ln_k;
 
+  // clock correction: a burst every CLKCOR_CLKS clocks, CC_CLKS clocks long
+  logic      [ $clog2(CLKCOR_CLKS)-1:0] cc_cnt;
+  logic                                 cc_on;  // the burst is on the line
+  logic      [     $clog2(CC_CLKS)-1:0] cc_idx;  // its clock
+
   always_comb begin
-    send_ctrl = tx_en & pending;
-    pk_ready  = tx_en & !pending & !remote_paused;
+    send_ctrl = tx_en & pending & !cc_on;
+    pk_ready  = tx_en & !pending & !cc_on & !remote_paused;
+  end
+
+  always_ff @(posedge clk or negedge arst_n) begin
+    if (!arst_n) begin
+      cc_cnt <= '0;
+      cc_on  <= 1'b0;
+      cc_idx <= '0;
+    end
+    else if (!tx_en) begin
+      cc_cnt <= '0;
+      cc_on  <= 1'b0;
+      cc_idx <= '0;
+    end
+    else begin
+      cc_cnt <= cc_cnt + 1'b1;
+      if (cc_cnt == '1) begin
+        cc_on <= 1'b1;
+      end
+      else if (cc_on && cc_idx == ($clog2(CC_CLKS))'(CC_CLKS - 1)) begin
+        cc_on <= 1'b0;
+      end
+      cc_idx <= cc_on ? cc_idx + 1'b1 : '0;
+    end
   end
 
   always_ff @(posedge clk or negedge arst_n) begin
@@ -274,6 +322,9 @@ module iclink_serwb_pump
       if (!tx_en) begin  // link not up: K28.5 in lane 0, K28.0 in lane 4
         ln_word[s] = {24'h0, (s % 2 == 0) ? PHY_COMMA : PHY_IDLE};
       end
+      else if (cc_on) begin  // the burst's first PHY word; the others below
+        ln_word[s] = WORD_FILL;
+      end
       else if (send_ctrl) begin
         ln_word[s] = (s == 0) ? (pause ? WORD_XOFF : WORD_XON) : WORD_FILL;
       end
@@ -288,6 +339,12 @@ module iclink_serwb_pump
         line[s/2].d[4*(s%2)+b] = ln_word[s][8*b+:8];
       end
       line[s/2].k[4*(s%2)] = ln_k[s];
+    end
+    // the burst: a fill word first, then clock-correction words
+    for (int p = 0; p < NP; p++) begin
+      if (tx_en && cc_on && (cc_idx != '0 || p != 0)) begin
+        line[p] = PHY_CLKCOR_WORD;
+      end
     end
   end
 

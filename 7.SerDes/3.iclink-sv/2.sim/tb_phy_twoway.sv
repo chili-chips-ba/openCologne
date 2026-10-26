@@ -181,6 +181,10 @@ module tb_phy_twoway
                PRBS_CLOCKS, u_a.rx_prbs_errors - base_a);
     end
 
+    if (u_a.buf_err_seen || u_b.buf_err_seen) begin
+      errors++;
+      $display("ERROR: RX buffer error (rx_buf_err): A %b, B %b", u_a.buf_err_seen, u_b.buf_err_seen);
+    end
     $display("TB_PHY_TWOWAY: %s", (errors == 0) ? "PASS" : "FAIL");
     $finish;
   end
@@ -219,10 +223,20 @@ module phy_side
   logic clk_core, tx_ready, rx_ready, rx_aligned;
   phy_word_t tx, rx;
   logic [PHY_NWORDS-1:0] rx_invalid;
+  logic rx_buf_err;
+  logic buf_err_seen;  // the RX buffer over- or underflowed
   logic [31:0] rx_prbs_errors;
   int tx_cnt = 0;
   int rx_words = 0, rx_bad = 0, expect_n = 0;
   logic locked = 1'b0;
+
+  initial buf_err_seen = 1'b0;
+
+  always @(posedge clk_core) begin : _buf_err
+    if (rx_buf_err) begin
+      buf_err_seen <= 1'b1;
+    end
+  end : _buf_err
 
   iclink_serdes_gm #(
       .LINE_RATE(LINE_RATE)
@@ -242,6 +256,7 @@ module phy_side
       .rx_aligned    (rx_aligned),
       .rx            (rx),
       .rx_invalid    (rx_invalid),
+      .rx_buf_err    (rx_buf_err),
       .rx_prbs_errors(rx_prbs_errors)
   );
 
