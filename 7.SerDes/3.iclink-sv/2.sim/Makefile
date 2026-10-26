@@ -40,7 +40,7 @@ SHELL       := /bin/bash
 .SHELLFLAGS := -o pipefail -ec
 
 HW  := ../1.hw
-BFM := serdes-model/ccfpga_serdes_pkg.sv serdes-model/ccfpga_serdes.sv
+BFM := ../../1.sim-model/ccfpga_serdes_pkg.sv ../../1.sim-model/ccfpga_serdes.sv
 CDR_MODEL    ?=
 RANDOM_PHASE ?=
 BFM_DEF := $(if $(CDR_MODEL),+define+CDR_MODEL=$(CDR_MODEL)) \
@@ -85,7 +85,7 @@ sim_phy_rates:
 
 sim_phy_oneway:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-	  --top-module tb_phy_oneway -Mdir obj_phy $(TRACE) $(RATE_G) $(BFM_DEF) serdes-model.vlt rtl.vlt \
+	  --top-module tb_phy_oneway -Mdir obj_phy $(TRACE) $(RATE_G) $(BFM_DEF) sim-model.vlt rtl.vlt \
 	  $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv \
 	  $(HW)/iclink_prbs_gen.sv $(HW)/iclink_prbs_chk.sv $(HW)/iclink_prbs_tx.sv $(HW)/iclink_prbs_rx.sv \
 	  $(HW)/iclink_serdes_gm.sv $(BFM) \
@@ -95,7 +95,7 @@ sim_phy_oneway:
 
 sim_phy_twoway:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-	  --top-module tb_phy_twoway -Mdir obj_phy2 $(TRACE) $(RATE_G) $(BFM_DEF) serdes-model.vlt rtl.vlt \
+	  --top-module tb_phy_twoway -Mdir obj_phy2 $(TRACE) $(RATE_G) $(BFM_DEF) sim-model.vlt rtl.vlt \
 	  $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv \
 	  $(HW)/iclink_prbs_gen.sv $(HW)/iclink_prbs_chk.sv $(HW)/iclink_prbs_tx.sv $(HW)/iclink_prbs_rx.sv \
 	  $(HW)/iclink_serdes_gm.sv $(BFM) \
@@ -132,7 +132,7 @@ sim_serwb_w4:
 
 sim_top:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-	  --top-module tb_top -Mdir obj_top $(BFM_DEF) serdes-model.vlt rtl.vlt \
+	  --top-module tb_top -Mdir obj_top $(BFM_DEF) sim-model.vlt rtl.vlt \
 	  $$(sed -e "s|\$${HW_SRC}|$(HW)|" -e "/^#/d" -e "/^$$/d" $(HW)/top.filelist) \
 	  $(BFM) tb_top.sv
 	./obj_top/Vtb_top $(PLUS) | tee sim_top.log
@@ -148,7 +148,7 @@ sim_top:
 MODES_TOL_NS ?= 1.6
 MODES_RUNS   := 0:0 0:1 1:0 1:1 1:3 3:0 3:3 3:5 3:7
 MODES_VLT    := verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-                -Wno-PINCONNECTEMPTY --top-module tb_modes serdes-model.vlt
+                -Wno-PINCONNECTEMPTY --top-module tb_modes sim-model.vlt
 
 sim_modes:
 	@for m in NONE FAST ACCURATE; do for dp in 0 1 3; do \

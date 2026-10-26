@@ -22,6 +22,7 @@ Then go to [3.iclink-sv](3.iclink-sv/README.md): the IC Link in SystemVerilog, w
 
 | Folder | What | Status |
 |---|---|---|
+| [1.sim-model](1.sim-model/README.md) | SerDes BFM: open-source simulation model of `CC_SERDES`, a drop-in for the vendor model; shared with openCologne-PCIE | done |
 | [1.serdestool_by_gm](1.serdestool_by_gm) | standalone SerDes loopback test | works |
 | [2.liteiclink](2.liteiclink) | LiteICLink port, Python (Migen): GateMate PHY `serdes_gm.py`, LiteX target, demo firmware | prototype, does not build; reference only |
 | [3.iclink-sv](3.iclink-sv) | the same IC Link in SystemVerilog: our reference example, with the full QA flow | WIP |
@@ -219,7 +220,7 @@ If the silicon works the same, three limits follow:
 
 **What we did.**
 - **SerWB** (planned): the pump sends a clock-correction burst, 4 identical 32-bit words aligned to the 64-bit word, every 1024 clocks. That is 24x more often than 40 ppm needs.
-- **The BFM** models the buffer clock by clock, with the exceptions listed in its section "RX: elastic buffer" (`serdes-model/ccfpga_serdes.sv`).
+- **The BFM** models the buffer clock by clock, with the exceptions listed in its section "RX: elastic buffer" (`1.sim-model/ccfpga_serdes.sv`; [model README](1.sim-model/README.md#rx-buffer-and-clock-correction)).
 
 **What it means for PCIe.** The PCIe clock-compensation unit is the SKP ordered set: COM and three SKP symbols, 4 symbols, one every 1180 to 1538 symbols. It meets none of the three conditions:
 1. SKP ordered sets do not come two in a row, so none can be removed.
@@ -322,11 +323,7 @@ In simulation, setup 3 is mirrored by `interop_twoway` (planned): our PHY on the
 
 ## Simulation
 
-The SerDes in simulation is our open-source SerDes BFM, [`3.iclink-sv/2.sim/serdes-model`](3.iclink-sv/2.sim/serdes-model). It was developed here, in openCologne, then ported to [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE). It is a behavioural model of `CC_SERDES`, with the vendor model's module name (`ccfpga_serdes`), ports and parameters: a drop-in replacement. Checked against the vendor model (NDA): 0 divergences ([how](#checked-against-the-vendor-model)). Running it needs no NDA model. Verilator runs our RTL with the BFM in place of the hard macro: the eduBOS5 RTL executes the test firmware, so no co-simulation (VProc) is needed. Each test case passes or fails on its own.
-
-**Vendor parameters.** The BFM takes all 115. It acts on 34: resets, comma alignment and slide, RX buffer and clock correction, datapath widths, loopback, PLL rates and lock, the TX buffer. 9 more only set a register value you can read back (`PLL_CFG0`). The other 72 tune what a digital model doesn't have: analog front end, equaliser, TX driver, CDR and PLL loops and their calibration, eye monitor, debug. A value the datasheet doesn't allow (UG1001 Tables 7.12 to 7.14, DS1001 Tables 2.15 to 2.17), or the BFM doesn't model, stops the simulation (`$error`, then `$fatal`). Example: `PLL_OUT_DIVSEL = 2`, n.a. in DS1001 Table 2.15. `TX_BUFFER_ADDR_WIDTH` must stay 5: the BFM's TX buffer is 32 words deep. `PLL_CFG1` and `RX_BUF_CFG` are checked the same way when they take effect.
-
-**Behaviour worth knowing.** Electrical idle is P = N for 20 UI. In `NONE` one TX serves any number of receivers. TX timing runs on an absolute time grid, so line rates off the 100 fs grid don't drift (tested: 3 Gb/s for 5 ms). While comma alignment is on, a comma off the word boundary realigns (DS1001 Table 2.50). Each rising edge of `TX_PRBS_FORCE_ERR_I` makes one bit wrong, which the checker counts as 3. PRBS23 and PRBS31 are BFM extensions: DS1001 lists PRBS7 and PRBS15. `PLL_CFG5` bit 0 reads the PLL lock.
+The SerDes in simulation is our open-source SerDes BFM, [`1.sim-model`](1.sim-model/README.md). It was developed here, in openCologne, then ported to [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE). It is a behavioural model of `CC_SERDES`, with the vendor model's module name (`ccfpga_serdes`), ports and parameters: a drop-in replacement. Checked against the vendor model (NDA): 0 divergences ([how](1.sim-model/README.md#verification)). Running it needs no NDA model. Verilator runs our RTL with the BFM in place of the hard macro: the eduBOS5 RTL executes the test firmware, so no co-simulation (VProc) is needed. Each test case passes or fails on its own.
 
 The BFM's `ALIGN_COMMA_WORD` is `CC_SERDES`'s `RX_ALIGN_COMMA_WORD`. A "byte lane" below is one byte of the datapath word: lanes 0 to 7 at 64 bits.
 
@@ -340,14 +337,13 @@ Set them on the `make` line, e.g. `make -C 7.SerDes/3.iclink-sv/2.sim sim_phy_on
 | `SEED` | none | PHY, top | The seed of the random RX word phase (below), passed as `+verilator+seed+N`. None: Verilator's fixed seed, the same run each time. `0`: a new random seed each run. Any other: that seed, repeatable |
 | `RANDOM_PHASE` | random | PHY, top | `0`: no random RX word phase, the comma always in byte lane 0 |
 | `LINE_RATE` | `2500` | PHY | Mb/s: `1250`, `2500` or `5000` |
-| `HARD` | on at 5000 only | PHY | `1`: the TX 8b/10b in `CC_SERDES`; `0`: in the fabric |
 | `WAVES` | `0` | PHY | `1`: write an FST waveform, for WaveCrux |
 | `SERWB_W` | `2` | SerWB | SerWB words per clock: `2` or `4` |
 | `MODES_TOL_NS` | `1.6` | `sim_modes` | How far a mode's latency may be from ACCURATE's |
 
 **Random RX word phase.** On the silicon the RX word counter starts wherever it starts. With `RX_ALIGN_COMMA_WORD` = 1X the comma then lands in byte lane 0 or 4, a coin toss at each link-up (DS1001 Figure 2.41). The BFM does the same, from the seed. So a lane-0 assumption fails in simulation, before it can fail on the board. Try a few seeds: `for s in 1 2 3 4; do make -C 7.SerDes/3.iclink-sv/2.sim sim_phy_oneway SEED=$s; done`. `RANDOM_PHASE=0` turns it off. `sim_modes` turns it off for its comma-lane sweep, and runs it random in 3 more runs.
 
-**BFM settings.** `CDR_MODEL` and the `BHV_*` settings are in the package (`ccfpga_serdes_pkg.sv`), one for every BFM, so the parameter list stays the vendor's. `CDR_MODEL` and `BHV_RX_WORD_PHASE_RANDOM` are defines (`+define+` in Verilator, `-D` in Icarus); edit the other `BHV_*` there.
+**BFM settings.** `CDR_MODEL` picks one of three levels of line and receiver model; the `BHV_*` settings tune the BFM. All of them, and every vendor parameter it models: [model README](1.sim-model/README.md#settings).
 
 Verilator is the reference simulator. The BFM also runs in Icarus Verilog, and `sim_icarus` keeps it so. Testbenches may use SystemVerilog that Icarus lacks, such as arrays of queues and queues of structs. Icarus can fly on, but shouldn't clip our wings.
 
@@ -367,7 +363,7 @@ Tests, all run by `make -C 7.SerDes/3.iclink-sv/2.sim` (needs Verilator and Icar
 | `sim_serwb_rx` | the SerWB depacketizer (2 words per clock) against LiteICLink's own `CRCDepacketizer`: the same 259 packets forwarded, 43 CRC errors and 98 drops counted, from a stream with flipped payload and CRC bits, 0-word and oversized packets, corrupted headers, lost preambles and garbage; words in random slots with gaps; then a timeout drop |
 | `sim_serwb_pump` | the FIFO pump, two sides on the digital bus (SerDes out of the loop), one clock for both pumps and both CPUs: 6000 words each way at once, in order; then B stops reading: XOFF, A stops, A's TX FIFO fills, B reads again, XON; no word lost, no overflow ([End2End Flow](#end2end-flow)); a pause longer than the depacketizer's timeout drops nothing; then a `tx_hold` burst of 1024 words at line rate |
 | `sim_serwb_w4` | the three SerWB tests at 4 words per clock (5 Gb/s), through the gearboxes |
-| `sim_top` | the board top's self-tests, SerDes link and FIFO pump: a clean run (PRBS7, then the pump's counter, every word in order), then a flipped line bit and a one-bit symbol error must each light the error |
+| `sim_top` | the board top's self-tests, SerDes link and FIFO pump: a clean run (PRBS7, then the pump's counter, every word in order), then a flipped line bit must light the error |
 | `sim_modes` | `tb_modes`, one BFM looped back, 38 runs, about 1 min. The three `CDR_MODEL`s against each other at 2.5 Gb/s, 9 cases: 16-bit (comma in byte lane 0, 1), 32-bit (0, 1, 3), 64-bit (0, 3, 5, 7); data bit-exact; latency within 4 UI of ACCURATE (NONE +0.5 UI, FAST +0.5 to 2.5 UI: it knows a bit only at the next line edge). Then, in each mode, PRBS7 and PRBS31 with forced errors; 5 ms at 3 Gb/s in NONE and FAST (no drift off the time grid); the random RX word phase with `ALIGN_COMMA_WORD` = 11, seeds 1 to 3. Every run also checks the decode table against `dec8b10b()` (all 1024 symbols), the comma defaults, register readback and buffer errors. `tb_modes` takes `+cfg1=HEX`, `+run_us=N`, `+prbs=SEL` |
 | `sim_icarus` | `tb_modes` in Icarus, each `CDR_MODEL`, data bit-exact, 15 runs, about 12 s: 16-bit (comma in byte lane 1), 32-bit (3), 32-bit with `ALIGN_COMMA_WORD` = 01 (even lane), 64-bit (0), and 64-bit with `ALIGN_COMMA_WORD` = 11 (lane 0 or 4). It keeps the BFM Icarus-clean: Verilator takes a name used before its declaration, even with `-Wall`; Icarus and the LRM don't |
 | `sim_phy_rates` | not in `all`: both PHY tests at 1250, 2500 and 5000 Mb/s |
@@ -382,40 +378,9 @@ Planned: **SerDes in the loop, or out.** The same SerWB tests run twice:
 
 The section will compare the results and run times of both, and show that the protocol layer sees the same words either way.
 
-### Speed
+### Speed, and the check against the vendor model
 
-Wall clock on one PC, best of 3. Two testbenches:
-- **PIPE 64**: the openCologne-PCIE PHY test (`tb_phy`, PIPE 64 bits), about 280 µs of simulated time. It runs any of the four models, so it compares them with the vendor's.
-- **`tb_modes`**: the BFM looped back, 64 bits. It compares Icarus with Verilator.
-
-| Model | Icarus, PIPE 64 | Icarus, `tb_modes` | Verilator, `tb_modes` |
-|---|---|---|---|
-| BFM, `NONE` | 4.5 s | 0.71 s | 0.016 s |
-| BFM, `FAST` | 8.9 s | 1.22 s | 0.058 s |
-| BFM, `ACCURATE` | 8.5 s | 1.19 s | 0.098 s |
-| Vendor model (NDA) | 86 s | - | - |
-
-In Icarus the vendor model is 9 to 18 times slower than the BFM per simulated µs (10 to 19 in wall clock). Verilator is 12 to 44 times faster than Icarus, and can't build the vendor model. In Icarus, `FAST` and `ACCURATE` cost about the same, since `FAST` still follows every line edge; in Verilator, `ACCURATE` costs 1.7 times `FAST`. `NONE` skips the serial line and is the fastest.
-
-### Checked against the vendor model
-
-Needs the NDA vendor model; not runnable from this repo.
-
-Logic equivalence checking doesn't fit: the vendor model is not synthesizable, so there is no netlist, and the two pipelines differ on purpose. They must agree as streams of words, not clock by clock. So both models run side by side, with the same configuration and the same symbol stream. Each one's received words go into its own queue, from a start marker on, and the queues are compared word by word: equivalence modulo latency.
-
-- **Self-loopback:** each model's TX feeds its own RX. Each datapath on its own.
-- **Cross-linked:** each model's TX feeds the other's RX. A model that talks only to itself undoes its own mistakes, such as a wrong bit order. Cross-linking makes each decode the other's serial format.
-
-Results (2026-10-24, 2.5 Gb/s, 400 words, the openCologne-PCIE `tb_phy` harness):
-
-| Check | NONE | FAST | ACCURATE |
-|---|---|---|---|
-| Self-loopback | 0 divergences, latency 736.0 ns on both | same | same |
-| Cross-linked | n/a | 0 divergences | 0 divergences |
-
-736.0 ns is this harness's latency; `sim_modes` reports 736.2 ns from its own. `NONE` sends no bits on the pins, so a vendor receiver can't decode it: the cross-linked check needs `FAST` or `ACCURATE`.
-
-Not covered: analog behaviour (signal integrity, jitter tolerance, equalisation), which belongs to board measurement; reset and power-state corners, checked by simulation only. The 8b/10b codec is proved: [formal_8b10b](3.iclink-sv/2.sim/serdes-model/formal_8b10b/README.md).
+Both are in the [model README](1.sim-model/README.md#verification): 0 divergences from the vendor model in every `CDR_MODEL` (cross-linked too, in `FAST` and `ACCURATE`), and 9 to 18 times faster than it in Icarus.
 
 ### Negative tests
 
@@ -424,7 +389,7 @@ Every test that passes on a clean link also has to fail on a broken one. The tes
 1. **Flip one bit** on the line for one UI (0.4 ns), in the middle of a word, through an XOR between TX and RX. In `NONE` the line is quiet, so the flip is a glitch on the pins, and the BFM inverts the bits it covers: the test runs in every `CDR_MODEL`.
 2. **Data:** the receiver must see it, as an invalid 8b/10b symbol or a wrong word, and `rx_bad` must count it. In `phy_twoway` only the side whose line was hit may count.
 3. **PRBS:** `rx_prbs_errors` must go up. With `pause` set, the same flip must not count.
-4. **Board top:** a flipped line bit and a one-bit symbol error must each light the error LED.
+4. **Board top:** a flipped line bit must light the error LED.
 
 **CRC (with `serwb_twoway`).** LiteICLink's Serial Wishbone can add a CRC32 to every packet (`with_crc=True`, both sides). The receiver drops a packet with a bad CRC and counts it in `crc_errors`. The test: eduBOS5 A writes a known value to B, a bit on the A->B line flips inside that packet, then A reads it back. Pass: the corrupted write is not applied, `crc_errors` on B is 1, and the next write and read go through. The same flip with the CRC off shows why it is needed: the access is corrupted silently whenever the flip still gives a valid 8b/10b symbol.
 
@@ -440,7 +405,7 @@ Bring-up: the bring-up FSM releases the SerDes resets, TX is ready, the comma al
 
 <p align="center"><img width="100%" alt="WaveCrux: phy_oneway bring-up" src="3.iclink-sv/2.sim/images/wavecrux-oneway-bringup.png"></p>
 
-Data: one 64-bit word per 32 ns clock (`tx_enc_d`), 80 bits on the 2.5 Gb/s line (`ser_txp`). The word ending in `bc` carries the K28.5 comma in lane 0.
+Data: one 64-bit word per 32 ns clock (`tx_enc_d` in this capture, from before 8b/10b moved into `CC_SERDES`), 80 bits on the 2.5 Gb/s line (`ser_txp`). The word ending in `bc` carries the K28.5 comma in lane 0.
 
 <p align="center"><img width="100%" alt="WaveCrux: phy_oneway data on the serial line" src="3.iclink-sv/2.sim/images/wavecrux-oneway-data.png"></p>
 
@@ -513,7 +478,7 @@ State as of 2026-10-24.
 - LiteX [IC Link](https://github.com/enjoy-digital/liteiclink)
 - [MesaBusProtocol](https://github.com/blackmesalabs/MesaBusProtocol)
 - T. Ibrahimović, N. Osmić, [eduBOS5: A Case Study in Structured SystemVerilog and PPA Optimization for Resource-Constrained RISC-V FPGA Cores](https://doi.org/10.1109/Austrochip67945.2025.11183711), Austrochip 2025, IEEE. The CPU in our SoC.
-- openCologne-PCIE [SerDes BFM](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/2.serdes-model) and [SerDes loopback tests](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/1.serdes-test.STANDALONE)
+- The [SerDes BFM](1.sim-model/README.md), shared with openCologne-PCIE; openCologne-PCIE [SerDes loopback tests](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/1.phy/1.serdes-test.STANDALONE)
 - [Transputer](http://www.bitsavers.org/components/inmos/transputer/C011_Link_Adaptor.pdf)
 - [LiteX 1000basex](https://github.com/pu-cc/liteeth/tree/gatemate1000basex)
 - [Sending Data Structures from chip to chip](https://www.reddit.com/r/FPGA/comments/1m8gl5o/how_to_send_a_struct_from_one_dev_board_to_another)

@@ -11,7 +11,7 @@ The proofs read `ccfpga_serdes_pkg.sv`, the package the SerDes BFM uses. They ch
 From the repo root:
 
 ```sh
-bash 7.SerDes/3.iclink-sv/2.sim/serdes-model/formal_8b10b/run-formal.sh
+bash 7.SerDes/1.sim-model/formal_8b10b/run-formal.sh
 ```
 
 Needs `yosys` with `read_slang` (tested with 0.69, openXC7) and `iverilog` (13.0). The build goes to `~/.cache/opencologne/formal_8b10b`.
@@ -31,4 +31,4 @@ Each SAT property is a combinational module with one output, `ok`. Yosys looks f
 
 Two properties are tied to something outside the model: `fv_comma_format` to the vendor's published comma values, `fv_run_length` to the defining rule of 8b/10b. A model that talks only to itself can't catch a consistent mistake. These two can.
 
-The rest of the BFM is checked in simulation: [Simulation](../../../../README.md#simulation) in the 7.SerDes README.
+The rest of the BFM is checked in simulation: [the model README](../README.md#verification).

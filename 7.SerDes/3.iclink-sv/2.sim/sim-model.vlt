@@ -1,0 +1,9 @@
+// SPDX-FileCopyrightText: 2026 Chili.CHIPS
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+// The SerDes BFM (7.SerDes/1.sim-model) is a behavioural model, not our
+// RTL; no lint on it
+`verilator_config
+lint_off -file "*1.sim-model/*"
+lint_off -rule ZERODLY -file "*1.sim-model/*"
