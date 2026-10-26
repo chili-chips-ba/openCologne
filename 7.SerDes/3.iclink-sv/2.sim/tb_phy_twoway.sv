@@ -16,8 +16,7 @@ module tb_phy_twoway
   import iclink_pkg::*;
   import iclink_phy_pkg::*;
 #(
-    parameter int LINE_RATE     = 2500,                // Mb/s: 1250, 2500 or 5000
-    parameter bit TX_HARD_8B10B = (LINE_RATE >= 5000)
+    parameter int LINE_RATE = 2500  // Mb/s: 1250, 2500 or 5000
 );
 
   localparam int DATA_WORDS = 2000;  // words checked per side in step 2
@@ -51,7 +50,6 @@ module tb_phy_twoway
 
   phy_side #(
       .LINE_RATE    (LINE_RATE),
-      .TX_HARD_8B10B(TX_HARD_8B10B),
       .SEED_TX      (SEED_A),
       .SEED_RX      (SEED_B)
   ) u_a (
@@ -69,7 +67,6 @@ module tb_phy_twoway
 
   phy_side #(
       .LINE_RATE    (LINE_RATE),
-      .TX_HARD_8B10B(TX_HARD_8B10B),
       .SEED_TX      (SEED_B),
       .SEED_RX      (SEED_A)
   ) u_b (
@@ -86,7 +83,7 @@ module tb_phy_twoway
   );
 
   task automatic flip_line(bit ab);
-    @(posedge u_a.clk_tx);
+    @(posedge u_a.clk_core);
     #3.1;  // somewhere inside a word
     if (ab) flip_ab = 1'b1;
     else flip_ba = 1'b1;
@@ -125,14 +122,14 @@ module tb_phy_twoway
     disable fork;
     $display("bring-up: A and B ready and aligned at %0t", $time);
     // the iclink_serdes_gm policy: comma alignment off once aligned
-    repeat (32) @(posedge u_a.clk_rx);
+    repeat (32) @(posedge u_a.clk_core);
     ctrl_a.rx_align = 1'b0;
     ctrl_b.rx_align = 1'b0;
-    repeat (8) @(posedge u_a.clk_rx);
+    repeat (8) @(posedge u_a.clk_core);
 
     // 2. data both ways, bit-exact
     send = 1'b1;
-    repeat (32) @(posedge u_a.clk_rx);
+    repeat (32) @(posedge u_a.clk_core);
     check = 1'b1;
     wait (u_a.rx_words >= DATA_WORDS && u_b.rx_words >= DATA_WORDS);
     if (!u_a.locked || !u_b.locked || u_a.rx_bad != 0 || u_b.rx_bad != 0) begin
@@ -147,7 +144,7 @@ module tb_phy_twoway
 
     // 3. a flip on A->B: B sees it, A does not
     flip_line(1'b1);
-    repeat (64) @(posedge u_b.clk_rx);
+    repeat (64) @(posedge u_b.clk_core);
     if (u_b.rx_bad == 0 || u_a.rx_bad != 0) begin
       errors++;
       $display("ERROR: flip A->B: B %0d wrong, A %0d wrong", u_b.rx_bad, u_a.rx_bad);
@@ -163,17 +160,17 @@ module tb_phy_twoway
     ctrl_b.rx_prbs = PRBS_15;
     ctrl_b.tx_prbs = PRBS_31;
     ctrl_a.rx_prbs = PRBS_31;
-    repeat (64) @(posedge u_a.clk_rx);  // the checkers lock
+    repeat (64) @(posedge u_a.clk_core);  // the checkers lock
     base_a = u_a.rx_prbs_errors;
     base_b = u_b.rx_prbs_errors;
-    repeat (PRBS_CLOCKS) @(posedge u_a.clk_rx);
+    repeat (PRBS_CLOCKS) @(posedge u_a.clk_core);
     if (u_a.rx_prbs_errors != base_a || u_b.rx_prbs_errors != base_b) begin
       errors++;
       $display("ERROR: PRBS: errors on clean lines: A %0d, B %0d", u_a.rx_prbs_errors - base_a,
                u_b.rx_prbs_errors - base_b);
     end
     flip_line(1'b0);  // B->A
-    repeat (32) @(posedge u_a.clk_rx);
+    repeat (32) @(posedge u_a.clk_core);
     if (u_a.rx_prbs_errors == base_a || u_b.rx_prbs_errors != base_b) begin
       errors++;
       $display("ERROR: PRBS: flip B->A: A %0d, B %0d", u_a.rx_prbs_errors - base_a,
@@ -204,10 +201,9 @@ module phy_side
   import iclink_pkg::*;
   import iclink_phy_pkg::*;
 #(
-    parameter int LINE_RATE     = 2500,
-    parameter bit TX_HARD_8B10B = 1'b0,
-    parameter int SEED_TX       = 0,     // our stream
-    parameter int SEED_RX       = 0      // the peer's stream
+    parameter int LINE_RATE = 2500,
+    parameter int SEED_TX   = 0,     // our stream
+    parameter int SEED_RX   = 0      // the peer's stream
 ) (
     input  logic      clk_ref,
     input  logic      clk_reg,
@@ -220,7 +216,7 @@ module phy_side
     input  logic      send,
     input  logic      check
 );
-  logic clk_tx, clk_rx, tx_ready, rx_ready, rx_aligned;
+  logic clk_core, tx_ready, rx_ready, rx_aligned;
   phy_word_t tx, rx;
   logic [PHY_NWORDS-1:0] rx_invalid;
   logic [31:0] rx_prbs_errors;
@@ -229,8 +225,7 @@ module phy_side
   logic locked = 1'b0;
 
   iclink_serdes_gm #(
-      .LINE_RATE    (LINE_RATE),
-      .TX_HARD_8B10B(TX_HARD_8B10B)
+      .LINE_RATE(LINE_RATE)
   ) dut (
       .clk_ref       (clk_ref),
       .ser_rxp       (ser_rxp),
@@ -240,10 +235,9 @@ module phy_side
       .clk_reg       (clk_reg),
       .arst_n        (arst_n),
       .ctrl          (ctrl),
-      .clk_tx        (clk_tx),
+      .clk_core      (clk_core),
       .tx_ready      (tx_ready),
       .tx            (tx),
-      .clk_rx        (clk_rx),
       .rx_ready      (rx_ready),
       .rx_aligned    (rx_aligned),
       .rx            (rx),
@@ -273,14 +267,14 @@ module phy_side
   endfunction
 
   initial forever begin : _tx
-    @(posedge clk_tx);
+    @(posedge clk_core);
     tx_cnt <= tx_cnt + 1;
     tx     <= send ? word_of(tx_cnt, SEED_TX) : PHY_COMMA_WORD;
   end : _tx
 
   initial forever begin : _rx
     int n;
-    @(posedge clk_rx);
+    @(posedge clk_core);
     if (!check) begin
       locked <= 1'b0;
     end

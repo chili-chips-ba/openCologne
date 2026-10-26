@@ -9,10 +9,11 @@
 // interface on CC_SERDES: a data stream of 8 bytes + 8 K flags per clock
 // each way, PRBS7/15/31 instead of the data, ready flags, comma alignment.
 //
-//   TX: data -> PRBS TX -> 8b/10b encoder (fabric, iclink_8b10b_enc, as
-//       LiteICLink) -> CC_SERDES with its 8b/10b off: per symbol, bits 7:0
-//       on TX_DATA_I, bit 8 on TX_CHAR_DISPVAL_I, bit 9 on TX_CHAR_DISPMODE_I
-//       (DS1001 Figure 2.34).
+//   TX: data -> PRBS TX -> CC_SERDES, which encodes 8b/10b: bytes on
+//       TX_DATA_I, K flags on TX_CHAR_IS_K_I, running disparity its own
+//       (TX_CHAR_DISPMODE_I = 0). LiteICLink encodes in the fabric; the line
+//       is the same 8b/10b either way, and no 8-word disparity chain is left
+//       in the fabric.
 //   RX: CC_SERDES comma alignment and 8b/10b decoder -> data + K + invalid
 //       -> lane aligner -> PRBS checker (fabric, iclink_prbs_rx). CC_SERDES
 //       aligns the comma to 32 bits only (RX_ALIGN_COMMA_WORD = 1X): it
@@ -23,9 +24,6 @@
 //       it (a flop: the compare does not reach the 64-bit mux at 62.5
 //       MHz). A change of lane repeats half a word (to lane 4) or drops
 //       half a word (to lane 0): only commas should be on the line then.
-//       The RX decodes in the hard macro: no fabric, and the comma
-//       alignment is there too (with its 8b/10b off, bits 8 and 9 come
-//       out on RX_CHAR_IS_K_O and RX_DISP_ERR_O, DS1001 Figure 2.39).
 //   PRBS: over the 64 payload bits, sent as D characters through 8b/10b,
 //       not raw on the line as in LiteICLink; the RX checks the decoded
 //       bytes. Send commas first (rx_align), then switch to PRBS.
@@ -42,19 +40,20 @@
 //         the controls (resets, comma align, regfile) come from flops too;
 //     RX: one flop stage (rx_ser) takes every RX datapath and status output
 //         first; TX_RESET_DONE_O goes into a synchronizer flop.
-//   Latency, TX data in to RX data out: 1 (tx_enc) + 2 (encoder) + 1 (tx_ser) + CC_SERDES
-//   + 1 (rx_ser) + 1 (rx, the lane aligner) clocks; with TX_HARD_8B10B the 2
-//   encoder clocks go. A lane-4 comma comes in half a word early and out a
-//   clock later: the same latency.
+//   Latency, TX data in to RX data out: 1 (tx_ser) + CC_SERDES + 1 (rx_ser)
+//   + 1 (rx, the lane aligner) clocks. A lane-4 comma comes in half a word
+//   early and out a clock later: the same latency.
 //
-//   LINE_RATE (Mb/s): 1250, 2500 or 5000, the PLL setting; the core clocks
-//   run at LINE_RATE / 80. TX_HARD_8B10B: CC_SERDES encodes TX instead of the
-//   fabric encoder, whose 8-word running-disparity chain closes ~33 MHz; on
-//   by default at 5 Gb/s (62.5 MHz).
+//   LINE_RATE (Mb/s): 1250, 2500 or 5000, the PLL setting; the core clock
+//   runs at LINE_RATE / 80.
 //
-//   Clocks: clk_tx = PLL_CLK_O (line rate / 80, 31.25 MHz at 2.5 Gb/s);
-//   clk_rx = RX_CLK_O. clk_reg (the board clock) runs the bring-up: three
-//   regfile writes (iclink_phy_pkg::cfg_seq()), then TX and RX out of reset.
+//   Clocks: one core clock, clk_core = PLL_CLK_O (line rate / 80, 31.25 MHz
+//   at 2.5 Gb/s), for TX and RX: RX_CLK_I takes it, and the CC_SERDES RX
+//   buffer moves RX from the recovered clock (RX_CLK_O, unused) onto it.
+//   Between two boards the buffer needs clock correction for the ppm
+//   (RX_CLKCOR_USE); one board, or one reference, needs none. clk_reg (the
+//   board clock) runs the bring-up: three regfile writes
+//   (iclink_phy_pkg::cfg_seq()), then TX and RX out of reset.
 //
 //   On the chip CC_SERDES connects to its own serial pins and reference
 //   clock. In simulation the SerDes BFM (ccfpga_serdes, same name and ports
@@ -66,8 +65,7 @@ module iclink_serdes_gm
   import iclink_pkg::*;
   import iclink_phy_pkg::*;
 #(
-    parameter int LINE_RATE     = 2500,
-    parameter bit TX_HARD_8B10B = (LINE_RATE >= 5000)
+    parameter int LINE_RATE = 2500
 ) (
 `ifndef SYNTHESIS
     input  logic clk_ref,  // SerDes reference, 100 MHz
@@ -81,16 +79,15 @@ module iclink_serdes_gm
     input logic      arst_n,   // reset, released on clk_reg
     input phy_ctrl_t ctrl,     // any clock
 
-    output logic      clk_tx,
-    output logic      tx_ready,  // on clk_tx: TX out of reset
-    input  phy_word_t tx,        // on clk_tx, taken every clock
+    output logic      clk_core,  // PLL_CLK_O: TX, RX and the logic on both
+    output logic      tx_ready,  // on clk_core: TX out of reset
+    input  phy_word_t tx,        // on clk_core, taken every clock
 
-    output logic                       clk_rx,
-    output logic                       rx_ready,       // on clk_rx: RX out of reset, CDR locked
-    output logic                       rx_aligned,     // on clk_rx: comma alignment acquired
-    output phy_word_t                  rx,             // on clk_rx, every clock
-    output logic      [PHY_NWORDS-1:0] rx_invalid,     // on clk_rx: not in table or disparity error
-    output logic      [          31:0] rx_prbs_errors  // on clk_rx: clocks with a PRBS error
+    output logic                       rx_ready,       // on clk_core: RX out of reset, CDR locked
+    output logic                       rx_aligned,     // on clk_core: comma alignment acquired
+    output phy_word_t                  rx,             // on clk_core, every clock
+    output logic      [PHY_NWORDS-1:0] rx_invalid,     // on clk_core: bad code or disparity
+    output logic      [          31:0] rx_prbs_errors  // on clk_core: clocks with a PRBS error
 );
 
   //-----------------------------------------------------------------------
@@ -185,26 +182,22 @@ module iclink_serdes_gm
   end
 
   //-----------------------------------------------------------------------
-  // TX on clk_tx: PRBS or data -> 8b/10b -> tx_ser flops -> CC_SERDES
+  // TX: PRBS or data -> tx_ser flops -> CC_SERDES, which encodes 8b/10b
   //-----------------------------------------------------------------------
   logic tx_ready_meta;
   prbs_cfg_t tx_prbs_meta, tx_prbs;  // ctrl.tx_prbs, synchronized, into PRBS TX
   prbs_cfg_t tx_prbs_on;  // PRBS TX's own choice, the same clock as its data: the K mask
   logic [PHY_DW-1:0] tx_payload;
-  logic [PHY_DW-1:0] tx_enc_d;  // tx_payload, registered: the PRBS mux and the
-  logic [PHY_NWORDS-1:0] tx_enc_k;  // encoder tables in one clock miss 31.25 MHz
   logic tx_resetdone;  // CC_SERDES output, read only by the sync below
 
   // tx_ser: the TX datapath into CC_SERDES, straight from these flops
   typedef struct packed {
     byte_t [PHY_NWORDS-1:0] d;
-    logic [PHY_NWORDS-1:0]  k;         // TX_HARD_8B10B: K flags
-    logic [PHY_NWORDS-1:0]  dispmode;  // else symbol bit 9 (DS1001 Figure 2.34)
-    logic [PHY_NWORDS-1:0]  dispval;   // else symbol bit 8
+    logic [PHY_NWORDS-1:0]  k;
   } tx_ser_t;
   tx_ser_t tx_ser;
 
-  always_ff @(posedge clk_tx or negedge arst_n) begin
+  always_ff @(posedge clk_core or negedge arst_n) begin
     if (!arst_n) begin
       tx_ready_meta <= 1'b0;
       tx_ready      <= 1'b0;
@@ -222,7 +215,7 @@ module iclink_serdes_gm
   iclink_prbs_tx #(
       .WIDTH(PHY_DW)
   ) u_prbs_tx (
-      .clk     (clk_tx),
+      .clk     (clk_core),
       .arst_n  (tx_ready),
       .config_i(tx_prbs),
       .i       (tx.d),
@@ -230,61 +223,19 @@ module iclink_serdes_gm
       .config_o(tx_prbs_on)
   );
 
-  always_ff @(posedge clk_tx or negedge tx_ready) begin
-    if (!tx_ready) begin
-      tx_enc_d <= '0;
-      tx_enc_k <= '0;
+  // CC_SERDES encodes: bytes and K flags go straight to it
+  always_ff @(posedge clk_core or negedge arst_n) begin
+    if (!arst_n) begin
+      tx_ser <= '0;
     end
     else begin
-      tx_enc_d <= tx_payload;
-      tx_enc_k <= (tx_prbs_on == PRBS_OFF) ? tx.k : '0;  // PRBS bytes are D characters
+      tx_ser.d <= tx_payload;
+      tx_ser.k <= (tx_prbs_on == PRBS_OFF) ? tx.k : '0;  // PRBS bytes are D characters
     end
   end
 
-  if (TX_HARD_8B10B) begin : g_tx_hard
-    // CC_SERDES encodes: bytes and K flags go straight to it
-    always_ff @(posedge clk_tx or negedge arst_n) begin
-      if (!arst_n) begin
-        tx_ser <= '0;
-      end
-      else begin
-        tx_ser.d <= tx_enc_d;
-        tx_ser.k <= tx_enc_k;
-      end
-    end
-  end : g_tx_hard
-  else begin : g_tx_soft
-    symbol_t [PHY_NWORDS-1:0] tx_symbol;
-    logic    [PHY_NWORDS-1:0] NC_tx_disparity;  // running disparity: not needed
-
-    iclink_8b10b_enc #(
-        .NWORDS(PHY_NWORDS)
-    ) u_enc (
-        .clk      (clk_tx),
-        .arst_n   (tx_ready),
-        .ce       (1'b1),
-        .d        (tx_enc_d),
-        .k        (tx_enc_k),
-        .symbol   (tx_symbol),
-        .disparity(NC_tx_disparity)
-    );
-
-    always_ff @(posedge clk_tx or negedge arst_n) begin
-      if (!arst_n) begin
-        tx_ser <= '0;
-      end
-      else begin
-        for (int w = 0; w < PHY_NWORDS; w++) begin
-          tx_ser.d[w]        <= tx_symbol[w][7:0];
-          tx_ser.dispmode[w] <= tx_symbol[w][9];
-          tx_ser.dispval[w]  <= tx_symbol[w][8];
-        end
-      end
-    end
-  end : g_tx_soft
-
   //-----------------------------------------------------------------------
-  // RX on clk_rx: CC_SERDES -> rx_ser flops -> data, K, invalid; PRBS check
+  // RX: CC_SERDES -> rx_ser flops -> data, K, invalid; PRBS check
   //-----------------------------------------------------------------------
   // the RX datapath out of CC_SERDES, read only by the rx_ser flops
   typedef struct packed {
@@ -303,7 +254,7 @@ module iclink_serdes_gm
   logic rx_pause_meta, rx_pause;
   logic rx_align_meta, rx_align;  // into CC_SERDES, from a flop
 
-  always_ff @(posedge clk_rx or negedge arst_n) begin
+  always_ff @(posedge clk_core or negedge arst_n) begin
     if (!arst_n) begin
       rx_ser        <= '0;
       rx_ready_meta <= 1'b0;
@@ -345,7 +296,7 @@ module iclink_serdes_gm
     comma_at4 = rx_ser.k[HALF] && (rx_ser.d[HALF] == PHY_COMMA);
   end
 
-  always_ff @(posedge clk_rx or negedge rx_ready) begin
+  always_ff @(posedge clk_core or negedge rx_ready) begin
     if (!rx_ready) begin
       rx         <= '0;
       rx_invalid <= '0;
@@ -378,7 +329,7 @@ module iclink_serdes_gm
       .WIDTH    (PHY_DW),
       .PIPE_IDLE(1'b1)     // the 64-bit idle compare, a clock of its own
   ) u_prbs_rx (
-      .clk     (clk_rx),
+      .clk     (clk_core),
       .arst_n  (rx_ready),
       .config_i(ctrl.rx_prbs),
       .pause   (rx_pause),
@@ -397,7 +348,7 @@ module iclink_serdes_gm
       .RX_ALIGN_COMMA_WORD(2'b11)  // the comma in lane 0 or 4: the lane aligner
   ) u_serdes (
       .PLL_RESET_I           (pll_reset),
-      .PLL_CLK_O             (clk_tx),
+      .PLL_CLK_O             (clk_core),
       .REGFILE_CLK_I         (clk_reg),
       .REGFILE_WE_I          (reg_en),
       .REGFILE_EN_I          (reg_en),
@@ -411,12 +362,12 @@ module iclink_serdes_gm
       .TX_RESET_I            (serdes_reset),
       .TX_PCS_RESET_I        (1'b0),
       .TX_PMA_RESET_I        (1'b0),
-      .TX_CLK_I              (clk_tx),
+      .TX_CLK_I              (clk_core),
       .TX_DATA_I             (tx_ser.d),
-      .TX_CHAR_IS_K_I        (tx_ser.k),            // 0 unless TX_HARD_8B10B
-      .TX_CHAR_DISPMODE_I    (tx_ser.dispmode),
-      .TX_CHAR_DISPVAL_I     (tx_ser.dispval),
-      .TX_8B10B_EN_I         (TX_HARD_8B10B),
+      .TX_CHAR_IS_K_I        (tx_ser.k),
+      .TX_CHAR_DISPMODE_I    ('0),                  // CC_SERDES keeps the running disparity
+      .TX_CHAR_DISPVAL_I     ('0),
+      .TX_8B10B_EN_I         (1'b1),
       .TX_8B10B_BYPASS_I     ('0),
       .TX_PRBS_SEL_I         (3'b000),              // PRBS is in the fabric
       .TX_PRBS_FORCE_ERR_I   (1'b0),
@@ -435,8 +386,8 @@ module iclink_serdes_gm
       .RX_CDR_RESET_I        (1'b0),
       .RX_PCS_RESET_I        (1'b0),
       .RX_BUF_RESET_I        (1'b0),
-      .RX_CLK_I              (clk_rx),
-      .RX_CLK_O              (clk_rx),
+      .RX_CLK_I              (clk_core),
+      .RX_CLK_O              (  /*LINT:OK*/),       // the RX buffer hands RX over to clk_core
       .RX_POWER_DOWN_N_I     (1'b1),
       .RX_POLARITY_I         (1'b0),
       .RX_8B10B_EN_I         (1'b1),
@@ -468,6 +419,7 @@ module iclink_serdes_gm
   logic        reset_core_pll_n;
 
   // the BFM's outputs that are not needed
+  logic        NC_clk_core_rx_o;  // the recovered clock: the RX buffer crosses it
   logic [ 6:0] NC_scan_out_o;
   logic        NC_refclk_sel_o;
   logic        NC_refclk_rterm_o;
@@ -488,9 +440,9 @@ module iclink_serdes_gm
       .clk_ref_i           (clk_ref),
       .clk_reg_i           (clk_reg),
       .clk_cfg_i           (clk_reg),
-      .clk_core_tx_i       (clk_tx),
-      .clk_core_rx_i       (clk_rx),
-      .clk_core_rx_o       (clk_rx),
+      .clk_core_tx_i       (clk_core),
+      .clk_core_rx_i       (clk_core),
+      .clk_core_rx_o       (NC_clk_core_rx_o),
       .reset_n_i           (arst_n),
       .reset_reg_n_i       (arst_n),
       .reset_core_tx_n_i   (reset_core_pll_n),
@@ -501,7 +453,7 @@ module iclink_serdes_gm
       .scan_out_o          (NC_scan_out_o),
       .loopback_i          (3'b000),
       .pll_reset_i         (pll_reset),
-      .clk_core_pll_o      (clk_tx),
+      .clk_core_pll_o      (clk_core),
       .reset_core_pll_n_o  (reset_core_pll_n),
       .refclk_sel_o        (NC_refclk_sel_o),
       .refclk_rterm_o      (NC_refclk_rterm_o),
@@ -532,10 +484,10 @@ module iclink_serdes_gm
       .tx_data_i           (tx_ser.d),
       .tx_char_is_k_i      (tx_ser.k),
       .tx_polarity_i       (1'b0),
-      .tx_8b10b_en_i       (TX_HARD_8B10B),
+      .tx_8b10b_en_i       (1'b1),
       .tx_8b10b_bypass_i   ('0),
-      .tx_char_dispmode_i  (tx_ser.dispmode),
-      .tx_char_dispval_i   (tx_ser.dispval),
+      .tx_char_dispmode_i  ('0),
+      .tx_char_dispval_i   ('0),
       .tx_buf_err_o        (NC_tx_buf_err_o),
       .tx_resetdone_o      (tx_resetdone),
       .rx_detect_done_o    (NC_rx_detect_done_o),

@@ -27,3 +27,8 @@ slang ^1\.hw/iclink_serwb_(fifo|rx)\.sv:[0-9]+:[0-9]+: warning: useless cast
 
 # NC_ signals are no-connects by name: driven by an unused output, never read
 verilator ^%Warning-UNUSEDSIGNAL: .*'NC_[A-Za-z0-9_]+'
+
+# a unique case lists only the legal values of its selector (CRC term counts
+# 0 .. 4, the three line rates): any other value is a unique violation by
+# design, and our rules forbid a default in a unique case (2.sim/rtl.vlt)
+verilator ^%Warning-CASEINCOMPLETE: 1\.hw/iclink_(serwb|phy)_pkg\.sv:

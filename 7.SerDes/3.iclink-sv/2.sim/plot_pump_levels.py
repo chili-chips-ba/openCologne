@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 
 DEPTH, XOFF, XON = 1024, 832, 512  # W = 2: XOFF = DEPTH - 96*W
 CLK_NS = 32.0
+LINE_LAT = 27  # line clocks each way, tb_serwb_pump
 
 SURFACE, INK, INK2, MUTED, GRID, AXIS = "#fcfcfb", "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#c3c2b7"
 B_RX, A_TX = "#2a78d6", "#eb6834"  # categorical slots 1 and 2
@@ -39,11 +40,11 @@ def main():
 
     i_xoff  = first(lambda i: bp[i] == 1)
     i_stop  = first(lambda i: ap[i] == 1)
-    i_peak  = max(range(len(rows)), key=lambda i: b_rx[i])
     i_full  = first(lambda i: a_tx[i] >= DEPTH)
-    i_read  = first(lambda i: b_rx[i] < b_rx[i_peak] - 4, i_peak)
     i_xon   = first(lambda i: bp[i] == 0, i_xoff)
     i_go    = first(lambda i: ap[i] == 0, i_stop)
+    i_peak  = max(range(i_xoff, i_go), key=lambda i: b_rx[i])  # while A is held off
+    i_read  = first(lambda i: b_rx[i] < b_rx[i_peak] - 4, i_peak)
 
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 10})
     fig, ax = plt.subplots(figsize=(10, 4.6), dpi=150)
@@ -87,7 +88,7 @@ def main():
     for s in ("left", "bottom"):
         ax.spines[s].set_color(AXIS)
     ax.tick_params(colors=MUTED)
-    ax.set_title("FIFO pump flow control, measured (tb_serwb_pump, 2.5 Gb/s, line 12 clocks)",
+    ax.set_title(f"FIFO pump flow control, measured (tb_serwb_pump, 2.5 Gb/s, line {LINE_LAT} clocks)",
                  color=INK, loc="left", fontsize=11)
     leg = ax.legend(loc="upper left", bbox_to_anchor=(0.0, -0.13), ncol=2, frameon=False)
     for txt in leg.get_texts():

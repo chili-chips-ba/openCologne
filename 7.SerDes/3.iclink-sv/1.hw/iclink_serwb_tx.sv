@@ -100,7 +100,7 @@ module iclink_serwb_tx
     state_next = state;
     left_next  = left;
 
-    case (state)  // default: an unused state code goes back to S_IDLE
+    unique case (state)
       S_IDLE: begin
         if (hdr_valid) begin
           f_next.word[0]    = SERWB_PREAMBLE;
@@ -160,10 +160,6 @@ module iclink_serwb_tx
         f_next.valid[0]   = 1'b1;
         f_next.crcslot[0] = 1'b1;
         state_next        = S_IDLE;
-      end
-
-      default: begin
-        state_next = S_IDLE;
       end
     endcase
   end

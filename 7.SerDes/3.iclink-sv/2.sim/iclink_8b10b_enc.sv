@@ -7,7 +7,8 @@
 //==========================================================================
 // IBM 8b/10b encoder, NWORDS symbols per clock: a SystemVerilog port of
 // LiteX's litex/soc/cores/code_8b10b.py, Encoder (same tables, same
-// pipeline, same output), so it talks to LiteICLink unchanged.
+// pipeline, same output), so it talks to LiteICLink unchanged. Simulation
+// only: on the chip CC_SERDES encodes (iclink_8b10b_pkg).
 //
 // Latency 2 clocks (with ce). Stage 1 registers the 5b/6b and 3b/4b table
 // lookups; stage 2 applies the running disparity, which chains through the
@@ -15,6 +16,7 @@
 //==========================================================================
 module iclink_8b10b_enc
   import iclink_pkg::*;
+  import iclink_8b10b_pkg::*;
 #(
     parameter int NWORDS    = 2,
     parameter bit LSB_FIRST = 1'b1  // bit 0 of each symbol goes on the line first

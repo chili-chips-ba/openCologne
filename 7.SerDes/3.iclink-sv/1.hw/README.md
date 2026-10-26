@@ -57,16 +57,16 @@ Upstream: LiteX `d2b47282a`, LiteICLink `8ef8d79` (2026-10-21), snapshot in [`..
 | Core clock at 2.5 Gb/s | 125 or 62.5 MHz | 31.25 MHz |
 | TX order | 8b/10b encoder, then PRBS mux | PRBS mux, then 8b/10b encoder |
 | PRBS on the line | raw bits | 8b/10b D characters |
-| 8b/10b TX | fabric (LiteX `Encoder`) | fabric (`iclink_8b10b_enc`, bit-exact port), or `CC_SERDES` (`TX_HARD_8B10B`, default at 5 Gb/s) |
+| 8b/10b TX | fabric (LiteX `Encoder`) | inside `CC_SERDES` |
 | 8b/10b RX | fabric (LiteX `Decoder`) + word aligner | inside `CC_SERDES`, with comma alignment |
-| Encoder pipeline | 2 clocks | 1 input register + 2 clocks |
+| Encoder pipeline | 2 clocks | none in the fabric |
 | Flops at the SerDes | as the PHY needs | one stage on every datapath and control port |
 
 Why the differences:
 
-- **RX in the hard macro.** RX decoding and comma alignment stay in `CC_SERDES`: they cost no fabric. A fabric decoder is possible: with the decoder off, bits 8 and 9 of each symbol come out on `RX_CHAR_IS_K_O` and `RX_DISP_ERR_O` (DS1001 Figure 2.39).
+- **8b/10b in the hard macro, both ways.** `CC_SERDES` encodes TX and decodes RX, with the comma alignment: no fabric, no fabric pipeline. The line is the same standard 8b/10b, so a LiteICLink peer that encodes in its fabric (ECP5, setup 3) sees no difference. LiteICLink encodes in the fabric because its ECP5 and Xilinx PHYs do. Our fabric port of LiteX's encoder and decoder (`2.sim/iclink_8b10b_enc.sv`, `_dec.sv`, bit-exact) stays in simulation only, as the reference.
+- **Why not in the fabric.** The `CC_SERDES` fabric interface is 64 bits + 8 K flags at line rate / 80. A fabric encoder's running disparity runs through all 8 words in one clock, 2 to 4 times LiteICLink's chain. That chain was the critical path at 31.25 MHz (36.6 to 39.1 MHz with the PHY alone, 29.3 in the LiteX SoC), and out of reach at 62.5 MHz.
 - **PRBS through 8b/10b.** With the decoder in `CC_SERDES`, a raw PRBS would reach the fabric only as decoded bytes, so the PRBS travels as D characters and is checked after the decoder.
-- **8 words per clock.** The `CC_SERDES` fabric interface is 64 bits + 8 K flags at line rate / 80. The encoder's running disparity runs through all 8 words in one clock, 2 to 4 times LiteICLink's chain. That chain is the TX critical path at 31.25 MHz; registering the encoder input took the PRBS mux out of it.
 
 ## Clocks and line rate
 
@@ -78,7 +78,7 @@ Why the differences:
 | 32 / 40-bit | 40 | 62.5 MHz |
 | **64 / 80-bit (this core)** | 80 | **31.25 MHz** |
 
-Our TX path closes at about 37 MHz (36.6 to 39.1 over 4 seeds; the 8-word encoder chain); 62.5 or 125 MHz with fabric 8b/10b is out of reach on GateMate. Wide and slow is what fits.
+With 8b/10b in `CC_SERDES`, the board top with the PHY and the FIFO pump closes at 38.9 to 41.4 MHz (4 seeds); the fabric encoder's 8-word chain held it at 32.4 to 35.3. 62.5 or 125 MHz with fabric 8b/10b is out of reach on GateMate. Wide and slow is what fits.
 
 **PLL setting.** The bring-up writes regfile `0x51` = `0x16FA` (`iclink_phy_pkg.sv`, `CFG_SEQ`):
 
@@ -100,7 +100,7 @@ From the 100 MHz reference: oscillator 100 x N1·N2·N3 = 2500 MHz (its range is
 | 5 Gb/s | 1 (`00`) | 2.5 GHz | 62.5 MHz | `0x06FA` |
 
 - **1.25 Gb/s:** the register value only; timing gets easier. Or the 32-bit path (M4 = 1) at 31.25 MHz with 4 words per clock (`PHY_NWORDS` = 4), which would need a lane-aligner change: it supports 8 words only.
-- **5 Gb/s:** 62.5 MHz is too fast for the fabric encoder. The way is `CC_SERDES`'s own TX 8b/10b (`TX_8B10B_EN_I`), leaving only flops and the PRBS mux (a constant XOR matrix) in the fabric. It meets timing (`make -C 7.SerDes/3.iclink-sv/3.build LINE_RATE=5000`, 4 seeds): `clk_tx` 100.6 to 141.4 MHz, `clk_rx` 66.2 to 71.9 MHz. Still to do: the SI settings below and a board check (5 Gb/s is the chip's maximum).
+- **5 Gb/s:** `CC_SERDES` encodes and decodes 8b/10b, leaving only flops, the lane aligner and the PRBS mux (a constant XOR matrix) in the fabric. It meets timing (`make -C 7.SerDes/3.iclink-sv/3.build LINE_RATE=5000`): `clk_core` 69.3 MHz against 62.5 (seed 1, PHY only: the FIFO pump at 5 Gb/s needs half `clk_core` for W = 4, not in the top yet). Still to do: the SI settings below and a board check (5 Gb/s is the chip's maximum).
 - All three run in simulation (`sim_phy_rates`), and are the FIFO pump's performance levels (parameter `LINE_RATE`, [spec](../../README.md#fifo-pump)); 2.5 Gb/s is the default. Per-rate CDR settings: not given in DS1001.
 
 ## Signal-integrity settings

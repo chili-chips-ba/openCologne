@@ -60,17 +60,19 @@ package iclink_phy_pkg;
   // M3 = 1, 2 or 4, so 5, 2.5 or 1.25 Gb/s, with the core clock at 62.5,
   // 31.25 or 15.625 MHz
   function automatic logic [15:0] pll_cfg1(input int line_rate);
-    case (line_rate)
+    logic [15:0] cfg;
+    unique case (line_rate)  // iclink_serdes_gm checks LINE_RATE
       1250: begin
-        return 16'h36FA;
+        cfg = 16'h36FA;
+      end
+      2500: begin
+        cfg = 16'h16FA;
       end
       5000: begin
-        return 16'h06FA;
-      end
-      default: begin
-        return 16'h16FA;  // 2500
+        cfg = 16'h06FA;
       end
     endcase
+    return cfg;
   endfunction
 
   function automatic cfg_seq_t cfg_seq(input int line_rate);

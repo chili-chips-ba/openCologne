@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 #
 # Lint of the RTL of top (1.hw/top.filelist, via sources.sh), and of the
-# SerWB link layer, not in top yet (1.hw/serwb.filelist; tops
+# SerWB link layer, also on its own (1.hw/serwb.filelist; tops
 # iclink_serwb_pump and iclink_gearbox): syntax and limited semantic checks
 # with a set of opensource tools, run in this order:
 #

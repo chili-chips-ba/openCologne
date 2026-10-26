@@ -1,0 +1,13 @@
+// SPDX-FileCopyrightText: 2026 Chili.CHIPS
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+// Waivers for our RTL in the unit tests, the same as in
+// 3.build/run-lint-waivers.txt.
+//
+// A unique case lists only the legal values of its selector (CRC term
+// counts 0 .. 4, the three line rates); any other value is a unique
+// violation by design, and our rules forbid a default in a unique case.
+`verilator_config
+lint_off -rule CASEINCOMPLETE -file "*1.hw/iclink_serwb_pkg.sv"
+lint_off -rule CASEINCOMPLETE -file "*1.hw/iclink_phy_pkg.sv"

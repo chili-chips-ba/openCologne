@@ -8,23 +8,26 @@
 // Description: Board top for test setup 1: one GateMate EVB (Olimex
 // GateMateA1-EVB), its SerDes TX cabled to its own RX.
 //
-// WORK IN PROGRESS: SerWB and the eduBOS5 SoC come next; the EVB clock,
-// reset and LED stay.
+// WORK IN PROGRESS: Etherbone and the eduBOS5 SoC come next; the EVB
+// clock, reset and LED stay.
 //
 // What it does now:
 //   - reset synchronizer: the active-low button resets asynchronously and
 //     releases synchronously to the clock;
-//   - 8b/10b self-test: the IC Link encoder and decoder, back to back in the
-//     fabric (no SerDes yet). A counter with a K28.5 comma goes in, and what
-//     comes out is compared with it;
 //   - PRBS self-test: PRBS7 TX into the PRBS checker, 20 bits per clock; its
 //     error count must not move once the checker has locked;
 //   - SerDes link test: the GateMate SerDes PHY (iclink_serdes_gm) sends
 //     commas, then PRBS7, out of its TX and back into its RX; once the
 //     checker has locked, its error count must not move, and no K
 //     character or invalid symbol may arrive;
+//   - FIFO pump test: after 2^PRBS_RUN_LOG2 clean PRBS clocks, the FIFO
+//     pump (iclink_serwb_pump, SerWB port 2) takes the line. A counter goes
+//     into its TX FIFO, and every word out of its RX FIFO must be the next
+//     count; no CRC error, drop, overflow or invalid symbol;
 //   - LED: blinks (heartbeat) while the link is up and every test passes,
 //     stays low after the first error, until reset.
+//
+// The PHY, the link tests and the pump all run on one clock, clk_core.
 //
 // In simulation the SerDes BFM takes the place of CC_SERDES: its reference
 // clock and serial pins are ports of top (tb_top loops them back).
@@ -53,6 +56,7 @@ module top
 );
   import iclink_pkg::*;
   import iclink_phy_pkg::*;
+  import iclink_serwb_pkg::*;
 
   //-----------------------------------------------------------------------
   // Reset synchronizer: asynchronous assert, synchronous release
@@ -82,74 +86,6 @@ module top
     end
     else begin
       heartbeat <= heartbeat + 1'b1;
-    end
-  end
-
-  //-----------------------------------------------------------------------
-  // 8b/10b self-test: encoder -> decoder, compared with what went in
-  //-----------------------------------------------------------------------
-  logic    [           7:0]               st_cnt;  // the character counter
-  byte_t   [  ST_WORDS-1:0]               tx_d;
-  logic    [  ST_WORDS-1:0]               tx_k;
-  symbol_t [  ST_WORDS-1:0]               symbol;
-  logic    [  ST_WORDS-1:0]               NC_disparity;  // running disparity: not needed here
-  byte_t   [  ST_WORDS-1:0]               rx_d;
-  logic    [  ST_WORDS-1:0]               rx_k;
-  logic    [  ST_WORDS-1:0]               rx_invalid;
-
-  // what went in, ST_LATENCY clocks ago at [0]
-  byte_t   [ST_LATENCY-1:0][ST_WORDS-1:0] exp_d;
-  logic    [ST_LATENCY-1:0][ST_WORDS-1:0] exp_k;
-  logic    [ST_LATENCY-1:0]               exp_vld;
-  logic                                   st_error;
-
-  always_comb begin
-    tx_k[0] = st_cnt[COMMA_LOG2-1:0] == '0;
-    tx_d[0] = tx_k[0] ? PHY_COMMA : st_cnt;
-    tx_k[1] = 1'b0;
-    tx_d[1] = ~st_cnt;
-  end
-
-  iclink_8b10b_enc #(
-      .NWORDS(ST_WORDS)
-  ) u_enc (
-      .clk      (clk),
-      .arst_n   (rst_n),
-      .ce       (1'b1),
-      .d        (tx_d),
-      .k        (tx_k),
-      .symbol   (symbol),
-      .disparity(NC_disparity)
-  );
-
-  for (genvar w = 0; w < ST_WORDS; w++) begin : g_dec
-    iclink_8b10b_dec u_dec (
-        .clk    (clk),
-        .arst_n (rst_n),
-        .ce     (1'b1),
-        .symbol (symbol[w]),
-        .d      (rx_d[w]),
-        .k      (rx_k[w]),
-        .invalid(rx_invalid[w])
-    );
-  end : g_dec
-
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      st_cnt   <= '0;
-      exp_d    <= '0;
-      exp_k    <= '0;
-      exp_vld  <= '0;
-      st_error <= 1'b0;
-    end
-    else begin
-      st_cnt  <= st_cnt + 1'b1;
-      exp_d   <= {tx_d, exp_d[ST_LATENCY-1:1]};
-      exp_k   <= {tx_k, exp_k[ST_LATENCY-1:1]};
-      exp_vld <= {1'b1, exp_vld[ST_LATENCY-1:1]};
-      if (exp_vld[0] && (rx_d != exp_d[0] || rx_k != exp_k[0] || rx_invalid != '0)) begin
-        st_error <= 1'b1;
-      end
     end
   end
 
@@ -201,22 +137,32 @@ module top
   end
 
   //-----------------------------------------------------------------------
-  // SerDes link test: commas, then PRBS7, TX -> cable -> RX
+  // SerDes link test: commas, then PRBS7, then the FIFO pump, TX -> cable
+  // -> RX, all on clk_core
   //-----------------------------------------------------------------------
-  logic clk_tx, clk_rx, tx_ready, rx_ready, rx_aligned;
+  logic clk_core, tx_ready, rx_ready, rx_aligned;
   phy_ctrl_t link_ctrl;
   phy_word_t link_tx, link_rx;
   logic [    PHY_NWORDS-1:0] link_rx_invalid;
   logic [              31:0] link_errors;
   logic [              31:0] link_base;  // the count at the end of warm-up
-  logic [  LINK_IDLE_LOG2:0] link_idle;  // on clk_tx; top bit set: commas sent, PRBS on
-  logic [LINK_WARMUP_LOG2:0] link_warm;  // on clk_rx; top bit set: link up
-  logic                      link_error;  // on clk_rx
-  logic link_d_k, link_d_bad, link_d_moved;  // on clk_rx: this word's checks, a clock late
-  logic       link_kx;  // on clk_rx: a K or invalid symbol, a clock late
-  logic [1:0] link_z;  // on clk_rx: each half of the word all zero, a clock late
+  logic [  LINK_IDLE_LOG2:0] link_idle;  // on clk_core; top bit set: commas sent, PRBS on
+  logic [LINK_WARMUP_LOG2:0] link_warm;  // on clk_core; top bit set: link up
+  logic                      link_error;  // on clk_core
+  logic link_d_k, link_d_bad, link_d_moved;  // on clk_core: this word's checks, a clock late
+  logic       link_kx;  // on clk_core: a K or invalid symbol, a clock late
+  logic [1:0] link_z;  // on clk_core: each half of the word all zero, a clock late
   logic [1:0] link_up_sync, link_error_sync;  // to clk
-  logic [ALIGN_COMMAS_LOG2:0] align_cnt;  // on clk_rx; top bit set: alignment done, off
+  logic      [ALIGN_COMMAS_LOG2:0] align_cnt;  // on clk_core; top bit set: alignment done, off
+  logic      [    PRBS_RUN_LOG2:0] prbs_run;  // top bit set: PRBS7 over, the pump has the line
+  phy_word_t                       pump_tx;
+  logic pump_up, pump_error;  // on clk_core
+  logic [1:0] pump_up_sync;  // to clk
+
+  // At 5 Gb/s the pump must run at W = 4 on half clk_core, behind gearboxes
+  // (README, FIFO pump); this top has no such clock yet, so its 5 Gb/s
+  // build keeps the PRBS7 test running instead
+  localparam bit WITH_PUMP = (LINE_RATE < 5000);
 
   iclink_serdes_gm #(
       .LINE_RATE(LINE_RATE)
@@ -231,10 +177,9 @@ module top
       .clk_reg       (clk),
       .arst_n        (rst_n),
       .ctrl          (link_ctrl),
-      .clk_tx        (clk_tx),
+      .clk_core      (clk_core),
       .tx_ready      (tx_ready),
       .tx            (link_tx),
-      .clk_rx        (clk_rx),
       .rx_ready      (rx_ready),
       .rx_aligned    (rx_aligned),
       .rx            (link_rx),
@@ -242,7 +187,7 @@ module top
       .rx_prbs_errors(link_errors)
   );
 
-  always_ff @(posedge clk_tx or negedge tx_ready) begin
+  always_ff @(posedge clk_core or negedge tx_ready) begin
     if (!tx_ready) begin
       link_idle <= '0;
     end
@@ -251,10 +196,11 @@ module top
     end
   end
 
+  // idle until LINK_IDLE_LOG2, then PRBS7 in its place, then the pump
   always_comb begin
-    link_tx = PHY_COMMA_WORD;  // idle; replaced by PRBS7 after LINK_IDLE_LOG2
+    link_tx = prbs_run[PRBS_RUN_LOG2] ? pump_tx : PHY_COMMA_WORD;
     link_ctrl = '{
-        tx_prbs: link_idle[LINK_IDLE_LOG2] ? PRBS_7 : PRBS_OFF,
+        tx_prbs: (link_idle[LINK_IDLE_LOG2] && !prbs_run[PRBS_RUN_LOG2]) ? PRBS_7 : PRBS_OFF,
         rx_prbs: PRBS_7,
         rx_prbs_pause: 1'b0,
         rx_align: !align_cnt[ALIGN_COMMAS_LOG2]  // off once aligned; on again after rx_ready
@@ -264,7 +210,7 @@ module top
   // comma alignment: on from rx_ready until 2^ALIGN_COMMAS_LOG2 comma words
   // have come in aligned, then off, so a line error cannot move the word
   // boundary; a lost link (rx_ready low) turns it on again
-  always_ff @(posedge clk_rx or negedge rx_ready) begin
+  always_ff @(posedge clk_core or negedge rx_ready) begin
     if (!rx_ready) begin
       align_cnt <= '0;
     end
@@ -277,8 +223,10 @@ module top
   // the checker locks on the first PRBS words (no K): then the count must
   // not move, and no K, invalid symbol or all-zero word (a dead link: PRBS7
   // never has more than 6 zeros in a row) may arrive. Each word's checks
-  // are flops first: the wide compares get a clock (the zero check two)
-  always_ff @(posedge clk_rx or negedge rx_ready) begin
+  // are flops first: the wide compares get a clock (the zero check two).
+  // After 2^PRBS_RUN_LOG2 clean clocks the pump takes the line, and these
+  // checks stop: its fill and control words are K characters
+  always_ff @(posedge clk_core or negedge rx_ready) begin
     if (!rx_ready) begin
       link_d_k     <= 1'b0;
       link_kx      <= 1'b0;
@@ -288,6 +236,7 @@ module top
       link_warm    <= '0;
       link_base    <= '0;
       link_error   <= 1'b0;
+      prbs_run     <= '0;
     end
     else begin
       link_d_k     <= rx_aligned && link_rx.k == '0;
@@ -300,26 +249,118 @@ module top
         link_warm <= link_d_k ? link_warm + 1'b1 : '0;
         link_base <= link_errors;
       end
-      else if (link_d_moved || link_d_bad) begin
-        link_error <= 1'b1;
+      else if (!prbs_run[PRBS_RUN_LOG2]) begin
+        prbs_run <= prbs_run + WITH_PUMP;  // without the pump: PRBS7 on and on
+        if (link_d_moved || link_d_bad) begin
+          link_error <= 1'b1;
+        end
       end
     end
   end
+
+  //-----------------------------------------------------------------------
+  // FIFO pump on the looped-back link: a counter goes in, every word that
+  // comes out must be the next count. Its XOFF loops back too, so it would
+  // pause itself; the reader never stops, so it does not. The pump sends
+  // commas for 2^PUMP_START_LOG2 clocks first, while the last PRBS words
+  // leave the line, then data. Error: a wrong word, a CRC error, a drop,
+  // an overflow or an invalid symbol; up: 2^PUMP_UP_LOG2 words checked
+  //-----------------------------------------------------------------------
+  if (WITH_PUMP) begin : g_pump
+    logic [PUMP_START_LOG2:0] pump_start;  // top bit set: the pump sends and takes data
+    word_t pump_wdata, pump_rdata, pump_expect;
+    logic pump_full, pump_empty, pump_pop;
+    logic                  pump_bad;  // a wrong word or an invalid symbol, a clock late
+    logic [PUMP_UP_LOG2:0] pump_good;  // words checked; top bit set: pump up
+    logic [15:0] pump_crc, pump_drops, pump_ovf;
+    logic [$clog2(PUMP_DEPTH):0] NC_tx_used, NC_rx_avail;  // unused: the checker pops what comes
+    logic NC_remote_paused, NC_pause;  // flow control: on, but the reader never stops
+
+    iclink_serwb_pump #(
+        .W    (2),
+        .DEPTH(PUMP_DEPTH)
+    ) u_pump (
+        .clk          (clk_core),
+        .arst_n       (rx_ready),
+        .tx_push      (pump_start[PUMP_START_LOG2]),
+        .tx_data      (pump_wdata),
+        .tx_full      (pump_full),
+        .tx_used      (NC_tx_used),
+        .tx_hold      (1'b0),
+        .rx_pop       (pump_pop),
+        .rx_data      (pump_rdata),
+        .rx_empty     (pump_empty),
+        .rx_avail     (NC_rx_avail),
+        .tx_en        (pump_start[PUMP_START_LOG2]),
+        .phy_tx       (pump_tx),
+        .rx_en        (pump_start[PUMP_START_LOG2]),
+        .phy_rx       (link_rx),
+        .remote_paused(NC_remote_paused),
+        .pause        (NC_pause),
+        .crc_errors   (pump_crc),
+        .drops        (pump_drops),
+        .overflows    (pump_ovf)
+    );
+
+    always_comb begin
+      pump_pop = !pump_empty;
+      pump_up  = pump_good[PUMP_UP_LOG2];
+    end
+
+    always_ff @(posedge clk_core or negedge rx_ready) begin
+      if (!rx_ready) begin
+        pump_start  <= '0;
+        pump_wdata  <= '0;
+        pump_expect <= '0;
+        pump_good   <= '0;
+        pump_bad    <= 1'b0;
+        pump_error  <= 1'b0;
+      end
+      else begin
+        if (prbs_run[PRBS_RUN_LOG2] && !pump_start[PUMP_START_LOG2]) begin
+          pump_start <= pump_start + 1'b1;
+        end
+        if (pump_start[PUMP_START_LOG2] && !pump_full) begin
+          pump_wdata <= pump_wdata + 1'b1;
+        end
+        if (pump_pop) begin
+          pump_expect <= pump_expect + 1'b1;
+          if (!pump_good[PUMP_UP_LOG2]) begin
+            pump_good <= pump_good + 1'b1;
+          end
+        end
+        pump_bad <= (pump_pop && pump_rdata != pump_expect)
+          || (pump_start[PUMP_START_LOG2] && link_rx_invalid != '0);
+        if (pump_bad || pump_crc != '0 || pump_drops != '0 || pump_ovf != '0) begin
+          pump_error <= 1'b1;
+        end
+      end
+    end
+  end : g_pump
+  else begin : g_no_pump
+    always_comb begin
+      pump_tx    = PHY_COMMA_WORD;  // never on the line: prbs_run stays low
+      pump_up    = 1'b1;
+      pump_error = 1'b0;
+    end
+  end : g_no_pump
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       link_up_sync    <= '0;
       link_error_sync <= '0;
+      pump_up_sync    <= '0;
     end
     else begin
       link_up_sync    <= {link_up_sync[0], link_warm[LINK_WARMUP_LOG2]};
-      link_error_sync <= {link_error_sync[0], link_error};
+      link_error_sync <= {link_error_sync[0], link_error | pump_error};
+      pump_up_sync    <= {pump_up_sync[0], pump_up};
     end
   end
 
   always_comb begin
-    led = heartbeat[HEARTBEAT_W-1] & !st_error & !prbs_error & link_up_sync[1]
-          & !link_error_sync[1];
+    led = heartbeat[HEARTBEAT_W-1] & !prbs_error & link_up_sync[1]
+          & pump_up_sync[1] & !link_error_sync[1];
   end
 
 endmodule : top

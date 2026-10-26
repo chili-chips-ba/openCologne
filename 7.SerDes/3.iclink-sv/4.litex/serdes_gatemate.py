@@ -10,8 +10,8 @@
 # rx_ready, rx_align, PRBS7/15/31 generator and checker, and 8 words of
 # 8 bits + K flag per clock through add_stream_endpoints().
 #
-# The 8b/10b encoder is in the fabric (SV core), the decoder and comma
-# alignment run in CC_SERDES. The SV sources are read with Yosys's slang
+# CC_SERDES encodes and decodes 8b/10b and aligns the commas; the SV core
+# has no fabric 8b/10b. The SV sources are read with Yosys's slang
 # front end (platform.yosys_use_slang).
 
 import os
@@ -30,7 +30,6 @@ HW_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "1.hw")
 # SV sources of the PHY, in compile order (packages first)
 SOURCES = [
     "iclink_pkg.sv",
-    "iclink_8b10b_enc.sv",
     "iclink_prbs_gen.sv",
     "iclink_prbs_chk.sv",
     "iclink_prbs_tx.sv",
@@ -72,8 +71,11 @@ class SerDesGateMate(LiteXModule):
         self.rx_invalid = Signal(nwords)
 
         # Clock domains ---------------------------------------------------------------------
+        # One core clock (CC_SERDES PLL_CLK_O) for TX and RX: the CC_SERDES RX buffer moves
+        # RX onto it. tx and rx stay two domains, on that clock, for LiteICLink's interface.
         self.cd_tx = ClockDomain()
         self.cd_rx = ClockDomain()
+        self.comb += self.cd_rx.clk.eq(self.cd_tx.clk)
         self.specials += [
             AsyncResetSynchronizer(self.cd_tx, ~self.tx_ready),
             AsyncResetSynchronizer(self.cd_rx, ~self.rx_ready),
@@ -88,10 +90,9 @@ class SerDesGateMate(LiteXModule):
             i_clk_reg        = clk_reg,
             i_arst_n         = ~rst_reg,
             i_ctrl           = ctrl,
-            o_clk_tx         = self.cd_tx.clk,
+            o_clk_core       = self.cd_tx.clk,
             o_tx_ready       = self.tx_ready,
             i_tx             = Cat(self.tx_k, self.tx_d),
-            o_clk_rx         = self.cd_rx.clk,
             o_rx_ready       = self.rx_ready,
             o_rx_aligned     = self.rx_aligned,
             o_rx             = Cat(self.rx_k, self.rx_d),

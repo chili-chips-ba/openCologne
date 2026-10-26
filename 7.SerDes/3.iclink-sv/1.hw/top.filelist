@@ -8,13 +8,16 @@
 #==========================================================================
 
 ${HW_SRC}/iclink_pkg.sv
-${HW_SRC}/iclink_8b10b_enc.sv
-${HW_SRC}/iclink_8b10b_dec.sv
 ${HW_SRC}/iclink_prbs_gen.sv
 ${HW_SRC}/iclink_prbs_chk.sv
 ${HW_SRC}/iclink_prbs_tx.sv
 ${HW_SRC}/iclink_prbs_rx.sv
 ${HW_SRC}/iclink_phy_pkg.sv
 ${HW_SRC}/iclink_serdes_gm.sv
+${HW_SRC}/iclink_serwb_pkg.sv
+${HW_SRC}/iclink_serwb_fifo.sv
+${HW_SRC}/iclink_serwb_tx.sv
+${HW_SRC}/iclink_serwb_rx.sv
+${HW_SRC}/iclink_serwb_pump.sv
 ${HW_SRC}/top_pkg.sv
 ${HW_SRC}/top.sv

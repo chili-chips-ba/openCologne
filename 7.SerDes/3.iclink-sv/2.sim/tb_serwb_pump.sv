@@ -5,9 +5,9 @@
 // FIFO pump, two sides, SerDes out of the loop: pump A's phy_tx goes to
 // pump B's phy_rx and back, on the 64-bit + 8 K digital bus, through a
 // LINE_LAT-clock delay that stands for PHY TX + CC_SERDES + PHY RX (as
-// measured on the SerDes BFM, PHY data in to PHY data out). Each
-// side has its own CPU clock. W = 2: the pumps run on the line clock; W = 4:
-// at half of it, through 2:1 gearboxes (iclink_gearbox), as for 5 Gb/s.
+// measured on the SerDes BFM, PHY data in to PHY data out). One clock for
+// the pumps and both CPUs: the line clock (W = 2), or half of it (W = 4),
+// with 2:1 gearboxes (iclink_gearbox) to the line, as for 5 Gb/s.
 //
 //   1. both ways at once, random push and pop: every word arrives, in order
 //   2. B stops reading while A floods: B's RX FIFO fills to XOFF_LEVEL, the
@@ -30,7 +30,7 @@ module tb_serwb_pump;
   localparam int NP         = W / 2;
   localparam int DEPTH      = 1024;
   localparam int XOFF_LEVEL = DEPTH - 96 * W;  // the pump's default (RT_CLKS = 96)
-  localparam int LINE_LAT   = (W == 2) ? 29 : 26;  // line clocks, at 2.5 / 5 Gb/s on the BFM
+  localparam int LINE_LAT   = 27;  // line clocks, PHY data in to out on the BFM (sim_phy_oneway)
   localparam int TIMEOUT    = 500;            // pump clocks: well under the phase 2 hold
   localparam int N_RANDOM   = 6000;           // words each way, phase 1
   localparam int N_FLOOD    = 4000;           // words A -> B, phase 2
@@ -39,19 +39,13 @@ module tb_serwb_pump;
   localparam real BURST_RATE = 1.59 * W / 2;  // words a clock: 16 per packet of 10 (W = 2) or 5 clocks
   localparam int AW         = $clog2(DEPTH);
 
-  logic clk_line, clk_a, clk_b;
-  logic clk_div, clk_pump;  // the pumps' clock: the line clock, or half of it (W = 4)
+  logic clk_line;
+  logic clk_div, clk;  // the pumps' clock: the line clock, or half of it (W = 4)
   logic arst_n;
 
   initial begin : _clocks
     clk_line = 1'b0;
-    clk_a    = 1'b0;
-    clk_b    = 1'b0;
-    fork
-      forever #(32.0 / W) clk_line = ~clk_line;  // 31.25 MHz (W = 2), 62.5 MHz (W = 4)
-      forever #10 clk_a = ~clk_a;  // 50 MHz
-      forever #11.5 clk_b = ~clk_b;  // 43.5 MHz
-    join
+    forever #(32.0 / W) clk_line = ~clk_line;  // 31.25 MHz (W = 2), 62.5 MHz (W = 4)
   end : _clocks
 
   always_ff @(posedge clk_line or negedge arst_n) begin : _div
@@ -63,7 +57,7 @@ module tb_serwb_pump;
     end
   end : _div
 
-  assign clk_pump = (W == 2) ? clk_line : clk_div;
+  assign clk = (W == 2) ? clk_line : clk_div;
 
   initial begin : _reset
     arst_n = 1'b0;
@@ -88,8 +82,8 @@ module tb_serwb_pump;
       .DEPTH       (DEPTH),
       .TIMEOUT_CLKS(TIMEOUT)
   ) u_a (
-      .clk_sys      (clk_a),
-      .sys_arst_n   (arst_n),
+      .clk          (clk),
+      .arst_n       (arst_n),
       .tx_push      (a_push),
       .tx_data      (a_wdata),
       .tx_full      (a_full),
@@ -99,12 +93,8 @@ module tb_serwb_pump;
       .rx_data      (a_rdata),
       .rx_empty     (a_empty),
       .rx_avail     (a_avail),
-      .clk_tx       (clk_pump),
-      .tx_arst_n    (arst_n),
       .tx_en        (link_en),
       .phy_tx       (a_tx),
-      .clk_rx       (clk_pump),
-      .rx_arst_n    (arst_n),
       .rx_en        (link_en),
       .phy_rx       (a_rx),
       .remote_paused(a_paused),
@@ -119,8 +109,8 @@ module tb_serwb_pump;
       .DEPTH       (DEPTH),
       .TIMEOUT_CLKS(TIMEOUT)
   ) u_b (
-      .clk_sys      (clk_b),
-      .sys_arst_n   (arst_n),
+      .clk          (clk),
+      .arst_n       (arst_n),
       .tx_push      (b_push),
       .tx_data      (b_wdata),
       .tx_full      (b_full),
@@ -130,12 +120,8 @@ module tb_serwb_pump;
       .rx_data      (b_rdata),
       .rx_empty     (b_empty),
       .rx_avail     (b_avail),
-      .clk_tx       (clk_pump),
-      .tx_arst_n    (arst_n),
       .tx_en        (link_en),
       .phy_tx       (b_tx),
-      .clk_rx       (clk_pump),
-      .rx_arst_n    (arst_n),
       .rx_en        (link_en),
       .phy_rx       (b_rx),
       .remote_paused(b_paused),
@@ -170,7 +156,7 @@ module tb_serwb_pump;
         .IN_N (2),
         .OUT_N(1)
     ) u_a_tx (
-        .w_clk   (clk_pump),
+        .w_clk   (clk),
         .w_arst_n(arst_n),
         .w_word  (a_tx),
         .r_clk   (clk_line),
@@ -182,7 +168,7 @@ module tb_serwb_pump;
         .IN_N (2),
         .OUT_N(1)
     ) u_b_tx (
-        .w_clk   (clk_pump),
+        .w_clk   (clk),
         .w_arst_n(arst_n),
         .w_word  (b_tx),
         .r_clk   (clk_line),
@@ -197,7 +183,7 @@ module tb_serwb_pump;
         .w_clk   (clk_line),
         .w_arst_n(arst_n),
         .w_word  (a_lrx),
-        .r_clk   (clk_pump),
+        .r_clk   (clk),
         .r_arst_n(arst_n),
         .r_word  (a_rx)
     );
@@ -209,7 +195,7 @@ module tb_serwb_pump;
         .w_clk   (clk_line),
         .w_arst_n(arst_n),
         .w_word  (b_lrx),
-        .r_clk   (clk_pump),
+        .r_clk   (clk),
         .r_arst_n(arst_n),
         .r_word  (b_rx)
     );
@@ -228,7 +214,7 @@ module tb_serwb_pump;
   int a_sent, a_got, a_bad, b_sent, b_got, b_bad;
   int a_goal, b_goal;  // words to send
 
-  always_ff @(posedge clk_a or negedge arst_n) begin : _cpu_a
+  always_ff @(posedge clk or negedge arst_n) begin : _cpu_a
     if (!arst_n) begin
       a_push  <= 1'b0;
       a_wdata <= '0;
@@ -257,7 +243,7 @@ module tb_serwb_pump;
     end
   end : _cpu_a
 
-  always_ff @(posedge clk_b or negedge arst_n) begin : _cpu_b
+  always_ff @(posedge clk or negedge arst_n) begin : _cpu_b
     if (!arst_n) begin
       b_push  <= 1'b0;
       b_wdata <= '0;
@@ -289,7 +275,7 @@ module tb_serwb_pump;
   // levels, every line clock in phase 2: time, B RX FIFO, A TX FIFO, flags
   int fd_lvl, b_rx_peak, a_tx_peak, a_full_clks;
 
-  always_ff @(posedge clk_pump or negedge arst_n) begin : _levels
+  always_ff @(posedge clk or negedge arst_n) begin : _levels
     if (!arst_n) begin
       b_rx_peak <= 0;
       a_tx_peak <= 0;
@@ -309,7 +295,7 @@ module tb_serwb_pump;
   // burst meter: words out of B's depacketizer, from the first one of the burst
   int burst_words, burst_clks;
 
-  always_ff @(posedge clk_pump or negedge arst_n) begin : _burst
+  always_ff @(posedge clk or negedge arst_n) begin : _burst
     if (!arst_n) begin
       burst_words <= 0;
       burst_clks  <= 0;

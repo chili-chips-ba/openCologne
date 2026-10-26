@@ -15,6 +15,7 @@
 //==========================================================================
 module tb_8b10b;
   import iclink_pkg::*;
+  import iclink_8b10b_pkg::*;
 
   localparam int NENC = 4548;
   localparam int NDEC = 1024;

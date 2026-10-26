@@ -3,10 +3,10 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 //==========================================================================
-// Board-top test: the self-tests in top.sv run error-free and the SerDes
-// link comes up, on the SerDes BFM with its serial TX looped to its RX;
-// one bit flipped on the serial line, and one corrupted 8b/10b symbol,
-// must each be reported, and the LED must go low.
+// Board-top test: the PRBS self-test in top.sv runs error-free, the
+// SerDes link comes up and the FIFO pump moves words, on the SerDes BFM
+// with its serial TX looped to its RX; then one bit flipped on the serial
+// line (in the pump phase) must be reported, and the LED must go low.
 //==========================================================================
 module tb_top;
 
@@ -51,7 +51,7 @@ module tb_top;
 
     // 1. a clean run: 4096 clocks, 256 commas, no error; the link is up
     repeat (4096) @(posedge clk);
-    if (dut.st_error || dut.prbs_error) begin
+    if (dut.prbs_error) begin
       errors++;
       $display("ERROR: self-test reports an error on a clean run");
     end
@@ -63,14 +63,22 @@ module tb_top;
     else begin
       $display("SerDes link: up, PRBS7 error-free");
     end
+    if (!dut.pump_up_sync[1] || dut.pump_error) begin
+      errors++;
+      $display("ERROR: FIFO pump: up %b, error %b on a clean run", dut.pump_up_sync[1],
+               dut.pump_error);
+    end
+    else begin
+      $display("FIFO pump: %0d words in order, none lost", dut.g_pump.pump_expect);
+    end
 
     // 2. one bit flipped on the serial line must be caught
-    @(posedge dut.clk_tx);
+    @(posedge dut.clk_core);
     #3.1;
     flip = 1'b1;
     #0.4;  // one UI at 2.5 Gb/s
     flip = 1'b0;
-    repeat (24) @(posedge clk);  // PHY (~27 clk_rx), checks and sync: about 1 us
+    repeat (24) @(posedge clk);  // PHY (27 clk_core), checks and sync: about 1 us
     if (!dut.link_error_sync[1] || led) begin
       errors++;
       $display("ERROR: a flipped serial bit was not reported (link_error %b, led %b)",
@@ -78,19 +86,6 @@ module tb_top;
     end
     else begin
       $display("SerDes link: a flipped serial bit was reported");
-    end
-
-    // 3. a symbol with one bit flipped must be caught, and the LED must go low
-    @(negedge clk);
-    force dut.symbol[1] = dut.symbol[1] ^ 10'h001;  // one bit: the complement would decode the same
-    @(negedge clk);
-    release dut.symbol[1];
-    repeat (4) @(posedge clk);
-    #1;
-    if (!dut.st_error || led) begin
-      errors++;
-      $display("ERROR: a corrupted symbol was not reported (st_error %b, led %b)", dut.st_error,
-               led);
     end
 
     $display("TB_TOP: %s  %0d errors", errors == 0 ? "PASS" : "FAIL", errors);

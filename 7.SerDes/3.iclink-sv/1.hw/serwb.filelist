@@ -4,14 +4,14 @@
 
 #==========================================================================
 # Files of the SerWB link layer (FIFO pump, gearbox), in compile order:
-# packages first. Not in top yet; linted on its own (3.build/run-lint.sh,
+# packages first. The pump is in top too; this list lints the pump and the
+# gearbox on their own as well (3.build/run-lint.sh,
 # tops iclink_serwb_pump and iclink_gearbox). Read by 3.build/sources.sh.
 #==========================================================================
 
 ${HW_SRC}/iclink_pkg.sv
 ${HW_SRC}/iclink_phy_pkg.sv
 ${HW_SRC}/iclink_serwb_pkg.sv
-${HW_SRC}/iclink_cdc_ptr.sv
 ${HW_SRC}/iclink_serwb_fifo.sv
 ${HW_SRC}/iclink_serwb_tx.sv
 ${HW_SRC}/iclink_serwb_rx.sv

@@ -3,15 +3,16 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 //==========================================================================
-// Async FIFO of 32-bit words for the FIFO pump: 0 .. W words in per write
-// clock, 0 .. W words out per read clock (W = 2 or 4, the pump's words a
-// line clock).
+// Synchronous FIFO of 32-bit words for the FIFO pump: 0 .. W words in and
+// 0 .. W words out per clock (W = 2 or 4, the pump's words a line clock).
+// One clock for both sides: the pump, the CPU and the PHY share it, so no
+// pointer crosses a clock domain.
 //
 // Storage: W RAMs of DEPTH/W x 32, word p in RAM p mod W, so W neighbouring
 // words are always in different RAMs: one write port and one registered
 // read port each, which maps to block RAM. WN and RN cap the words in and
-// out a clock where a side moves fewer (the CPU side: one), so its muxes
-// shrink.
+// out a clock where a side moves fewer (the CPU side: one), so its port
+// and muxes shrink.
 //
 // Commit / rewind (COMMIT = 1, the RX FIFO): the writer's words stay
 // invisible to the reader until w_commit; w_rewind drops all words since
@@ -19,21 +20,19 @@
 // packet with a bad CRC never reaches the reader. With COMMIT = 0 (the TX
 // FIFO) every word is visible once written.
 //
-// Levels, each side's view, never too optimistic: w_used counts all words
-// written and not yet known as read (committed or not); r_avail counts
-// committed words not yet read. The pointers cross by iclink_cdc_ptr.
+// Levels: w_used counts all words written and not yet read (committed or
+// not); r_avail counts committed words not yet read. Both are flops and
+// exact, but for the clocks below.
 //
-// Timing: the write port is registered in front of the RAM (a word lands a
-// clock later; the reader cannot see it sooner, through the pointer
-// crossing). On the read side, the rows for taking 0 .. W words come from
-// rd_ptr alone, and the late r_take only picks one.
+// Timing: the write port is registered in front of the RAM, so a word
+// lands a clock later; the commit pointer reaches the reader through one
+// flop (com_ptr_r) for the same clock, so the RAM always holds what the
+// reader may take. A word written in clock t can be taken in clock t + 3.
+// On the read side, the rows for taking 0 .. W words come from rd_ptr
+// alone, and the late r_take only picks one.
 //
 // The writer must keep w_used + (words written) <= DEPTH; the reader must
 // not take more than r_avail.
-//
-// Reset: either side's reset resets both (the FIFO empties), each released
-// on its own clock. A side alone in reset, say clk_rx on a lost link, so
-// cannot leave the other side with pointers that disagree.
 //==========================================================================
 module iclink_serwb_fifo
   import iclink_serwb_pkg::*;
@@ -47,18 +46,17 @@ module iclink_serwb_fifo
     localparam int LW     = $clog2(W),      // address bits of the RAM select
     localparam int TW     = $clog2(W + 1)   // a count of 0 .. W
 ) (
-    input  logic          w_clk,
-    input  logic          w_arst_n,
-    input  word_t [W-1:0] w_word,
-    input  logic  [W-1:0] w_valid,   // compacted, slot 0 first: 0, 1, 3, 7 ..
-    input  logic          w_commit,  // this clock's words included
-    input  logic          w_rewind,  // this clock's words dropped too
-    output logic  [ AW:0] w_used,
+    input logic clk,
+    input logic arst_n,
 
-    input  logic           r_clk,
-    input  logic           r_arst_n,
-    output word_t [ W-1:0] r_word,    // the next W words, r_word[0] first
-    input  logic  [TW-1:0] r_take,    // 0 .. W words taken this clock
+    input  word_t [WN-1:0] w_word,
+    input  logic  [WN-1:0] w_valid,   // compacted, slot 0 first: 0, 1, 3, 7 ..
+    input  logic           w_commit,  // this clock's words included
+    input  logic           w_rewind,  // this clock's words dropped too
+    output logic  [  AW:0] w_used,
+
+    output word_t [RN-1:0] r_word,  // the next RN words, r_word[0] first
+    input  logic  [TW-1:0] r_take,  // 0 .. W words taken this clock
     output logic  [  AW:0] r_avail
 );
 
@@ -69,40 +67,9 @@ module iclink_serwb_fifo
   end : g_bad
 
   //-----------------------------------------------------------------------
-  // reset: both sides together
-  //-----------------------------------------------------------------------
-  logic both_n;  // low while either side is in reset
-  logic w_meta, r_meta;  // first stages, read only by the next
-  logic w_rst_n, r_rst_n;  // each side's reset, released on its clock
-
-  assign both_n = w_arst_n & r_arst_n;
-
-  always_ff @(posedge w_clk or negedge both_n) begin
-    if (!both_n) begin
-      w_meta  <= 1'b0;
-      w_rst_n <= 1'b0;
-    end
-    else begin
-      w_meta  <= 1'b1;
-      w_rst_n <= w_meta;
-    end
-  end
-
-  always_ff @(posedge r_clk or negedge both_n) begin
-    if (!both_n) begin
-      r_meta  <= 1'b0;
-      r_rst_n <= 1'b0;
-    end
-    else begin
-      r_meta  <= 1'b1;
-      r_rst_n <= r_meta;
-    end
-  end
-
-  //-----------------------------------------------------------------------
   // write side
   //-----------------------------------------------------------------------
-  logic [AW:0] wr_ptr, wr_ptr_next, com_ptr, rd_ptr_w;
+  logic [AW:0] wr_ptr, wr_ptr_next, com_ptr, rd_ptr, rd_ptr_next;
   logic  [TW-1:0] w_n;
   row_t  [ W-1:0] w_row;  // RAM b's row, for the one of the next W words it holds
   logic  [ W-1:0] w_we;
@@ -134,8 +101,8 @@ module iclink_serwb_fifo
   row_t  [W-1:0] ram_row;
   word_t [W-1:0] ram_d;
 
-  always_ff @(posedge w_clk or negedge w_rst_n) begin
-    if (!w_rst_n) begin
+  always_ff @(posedge clk or negedge arst_n) begin
+    if (!arst_n) begin
       ram_we <= '0;
     end
     else begin
@@ -143,13 +110,13 @@ module iclink_serwb_fifo
     end
   end
 
-  always_ff @(posedge w_clk) begin
+  always_ff @(posedge clk) begin
     ram_row <= w_row;
     ram_d   <= w_d;
   end
 
-  always_ff @(posedge w_clk or negedge w_rst_n) begin
-    if (!w_rst_n) begin
+  always_ff @(posedge clk or negedge arst_n) begin
+    if (!arst_n) begin
       wr_ptr  <= '0;
       com_ptr <= '0;
       w_used  <= '0;
@@ -164,14 +131,15 @@ module iclink_serwb_fifo
       if (!COMMIT || w_commit) begin
         com_ptr <= wr_ptr_next;
       end
-      w_used <= ((COMMIT && w_rewind) ? com_ptr : wr_ptr_next) - rd_ptr_w;
+      // the words read this clock are free from the next one
+      w_used <= ((COMMIT && w_rewind) ? com_ptr : wr_ptr_next) - rd_ptr_next;
     end
   end
 
   //-----------------------------------------------------------------------
   // read side
   //-----------------------------------------------------------------------
-  logic [AW:0] rd_ptr, rd_ptr_next, com_ptr_r, r_avail_now;
+  logic [AW:0] com_ptr_r, r_avail_now;  // com_ptr_r: com_ptr, a clock late (the RAM write)
   logic  [AW-1:0]        p;  // rd_ptr + t, for each take t (the address, no wrap bit)
   row_t  [  RN:0][W-1:0] r_row_t;  // RAM b's row after a take of t words
   row_t  [ W-1:0]        r_row;
@@ -204,14 +172,16 @@ module iclink_serwb_fifo
     end
   end
 
-  always_ff @(posedge r_clk or negedge r_rst_n) begin
-    if (!r_rst_n) begin
-      rd_ptr  <= '0;
-      r_avail <= '0;
+  always_ff @(posedge clk or negedge arst_n) begin
+    if (!arst_n) begin
+      com_ptr_r <= '0;
+      rd_ptr    <= '0;
+      r_avail   <= '0;
     end
     else begin
-      rd_ptr  <= rd_ptr_next;
-      r_avail <= r_avail_now - (AW + 1)'(r_take);
+      com_ptr_r <= com_ptr;
+      rd_ptr    <= rd_ptr_next;
+      r_avail   <= r_avail_now - (AW + 1)'(r_take);
     end
   end
 
@@ -222,41 +192,13 @@ module iclink_serwb_fifo
   for (genvar b = 0; b < W; b++) begin : g_ram
     word_t mem[DEPTH/W];
 
-    always_ff @(posedge w_clk) begin
+    always_ff @(posedge clk) begin
       if (ram_we[b]) begin
         mem[ram_row[b]] <= ram_d[b];
       end
-    end
-
-    always_ff @(posedge r_clk) begin
       q[b] <= mem[r_row[b]];
     end
   end : g_ram
-
-  //-----------------------------------------------------------------------
-  // pointers across
-  //-----------------------------------------------------------------------
-  iclink_cdc_ptr #(
-      .W(AW + 1)
-  ) u_com_to_r (
-      .src_clk   (w_clk),
-      .src_arst_n(w_rst_n),
-      .src_ptr   (com_ptr),
-      .dst_clk   (r_clk),
-      .dst_arst_n(r_rst_n),
-      .dst_ptr   (com_ptr_r)
-  );
-
-  iclink_cdc_ptr #(
-      .W(AW + 1)
-  ) u_rd_to_w (
-      .src_clk   (r_clk),
-      .src_arst_n(r_rst_n),
-      .src_ptr   (rd_ptr),
-      .dst_clk   (w_clk),
-      .dst_arst_n(w_rst_n),
-      .dst_ptr   (rd_ptr_w)
-  );
 
 endmodule : iclink_serwb_fifo
 

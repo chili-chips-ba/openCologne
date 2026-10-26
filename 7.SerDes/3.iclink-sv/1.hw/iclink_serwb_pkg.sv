@@ -129,28 +129,33 @@ package iclink_serwb_pkg;
 
   // the CRC term over n = 0 .. 4 words
   function automatic word_t serwb_crc_cterm(input word_t crc, input logic [2:0] n);
-    case (n)
+    word_t r;
+    unique case (n)
+      3'd0: begin
+        r = crc;
+      end
       3'd1: begin
-        return mul32(SERWB_C[1], crc);
+        r = mul32(SERWB_C[1], crc);
       end
       3'd2: begin
-        return mul32(SERWB_C[2], crc);
+        r = mul32(SERWB_C[2], crc);
       end
       3'd3: begin
-        return mul32(SERWB_C[3], crc);
+        r = mul32(SERWB_C[3], crc);
       end
       3'd4: begin
-        return mul32(SERWB_C[4], crc);
-      end
-      default: begin
-        return crc;
+        r = mul32(SERWB_C[4], crc);
       end
     endcase
+    return r;
   endfunction
 
   // the data term of one word with k = 0 .. 3 covered words after it
   function automatic word_t serwb_crc_mterm(input word_t w, input logic [1:0] k);
-    case (k)
+    unique case (k)
+      2'd0: begin
+        return mul32(SERWB_M[0], w);
+      end
       2'd1: begin
         return mul32(SERWB_M[1], w);
       end
@@ -160,9 +165,6 @@ package iclink_serwb_pkg;
       2'd3: begin
         return mul32(SERWB_M[3], w);
       end
-      default: begin
-        return mul32(SERWB_M[0], w);
-      end
     endcase
   endfunction
 
@@ -170,23 +172,25 @@ package iclink_serwb_pkg;
   // a constant per n, so a start costs the CRC loop nothing (it goes into
   // the data term)
   function automatic word_t serwb_crc_iterm(input logic [2:0] n);
-    case (n)
+    word_t r;
+    unique case (n)
+      3'd0: begin
+        r = SERWB_I[0];
+      end
       3'd1: begin
-        return SERWB_I[1];
+        r = SERWB_I[1];
       end
       3'd2: begin
-        return SERWB_I[2];
+        r = SERWB_I[2];
       end
       3'd3: begin
-        return SERWB_I[3];
+        r = SERWB_I[3];
       end
       3'd4: begin
-        return SERWB_I[4];
-      end
-      default: begin
-        return SERWB_I[0];
+        r = SERWB_I[4];
       end
     endcase
+    return r;
   endfunction
 
 endpackage : iclink_serwb_pkg

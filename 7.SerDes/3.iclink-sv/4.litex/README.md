@@ -18,7 +18,7 @@ The GateMate SerDes PHY ([`../1.hw/iclink_serdes_gm.sv`](../1.hw/iclink_serdes_g
 
 As LiteICLink's `SerDesECP5`:
 
-- clock domains `tx` and `rx`: `CC_SERDES` `PLL_CLK_O` and `RX_CLK_O`, line rate / 80 (31.25 MHz at 2.5 Gb/s); reset until `tx_ready` / `rx_ready`;
+- clock domains `tx` and `rx`, both on one clock: `CC_SERDES` `PLL_CLK_O`, line rate / 80 (31.25 MHz at 2.5 Gb/s); the `CC_SERDES` RX buffer moves RX onto it. Reset until `tx_ready` / `rx_ready`;
 - `add_stream_endpoints()`: `sink` (tx) and `source` (rx), 8 words of 8 bits + 8 K flags per clock;
 - `add_controls()`: CSRs `tx_ready`, `rx_ready`, `rx_align`, `rx_aligned`, `tx_prbs_config`, `rx_prbs_config` (+ pause), `rx_prbs_errors`; `add_clock_cycles()` as in LiteICLink.
 
@@ -67,12 +67,14 @@ The `tx` clock (31.25 MHz) is the tight one. What we found getting the demo to c
 | first LiteX build, PRBS mux feeding the encoder in the same clock | 24.95 MHz, seeds 2-5: 26.4-27.9 MHz, all fail |
 | encoder input registered (`tx_enc_d`, `tx_enc_k` in `iclink_serdes_gm.sv`, +1 clock TX latency) | 30.41 MHz; seeds 2 and 6 pass (31.27, 31.53 MHz), 3, 4, 5 and 7 fail |
 | same RTL, LiteX `d2b47282a` / LiteICLink `8ef8d79` | 31.76 MHz at seed 1, pass |
+| one clock: RX on `PLL_CLK_O` through the `CC_SERDES` RX buffer (`tx` and `rx` on one net, named `rx_clk` by nextpnr) | 29.29 MHz at seed 1, fail |
+| 8b/10b in `CC_SERDES`, no fabric encoder | 63.24 MHz at seed 1, pass, twice the margin needed |
 
-The standalone build ([`../3.build`](../3.build)) has more room (36.6 to 39.1 MHz, current RTL): the LiteX SoC around the PHY spreads the placement. The remaining critical path is the encoder's running disparity, chained through all 8 words of a clock (LiteICLink chains 2 or 4). Next: pipeline that chain, compute each word's code for both starting disparities and resolve the chain in a second stage, keeping the output bit-exact with LiteX.
+The fabric encoder chained its running disparity through all 8 words of a clock (LiteICLink chains 2 or 4): that chain was the critical path in every row above but the last. With `CC_SERDES` encoding, it is gone.
 
 ## Status
 
 - Builds; not yet tested on the board.
-- `tx` closes timing with under 2% margin, and not on every placement seed. The critical path is the 8b/10b encoder's running-disparity chain across 8 words. Next: pipeline it.
+- Closes timing with a 2x margin (63 MHz against 31): 8b/10b runs in `CC_SERDES`.
 - `rx_prbs_errors` crosses to `sys` through `MultiReg`: pause the checker before reading it.
 - Serial Wishbone is not on this PHY yet.

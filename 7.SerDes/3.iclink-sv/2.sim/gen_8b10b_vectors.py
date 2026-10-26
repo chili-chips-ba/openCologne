@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 """
-Golden vectors for the SV 8b/10b (1.hw/iclink_8b10b_enc.sv, _dec.sv): runs
+Golden vectors for the SV 8b/10b (2.sim/iclink_8b10b_enc.sv, _dec.sv): runs
 LiteX's own Encoder(nwords=2, lsb_first=True) and Decoder(lsb_first=True) in
 Migen simulation and writes, per clock, the inputs and the outputs after the
 clock edge that takes them in, as RTL sees it (a value a Migen generator

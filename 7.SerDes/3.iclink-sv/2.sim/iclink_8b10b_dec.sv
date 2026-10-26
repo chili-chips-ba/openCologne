@@ -9,10 +9,11 @@
 // litex/soc/cores/code_8b10b.py, Decoder (sync=True). Latency 1 clock (with
 // ce). It does not check the running disparity. invalid flags a symbol
 // without 4, 5 or 6 ones: not every bad symbol, but enough to see a broken
-// link, as in LiteX.
+// link, as in LiteX. Simulation only: on the chip CC_SERDES decodes.
 //==========================================================================
 module iclink_8b10b_dec
   import iclink_pkg::*;
+  import iclink_8b10b_pkg::*;
 #(
     parameter bit LSB_FIRST = 1'b1  // bit 0 of the symbol came first on the line
 ) (
