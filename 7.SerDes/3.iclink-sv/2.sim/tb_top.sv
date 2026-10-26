@@ -79,10 +79,10 @@ module tb_top;
     #0.4;  // one UI at 2.5 Gb/s
     flip = 1'b0;
     repeat (24) @(posedge clk);  // PHY (31 clk_core), checks and sync: about 1 us
-    if (!dut.link_error_sync[1] || led) begin
+    if (!dut.failed || led) begin
       errors++;
-      $display("ERROR: a flipped serial bit was not reported (link_error %b, led %b)",
-               dut.link_error_sync[1], led);
+      $display("ERROR: a flipped serial bit was not reported (failed %b, led %b)", dut.failed,
+               led);
     end
     else begin
       $display("SerDes link: a flipped serial bit was reported");

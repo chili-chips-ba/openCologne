@@ -41,10 +41,10 @@ module iclink_serwb_tx
     input logic clk,
     input logic arst_n,
 
-    input  logic        hdr_valid,
-    input  logic [ 7:0] hdr_port,
-    input  logic [13:0] hdr_words,
-    output logic        hdr_ready,
+    input  logic             hdr_valid,
+    input  logic       [7:0] hdr_port,
+    input  serwb_len_t       hdr_words,
+    output logic             hdr_ready,
 
     input  word_t [ W-1:0] d_word,  // the next W payload words, d_word[0] first
     output logic  [TW-1:0] d_take,  // how many of them go this clock
@@ -81,7 +81,7 @@ module iclink_serwb_tx
   } out_t;
 
   state_t state, state_next;
-  logic [13:0] left, left_next;  // data words still to send
+  serwb_len_t left, left_next;  // data words still to send
   logic [TW-1:0] take;  // words this beat takes, if it goes
   beat_t f_next, f;  // into stage 1, after stage 1
   out_t        t;  // after stage 2
@@ -109,18 +109,18 @@ module iclink_serwb_tx
           f_next.crcd[1]    = 1'b1;
           f_next.init       = 1'b1;
           for (int s = 2; s < W; s++) begin  // W = 4: data from slot 2
-            if (14'(s - 2) < hdr_words) begin
+            if (serwb_len_t'(s - 2) < hdr_words) begin
               f_next.word[s]  = d_word[s-2];
               f_next.valid[s] = 1'b1;
               f_next.crcd[s]  = 1'b1;
               take            = take + 1'b1;
             end
-            else if (14'(s - 2) == hdr_words) begin
+            else if (serwb_len_t'(s - 2) == hdr_words) begin
               f_next.valid[s]   = 1'b1;
               f_next.crcslot[s] = 1'b1;
             end
           end
-          left_next = hdr_words - 14'(take);
+          left_next = hdr_words - serwb_len_t'(take);
           // in 15 bits: hdr_words + 2 overflows 14 at 16382 and 16383
           if (15'(hdr_words) + 15'd2 < 15'(W)) begin  // the CRC fits in this beat
             state_next = S_IDLE;
@@ -136,22 +136,22 @@ module iclink_serwb_tx
 
       S_DATA: begin
         for (int s = 0; s < W; s++) begin
-          if (14'(s) < left) begin
+          if (serwb_len_t'(s) < left) begin
             f_next.word[s]  = d_word[s];
             f_next.valid[s] = 1'b1;
             f_next.crcd[s]  = 1'b1;
             take            = take + 1'b1;
           end
-          else if (14'(s) == left) begin
+          else if (serwb_len_t'(s) == left) begin
             f_next.valid[s]   = 1'b1;
             f_next.crcslot[s] = 1'b1;
           end
         end
-        left_next = left - 14'(take);
-        if (left < 14'(W)) begin  // the CRC fits in this beat
+        left_next = left - serwb_len_t'(take);
+        if (left < serwb_len_t'(W)) begin  // the CRC fits in this beat
           state_next = S_IDLE;
         end
-        else if (left == 14'(W)) begin
+        else if (left == serwb_len_t'(W)) begin
           state_next = S_CRC;
         end
       end

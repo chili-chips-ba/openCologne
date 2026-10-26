@@ -35,10 +35,13 @@ module tb_phy_oneway
   logic [31:0] rx_prbs_errors;
   int errors = 0;
 
+  // make sim_phy_oneway WAVES=1: +waves=<run options>, e.g. FAST.2500.s1, which
+  // name the file: phy_oneway.FAST.2500.s1.fst
   initial begin : _waves
-    if ($test$plusargs("waves")) begin
-      $dumpfile("phy_oneway.fst");  // make sim_phy_oneway WAVES=1
-      $dumpvars(0, tb_phy_oneway);
+    string tag;
+    if ($value$plusargs("waves=%s", tag)) begin
+      $dumpfile({"phy_oneway.", tag, ".fst"});
+      $dumpvars(0, tb_phy_oneway);  // waves.vlt keeps it to what the session shows
     end
   end : _waves
 

@@ -1,0 +1,11 @@
+// SPDX-FileCopyrightText: 2026 Chili.CHIPS
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
+// WAVES=1: trace only what the WaveCrux sessions show, so the committed FSTs
+// stay small. Off: the SerDes BFM's insides (its pins stay, as the PHY's
+// ports) and the PRBS generators and checkers below PRBS TX / RX
+`verilator_config
+tracing_off -file "*1.sim-model/*"
+tracing_off -file "*iclink_prbs_gen.sv"
+tracing_off -file "*iclink_prbs_chk.sv"

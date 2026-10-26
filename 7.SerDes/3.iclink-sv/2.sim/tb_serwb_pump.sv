@@ -20,7 +20,7 @@
 //      words, 64 packets); then the burst goes out with no CPU in the way,
 //      and B's depacketizer must see BURST_RATE words a clock or more.
 //
-// The fill levels are logged (pump_levels.csv) for the End2End Flow
+// The fill levels are logged (pump_levels_w<W>.csv) for the End2End Flow
 // section of the README, with the peak RX level above XOFF_LEVEL.
 module tb_serwb_pump;
   import iclink_phy_pkg::*;
@@ -317,7 +317,7 @@ module tb_serwb_pump;
     a_goal  = 0;
     a_tx_hold = 1'b0;
     b_goal  = 0;
-    fd_lvl  = $fopen("pump_levels.csv", "w");
+    fd_lvl  = $fopen($sformatf("pump_levels_w%0d.csv", W), "w");
     $fwrite(fd_lvl, "time_ps,b_rx_used,a_tx_used,b_pause,a_paused,a_tx_full\n");
     wait (arst_n);
     repeat (20) @(posedge clk_line);

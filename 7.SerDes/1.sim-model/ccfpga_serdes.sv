@@ -41,8 +41,8 @@
 //   hard macro, for simulation only (hardware instantiates CC_SERDES).
 //   Module name, ports, parameters and defaults are those of the Cologne
 //   Chip simulation model, so it is a drop-in replacement. Developed in
-//   openCologne, then ported to openCologne-PCIE. What is modelled:
-//   7.SerDes/README.md, Simulation.
+//   openCologne, then ported to openCologne-PCIE. What is modelled, and
+//   how: README.md, next to this file.
 //
 //   It takes all 115 parameters of the vendor model. It acts on 34:
 //   resets, comma alignment and slide, RX buffer and clock correction,

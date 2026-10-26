@@ -18,7 +18,7 @@ Open an [Issue](https://github.com/chili-chips-ba/openCologne/issues). For bugs,
    - For a mere cleanup: **run-leq** proves there are no functional changes.
 4. Open a Pull Request against `main`.
 
-Observe our [RTL coding rules](7.SerDes/3.iclink-sv/1.hw/README.md#rtl-coding-rules). The older examples predate them.
+Observe our [RTL coding rules](RTL-CODING-RULES.md). The older examples predate them.
 
 ## License
 

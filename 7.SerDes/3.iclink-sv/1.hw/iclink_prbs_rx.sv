@@ -87,10 +87,18 @@ module iclink_prbs_rx
       config_sync <= config_meta;
 
       unique case (config_sync)
-        PRBS_OFF: error <= 1'b0;
-        PRBS_7:   error <= err7 != '0;
-        PRBS_15:  error <= err15 != '0;
-        PRBS_31:  error <= err31 != '0;
+        PRBS_OFF: begin
+          error <= 1'b0;
+        end
+        PRBS_7: begin
+          error <= err7 != '0;
+        end
+        PRBS_15: begin
+          error <= err15 != '0;
+        end
+        PRBS_31: begin
+          error <= err31 != '0;
+        end
       endcase
 
       if (config_sync == PRBS_OFF) begin

@@ -188,7 +188,7 @@ CologneChip/FH Dortmund PIPE testbench):
 | vendor `ccfpga_serdes` | 5 min 16 s | PASSED |
 | open behavioural model | ~14 s | PASSED, 101 check tasks, 0 errors |
 
-Same testbench, same testcase, same checks, ~20x faster (wall clock including compilation).
+Same testbench, same testcase, same checks, ~20x faster (wall clock including compilation). The [model README](../README.md#speed) times the simulation alone, on the PIPE 64 test: 10 to 19x.
 
 ---
 

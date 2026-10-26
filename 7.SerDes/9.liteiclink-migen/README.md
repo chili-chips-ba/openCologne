@@ -101,12 +101,12 @@ Folder layout and build steps, kept for reference: the prototype does not build 
 
 ### 2.sw
 
-In the [2.sw](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/2.liteiclink/2.sw) is a modified version of the [LiteX Demo Application](https://github.com/enjoy-digital/litex/tree/master/litex/soc/software/demo) that will include generated CSR from the migen target file in the `main.c` function. There lie the control function for the datapath in the bare-metal C.
+In the [2.sw](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/9.liteiclink-migen/2.sw) is a modified version of the [LiteX Demo Application](https://github.com/enjoy-digital/litex/tree/master/litex/soc/software/demo) that will include generated CSR from the migen target file in the `main.c` function. There lie the control function for the datapath in the bare-metal C.
 The UART console is built upon the official demo application. 
 
 ### 3.build
 
-Here in the [3.build](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/2.liteiclink/3.build) folder we have the [Makefile](https://github.com/chili-chips-ba/openCologne/blob/main/7.SerDes/2.liteiclink/3.build/Makefile) that divides the LiteX workflow into different parts. Running `make help` lists the commands:
+Here in the [3.build](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/9.liteiclink-migen/3.build) folder we have the [Makefile](https://github.com/chili-chips-ba/openCologne/blob/main/7.SerDes/9.liteiclink-migen/3.build/Makefile) that divides the LiteX workflow into different parts. Running `make help` lists the commands:
 
 ```
 $ make help
@@ -141,12 +141,12 @@ The most important ones are:
 **NOTE**: Run `make term` in a separate terminal before running `make load`
 
 ### 4.migen
-The [4.migen](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/2.liteiclink/4.migen) folder contains two subfolders:
+The [4.migen](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/9.liteiclink-migen/4.migen) folder contains two subfolders:
 
-* [liteiclink](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/2.liteiclink/4.migen/liteiclink/serdes) which has the file that should be copied in the liteiclink litex folder
+* [liteiclink](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/9.liteiclink-migen/4.migen/liteiclink/serdes) which has the file that should be copied in the liteiclink litex folder
   
-* [litex_boards](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/2.liteiclink/4.migen/litex/litex-boards/litex_boards) which has:
-  [platforms](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/2.liteiclink/4.migen/litex/litex-boards/litex_boards/platforms) which has the specific platform file that specifies the pins of the board
-  [targets](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/2.liteiclink/4.migen/litex/litex-boards/litex_boards/targets) has the target file that specifies all of the important parts of the CPU design and instantiates the SoC.
+* [litex_boards](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/9.liteiclink-migen/4.migen/litex/litex-boards/litex_boards) which has:
+  [platforms](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/9.liteiclink-migen/4.migen/litex/litex-boards/litex_boards/platforms) which has the specific platform file that specifies the pins of the board
+  [targets](https://github.com/chili-chips-ba/openCologne/tree/main/7.SerDes/9.liteiclink-migen/4.migen/litex/litex-boards/litex_boards/targets) has the target file that specifies all of the important parts of the CPU design and instantiates the SoC.
 
 **NOTE**: Right now you need to copy these subfolders with the files manually in your LiteX install, under `litex-boards/litex_boards`.

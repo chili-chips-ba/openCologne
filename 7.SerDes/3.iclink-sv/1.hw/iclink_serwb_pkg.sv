@@ -11,7 +11,28 @@ package iclink_serwb_pkg;
 
   typedef logic [31:0] word_t;  // one SerWB word, 4 bytes on the line
 
-  localparam word_t SERWB_PREAMBLE = 32'h5AA5_5AA5;
+  localparam word_t SERWB_PREAMBLE  = 32'h5AA5_5AA5;
+
+  // a packet's payload in words, 1 .. SERWB_MAX_WORDS: length[23:10]
+  localparam int    SERWB_MAX_WORDS = 16383;
+  typedef logic [13:0] serwb_len_t;
+
+  // K words between packets, the K flag on byte 0 (doc/serwb.md)
+  localparam word_t SERWB_FILL         = {24'h0, 8'h3C};  // K28.1
+  localparam word_t SERWB_XOFF         = {24'h0, 8'h7C};  // K28.3
+  localparam word_t SERWB_XON          = {24'h0, 8'h9C};  // K28.4
+
+  // the depacketizer timeout, as LiteICLink: 1 ms at 2.5 Gb/s (31.25 MHz)
+  localparam int    SERWB_TIMEOUT_CLKS = 31250;
+
+  // a status counter (CRC errors, drops, overflows): adds n, stops at all ones
+  typedef logic [15:0] serwb_cnt_t;
+
+  function automatic serwb_cnt_t serwb_count(input serwb_cnt_t c, input logic [1:0] n);
+    logic [16:0] s;
+    s = {1'b0, c} + 17'(n);
+    return s[16] ? '1 : s[15:0];
+  endfunction
 
   // CRC32 as LiteICLink's _CRC32 (LiteEth's CRC engine): IEEE polynomial,
   // reset to all ones at each preamble, data bit 0 first, MSB-first shift,
@@ -20,7 +41,7 @@ package iclink_serwb_pkg;
   localparam word_t SERWB_CRC_INIT = 32'hFFFF_FFFF;
 
   // the port / length word: [7:0] port, [23:8] length in bytes, [31:24] 0
-  function automatic word_t serwb_header(input logic [7:0] port, input logic [13:0] words);
+  function automatic word_t serwb_header(input logic [7:0] port, input serwb_len_t words);
     return {8'h00, words, 2'b00, port};
   endfunction
 

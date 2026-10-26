@@ -1,6 +1,6 @@
 # SerDes loopback test
 
-Cologne Chip's `serdestool.py` drives `CC_SERDES` over JTAG. Needs python3 with `pyftdi` (`pip install pyftdi`), a GateMate EVB, and on it a bitstream of `serdes_lb.v` (a `CC_SERDES` loopback design, from `serdestool.py -m serdes_lb.v`), built with the flow in [Build](../README.md#build).
+Cologne Chip's `serdestool.py` drives `CC_SERDES` over JTAG. Needs python3 with `pyftdi` (`pip install pyftdi`), a GateMate EVB, and on it a bitstream of `serdes_lb.v` (a `CC_SERDES` loopback design, from `serdestool.py -m serdes_lb.v`), built with the flow in [3.build](../3.iclink-sv/3.build/README.md).
 
 ## References
 - Measuring Eye Diagrams on [Rigol MSO5000](https://www.youtube.com/watch?si=vo3GYcDNML9LsX7S&v=JcJbcKl5llo&feature=youtu.be)

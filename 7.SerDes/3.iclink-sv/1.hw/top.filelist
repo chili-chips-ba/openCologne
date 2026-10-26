@@ -4,7 +4,8 @@
 
 #==========================================================================
 # Files of the 'top' design module, in compile order: packages first.
-# Read by 3.build/sources.sh (run-lint, run-format, run-leq).
+# Read by 3.build/sources.sh (run-lint, run-format, run-leq), the
+# 3.build Makefile (the bitstream) and the 2.sim Makefile (sim_top).
 #==========================================================================
 
 ${HW_SRC}/iclink_pkg.sv

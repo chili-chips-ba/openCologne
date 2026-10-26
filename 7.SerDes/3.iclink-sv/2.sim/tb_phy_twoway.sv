@@ -31,10 +31,13 @@ module tb_phy_twoway
   phy_ctrl_t ctrl_a, ctrl_b;
   int errors = 0;
 
+  // make sim_phy_twoway WAVES=1: +waves=<run options>, e.g. FAST.2500.s1, which
+  // name the file: phy_twoway.FAST.2500.s1.fst
   initial begin : _waves
-    if ($test$plusargs("waves")) begin
-      $dumpfile("phy_twoway.fst");  // make sim_phy_twoway WAVES=1
-      $dumpvars(0, tb_phy_twoway);
+    string tag;
+    if ($value$plusargs("waves=%s", tag)) begin
+      $dumpfile({"phy_twoway.", tag, ".fst"});
+      $dumpvars(0, tb_phy_twoway);  // waves.vlt keeps it to what the session shows
     end
   end : _waves
 

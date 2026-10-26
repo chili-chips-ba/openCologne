@@ -3,10 +3,11 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 #
-# Lint of the RTL of top (1.hw/top.filelist, via sources.sh), and of the
+# Lint of the RTL of top (1.hw/top.filelist, via sources.sh), of the
 # SerWB link layer, also on its own (1.hw/serwb.filelist; tops
-# iclink_serwb_pump and iclink_gearbox): syntax and limited semantic checks
-# with a set of opensource tools, run in this order:
+# iclink_serwb_pump and iclink_gearbox), and of the simulation-only 8b/10b
+# reference (2.sim, ref_rtl; tops iclink_8b10b_enc and _dec): syntax and
+# limited semantic checks with a set of opensource tools, run in this order:
 #
 #   tags       every /*LINT:OK*/ sits on an output port (no tool needed)
 #   verilator  Verilator --lint-only -Wall: unused/undriven signals, widths,
@@ -68,12 +69,16 @@ mkdir -p "$W"
 # ---- work copy ----------------------------------------------------------------
 rm -rf "$W/1.hw"
 cp -r "$HW" "$W/1.hw"
+rm -rf "$W/2.sim" && mkdir -p "$W/2.sim"
+cp $(ref_rtl "$HERE/../2.sim") "$W/2.sim"
 cd "$W"
 SV=$(design_rtl 1.hw | tr '\n' ' ')
 SERWB=$(serwb_rtl 1.hw | tr '\n' ' ')
-OWN=$(own_rtl 1.hw | tr '\n' ' ')
+REF="1.hw/iclink_pkg.sv $(ref_rtl 2.sim | tr '\n' ' ')"
+OWN="$(own_rtl 1.hw | tr '\n' ' ') $(ref_rtl 2.sim | tr '\n' ' ')"
 # the designs the verilator, yosys and slang phases lint: top, sources
-DESIGNS=("top:$SV" "iclink_serwb_pump:$SERWB" "iclink_gearbox:$SERWB")
+DESIGNS=("top:$SV" "iclink_serwb_pump:$SERWB" "iclink_gearbox:$SERWB"
+         "iclink_8b10b_enc:$REF" "iclink_8b10b_dec:$REF")
 
 have() { command -v "$1" >/dev/null 2>&1; }
 declare -A RESULT
@@ -207,7 +212,7 @@ run_slang() {
   # the yosys-slang plugin prints "file:line: Warning:", the built-in read_slang
   # "file:line:col: warning:"; bring both to the second form so the waivers
   # match either. Paths come relative to the work directory, after any ../
-  found slang < <(sed -E 's#^(\.\./)+[^ ]*/1\.hw/#1.hw/#;
+  found slang < <(sed -E 's#^(\.\./)+[^ ]*/(1\.hw|2\.sim)/#\2/#;
                           s/^([^ :]+:[0-9]+): Warning:/\1:0: warning:/;
                           s/^([^ :]+:[0-9]+): Error:/\1:0: error:/' slang.log |
                   grep -E 'warning:|error:' | grep -v -E '^bb\.v')

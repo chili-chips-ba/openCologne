@@ -44,8 +44,13 @@ class SerDesGateMate(LiteXModule):
 
     clk_reg: the bring-up clock of the SV core (a regfile write sequence with
     fixed waits, designed for the 10 MHz board clock of the GateMate EVB).
-    linerate: only used to report the tx/rx clock frequency (linerate / 80);
-    the line rate itself is set by CC_SERDES's PLL configuration in the core.
+    linerate: 1.25e9, 2.5e9 or 5e9, the core's LINE_RATE (its PLL setting); the
+    tx/rx clock runs at linerate / 80.
+
+    Clock correction is on in the core (iclink_phy_pkg: PHY_CLKCOR_*): between
+    two boards, the far side must send the clock-correction word in bursts, as
+    the FIFO pump does (iclink_serwb_pump), or the RX buffer runs over or dry
+    (rx_buf_err). A loopback on one board needs no bursts.
     """
     def __init__(self, platform, clk_reg, rst_reg=0, linerate=2.5e9):
         self.nwords = nwords = 8
@@ -69,6 +74,7 @@ class SerDesGateMate(LiteXModule):
         self.rx_d       = Signal(8*nwords)
         self.rx_k       = Signal(nwords)
         self.rx_invalid = Signal(nwords)
+        self.rx_buf_err = Signal()  # the CC_SERDES RX buffer ran over or dry
 
         # Clock domains ---------------------------------------------------------------------
         # One core clock (CC_SERDES PLL_CLK_O) for TX and RX: the CC_SERDES RX buffer moves
@@ -97,19 +103,22 @@ class SerDesGateMate(LiteXModule):
             o_rx_aligned     = self.rx_aligned,
             o_rx             = Cat(self.rx_k, self.rx_d),
             o_rx_invalid     = self.rx_invalid,
+            o_rx_buf_err     = self.rx_buf_err,
             o_rx_prbs_errors = self.rx_prbs_errors,
         )
-        self.add_sources(platform)
+        self.add_sources(platform, line_rate=int(round(linerate/1e6)))
 
     @staticmethod
-    def add_sources(platform):
+    def add_sources(platform, line_rate=2500):
         # Yosys's GateMate cell blackboxes, so read_slang knows CC_SERDES.
         datdir = subprocess.check_output(["yosys-config", "--datdir"], text=True).strip()
         platform.add_source(os.path.join(datdir, "gatemate", "cells_bb.v"), language="systemverilog")
         for f in SOURCES:
             platform.add_source(os.path.join(HW_DIR, f), language="systemverilog")
         platform.yosys_use_slang  = True
-        platform.yosys_slang_opts = "-D SYNTHESIS"  # CC_SERDES, not the simulation BFM
+        # SYNTHESIS: CC_SERDES, not the simulation BFM. read_slang elaborates the core
+        # as a top of its own, so LINE_RATE goes in as -G, not as an Instance parameter.
+        platform.yosys_slang_opts = f"-D SYNTHESIS -G LINE_RATE={line_rate}"
 
     def add_stream_endpoints(self):
         """sink (tx domain) and source (rx domain): data = 8 words of 8 bits, ctrl = K flags."""
@@ -129,10 +138,12 @@ class SerDesGateMate(LiteXModule):
         self._rx_ready   = CSRStatus(description="RX initialized and ready, CDR locked.")
         self._rx_align   = CSRStorage(reset=1, description="Comma alignment enable.")
         self._rx_aligned = CSRStatus(description="Comma alignment acquired.")
+        self._rx_buf_err = CSRStatus(description="RX buffer over- or underflow (live status, not sticky).")
         self.specials += [
             MultiReg(self.tx_ready,   self._tx_ready.status),
             MultiReg(self.rx_ready,   self._rx_ready.status),
             MultiReg(self.rx_aligned, self._rx_aligned.status),
+            MultiReg(self.rx_buf_err, self._rx_buf_err.status),
         ]
         self.comb += self.rx_align.eq(self._rx_align.storage)  # synchronized in the core
 

@@ -24,13 +24,13 @@ __pycache__/
 *.elf.map
 *.fbi
 **/sw_build/
-/7.SerDes/2.liteiclink/2.sw/**/demo.bin
-/7.SerDes/2.liteiclink/3.build/build/
+/7.SerDes/9.liteiclink-migen/2.sw/**/demo.bin
+/7.SerDes/9.liteiclink-migen/3.build/build/
 /7.SerDes/3.iclink-sv/3.build/build/
 /7.SerDes/3.iclink-sv/4.litex/build/
 /7.SerDes/3.iclink-sv/2.sim/obj_*/
 /7.SerDes/3.iclink-sv/2.sim/modes_*.txt
-/7.SerDes/3.iclink-sv/2.sim/pump_levels.csv
+/7.SerDes/3.iclink-sv/2.sim/pump_levels_w*.csv
 
 # --- Simulation --------------------------------------------------------------
 obj_dir/
@@ -39,8 +39,7 @@ results.xml
 *.vvp
 *.vcd
 *.fst
-!/7.SerDes/3.iclink-sv/2.sim/phy_oneway.fst
-!/7.SerDes/3.iclink-sv/2.sim/phy_twoway.fst
+!/7.SerDes/3.iclink-sv/2.sim/*.fst
 *.ghw
 work-obj*.cf
 **/[24].sim/tb.xml

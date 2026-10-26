@@ -4,9 +4,9 @@
 # SPDX-License-Identifier: BSD-3-Clause
 #
 # End2End Flow chart: the FIFO levels of tb_serwb_pump phase 2 (B stops
-# reading, A floods, B reads again), from pump_levels.csv.
+# reading, A floods, B reads again), at W = 2, from pump_levels_w2.csv.
 #
-# usage: plot_pump_levels.py [pump_levels.csv] [images/pump-levels.png]
+# usage: plot_pump_levels.py [pump_levels_w2.csv] [images/pump-levels.png]
 
 import csv
 import sys
@@ -17,7 +17,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 DEPTH, XOFF, XON = 1024, 832, 512  # W = 2: XOFF = DEPTH - 96*W
-CLK_NS = 32.0
 LINE_LAT = 31  # line clocks each way, tb_serwb_pump
 
 SURFACE, INK, INK2, MUTED, GRID, AXIS = "#fcfcfb", "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#c3c2b7"
@@ -25,7 +24,7 @@ B_RX, A_TX = "#2a78d6", "#eb6834"  # categorical slots 1 and 2
 
 
 def main():
-    src = sys.argv[1] if len(sys.argv) > 1 else "pump_levels.csv"
+    src = sys.argv[1] if len(sys.argv) > 1 else "pump_levels_w2.csv"
     out = sys.argv[2] if len(sys.argv) > 2 else "images/pump-levels.png"
     rows = list(csv.DictReader(open(src)))
     t0   = int(rows[0]["time_ps"])

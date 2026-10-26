@@ -14,7 +14,7 @@ package top_pkg;
   // clock (CLK0) it toggles every 2^23 / 10 MHz = 0.84 s.
   localparam int HEARTBEAT_W       = 24;
 
-  // PRBS self-test: PRBS7, 20 bits per clock (the SerDes datapath width);
+  // PRBS self-test, apart from the SerDes: PRBS7, 20 bits per board clock;
   // the checker locks within 2^PRBS_WARMUP_LOG2 clocks of reset
   localparam int PRBS_W            = 20;
   localparam int PRBS_WARMUP_LOG2  = 4;

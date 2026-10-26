@@ -42,10 +42,10 @@
 module iclink_serwb_rx
   import iclink_serwb_pkg::*;
 #(
-    parameter  int W            = 2,                 // words a clock: 2 or 4
+    parameter  int W            = 2,                   // words a clock: 2 or 4
     parameter  int MAX_WORDS    = 16,
-    parameter  int TIMEOUT_CLKS = 31250,             // 1 ms at 31.25 MHz
-    localparam int DW           = $clog2(W / 2 + 1)  // a count of the drops in one clock
+    parameter  int TIMEOUT_CLKS = SERWB_TIMEOUT_CLKS,
+    localparam int DW           = $clog2(W / 2 + 1)    // a count of the drops in one clock
 ) (
     input logic clk,
     input logic arst_n,
@@ -63,7 +63,8 @@ module iclink_serwb_rx
     output logic           o_crc_error
 );
 
-  if (!(W inside {2, 4}) || MAX_WORDS < 1 || MAX_WORDS > 16383 || TIMEOUT_CLKS < 2) begin : g_bad
+  if (!(W inside {2, 4}) || MAX_WORDS < 1 || MAX_WORDS > SERWB_MAX_WORDS ||
+      TIMEOUT_CLKS < 2) begin : g_bad
     $error(
         "iclink_serwb_rx: W %0d (2 or 4), MAX_WORDS %0d (1 .. 16383), TIMEOUT_CLKS %0d",
         W,
@@ -86,9 +87,9 @@ module iclink_serwb_rx
   } state_t;
 
   typedef struct packed {
-    state_t      state;
-    logic [13:0] left;   // data words still to come
-    logic [7:0]  port;
+    state_t     state;
+    serwb_len_t left;   // data words still to come
+    logic [7:0] port;
   } ctx_t;
 
   // what a stage carries for one beat. Packet A: the one open at the start
@@ -128,7 +129,7 @@ module iclink_serwb_rx
       S_HEADER: begin
         n.port = w[7:0];
         n.left = w[23:10];
-        if (w[23:10] != '0 && w[23:10] <= 14'(MAX_WORDS)) begin
+        if (w[23:10] != '0 && w[23:10] <= serwb_len_t'(MAX_WORDS)) begin
           n.state = S_DATA;
           crcd    = 1'b1;
           init    = 1'b1;
@@ -142,8 +143,8 @@ module iclink_serwb_rx
       S_DATA: begin
         data   = 1'b1;
         crcd   = 1'b1;
-        n.left = c.left - 14'd1;
-        if (c.left == 14'd1) begin
+        n.left = c.left - serwb_len_t'(1);
+        if (c.left == serwb_len_t'(1)) begin
           n.state = S_CHECK;
         end
       end

@@ -21,7 +21,8 @@
 DEVICE   ?= CCGM1A1
 LINE_RATE ?= 2500
 CORE_MHZ := $(shell awk 'BEGIN { print $(LINE_RATE) / 80 }')
-FREQ     ?= 10                   # MHz, every clock not named below: the EVB clock (CLK0)
+# MHz, every clock not named below: the EVB clock (CLK0)
+FREQ     ?= 10
 SEED     ?= 1
 CCF      ?= GateMateA1-EVB.ccf
 BOARD    ?= gatemate_evb_jtag
@@ -37,19 +38,30 @@ SV       := $(shell bash -c '. ./sources.sh && design_rtl $(HW)')
 # the GateMate primitives (CC_SERDES, ...) as blackboxes for read_slang
 CELLS    := $(shell $(YOSYS)-config --datdir)/gatemate/cells_bb.v
 
-.PHONY: all load clean
+.PHONY: all load clean FORCE
 
 all: $(BLD)/top.bit
 
-$(BLD)/top.json: $(SV) | $(BLD)
+# the options of each step, rewritten only when they change, so that a new
+# LINE_RATE synthesizes again and a new SEED or FREQ places and routes again
+SYNTH_OPTS := LINE_RATE=$(LINE_RATE)
+PNR_OPTS   := $(SYNTH_OPTS) SEED=$(SEED) FREQ=$(FREQ) DEVICE=$(DEVICE)
+
+$(BLD)/synth.opts: FORCE | $(BLD)
+	@echo '$(SYNTH_OPTS)' | cmp -s - $@ || echo '$(SYNTH_OPTS)' > $@
+
+$(BLD)/pnr.opts: FORCE | $(BLD)
+	@echo '$(PNR_OPTS)' | cmp -s - $@ || echo '$(PNR_OPTS)' > $@
+
+$(BLD)/top.json: $(SV) $(BLD)/synth.opts | $(BLD)
 	$(YOSYS) -l $(BLD)/yosys.log -p "read_slang -D SYNTHESIS -G LINE_RATE=$(LINE_RATE) --top top $(CELLS) $(SV); \
 	  synth_gatemate -top top -luttree -nomx8 -json $@" > /dev/null
 
 # the SerDes core clocks, by net name
-$(BLD)/clocks.py: Makefile | $(BLD)
+$(BLD)/clocks.py: Makefile $(BLD)/synth.opts | $(BLD)
 	printf 'ctx.addClock("clk_core", %s)\n' $(CORE_MHZ) > $@
 
-$(BLD)/top.txt: $(BLD)/top.json $(BLD)/clocks.py $(CCF)
+$(BLD)/top.txt: $(BLD)/top.json $(BLD)/clocks.py $(CCF) $(BLD)/pnr.opts
 	$(NEXTPNR) --device $(DEVICE) --json $< --vopt ccf=$(CCF) --vopt out=$@ \
 	  --pre-pack $(BLD)/clocks.py --router router2 --freq $(FREQ) --seed $(SEED) \
 	  -l $(BLD)/nextpnr.log

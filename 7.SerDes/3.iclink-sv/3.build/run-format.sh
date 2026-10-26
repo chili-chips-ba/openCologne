@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 #
-# Format our RTL (own_rtl in sources.sh) in the project style:
+# Format our RTL (own_rtl and ref_rtl in sources.sh) in the project style:
 #   1. every if, else, always, for, foreach, while, forever and initial body is
 #      a begin ... end block, also when it is a single statement (the statement
 #      positions come from the verible-verilog-syntax tree);
@@ -128,7 +128,7 @@ sys.exit(1 if count_only and total else 0)
 PY
 }
 
-FILES=($(own_rtl "$RTL"))
+FILES=($(own_rtl "$RTL") $(ref_rtl "$(cd "$HERE/../2.sim" && pwd)"))
 bad=0
 if [ $MODE = check ]; then
   explicit_begin --count "${FILES[@]}" || bad=$((bad + 1))

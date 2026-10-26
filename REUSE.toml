@@ -335,14 +335,14 @@ SPDX-License-Identifier = "MIT"
 
 # serdestool, https://github.com/pu-cc/gm_serdes_lb (ISC text, no holder named)
 [[annotations]]
-path = ["7.SerDes/1.serdestool_by_gm/serdes_lb.v", "7.SerDes/1.serdestool_by_gm/serdestool.py"]
+path = ["7.SerDes/2.serdestool_by_gm/serdes_lb.v", "7.SerDes/2.serdestool_by_gm/serdestool.py"]
 precedence = "override"
 SPDX-FileCopyrightText = "Patrick Urban, Cologne Chip AG"
 SPDX-License-Identifier = "ISC"
 
 # LiteX BIOS-based demo firmware (Florent Kermarrec, "License: BSD" = LiteX BSD-2)
 [[annotations]]
-path = ["7.SerDes/2.liteiclink/2.sw/main.c", "7.SerDes/2.liteiclink/2.sw/demo/main.c"]
+path = ["7.SerDes/9.liteiclink-migen/2.sw/main.c"]
 precedence = "override"
 SPDX-FileCopyrightText = "2020 Florent Kermarrec <florent@enjoy-digital.fr>"
 SPDX-License-Identifier = "BSD-2-Clause"

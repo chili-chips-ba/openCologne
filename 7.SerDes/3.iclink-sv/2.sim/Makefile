@@ -8,9 +8,9 @@
 #                   (vectors/*.hex, committed)
 #   make sim_prbs   PRBS7/15/31 against LiteX's vectors, and pause
 #   make sim_phy_oneway  the SerDes PHY on the SerDes BFM, TX looped to RX
-#                        (WAVES=1: also writes phy_oneway.fst, for WaveCrux)
+#                        (WAVES=1: also writes phy_oneway.<options>.fst, for WaveCrux)
 #   make sim_phy_twoway  two PHYs on two SerDes BFMs, serial lines crossed
-#                        (WAVES=1: also writes phy_twoway.fst)
+#                        (WAVES=1: also writes phy_twoway.<options>.fst)
 #   make sim_phy_rates   both PHY tests at 1250, 2500 and 5000 Mb/s
 #   make sim_serwb_tx  SerWB packetizer against LiteICLink's Packetizer (vectors/serwb_*)
 #   make sim_serwb_rx  SerWB depacketizer against LiteICLink's CRCDepacketizer (vectors/serwb_rx_*)
@@ -28,12 +28,12 @@
 #   make vectors    regenerate vectors/*.hex from LiteX (needs LiteX in python3)
 #   make clean
 # Settings (make ... NAME=VALUE):
-#   CDR_MODEL=NONE|FAST|ACCURATE  the SerDes BFM mode, PHY and top tests (default NONE)
+#   CDR_MODEL=NONE|FAST|ACCURATE  the SerDes BFM mode, PHY, top and link_ppm tests (default NONE)
 #   SEED=N        the simulator seed, PHY and top tests: it sets the BFM's random RX word
 #                 phase. None: Verilator's fixed default seed; 0: a new seed every run
-#   RANDOM_PHASE=0  the RX word phase fixed at 0, PHY and top tests (default: random)
+#   RANDOM_PHASE=0  the RX word phase fixed at 0, PHY, top and link_ppm tests (default: random)
 #   LINE_RATE=1250|2500|5000  Mb/s, PHY tests (default 2500)
-#   WAVES=1       also write an FST waveform, PHY tests
+#   WAVES=1       also write an FST waveform, PHY tests, named by the options (WAVE_TAG)
 #   SERWB_W=2|4   SerWB words a clock, SerWB tests (default 2)
 #   MODES_TOL_NS  sim_modes: how far a mode's latency may be from ACCURATE's (default 1.6)
 
@@ -51,9 +51,12 @@ OUT := obj_8b10b
 
 WAVES ?= 0
 SERWB_W ?= 2
-TRACE := $(if $(filter 1,$(WAVES)),--trace-fst --trace-structs,)
+TRACE := $(if $(filter 1,$(WAVES)),--trace-fst --trace-structs waves.vlt,)
 SEED  ?=
-PLUS  := $(if $(filter 1,$(WAVES)),+waves,) $(if $(SEED),+verilator+seed+$(SEED))
+# the FST name carries the run options: phy_oneway.<CDR_MODEL>.<LINE_RATE>.s<SEED>[.rp<RANDOM_PHASE>].fst
+# (s-: no SEED, Verilator's fixed default; s0: a new seed each run)
+WAVE_TAG  = $(or $(CDR_MODEL),NONE).$(LINE_RATE).s$(or $(SEED),-)$(if $(RANDOM_PHASE),.rp$(RANDOM_PHASE))
+PLUS   = $(if $(filter 1,$(WAVES)),+waves=$(WAVE_TAG),) $(if $(SEED),+verilator+seed+$(SEED))
 
 .PHONY: all sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_phy_rates sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_serwb_w4 sim_top sim_link_ppm sim_modes sim_icarus vectors clean
 
@@ -227,4 +230,4 @@ vectors:
 # the waves phy_*.fst stay: they are committed, for WaveCrux
 clean:
 	find . -maxdepth 1 -name 'obj_*' -exec find {} -delete \;
-	rm -f sim_*.log pump_levels.csv modes_*.txt
+	rm -f sim_*.log pump_levels_w*.csv modes_*.txt

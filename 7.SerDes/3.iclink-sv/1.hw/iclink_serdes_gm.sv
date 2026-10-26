@@ -32,8 +32,8 @@
 //   data or PRBS. While it is high, CC_SERDES realigns on any comma off the
 //   word boundary (DS1001 Table 2.50), and a line error can make one: the
 //   link would slip. So: raise it at bring-up, drop it once rx_aligned and
-//   a few commas have passed, raise it again to realign (rx_ready lost,
-//   a link error). The board top does this (top.sv: ALIGN_COMMAS_LOG2).
+//   a few commas have passed, raise it again to realign. The board top
+//   raises it again when rx_ready drops (top.sv: ALIGN_COMMAS_LOG2).
 //
 //   Flops at the CC_SERDES boundary, no logic in between:
 //     TX: one flop stage (tx_ser) drives every TX datapath input of CC_SERDES;
@@ -188,17 +188,14 @@ module iclink_serdes_gm
   // TX: PRBS or data -> tx_ser flops -> CC_SERDES, which encodes 8b/10b
   //-----------------------------------------------------------------------
   logic tx_ready_meta;
-  prbs_cfg_t tx_prbs_meta, tx_prbs;  // ctrl.tx_prbs, synchronized, into PRBS TX
+  // ctrl.tx_prbs, synchronized (ctrl is on any clock): PRBS TX's select
+  // takes it as is, and it synchronizes its pass/PRBS choice once more, as
+  // LiteX's PRBSTX does
+  prbs_cfg_t tx_prbs_meta, tx_prbs;
   prbs_cfg_t tx_prbs_on;  // PRBS TX's own choice, the same clock as its data: the K mask
   logic [PHY_DW-1:0] tx_payload;
   logic tx_resetdone;  // CC_SERDES output, read only by the sync below
-
-  // tx_ser: the TX datapath into CC_SERDES, straight from these flops
-  typedef struct packed {
-    byte_t [PHY_NWORDS-1:0] d;
-    logic [PHY_NWORDS-1:0]  k;
-  } tx_ser_t;
-  tx_ser_t tx_ser;
+  phy_word_t tx_ser;  // the TX datapath into CC_SERDES, straight from these flops
 
   always_ff @(posedge clk_core or negedge arst_n) begin
     if (!arst_n) begin

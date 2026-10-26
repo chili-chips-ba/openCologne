@@ -21,7 +21,7 @@ It was developed in [openCologne](https://github.com/chili-chips-ba/openCologne)
 
 ## Why
 
-The vendor model is under NDA and slow: 9 to 18 times slower than this one in Icarus (see [Speed](#speed)), and Verilator can't build it. This model is fast, open, and runs your RTL as built: no co-simulation, no VProc. It also behaves like the silicon where a careless model wouldn't: the RX word counter starts at a random phase, so a comma can land in any lane the configuration allows, and logic that assumes lane 0 fails in simulation, not on the board.
+The vendor model is under NDA and slow: 10 to 19 times slower than this one in Icarus (see [Speed](#speed)), and Verilator can't build it. This model is fast, open, and runs your RTL as built: no co-simulation, no VProc. It also behaves like the silicon where a careless model wouldn't: the RX word counter starts at a random phase, so a comma can land in any lane the configuration allows, and logic that assumes lane 0 fails in simulation, not on the board.
 
 ## Quick start
 
@@ -149,7 +149,7 @@ If the silicon works the same, three things follow for a protocol:
 2. An insertion repeats the previous word. It is safe only when that word is harmless to repeat: another sequence word, or idle.
 3. The sequence must sit aligned in the datapath word.
 
-PCIe's SKP ordered set meets none of these, so a PCIe endpoint should keep `RX_CLKCOR_USE = 0` and run from the host's REFCLK (details: [7.SerDes README](../README.md#cc_serdes-clock-correction-what-it-can-and-cannot-do)). Questions to Cologne Chip: [gatemate-pipe#14](https://github.com/colognechip/gatemate-pipe/issues/14).
+PCIe's SKP ordered set meets none of these, so a PCIe endpoint should keep `RX_CLKCOR_USE = 0` and run from the host's REFCLK. How 7.SerDes uses clock correction, and the PCIe details: [clock correction](../0.doc/clock-correction.md). Questions to Cologne Chip: [gatemate-pipe#14](https://github.com/colognechip/gatemate-pipe/issues/14).
 
 ### Implementation
 
@@ -183,13 +183,13 @@ Wall clock on one PC, best of 3. PIPE 64: the openCologne-PCIE PHY test, about 2
 | this model, `ACCURATE` | 8.5 s | 1.19 s | 0.098 s |
 | vendor model (NDA) | 86 s | - | - |
 
-In Icarus the vendor model is 9 to 18 times slower per simulated µs. Verilator is 12 to 44 times faster than Icarus, and can't build the vendor model. In Icarus, `FAST` and `ACCURATE` cost about the same, since `FAST` still follows every line edge; in Verilator, `ACCURATE` costs 1.7 times `FAST`. `NONE` skips the serial line and is the fastest.
+In Icarus the vendor model is 10 to 19 times slower (86 s against 8.9 and 4.5 s). The [equivalence-checking](0.doc/equivalence-checking.md) run gives about 20 times on the vendor's own testcase, wall clock with compilation. Verilator is 12 to 44 times faster than Icarus, and can't build the vendor model. In Icarus, `FAST` and `ACCURATE` cost about the same, since `FAST` still follows every line edge; in Verilator, `ACCURATE` costs 1.7 times `FAST`. `NONE` skips the serial line and is the fastest.
 
 ## Where it is used
 
 | Project | Flow |
 |---|---|
-| openCologne | [7.SerDes](../README.md#simulation): the IC Link PHY, one-way and two-way; the board top with the FIFO pump; `sim_link_ppm`, two boards 200 ppm apart kept in step by the RX buffer's clock correction (`MIN_LAT` 8, `MAX_LAT` 12, K23.7 bursts); `sim_modes`, `sim_icarus` |
+| openCologne | [7.SerDes](../3.iclink-sv/2.sim/README.md): the IC Link PHY, one-way and two-way; the board top with the FIFO pump; `sim_link_ppm`, two boards 200 ppm apart kept in step by the RX buffer's clock correction (`MIN_LAT` 8, `MAX_LAT` 12, K23.7 bursts); `sim_modes`, `sim_icarus` |
 | openCologne-PCIE | `2.rtl/1.phy/3.sim` (`run-phy.sh pipe64`, `equiv`): the PIPE test and the vendor comparison; `2.rtl/4.dll/sim`: DLL, MAC/LTSSM, PIPE and this SerDes, two link partners |
 
 ## License

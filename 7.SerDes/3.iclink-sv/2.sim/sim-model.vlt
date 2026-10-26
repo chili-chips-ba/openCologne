@@ -7,3 +7,6 @@
 `verilator_config
 lint_off -file "*1.sim-model/*"
 lint_off -rule ZERODLY -file "*1.sim-model/*"
+// With --trace, Verilator reports the BFM's two drivers of refclk_sel_o and
+// refclk_rterm_o (reset and run time) at the PHY's NC_ wires they feed
+lint_off -rule MULTIDRIVEN -file "*iclink_serdes_gm.sv" -match "*NC_refclk_*"

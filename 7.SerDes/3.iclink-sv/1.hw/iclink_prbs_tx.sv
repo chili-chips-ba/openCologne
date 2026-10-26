@@ -16,7 +16,7 @@ module iclink_prbs_tx
   import iclink_pkg::*;
 #(
     parameter int WIDTH   = 20,
-    parameter bit REVERSE = 1'b1  // bit order reversed, as LiteICLink's GateMate PHY uses it
+    parameter bit REVERSE = 1'b1  // bit order reversed, as LiteICLink's ECP5 PHY uses it
 ) (
     input  logic                  clk,
     input  logic                  arst_n,
@@ -73,10 +73,18 @@ module iclink_prbs_tx
 
   always_comb begin : _select
     unique case (config_i)
-      PRBS_OFF: prbs = '0;
-      PRBS_7:   prbs = prbs7;
-      PRBS_15:  prbs = prbs15;
-      PRBS_31:  prbs = prbs31;
+      PRBS_OFF: begin
+        prbs = '0;
+      end
+      PRBS_7: begin
+        prbs = prbs7;
+      end
+      PRBS_15: begin
+        prbs = prbs15;
+      end
+      PRBS_31: begin
+        prbs = prbs31;
+      end
     endcase
 
     for (int b = 0; b < WIDTH; b++) begin

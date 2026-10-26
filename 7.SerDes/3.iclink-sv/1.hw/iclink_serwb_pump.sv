@@ -67,7 +67,7 @@ module iclink_serwb_pump
     parameter int XON_LEVEL = DEPTH / 2,
     parameter int REFRESH_CLKS = 1024,
     parameter int CLKCOR_CLKS = 1024,  // a clock-correction burst
-    parameter int TIMEOUT_CLKS = 31250,  // 1 ms at 31.25 MHz
+    parameter int TIMEOUT_CLKS = SERWB_TIMEOUT_CLKS,
     localparam int AW = $clog2(DEPTH),
     localparam int TW = $clog2(W + 1),
     localparam int NP = W / 2,  // PHY words a line clock
@@ -95,21 +95,17 @@ module iclink_serwb_pump
     input  phy_word_t [NP-1:0] phy_rx,
 
     // status
-    output logic        remote_paused,  // the far side sent XOFF
-    output logic        pause,          // we ask the far side to pause
-    output logic [15:0] crc_errors,
-    output logic [15:0] drops,
-    output logic [15:0] overflows
+    output logic       remote_paused,  // the far side sent XOFF
+    output logic       pause,          // we ask the far side to pause
+    output serwb_cnt_t crc_errors,
+    output serwb_cnt_t drops,
+    output serwb_cnt_t overflows
 );
-
-  localparam word_t WORD_FILL = {24'h0, 8'h3C};  // K28.1
-  localparam word_t WORD_XOFF = {24'h0, 8'h7C};  // K28.3
-  localparam word_t WORD_XON  = {24'h0, 8'h9C};  // K28.4
 
   if (!(W inside {2, 4}) || (DEPTH & (DEPTH - 1)) != 0) begin : g_bad_w
     $error("iclink_serwb_pump: W %0d (2 or 4), DEPTH %0d (a power of 2)", W, DEPTH);
   end : g_bad_w
-  if (PKT_WORDS < 1 || PKT_WORDS > MAX_WORDS || MAX_WORDS > 16383) begin : g_bad_pkt
+  if (PKT_WORDS < 1 || PKT_WORDS > MAX_WORDS || MAX_WORDS > SERWB_MAX_WORDS) begin : g_bad_pkt
     $error(
         "iclink_serwb_pump: 1 <= PKT_WORDS %0d <= MAX_WORDS %0d (the far side's) <= 16383",
         PKT_WORDS,
@@ -171,8 +167,8 @@ module iclink_serwb_pump
     T_HDR
   } tx_state_t;
 
-  tx_state_t        tx_state;
-  logic      [13:0] tx_words;  // the next packet's word count
+  tx_state_t  tx_state;
+  serwb_len_t tx_words;  // the next packet's word count
   logic [AW:0] pend, free;  // free: words in the FIFO for the next packet
   logic [$clog2(FLUSH_CLKS)-1:0] flush_cnt;
   logic hdr_ready, pk_ready;
@@ -200,12 +196,12 @@ module iclink_serwb_pump
             flush_cnt <= '0;
           end
           else if (free >= (AW + 1)'(PKT_WORDS)) begin
-            tx_words  <= 14'(PKT_WORDS);
+            tx_words  <= serwb_len_t'(PKT_WORDS);
             tx_state  <= T_HDR;
             flush_cnt <= '0;
           end
           else if (free != '0 && flush_cnt == '1) begin
-            tx_words  <= 14'(free);
+            tx_words  <= serwb_len_t'(free);
             tx_state  <= T_HDR;
             flush_cnt <= '0;
           end
@@ -323,17 +319,17 @@ module iclink_serwb_pump
         ln_word[s] = {24'h0, (s % 2 == 0) ? PHY_COMMA : PHY_IDLE};
       end
       else if (cc_on) begin  // the burst's first PHY word; the others below
-        ln_word[s] = WORD_FILL;
+        ln_word[s] = SERWB_FILL;
       end
       else if (send_ctrl) begin
-        ln_word[s] = (s == 0) ? (pause ? WORD_XOFF : WORD_XON) : WORD_FILL;
+        ln_word[s] = (s == 0) ? (pause ? SERWB_XOFF : SERWB_XON) : SERWB_FILL;
       end
       else if (pk_ready && pk_valid[s]) begin
         ln_word[s] = pk_word[s];
         ln_k[s]    = 1'b0;
       end
       else begin
-        ln_word[s] = WORD_FILL;
+        ln_word[s] = SERWB_FILL;
       end
       for (int b = 0; b < 4; b++) begin
         line[s/2].d[4*(s%2)+b] = ln_word[s][8*b+:8];
@@ -371,8 +367,8 @@ module iclink_serwb_pump
         rx_word[s][8*b+:8] = phy_rx[s/2].d[4*(s%2)+b];
       end
       rx_valid[s] = rx_en && (phy_rx[s/2].k[4*(s%2)+:4] == 4'b0000);
-      is_xoff[s]  = rx_en && (phy_rx[s/2].k[4*(s%2)+:4] == 4'b0001) && (rx_word[s] == WORD_XOFF);
-      is_xon[s]   = rx_en && (phy_rx[s/2].k[4*(s%2)+:4] == 4'b0001) && (rx_word[s] == WORD_XON);
+      is_xoff[s]  = rx_en && (phy_rx[s/2].k[4*(s%2)+:4] == 4'b0001) && (rx_word[s] == SERWB_XOFF);
+      is_xon[s]   = rx_en && (phy_rx[s/2].k[4*(s%2)+:4] == 4'b0001) && (rx_word[s] == SERWB_XON);
       if (is_xoff[s] || is_xon[s]) begin  // the later slot wins
         ctrl_seen = 1'b1;
         ctrl_xoff = is_xoff[s];
@@ -453,9 +449,9 @@ module iclink_serwb_pump
         remote_paused <= ctrl_xoff;
       end
 
-      crc_errors <= crc_errors + 16'(dp_crc_error);
-      drops      <= drops + 16'(dp_drop) + 16'(dp_commit && !keep);
-      overflows  <= overflows + 16'(dp_commit && ovf);
+      crc_errors <= serwb_count(crc_errors, 2'(dp_crc_error));
+      drops      <= serwb_count(drops, 2'(dp_drop) + 2'(dp_commit && !keep));
+      overflows  <= serwb_count(overflows, 2'(dp_commit && ovf));
     end
   end
 

@@ -1,11 +1,11 @@
 {
   "version": 4,
-  "sourceFilePath": "phy_twoway.fst",
+  "sourceFilePath": "phy_twoway.FAST.2500.s1.fst",
   "signals": [
     {
       "kind": "signal",
       "id": "iclink-0",
-      "ref": "16",
+      "ref": "21",
       "path": "tb_phy_twoway.clk_reg",
       "name": "clk_reg",
       "color": 4283215696,
@@ -15,7 +15,7 @@
     {
       "kind": "signal",
       "id": "iclink-1",
-      "ref": "17",
+      "ref": "22",
       "path": "tb_phy_twoway.arst_n",
       "name": "arst_n",
       "color": 4280731354,
@@ -25,7 +25,7 @@
     {
       "kind": "signal",
       "id": "iclink-2",
-      "ref": "24",
+      "ref": "29",
       "path": "tb_phy_twoway.send",
       "name": "send",
       "color": 4294962776,
@@ -35,7 +35,7 @@
     {
       "kind": "signal",
       "id": "iclink-3",
-      "ref": "25",
+      "ref": "30",
       "path": "tb_phy_twoway.check",
       "name": "check",
       "color": 4293673082,
@@ -45,7 +45,7 @@
     {
       "kind": "signal",
       "id": "iclink-4",
-      "ref": "22",
+      "ref": "27",
       "path": "tb_phy_twoway.flip_ab",
       "name": "flip_ab",
       "color": 4294944550,
@@ -55,7 +55,7 @@
     {
       "kind": "signal",
       "id": "iclink-5",
-      "ref": "23",
+      "ref": "28",
       "path": "tb_phy_twoway.flip_ba",
       "name": "flip_ba",
       "color": 4293848814,
@@ -65,7 +65,7 @@
     {
       "kind": "signal",
       "id": "iclink-6",
-      "ref": "26",
+      "ref": "31",
       "path": "tb_phy_twoway.ctrl_a.tx_prbs",
       "name": "a.ctrl.tx_prbs",
       "color": 4283215696,
@@ -75,7 +75,7 @@
     {
       "kind": "signal",
       "id": "iclink-7",
-      "ref": "30",
+      "ref": "35",
       "path": "tb_phy_twoway.ctrl_b.tx_prbs",
       "name": "b.ctrl.tx_prbs",
       "color": 4280731354,
@@ -85,7 +85,7 @@
     {
       "kind": "signal",
       "id": "iclink-8",
-      "ref": "39",
+      "ref": "43",
       "path": "tb_phy_twoway.u_a.tx_ready",
       "name": "a.tx_ready",
       "color": 4294962776,
@@ -95,7 +95,7 @@
     {
       "kind": "signal",
       "id": "iclink-9",
-      "ref": "40",
+      "ref": "44",
       "path": "tb_phy_twoway.u_a.rx_ready",
       "name": "a.rx_ready",
       "color": 4293673082,
@@ -105,7 +105,7 @@
     {
       "kind": "signal",
       "id": "iclink-10",
-      "ref": "41",
+      "ref": "45",
       "path": "tb_phy_twoway.u_a.rx_aligned",
       "name": "a.rx_aligned",
       "color": 4294944550,
@@ -115,7 +115,7 @@
     {
       "kind": "signal",
       "id": "iclink-11",
-      "ref": "67",
+      "ref": "78",
       "path": "tb_phy_twoway.u_a.dut.cfg_state",
       "name": "a.cfg_state",
       "color": 4293848814,
@@ -125,9 +125,9 @@
     {
       "kind": "signal",
       "id": "iclink-12",
-      "ref": "37",
-      "path": "tb_phy_twoway.u_a.clk_tx",
-      "name": "a.clk_tx",
+      "ref": "42",
+      "path": "tb_phy_twoway.u_a.clk_core",
+      "name": "a.clk_core",
       "color": 4283215696,
       "format": "hexadecimal",
       "height": 30.0
@@ -135,7 +135,7 @@
     {
       "kind": "signal",
       "id": "iclink-13",
-      "ref": "79",
+      "ref": "91",
       "path": "tb_phy_twoway.u_a.dut.tx_payload",
       "name": "a.tx.d",
       "color": 4280731354,
@@ -145,7 +145,7 @@
     {
       "kind": "signal",
       "id": "iclink-14",
-      "ref": "18",
+      "ref": "23",
       "path": "tb_phy_twoway.u_a.ser_txp",
       "name": "a.ser_txp",
       "color": 4294962776,
@@ -155,7 +155,7 @@
     {
       "kind": "signal",
       "id": "iclink-15",
-      "ref": "35",
+      "ref": "40",
       "path": "tb_phy_twoway.u_a.ser_rxp",
       "name": "a.ser_rxp",
       "color": 4293673082,
@@ -164,18 +164,8 @@
     },
     {
       "kind": "signal",
-      "id": "iclink-16",
-      "ref": "38",
-      "path": "tb_phy_twoway.u_a.clk_rx",
-      "name": "a.clk_rx",
-      "color": 4294944550,
-      "format": "hexadecimal",
-      "height": 30.0
-    },
-    {
-      "kind": "signal",
       "id": "iclink-17",
-      "ref": "226",
+      "ref": "163",
       "path": "tb_phy_twoway.u_a.dut.u_prbs_rx.i",
       "name": "a.rx.d",
       "color": 4293848814,
@@ -185,7 +175,7 @@
     {
       "kind": "signal",
       "id": "iclink-18",
-      "ref": "60",
+      "ref": "64",
       "path": "tb_phy_twoway.u_a.rx_invalid",
       "name": "a.rx_invalid",
       "color": 4283215696,
@@ -195,7 +185,7 @@
     {
       "kind": "signal",
       "id": "iclink-19",
-      "ref": "66",
+      "ref": "72",
       "path": "tb_phy_twoway.u_a.locked",
       "name": "a.locked",
       "color": 4280731354,
@@ -205,7 +195,7 @@
     {
       "kind": "signal",
       "id": "iclink-20",
-      "ref": "63",
+      "ref": "69",
       "path": "tb_phy_twoway.u_a.rx_words",
       "name": "a.rx_words",
       "color": 4294962776,
@@ -215,7 +205,7 @@
     {
       "kind": "signal",
       "id": "iclink-21",
-      "ref": "64",
+      "ref": "70",
       "path": "tb_phy_twoway.u_a.rx_bad",
       "name": "a.rx_bad",
       "color": 4293673082,
@@ -225,7 +215,7 @@
     {
       "kind": "signal",
       "id": "iclink-22",
-      "ref": "61",
+      "ref": "67",
       "path": "tb_phy_twoway.u_a.rx_prbs_errors",
       "name": "a.rx_prbs_errors",
       "color": 4294944550,
@@ -235,7 +225,7 @@
     {
       "kind": "signal",
       "id": "iclink-23",
-      "ref": "545",
+      "ref": "181",
       "path": "tb_phy_twoway.u_b.tx_ready",
       "name": "b.tx_ready",
       "color": 4293848814,
@@ -245,7 +235,7 @@
     {
       "kind": "signal",
       "id": "iclink-24",
-      "ref": "546",
+      "ref": "182",
       "path": "tb_phy_twoway.u_b.rx_ready",
       "name": "b.rx_ready",
       "color": 4283215696,
@@ -255,7 +245,7 @@
     {
       "kind": "signal",
       "id": "iclink-25",
-      "ref": "547",
+      "ref": "183",
       "path": "tb_phy_twoway.u_b.rx_aligned",
       "name": "b.rx_aligned",
       "color": 4280731354,
@@ -265,7 +255,7 @@
     {
       "kind": "signal",
       "id": "iclink-26",
-      "ref": "573",
+      "ref": "211",
       "path": "tb_phy_twoway.u_b.dut.cfg_state",
       "name": "b.cfg_state",
       "color": 4294962776,
@@ -275,9 +265,9 @@
     {
       "kind": "signal",
       "id": "iclink-27",
-      "ref": "543",
-      "path": "tb_phy_twoway.u_b.clk_tx",
-      "name": "b.clk_tx",
+      "ref": "180",
+      "path": "tb_phy_twoway.u_b.clk_core",
+      "name": "b.clk_core",
       "color": 4293673082,
       "format": "hexadecimal",
       "height": 30.0
@@ -285,7 +275,7 @@
     {
       "kind": "signal",
       "id": "iclink-28",
-      "ref": "585",
+      "ref": "224",
       "path": "tb_phy_twoway.u_b.dut.tx_payload",
       "name": "b.tx.d",
       "color": 4294944550,
@@ -295,7 +285,7 @@
     {
       "kind": "signal",
       "id": "iclink-29",
-      "ref": "20",
+      "ref": "25",
       "path": "tb_phy_twoway.u_b.ser_txp",
       "name": "b.ser_txp",
       "color": 4293848814,
@@ -305,7 +295,7 @@
     {
       "kind": "signal",
       "id": "iclink-30",
-      "ref": "541",
+      "ref": "178",
       "path": "tb_phy_twoway.u_b.ser_rxp",
       "name": "b.ser_rxp",
       "color": 4283215696,
@@ -314,18 +304,8 @@
     },
     {
       "kind": "signal",
-      "id": "iclink-31",
-      "ref": "544",
-      "path": "tb_phy_twoway.u_b.clk_rx",
-      "name": "b.clk_rx",
-      "color": 4280731354,
-      "format": "hexadecimal",
-      "height": 30.0
-    },
-    {
-      "kind": "signal",
       "id": "iclink-32",
-      "ref": "726",
+      "ref": "292",
       "path": "tb_phy_twoway.u_b.dut.u_prbs_rx.i",
       "name": "b.rx.d",
       "color": 4294962776,
@@ -335,7 +315,7 @@
     {
       "kind": "signal",
       "id": "iclink-33",
-      "ref": "566",
+      "ref": "202",
       "path": "tb_phy_twoway.u_b.rx_invalid",
       "name": "b.rx_invalid",
       "color": 4293673082,
@@ -345,7 +325,7 @@
     {
       "kind": "signal",
       "id": "iclink-34",
-      "ref": "572",
+      "ref": "210",
       "path": "tb_phy_twoway.u_b.locked",
       "name": "b.locked",
       "color": 4294944550,
@@ -355,7 +335,7 @@
     {
       "kind": "signal",
       "id": "iclink-35",
-      "ref": "569",
+      "ref": "207",
       "path": "tb_phy_twoway.u_b.rx_words",
       "name": "b.rx_words",
       "color": 4293848814,
@@ -365,7 +345,7 @@
     {
       "kind": "signal",
       "id": "iclink-36",
-      "ref": "570",
+      "ref": "208",
       "path": "tb_phy_twoway.u_b.rx_bad",
       "name": "b.rx_bad",
       "color": 4283215696,
@@ -375,7 +355,7 @@
     {
       "kind": "signal",
       "id": "iclink-37",
-      "ref": "567",
+      "ref": "205",
       "path": "tb_phy_twoway.u_b.rx_prbs_errors",
       "name": "b.rx_prbs_errors",
       "color": 4280731354,
@@ -422,7 +402,7 @@
       "instanceNumber": 1,
       "config": {
         "bindings": {
-          "line": "35"
+          "line": "40"
         },
         "parameters": {
           "rate": "gen1",
@@ -438,7 +418,7 @@
       "instanceNumber": 2,
       "config": {
         "bindings": {
-          "line": "541"
+          "line": "178"
         },
         "parameters": {
           "rate": "gen1",

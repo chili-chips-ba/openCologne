@@ -25,9 +25,13 @@
 //     into its TX FIFO, and every word out of its RX FIFO must be the next
 //     count; no CRC error, drop, overflow or invalid symbol;
 //   - LED: blinks (heartbeat) while the link is up and every test passes,
-//     stays low after the first error, until reset.
+//     stays low after the first error or a link lost once up, until reset.
 //
-// The PHY, the link tests and the pump all run on one clock, clk_core.
+// The PHY, the link tests and the pump run on clk_core. The reset
+// synchronizer, the heartbeat, the PRBS self-test, the LED and the PHY
+// bring-up run on the board clock clk. rx_ready and tx_ready reset what
+// runs on clk_core: they are flops on clk_core, low from reset until the
+// SerDes is up, so a lost link restarts the tests.
 //
 // In simulation the SerDes BFM takes the place of CC_SERDES: its reference
 // clock and serial pins are ports of top (tb_top loops them back).
@@ -40,6 +44,9 @@
 
 module top
   import top_pkg::*;
+  import iclink_pkg::*;
+  import iclink_phy_pkg::*;
+  import iclink_serwb_pkg::*;
 #(
     parameter int LINE_RATE = 2500
 ) (
@@ -54,9 +61,6 @@ module top
     input  logic btn_n,    // FPGA_BUT: user button, low when pressed, used as reset
     output logic led       // FPGA_LED: heartbeat; low after a self-test error
 );
-  import iclink_pkg::*;
-  import iclink_phy_pkg::*;
-  import iclink_serwb_pkg::*;
 
   //-----------------------------------------------------------------------
   // Reset synchronizer: asynchronous assert, synchronous release
@@ -159,6 +163,10 @@ module top
   phy_word_t                       pump_tx;
   logic pump_up, pump_error;  // on clk_core
   logic [1:0] pump_up_sync;  // to clk
+  // on clk, held until reset: link_error and pump_error clear when rx_ready
+  // drops, so the LED keeps them here, and a link lost once it was up too
+  logic       link_was_up;
+  logic       failed;
 
   // At 5 Gb/s the pump must run at W = 4 on half clk_core, behind gearboxes
   // (README, FIFO pump); this top has no such clock yet, so its 5 Gb/s
@@ -274,7 +282,7 @@ module top
     logic pump_full, pump_empty, pump_pop;
     logic                  pump_bad;  // a wrong word or an invalid symbol, a clock late
     logic [PUMP_UP_LOG2:0] pump_good;  // words checked; top bit set: pump up
-    logic [15:0] pump_crc, pump_drops, pump_ovf;
+    serwb_cnt_t pump_crc, pump_drops, pump_ovf;
     logic [$clog2(PUMP_DEPTH):0] NC_tx_used, NC_rx_avail;  // unused: the checker pops what comes
     logic NC_remote_paused, NC_pause;  // flow control: on, but the reader never stops
 
@@ -352,17 +360,20 @@ module top
       link_up_sync    <= '0;
       link_error_sync <= '0;
       pump_up_sync    <= '0;
+      link_was_up     <= 1'b0;
+      failed          <= 1'b0;
     end
     else begin
       link_up_sync    <= {link_up_sync[0], link_warm[LINK_WARMUP_LOG2]};
       link_error_sync <= {link_error_sync[0], link_error | pump_error};
       pump_up_sync    <= {pump_up_sync[0], pump_up};
+      link_was_up     <= link_was_up | link_up_sync[1];
+      failed          <= failed | link_error_sync[1] | (link_was_up & !link_up_sync[1]);
     end
   end
 
   always_comb begin
-    led = heartbeat[HEARTBEAT_W-1] & !prbs_error & link_up_sync[1]
-          & pump_up_sync[1] & !link_error_sync[1];
+    led = heartbeat[HEARTBEAT_W-1] & !prbs_error & link_up_sync[1] & pump_up_sync[1] & !failed;
   end
 
 endmodule : top

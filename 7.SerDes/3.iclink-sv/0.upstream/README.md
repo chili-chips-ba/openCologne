@@ -10,7 +10,7 @@ The LiteX and LiteICLink sources this core is ported from, unchanged, for refere
 
 | Upstream | Commit | Files | Ported to |
 |---|---|---|---|
-| [LiteX](https://github.com/enjoy-digital/litex) | `d2b47282a` (2026-10-21) | `litex/code_8b10b.py`, `litex/prbs.py` | `1.hw/iclink_8b10b_*.sv`, `1.hw/iclink_prbs_*.sv` (bit-exact) |
+| [LiteX](https://github.com/enjoy-digital/litex) | `d2b47282a` (2026-10-21) | `litex/code_8b10b.py`, `litex/prbs.py` | `2.sim/iclink_8b10b_*.sv` (the simulation reference: `CC_SERDES` does 8b/10b on the chip), `1.hw/iclink_prbs_*.sv` (bit-exact) |
 | [LiteICLink](https://github.com/enjoy-digital/liteiclink) | `8ef8d79` (2026-10-21) | `serwb/*` (Serial Wishbone), `doc/serwb.md` | `1.hw/iclink_serwb_tx.sv`, `iclink_serwb_rx.sv` (the packet layer, bit-exact); Etherbone next |
 | LiteICLink | `8ef8d79` | `serdes/serdes_ecp5.py`, `serdes/common.py` | the PHY interface of `4.litex/serdes_gatemate.py` |
 
