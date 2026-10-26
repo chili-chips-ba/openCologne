@@ -35,8 +35,8 @@ The SerDes in simulation is our open-source SerDes BFM, [`1.sim-model`](../../1.
 | `sim_serwb_w4` | the three SerWB tests at 4 words per clock (5 Gb/s), through the gearboxes |
 | `sim_top` | the board top's self-tests, SerDes link and FIFO pump: a clean run (PRBS7, then the pump's counter, every word in order), then a flipped line bit must latch the error and turn the LED off |
 | `sim_link_ppm` | mirrors setup 2 with the FIFO pump: two sides, each a PHY on its own BFM and a pump, lines crossed, the references 200 ppm apart (`PPM=`). 100,000 clocks of a counter each way: every word in order, no CRC error, drop, invalid symbol or RX buffer error, and the BFMs must have inserted and removed clock-correction words. Then the same without the pumps' bursts (`NO_CLKCOR`), which must fail ([clock correction](../../0.doc/clock-correction.md)) |
-| `sim_modes` | `tb_modes`, one BFM looped back, 38 runs, about 1 min. The three `CDR_MODEL`s against each other at 2.5 Gb/s, 9 cases: 16-bit (comma in byte lane 0, 1), 32-bit (0, 1, 3), 64-bit (0, 3, 5, 7); data bit-exact; latency within 4 UI of ACCURATE (NONE +0.5 UI, FAST +0.5 to 2.5 UI: it knows a bit only at the next line edge). Then, in each mode, PRBS7 and PRBS31 with forced errors; 5 ms at 3 Gb/s in NONE and FAST (no drift off the time grid); the random RX word phase with `ALIGN_COMMA_WORD` = 11, seeds 1 to 3. Every run also checks the decode table against `dec8b10b()` (all 1024 symbols), the comma defaults, register readback and buffer errors. `tb_modes` takes `+cfg1=HEX`, `+run_us=N`, `+prbs=SEL` |
-| `sim_icarus` | `tb_modes` in Icarus, each `CDR_MODEL`, data bit-exact, 15 runs, about 12 s: 16-bit (comma in byte lane 1), 32-bit (3), 32-bit with `ALIGN_COMMA_WORD` = 01 (even lane), 64-bit (0), and 64-bit with `ALIGN_COMMA_WORD` = 11 (lane 0 or 4). It keeps the BFM Icarus-clean: Verilator takes a name used before its declaration, even with `-Wall`; Icarus and the LRM don't |
+| `sim_modes` | the SerDes BFM's own tests, run from its folder (`make -C 7.SerDes/1.sim-model sim_modes`): `tb_modes`, the three `CDR_MODEL`s against each other at 16, 32 and 64 bits, 38 runs, then `tb_rules`, its behaviour as the vendor model's, rule by rule ([model README](../../1.sim-model/README.md#verification)) |
+| `sim_icarus` | the same two testbenches in Icarus, so the BFM stays Icarus-clean: Verilator takes a name used before its declaration, even with `-Wall`; Icarus and the LRM don't |
 | `sim_phy_rates` | not in `all`: both PHY tests at 1250, 2500 and 5000 Mb/s |
 | `serwb_twoway` | planned; mirrors setup 2: two eduBOS5 SoCs, two BFMs, lines crossed. eduBOS5 A writes then reads back B's RAM and a B CSR (PeakRDL); the link recovers after one side is reset; the CRC test below |
 
@@ -57,7 +57,7 @@ Set them on the `make` line, e.g. `make -C 7.SerDes/3.iclink-sv/2.sim sim_phy_on
 | `WAVES` | `0` | PHY | `1`: write an FST waveform, for WaveCrux, named by the options above ([waves](#waves)) |
 | `SERWB_W` | `2` | SerWB | SerWB words per clock: `2` or `4` |
 | `PPM` | `200` | `sim_link_ppm` | How far apart the two references are |
-| `MODES_TOL_NS` | `1.6` | `sim_modes` | How far a mode's latency may be from ACCURATE's |
+| `MODES_TOL_NS` | `1.6` | `sim_modes` | How far a mode's latency may be from ACCURATE's (a setting of the `1.sim-model` Makefile) |
 
 The BFM's `ALIGN_COMMA_WORD` is `CC_SERDES`'s `RX_ALIGN_COMMA_WORD`. A "byte lane" is one byte of the datapath word: lanes 0 to 7 at 64 bits.
 

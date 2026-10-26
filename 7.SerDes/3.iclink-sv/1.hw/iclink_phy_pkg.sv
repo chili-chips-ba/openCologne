@@ -30,9 +30,12 @@ package iclink_phy_pkg;
     logic      rx_align;       // comma alignment on; acquires at the first comma
   } phy_ctrl_t;
 
-  // SerDes bring-up: regfile writes, the ones Cologne Chip's PRBS loopback
-  // test of the EVB uses (openCologne-PCIE 2.rtl/1.phy/1.serdes-test.STANDALONE)
-  localparam int CFG_WRITES = 3;
+  // SerDes bring-up: regfile writes, those of Cologne Chip's PRBS loopback
+  // test of the EVB (openCologne-PCIE 2.rtl/1.phy/1.serdes-test.STANDALONE),
+  // plus PLL_CFG0 with the PLL off first: CC_SERDES takes PLL_CFG0 [9:1]
+  // only while the PLL is off, and CONFIG_SEL (bit 1) is what makes
+  // PLL_CFG1 set the line rate (vendor model; PLL_CONFIG_SEL defaults to 0)
+  localparam int CFG_WRITES = 4;
   localparam int CFG_IDX_W  = (CFG_WRITES > 1) ? $clog2(CFG_WRITES) : 1;
   // 2^CFG_WAIT_W clk_reg clocks before the first write and after each
   localparam int CFG_WAIT_W = 6;
@@ -91,7 +94,8 @@ package iclink_phy_pkg;
   function automatic cfg_seq_t cfg_seq(input int line_rate);
     return
     '{
-        '{8'h50, 16'h0C03},  // 2: PLL on
+        '{8'h50, 16'h0C63},  // 3: PLL on; [9:1] kept
+        '{8'h50, 16'h0C62},  // 2: PLL off: CONFIG_SEL, and LOCK_WINDOW, FAST_LOCK as by default
         '{SERDES_CFG_ADDR, 16'h0001},  // 1: SerDes enable
         '{8'h51, pll_cfg1(line_rate)}  // 0: PLL: the line rate
     }

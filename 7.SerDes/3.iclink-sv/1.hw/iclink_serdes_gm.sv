@@ -54,7 +54,7 @@
 //   on here (iclink_phy_pkg: PHY_CLKCOR_*): the far side must send the
 //   clock-correction word in bursts, as iclink_serwb_pump does. rx_buf_err
 //   flags a buffer over- or underflow. clk_reg (the board clock) runs the
-//   bring-up: three regfile writes
+//   bring-up: four regfile writes
 //   (iclink_phy_pkg::cfg_seq()), then TX and RX out of reset.
 //
 //   On the chip CC_SERDES connects to its own serial pins and reference

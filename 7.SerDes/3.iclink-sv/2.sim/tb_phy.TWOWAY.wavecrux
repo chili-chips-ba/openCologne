@@ -115,7 +115,7 @@
     {
       "kind": "signal",
       "id": "iclink-11",
-      "ref": "78",
+      "ref": "79",
       "path": "tb_phy_twoway.u_a.dut.cfg_state",
       "name": "a.cfg_state",
       "color": 4293848814,
@@ -135,7 +135,7 @@
     {
       "kind": "signal",
       "id": "iclink-13",
-      "ref": "91",
+      "ref": "92",
       "path": "tb_phy_twoway.u_a.dut.tx_payload",
       "name": "a.tx.d",
       "color": 4280731354,

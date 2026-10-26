@@ -256,7 +256,9 @@ module top
       link_d_bad   <= link_kx || (&link_z);
       link_d_moved <= link_errors != link_base;
       if (!link_warm[LINK_WARMUP_LOG2]) begin
-        link_warm <= link_d_k ? link_warm + 1'b1 : '0;
+        // a K-free word that is not all zero: the RX buffer hands out zero
+        // words for a while after alignment, before the commas come through
+        link_warm <= (link_d_k && !(&link_z)) ? link_warm + 1'b1 : '0;
         link_base <= link_errors;
       end
       else if (!prbs_run[PRBS_RUN_LOG2]) begin

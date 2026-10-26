@@ -30,7 +30,7 @@ module tb_serwb_pump;
   localparam int NP         = W / 2;
   localparam int DEPTH      = 1024;
   localparam int XOFF_LEVEL = DEPTH - 96 * W;  // the pump's default (RT_CLKS = 96)
-  localparam int LINE_LAT   = 31;  // line clocks, PHY data in to out on the BFM (sim_phy_oneway)
+  localparam int LINE_LAT   = 31;  // line clocks: the PHY's 28 on the BFM (sim_phy_oneway), + 3
   localparam int TIMEOUT    = 500;            // pump clocks: well under the phase 2 hold
   localparam int N_RANDOM   = 6000;           // words each way, phase 1
   localparam int N_FLOOD    = 4000;           // words A -> B, phase 2

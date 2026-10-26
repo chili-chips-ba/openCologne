@@ -76,7 +76,7 @@ Planned:
 
 ## End2End Flow
 
-How much buffer, where the thresholds sit, and how the levels move. Measured with `sim_serwb_pump` at W = 2: two pumps wired on the digital bus, a `LINE_LAT`-clock line between them each way: 31 clocks, the PHY's latency on the BFM at every line rate, with the RX buffer at `MIN_LAT` 8 (`sim_phy_oneway` prints it). One clock for both pumps and both CPUs, as on the chip.
+How much buffer, where the thresholds sit, and how the levels move. Measured with `sim_serwb_pump` at W = 2: two pumps wired on the digital bus, a `LINE_LAT`-clock line between them each way: 31 clocks, 3 more than the PHY's 28 on the BFM (`sim_phy_oneway` prints it), to err on the slow side. One clock for both pumps and both CPUs, as on the chip.
 
 <p align="center"><img width="100%" alt="FIFO pump end to end, all on clk_core: CPU A, TX FIFO, packetizer, the link, depacketizer, RX FIFO with XOFF level 832 and XON level 512, CPU B; the flow-control loop from the RX FIFO level through B's line mux and the line back to A's packetizer" src="serwb-pump-e2e.drawio.png"></p>
 
@@ -94,7 +94,7 @@ With the asynchronous FIFOs we had before, the same loop took 8 + `LINE_LAT` clo
 
 At W = 4 (`LINE_LAT` 31, 5 Gb/s) the pump runs at half `clk_core`, behind the gearboxes, and the XOFF level is 640: measured peak 815, 175 words above XOFF, against a 384-word margin.
 
-`LINE_LAT` counts PHY TX, `CC_SERDES` with its RX buffer, the cable and PHY RX: on the BFM 31 clocks at every rate (0.99 us at 2.5 Gb/s). The silicon's own latency and the cable are to be measured on the board; `RT_CLKS` sets the margin.
+`LINE_LAT` counts PHY TX, `CC_SERDES` with its RX buffer, the cable and PHY RX: on the BFM 28 clocks at every rate (0.9 us at 2.5 Gb/s); the test takes 31. The silicon's own latency and the cable are to be measured on the board; `RT_CLKS` sets the margin.
 
 **Sizing rules.**
 

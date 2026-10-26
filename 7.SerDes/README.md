@@ -75,13 +75,13 @@ One GateMate. Solid boxes are done; dashed ones, tagged NEXT, come next.
 | Scrambler / Descrambler | optional, off by default in LiteICLink: spreads the spectrum of idle and repetitive data | LiteICLink `serwb/scrambler.py` | next |
 | PRBS7/15/31 | `iclink_prbs_tx.sv`, `iclink_prbs_rx.sv` (+ gen, chk): link test in place of data | LiteICLink `prbs.py`, bit-exact | done |
 | 8b/10b | inside `CC_SERDES`, both ways: the TX encoder, the RX decoder and comma alignment; then a lane aligner in the fabric moves a comma from lane 4 to lane 0. Our LiteX port (`2.sim/iclink_8b10b_enc.sv`, `_dec.sv`) stays in simulation, as the reference | `CC_SERDES`; reference: LiteX `code_8b10b.py`, bit-exact | done |
-| PHY | `iclink_serdes_gm.sv`: bring-up (3 regfile writes, then resets), ready flags, RX clock correction, one flop stage on every `CC_SERDES` datapath input and output ([the PHY](3.iclink-sv/1.hw/README.md#the-phy)) | new | done |
+| PHY | `iclink_serdes_gm.sv`: bring-up (4 regfile writes, then resets), ready flags, RX clock correction, one flop stage on every `CC_SERDES` datapath input and output ([the PHY](3.iclink-sv/1.hw/README.md#the-phy)) | new | done |
 | EVB board top | `top.sv`: PRBS self-test, SerDes link test (setup 1), FIFO pump test, LED | new | done; bitstream meets timing ([results](3.iclink-sv/3.build/README.md#timing-results)); not yet run on the board |
 | LiteX wrapper | `4.litex/serdes_gatemate.py`, demo SoC | new | builds, meets timing; not yet run on the board |
 
 - **Datapath:** 8 bytes + 8 K flags per clock each way, 64 payload bits.
 - **Line rates:** 1.25, 2.5 (default) and 5 Gb/s, by the parameter `LINE_RATE`, from one 100 MHz reference ([clocks and line rate](3.iclink-sv/1.hw/README.md#clocks-and-line-rate)).
-- **Latency,** TX data in to RX data out: 31 clocks on the BFM, at every line rate (0.99 us at 2.5 Gb/s).
+- **Latency,** TX data in to RX data out: 28 clocks on the BFM, at every line rate (0.9 us at 2.5 Gb/s).
 
 ## Test setups
 

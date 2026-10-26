@@ -3,23 +3,28 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 //==========================================================================
-// SerDes BFM modes: one BFM, its TX looped to its RX at 2.5 Gb/s, with the
-// 8b/10b in the BFM. A counter stream with a K28.5 comma every 16 words, in
-// lane +comma=N. Checks the bytes come out in order, then writes the
-// latency of each comma, TX word in to RX word out, to +words=FILE.
-// With ALIGN = ALIGN_COMMA_WORD 01 or 1X, the comma must come out in an
-// even lane, or lane 0 or 4. At time 0 it also checks the BFM's decode
-// table against dec8b10b(), the decoder under proof (formal_8b10b), and
-// its comma defaults against the encoder. Every run also checks:
-// - register readback: PLL_CFG0, PLL_CFG1, PLL_CFG5 (PLL_LOCKED);
+// SerDes BFM modes: one BFM, its TX looped to its RX at 2.5 Gb/s. A
+// counter stream with a K28.5 comma every 16 words, in lane +comma=N. At
+// 64 bits the BFM encodes 8b/10b; at 16 and 32 bits the testbench does,
+// and repeats the word in every quarter / half of TX_DATA_I: the line
+// takes them in turn (DS1001 2.5.5.1). Checks the bytes come out in
+// order, then writes the latency of each comma, TX word in to RX word
+// out, to +words=FILE. With ALIGN = ALIGN_COMMA_WORD 01 or 1X, the comma
+// must come out in an even lane, or lane 0 or 4. At time 0 it also checks
+// the BFM's decode table against dec8b10b(), the decoder under proof
+// (formal_8b10b), and its comma defaults against the encoder. Every run
+// also checks:
+// - registers: PLL_CFG0 [9:1] set with the PLL off, kept by a write that
+//   leaves it on; PLL_CFG1 kept while it is on; PLL_CFG5 (PLL_LOCKED);
 // - no TX_BUF_ERR_O or RX_BUF_ERR_O once the stream is found, no stall.
 // Options:
 //   +cfg1=HEX    PLL_CFG1, another line rate (100 MHz reference): 063A is
 //                3 Gb/s, a UI the 100 fs time step can't hold
 //   +run_us=N    run N us at least, the data checked all along
 //   +prbs=SEL    PRBS instead of data (TX and RX _PRBS_SEL_I): error-free,
-//                then 4 forced errors (TX_PRBS_FORCE_ERR_I) count 3 each
-//                and flag RX_PRBS_ERR_O once each; the receiver never stops
+//                then TX_PRBS_FORCE_ERR_I high 4 times a clock, and once 3
+//                clocks: one error a word, 7 counted, RX_PRBS_ERR_O high 7
+//                clocks, in 5 runs; the receiver never stops
 // make sim_modes runs it for each CDR_MODEL, datapath width and comma lane,
 // and compares the latencies across the modes; make sim_icarus runs it in
 // Icarus.
@@ -50,6 +55,7 @@ module tb_modes #(
   logic tx_err, rx_err, prbs_err;
   logic [2:0] prbs_sel;
   logic force_err;
+  logic [7:0] tx_dmode, tx_dval;  // bypassed: the symbols' bits 9 and 8
   logic [15:0] cfg1;
   int comma = 0;
   int words_fd = 0;
@@ -124,10 +130,10 @@ module tb_modes #(
       .tx_data_i           (tx_d),
       .tx_char_is_k_i      (tx_k),
       .tx_polarity_i       (1'b0),
-      .tx_8b10b_en_i       (1'b1),
+      .tx_8b10b_en_i       (LANES == 8),  // 16, 32 bits: the testbench encodes
       .tx_8b10b_bypass_i   ('0),
-      .tx_char_dispmode_i  ('0),
-      .tx_char_dispval_i   ('0),
+      .tx_char_dispmode_i  (tx_dmode),
+      .tx_char_dispval_i   (tx_dval),
       .tx_buf_err_o        (tx_err),
       .tx_resetdone_o      (tx_ready),
       .rx_detect_done_o    (),
@@ -202,15 +208,18 @@ module tb_modes #(
   // TX: a counter, the last lane counting words / 32, so the stream repeats
   // only after 8192 words; a comma every 16 words in lane `comma` (in the
   // last lane, it hides that count in 1 word of 16). A symbol is {K flag,
-  // byte}.
+  // byte}. At 16 and 32 bits, encoded here and sent bypassed, in every
+  // quarter / half.
   //-----------------------------------------------------------------------
   int       tx_n = 0;
   bit [8:0] sent[$];  // symbols sent, in lane order
   realtime  sent_t[$];  // when their word went in
+  bit       tx_rd = 1'b1;  // the testbench encoder's running disparity
 
   initial forever begin : _tx
-    logic [63:0] d;
-    logic [ 7:0] k;
+    logic [63:0] d, ds;
+    logic [ 7:0] k, dm, dv;
+    bit   [10:0] e;
     @(posedge clk_tx);
     d = '0;
     k = '0;
@@ -222,8 +231,24 @@ module tb_modes #(
       d[comma*8+:8] = 8'hBC;
       k[comma]      = 1'b1;
     end
-    tx_d <= d;
-    tx_k <= k;
+    ds = d;
+    dm = '0;
+    dv = '0;
+    if (LANES < 8) begin
+      for (int b = 0; b < LANES; b++) begin
+        e     = ccfpga_serdes_pkg::enc8b10b(d[b*8+:8], k[b], tx_rd);
+        tx_rd = e[10];
+        for (int c = b; c < 8; c += LANES) begin
+          ds[c*8+:8] = e[7:0];
+          dv[c]      = e[8];
+          dm[c]      = e[9];
+        end
+      end
+    end
+    tx_d     <= ds;
+    tx_k     <= k;
+    tx_dmode <= dm;
+    tx_dval  <= dv;
     if (tx_ready) begin
       for (int b = 0; b < LANES; b++) begin
         sent.push_back({k[b], d[b*8+:8]});
@@ -363,17 +388,22 @@ module tb_modes #(
   end : _stops
 
   //-----------------------------------------------------------------------
-  // PRBS mode: 2 us to settle, 2 us error-free, then 4 forced errors, each
-  // 3 counted and one RX_PRBS_ERR_O flag (one or two clocks)
+  // PRBS mode: 2 us to settle, 2 us error-free, then TX_PRBS_FORCE_ERR_I,
+  // a level: high a clock 4 times, then 3 clocks. One error a word: 7
+  // counted (the BFM's word count), RX_PRBS_ERR_O high 7 clocks in 5 runs.
   //-----------------------------------------------------------------------
   localparam int FORCED = 4;
-  int prbs_before = 0, prbs_forced = 0, prbs_flags = 0;
+  localparam int HELD = 3;
+  int prbs_before = 0, prbs_forced = 0, prbs_flags = 0, prbs_high = 0;
   bit prbs_err_d = 1'b0;
 
   initial forever begin : _prbs_flags
     @(posedge clk_rx);
-    if (settled && prbs_err && !prbs_err_d) begin
-      prbs_flags++;
+    if (settled && prbs_err) begin
+      prbs_high++;
+      if (!prbs_err_d) begin
+        prbs_flags++;
+      end
     end
     prbs_err_d = prbs_err;
   end : _prbs_flags
@@ -388,6 +418,7 @@ module tb_modes #(
     prbs_before = u_serdes.rx_prbs_err_cnt - c0;
     c0          = u_serdes.rx_prbs_err_cnt;
     prbs_flags  = 0;
+    prbs_high   = 0;
     repeat (FORCED) begin
       @(posedge clk_tx);
       force_err <= 1'b1;
@@ -395,6 +426,11 @@ module tb_modes #(
       force_err <= 1'b0;
       #1us;
     end
+    @(posedge clk_tx);
+    force_err <= 1'b1;
+    repeat (HELD) @(posedge clk_tx);
+    force_err <= 1'b0;
+    #1us;
     prbs_forced = u_serdes.rx_prbs_err_cnt - c0;
   endtask
 
@@ -423,6 +459,8 @@ module tb_modes #(
     reg_data     = '0;
     tx_d         = '0;
     tx_k         = '0;
+    tx_dmode     = '0;
+    tx_dval      = '0;
     prbs_sel     = 3'b000;
     force_err    = 1'b0;
     repeat (4) @(posedge clk_reg);
@@ -430,21 +468,28 @@ module tb_modes #(
     reg_write(8'h51, cfg1);      // the line rate and word clock
     reg_write(8'h5C, 16'h0001);  // SerDes enable
     reg_check(8'h55, 16'h0000);  // PLL_CFG5: not locked
-    reg_write(8'h50, 16'h0C03);  // PLL on: CONFIG_SEL, SET_OP_LOCK, and on
-    reg_check(8'h50, 16'h0C03);
+    // PLL_CFG0 [9:1] with the PLL off: CONFIG_SEL (PLL_CFG1 sets the
+    // line), LOCK_WINDOW, FAST_LOCK; then on. A write that leaves it on
+    // keeps them, and PLL_CFG1.
+    reg_write(8'h50, 16'h0C62);
+    reg_write(8'h50, 16'h0C63);
+    reg_check(8'h50, 16'h0C63);
+    reg_write(8'h50, 16'h0C01);
+    reg_check(8'h50, 16'h0C63);
+    reg_write(8'h51, cfg1 ^ 16'h1000);
     reg_check(8'h51, cfg1 & 16'h3FFF);
     reg_check(8'h55, 16'h0001);  // locked, 500 ns on
     serdes_reset = 1'b0;
     if (prbs != 0) begin
       wait (rx_ready && tx_ready);
       prbs_test();
-      if (prbs_before != 0 || prbs_forced != 3 * FORCED || prbs_flags != FORCED || stops != 0 ||
-          buf_err != 0 || rf_bad != 0) begin
+      if (prbs_before != 0 || prbs_forced != FORCED + HELD || prbs_flags != FORCED + 1 ||
+          prbs_high != FORCED + HELD || stops != 0 || buf_err != 0 || rf_bad != 0) begin
         errors++;
       end
-      $display("TB_MODES: %s, %0d-bit, PRBS sel %0d: %0d errors for %0d forced, %0d flags, %0d before, %0d stops, %0d buf err, %0d reg: %s",
-               model, LANES * 8, prbs, prbs_forced, FORCED, prbs_flags, prbs_before, stops, buf_err,
-               rf_bad, (errors == 0) ? "PASS" : "FAIL");
+      $display("TB_MODES: %s, %0d-bit, PRBS sel %0d: %0d errors for %0d forced, %0d flags, %0d high, %0d before, %0d stops, %0d buf err, %0d reg: %s",
+               model, LANES * 8, prbs, prbs_forced, FORCED + HELD, prbs_flags, prbs_high, prbs_before,
+               stops, buf_err, rf_bad, (errors == 0) ? "PASS" : "FAIL");
       $finish;
     end
     fork

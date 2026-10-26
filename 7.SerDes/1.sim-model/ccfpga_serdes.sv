@@ -44,23 +44,31 @@
 //   openCologne, then ported to openCologne-PCIE. What is modelled, and
 //   how: README.md, next to this file.
 //
-//   It takes all 115 parameters of the vendor model. It acts on 34:
+//   It takes all 115 parameters of the vendor model. It acts on 38:
 //   resets, comma alignment and slide, RX buffer and clock correction,
-//   datapath widths, loopback, PLL rates and lock, the TX buffer. 9 more
-//   only set a register value to read back (PLL_CFG0). The other 72 tune
-//   what a digital model doesn't have: analog front end, equaliser, TX
-//   driver, CDR and PLL loops and their calibration, eye monitor, debug.
-//   A value the datasheet doesn't allow, or the BFM doesn't model, stops
-//   the simulation (param_check), and so does a bad PLL_CFG1 or RX_BUF_CFG
-//   written at run time, when it applies. ALIGN_COMMA_WORD is
-//   RX_ALIGN_COMMA_WORD of CC_SERDES; the other names are the same.
+//   datapath widths, loopback, PLL rates and lock, the TX buffer,
+//   electrical idle. 7 more only set a register value to read back
+//   (PLL_CFG0). The other 70 tune what a digital model doesn't have:
+//   analog front end, equaliser, TX driver, CDR and PLL loops and their
+//   calibration, eye monitor, debug. A value the datasheet doesn't allow,
+//   or the BFM doesn't model, stops the simulation (param_check), and so
+//   does a bad PLL_CFG1 or RX_BUF_CFG written at run time, when it applies.
+//   ALIGN_COMMA_WORD is RX_ALIGN_COMMA_WORD of CC_SERDES; the other names
+//   are the same.
+//
+//   Where DS1001 is silent, the BFM does at its ports what the vendor's
+//   simulation model does: comma alignment (16 commas), lane rotation at
+//   16/32 bits, the reset stages, regfile timing and the writes it drops,
+//   PRBS counts. Where that model contradicts DS1001 by a bug, the BFM
+//   follows DS1001 (RX_EI_EN_O, register defaults). tb_rules checks it.
 //
 //   The line: idle (electrical idle) is P = N for 20 UI; TX_ELEC_IDLE_I
-//   drives both low. Idle stops the receiver, as a lost signal would;
-//   RX_EN_EI_DETECTOR_I gates RX_EI_EN_O only. CDR_MODEL = NONE carries no
-//   bits on the pins (ccfpga_serdes_pkg), so its latency leaves out any
-//   wire delay the testbench puts on them. NONE BFMs tell each other who
-//   they are in the first 10 ns (enumeration).
+//   drives X on both pins, power down Z (both 0 in Verilator). Idle stops
+//   the receiver, as a lost signal would; RX_EN_EI_DETECTOR_I gates
+//   RX_EI_EN_O only. CDR_MODEL = NONE carries no bits on the pins
+//   (ccfpga_serdes_pkg), so its latency leaves out any wire delay the
+//   testbench puts on them. NONE BFMs tell each other who they are in the
+//   first 10 ns (enumeration).
 //
 //   A behavioural model, not RTL: # delays (the serializer, sampler, CDR,
 //   clocks and PLL lock run in real time), queues and events; processes
@@ -80,7 +88,7 @@ module ccfpga_serdes
 
     parameter int          RX_WAIT_CDR_LOCK         = 1,                       // RX reset done waits for the CDR lock
     parameter int          RX_RESETDONE_GATE        = 0,                       // 1: RX reset done stays low
-    parameter logic [ 4:0] RX_RESET_TIMER_PRESC     = 0,                       // TX and RX reset timers count every 2^N clocks
+    parameter logic [ 4:0] RX_RESET_TIMER_PRESC     = 0,                       // RX reset timers: a tick is 2N + 1 clocks
     parameter logic [ 4:0] RX_PMA_RESET_TIME        = 3,                       // RX reset sequence: PMA, timer ticks
     parameter logic [ 4:0] RX_EQA_RESET_TIME        = 3,                       // ... equaliser
     parameter logic [ 4:0] RX_CDR_RESET_TIME        = 3,                       // ... CDR
@@ -107,7 +115,7 @@ module ccfpga_serdes
     parameter logic [ 2:0] RX_AFE_VCMSEL            = 4,                       // ... common mode, analog, not modelled
     parameter logic [ 3:0] RX_AFE_GAIN              = 8,                       // ... gain, analog, not modelled
     parameter logic [ 4:0] RX_AFE_PEAK              = 16,                      // ... peaking, analog, not modelled
-    parameter logic [ 7:0] RX_CDR_CKP               = {3'b101, 5'b01111},      // CDR loop gains: not modelled (BHV_CDR_KP)
+    parameter logic [ 7:0] RX_CDR_CKP               = 8'hF8,                   // CDR loop gains (DS1001 Table 2.48): not modelled (BHV_CDR_KP)
     parameter logic [ 7:0] RX_CDR_CKI               = {3'b000, 5'b00000},      // ... not modelled
     parameter logic [14:0] RX_CDR_LOCK_CFG          = 15'b000_1000_1101_0101,  // CDR lock detector: not modelled (BHV_CDR_LOCK_EDGES)
     parameter logic [ 1:0] RX_CDR_SET_ACC_CONFIG    = 2'b00,                   // CDR accumulator presets: not modelled
@@ -118,11 +126,11 @@ module ccfpga_serdes
     parameter logic [ 9:0] ALIGN_PCOMMA_VALUE       = 10'b0101111100,          // plus comma
     parameter logic [ 9:0] ALIGN_COMMA_ENABLE       = 10'b1111111111,          // comma bits compared
     parameter logic [ 1:0] ALIGN_COMMA_WORD         = 2'b00,                   // comma lane: 00 any, 01 even, 1x 0 or 4
-    parameter logic [ 1:0] RX_SLIDE_MODE            = 0,                       // RX_SLIDE_I: 0 off, 1 one bit, 2 one byte; not 3
+    parameter logic [ 1:0] RX_SLIDE_MODE            = 0,                       // RX_SLIDE_I: 0 off, 1 a bit, 2 a symbol, 3 both
     parameter logic [14:0] RX_EYE_MEAS_CFG          = 0,                       // eye monitor: not modelled
     parameter logic [ 5:0] RX_MON_PH_OFFSET         = 0,                       // ... not modelled
-    parameter logic [ 3:0] RX_EI_BIAS               = 4,                       // electrical-idle detector: analog, not modelled
-    parameter logic [ 3:0] RX_EI_BW_SEL             = 4,                       // ... analog, not modelled
+    parameter logic [ 3:0] RX_EI_BIAS               = 4,                       // electrical-idle detector: 0 off
+    parameter logic [ 3:0] RX_EI_BW_SEL             = 4,                       // ... its filter: reference clocks, 0 to 8
     parameter int          RX_BUF_BYPASS            = 0,                       // 1: no RX elastic buffer
     parameter int          RX_CLKCOR_USE            = 0,                       // 1: clock correction on
     parameter logic [ 9:0] RX_CLKCOR_SEQ_1_0        = 10'b0111110111,          // clock-correction sequence, symbol 0
@@ -153,10 +161,10 @@ module ccfpga_serdes
     parameter logic [ 7:0] TX_CM_REG_KI             = 8'h80,                   // ... analog, not modelled
     parameter logic [ 4:0] TX_PMA_RESET_TIME        = 3,                       // TX reset sequence: PMA, timer ticks
     parameter logic [ 4:0] TX_PCS_RESET_TIME        = 3,                       // ... PCS
-    parameter int          TX_PMA_LOOPBACK          = 0,                       // TX to RX in the PMA (also LOOPBACK_I)
+    parameter int          TX_PMA_LOOPBACK          = 0,                       // LOOPBACK_I = 010 loops only with this != 0
     parameter logic [ 1:0] TX_DATAPATH_SEL          = 3,                       // TX word, as RX_DATAPATH_SEL; bit 1: M4 = 2
     parameter int          PLL_EN_ADPLL_CTRL        = 0,                       // PLL_CFG0 after reset: bit 0, PLL on
-    parameter int          PLL_CONFIG_SEL           = 0,                       // ... read back only
+    parameter int          PLL_CONFIG_SEL           = 0,                       // ... bit 1: 1 the line from PLL_CFG1, 0 fixed
     parameter int          PLL_SET_OP_LOCK          = 1,                       // ... read back only
     parameter int          PLL_ENFORCE_LOCK         = 0,                       // ... read back only
     parameter int          PLL_DISABLE_LOCK         = 0,                       // ... read back only
@@ -164,14 +172,14 @@ module ccfpga_serdes
     parameter int          PLL_FAST_LOCK            = 1,                       // ... read back only
     parameter int          PLL_SYNC_BYPASS          = 0,                       // ... read back only
     parameter int          PLL_PFD_SELECT           = 0,                       // ... read back only
-    parameter int          PLL_REF_BYPASS           = 0,                       // ... read back only
+    parameter int          PLL_REF_BYPASS           = 0,                       // ... bit 9: PLL_CLK_O from the reference
     parameter int          PLL_REF_SEL              = 0,                       // ... bit 10, REFCLK_SEL_O
     parameter int          PLL_REF_RTERM            = 1,                       // ... bit 11, REFCLK_RTERM_O
     parameter logic [ 5:0] PLL_FCNTRL               = 58,                      // word clock divider M1 (DS1001 Table 2.17)
     parameter logic [ 5:0] PLL_MAIN_DIVSEL          = 27,                      // N1, N2, N3: the line rate
     parameter logic [ 1:0] PLL_OUT_DIVSEL           = 0,                       // M3: line rate / 1, 2 or 4
-    parameter logic [ 4:0] PLL_CI                   = 1,                       // PLL loop: analog, not modelled
-    parameter logic [ 9:0] PLL_CP                   = 60,                      // ... analog, not modelled
+    parameter logic [ 4:0] PLL_CI                   = 3,                       // PLL loop (DS1001 Table 2.59): analog, not modelled
+    parameter logic [ 9:0] PLL_CP                   = 80,                      // ... analog, not modelled
     parameter logic [ 3:0] PLL_AO                   = 0,                       // ... analog, not modelled
     parameter logic [ 2:0] PLL_SCAP                 = 0,                       // ... analog, not modelled
     parameter int          PLL_SCAP_AUTO_CAL        = 1,                       // ... analog, not modelled
@@ -282,13 +290,23 @@ module ccfpga_serdes
   //#########################################################################
   // 8b/10b decode table, built at time 0 by running the encoder forward,
   // 1000x faster than dec8b10b() (the decoder under proof) for every
-  // symbol. tb_modes checks the two agree on all 1024 symbols.
+  // symbol. tb_modes checks the two agree on all 1024 symbols. A symbol
+  // not in the table decodes per sub-block (dec_part), as the vendor's
+  // model does: a line error rarely leaves the byte as it was. A sub-block
+  // that is no code gives ones.
   //#########################################################################
-  bit [9:0] dec_lut[1024];  // {valid, k, data}
-  bit [3:0] dec_rd [1024];  // dec_disp() at RD+ and RD-: {err, rd_out} x 2
+  bit [9:0] dec_lut [1024];  // {valid, k, data}
+  bit [3:0] dec_rd  [1024];  // dec_disp() at RD+ and RD-: {err, rd_out} x 2
+  bit [7:0] dec_part[1024];  // the 6b and 4b sub-blocks on their own
 
   initial begin : build_dec_lut
     bit [10:0] e;
+    bit [ 4:0] d5[64];
+    bit [ 2:0] d3[16];
+    bit [63:0] v5;
+    bit [15:0] v3;
+    v5 = '0;
+    v3 = '0;
     for (int s = 0; s < 1024; s++) begin
       dec_lut[s] = 10'h0;
       dec_rd[s]  = {dec_disp(s[9:0], HI), dec_disp(s[9:0], LO)};
@@ -297,7 +315,14 @@ module ccfpga_serdes
       for (int d = 0; d < 256; d++) begin
         e                = enc8b10b(d[7:0], FALSE, r[0]);
         dec_lut[e[9:0]] = {2'b10, d[7:0]};
+        d5[e[5:0]]       = d[4:0];
+        d3[e[9:6]]       = d[7:5];
+        v5[e[5:0]]       = HI;
+        v3[e[9:6]]       = HI;
       end
+    end
+    for (int s = 0; s < 1024; s++) begin
+      dec_part[s] = {v3[s[9:6]] ? d3[s[9:6]] : 3'h7, v5[s[5:0]] ? d5[s[5:0]] : 5'h1F};
     end
     // K codes last: they win a symbol they share with data
     for (int r = 0; r < 2; r++) begin
@@ -364,7 +389,8 @@ module ccfpga_serdes
 
   //#########################################################################
   // Register file and config file, on CLK_REG_I: the registers the model
-  // uses; an access to any other gives a $warning, once per address
+  // uses; an access to any other gives a $warning, once per address. The
+  // config file writes every register, also what a fabric write may not.
   //#########################################################################
   localparam bit [7:0] RX_BUF_CFG_ADDR = 8'h25;
   localparam bit [7:0] PLL_CFG0_ADDR   = 8'h50;
@@ -430,25 +456,72 @@ module ccfpga_serdes
     end
   endtask
 
-  // One access per rising REGFILE_EN_I, ready a clock later; the config
-  // file writes every clock CFGFILE_VALID_I is high. REGFILE_DO_O and
-  // REGFILE_RDY_O are non-blocking: the fabric samples them on this edge.
+  // REGFILE_RDY_O, in clocks after the one that takes REGFILE_EN_I: 14 for
+  // the PLL status (a capture in the reference clock domain), 1 for an
+  // address no register has, 3 for the others
+  function automatic int rf_latency(bit [7:0] a);
+    if (a == PLL_CFG5_ADDR || a == PLL_CFG6_ADDR) begin
+      return 14;
+    end
+    if ((a > 8'h42 && a < PLL_CFG0_ADDR) || a > SERDES_CFG_ADDR) begin
+      return 1;
+    end
+    return 3;
+  endfunction
+
+  int        rf_wait;  // clocks to REGFILE_RDY_O; 0: no access
+  bit [15:0] rf_do;    // REGFILE_DO_O then: the register, read or written
+
+  // a register's value: 0 for one the model has not
+  task automatic rf_read(input bit [7:0] a, output bit [15:0] d);
+    unique case (a)
+      RX_BUF_CFG_ADDR:            begin d = csr.rx_buf_cfg; end
+      8'h26:                      begin d = csr.rx_clkcor_seq[0]; end
+      8'h27:                      begin d = csr.rx_clkcor_seq[1]; end
+      8'h28:                      begin d = csr.rx_clkcor_seq[2]; end
+      8'h29:                      begin d = csr.rx_clkcor_seq[3]; end
+      PLL_CFG0_ADDR:              begin d = {4'h0, csr.pll_cfg0}; end
+      PLL_CFG1_ADDR:              begin d = {2'h0, csr.pll_cfg1}; end
+      PLL_CFG5_ADDR:              begin d = {15'h0, pll_locked}; end
+      PLL_CFG6_ADDR:              begin d = '0; end  // PLL_SYNC_VALUE: not modelled
+      SERDES_CFG_ADDR: begin
+        d = {13'h0, csr.serdes_cfg};
+      end
+      default: begin
+        d = '0;
+        rf_unmodelled(a);
+      end
+    endcase
+  endtask
+
+  // One access per rising REGFILE_EN_I; a rise while one is pending is
+  // lost (no REGFILE_RDY_O). The config file writes every clock
+  // CFGFILE_VALID_I is high. REGFILE_DO_O and REGFILE_RDY_O are
+  // non-blocking: the fabric samples them on this edge.
   always @(posedge clk_reg_i or negedge reset_reg_n_i) begin : regfile
-    bit        access, cfg_wr;
+    bit        access, cfg_wr, on;
     bit [ 7:0] a;
     bit [15:0] d, m;
     if (!reset_reg_n_i) begin
       rf_reset();
       regfile_en_d   = LO;
+      rf_wait        = 0;
       regfile_rdy_o <= LO;
       regfile_do_o  <= '0;
     end
     else begin
-      access       = regfile_en_i && !regfile_en_d && !cfg_en_i;
+      access       = regfile_en_i && !regfile_en_d && !cfg_en_i && (rf_wait == 0);
       regfile_en_d = regfile_en_i;
       cfg_wr       = cfg_en_i && cfgfile_valid_i;
       if (regfile_rdy_o) begin
         regfile_rdy_o <= LO;
+      end
+      if (rf_wait != 0) begin
+        rf_wait--;
+        if (rf_wait == 0) begin
+          regfile_do_o  <= rf_do;
+          regfile_rdy_o <= HI;
+        end
       end
 
       if (cfg_en_i && reset_cfg_i) begin
@@ -458,6 +531,16 @@ module ccfpga_serdes
         a = cfg_en_i ? cfgfile_addr_i : regfile_addr_i;
         d = cfg_en_i ? cfgfile_di_i : regfile_di_i;
         m = cfg_en_i ? 16'hFFFF : regfile_mask_i;
+        // with clock correction on, a fabric write keeps the latencies and
+        // the sequence (the vendor's simulation model; DS1001 is silent)
+        if (csr.rx_buf_cfg.clkcor_use && !cfg_wr) begin
+          if (a == RX_BUF_CFG_ADDR) begin
+            m = m & 16'hC003;
+          end
+          if (a >= 8'h26 && a <= 8'h29) begin
+            m = '0;
+          end
+        end
         unique case (a)
           RX_BUF_CFG_ADDR: begin
             csr.rx_buf_cfg = masked(csr.rx_buf_cfg, d, m);
@@ -472,7 +555,10 @@ module ccfpga_serdes
             end
           end
           PLL_CFG0_ADDR: begin
-            if (!csr.pll_cfg0[0] || cfg_wr) begin  // the PLL was off: the write that turns it on counts
+            // [9:1] take only a write that leaves the PLL off (bit 0 = 0):
+            // set them first, then turn the PLL on (DS1001 Table 2.18 note)
+            on = m[0] ? d[0] : csr.pll_cfg0[0];
+            if (!on || cfg_wr) begin
               csr.pll_cfg0[9:1] = 9'(masked(16'(csr.pll_cfg0[9:1]), 16'(d[9:1]), 16'(m[9:1])));
             end
             if (m[0]) begin
@@ -488,7 +574,7 @@ module ccfpga_serdes
             refclk_rterm_o <= csr.pll_cfg0[11];
           end
           PLL_CFG1_ADDR: begin
-            if (!csr.pll_cfg0[0] || cfg_wr) begin
+            if (!csr.pll_cfg0[0] || cfg_wr) begin  // only while the PLL is off
               csr.pll_cfg1 = 14'(masked(16'(csr.pll_cfg1), d, m));
               if (pll_enabled) begin  // in use at once: else when the PLL turns on
                 pll_cfg1_check(csr.pll_cfg1);
@@ -500,31 +586,14 @@ module ccfpga_serdes
           end
         endcase
         if (!cfg_en_i) begin
-          regfile_rdy_o <= HI;
+          rf_read(a, rf_do);  // REGFILE_DO_O: the register written
+          rf_wait = rf_latency(a);
         end
       end
       else if (access) begin
         a = regfile_addr_i;
-        unique case (a)
-          RX_BUF_CFG_ADDR:            begin d = csr.rx_buf_cfg; end
-          8'h26:                      begin d = csr.rx_clkcor_seq[0]; end
-          8'h27:                      begin d = csr.rx_clkcor_seq[1]; end
-          8'h28:                      begin d = csr.rx_clkcor_seq[2]; end
-          8'h29:                      begin d = csr.rx_clkcor_seq[3]; end
-          PLL_CFG0_ADDR:              begin d = {4'h0, csr.pll_cfg0}; end
-          PLL_CFG1_ADDR:              begin d = {2'h0, csr.pll_cfg1}; end
-          PLL_CFG5_ADDR:              begin d = {15'h0, pll_locked}; end
-          PLL_CFG6_ADDR:              begin d = '0; end  // PLL_SYNC_VALUE: not modelled
-          SERDES_CFG_ADDR: begin
-            d = {13'h0, csr.serdes_cfg};
-          end
-          default: begin
-            d = '0;
-            rf_unmodelled(a);
-          end
-        endcase
-        regfile_do_o  <= d;
-        regfile_rdy_o <= HI;
+        rf_read(a, rf_do);
+        rf_wait = rf_latency(a);
       end
     end
   end
@@ -536,7 +605,12 @@ module ccfpga_serdes
 
   //#########################################################################
   // PLL: line rate f_ref * N1*N2*N3*2 / M3; PLL_CLK_O = 2 UI * M1 * M4
-  // (DS1001 Eq. 2.2, 2.3); recovered RX clock = a word of RX_BYTES symbols
+  // (DS1001 Eq. 2.1 to 2.3); recovered RX clock = a word of RX_BYTES
+  // symbols. PLL_CONFIG_SEL = 0 (PLL_CFG0[1]) leaves PLL_CFG1 out of the
+  // line: N = 20, M3 = 1 (4 Gb/s from 100 MHz); PLL_CLK_O still takes M3
+  // from PLL_OUT_DIVSEL (DS1001 Table 2.18 says no more). PLL_REF_BYPASS
+  // (PLL_CFG0[9]): PLL_CLK_O = f_ref / (M3 * M4), from the PLL on, before
+  // the lock.
   //#########################################################################
   real ui;           // the line UI
   real core_period;  // the recovered RX clock: a word of RX_BYTES symbols
@@ -559,8 +633,9 @@ module ccfpga_serdes
 
   // The dividers from PLL_CFG1, and the periods; a 0.4 ns UI (Gen1) until
   // the reference period is known
-  always @(csr.pll_cfg1 or ref_seen or ref_period) begin : pll_rates
-    int n1, n2, n3, m3;
+  always @(csr.pll_cfg1 or csr.pll_cfg0 or ref_seen or ref_period) begin : pll_rates
+    int  n1, n2, n3, m3;
+    real m4;
     n1 = csr.pll_cfg1[8] ? 2 : 1;  // MAIN_DIVSEL[2]
     unique case (csr.pll_cfg1[7:6])  // MAIN_DIVSEL[1:0]
       2'b00:   begin n2 = 3; end
@@ -580,15 +655,32 @@ module ccfpga_serdes
       default: begin m3 = 1; end
     endcase
 
-    ui = (ref_seen && (ref_period > 0.0)) ? (ref_period * m3) / (2.0 * n1 * n2 * n3) : 0.4;
-    core_period = ui * 10.0 * RX_BYTES;
+    m4 = TX_DATAPATH_SEL[1] ? 2.0 : 1.0;
+    if (!csr.pll_cfg0[1]) begin  // PLL_CONFIG_SEL = 0
+      n1 = 1;
+      n2 = 4;
+      n3 = 5;
+    end
+    ui = (ref_seen && (ref_period > 0.0)) ? ref_period / (2.0 * n1 * n2 * n3) : 0.4;
     // DS1001 Eq. 2.2, 2.3: the bit rate clock is 2 UI; M1 from FCNTRL,
     // M4 = 2 for the 64-bit datapath
-    pll_period  = ui * 2.0 * (pll_m1_x4(csr.pll_cfg1[5:0]) / 4.0) * (TX_DATAPATH_SEL[1] ? 2.0 : 1.0);
+    pll_period = ui * 2.0 * (pll_m1_x4(csr.pll_cfg1[5:0]) / 4.0) * m4;
+    if (csr.pll_cfg0[1]) begin
+      ui = ui * m3;  // M3 divides the line
+    end
+    pll_period = pll_period * m3;
+    if (csr.pll_cfg0[9]) begin  // PLL_REF_BYPASS
+      pll_period = ref_period * m3 * m4;
+    end
+    core_period = ui * 10.0 * RX_BYTES;
   end
+
+  bit  pll_clk_run;         // PLL_CLK_O runs
+  real pll_rise_t = -1.0;  // ... and rose last here
 
   always @(reset_n_i or pll_reset_i or csr.serdes_cfg or csr.pll_cfg0 or pll_locked) begin : pll_state
     pll_enabled        = reset_n_i & ~pll_reset_i & csr.serdes_cfg.en & csr.pll_cfg0[0];
+    pll_clk_run        = pll_locked | (pll_enabled & csr.pll_cfg0[9]);
     reset_core_pll_n_o = pll_locked & reset_n_i;
   end
 
@@ -624,11 +716,11 @@ module ccfpga_serdes
     real    t0, half;
     longint k;
     clk_core_pll_o = LO;
-    wait (pll_locked && (pll_period > 0.0));
+    wait (pll_clk_run && (pll_period > 0.0));
     t0   = $realtime;
     half = pll_period / 2.0;
     k    = 0;
-    while (pll_locked) begin
+    while (pll_clk_run) begin
       if (pll_period / 2.0 != half) begin  // a new rate: a new grid
         t0   = t0 + k * half;
         half = pll_period / 2.0;
@@ -636,84 +728,201 @@ module ccfpga_serdes
       end
       k++;
       #(t0 + k * half - $realtime);
-      if (pll_locked) begin
+      if (pll_clk_run) begin
         clk_core_pll_o = ~clk_core_pll_o;
+        if (clk_core_pll_o) begin
+          pll_rise_t = $realtime;
+        end
       end
     end
   end
 
   //#########################################################################
-  // Resets and reset-done
+  // Resets and reset-done, in PLL_CLK_O clocks. A reset port runs its
+  // stage and the later ones once it is released; held, it only keeps
+  // RESET_DONE_O low. TX: PMA, PCS (TX_RESET_I acts as TX_PMA_RESET_I).
+  // RX: PMA, EQA, CDR, the CDR lock (RX_WAIT_CDR_LOCK), PCS, BUF. A stage
+  // is TIME + 1 clocks; on RX a tick is 2 x RX_RESET_TIMER_PRESC + 1
+  // clocks (DS1001 Table 2.40). RESET_DONE_O rises 7 clocks after the last
+  // stage; 4 more after the PLL lock, which runs all stages. While a
+  // sequence runs, a port is lost, but RX_RESET_I restarts RX. Power down
+  // stops the line, not the resets.
   //#########################################################################
-  localparam int RST_PRESC = (1 << RX_RESET_TIMER_PRESC);
-
-  bit tx_core_rst_n;
+  bit tx_core_rst_n;  // the PLL is locked, RESET_CORE_TX_N_I high
   bit rx_core_rst_n;
-  bit tx_pcs_rst_n;
+  bit tx_pcs_rst_n;   // the stages
   bit tx_pma_rst_n;
   bit rx_pcs_rst_n;
   bit rx_pma_rst_n;
   bit rx_cdr_rst_n;
   bit rx_buf_rst_n;
 
-  bit tx_rst_off;  // all TX resets released
-  bit rx_rst_off;  // all RX resets released
+  bit rx_cdr_locked;
+  bit near_loopback;  // LOOPBACK_I: the TX pins back to the RX (001, or 010)
+  bit far_loopback;   // ... the RX data back to the TX (100, 110)
+  bit near_pcs;       // ... 001: no CDR lock wait
 
-  always @(reset_core_pll_n_o or csr.serdes_cfg or reset_core_tx_n_i or tx_powerdown_n_i or
-           tx_reset_i or tx_pcs_reset_i or tx_pma_reset_i or reset_core_rx_n_i or
-           rx_powerdown_n_i or rx_reset_i or rx_pcs_reset_i or rx_pma_reset_i or
-           rx_cdr_reset_i or rx_buf_reset_i) begin : resets
-    tx_core_rst_n = reset_core_pll_n_o & reset_core_tx_n_i & tx_powerdown_n_i & ~tx_reset_i
-                    & csr.serdes_cfg.en;
-    rx_core_rst_n = reset_core_pll_n_o & reset_core_rx_n_i & rx_powerdown_n_i & ~rx_reset_i
-                    & csr.serdes_cfg.en;
-    tx_pcs_rst_n  = tx_core_rst_n & ~tx_pcs_reset_i;
-    tx_pma_rst_n  = tx_core_rst_n & ~tx_pma_reset_i;
-    rx_pcs_rst_n  = rx_core_rst_n & ~rx_pcs_reset_i;
-    rx_pma_rst_n  = rx_core_rst_n & ~rx_pma_reset_i;
-    rx_cdr_rst_n  = rx_core_rst_n & ~rx_cdr_reset_i;
-    rx_buf_rst_n  = rx_core_rst_n & ~rx_buf_reset_i;
-    tx_rst_off    = tx_pma_rst_n & tx_pcs_rst_n;
-    rx_rst_off    = rx_pma_rst_n & rx_pcs_rst_n & rx_cdr_rst_n & rx_buf_rst_n;
+  always @(reset_core_pll_n_o or reset_core_tx_n_i or reset_core_rx_n_i) begin : core_resets
+    tx_core_rst_n = reset_core_pll_n_o & reset_core_tx_n_i;
+    rx_core_rst_n = reset_core_pll_n_o & reset_core_rx_n_i;
   end
 
-  // PLL clocks from the release of all resets to TX/RX_RESETDONE_O
-  localparam int TX_RST_CLKS = (int'(TX_PMA_RESET_TIME) + int'(TX_PCS_RESET_TIME) + 2) * RST_PRESC + 1;
-  localparam int RX_RST_CLKS = (int'(RX_PMA_RESET_TIME) + int'(RX_EQA_RESET_TIME) + int'(RX_CDR_RESET_TIME)
-                                + int'(RX_PCS_RESET_TIME) + int'(RX_BUF_RESET_TIME) + 5) * RST_PRESC + 1;
+  task automatic rst_clks(int n);
+    repeat (n) @(posedge clk_core_pll_o);
+  endtask
 
-  always begin : tx_resetdone_seq
-    tx_resetdone_o = LO;  // at once, like an async clear
-    wait (tx_rst_off);
+  // a TX stage, s = 0 PMA, 1 PCS
+  task automatic tx_rst_stage(int s);
+    if (s == 0) begin
+      tx_pma_rst_n = LO;
+      rst_clks(int'(TX_PMA_RESET_TIME) + 1);
+      tx_pma_rst_n = HI;
+    end
+    else begin
+      tx_pcs_rst_n = LO;
+      rst_clks(int'(TX_PCS_RESET_TIME) + 1);
+      tx_pcs_rst_n = HI;
+    end
+  endtask
+
+  // a reset port tied off makes a wait constant: still a model
+  /* verilator lint_off WAITCONST */
+  always begin : tx_reset_seq
+    int first, extra;
+    tx_resetdone_o = LO;
+    tx_pma_rst_n   = LO;
+    tx_pcs_rst_n   = LO;
+    wait (tx_core_rst_n);
     fork
       begin
-        repeat (TX_RST_CLKS) @(posedge clk_core_pll_o);
-        tx_resetdone_o <= HI;
+        first = 0;
+        extra = 4;
+        forever begin
+          while (tx_reset_i | tx_pma_reset_i | tx_pcs_reset_i) begin  // held
+            if (tx_reset_i | tx_pma_reset_i) begin
+              first = 0;
+            end
+            @(tx_reset_i or tx_pma_reset_i or tx_pcs_reset_i);
+          end
+          rst_clks(3 + extra);
+          for (int s = first; s < 2; s++) begin
+            tx_rst_stage(s);
+          end
+          rst_clks(4);
+          tx_resetdone_o <= HI;
+          wait (tx_reset_i | tx_pma_reset_i | tx_pcs_reset_i);
+          tx_resetdone_o = LO;
+          first          = 1;
+          extra          = 0;
+        end
       end
     join_none
-    @(negedge tx_rst_off);
+    @(negedge tx_core_rst_n);
     disable fork;
   end
 
-  bit rx_cdr_locked;
+  // an RX stage, s = 0 PMA, 1 EQA, 2 CDR, 3 PCS, 4 BUF
+  task automatic rx_rst_stage(int s);
+    int n;
+    n = int'(RX_PMA_RESET_TIME);
+    unique case (s)
+      1: begin n = int'(RX_EQA_RESET_TIME); end
+      2: begin n = int'(RX_CDR_RESET_TIME); end
+      3: begin n = int'(RX_PCS_RESET_TIME); end
+      4: begin n = int'(RX_BUF_RESET_TIME); end
+      default: begin end
+    endcase
+    n = n * (2 * int'(RX_RESET_TIMER_PRESC) + 1) + 1;
+    unique case (s)
+      0: begin rx_pma_rst_n = LO; rst_clks(n); rx_pma_rst_n = HI; end
+      2: begin rx_cdr_rst_n = LO; rst_clks(n); rx_cdr_rst_n = HI; end
+      3: begin rx_pcs_rst_n = LO; rst_clks(n); rx_pcs_rst_n = HI; end
+      4: begin rx_buf_rst_n = LO; rst_clks(n); rx_buf_rst_n = HI; end
+      default: begin rst_clks(n); end  // the equaliser: nothing to reset here
+    endcase
+  endtask
 
-  // RX: then, with RX_WAIT_CDR_LOCK, the CDR lock too; RX_RESETDONE_GATE
-  // holds it low
-  always begin : rx_resetdone_seq
-    rx_resetdone_o = LO;  // at once, like an async clear
-    wait (rx_rst_off);
-    fork
-      begin
-        repeat (RX_RST_CLKS) @(posedge clk_core_pll_o);
-        while ((RX_WAIT_CDR_LOCK != 0) && !rx_cdr_locked) begin
+  // the RX ports, by stage; 5: none
+  function automatic int rx_rst_port();
+    if (rx_reset_i || rx_pma_reset_i) begin
+      return 0;
+    end
+    if (rx_eqa_reset_i) begin
+      return 1;
+    end
+    if (rx_cdr_reset_i) begin
+      return 2;
+    end
+    if (rx_pcs_reset_i) begin
+      return 3;
+    end
+    return rx_buf_reset_i ? 4 : 5;
+  endfunction
+
+  // the stages from first; RX_RESETDONE_GATE holds RX_RESET_DONE_O low
+  task automatic rx_rst_run(int first, int extra);
+    rst_clks(3 + extra);
+    for (int s = first; s < 5; s++) begin
+      if (s == 3) begin
+        while ((RX_WAIT_CDR_LOCK != 0) && !rx_cdr_locked && !near_pcs) begin
           @(posedge clk_core_pll_o);
         end
-        rx_resetdone_o <= (RX_RESETDONE_GATE == 0);
+      end
+      rx_rst_stage(s);
+    end
+    rst_clks(4);
+    rx_resetdone_o <= (RX_RESETDONE_GATE == 0);
+  endtask
+
+  always begin : rx_reset_seq
+    int first, extra;
+    bit restart;
+    rx_resetdone_o = LO;
+    rx_pma_rst_n   = LO;
+    rx_cdr_rst_n   = LO;
+    rx_pcs_rst_n   = LO;
+    rx_buf_rst_n   = LO;
+    wait (rx_core_rst_n);
+    fork
+      begin
+        first = 0;
+        extra = 4;
+        forever begin
+          while (rx_rst_port() != 5) begin  // held
+            if (rx_rst_port() < first) begin
+              first = rx_rst_port();
+            end
+            @(rx_reset_i or rx_pma_reset_i or rx_eqa_reset_i or rx_cdr_reset_i or rx_pcs_reset_i
+              or rx_buf_reset_i);
+          end
+          restart = FALSE;
+          fork
+            rx_rst_run(first, extra);
+            begin
+              @(posedge rx_reset_i);
+              restart = TRUE;
+            end
+          join_any
+          disable fork;
+          if (!restart) begin
+            // the signals themselves: a wait does not look into functions
+            wait (rx_reset_i | rx_pma_reset_i | rx_eqa_reset_i | rx_cdr_reset_i | rx_pcs_reset_i
+                  | rx_buf_reset_i);
+          end
+          rx_resetdone_o = LO;
+          rx_pma_rst_n   = HI;
+          rx_cdr_rst_n   = HI;
+          rx_pcs_rst_n   = HI;
+          rx_buf_rst_n   = HI;
+          first          = 5;
+          extra          = 0;
+        end
       end
     join_none
-    @(negedge rx_rst_off);
+    @(negedge rx_core_rst_n);
     disable fork;
   end
+  /* verilator lint_on WAITCONST */
 
   // the parameters, with the checks at the top of the module
   initial begin : param_check
@@ -740,20 +949,18 @@ module ccfpga_serdes
     // words deep (address width 5)
     n += chk_range("TX_BUFFER_ADDR_WIDTH", TX_BUFFER_ADDR_WIDTH, 5, 5);
     n += pll_cfg1_errors(PLL_DIV_RESET);
-    n += chk_bad(RX_SLIDE_MODE == 2'b11, "RX_SLIDE_MODE", int'(RX_SLIDE_MODE),
-                 "a bit or a byte, not both (DS1001 Table 2.51)");
-    // the reset timers count 2^N clocks a tick in an int: RX_RST_CLKS fits
-    n += chk_range("RX_RESET_TIMER_PRESC", int'(RX_RESET_TIMER_PRESC), 0, 23);
     n += rx_buf_cfg_errors(RX_BUF_CFG_RESET);
     chk_stop(n, "the parameters");
   end : param_check
 
-  bit pcs_loopback;
-  bit pma_loopback;
-
+  // DS1001 Table 2.24: 001 near-end PCS, 010 near-end PMA, 100 far-end
+  // PMA, 110 far-end PCS, the rest normal. Near-end PMA needs
+  // TX_PMA_LOOPBACK != 0 (DS1001 Table 2.25). Near-end, the TX pins go to
+  // the RX (PCS: with no CDR lock wait); far-end, the RX data to the TX.
   task automatic loopbacks();
-    pcs_loopback = loopback_i[1] | loopback_i[2];
-    pma_loopback = loopback_i[0] | (TX_PMA_LOOPBACK != 0);
+    near_pcs      = (loopback_i == 3'b001);
+    near_loopback = near_pcs || ((loopback_i == 3'b010) && (TX_PMA_LOOPBACK != 0));
+    far_loopback  = (loopback_i == 3'b100) || (loopback_i == 3'b110);
   endtask
 
   initial loopbacks();
@@ -764,76 +971,131 @@ module ccfpga_serdes
   //#########################################################################
 
   //=========================================================================
-  // TX: 8b/10b encoder and elastic buffer
+  // TX: 8b/10b encoder, pattern generator and elastic buffer, on TX_CLK_I
+  //
+  // The encoder runs all 8 lanes: lane i takes its running disparity from
+  // lane i - 1, lane 0 from the last lane of the word before; RD+ after a
+  // TX PCS reset. A bypassed byte moves the RD as if it were encoded. In
+  // 16/32-bit mode the line takes the quarters / halves of TX_DATA_I in
+  // turn (DS1001 2.5.5.1), so a lane sent takes its RD from lanes not
+  // sent: encode in the fabric there, and repeat the word in every
+  // quarter / half. The pattern generator works the same way, on words.
   //=========================================================================
-  bit [30:0] tx_prbs_lfsr = 31'h7FFF_FFFF;
-  bit        tx_prbs_bit;  // for the waveform
-
   bit        tx_rd;
-  bit        tx_ser_run;    // the serializer runs
-  bit        tx_underflow;  // the serializer found the buffer empty
+  bit [30:0] tx_prbs_lfsr;          // the PRBS, a word on each clock
+  bit [79:0] tx_pat;                // the pattern word: PRBS or square wave
+  bit        tx_err;                // TX_BUF_ERR_O: sticky until a TX PCS reset
+  bit        tx_uflow;              // the serializer found the buffer empty, TX_CLK_I running
+  real       tx_clk_t = -1.0e9;     // the last TX_CLK_I edge
+  bit        tx_ser_run;            // the serializer runs
 
   bit [79:0] tx_q[$];  // the elastic buffer, 1 << TX_BUFFER_ADDR_WIDTH words
 
   // Until the serializer runs (TX reset done), at most the newest half of
-  // the buffer waits: the default reset times fill 9 words, and a large
-  // RX_RESET_TIMER_PRESC no longer overflows it
+  // the buffer waits: a large TX reset time no longer overflows it
   localparam int TX_BUF_START = (1 << TX_BUFFER_ADDR_WIDTH) / 2;
 
-  // TX_BUF_ERR_O: an overflow here, or an underflow the serializer saw
-  // since the last clock; one driver, non-blocking: the fabric samples it
-  // on this edge
+  // DS1001 Tables 2.34 and 2.52: 001 PRBS-7, 010 PRBS-15, the rest
+  // reserved. As the vendor's simulation model: 011 PRBS-23, 100 PRBS-31;
+  // TX 101 data, 110 a 2-UI square wave, 111 half a word high, half low;
+  // RX 101 to 111 no checker. A reserved code gives a $warning, once.
+  bit [1:0] prbs_warned;
+
+  task automatic prbs_sel_check(bit [2:0] sel, int side);
+    if (sel > 3'b010 && !prbs_warned[side]) begin
+      prbs_warned[side] = HI;
+      $warning("%m: %s_PRBS_SEL_I = %b is reserved (DS1001 Table %s)", (side == 0) ? "TX" : "RX", sel,
+               (side == 0) ? "2.34" : "2.52");
+    end
+  endtask
+
+  // TX_BUF_ERR_O: an overflow here, or an underflow the serializer saw;
+  // sticky, and the buffer stops. One driver, non-blocking: the fabric
+  // samples it on this edge.
   always @(posedge clk_core_tx_i or negedge tx_pcs_rst_n) begin : tx_buf
     bit [10:0] enc;
     bit [ 7:0] byte_v;
-    bit        k_v;
     bit [79:0] word_v;
-    bit        rd_v;
-    bit        err_v;
+    bit [30:0] st;
+    bit        rd_v, rd_last;
     bit [63:0] src_data;
     bit [ 7:0] src_k;
     if (!tx_pcs_rst_n) begin
       tx_q.delete();
-      tx_rd         = LO;
-      tx_underflow  = LO;
+      tx_rd         = HI;
+      tx_prbs_lfsr  = '1;
+      tx_pat        = '1;
+      tx_err        = LO;
+      tx_uflow      = LO;
       tx_buf_err_o <= LO;
     end
     else begin
-      err_v        = tx_underflow;
-      tx_underflow = LO;
-      rd_v         = tx_rd;
-      word_v   = 80'h0;
-      src_data = pcs_loopback ? rx_data_o : tx_data_i;
-      src_k    = pcs_loopback ? rx_char_is_k_o : tx_char_is_k_i;
+      tx_clk_t = $realtime;
+      src_data = far_loopback ? rx_data_o : tx_data_i;
+      src_k    = far_loopback ? rx_char_is_k_o : tx_char_is_k_i;
 
+      rd_v    = tx_rd;
+      rd_last = tx_rd;
       for (int i = 0; i < 8; i++) begin
-        if (i < TX_BYTES) begin
-          byte_v = src_data[i*8+:8];
-          k_v    = src_k[i];
-
-          if (!tx_8b10b_en_i || tx_8b10b_bypass_i[i]) begin
-            word_v[i*10+:10] = {tx_char_dispmode_i[i], tx_char_dispval_i[i], byte_v};  // DS1001 Fig. 2.34: bit 9 DISPMODE, bit 8 DISPVAL
-          end
-          else begin
-            if (tx_char_dispmode_i[i]) begin
-              rd_v = tx_char_dispval_i[i];
-            end
-            enc              = enc8b10b(byte_v, k_v, rd_v);
-            word_v[i*10+:10] = enc[9:0];
-            rd_v             = enc[10];
-          end
+        byte_v = src_data[i*8+:8];
+        if (tx_char_dispmode_i[i]) begin
+          rd_v = tx_char_dispval_i[i];  // DS1001 Table 2.30, 1x: DISPVAL is the RD before the byte
+        end
+        enc = enc8b10b(byte_v, src_k[i], rd_v);
+        if (!tx_8b10b_en_i || tx_8b10b_bypass_i[i]) begin
+          word_v[i*10+:10] = {tx_char_dispmode_i[i], tx_char_dispval_i[i], byte_v};  // DS1001 Fig. 2.34: bit 9 DISPMODE, bit 8 DISPVAL
+        end
+        else begin
+          word_v[i*10+:10] = enc[9:0];
+        end
+        rd_v = enc[10];
+        if (i == TX_BYTES - 1) begin
+          rd_last = rd_v;
         end
       end
+      tx_rd = rd_last;
 
-      tx_rd = rd_v;
+      // the pattern: 80 bits from the PRBS, which moves on by a word
+      prbs_sel_check(tx_prbs_sel_i, 0);
+      unique case (tx_prbs_sel_i)
+        3'b001, 3'b010, 3'b011, 3'b100: begin
+          st = tx_prbs_lfsr;
+          for (int b = 0; b < 80; b++) begin
+            st        = prbs_next(st, tx_prbs_sel_i);
+            tx_pat[b] = st[0];
+            if (b == TX_WORD_BITS - 1) begin
+              tx_prbs_lfsr = st;
+            end
+          end
+          tx_pat[0] = tx_pat[0] ^ tx_prbs_force_err_i;  // a wrong first bit each clock it is high
+          word_v    = tx_pat;
+        end
+        3'b110: begin
+          tx_pat = {40{2'b10}};
+          word_v = tx_pat;
+        end
+        3'b111: begin
+          for (int b = 0; b < TX_WORD_BITS; b++) begin
+            tx_pat[b] = (b >= TX_WORD_BITS / 2);
+          end
+          word_v = tx_pat;
+        end
+        default: begin
+        end
+      endcase
 
-      if (tx_q.size() < (1 << TX_BUFFER_ADDR_WIDTH)) begin
-        tx_q.push_back(word_v);
+      if (tx_uflow) begin
+        tx_err = HI;
       end
-      else begin
-        err_v = HI;
-        if (BHV_VERBOSE) begin
-          $display("[%0t] %m: TX elastic buffer overflow", $time);
+      if (!tx_err) begin
+        if (tx_q.size() < (1 << TX_BUFFER_ADDR_WIDTH)) begin
+          tx_q.push_back(word_v);
+        end
+        else begin
+          tx_err = HI;
+          if (BHV_VERBOSE) begin
+            $display("[%0t] %m: TX elastic buffer overflow", $time);
+          end
         end
       end
       if (!tx_ser_run) begin
@@ -841,28 +1103,9 @@ module ccfpga_serdes
           void'(tx_q.pop_front());
         end
       end
-      tx_buf_err_o <= err_v;
+      tx_buf_err_o <= tx_err;
     end
   end
-
-  // TX_PRBS_FORCE_ERR_I: each rising edge makes one PRBS bit wrong, the
-  // next one sent, in every CDR_MODEL
-  bit tx_force_pend;
-
-  always @(posedge tx_prbs_force_err_i) begin
-    tx_force_pend = HI;
-  end
-
-  // DS1001 Table 2.34: 001 PRBS-7, 010 PRBS-15, the rest reserved. The BFM
-  // also runs PRBS-23 (011) and PRBS-31 (100); 101 to 111 run PRBS-7.
-  bit [1:0] prbs_warned;
-
-  task automatic prbs_sel_check(bit [2:0] sel, int side);
-    if (sel > 3'b100 && !prbs_warned[side]) begin
-      prbs_warned[side] = HI;
-      $warning("%m: %s_PRBS_SEL_I = %b is reserved: PRBS-7", (side == 0) ? "TX" : "RX", sel);
-    end
-  endtask
 
   //=========================================================================
   // TX serializer: one bit a UI on the line (CDR_MODEL = FAST, ACCURATE),
@@ -871,16 +1114,19 @@ module ccfpga_serdes
   bit [79:0] tx_shift;
   int        tx_bit_idx;
   bit        tx_bit;
+  int        tx_rot;      // words sent since the start, mod 8
+  bit        tx_starved;  // the buffer ran empty with TX_CLK_I stopped
 
-  // the RX pads: the RX pins, or in PMA loopback the TX pins
+  // the RX pads: the RX pins, or in near-end loopback the TX pins
   bit rx_pad_p;
   bit rx_pad_n;
 
-  // the TX pins, N first: in CDR_MODEL = NONE, P clocks N
-  task automatic tx_line(bit p, bit n);
+  // the TX pins, N first: in CDR_MODEL = NONE, P clocks N. X (electrical
+  // idle) and Z (power down) are 0 on the pads.
+  task automatic tx_line(logic p, logic n);
     TX_SERIO_N_B = n;
     TX_SERIO_P_B = p;
-    if (pma_loopback) begin
+    if (near_loopback) begin
       rx_pad_n = n;
       rx_pad_p = p;
     end
@@ -889,6 +1135,49 @@ module ccfpga_serdes
   always @(pll_locked or tx_pma_rst_n or tx_resetdone_o) begin : tx_run
     tx_ser_run = pll_locked & tx_pma_rst_n & tx_resetdone_o;
   end
+
+  // The next word on the line: the buffer's front word; in 16/32-bit mode
+  // its quarters / halves in turn, the second first. Zeros while the
+  // buffer is empty, and after TX_BUF_ERR_O. Empty with TX_CLK_I running
+  // is an underflow; with it stopped the words come back once two wait.
+  task automatic tx_next_word(output bit [79:0] w);
+    int q;
+    w = '0;
+    if (!tx_pcs_rst_n) begin
+      tx_starved = TRUE;
+      tx_rot     = 0;
+    end
+    else if (tx_err || tx_uflow) begin
+    end
+    else if ((tx_q.size() != 0) && !(tx_starved && (tx_q.size() < 2))) begin
+      tx_starved = FALSE;
+      q          = (TX_BYTES == 8) ? 0 : ((tx_rot + 1) % (8 / TX_BYTES));
+      w          = tx_q.pop_front() >> (q * TX_WORD_BITS);
+      tx_rot     = (tx_rot + 1) % 8;
+    end
+    else if (!tx_starved && (($realtime - tx_clk_t) < 2.0 * TX_WORD_BITS * ui)) begin
+      tx_uflow = HI;
+      if (BHV_VERBOSE) begin
+        $display("[%0t] %m: TX elastic buffer underflow", $time);
+      end
+    end
+    else begin
+      tx_starved = TRUE;
+    end
+  endtask
+
+  // the line: power down Z, electrical idle X, else the bit
+  task automatic tx_drive(bit b);
+    if (!tx_powerdown_n_i) begin
+      tx_line(1'bz, 1'bz);
+    end
+    else if (tx_elec_idle_i) begin
+      tx_line(1'bx, 1'bx);
+    end
+    else begin
+      tx_line(b ^ tx_polarity_i, ~(b ^ tx_polarity_i));
+    end
+  endtask
 
   // CDR_MODEL = NONE: this BFM's ID, and its peer's, the TX at the far end
   // of the RX pins. Both are set once, at the start (enumeration), and
@@ -914,20 +1203,14 @@ module ccfpga_serdes
     #(t0 + k * step - $realtime);
   endtask
 
-  // the next PRBS bit, with a forced error once per TX_PRBS_FORCE_ERR_I
-  task automatic tx_prbs_bit_next(output bit b);
-    prbs_sel_check(tx_prbs_sel_i, 0);
-    tx_prbs_lfsr  = prbs_next(tx_prbs_lfsr, tx_prbs_sel_i);
-    b             = tx_prbs_lfsr[0] ^ tx_force_pend;
-    tx_force_pend = LO;
-  endtask
-
   // CDR_MODEL = FAST, ACCURATE: a bit a UI on the line
   initial if (CDR_MODEL != NONE) begin : tx_bit_serializer
     real    t0, step;
     longint k;
     forever begin
-      tx_bit_idx   = 0;
+      tx_bit_idx = 0;
+      tx_starved = TRUE;
+      tx_rot     = 0;
       tx_line(LO, LO);
       wait (tx_ser_run && (ui > 0.0));
       t0   = $realtime;
@@ -936,31 +1219,11 @@ module ccfpga_serdes
       while (tx_ser_run) begin
         tx_grid_wait(t0, step, k, ui);
         if (tx_bit_idx == 0) begin
-          if (tx_q.size() != 0) begin
-            tx_shift = tx_q.pop_front();
-          end
-          else begin
-            tx_underflow = HI;  // tx_shift is sent again
-          end
+          tx_next_word(tx_shift);
         end
-
-        if (tx_prbs_sel_i != 3'b000) begin
-          tx_prbs_bit_next(tx_prbs_bit);
-          tx_bit = tx_prbs_bit;
-        end
-        else begin
-          tx_force_pend = LO;
-          tx_bit        = tx_shift[tx_bit_idx];
-        end
-
+        tx_bit     = tx_shift[tx_bit_idx];
         tx_bit_idx = (tx_bit_idx + 1) % TX_WORD_BITS;
-
-        if (tx_elec_idle_i || !tx_powerdown_n_i) begin
-          tx_line(LO, LO);
-        end
-        else begin
-          tx_line(tx_bit ^ tx_polarity_i, ~(tx_bit ^ tx_polarity_i));
-        end
+        tx_drive(tx_bit);
       end
     end
   end
@@ -986,6 +1249,8 @@ module ccfpga_serdes
     tx_line(TX_SERIO_P_B, LO);
 
     forever begin
+      tx_starved = TRUE;
+      tx_rot     = 0;
       wait (tx_ser_run && (ui > 0.0));
       t0   = $realtime;
       step = ui;
@@ -995,22 +1260,8 @@ module ccfpga_serdes
       step = ui * TX_WORD_BITS;
       k    = 0;
       while (tx_ser_run) begin
-        if (tx_q.size() != 0) begin
-          tx_shift = tx_q.pop_front();
-        end
-        else begin
-          tx_underflow = HI;  // tx_shift is sent again
-        end
-        w = tx_shift;
-        if (tx_prbs_sel_i != 3'b000) begin
-          for (int i = 0; i < TX_WORD_BITS; i++) begin
-            tx_prbs_bit_next(w[i]);
-          end
-        end
-        else begin
-          tx_force_pend = LO;
-        end
-
+        tx_next_word(w);
+        tx_shift = w;
         if (!tx_elec_idle_i && tx_powerdown_n_i) begin
           cdr_none_last[cdr_none.my_id] = w ^ {80{tx_polarity_i}};
           cdr_none_words[cdr_none.my_id]++;
@@ -1027,30 +1278,38 @@ module ccfpga_serdes
   //=========================================================================
   // RX: electrical-idle detector
   //=========================================================================
-  // the RX pins, unless PMA loopback: then tx_line() drives the pads.
-  // N first: in CDR_MODEL = NONE, P clocks N.
-  always @(RX_SERIO_P_B or RX_SERIO_N_B or pma_loopback) begin : rx_pins
-    if (!pma_loopback) begin
+  // the RX pins, unless near-end loopback: then tx_line() drives the pads.
+  // N first: in CDR_MODEL = NONE, P clocks N. X and Z are 0 on the pads.
+  always @(RX_SERIO_P_B or RX_SERIO_N_B or near_loopback) begin : rx_pins
+    if (!near_loopback) begin
       rx_pad_n = RX_SERIO_N_B;
       rx_pad_p = RX_SERIO_P_B;
     end
   end
 
-  // Idle: P = N (TX_ELEC_IDLE_I drives both low) for EI_WINDOW_UI. Data
-  // keeps P and N apart, so no run length looks idle. NONE has no bits on
-  // the pins: there, idle is no word for EI_WINDOW_UI (rx_none_words).
+  // Idle: P = N for EI_WINDOW_UI, so also X or Z on both pins, as a TX in
+  // electrical idle or power down drives them (DS1001 2.5.6.2 gives no
+  // criterion). Data keeps P and N apart, so no run length looks idle.
+  // NONE has no bits on the pins: there, idle is no word for EI_WINDOW_UI
+  // (rx_none_words).
   localparam real EI_WINDOW_UI = (CDR_MODEL == NONE) ? 200.0 : 20.0;
 
   bit  rx_ei_filt  = HI;  // idle, filtered
   bit  rx_ei_quiet = HI;  // P = N, or NONE: since rx_ei_deadline - window
   real rx_ei_deadline;
 
-  task automatic rx_ei_out();
-    rx_ei_en_o = rx_en_ei_detector_i & rx_ei_filt;
-  endtask
+  // RX_EI_EN_O, on the reference clock: idle for RX_EI_BW_SEL clocks (1 to
+  // 8); RX_EI_BIAS = 0 turns the detector off. As DS1001 Table 2.43, not
+  // as the vendor's simulation model, where RX_EI_BW_SEL != 0 (the
+  // default 4 too) keeps RX_EI_EN_O low.
+  int rx_ei_run;
 
-  initial rx_ei_out();
-  always @(rx_en_ei_detector_i or rx_ei_filt) rx_ei_out();
+  always @(posedge clk_ref_i) begin : rx_ei_out
+    int n;
+    n         = (int'(RX_EI_BW_SEL) > 8) ? 8 : (RX_EI_BW_SEL == 0) ? 1 : int'(RX_EI_BW_SEL);
+    rx_ei_run = !rx_ei_filt ? 0 : (rx_ei_run < 8) ? rx_ei_run + 1 : 8;
+    rx_ei_en_o <= rx_en_ei_detector_i && (RX_EI_BIAS != 0) && (rx_ei_run >= n);
+  end
 
   always @(rx_pad_p or rx_pad_n) begin : rx_ei_line
     if (CDR_MODEL != NONE) begin
@@ -1084,58 +1343,264 @@ module ccfpga_serdes
   // below: comma alignment, slide, PRBS check, words of RX_BYTES symbols
   //=========================================================================
   bit [ 9:0] rx_shift;
-  int        rx_bit_cnt;
+  int        rx_bit_cnt;    // bits of the symbol so far; -1 after a bit slip
   int        rx_sym_cnt;
+  bit        rx_drop_sym;   // the next symbol is dropped: a lane correction
   bit [79:0] rx_word;       // being filled
-  bit [79:0] rx_word_q[$];  // complete, for the recovered clock
-  bit [79:0] rx_word_c;     // the word on the recovered clock
+  bit [81:0] rx_word_q[$];  // complete, for the recovered clock (rx_raw_t: Icarus 13.0 has no queue of structs)
+  rx_raw_t   rx_word_c;     // the word on the recovered clock
   event      rx_word_done;  // a word went into rx_word_q
 
   // bit by bit; the outputs take them on CLK_CORE_RX_I (rx_status)
   bit        rx_aligned;       // RX_BYTE_IS_ALIGNED_O
   bit        rx_realign_pend;  // RX_BYTE_REALIGN_O: the alignment moved
-  bit        rx_prbs_err_acc;  // RX_PRBS_ERR_O: a PRBS error
-
-  bit        rx_slide_pending;
+  bit        rx_prbs_err_acc;  // RX_PRBS_ERR_O: a word with PRBS errors
 
   int        rx_bits_seen;
 
+  //-------------------------------------------------------------------------
+  // Comma alignment, a word at a time (DS1001 Figures 2.40, 2.41; the rule
+  // is the vendor's simulation model's, DS1001 does not give one):
+  // - hunt: 16 words with a comma on the symbol boundary and none off it;
+  //   a comma off it slips the boundary a bit later, then 16 words pause;
+  // - then the next such word: a comma in a lane ALIGN_COMMA_WORD does not
+  //   allow drops a symbol (RX_BYTE_REALIGN_O), and the hunt starts over;
+  //   else RX_BYTE_IS_ALIGNED_O, locked;
+  // - locked: a comma off the boundary starts the hunt over
+  //   (RX_BYTE_REALIGN_O); a comma in another lane is not corrected.
+  // RX_MCOMMA/PCOMMA_ALIGN_I both low, or the PRBS checker on, freeze the
+  // alignment; RX_COMMA_DETECT_EN_I low ends it. Decoded data holds until
+  // locked, and in slide mode: bypass the decoder there.
+  // Slide mode (RX_SLIDE_MODE != 0, RX_COMMA_DETECT_EN_I high): no
+  // automatic alignment. An RX_SLIDE_I strobe drops a symbol (bit 1), and
+  // slips a bit (bit 0) if 16 words passed since the last strobe.
+  //-------------------------------------------------------------------------
+  localparam int AL_OFF    = 0;  // alignment off, or frozen
+  localparam int AL_HUNT   = 1;  // counting commas on the boundary
+  localparam int AL_PAUSE  = 2;  // after a bit slip
+  localparam int AL_LANE   = 3;  // the next comma picks the lane
+  localparam int AL_LOCK   = 4;
+  localparam int AL_MANUAL = 5;  // slide mode
+
   localparam bit [9:0] COMMA_MASK = ALIGN_COMMA_ENABLE;
   // ALIGN_COMMA_WORD: an aligned comma sits in any lane (00), an even
-  // lane (01), or lane 0 or 4 (1x); else bytes are skipped until it does
-  localparam int COMMA_LANES = (ALIGN_COMMA_WORD == 2'b00) ? 1 : (ALIGN_COMMA_WORD == 2'b01) ? 2 : 4;
+  // lane (01), or lane 0 or 4 (1x); these lanes it must not sit in
+  localparam bit [7:0] COMMA_BAD_LANES = (ALIGN_COMMA_WORD == 2'b00) ? 8'h00 :
+                                         (ALIGN_COMMA_WORD == 2'b01) ? 8'hAA : 8'hEE;
 
-  bit comma_align_en_d;
+  int       rx_al_mode;
+  int       rx_al_cnt;
+  bit       rx_m_on, rx_m_off;  // this word: a minus comma on the boundary, off it
+  bit       rx_p_on, rx_p_off;  // ... a plus comma
+  bit [7:0] rx_m_lanes;         // ... the lanes of those on it
+  bit [7:0] rx_p_lanes;
+  bit       rx_slide_req;       // an RX_SLIDE_I strobe waits
 
-  bit [30:0] rx_prbs_lfsr = 31'h7FFF_FFFF;  // the bits received, newest in bit 0
+  //-------------------------------------------------------------------------
+  // PRBS checker (DS1001 Table 2.52), a word at a time: once a word not 0
+  // is predicted bit for bit from the bits before it, the PRBS locks and
+  // runs on its own, for good. Then each word with an error counts one,
+  // up to 0x7FFF, and flags RX_PRBS_ERR_O. PRBS-23/31 need 32 or 64 bits.
+  // While it runs (001 to 100), comma alignment holds.
+  //-------------------------------------------------------------------------
+  bit [30:0] rx_prbs_lfsr = 31'h7FFF_FFFF;
   bit        rx_prbs_synced;
-  int        rx_prbs_err_cnt;  // PRBS error count, for the waveform
-  int        rx_prbs_good;
+  int        rx_prbs_err_cnt;  // the error count, words
+  int        rx_prbs_nbits;    // bits taken since the start, to 200
+  bit        rx_prbs_wbad;     // this word: a bit not as predicted
+  bit        rx_prbs_wnz;      // ... a 1
   bit [ 2:0] rx_prbs_sel_d;    // the PRBS the checker is synced to
+
+  function automatic bit rx_prbs_on();
+    return (rx_prbs_sel_i != 3'b000) && (rx_prbs_sel_i <= 3'b100);
+  endfunction
+
+  function automatic bit rx_prbs_check();
+    return rx_prbs_on() && ((rx_prbs_sel_i <= 3'b010) || (RX_BYTES > 2));
+  endfunction
 
   // the PRBS checker starts over: a stop, or a new PRBS
   task automatic rx_prbs_reset();
     rx_prbs_lfsr    = 31'h7FFF_FFFF;
     rx_prbs_synced  = FALSE;
-    rx_prbs_good    = 0;
+    rx_prbs_nbits   = 0;
+    rx_prbs_wbad    = LO;
+    rx_prbs_wnz     = LO;
     rx_prbs_err_acc = LO;
   endtask
 
-  bit rx_word_started;  // the word counter is set, since the last stop
+  bit  rx_word_started;  // the counters are set, since the last stop
+  real rx_bit_t;         // the centre of the bit going in
 
-  // the word counter at an RX start: random, or 0
+  // The counters at an RX start: in phase with PLL_CLK_O, whose TX sends
+  // its words a UI after it rises; so the CDR models start alike, and a
+  // loopback without delay needs no bit slip. The word counter is random
+  // with BHV_RX_WORD_PHASE_RANDOM.
   task automatic rx_word_start();
+    int k;
     if (!rx_word_started) begin
-      rx_sym_cnt      = BHV_RX_WORD_PHASE_RANDOM ? int'($urandom_range(RX_BYTES - 1)) : 0;
+      k = 0;
+      if (pll_rise_t >= 0.0 && ui > 0.0) begin
+        k = int'($floor((rx_bit_t - pll_rise_t) / ui)) - 1;
+        k = ((k % (10 * RX_BYTES)) + 10 * RX_BYTES) % (10 * RX_BYTES);
+      end
+      rx_bit_cnt      = k % 10;
+      rx_sym_cnt      = BHV_RX_WORD_PHASE_RANDOM ? int'($urandom_range(RX_BYTES - 1)) : k / 10;
       rx_word_started = TRUE;
     end
   endtask
 
+  // the aligner, at the end of a word
+  task automatic rx_align_step(bit m_en, bit p_en);
+    bit       good, found;
+    bit [7:0] lanes;
+    good  = (m_en && rx_m_on && !rx_m_off) || (p_en && rx_p_on && !rx_p_off);
+    found = (m_en && (rx_m_on || rx_m_off)) || (p_en && (rx_p_on || rx_p_off));
+    lanes = ((m_en && rx_m_on && !rx_m_off) ? rx_m_lanes : 8'h00) |
+            ((p_en && rx_p_on && !rx_p_off) ? rx_p_lanes : 8'h00);
+    if (!rx_pcs_rst_n || !rx_comma_detect_en_i) begin
+      rx_al_mode = AL_OFF;
+      rx_aligned = LO;
+    end
+    else begin
+      unique case (rx_al_mode)
+        AL_OFF: begin
+          if (RX_SLIDE_MODE != 0) begin
+            rx_al_mode = AL_MANUAL;
+            rx_al_cnt  = 0;
+            rx_aligned = LO;
+          end
+          else if (m_en || p_en) begin
+            rx_al_mode = AL_HUNT;
+            rx_al_cnt  = 0;
+            rx_aligned = LO;
+          end
+        end
+        AL_HUNT: begin
+          if (!m_en && !p_en) begin
+            rx_al_mode = AL_OFF;
+          end
+          else if (good) begin
+            rx_al_cnt++;
+            if (rx_al_cnt == 16) begin
+              rx_al_mode = AL_LANE;
+            end
+          end
+          else if (found) begin
+            rx_bit_cnt--;  // the boundary a bit later
+            rx_al_mode = AL_PAUSE;
+            rx_al_cnt  = 0;
+          end
+        end
+        AL_PAUSE: begin
+          rx_al_cnt++;
+          if (rx_al_cnt == 16) begin
+            rx_al_mode = AL_HUNT;
+            rx_al_cnt  = 0;
+          end
+        end
+        AL_LANE: begin
+          if (!m_en && !p_en) begin
+            rx_al_mode = AL_OFF;
+          end
+          else if (good && ((lanes & COMMA_BAD_LANES) != 8'h00)) begin
+            rx_drop_sym     = TRUE;
+            rx_realign_pend = HI;
+            rx_al_mode      = AL_HUNT;
+            rx_al_cnt       = 0;
+            if (BHV_VERBOSE) begin
+              $display("[%0t] %m: RX comma in a wrong lane: a symbol dropped", $time);
+            end
+          end
+          else if (good) begin
+            rx_aligned = HI;
+            rx_al_mode = AL_LOCK;
+            if (BHV_VERBOSE) begin
+              $display("[%0t] %m: RX byte alignment acquired", $time);
+            end
+          end
+          else if (found) begin
+            rx_al_mode = AL_HUNT;
+            rx_al_cnt  = 0;
+          end
+        end
+        AL_LOCK: begin
+          if (!m_en && !p_en) begin
+            rx_al_mode = AL_OFF;  // frozen: RX_BYTE_IS_ALIGNED_O stays
+          end
+          else if (found && !good) begin
+            rx_aligned      = LO;
+            rx_realign_pend = HI;
+            rx_al_mode      = AL_HUNT;
+            rx_al_cnt       = 0;
+            if (BHV_VERBOSE) begin
+              $display("[%0t] %m: RX comma off the boundary: alignment lost", $time);
+            end
+          end
+        end
+        default: begin  // AL_MANUAL
+          if (rx_slide_req) begin
+            if (RX_SLIDE_MODE[0] && (rx_al_cnt == 0)) begin
+              rx_bit_cnt--;
+            end
+            if (RX_SLIDE_MODE[1]) begin
+              rx_drop_sym = TRUE;
+            end
+            rx_al_cnt = (rx_al_cnt + 1) % 16;
+          end
+          else if (rx_al_cnt != 0) begin
+            rx_al_cnt = (rx_al_cnt + 1) % 16;
+          end
+        end
+      endcase
+    end
+    rx_slide_req = FALSE;
+  endtask
+
+  // A word is complete: out to the recovered clock, with what the aligner
+  // lets through. Through: locked, alignment off, frozen once aligned, or
+  // slide mode; decoded: not in slide mode. Then the aligner, the PRBS.
+  task automatic rx_word_end();
+    rx_raw_t w;
+    bit      m_en, p_en, open;
+    m_en   = rx_mcomma_align_i && !rx_prbs_on();
+    p_en   = rx_pcomma_align_i && !rx_prbs_on();
+    open   = !rx_comma_detect_en_i || (rx_al_mode == AL_LOCK) || ((rx_al_mode == AL_OFF) && rx_aligned);
+    w.pass = open || (rx_al_mode == AL_MANUAL);
+    w.open = open;
+    w.sym  = rx_word;
+    rx_word_q.push_back(w);
+    ->rx_word_done;
+
+    rx_align_step(m_en, p_en);
+    rx_m_on    = FALSE;
+    rx_m_off   = FALSE;
+    rx_p_on    = FALSE;
+    rx_p_off   = FALSE;
+    rx_m_lanes = 8'h00;
+    rx_p_lanes = 8'h00;
+
+    if (rx_prbs_check()) begin
+      if (!rx_prbs_synced) begin
+        rx_prbs_synced = rx_prbs_wnz && !rx_prbs_wbad && (rx_prbs_nbits >= 31 + 10 * RX_BYTES);
+      end
+      else if (rx_prbs_wbad) begin
+        rx_prbs_err_acc = HI;
+        if (rx_prbs_err_cnt < 32'h7FFF) begin
+          rx_prbs_err_cnt++;
+        end
+      end
+    end
+    if (rx_prbs_cnt_reset_i) begin
+      rx_prbs_err_cnt = 0;
+    end
+    rx_prbs_wbad = LO;
+    rx_prbs_wnz  = LO;
+  endtask
+
   task automatic rx_bit_in(bit b);
-    bit        matched, comma_align_en;
     bit [30:0] pred;
     rx_word_start();
-    comma_align_en = rx_comma_detect_en_i & (rx_mcomma_align_i | rx_pcomma_align_i);
     rx_bits_seen++;
     rx_shift = {b, rx_shift[9:1]};
 
@@ -1144,82 +1609,56 @@ module ccfpga_serdes
       rx_prbs_sel_d = rx_prbs_sel_i;
       prbs_sel_check(rx_prbs_sel_i, 1);
     end
-    if (rx_prbs_sel_i != 3'b000) begin
-      // self-synchronising: the next bit from the bits received, then the
-      // bit received shifts in, right or wrong. One line error counts as
-      // 3 (the bit, then at each tap).
-      pred         = prbs_next(rx_prbs_lfsr, rx_prbs_sel_i);
-      rx_prbs_lfsr = {rx_prbs_lfsr[29:0], b};
-      if (!rx_prbs_synced) begin
-        rx_prbs_good++;
-        if (rx_prbs_good > 40) begin
-          rx_prbs_synced = TRUE;
+    if (rx_prbs_check()) begin
+      // unlocked, the next bit from the bits received; locked, the PRBS
+      // runs on its own: a line error is one wrong bit
+      pred = prbs_next(rx_prbs_lfsr, rx_prbs_sel_i);
+      if (pred[0] != b) begin
+        rx_prbs_wbad = HI;
+      end
+      rx_prbs_lfsr = rx_prbs_synced ? pred : {rx_prbs_lfsr[29:0], b};
+      rx_prbs_wnz  = rx_prbs_wnz | b;
+      if (rx_prbs_nbits < 200) begin
+        rx_prbs_nbits++;
+      end
+    end
+
+    // a comma ends with this bit: on the symbol boundary, or off it
+    if (rx_bits_seen >= 10) begin
+      if ((rx_shift & COMMA_MASK) == (ALIGN_MCOMMA_VALUE & COMMA_MASK)) begin
+        if (rx_bit_cnt == 9) begin
+          rx_m_on                = TRUE;
+          rx_m_lanes[rx_sym_cnt] = HI;
+        end
+        else begin
+          rx_m_off = TRUE;
         end
       end
-      else if (pred[0] != b) begin
-        rx_prbs_err_acc = HI;
-        rx_prbs_err_cnt++;
-      end
-      if (rx_prbs_cnt_reset_i) begin
-        rx_prbs_err_cnt = 0;
-        rx_prbs_err_acc = LO;
-      end
-    end
-
-    if (comma_align_en && !comma_align_en_d) begin
-      rx_aligned = LO;
-    end
-    comma_align_en_d = comma_align_en;
-
-    // DS1001 Table 2.50: a comma off the boundary realigns, at any time
-    // while alignment is on
-    matched = FALSE;
-    if (comma_align_en && rx_bits_seen >= 10) begin
-      if (rx_mcomma_align_i && ((rx_shift & COMMA_MASK) == (ALIGN_MCOMMA_VALUE & COMMA_MASK))) begin
-        matched = TRUE;
-      end
-      if (rx_pcomma_align_i && ((rx_shift & COMMA_MASK) == (ALIGN_PCOMMA_VALUE & COMMA_MASK))) begin
-        matched = TRUE;
-      end
-    end
-
-    if (matched) begin
-      // a new bit position, or a new lane (ALIGN_COMMA_WORD)
-      if ((rx_bit_cnt != 9) || ((rx_sym_cnt % COMMA_LANES) != 0)) begin
-        rx_realign_pend = HI;
-        if (BHV_VERBOSE) begin
-          $display("[%0t] %m: RX byte alignment %s", $time, rx_aligned ? "moved" : "acquired");
+      if ((rx_shift & COMMA_MASK) == (ALIGN_PCOMMA_VALUE & COMMA_MASK)) begin
+        if (rx_bit_cnt == 9) begin
+          rx_p_on                = TRUE;
+          rx_p_lanes[rx_sym_cnt] = HI;
+        end
+        else begin
+          rx_p_off = TRUE;
         end
       end
-      rx_bit_cnt = 9;
-      rx_sym_cnt = rx_sym_cnt - (rx_sym_cnt % COMMA_LANES);
-      rx_aligned = HI;
-    end
-
-    if (rx_slide_i && !rx_slide_pending && (RX_SLIDE_MODE != 0)) begin
-      rx_slide_pending = TRUE;
-      rx_aligned       = LO;  // the boundary moved off the comma
-      if (RX_SLIDE_MODE[0]) begin
-        rx_bit_cnt = (rx_bit_cnt + 9) % 10;  // a bit
-      end
-      else begin
-        rx_sym_cnt = (rx_sym_cnt + RX_BYTES - 1) % RX_BYTES;  // a byte
-      end
-    end
-    if (!rx_slide_i) begin
-      rx_slide_pending = FALSE;
     end
 
     if (rx_bit_cnt == 9) begin
-      rx_word[rx_sym_cnt*10+:10] = rx_shift;
-      rx_bit_cnt                 = 0;
-      if (rx_sym_cnt == (RX_BYTES - 1)) begin
-        rx_sym_cnt = 0;
-        rx_word_q.push_back(rx_word);
-        ->rx_word_done;
+      rx_bit_cnt = 0;
+      if (rx_drop_sym) begin
+        rx_drop_sym = FALSE;  // a lane correction: this symbol goes
       end
       else begin
-        rx_sym_cnt++;
+        rx_word[rx_sym_cnt*10+:10] = rx_shift;
+        if (rx_sym_cnt == (RX_BYTES - 1)) begin
+          rx_sym_cnt = 0;
+          rx_word_end();
+        end
+        else begin
+          rx_sym_cnt++;
+        end
       end
     end
     else begin
@@ -1232,9 +1671,48 @@ module ccfpga_serdes
     rx_sym_cnt      = 0;
     rx_bits_seen    = 0;
     rx_word_started = FALSE;
+    rx_drop_sym     = FALSE;
     rx_aligned      = LO;
+    rx_al_mode      = AL_OFF;
+    rx_al_cnt       = 0;
+    rx_m_on         = FALSE;
+    rx_m_off        = FALSE;
+    rx_p_on         = FALSE;
+    rx_p_off        = FALSE;
+    rx_m_lanes      = 8'h00;
+    rx_p_lanes      = 8'h00;
     rx_prbs_reset();
   endtask
+
+  // RX PCS reset: the aligner and the PRBS checker start over
+  always @(negedge rx_pcs_rst_n) begin : rx_pcs_reset
+    rx_aligned      = LO;
+    rx_al_mode      = AL_OFF;
+    rx_al_cnt       = 0;
+    rx_drop_sym     = FALSE;
+    rx_prbs_err_cnt = 0;
+    rx_prbs_reset();
+  end
+
+  always @(posedge rx_prbs_cnt_reset_i) begin
+    rx_prbs_err_cnt = 0;
+  end
+
+  // RX_SLIDE_I, on CLK_CORE_RX_I: a rise is a strobe; one within 4 clocks
+  // of the last is the same strobe (DS1001 Table 2.50 says RX_CLK_O and 11)
+  bit rx_slide_d;
+  int rx_slide_ext;
+
+  always @(posedge clk_core_rx_i) begin : rx_slide_sample
+    if (rx_slide_i && !rx_slide_d && (rx_slide_ext == 0)) begin
+      rx_slide_req = TRUE;
+      rx_slide_ext = 3;
+    end
+    else if (rx_slide_ext != 0) begin
+      rx_slide_ext--;
+    end
+    rx_slide_d = rx_slide_i;
+  end
 
   // RX_BYTE_IS_ALIGNED_O, RX_BYTE_REALIGN_O (a clock per move) and
   // RX_PRBS_ERR_O (a clock with an error since the clock before), on
@@ -1270,9 +1748,10 @@ module ccfpga_serdes
   bit  rx_cdr_locked_r;
   bit  rx_sampler_run;
 
-  always @(rx_cdr_locked_r or pll_locked or rx_pma_rst_n or rx_cdr_rst_n or rx_ei_filt) begin : rx_run
+  always @(rx_cdr_locked_r or pll_locked or rx_pma_rst_n or rx_cdr_rst_n or rx_ei_filt or
+           rx_powerdown_n_i) begin : rx_run
     rx_cdr_locked  = rx_cdr_locked_r | (RX_CDR_FORCE_LOCK != 0);
-    rx_sampler_run = pll_locked & rx_pma_rst_n & rx_cdr_rst_n & ~rx_ei_filt;
+    rx_sampler_run = pll_locked & rx_pma_rst_n & rx_cdr_rst_n & ~rx_ei_filt & rx_powerdown_n_i;
   end
 
   // a receiver stops: the deserializer and the CDR start over
@@ -1341,10 +1820,17 @@ module ccfpga_serdes
   end
 
   initial if (CDR_MODEL == ACCURATE) begin : rx_accurate_sampler
-    real step;
+    real step, x;
+    bit  fresh;
+    fresh = TRUE;
     forever begin
       if (rx_sampler_run && (ui > 0.0)) begin
-        step = ui + rx_phase_adj;
+        if (fresh && (pll_rise_t >= 0.0)) begin  // a start: mid-bit on the PLL_CLK_O grid
+          x = ($realtime - pll_rise_t) / ui;
+          #(($floor(x - 0.5) + 1.5 - x) * ui);
+        end
+        fresh = FALSE;
+        step  = ui + rx_phase_adj;
         if (step < (ui / 8.0)) begin
           step = ui / 8.0;
         end
@@ -1354,10 +1840,12 @@ module ccfpga_serdes
         rx_phase_adj = 0.0;
         #(step);
         rx_last_sample_t = $realtime;
+        rx_bit_t         = $realtime;
         rx_bit_in(rx_pad_p ^ rx_polarity_i);
       end
       else begin
         rx_stop();
+        fresh = TRUE;
         @(rx_sampler_run or pll_locked);
       end
     end
@@ -1383,6 +1871,7 @@ module ccfpga_serdes
     rx_fast_x = ($realtime - rx_fast_grid_t) / ui;
     n         = int'($ceil(rx_fast_x - 0.5));
     for (int i = rx_fast_grid_n; i < n; i++) begin
+      rx_bit_t = rx_fast_grid_t + (i + 0.5) * ui;
       rx_bit_in(rx_fast_level ^ rx_polarity_i);
     end
     rx_fast_grid_n = n;
@@ -1448,7 +1937,7 @@ module ccfpga_serdes
 
   // the TX this RX hears: the peer, or with PMA loopback itself
   function automatic int rx_none_peer();
-    return pma_loopback ? cdr_none.my_id : cdr_none.peer_id;
+    return near_loopback ? cdr_none.my_id : cdr_none.peer_id;
   endfunction
 
   // the bits whose centres lie in [t0, t1), with a margin for rounding
@@ -1471,6 +1960,7 @@ module ccfpga_serdes
       rx_none_glitch_t = $realtime;
     end
     for (int b = rx_none_pos; b < upto; b++) begin
+      rx_bit_t = rx_none_word_t + (b + 0.5) * ui;
       rx_bit_in(rx_none_w[b] ^ rx_none_flips[b]);
     end
     rx_none_pos = upto;
@@ -1498,8 +1988,9 @@ module ccfpga_serdes
       rx_none_w       = cdr_none_last[p] ^ {80{rx_polarity_i}};
       rx_none_open    = TRUE;
       rx_cdr_locked_r = HI;  // no CDR: locked with the first word
+      rx_bit_t        = rx_none_word_t + (pos + 0.5) * ui;
       rx_word_start();
-      r = (10 - rx_bit_cnt) + 10 * (RX_BYTES - 1 - rx_sym_cnt);
+      r = (10 - rx_bit_cnt) + 10 * (RX_BYTES - 1 - rx_sym_cnt + int'(rx_drop_sym));
       if (pos + r < 10 * RX_BYTES) begin
         #(rx_none_word_t + (pos + r) * ui - $realtime);
         if (rx_none_open) begin
@@ -1521,8 +2012,8 @@ module ccfpga_serdes
       id[i] = rx_pad_n;
     end
     cdr_none.peer_id = id;
-    if (loopback_i[0] && (TX_PMA_LOOPBACK == 0)) begin
-      $warning("%m: CDR_MODEL = NONE: PMA loopback at enumeration (1 to 10 ns): the peer is unknown");
+    if (near_loopback) begin
+      $warning("%m: CDR_MODEL = NONE: near-end loopback at enumeration (1 to 10 ns): the peer is unknown");
     end
 
     forever begin
@@ -1553,7 +2044,7 @@ module ccfpga_serdes
     real tail;
     bit  ended;
     fork
-      wait ((pma_loopback ? cdr_none.my_id : cdr_none.peer_id) >= 0);
+      wait ((near_loopback ? cdr_none.my_id : cdr_none.peer_id) >= 0);
       #20.0;
     join_any
     disable fork;
@@ -1562,14 +2053,14 @@ module ccfpga_serdes
     end
     forever begin
       // the signals themselves: a wait does not look into functions
-      wait ((pma_loopback ? cdr_none.my_id : cdr_none.peer_id) >= 0);
+      wait ((near_loopback ? cdr_none.my_id : cdr_none.peer_id) >= 0);
       p     = rx_none_peer();
       n     = cdr_none_words[p];
       tail  = rx_none_word_t + (10.0 * RX_BYTES + 0.5) * ui - $realtime;
       ended = FALSE;
       fork
         begin
-          @(cdr_none_words[p] or pma_loopback or posedge rx_sampler_run);
+          @(cdr_none_words[p] or near_loopback or posedge rx_sampler_run);
         end
         begin
           if (rx_none_open) begin  // no next word: the rest after the word end
@@ -1607,9 +2098,11 @@ module ccfpga_serdes
 
   //=========================================================================
   // RX: recovered clock. It rises with each word the deserializer
-  // completes, so it follows the far end's rate (RX_CLK_O); with the
-  // sampler stopped it runs from the local PLL. Words wait in rx_word_q, so
-  // two that complete within one clock (a slide, a bulk take) both go out.
+  // completes, so it follows the far end's rate (RX_CLK_O), and stays high
+  // for half a symbol; a dropped symbol stretches its period. With the
+  // sampler stopped it runs from the local PLL, half high. Words wait in
+  // rx_word_q, so two that complete within one clock (a bulk take) both
+  // go out.
   //=========================================================================
   always begin : rx_rec_clk_gen
     if (rx_word_q.size() != 0) begin
@@ -1619,7 +2112,7 @@ module ccfpga_serdes
       end
       rx_word_c     = rx_word_q.pop_front();
       clk_core_rx_o = HI;
-      #(ui * 5.0 * RX_BYTES);
+      #(ui * 5.0);
       clk_core_rx_o = LO;
       if (rx_word_q.size() != 0) begin
         #(ui);  // a word waits: a short low phase
@@ -1642,37 +2135,51 @@ module ccfpga_serdes
   // RX: 8b/10b decoder, run by the buffer's write side on the recovered
   // clock, after it took the word before
   //=========================================================================
-  rx_word_t rx_dec;     // the decoded word
-  bit       rx_dec_rd;  // running disparity
+  rx_word_t  rx_dec;      // the decoded word
+  bit        rx_dec_rd;   // running disparity
+  bit [79:0] rx_dec_raw;  // the aligner's word: it holds while the aligner does
 
   // Bypassed, a symbol's bits 8 and 9 come out on RX_CHAR_IS_K_O and
   // RX_DISP_ERR_O (DS1001 Figure 2.39). Decoded, the running disparity is
-  // checked per 6b and 4b sub-block (dec_disp).
+  // checked per 6b and 4b sub-block (dec_disp); it runs through bypassed
+  // lanes too, from RD+ after an RX PCS reset. Until the aligner locks,
+  // decoded bytes hold, with K, DISP_ERR and NOT_IN_TABLE 0; bypassed ones
+  // pass, NOT_IN_TABLE 0. IS_COMMA holds then. Locked, NOT_IN_TABLE and
+  // IS_COMMA come from the symbol, bypassed or not. Unused lanes hold.
   task automatic rx_decode();
     rx_byte_t b;
     bit [9:0] sym, ent;
     bit [1:0] dr;
-    for (int i = 0; i < 8; i++) begin
-      b = '0;
-      if (i < RX_BYTES) begin
-        sym = rx_word_c[i*10+:10];
-        if (!rx_8b10b_en_i || rx_8b10b_bypass_i[i]) begin
-          b.d    = sym[7:0];
-          b.k    = sym[8];
-          b.disp = sym[9];
-        end
-        else begin
-          ent       = dec_lut[sym];
-          dr        = rx_dec_rd ? dec_rd[sym][3:2] : dec_rd[sym][1:0];
-          b.d       = ent[7:0];
-          b.k       = ent[8];
-          b.nit     = ~ent[9];
-          b.comma   = ent[8] && ((ent[7:0] == 8'h3C) || (ent[7:0] == 8'hBC) || (ent[7:0] == 8'hFC));
-          b.disp    = dr[1];
-          rx_dec_rd = dr[0];
-        end
+    if (rx_word_c.pass) begin
+      rx_dec_raw = rx_word_c.sym;
+    end
+    for (int i = 0; i < RX_BYTES; i++) begin
+      b         = rx_dec[i];  // Icarus 13.0 takes no rx_dec[i].field with a variable i
+      sym       = rx_dec_raw[i*10+:10];
+      ent       = dec_lut[sym];
+      dr        = rx_dec_rd ? dec_rd[sym][3:2] : dec_rd[sym][1:0];
+      rx_dec_rd = dr[0];
+      if (!rx_8b10b_en_i || rx_8b10b_bypass_i[i]) begin
+        b.d    = sym[7:0];
+        b.k    = sym[8];
+        b.disp = sym[9];
+        b.nit  = rx_word_c.open & ~ent[9];
       end
-      rx_dec[i] = b;  // Icarus 13.0 takes no rx_dec[i].field with a variable i
+      else if (rx_word_c.open) begin
+        b.d    = ent[9] ? ent[7:0] : dec_part[sym];
+        b.k    = ent[8];
+        b.nit  = ~ent[9];
+        b.disp = dr[1];
+      end
+      else begin
+        b.k    = LO;
+        b.disp = LO;
+        b.nit  = LO;
+      end
+      if (rx_word_c.open) begin
+        b.comma = ent[8] && ((ent[7:0] == 8'h3C) || (ent[7:0] == 8'hBC) || (ent[7:0] == 8'hFC));
+      end
+      rx_dec[i] = b;
     end
   endtask
 
@@ -1846,8 +2353,9 @@ module ccfpga_serdes
 
   // RX_PCS_RESET: the decoder and the output delay start over
   always @(negedge rx_pcs_rst_n) begin
-    rx_dec    = '0;
-    rx_dec_rd = LO;
+    rx_dec     = '0;
+    rx_dec_rd  = HI;
+    rx_dec_raw = '0;
     rx_pipe.delete();
     rx_pipe_o = '0;
     rx_err_pipe.delete();

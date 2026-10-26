@@ -124,3 +124,7 @@ lut4.txt
 /8.StressTest/4.veerwolves/build/
 /8.StressTest/4.veerwolves/gowin/log
 /8.StressTest/9.pnr_tests/pnr_tests-gowin/tests/*/gen_*/*.json
+/7.SerDes/1.sim-model/obj_*/
+/7.SerDes/1.sim-model/obj_*.vvp
+/7.SerDes/1.sim-model/modes_*.txt
+/7.SerDes/1.sim-model/sim_*.log

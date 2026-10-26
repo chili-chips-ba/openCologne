@@ -25,7 +25,7 @@
     {
       "kind": "signal",
       "id": "iclink-2",
-      "ref": "68",
+      "ref": "69",
       "path": "tb_phy_oneway.dut.cfg_state",
       "name": "bringup.cfg_state",
       "color": 4294962776,
@@ -35,7 +35,7 @@
     {
       "kind": "signal",
       "id": "iclink-3",
-      "ref": "74",
+      "ref": "75",
       "path": "tb_phy_oneway.dut.pll_reset",
       "name": "pll_reset",
       "color": 4293673082,
@@ -45,7 +45,7 @@
     {
       "kind": "signal",
       "id": "iclink-4",
-      "ref": "75",
+      "ref": "76",
       "path": "tb_phy_oneway.dut.serdes_reset",
       "name": "serdes_reset",
       "color": 4294944550,
@@ -95,7 +95,7 @@
     {
       "kind": "signal",
       "id": "iclink-9",
-      "ref": "81",
+      "ref": "82",
       "path": "tb_phy_oneway.dut.tx_payload",
       "name": "tx.d",
       "color": 4293673082,

@@ -56,6 +56,8 @@
 //   prbs_next()   next state of the PRBS7/15/23/31 LFSR
 //   pll_m1_x4()   the PLL word clock divider M1, times 4, from PLL_FCNTRL
 //   csr_t         the registers
+//   rx_raw_t      one deserializer word, and what the comma aligner lets
+//                 through
 //   rx_byte_t     one decoded byte in the RX elastic buffer; rx_word_t: 8
 //   dp_lanes()    lanes of a 16/32/64-bit datapath word
 //   dp_keep()     a word's datapath lanes over another's
@@ -104,7 +106,8 @@ package ccfpga_serdes_pkg;
   // The RX word counter starts at a random symbol at each RX start, as on
   // the silicon: the comma then lands in any lane ALIGN_COMMA_WORD allows
   // (any; even; 0 or 4). Logic that assumes lane 0 fails here, not on the
-  // board. Off (+define+BHV_RX_WORD_PHASE_RANDOM=0): the counter starts at 0.
+  // board. Off (+define+BHV_RX_WORD_PHASE_RANDOM=0): it starts in phase
+  // with PLL_CLK_O.
 `ifdef BHV_RX_WORD_PHASE_RANDOM
   localparam bit BHV_RX_WORD_PHASE_RANDOM = `BHV_RX_WORD_PHASE_RANDOM;
 `else
@@ -140,7 +143,9 @@ package ccfpga_serdes_pkg;
     return (id >= 0) && (id < cdr_none_id);
   endfunction
 
-  // M1 x 4 for a PLL_FCNTRL value (DS1001 Table 2.17)
+  // M1 x 4 for a PLL_FCNTRL value (DS1001 Table 2.17). As the vendor's
+  // simulation model, 10, 53, 54 and 55 give 5.0, 15.0, 16.0 and 16.0; the
+  // table says 5.25, 15.75, 16.5 and 16.5.
   function automatic int pll_m1_x4(input bit [5:0] fcntrl);
     case (int'(fcntrl))
       0, 1: return 4;  // the alternative clock path: param_check stops it
@@ -149,7 +154,8 @@ package ccfpga_serdes_pkg;
       5: return 15;
       6, 7: return 16;
       8: return 18;
-      9, 10: return 21;
+      9: return 21;
+      10: return 20;
       11, 12: return 22;
       13: return 23;
       14, 15, 16, 18: return 24;
@@ -166,8 +172,10 @@ package ccfpga_serdes_pkg;
       40: return 54;
       49, 51, 52: return 56;
       42: return 60;
-      41, 53: return 63;
-      43, 44, 54, 55: return 66;
+      41: return 63;
+      53: return 60;
+      54, 55: return 64;
+      43, 44: return 66;
       45: return 69;
       46, 47, 56: return 72;
       58: return 80;
@@ -422,7 +430,7 @@ package ccfpga_serdes_pkg;
     return {a[1] | b[1], b[0]};
   endfunction
 
-  // PRBS7 (sel 1, also 5 to 7, reserved), PRBS15 (2), PRBS23 (3), PRBS31 (4)
+  // PRBS7 (sel 1), PRBS15 (2), PRBS23 (3), PRBS31 (4): not inverted
   function automatic bit [30:0] prbs_next(input bit [30:0] state, input bit [2:0] sel);
     bit fb;
     fb = state[6] ^ state[5];
@@ -444,6 +452,14 @@ package ccfpga_serdes_pkg;
   } rx_byte_t;
 
   typedef rx_byte_t [7:0] rx_word_t;
+
+  // One deserializer word, and what the comma aligner lets through: pass,
+  // the word reaches the decoder; open, the decoder decodes it
+  typedef struct packed {
+    bit        pass;
+    bit        open;
+    bit [79:0] sym;
+  } rx_raw_t;
 
   // RX_BUF_CFG (regfile 0x25)
   typedef struct packed {
