@@ -41,7 +41,9 @@
 #     a /*LINT:OK*/ on an input, so it cannot hide a floating input
 #   - run-lint-waivers.txt (or LINT_WAIVERS=<file>), for findings without a
 #     source line of ours (generated code, ...)
-# Exit status is non-zero when any phase has findings that are not waived.
+# Exit status is non-zero when any phase has findings that are not waived, or
+# when its tool fails or stops before the step it reports on (FAILED in the
+# summary): "0 finding(s)" always means the phase really ran.
 
 set -u
 HERE=$(cd "$(dirname "$0")" && pwd)
@@ -130,6 +132,19 @@ bb() {
 
 # /*LINT:OK*/ on anything but an output port; the port directions come from the
 # module headers of the design and the primitive stubs
+# A tool that fails, or stops before the step its findings come from, fails its
+# phase: "0 finding(s)" must not stand for "not checked"
+failed() {  # $1 phase, $2 reason
+  RESULT[$1]="FAILED ($2), see $W/$1.log"
+  echo "-- $1: FAILED, $2"
+}
+
+# after found: a tool that exits non-zero must have reported something (waived
+# or not); a non-zero exit with nothing to show is the tool failing
+exit_check() {  # $1 phase, $2 exit status
+  if [ "$2" -ne 0 ] && [ ! -s "$1.all" ]; then failed "$1" "exit $2, nothing reported"; fi
+}
+
 run_tags() {
   bb || { skip tags "no GateMate stubs (yosys-config)"; return; }
   "$PYTHON" - bb.v -- $OWN > tags.log <<'EOF'
@@ -163,6 +178,8 @@ for f in files:
             if d != 'output':
                 print(f'{f}:{n}: LINT:OK on {d or "unknown"} port {typ}.{m.group(1)}')
 EOF
+  local rc=$?
+  [ $rc -eq 0 ] || { failed tags "exit $rc"; return; }
   found tags < tags.log
 }
 
@@ -174,24 +191,27 @@ run_verilator() {
 lint_off -file "*bb.v"
 VLT
   : > verilator.log
+  local rc=0
   for d in "${DESIGNS[@]}"; do
     "$VERILATOR" --lint-only -Wall -Wno-fatal --timing --top-module ${d%%:*} -DSYNTHESIS \
-      waive.vlt bb.v ${d#*:} >> verilator.log 2>&1
+      waive.vlt bb.v ${d#*:} >> verilator.log 2>&1 || rc=$?
   done
   found verilator < <(grep -E '^%(Warning|Error)' verilator.log)
+  exit_check verilator $rc
 }
 
 run_yosys() {
   have "$YOSYS" || { skip yosys "$YOSYS not found"; return; }
   bb || { skip yosys "no GateMate stubs"; return; }
   : > yosys.log
+  local rc=0
   for d in "${DESIGNS[@]}"; do
     "$YOSYS" $YOSYS_ARGS -q -l yosys.one.log -p "read_slang -D SYNTHESIS --top ${d%%:*} bb.v ${d#*:}; \
-        hierarchy -check -top ${d%%:*}; proc; check -nolatches -initdrv" >/dev/null 2>&1
+        hierarchy -check -top ${d%%:*}; proc; check -nolatches -initdrv" >/dev/null 2>&1 || rc=$?
     cat yosys.one.log >> yosys.log
   done
-  if grep -q '^ERROR' yosys.log; then
-    RESULT[yosys]="error, see $W/yosys.log"; echo "-- yosys: error"; return
+  if [ $rc -ne 0 ] || [ "$(grep -c 'Executing CHECK pass' yosys.log)" -lt ${#DESIGNS[@]} ]; then
+    failed yosys "exit $rc, CHECK pass not reached for every design"; return
   fi
   # read_slang's own warnings are the slang phase's business; take check's
   found yosys < <(awk '/Executing CHECK pass/ { c = 1 } c && /^Warning:/' yosys.log)
@@ -201,9 +221,10 @@ run_slang() {
   have "$YOSYS" || { skip slang "$YOSYS not found"; return; }
   bb || { skip slang "no GateMate stubs"; return; }
   : > slang.log
+  local rc=0
   for d in "${DESIGNS[@]}"; do
     "$YOSYS" $YOSYS_ARGS -q -l slang.one.log \
-        -p "read_slang -D SYNTHESIS --top ${d%%:*} -Wextra bb.v ${d#*:}" >/dev/null 2>&1
+        -p "read_slang -D SYNTHESIS --top ${d%%:*} -Wextra bb.v ${d#*:}" >/dev/null 2>&1 || rc=$?
     cat slang.one.log >> slang.log
   done
   if grep -q '^ERROR' slang.log; then
@@ -216,13 +237,17 @@ run_slang() {
                           s/^([^ :]+:[0-9]+): Warning:/\1:0: warning:/;
                           s/^([^ :]+:[0-9]+): Error:/\1:0: error:/' slang.log |
                   grep -E 'warning:|error:' | grep -v -E '^bb\.v')
+  exit_check slang $rc
 }
 
 run_verible() {
   have "$VERIBLE" || { skip verible "$VERIBLE not found"; return; }
   cp "$HERE/run-lint.verible" .
   "$VERIBLE" --rules_config=run-lint.verible $OWN > verible.log 2>&1
+  local rc=$?
+  [ $rc -le 1 ] || { failed verible "exit $rc"; return; }
   found verible < <(grep -E ':[0-9]+:[0-9]+' verible.log)
+  exit_check verible $rc
 }
 
 for ph in $PHASES; do
