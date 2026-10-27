@@ -35,12 +35,12 @@ all: sim_icarus sim_modes formal
 # ALIGN_COMMA_WORD = 11, ACCURATE, seeds 1 to 3.
 MODES_TOL_NS ?= 1.6
 MODES_RUNS   := 0:0 0:1 1:0 1:1 1:3 3:0 3:3 3:5 3:7
-MODES_VLT    := verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
+MODES_VLT    := verilator --binary --assert --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
                 -Wno-PINCONNECTEMPTY --top-module tb_modes ccfpga_serdes.vlt
 
 # tb_rules runs: datapath:RX_SLIDE_MODE:CDR_MODEL (a real line: FAST, ACCURATE)
 RULES_RUNS := 3:0:FAST 3:0:ACCURATE 0:0:FAST 3:1:FAST 3:2:FAST 3:3:FAST
-RULES_VLT  := verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
+RULES_VLT  := verilator --binary --assert --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
               -Wno-PINCONNECTEMPTY --top-module tb_rules ccfpga_serdes.vlt
 
 sim_modes:

@@ -14,7 +14,7 @@ For all new openCologne RTL. The older examples predate them. [7.SerDes/3.iclink
 - **Fewer, richer ports:** interfaces and struct-typed ports, not many scalars; group internal signals the same way.
 - **Packages:** `import` right after the module name, no package prefix on every use.
 - **Case:** signals and ports lower case, constants UPPER CASE (parameters, localparams, enum values, macros). Only hard-macro and primitive pins (`CC_SERDES`, `CC_PLL`, ...) keep vendor names.
-- **Procedural blocks:** `always_ff` for flip-flops, `always_comb` for combinational logic, never plain `always`. `unique case` for parallel muxes whose items cover every value, `unique0 case` where no item may match, `priority case` for priority encoders; never plain `case`. A `unique case` has no `default`.
+- **Procedural blocks:** `always_ff` for flip-flops, `always_comb` for combinational logic, never plain `always`. `unique case` for parallel muxes whose items cover every value, `unique0 case` where no item may match, `priority case` for priority encoders; never plain `case`. A fully specified `unique case` has no `default`. One that lists only the legal values of a wider selector (e.g. counts 0 .. 4 in 3 bits) ends in an empty `default: begin end`, commented with why it never happens. Verilator wants that default; slang `-Wextra` calls it redundant (`case-redundant-default`), which our lint waives.
 
   | Keyword | Several items match | No item matches | Synthesis meaning |
   |---|---|---|---|

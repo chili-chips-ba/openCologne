@@ -87,6 +87,8 @@ package iclink_phy_pkg;
       5000: begin
         cfg = 16'h06FA;
       end
+      default: begin  // iclink_serdes_gm stops at any other LINE_RATE
+      end
     endcase
     return cfg;
   endfunction

@@ -58,14 +58,14 @@ PLUS   = $(if $(filter 1,$(WAVES)),+waves=$(WAVE_TAG),) $(if $(SEED),+verilator+
 all: sim_icarus sim_8b10b sim_prbs sim_phy_oneway sim_phy_twoway sim_serwb_tx sim_serwb_rx sim_serwb_pump sim_serwb_w4 sim_top sim_link_ppm sim_modes
 
 sim_8b10b:
-	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
+	verilator --binary --assert --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
 	  --top-module tb_8b10b -Mdir $(OUT) \
 	  $(HW)/iclink_pkg.sv iclink_8b10b_pkg.sv iclink_8b10b_enc.sv iclink_8b10b_dec.sv tb_8b10b.sv
 	./$(OUT)/Vtb_8b10b | tee sim_8b10b.log
 	@grep -q "TB_8B10B: PASS" sim_8b10b.log
 
 sim_prbs:
-	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
+	verilator --binary --assert --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
 	  --top-module tb_prbs -Mdir obj_prbs \
 	  $(HW)/iclink_pkg.sv $(HW)/iclink_prbs_gen.sv $(HW)/iclink_prbs_chk.sv $(HW)/iclink_prbs_tx.sv $(HW)/iclink_prbs_rx.sv tb_prbs.sv
 	./obj_prbs/Vtb_prbs | tee sim_prbs.log
@@ -84,7 +84,7 @@ sim_phy_rates:
 	done | tee sim_phy_rates.log
 
 sim_phy_oneway:
-	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
+	verilator --binary --assert --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
 	  --top-module tb_phy_oneway -Mdir obj_phy $(TRACE) $(RATE_G) $(BFM_DEF) sim-model.vlt rtl.vlt \
 	  $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv \
 	  $(HW)/iclink_prbs_gen.sv $(HW)/iclink_prbs_chk.sv $(HW)/iclink_prbs_tx.sv $(HW)/iclink_prbs_rx.sv \
@@ -94,7 +94,7 @@ sim_phy_oneway:
 	@grep -q "TB_PHY_ONEWAY: PASS" sim_phy_oneway.log
 
 sim_phy_twoway:
-	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
+	verilator --binary --assert --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
 	  --top-module tb_phy_twoway -Mdir obj_phy2 $(TRACE) $(RATE_G) $(BFM_DEF) sim-model.vlt rtl.vlt \
 	  $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv \
 	  $(HW)/iclink_prbs_gen.sv $(HW)/iclink_prbs_chk.sv $(HW)/iclink_prbs_tx.sv $(HW)/iclink_prbs_rx.sv \
@@ -104,14 +104,14 @@ sim_phy_twoway:
 	@grep -q "TB_PHY_TWOWAY: PASS" sim_phy_twoway.log
 
 sim_serwb_tx:
-	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
+	verilator --binary --assert --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
 	  --top-module tb_serwb_tx -GW=$(SERWB_W) -Mdir obj_serwb_tx_w$(SERWB_W) \
 	  rtl.vlt $(HW)/iclink_serwb_pkg.sv $(HW)/iclink_serwb_tx.sv tb_serwb_tx.sv
 	./obj_serwb_tx_w$(SERWB_W)/Vtb_serwb_tx | tee sim_serwb_tx.log
 	@grep -q "TB_SERWB_TX: PASS" sim_serwb_tx.log
 
 sim_serwb_rx:
-	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
+	verilator --binary --assert --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
 	  --top-module tb_serwb_rx -GW=$(SERWB_W) -Mdir obj_serwb_rx_w$(SERWB_W) \
 	  rtl.vlt $(HW)/iclink_serwb_pkg.sv $(HW)/iclink_serwb_rx.sv tb_serwb_rx.sv
 	./obj_serwb_rx_w$(SERWB_W)/Vtb_serwb_rx | tee sim_serwb_rx.log
@@ -122,7 +122,7 @@ PUMP_SRC := rtl.vlt $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv $(HW)/iclink_ser
   $(HW)/iclink_serwb_rx.sv $(HW)/iclink_serwb_line.sv $(HW)/iclink_serwb_pump.sv
 
 sim_serwb_pump:
-	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL -Wno-UNUSEDPARAM \
+	verilator --binary --assert --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL -Wno-UNUSEDPARAM \
 	  --top-module tb_serwb_pump -GW=$(SERWB_W) -Mdir obj_serwb_pump_w$(SERWB_W) $(PUMP_SRC) tb_serwb_pump.sv
 	./obj_serwb_pump_w$(SERWB_W)/Vtb_serwb_pump | tee sim_serwb_pump.log
 	@grep -q "TB_SERWB_PUMP: PASS" sim_serwb_pump.log
@@ -138,7 +138,7 @@ LINK_SRC := sim-model.vlt rtl.vlt $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv $(
   $(HW)/iclink_prbs_gen.sv $(HW)/iclink_prbs_chk.sv $(HW)/iclink_prbs_tx.sv $(HW)/iclink_prbs_rx.sv \
   $(HW)/iclink_serdes_gm.sv $(HW)/iclink_serwb_fifo.sv $(HW)/iclink_serwb_tx.sv $(HW)/iclink_serwb_rx.sv \
   $(HW)/iclink_serwb_line.sv $(HW)/iclink_serwb_pump.sv $(BFM) tb_link_ppm.sv
-LINK_VLT := verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
+LINK_VLT := verilator --binary --assert --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
   -Wno-UNUSEDPARAM --top-module tb_link_ppm -GPPM=$(PPM) $(RATE_G) $(BFM_DEF)
 
 sim_link_ppm:
@@ -150,7 +150,7 @@ sim_link_ppm:
 	@grep -q "TB_LINK_PPM: FAIL" sim_link_ppm_neg.log && echo "NO_CLKCOR: FAIL, as it must"
 
 sim_top:
-	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
+	verilator --binary --assert --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
 	  --top-module tb_top -Mdir obj_top $(RATE_G) $(BFM_DEF) sim-model.vlt rtl.vlt \
 	  $$(sed -e "s|\$${HW_SRC}|$(HW)|" -e "/^#/d" -e "/^$$/d" $(HW)/top.filelist) \
 	  $(BFM) tb_top.sv

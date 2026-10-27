@@ -167,6 +167,8 @@ package iclink_serwb_pkg;
       3'd4: begin
         r = mul32(SERWB_C[4], crc);
       end
+      default: begin  // n is 0 .. 4: never
+      end
     endcase
     return r;
   endfunction
@@ -209,6 +211,8 @@ package iclink_serwb_pkg;
       end
       3'd4: begin
         r = SERWB_I[4];
+      end
+      default: begin  // n is 0 .. 4: never
       end
     endcase
     return r;
