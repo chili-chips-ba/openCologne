@@ -29,6 +29,9 @@ module tb_serwb_tx;
   word_t [ W-1:0] d_word, o_word;
   logic  [TW-1:0] d_take;
   logic  [ W-1:0] o_valid;
+  logic           half_clk_strobe;  // every clock: the packetizer alone
+
+  assign half_clk_strobe = 1'b1;
 
   iclink_serwb_tx #(.W(W)) dut (.*);
 

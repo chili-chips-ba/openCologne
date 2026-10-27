@@ -6,8 +6,11 @@
 // pump B's phy_rx and back, on the 64-bit + 8 K digital bus, through a
 // LINE_LAT-clock delay that stands for PHY TX + CC_SERDES + PHY RX (as
 // measured on the SerDes BFM, PHY data in to PHY data out). One clock for
-// the pumps and both CPUs: the line clock (W = 2), or half of it (W = 4),
-// with 2:1 gearboxes (iclink_gearbox) to the line, as for 5 Gb/s.
+// the line, the pumps and both CPUs. Each side's iclink_serwb_line makes
+// its half_clk_strobe: 1 at W = 2; at W = 4 (5 Gb/s) every other clock,
+// with the pump's two PHY words a strobe turned into one a clock. The
+// pumps and the CPUs move on their side's strobe, so every count below is
+// in pump clocks.
 //
 //   1. both ways at once, random push and pop: every word arrives, in order
 //   2. B stops reading while A floods: B's RX FIFO fills to XOFF_LEVEL, the
@@ -40,25 +43,14 @@ module tb_serwb_pump;
                                               // clocks, less a clock-correction burst in the window
   localparam int AW         = $clog2(DEPTH);
 
-  logic clk_line;
-  logic clk_div, clk;  // the pumps' clock: the line clock, or half of it (W = 4)
+  logic clk_line;  // the one clock: line, pumps and CPUs
+  logic a_strobe, b_strobe;  // each side's half_clk_strobe
   logic arst_n;
 
   initial begin : _clocks
     clk_line = 1'b0;
     forever #(32.0 / W) clk_line = ~clk_line;  // 31.25 MHz (W = 2), 62.5 MHz (W = 4)
   end : _clocks
-
-  always_ff @(posedge clk_line or negedge arst_n) begin : _div
-    if (!arst_n) begin
-      clk_div <= 1'b0;
-    end
-    else begin
-      clk_div <= ~clk_div;
-    end
-  end : _div
-
-  assign clk = (W == 2) ? clk_line : clk_div;
 
   initial begin : _reset
     arst_n = 1'b0;
@@ -70,8 +62,9 @@ module tb_serwb_pump;
   logic a_push, a_full, a_pop, a_empty, b_push, b_full, b_pop, b_empty;
   word_t a_wdata, a_rdata, b_wdata, b_rdata;
   logic [AW:0] a_used, a_avail, b_used, b_avail;
-  phy_word_t [NP-1:0] a_tx, b_tx, a_rx, b_rx;  // on the pumps' clock
-  phy_word_t a_ltx, b_ltx, a_lrx, b_lrx;  // on the line clock
+  phy_word_t [NP-1:0] a_tx, b_tx, a_rx, b_rx;  // the pumps' words, on the strobe
+  phy_word_t a_ltx, b_ltx, a_lrx, b_lrx;  // the line's words, one a clock
+  logic NC_a_err, NC_b_err;  // no symbol errors on this line
   phy_word_t line_ab[LINE_LAT], line_ba[LINE_LAT];
   logic a_paused, b_paused, a_pause, b_pause;
   logic [15:0] a_crc, b_crc, a_drops, b_drops, a_ovf, b_ovf;
@@ -83,8 +76,9 @@ module tb_serwb_pump;
       .DEPTH       (DEPTH),
       .TIMEOUT_CLKS(TIMEOUT)
   ) u_a (
-      .clk          (clk),
-      .arst_n       (arst_n),
+      .clk            (clk_line),
+      .arst_n         (arst_n),
+      .half_clk_strobe(a_strobe),
       .tx_push      (a_push),
       .tx_data      (a_wdata),
       .tx_full      (a_full),
@@ -110,8 +104,9 @@ module tb_serwb_pump;
       .DEPTH       (DEPTH),
       .TIMEOUT_CLKS(TIMEOUT)
   ) u_b (
-      .clk          (clk),
-      .arst_n       (arst_n),
+      .clk            (clk_line),
+      .arst_n         (arst_n),
+      .half_clk_strobe(b_strobe),
       .tx_push      (b_push),
       .tx_data      (b_wdata),
       .tx_full      (b_full),
@@ -145,62 +140,34 @@ module tb_serwb_pump;
   assign b_lrx = line_ab[LINE_LAT-1];
   assign a_lrx = line_ba[LINE_LAT-1];
 
-  // between the pumps and the line: direct (W = 2), or gearboxes (W = 4)
-  if (W == 2) begin : g_direct
-    assign a_ltx = a_tx;
-    assign b_ltx = b_tx;
-    assign a_rx  = a_lrx;
-    assign b_rx  = b_lrx;
-  end : g_direct
-  else begin : g_gearbox
-    iclink_gearbox #(
-        .IN_N (2),
-        .OUT_N(1)
-    ) u_a_tx (
-        .w_clk   (clk),
-        .w_arst_n(arst_n),
-        .w_word  (a_tx),
-        .r_clk   (clk_line),
-        .r_arst_n(arst_n),
-        .r_word  (a_ltx)
-    );
+  // between each pump and the line: its line side, which makes its strobe
+  iclink_serwb_line #(
+      .W(W)
+  ) u_a_line (
+      .clk            (clk_line),
+      .arst_n         (arst_n),
+      .half_clk_strobe(a_strobe),
+      .pump_tx        (a_tx),
+      .line_tx        (a_ltx),
+      .line_rx        (a_lrx),
+      .line_err       (1'b0),
+      .pump_rx        (a_rx),
+      .pump_err       (NC_a_err)
+  );
 
-    iclink_gearbox #(
-        .IN_N (2),
-        .OUT_N(1)
-    ) u_b_tx (
-        .w_clk   (clk),
-        .w_arst_n(arst_n),
-        .w_word  (b_tx),
-        .r_clk   (clk_line),
-        .r_arst_n(arst_n),
-        .r_word  (b_ltx)
-    );
-
-    iclink_gearbox #(
-        .IN_N (1),
-        .OUT_N(2)
-    ) u_a_rx (
-        .w_clk   (clk_line),
-        .w_arst_n(arst_n),
-        .w_word  (a_lrx),
-        .r_clk   (clk),
-        .r_arst_n(arst_n),
-        .r_word  (a_rx)
-    );
-
-    iclink_gearbox #(
-        .IN_N (1),
-        .OUT_N(2)
-    ) u_b_rx (
-        .w_clk   (clk_line),
-        .w_arst_n(arst_n),
-        .w_word  (b_lrx),
-        .r_clk   (clk),
-        .r_arst_n(arst_n),
-        .r_word  (b_rx)
-    );
-  end : g_gearbox
+  iclink_serwb_line #(
+      .W(W)
+  ) u_b_line (
+      .clk            (clk_line),
+      .arst_n         (arst_n),
+      .half_clk_strobe(b_strobe),
+      .pump_tx        (b_tx),
+      .line_tx        (b_ltx),
+      .line_rx        (b_lrx),
+      .line_err       (1'b0),
+      .pump_rx        (b_rx),
+      .pump_err       (NC_b_err)
+  );
 
   // the words: a known sequence per direction
   function automatic word_t pattern(input logic dir, input int n);
@@ -215,7 +182,7 @@ module tb_serwb_pump;
   int a_sent, a_got, a_bad, b_sent, b_got, b_bad;
   int a_goal, b_goal;  // words to send
 
-  always_ff @(posedge clk or negedge arst_n) begin : _cpu_a
+  always_ff @(posedge clk_line or negedge arst_n) begin : _cpu_a
     if (!arst_n) begin
       a_push  <= 1'b0;
       a_wdata <= '0;
@@ -224,7 +191,7 @@ module tb_serwb_pump;
       a_got   <= 0;
       a_bad   <= 0;
     end
-    else begin
+    else if (a_strobe) begin
       if (a_push && !a_full) begin
         a_sent <= a_sent + 1;
       end
@@ -244,7 +211,7 @@ module tb_serwb_pump;
     end
   end : _cpu_a
 
-  always_ff @(posedge clk or negedge arst_n) begin : _cpu_b
+  always_ff @(posedge clk_line or negedge arst_n) begin : _cpu_b
     if (!arst_n) begin
       b_push  <= 1'b0;
       b_wdata <= '0;
@@ -253,7 +220,7 @@ module tb_serwb_pump;
       b_got   <= 0;
       b_bad   <= 0;
     end
-    else begin
+    else if (b_strobe) begin
       if (b_push && !b_full) begin
         b_sent <= b_sent + 1;
       end
@@ -273,15 +240,15 @@ module tb_serwb_pump;
     end
   end : _cpu_b
 
-  // levels, every line clock in phase 2: time, B RX FIFO, A TX FIFO, flags
+  // levels, every pump clock in phase 2: time, B RX FIFO, A TX FIFO, flags
   int fd_lvl, b_rx_peak, a_tx_peak, a_full_clks;
 
-  always_ff @(posedge clk or negedge arst_n) begin : _levels
+  always_ff @(posedge clk_line or negedge arst_n) begin : _levels
     if (!arst_n) begin
       b_rx_peak <= 0;
       a_tx_peak <= 0;
     end
-    else if (phase == 2) begin
+    else if (b_strobe && phase == 2) begin
       $fwrite(fd_lvl, "%0t,%0d,%0d,%0d,%0d,%0d\n", $time, u_b.rxf_used, u_a.tx_used, b_pause,
               a_paused, a_full);
       if (int'(u_b.rxf_used) > b_rx_peak) begin
@@ -296,12 +263,12 @@ module tb_serwb_pump;
   // burst meter: words out of B's depacketizer, from the first one of the burst
   int burst_words, burst_clks;
 
-  always_ff @(posedge clk or negedge arst_n) begin : _burst
+  always_ff @(posedge clk_line or negedge arst_n) begin : _burst
     if (!arst_n) begin
       burst_words <= 0;
       burst_clks  <= 0;
     end
-    else if (phase == 3 && !a_tx_hold && burst_words < N_MEASURE) begin
+    else if (b_strobe && phase == 3 && !a_tx_hold && burst_words < N_MEASURE) begin
       if (burst_words > 0 || u_b.dp_valid != '0) begin
         burst_words <= burst_words + $countones(u_b.dp_valid);
         burst_clks  <= burst_clks + 1;

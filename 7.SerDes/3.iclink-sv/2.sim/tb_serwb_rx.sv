@@ -30,8 +30,10 @@ module tb_serwb_rx;
   logic  [DW-1:0] o_drop;
   logic o_commit, o_rewind, o_crc_error;
   logic i_hold;  // the pause hold: tb_serwb_pump tests it
+  logic half_clk_strobe;  // every clock: the depacketizer alone
 
   assign i_hold = 1'b0;
+  assign half_clk_strobe = 1'b1;
 
   iclink_serwb_rx #(
       .W           (W),

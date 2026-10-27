@@ -4,8 +4,9 @@
 
 //==========================================================================
 // FIFO pump: a message link between two CPUs over Serial Wishbone port 2,
-// W SerWB words per line clock: W = 2 on the 64-bit PHY clock, W = 4 at
-// half that clock, through a 2:1 gearbox (iclink_gearbox), for 5 Gb/s.
+// W SerWB words per pump clock: W = 2 on every 64-bit PHY clock, W = 4 on
+// every other one, for 5 Gb/s (half_clk_strobe; iclink_serwb_line turns
+// the two PHY words a pump clock into one a PHY clock and back).
 //
 //   sys    -> TX FIFO ==> scheduler -> packetizer -> line mux -> phy_tx
 //   phy_rx -> K filter -> depacketizer -> RX FIFO (commit / rewind) ==> sys
@@ -48,9 +49,13 @@
 // clocks costs 0.4% of the line.
 //
 // One clock: the CPU, both FIFOs, the packetizer, the depacketizer and
-// the line all run on clk, the PHY clock (W = 2) or half of it (W = 4).
-// The PHY's RX comes out on that clock too, through the CC_SERDES RX
-// buffer, so the FIFOs are synchronous and no signal crosses a clock.
+// the line all run on clk, the PHY clock. The PHY's RX comes out on that
+// clock too, through the CC_SERDES RX buffer, so the FIFOs are synchronous
+// and no signal crosses a clock. A pump clock is a clk with
+// half_clk_strobe high: every clk at W = 2, every other one at W = 4,
+// where the pump's cells get a 2-clock setup budget. Every port is
+// sampled, and every output moves, on pump clocks only; all counts in
+// clocks (FLUSH_CLKS, RT_CLKS, ...) are pump clocks.
 //==========================================================================
 module iclink_serwb_pump
   import iclink_phy_pkg::*;
@@ -76,6 +81,7 @@ module iclink_serwb_pump
 ) (
     input logic clk,
     input logic arst_n,
+    input logic half_clk_strobe, // clock enable, a flop: 1 (W = 2), every other clock (W = 4)
 
     // CPU side
     input  logic         tx_push,
@@ -144,16 +150,17 @@ module iclink_serwb_pump
       .WN    (1),
       .COMMIT(1'b0)
   ) u_tx_fifo (
-      .clk     (clk),
-      .arst_n  (arst_n),
-      .w_word  (tx_data),
-      .w_valid (tx_push & !tx_full),
-      .w_commit(1'b0),
-      .w_rewind(1'b0),
-      .w_used  (tx_used),
-      .r_word  (txf_word),
-      .r_take  (txf_take),
-      .r_avail (txf_avail)
+      .clk            (clk),
+      .arst_n         (arst_n),
+      .half_clk_strobe(half_clk_strobe),
+      .w_word         (tx_data),
+      .w_valid        (tx_push & !tx_full),
+      .w_commit       (1'b0),
+      .w_rewind       (1'b0),
+      .w_used         (tx_used),
+      .r_word         (txf_word),
+      .r_take         (txf_take),
+      .r_avail        (txf_avail)
   );
 
   assign tx_full = (tx_used >= (AW + 1)'(DEPTH));
@@ -186,7 +193,7 @@ module iclink_serwb_pump
       pend      <= '0;
       flush_cnt <= '0;
     end
-    else begin
+    else if (half_clk_strobe) begin
       pend <= pend + ((tx_state == T_HDR && hdr_ready) ? (AW + 1)'(tx_words) : '0) -
           (AW + 1)'(txf_take);
 
@@ -225,17 +232,18 @@ module iclink_serwb_pump
   iclink_serwb_tx #(
       .W(W)
   ) u_packetizer (
-      .clk      (clk),
-      .arst_n   (arst_n),
-      .hdr_valid(tx_state == T_HDR),
-      .hdr_port (PORT),
-      .hdr_words(tx_words),
-      .hdr_ready(hdr_ready),
-      .d_word   (txf_word),
-      .d_take   (txf_take),
-      .o_word   (pk_word),
-      .o_valid  (pk_valid),
-      .o_ready  (pk_ready)
+      .clk            (clk),
+      .arst_n         (arst_n),
+      .half_clk_strobe(half_clk_strobe),
+      .hdr_valid      (tx_state == T_HDR),
+      .hdr_port       (PORT),
+      .hdr_words      (tx_words),
+      .hdr_ready      (hdr_ready),
+      .d_word         (txf_word),
+      .d_take         (txf_take),
+      .o_word         (pk_word),
+      .o_valid        (pk_valid),
+      .o_ready        (pk_ready)
   );
 
   // flow control requests: on a change of pause, and every REFRESH_CLKS
@@ -261,20 +269,22 @@ module iclink_serwb_pump
       cc_on  <= 1'b0;
       cc_idx <= '0;
     end
-    else if (!tx_en) begin
-      cc_cnt <= '0;
-      cc_on  <= 1'b0;
-      cc_idx <= '0;
-    end
-    else begin
-      cc_cnt <= cc_cnt + 1'b1;
-      if (cc_cnt == '1) begin
-        cc_on <= 1'b1;
+    else if (half_clk_strobe) begin
+      if (!tx_en) begin
+        cc_cnt <= '0;
+        cc_on  <= 1'b0;
+        cc_idx <= '0;
       end
-      else if (cc_on && cc_idx == ($clog2(CC_CLKS))'(CC_CLKS - 1)) begin
-        cc_on <= 1'b0;
+      else begin
+        cc_cnt <= cc_cnt + 1'b1;
+        if (cc_cnt == '1) begin
+          cc_on <= 1'b1;
+        end
+        else if (cc_on && cc_idx == ($clog2(CC_CLKS))'(CC_CLKS - 1)) begin
+          cc_on <= 1'b0;
+        end
+        cc_idx <= cc_on ? cc_idx + 1'b1 : '0;
       end
-      cc_idx <= cc_on ? cc_idx + 1'b1 : '0;
     end
   end
 
@@ -285,7 +295,7 @@ module iclink_serwb_pump
       refresh_cnt <= '0;
       phy_tx      <= '0;
     end
-    else begin
+    else if (half_clk_strobe) begin
       pause_d <= pause;
 
       if (!tx_en) begin
@@ -381,18 +391,19 @@ module iclink_serwb_pump
       .MAX_WORDS   (MAX_WORDS),
       .TIMEOUT_CLKS(TIMEOUT_CLKS)
   ) u_depacketizer (
-      .clk        (clk),
-      .arst_n     (arst_n),
-      .i_hold     (pause),        // we asked the far side to pause: no timeout
-      .i_word     (rx_word),
-      .i_valid    (rx_valid),
-      .o_word     (dp_word),
-      .o_valid    (dp_valid),
-      .o_port     (dp_port),
-      .o_commit   (dp_commit),
-      .o_rewind   (dp_rewind),
-      .o_drop     (dp_drop),
-      .o_crc_error(dp_crc_error)
+      .clk            (clk),
+      .arst_n         (arst_n),
+      .half_clk_strobe(half_clk_strobe),
+      .i_hold         (pause),            // we asked the far side to pause: no timeout
+      .i_word         (rx_word),
+      .i_valid        (rx_valid),
+      .o_word         (dp_word),
+      .o_valid        (dp_valid),
+      .o_port         (dp_port),
+      .o_commit       (dp_commit),
+      .o_rewind       (dp_rewind),
+      .o_drop         (dp_drop),
+      .o_crc_error    (dp_crc_error)
   );
 
   // a packet that finds no room writes nothing more and is rewound at its end
@@ -409,16 +420,17 @@ module iclink_serwb_pump
       .RN    (1),
       .COMMIT(1'b1)
   ) u_rx_fifo (
-      .clk     (clk),
-      .arst_n  (arst_n),
-      .w_word  (dp_word),
-      .w_valid (rxf_valid),
-      .w_commit(keep),
-      .w_rewind((dp_commit && !keep) || dp_rewind),
-      .w_used  (rxf_used),
-      .r_word  (rx_data),
-      .r_take  (TW'(rx_pop & !rx_empty)),
-      .r_avail (rx_avail)
+      .clk            (clk),
+      .arst_n         (arst_n),
+      .half_clk_strobe(half_clk_strobe),
+      .w_word         (dp_word),
+      .w_valid        (rxf_valid),
+      .w_commit       (keep),
+      .w_rewind       ((dp_commit && !keep) || dp_rewind),
+      .w_used         (rxf_used),
+      .r_word         (rx_data),
+      .r_take         (TW'(rx_pop & !rx_empty)),
+      .r_avail        (rx_avail)
   );
 
   assign rx_empty = (rx_avail == '0);
@@ -432,7 +444,7 @@ module iclink_serwb_pump
       drops         <= '0;
       overflows     <= '0;
     end
-    else begin
+    else if (half_clk_strobe) begin
       ovf_pkt <= ovf && !(dp_commit || dp_rewind);
 
       if (rxf_used >= (AW + 1)'(XOFF_LEVEL)) begin

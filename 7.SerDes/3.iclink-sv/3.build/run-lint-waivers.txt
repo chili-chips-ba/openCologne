@@ -28,6 +28,10 @@ slang ^1\.hw/iclink_serwb_(fifo|rx)\.sv:[0-9]+:[0-9]+: warning: useless cast
 # NC_ signals are no-connects by name: driven by an unused output, never read
 verilator ^%Warning-UNUSEDSIGNAL: .*'NC_[A-Za-z0-9_]+'
 
+# iclink_serwb_line at W = 2 (its default, as lint takes it on its own) is a
+# pass-through with no flop: clk and arst_n run only the W = 4 conversion
+verilator ^%Warning-UNUSEDSIGNAL: 1\.hw/iclink_serwb_line\.sv:[0-9]+:[0-9]+: Signal is not used: '(clk|arst_n)'
+
 # a unique case lists only the legal values of its selector (CRC term counts
 # 0 .. 4, the three line rates): any other value is a unique violation by
 # design, and our rules forbid a default in a unique case (2.sim/rtl.vlt)

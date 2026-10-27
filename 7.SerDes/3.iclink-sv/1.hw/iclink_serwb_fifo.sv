@@ -33,6 +33,9 @@
 //
 // The writer must keep w_used + (words written) <= DEPTH; the reader must
 // not take more than r_avail.
+//
+// half_clk_strobe: every flop and RAM port moves only on clocks with it high, so
+// all of the above counts in those clocks.
 //==========================================================================
 module iclink_serwb_fifo
   import iclink_serwb_pkg::*;
@@ -48,6 +51,7 @@ module iclink_serwb_fifo
 ) (
     input logic clk,
     input logic arst_n,
+    input logic half_clk_strobe, // clock enable, a flop: 1 (W = 2), every other clock (W = 4)
 
     input  word_t [WN-1:0] w_word,
     input  logic  [WN-1:0] w_valid,   // compacted, slot 0 first: 0, 1, 3, 7 ..
@@ -105,14 +109,16 @@ module iclink_serwb_fifo
     if (!arst_n) begin
       ram_we <= '0;
     end
-    else begin
+    else if (half_clk_strobe) begin
       ram_we <= w_we;
     end
   end
 
   always_ff @(posedge clk) begin
-    ram_row <= w_row;
-    ram_d   <= w_d;
+    if (half_clk_strobe) begin
+      ram_row <= w_row;
+      ram_d   <= w_d;
+    end
   end
 
   always_ff @(posedge clk or negedge arst_n) begin
@@ -121,7 +127,7 @@ module iclink_serwb_fifo
       com_ptr <= '0;
       w_used  <= '0;
     end
-    else begin
+    else if (half_clk_strobe) begin
       if (COMMIT && w_rewind) begin
         wr_ptr <= com_ptr;
       end
@@ -178,7 +184,7 @@ module iclink_serwb_fifo
       rd_ptr    <= '0;
       r_avail   <= '0;
     end
-    else begin
+    else if (half_clk_strobe) begin
       com_ptr_r <= com_ptr;
       rd_ptr    <= rd_ptr_next;
       r_avail   <= r_avail_now - (AW + 1)'(r_take);
@@ -193,10 +199,12 @@ module iclink_serwb_fifo
     word_t mem[DEPTH/W];
 
     always_ff @(posedge clk) begin
-      if (ram_we[b]) begin
-        mem[ram_row[b]] <= ram_d[b];
+      if (half_clk_strobe) begin
+        if (ram_we[b]) begin
+          mem[ram_row[b]] <= ram_d[b];
+        end
+        q[b] <= mem[r_row[b]];
       end
-      q[b] <= mem[r_row[b]];
     end
   end : g_ram
 

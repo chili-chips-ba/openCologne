@@ -13,7 +13,12 @@
 #   make clean
 #   LINE_RATE=1250|2500|5000  Mb/s (default 2500); the SerDes core clock
 #                   clk_core is constrained at LINE_RATE / 80
-#                   (31.25 MHz at 2500), the EVB clock (CLK0) at FREQ
+#                   (31.25 MHz at 2500), the EVB clock (CLK0) at FREQ.
+#                   At 5000 the pump's half_clk_strobe logic gets a 2-clock
+#                   setup budget: mcp_cells.py proves on the netlist which
+#                   flops move only with the strobe and writes build/mcp.sdc
+#                   (set_multicycle_path), which needs NEXTPNR_MCP, a nextpnr
+#                   with it (chili-chips-ba/nextpnr, branch multicycle-sdc)
 #
 # Sources: ../1.hw/top.filelist (sources.sh). Pins: GateMateA1-EVB.ccf.
 #==========================================================================
@@ -29,6 +34,8 @@ BOARD    ?= gatemate_evb_jtag
 
 YOSYS    ?= yosys
 NEXTPNR  ?= nextpnr-himbaechel-gatemate
+NEXTPNR_MCP ?= nextpnr-himbaechel-gatemate-mcp
+PYTHON   ?= python3
 GMPACK   ?= gmpack
 OFL      ?= openFPGALoader
 
@@ -61,10 +68,22 @@ $(BLD)/top.json: $(SV) $(BLD)/synth.opts | $(BLD)
 $(BLD)/clocks.py: Makefile $(BLD)/synth.opts | $(BLD)
 	printf 'ctx.addClock("clk_core", %s)\n' $(CORE_MHZ) > $@
 
-$(BLD)/top.txt: $(BLD)/top.json $(BLD)/clocks.py $(CCF) $(BLD)/pnr.opts
-	$(NEXTPNR) --device $(DEVICE) --json $< --vopt ccf=$(CCF) --vopt out=$@ \
-	  --pre-pack $(BLD)/clocks.py --router router2 --freq $(FREQ) --seed $(SEED) \
-	  -l $(BLD)/nextpnr.log
+# 5 Gb/s: the 2-clock group of the half_clk_strobe logic, proven on the netlist
+ifeq ($(LINE_RATE),5000)
+  PNR     = $(NEXTPNR_MCP)
+  MCP_SDC = $(BLD)/mcp.sdc
+else
+  PNR     = $(NEXTPNR)
+  MCP_SDC =
+endif
+
+$(BLD)/mcp.sdc: $(BLD)/top.json mcp_cells.py
+	$(PYTHON) mcp_cells.py $< half_clk_strobe clk_core $@
+
+$(BLD)/top.txt: $(BLD)/top.json $(BLD)/clocks.py $(MCP_SDC) $(CCF) $(BLD)/pnr.opts
+	$(PNR) --device $(DEVICE) --json $< --vopt ccf=$(CCF) --vopt out=$@ \
+	  --pre-pack $(BLD)/clocks.py $(if $(MCP_SDC),--sdc $(MCP_SDC)) \
+	  --router router2 --freq $(FREQ) --seed $(SEED) -l $(BLD)/nextpnr.log
 
 $(BLD)/top.bit: $(BLD)/top.txt
 	$(GMPACK) $< $@

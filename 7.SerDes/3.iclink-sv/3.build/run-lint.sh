@@ -5,7 +5,7 @@
 #
 # Lint of the RTL of top (1.hw/top.filelist, via sources.sh), of the
 # SerWB link layer, also on its own (1.hw/serwb.filelist; tops
-# iclink_serwb_pump and iclink_gearbox), and of the simulation-only 8b/10b
+# iclink_serwb_pump and iclink_serwb_line), and of the simulation-only 8b/10b
 # reference (2.sim, ref_rtl; tops iclink_8b10b_enc and _dec): syntax and
 # limited semantic checks with a set of opensource tools, run in this order:
 #
@@ -79,7 +79,7 @@ SERWB=$(serwb_rtl 1.hw | tr '\n' ' ')
 REF="1.hw/iclink_pkg.sv $(ref_rtl 2.sim | tr '\n' ' ')"
 OWN="$(own_rtl 1.hw | tr '\n' ' ') $(ref_rtl 2.sim | tr '\n' ' ')"
 # the designs the verilator, yosys and slang phases lint: top, sources
-DESIGNS=("top:$SV" "iclink_serwb_pump:$SERWB" "iclink_gearbox:$SERWB"
+DESIGNS=("top:$SV" "iclink_serwb_pump:$SERWB" "iclink_serwb_line:$SERWB"
          "iclink_8b10b_enc:$REF" "iclink_8b10b_dec:$REF")
 
 have() { command -v "$1" >/dev/null 2>&1; }

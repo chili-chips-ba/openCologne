@@ -49,6 +49,7 @@ module iclink_serwb_rx
 ) (
     input logic clk,
     input logic arst_n,
+    input logic half_clk_strobe, // clock enable, a flop: 1 (W = 2), every other clock (W = 4)
 
     input logic          i_hold,  // no timeout while high
     input word_t [W-1:0] i_word,
@@ -192,7 +193,7 @@ module iclink_serwb_rx
       r_word  <= '0;
       r_valid <= '0;
     end
-    else begin
+    else if (half_clk_strobe) begin
       r_word  <= i_word;
       r_valid <= i_valid;
     end
@@ -260,7 +261,7 @@ module iclink_serwb_rx
       timer <= '0;
       f     <= '0;
     end
-    else begin
+    else if (half_clk_strobe) begin
       ctx <= ctx_next;
       f   <= f_next;
       if (r_valid != '0 || timeout || ctx.state == S_PREAMBLE || i_hold) begin
@@ -299,7 +300,7 @@ module iclink_serwb_rx
       t_n     <= '0;
       t_bcrc  <= '0;
     end
-    else begin
+    else if (half_clk_strobe) begin
       t <= '{
           word: f.word,
           data: f.data,
@@ -348,7 +349,7 @@ module iclink_serwb_rx
       g_crc  <= '0;
       g_rcvd <= '0;
     end
-    else begin
+    else if (half_clk_strobe) begin
       if (t.chk != '0) begin
         crc <= t.binit ? t_bcrc : '0;
       end
@@ -423,7 +424,7 @@ module iclink_serwb_rx
       carry       <= '0;
       ncarry      <= '0;
     end
-    else begin
+    else if (half_clk_strobe) begin
       o_word <= q[W-1:0];
       for (int i = 0; i < W; i++) begin
         o_valid[i] <= !g.tmo && 4'(i) < 4'(nq);

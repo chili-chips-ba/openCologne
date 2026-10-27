@@ -19,6 +19,7 @@ ${HW_SRC}/iclink_serwb_pkg.sv
 ${HW_SRC}/iclink_serwb_fifo.sv
 ${HW_SRC}/iclink_serwb_tx.sv
 ${HW_SRC}/iclink_serwb_rx.sv
+${HW_SRC}/iclink_serwb_line.sv
 ${HW_SRC}/iclink_serwb_pump.sv
 ${HW_SRC}/top_pkg.sv
 ${HW_SRC}/top.sv

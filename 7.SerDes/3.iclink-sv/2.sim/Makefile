@@ -119,7 +119,7 @@ sim_serwb_rx:
 
 PUMP_SRC := rtl.vlt $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv $(HW)/iclink_serwb_pkg.sv \
   $(HW)/iclink_serwb_fifo.sv $(HW)/iclink_serwb_tx.sv \
-  $(HW)/iclink_serwb_rx.sv $(HW)/iclink_serwb_pump.sv $(HW)/iclink_gearbox.sv
+  $(HW)/iclink_serwb_rx.sv $(HW)/iclink_serwb_line.sv $(HW)/iclink_serwb_pump.sv
 
 sim_serwb_pump:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL -Wno-UNUSEDPARAM \
@@ -137,9 +137,9 @@ PPM ?= 200
 LINK_SRC := sim-model.vlt rtl.vlt $(HW)/iclink_pkg.sv $(HW)/iclink_phy_pkg.sv $(HW)/iclink_serwb_pkg.sv \
   $(HW)/iclink_prbs_gen.sv $(HW)/iclink_prbs_chk.sv $(HW)/iclink_prbs_tx.sv $(HW)/iclink_prbs_rx.sv \
   $(HW)/iclink_serdes_gm.sv $(HW)/iclink_serwb_fifo.sv $(HW)/iclink_serwb_tx.sv $(HW)/iclink_serwb_rx.sv \
-  $(HW)/iclink_serwb_pump.sv $(BFM) tb_link_ppm.sv
+  $(HW)/iclink_serwb_line.sv $(HW)/iclink_serwb_pump.sv $(BFM) tb_link_ppm.sv
 LINK_VLT := verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-  -Wno-UNUSEDPARAM --top-module tb_link_ppm -GPPM=$(PPM) $(BFM_DEF)
+  -Wno-UNUSEDPARAM --top-module tb_link_ppm -GPPM=$(PPM) $(RATE_G) $(BFM_DEF)
 
 sim_link_ppm:
 	$(LINK_VLT) -Mdir obj_link $(LINK_SRC)
@@ -151,7 +151,7 @@ sim_link_ppm:
 
 sim_top:
 	verilator --binary --timing --timescale 1ns/1ps -Wall -Wno-DECLFILENAME -Wno-UNUSEDSIGNAL \
-	  --top-module tb_top -Mdir obj_top $(BFM_DEF) sim-model.vlt rtl.vlt \
+	  --top-module tb_top -Mdir obj_top $(RATE_G) $(BFM_DEF) sim-model.vlt rtl.vlt \
 	  $$(sed -e "s|\$${HW_SRC}|$(HW)|" -e "/^#/d" -e "/^$$/d" $(HW)/top.filelist) \
 	  $(BFM) tb_top.sv
 	./obj_top/Vtb_top $(PLUS) | tee sim_top.log

@@ -3,10 +3,10 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 #==========================================================================
-# Files of the SerWB link layer (FIFO pump, gearbox), in compile order:
-# packages first. The pump is in top too; this list lints the pump and the
-# gearbox on their own as well (3.build/run-lint.sh,
-# tops iclink_serwb_pump and iclink_gearbox). Read by 3.build/sources.sh.
+# Files of the SerWB link layer (FIFO pump, its line side), in compile
+# order: packages first. The pump is in top too; this list lints the pump
+# and its line side on their own as well (3.build/run-lint.sh, tops
+# iclink_serwb_pump and iclink_serwb_line). Read by 3.build/sources.sh.
 #==========================================================================
 
 ${HW_SRC}/iclink_pkg.sv
@@ -15,5 +15,5 @@ ${HW_SRC}/iclink_serwb_pkg.sv
 ${HW_SRC}/iclink_serwb_fifo.sv
 ${HW_SRC}/iclink_serwb_tx.sv
 ${HW_SRC}/iclink_serwb_rx.sv
-${HW_SRC}/iclink_gearbox.sv
+${HW_SRC}/iclink_serwb_line.sv
 ${HW_SRC}/iclink_serwb_pump.sv

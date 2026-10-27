@@ -22,7 +22,7 @@ Moved to the repo root: [RTL-CODING-RULES.md](../../../RTL-CODING-RULES.md).
 | `iclink_serwb_pump.sv` | FIFO pump: CPU-to-CPU words on SerWB port 2, flow control, clock-correction bursts ([spec](../../0.doc/fifo-pump.md)) |
 | `iclink_serwb_tx.sv`, `_rx.sv`, `iclink_serwb_pkg.sv` | SerWB packetizer and depacketizer with CRC32, ported from LiteICLink's `serwb/packet.py` ([protocol](../../0.doc/serwb-protocol.md)) |
 | `iclink_serwb_fifo.sv` | synchronous FIFO of the pump; the RX FIFO is the packet buffer (commit, rewind) |
-| `iclink_gearbox.sv` | 2:1 gearbox, for the pump at W = 4 on half the PHY clock (5 Gb/s) |
+| `iclink_serwb_line.sv` | the pump's line side and the root of `half_clk_strobe`: 1 at W = 2; at W = 4 (5 Gb/s) every other clock, the pump's two PHY words a strobe to one a clock and back |
 | `iclink_pkg.sv` | common types |
 | [`eduBOS5/`](eduBOS5/README.md) | the RV32I CPU of the SoC, copied from openPCIE; not in the top yet |
 | `top.filelist`, `serwb.filelist` | compile order, for the build, the sims and the QA scripts |

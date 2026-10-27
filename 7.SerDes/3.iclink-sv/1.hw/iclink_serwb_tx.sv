@@ -6,8 +6,8 @@
 // SerWB packetizer, W words per clock (2 or 4): LiteICLink's Packetizer
 // with CRC (liteiclink/serwb/packet.py). The same packet words in the same
 // order; each clock carries up to W of them, slot 0 (bytes 0-3) first.
-// W = 2 fits the 64-bit PHY; W = 4 runs at half its clock, through a 2:1
-// gearbox.
+// W = 2 fits the 64-bit PHY; W = 4 moves on every other clock
+// (half_clk_strobe, iclink_serwb_line).
 //
 //   W = 2   beat 0:      preamble | port / length
 //           beats 1 ..:  data     | data
@@ -40,6 +40,7 @@ module iclink_serwb_tx
 ) (
     input logic clk,
     input logic arst_n,
+    input logic half_clk_strobe, // clock enable, a flop: 1 (W = 2), every other clock (W = 4)
 
     input  logic             hdr_valid,
     input  logic       [7:0] hdr_port,
@@ -170,7 +171,7 @@ module iclink_serwb_tx
       left  <= '0;
       f     <= '0;
     end
-    else if (o_ready) begin
+    else if (half_clk_strobe && o_ready) begin
       state <= state_next;
       left  <= left_next;
       f     <= f_next;
@@ -204,7 +205,7 @@ module iclink_serwb_tx
       t_dterm <= '0;
       t_n     <= '0;
     end
-    else if (o_ready) begin
+    else if (half_clk_strobe && o_ready) begin
       t       <= '{word: f.word, valid: f.valid, crcslot: f.crcslot};
       t_n     <= n;
       t_dterm <= dterm ^ (f.init ? serwb_crc_iterm(n) : '0);
@@ -224,7 +225,7 @@ module iclink_serwb_tx
       o_word  <= '0;
       o_valid <= '0;
     end
-    else if (o_ready) begin
+    else if (half_clk_strobe && o_ready) begin
       crc     <= (t.crcslot != '0) ? '0 : crc_now;
       o_valid <= t.valid;
       for (int s = 0; s < W; s++) begin

@@ -77,14 +77,32 @@ LiteX picks `nextpnr-himbaechel-gatemate` from `PATH` when it exists, else `next
 | the same, before the sticky LED error and saturating counters | 2.5 Gb/s | 31.25 MHz | 38.2 (seed 1), 40.8 MHz (seed 2) |
 | the same, before clock correction | 2.5 Gb/s | 31.25 MHz | 38.2 to 41.4 MHz (seeds 1 to 4) |
 | the same, with the fabric 8b/10b encoder | 2.5 Gb/s | 31.25 MHz | 32.4 to 35.3 MHz |
-| board top without the pump (it needs half `clk_core` at W = 4: not in the top yet) | 5 Gb/s | 62.5 MHz | 67.7 MHz (seed 1) |
+| board top without the pump (before `half_clk_strobe`) | 5 Gb/s | 62.5 MHz | 67.7 MHz (seed 1) |
+| board top: the pump at W = 4 on `half_clk_strobe`, 2-clock group ([below](#multicycle-paths-at-5-gbs)) | 5 Gb/s | 62.5 MHz | 33.84 MHz (seed 1): fails, a block RAM's read address |
 | LiteX demo SoC, PHY only ([4.litex](../4.litex/README.md#demo-build)) | 2.5 Gb/s | 31.25 MHz | 61.3 MHz (seed 1) |
 
 1.25 Gb/s runs `clk_core` at 15.625 MHz, half the 2.5 Gb/s clock: the 2.5 Gb/s builds cover it.
 
+## Multicycle paths at 5 Gb/s
+
+At 5 Gb/s the FIFO pump moves 4 words on every other `clk_core`, enabled by `half_clk_strobe` (`iclink_serwb_line`), so its paths may take 2 clocks: 32 ns at 62.5 MHz. Upstream nextpnr for GateMate has no multicycle paths. `make LINE_RATE=5000` uses our fork's `set_multicycle_path` instead ([`chili-chips-ba/nextpnr`, branch `multicycle-sdc`](https://github.com/chili-chips-ba/nextpnr/tree/multicycle-sdc); `NEXTPNR_MCP`).
+
+**Which flops: proven, not named.** [`mcp_cells.py`](mcp_cells.py) reads the synthesized netlist. A flop on `clk_core` joins the 2-clock group only when, with `half_clk_strobe` low and every other input at any value:
+
+- its enable is used, and is 0; or
+- its enable is constant, and D equals Q.
+
+It expands the cone of the enable (or of D) through LUTs and muxes, up to 4 cells deep and 16 inputs, and tries every input value. What it does not expand (a flop, a RAM, an adder, the limits) is a free input that takes every value. So a proof never passes wrongly: a flop it cannot prove keeps its 1-clock check. Names would not do: synthesis turns a FIFO RAM's write enable into a flop that loads every clock (D = strobe & we).
+
+The proven flops are the launch and the capture cells of the group (`build/mcp.sdc`). Paths into them from anything else keep 1 clock, the strobe's own net among them.
+
+**Result** (seed 1): 2603 flops proven; 1044 others keep 1 clock, among them the 328 RAM write-enable flops and the 67 line flops, which do load every clock. `clk_core` reaches 33.84 MHz. The critical path, 29.6 ns, is the TX FIFO's read address into its block RAM. A RAM cannot join the group as a whole, since its write side does run every clock, and `-to` takes cells, not pins. With `-to` on the read-address pins that path would get 2 clocks: asked of Project Peppercorn ([issues](../../README.md)).
+
+Below 5 Gb/s the strobe is 1, every path is a 1-clock path, and the build needs neither the script nor the fork.
+
 ## RTL quality assurance
 
-Our standard RTL QA flow, on the [RTL coding rules](../../../RTL-CODING-RULES.md). Sources: [`sources.sh`](sources.sh), from `../1.hw/top.filelist` (the PHY, the FIFO pump and the board top), `../1.hw/serwb.filelist` (SerWB, FIFO pump, gearbox) and the 8b/10b reference in `../2.sim`. Lint and format cover all three; lint also takes the pump, the gearbox and the 8b/10b encoder and decoder as their own tops. LEQ covers the board top. Run from the repo root:
+Our standard RTL QA flow, on the [RTL coding rules](../../../RTL-CODING-RULES.md). Sources: [`sources.sh`](sources.sh), from `../1.hw/top.filelist` (the PHY, the FIFO pump and the board top), `../1.hw/serwb.filelist` (SerWB, FIFO pump, its line side) and the 8b/10b reference in `../2.sim`. Lint and format cover all three; lint also takes the pump, its line side and the 8b/10b encoder and decoder as their own tops. LEQ covers the board top. Run from the repo root:
 
 | Command | Checks |
 |---|---|

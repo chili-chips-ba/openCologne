@@ -85,7 +85,7 @@ Writes are posted: acknowledged once sent. **A read** is a round trip: A sends a
 | K28.1 | fill when there is nothing to send (with flow control; without it, zero words). Ours, while the link is down: K28.5 in byte lane 0 and K28.0 in lane 4 |
 | K28.3 / K28.4 | XOFF / XON: pause and resume the far transmitter (flow control, both sides) |
 
-**On our PHY**, 8 symbols per clock: two SerWB words per 31.25 MHz clock (W = 2; at W = 4, four per half-rate clock, through the gearbox), the first in bytes 0-3, the second in bytes 4-7, each K flag with its byte. LiteICLink's 4-symbol SerWB encoder is then replaced by the PHY's 8-symbol path ([compared with LiteICLink](../3.iclink-sv/1.hw/README.md#compared-with-liteiclink)): interoperability is at the packet layer.
+**On our PHY**, 8 symbols per clock: two SerWB words per 31.25 MHz clock (W = 2; at W = 4, four on every other clock, [FIFO pump](fifo-pump.md)), the first in bytes 0-3, the second in bytes 4-7, each K flag with its byte. LiteICLink's 4-symbol SerWB encoder is then replaced by the PHY's 8-symbol path ([compared with LiteICLink](../3.iclink-sv/1.hw/README.md#compared-with-liteiclink)): interoperability is at the packet layer.
 
 **Will it work with Lattice and others?** SerWB is not a standard; it is LiteICLink's own protocol, and LiteICLink is its only reference. It works with another vendor when the other side runs LiteICLink's SerWB core, and both sides agree below it:
 

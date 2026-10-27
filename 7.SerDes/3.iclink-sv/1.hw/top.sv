@@ -38,6 +38,9 @@
 //
 // LINE_RATE (Mb/s): 1250, 2500 or 5000, passed to the PHY; a 5 Gb/s build
 // needs its clocks constrained at 62.5 MHz (3.build: LINE_RATE=5000).
+// There the pump moves W = 4 words a clock, enabled every other clock by
+// half_clk_strobe (iclink_serwb_line), and its cells get a 2-clock setup
+// budget; below 5 Gb/s W = 2 and the strobe is 1.
 //
 // Pins: 3.build/GateMateA1-EVB.ccf.
 //==========================================================================
@@ -168,10 +171,8 @@ module top
   logic       link_was_up;
   logic       failed;
 
-  // At 5 Gb/s the pump must run at W = 4 on half clk_core, behind gearboxes
-  // (README, FIFO pump); this top has no such clock yet, so its 5 Gb/s
-  // build keeps the PRBS7 test running instead
-  localparam bit WITH_PUMP = (LINE_RATE < 5000);
+  // the pump's SerWB words a clock: 4 at 5 Gb/s, on every other clock
+  localparam int PUMP_W = (LINE_RATE == 5000) ? 4 : 2;
 
   iclink_serdes_gm #(
       .LINE_RATE(LINE_RATE)
@@ -262,7 +263,7 @@ module top
         link_base <= link_errors;
       end
       else if (!prbs_run[PRBS_RUN_LOG2]) begin
-        prbs_run <= prbs_run + WITH_PUMP;  // without the pump: PRBS7 on and on
+        prbs_run <= prbs_run + 1'b1;
         if (link_d_moved || link_d_bad) begin
           link_error <= 1'b1;
         end
@@ -276,86 +277,110 @@ module top
   // pause itself; the reader never stops, so it does not. The pump sends
   // commas for 2^PUMP_START_LOG2 clocks first, while the last PRBS words
   // leave the line, then data. Error: a wrong word, a CRC error, a drop,
-  // an overflow or an invalid symbol; up: 2^PUMP_UP_LOG2 words checked
+  // an overflow or an invalid symbol; up: 2^PUMP_UP_LOG2 words checked.
+  // The pump and this checker move on half_clk_strobe only: every clock
+  // at W = 2, every other clock at W = 4 (5 Gb/s), with a 2-clock setup
+  // budget (3.build). What they read from the every-clock side comes
+  // through flops loaded on the strobe: iclink_serwb_line, and pump_go.
   //-----------------------------------------------------------------------
-  if (WITH_PUMP) begin : g_pump
-    logic [PUMP_START_LOG2:0] pump_start;  // top bit set: the pump sends and takes data
-    word_t pump_wdata, pump_rdata, pump_expect;
-    logic pump_full, pump_empty, pump_pop;
-    logic                  pump_bad;  // a wrong word or an invalid symbol, a clock late
-    logic [PUMP_UP_LOG2:0] pump_good;  // words checked; top bit set: pump up
-    serwb_cnt_t pump_crc, pump_drops, pump_ovf;
-    logic [$clog2(PUMP_DEPTH):0] NC_tx_used, NC_rx_avail;  // unused: the checker pops what comes
-    logic NC_remote_paused, NC_pause;  // flow control: on, but the reader never stops
+  logic half_clk_strobe;  // the pump's clock enable (iclink_serwb_line)
+  phy_word_t [PUMP_W/2-1:0] pump_tx_pair, pump_rx_pair;  // the pump's PHY words, [0] first
+  logic                     pump_rx_err;  // a bad symbol or a buffer error in pump_rx_pair
+  logic                     pump_go;  // PRBS7 over: prbs_run's top bit, on strobe clocks
+  logic [PUMP_START_LOG2:0] pump_start;  // top bit set: the pump sends and takes data
+  word_t pump_wdata, pump_rdata, pump_expect;
+  logic pump_full, pump_empty, pump_pop;
+  logic                  pump_bad;  // a wrong word or an invalid symbol, a clock late
+  logic [PUMP_UP_LOG2:0] pump_good;  // words checked; top bit set: pump up
+  serwb_cnt_t pump_crc, pump_drops, pump_ovf;
+  logic [$clog2(PUMP_DEPTH):0] NC_tx_used, NC_rx_avail;  // unused: the checker pops what comes
+  logic NC_remote_paused, NC_pause;  // flow control: on, but the reader never stops
 
-    iclink_serwb_pump #(
-        .W    (2),
-        .DEPTH(PUMP_DEPTH)
-    ) u_pump (
-        .clk          (clk_core),
-        .arst_n       (rx_ready),
-        .tx_push      (pump_start[PUMP_START_LOG2]),
-        .tx_data      (pump_wdata),
-        .tx_full      (pump_full),
-        .tx_used      (NC_tx_used),
-        .tx_hold      (1'b0),
-        .rx_pop       (pump_pop),
-        .rx_data      (pump_rdata),
-        .rx_empty     (pump_empty),
-        .rx_avail     (NC_rx_avail),
-        .tx_en        (pump_start[PUMP_START_LOG2]),
-        .phy_tx       (pump_tx),
-        .rx_en        (pump_start[PUMP_START_LOG2]),
-        .phy_rx       (link_rx),
-        .remote_paused(NC_remote_paused),
-        .pause        (NC_pause),
-        .crc_errors   (pump_crc),
-        .drops        (pump_drops),
-        .overflows    (pump_ovf)
-    );
+  iclink_serwb_line #(
+      .W(PUMP_W)
+  ) u_line (
+      .clk            (clk_core),
+      .arst_n         (rx_ready),
+      .half_clk_strobe(half_clk_strobe),
+      .pump_tx        (pump_tx_pair),
+      .line_tx        (pump_tx),
+      .line_rx        (link_rx),
+      .line_err       (link_rx_invalid != '0 || link_rx_buf_err),
+      .pump_rx        (pump_rx_pair),
+      .pump_err       (pump_rx_err)
+  );
 
-    always_comb begin
-      pump_pop = !pump_empty;
-      pump_up  = pump_good[PUMP_UP_LOG2];
+  iclink_serwb_pump #(
+      .W    (PUMP_W),
+      .DEPTH(PUMP_DEPTH)
+  ) u_pump (
+      .clk            (clk_core),
+      .arst_n         (rx_ready),
+      .half_clk_strobe(half_clk_strobe),
+      .tx_push        (pump_start[PUMP_START_LOG2]),
+      .tx_data        (pump_wdata),
+      .tx_full        (pump_full),
+      .tx_used        (NC_tx_used),
+      .tx_hold        (1'b0),
+      .rx_pop         (pump_pop),
+      .rx_data        (pump_rdata),
+      .rx_empty       (pump_empty),
+      .rx_avail       (NC_rx_avail),
+      .tx_en          (pump_start[PUMP_START_LOG2]),
+      .phy_tx         (pump_tx_pair),
+      .rx_en          (pump_start[PUMP_START_LOG2]),
+      .phy_rx         (pump_rx_pair),
+      .remote_paused  (NC_remote_paused),
+      .pause          (NC_pause),
+      .crc_errors     (pump_crc),
+      .drops          (pump_drops),
+      .overflows      (pump_ovf)
+  );
+
+  always_comb begin
+    pump_pop = !pump_empty;
+    pump_up  = pump_good[PUMP_UP_LOG2];
+  end
+
+  // prbs_run moves every clock: into the strobe domain through one flop
+  always_ff @(posedge clk_core or negedge rx_ready) begin
+    if (!rx_ready) begin
+      pump_go <= 1'b0;
     end
+    else if (half_clk_strobe) begin
+      pump_go <= prbs_run[PRBS_RUN_LOG2];
+    end
+  end
 
-    always_ff @(posedge clk_core or negedge rx_ready) begin
-      if (!rx_ready) begin
-        pump_start  <= '0;
-        pump_wdata  <= '0;
-        pump_expect <= '0;
-        pump_good   <= '0;
-        pump_bad    <= 1'b0;
-        pump_error  <= 1'b0;
+  always_ff @(posedge clk_core or negedge rx_ready) begin
+    if (!rx_ready) begin
+      pump_start  <= '0;
+      pump_wdata  <= '0;
+      pump_expect <= '0;
+      pump_good   <= '0;
+      pump_bad    <= 1'b0;
+      pump_error  <= 1'b0;
+    end
+    else if (half_clk_strobe) begin
+      if (pump_go && !pump_start[PUMP_START_LOG2]) begin
+        pump_start <= pump_start + 1'b1;
       end
-      else begin
-        if (prbs_run[PRBS_RUN_LOG2] && !pump_start[PUMP_START_LOG2]) begin
-          pump_start <= pump_start + 1'b1;
-        end
-        if (pump_start[PUMP_START_LOG2] && !pump_full) begin
-          pump_wdata <= pump_wdata + 1'b1;
-        end
-        if (pump_pop) begin
-          pump_expect <= pump_expect + 1'b1;
-          if (!pump_good[PUMP_UP_LOG2]) begin
-            pump_good <= pump_good + 1'b1;
-          end
-        end
-        pump_bad <= (pump_pop && pump_rdata != pump_expect)
-          || (pump_start[PUMP_START_LOG2] && (link_rx_invalid != '0 || link_rx_buf_err));
-        if (pump_bad || pump_crc != '0 || pump_drops != '0 || pump_ovf != '0) begin
-          pump_error <= 1'b1;
+      if (pump_start[PUMP_START_LOG2] && !pump_full) begin
+        pump_wdata <= pump_wdata + 1'b1;
+      end
+      if (pump_pop) begin
+        pump_expect <= pump_expect + 1'b1;
+        if (!pump_good[PUMP_UP_LOG2]) begin
+          pump_good <= pump_good + 1'b1;
         end
       end
+      pump_bad <= (pump_pop && pump_rdata != pump_expect)
+        || (pump_start[PUMP_START_LOG2] && pump_rx_err);
+      if (pump_bad || pump_crc != '0 || pump_drops != '0 || pump_ovf != '0) begin
+        pump_error <= 1'b1;
+      end
     end
-  end : g_pump
-  else begin : g_no_pump
-    always_comb begin
-      pump_tx    = PHY_COMMA_WORD;  // never on the line: prbs_run stays low
-      pump_up    = 1'b1;
-      pump_error = 1'b0;
-    end
-  end : g_no_pump
+  end
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin

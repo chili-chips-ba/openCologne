@@ -8,7 +8,7 @@ SPDX-License-Identifier: BSD-3-Clause
 
 A message link between the two eduBOS5 CPUs, ahead of remote memory access: each CPU pushes 32-bit words into a TX FIFO, the pump streams them to the other side, and the other CPU pops them from an RX FIFO. Both firmwares take part. It is the eduBOS5 <-> FIFO <-> link architecture planned for [openCologne-PCIE](https://github.com/chili-chips-ba/openCologne-PCIE/tree/main/2.rtl/6.soc), there with the PCIe PIPE in place of this PHY, so the FIFO side and its firmware carry over. Back to the [7.SerDes README](../README.md).
 
-**Status:** the RTL ([`iclink_serwb_pump.sv`](../3.iclink-sv/1.hw/iclink_serwb_pump.sv), `iclink_serwb_fifo.sv`, `iclink_gearbox.sv`) and its unit tests are done, at W = 2 and W = 4. It runs in the board top on setup 1 (`sim_top`), after the PRBS test, and between two sides 200 ppm apart (`sim_link_ppm`). Not yet: the CSRs, the firmware and the board.
+**Status:** the RTL ([`iclink_serwb_pump.sv`](../3.iclink-sv/1.hw/iclink_serwb_pump.sv), `iclink_serwb_fifo.sv`, `iclink_serwb_line.sv`) and its unit tests are done, at W = 2 and W = 4. It runs in the board top on setup 1 (`sim_top`, 2.5 and 5 Gb/s), after the PRBS test, and between two sides 200 ppm apart (`sim_link_ppm`, 2.5 Gb/s). Not yet: the CSRs, the firmware and the board.
 
 ## Standard SerWB, not a format of our own
 
@@ -24,7 +24,7 @@ LiteICLink's Serial Wishbone carries user streams on its packet ports, next to E
 
 ## How it works
 
-**Packets.** Preamble, port/length, payload, CRC32. A packet goes out when `PKT_WORDS` words wait (default 16) or the TX FIFO has been idle for 64 clocks. The pump moves `W` SerWB words per line clock: **2** on the 64-bit PHY clock (bytes 0-3 and 4-7), or **4** at half that clock through a gearbox, for 5 Gb/s. Either way it fills the line. Between packets: SerWB's K28.1 fill. While the link is down: comma words, K28.5 in byte lane 0 and K28.0 (no comma) in lane 4, which the far side's K filter drops. Payload share: 16 words 84%, 64 words 96%; the far receiver must accept the size (`crc_max_words` on LiteICLink).
+**Packets.** Preamble, port/length, payload, CRC32. A packet goes out when `PKT_WORDS` words wait (default 16) or the TX FIFO has been idle for 64 clocks. The pump moves `W` SerWB words per line clock: **2** on the 64-bit PHY clock (bytes 0-3 and 4-7), or **4** on every other clock (`half_clk_strobe`), for 5 Gb/s. Either way it fills the line. Between packets: SerWB's K28.1 fill. While the link is down: comma words, K28.5 in byte lane 0 and K28.0 (no comma) in lane 4, which the far side's K filter drops. Payload share: 16 words 84%, 64 words 96%; the far receiver must accept the size (`crc_max_words` on LiteICLink).
 
 **Speed.** eduBOS5 is the first source, for the demo; an FSM or DMA can fill the FIFO later. The FIFO decouples the two: the CPU fills it at its own pace, the pump drains it at line rate, so even eduBOS5 makes full-speed bursts of up to a FIFO (1024 words, 4 KB). Three performance levels, chosen by a parameter (`LINE_RATE`), from the same 100 MHz reference ([clocks and line rate](../3.iclink-sv/1.hw/README.md#clocks-and-line-rate)):
 
@@ -34,7 +34,7 @@ LiteICLink's Serial Wishbone carries user streams on its packet ports, next to E
 | **default** | **2.5 Gb/s** | 31.25 MHz | 2.0 Gb/s | 1.68 Gb/s |
 | high | 5 Gb/s | 62.5 MHz | 4.0 Gb/s | 3.37 Gb/s |
 
-At 5 Gb/s the pump runs at W = 4 on half `clk_core`, through `iclink_gearbox`. The board top has no half-rate clock yet, so its 5 Gb/s build leaves the pump out. Timing results: [3.build](../3.iclink-sv/3.build/README.md#timing-results).
+At 5 Gb/s the pump moves W = 4 words on every other `clk_core`, enabled by `half_clk_strobe`, a flop that toggles; `iclink_serwb_line` turns its two PHY words a pump clock into one a clock and back, on the same clock. Below 5 Gb/s the strobe is 1. Its paths get 2 clocks, which needs multicycle paths in nextpnr: the 5 Gb/s build does not meet timing yet ([3.build](../3.iclink-sv/3.build/README.md#multicycle-paths-at-5-gbs)).
 
 **Flow control.** SerWB's own, both sides on (`with_flow_control`): the receiver sends XOFF (K28.3) when its RX buffer is almost full, XON (K28.4) to resume. As in LiteICLink, the request takes the line for one clock, even in the middle of a packet, and is sent again every 1024 clocks. Our RX FIFO sends XOFF at `DEPTH - RT_CLKS·W` words (`RT_CLKS` = 96: 832 at W = 2, 640 at W = 4) and XON below 512. While a side asks for a pause, its depacketizer's timeout waits, so a long pause drops nothing. The numbers are worked out in [End2End Flow](#end2end-flow). On setup 1 the XOFF loops back to the same chip, which pauses itself.
 
@@ -42,7 +42,7 @@ At 5 Gb/s the pump runs at W = 4 on half `clk_core`, through `iclink_gearbox`. T
 
 **Errors.** CRC on (`with_crc`): a bad packet is dropped and counted in `crc_errors`. No retransmission; a dropped message is the firmware's to notice (a sequence number in the first word). The status counters (`crc_errors`, `drops`, `overflows`) stop at their maximum, 65535.
 
-**Clocks.** One: `clk_core` runs the CPU, both FIFOs, the packetizer, the depacketizer and the line. The PHY's RX comes out on it too, through the `CC_SERDES` RX buffer. Two synchronous FIFOs of 1024 32-bit words: one word a clock on the CPU side, `W` on the line side. Each is `W` RAMs (two 512 x 32 at W = 2, even and odd words), so `W` neighbouring words always hit different RAMs (4 `CC_BRAM_20K` for the two FIFOs at W = 2). No pointer crosses a clock, so the FIFOs need no pointer handshakes, no reset bridging between sides, and no synchronizers on the flow-control state. Their levels are exact flops. At W = 4 the pump runs at half `clk_core`; only the two gearboxes sit between the two clocks. A gearbox that overflows sends comma words and restarts.
+**Clocks.** One: `clk_core` runs the CPU, both FIFOs, the packetizer, the depacketizer and the line. The PHY's RX comes out on it too, through the `CC_SERDES` RX buffer. Two synchronous FIFOs of 1024 32-bit words: one word a clock on the CPU side, `W` on the line side. Each is `W` RAMs (two 512 x 32 at W = 2, even and odd words), so `W` neighbouring words always hit different RAMs (4 `CC_BRAM_20K` for the two FIFOs at W = 2). No pointer crosses a clock, so the FIFOs need no pointer handshakes, no reset bridging between sides, and no synchronizers on the flow-control state. Their levels are exact flops. At W = 4 the pump moves on every other clock of the same `clk_core`: still one clock, no crossing.
 
 **RX FIFO as the packet buffer.** The depacketizer writes payload words as they arrive. A good CRC commits them (the read side sees the packet); a bad CRC, a timeout or an oversized header rewinds the write pointer to the last commit. LiteICLink's `CRCDepacketizer` stores each packet in its own `max_words` buffer first; here the RX FIFO is that buffer, so no block RAM is spent twice.
 
@@ -92,7 +92,7 @@ How much buffer, where the thresholds sit, and how the levels move. Measured wit
 
 With the asynchronous FIFOs we had before, the same loop took 8 + `LINE_LAT` clocks to reach A: two 2-flop synchronizers more.
 
-At W = 4 (`LINE_LAT` 31, 5 Gb/s) the pump runs at half `clk_core`, behind the gearboxes, and the XOFF level is 640: measured peak 815, 175 words above XOFF, against a 384-word margin.
+At W = 4 (`LINE_LAT` 31 line clocks, 5 Gb/s) the pump moves on every other clock and the XOFF level is 640: measured peak 751, 111 words above XOFF, against a 384-word margin.
 
 `LINE_LAT` counts PHY TX, `CC_SERDES` with its RX buffer, the cable and PHY RX: on the BFM 28 clocks at every rate (0.9 us at 2.5 Gb/s); the test takes 31. The silicon's own latency and the cable are to be measured on the board; `RT_CLKS` sets the margin.
 

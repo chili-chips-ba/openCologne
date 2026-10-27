@@ -8,7 +8,10 @@
 // with its serial TX looped to its RX; then one bit flipped on the serial
 // line (in the pump phase) must be reported, and the LED must go low.
 //==========================================================================
-module tb_top;
+module tb_top #(
+    parameter int LINE_RATE = 2500  // Mb/s: 1250, 2500 or 5000
+);
+  localparam real UI_NS = 1000.0 / LINE_RATE;  // one bit on the line
 
   logic clk, clk_ref;
   logic btn_n;
@@ -32,7 +35,9 @@ module tb_top;
     ser_rxn = ser_txn ^ flip;
   end
 
-  top dut (
+  top #(
+      .LINE_RATE(LINE_RATE)
+  ) dut (
       .clk_ref(clk_ref),
       .ser_rxp(ser_rxp),
       .ser_rxn(ser_rxn),
@@ -69,14 +74,14 @@ module tb_top;
                dut.pump_error);
     end
     else begin
-      $display("FIFO pump: %0d words in order, none lost", dut.g_pump.pump_expect);
+      $display("FIFO pump: %0d words in order, none lost", dut.pump_expect);
     end
 
     // 2. one bit flipped on the serial line must be caught
     @(posedge dut.clk_core);
     #3.1;
     flip = 1'b1;
-    #0.4;  // one UI at 2.5 Gb/s
+    #(UI_NS);  // one UI
     flip = 1'b0;
     repeat (24) @(posedge clk);  // PHY (31 clk_core), checks and sync: about 1 us
     if (!dut.failed || led) begin

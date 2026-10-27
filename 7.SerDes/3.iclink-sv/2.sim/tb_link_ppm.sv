@@ -163,6 +163,13 @@ module link_side
   logic [15:0] crc, drops, ovf;
   int sent, got, bad, invalid, buf_errs, ins, rem;
 
+  // the pump's SerWB words a clock: 4 at 5 Gb/s, on every other clock
+  // (half_clk_strobe, from iclink_serwb_line)
+  localparam int W = (LINE_RATE == 5000) ? 4 : 2;
+  logic                half_clk_strobe;
+  phy_word_t [W/2-1:0] pump_tx, pump_rx;  // the pump's PHY words, [0] first
+  logic                NC_pump_err;  // counted below, every clock
+
   initial begin : _counts
     sent     = 0;
     got      = 0;
@@ -221,12 +228,27 @@ module link_side
   localparam int CLKCOR_CLKS = 1024;
 `endif
 
+  iclink_serwb_line #(
+      .W(W)
+  ) u_line (
+      .clk            (clk_core),
+      .arst_n         (rx_ready),
+      .half_clk_strobe(half_clk_strobe),
+      .pump_tx        (pump_tx),
+      .line_tx        (tx),
+      .line_rx        (rx),
+      .line_err       (1'b0),
+      .pump_rx        (pump_rx),
+      .pump_err       (NC_pump_err)
+  );
+
   iclink_serwb_pump #(
-      .W          (2),
+      .W          (W),
       .CLKCOR_CLKS(CLKCOR_CLKS)
   ) u_pump (
-      .clk          (clk_core),
-      .arst_n       (rx_ready),
+      .clk            (clk_core),
+      .arst_n         (rx_ready),
+      .half_clk_strobe(half_clk_strobe),
       .tx_push      (run && !full),
       .tx_data      (pattern(DIR, sent)),
       .tx_full      (full),
@@ -237,9 +259,9 @@ module link_side
       .rx_empty     (empty),
       .rx_avail     (NC_avail),
       .tx_en        (link),
-      .phy_tx       (tx),
+      .phy_tx       (pump_tx),
       .rx_en        (link),
-      .phy_rx       (rx),
+      .phy_rx       (pump_rx),
       .remote_paused(NC_paused),
       .pause        (NC_pause),
       .crc_errors   (crc),
@@ -248,10 +270,10 @@ module link_side
   );
 
   always @(posedge clk_core) begin : _check
-    if (run && !full) begin
+    if (half_clk_strobe && run && !full) begin
       sent <= sent + 1;
     end
-    if (!empty) begin
+    if (half_clk_strobe && !empty) begin
       if (rdata !== pattern(!DIR, got)) begin
         if (bad < 5) begin
           $display("ERROR: %m: word %0d is %h, should be %h", got, rdata, pattern(!DIR, got));
