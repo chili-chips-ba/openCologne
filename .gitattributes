@@ -1,3 +1,21 @@
 0.doc/** linguist-vendored=true
 0.doc/**/*.vho linguist-detectable=false
 0.doc/**/*.vhd linguist-detectable=false
+
+# GitHub language statistics (Linguist): count our own code only.
+# Third-party code
+8.StressTest/4.veerwolves/** linguist-vendored=true
+8.StressTest/1.corescore_cc/fusesoc_libraries/** linguist-vendored=true
+**/fpga_ram/** linguist-vendored=true
+**/cpelib_prim_sim.sv linguist-vendored=true
+**/xilinx.unisim.CHILI.v linguist-vendored=true
+**/picorv32.v linguist-vendored=true
+**/picorv32.ORIG.sv linguist-vendored=true
+# Generated: tool output and generated test designs
+8.StressTest/1.corescore_cc/gowin/** linguist-generated=true
+8.StressTest/7.sigma_delta_DAC/build_proj/** linguist-generated=true
+8.StressTest/9.pnr_tests/** linguist-generated=true
+9.BetrustedSOC/VexRiscv/** linguist-generated=true
+# Gowin bitstreams, not F# source; notebooks are analysis, not code
+*.fs linguist-detectable=false
+*.ipynb linguist-documentation=true
